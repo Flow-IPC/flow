@@ -41,7 +41,6 @@ size_t Socket_buffer::feed_buf_move(util::Blob* data, size_t max_data_size)
   using util::Blob;
   using boost::asio::const_buffer;
   using boost::asio::buffer;
-  using std::move;
 
   const size_t orig_data_size = m_data_size;
 
@@ -75,7 +74,7 @@ size_t Socket_buffer::feed_buf_move(util::Blob* data, size_t max_data_size)
     else
     {
       // Enough space for all of *data -- so just use a constant-time swap.
-      Blob_ptr bytes_ptr(new Blob(move(*data))); // Move inner representation of *data into *bytes_ptr.
+      Blob_ptr bytes_ptr(new Blob(std::move(*data))); // Move inner representation of *data into *bytes_ptr.
       // *data empty now.
 
       m_q.push_back(bytes_ptr);
@@ -104,7 +103,6 @@ size_t Socket_buffer::feed_buf_move(util::Blob* data, size_t max_data_size)
 void Socket_buffer::consume_buf_move(util::Blob* target_buf, size_t max_data_size)
 {
   using util::Blob;
-  using std::move;
 
   if (m_data_size == 0)
   {
@@ -127,7 +125,7 @@ void Socket_buffer::consume_buf_move(util::Blob* target_buf, size_t max_data_siz
   {
     // Either the first block is perfectly sized, or it fits AND is the only one in the sequence.
 
-    *target_buf = move(front_buf); // Constant-time operation (swap internal buffer representations).
+    *target_buf = std::move(front_buf); // Constant-time operation (swap internal buffer representations).
     m_q.pop_front();
     // Whatever they had in *target_buf is junk.  Deleted!
     m_data_size -= target_buf->size();
