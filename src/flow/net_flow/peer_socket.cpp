@@ -452,14 +452,12 @@ Peer_socket::Received_packet::Received_packet(log::Logger* logger_ptr, size_t si
   m_size(size),
   m_data(logger_ptr)
 {
-  using std::move;
-
   if (src_data)
   {
     // Retransmission is on: save *src_data for later reassembly.
     assert(m_size == size); // As promised in docs....
 
-    m_data = move(*src_data); // O(1) operation -- *src_data is probably cleared.
+    m_data = std::move(*src_data); // O(1) operation -- *src_data is probably cleared.
   }
 }
 
@@ -4500,7 +4498,7 @@ void Node::setup_drop_timer(const Socket_id& socket_id, Peer_socket::Ptr sock)
    * Additionally, when events m_snd_drop_timer wants to know about happen, we will call
    * m_snd_drop_timer->on_...(). */
   sock->m_snd_drop_timer = Drop_timer::create_drop_timer(get_logger(), &m_task_engine, &sock->m_snd_drop_timeout,
-                                                         std::move(sock), on_fail, on_timer);
+                                                         Peer_socket::Ptr(sock), on_fail, on_timer);
 }
 
 size_t Node::send(Peer_socket::Ptr sock,

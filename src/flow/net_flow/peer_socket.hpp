@@ -2275,7 +2275,9 @@ struct Peer_socket::Sent_packet :
  *
  * Data store to keep timing related info when a packet is sent out.  Construct via direct member initialization.
  * It is copy-constructible (for initially copying into containers and such) but not assignable to discourage
- * unneeded copying (though it is not a heavy structure).
+ * unneeded copying (though it is not a heavy structure).  Update: A later version of `clang` does not like
+ * this technique and warns about it; to avoid any such trouble just forget the non-assignability stuff;
+ * it's internal code; we should be fine.
  */
 struct Peer_socket::Sent_packet::Sent_when
 {
@@ -2323,16 +2325,6 @@ struct Peer_socket::Sent_packet::Sent_when
    */
   // That @internal should not be necessary to hide the @todo in public generated docs -- Doxygen bug?
   size_t m_sent_cwnd_bytes;
-
-  // Constructors/destructor.
-
-  /// Force direct member initialization even if no member is `const`.
-  Sent_when() = delete;
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  void operator=(const Sent_when&) = delete;
 }; // struct Peer_socket::Sent_packet::Sent_when
 
 /**
@@ -2424,7 +2416,7 @@ struct Peer_socket::Individual_ack
   // Methods.
 
   /// Forbid copy assignment.
-  void operator=(const Individual_ack&) = delete;
+  Individual_ack& operator=(const Individual_ack&) = delete;
 }; // struct Peer_socket::Individual_ack
 
 // Free functions: in *_fwd.hpp.

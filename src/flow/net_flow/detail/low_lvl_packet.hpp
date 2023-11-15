@@ -1224,7 +1224,9 @@ struct Ack_packet::Individual_ack
  * array of these `struct`s and transmit that entire array over the network with no need for scatter/gather
  * or any additional transformation of data post-construction and pushing onto aforementioned array.
  * These are copy-constructible, for pushing onto containers and such, but not assignable to avoid unnecessary
- * copying.
+ * copying.  Update: A later version of `clang` does not like
+ * this technique and warns about it; to avoid any such trouble just forget the non-assignability stuff;
+ * it's internal code; we should be fine.
  *
  * @see Historical note in Ack_packet::serialize_to_raw_data() explains why this and
  *      Individual_ack_rexmit_on both exist, instead of simply using Individual_ack in both directions.
@@ -1258,14 +1260,9 @@ struct Ack_packet::Individual_ack_rexmit_off
    *        #m_delay.
    */
   explicit Individual_ack_rexmit_off(const Sequence_number& seq_num, ack_delay_t delay);
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  void operator=(const Individual_ack_rexmit_off&) = delete;
 };
 
-/// Equivalent of Individual_ack_rexmit_on but for sockets with retransmission enabled.
+/// Equivalent of `Individual_ack_rexmit_off` but for sockets with retransmission enabled.
 struct Ack_packet::Individual_ack_rexmit_on
 {
   // Data.
@@ -1294,11 +1291,6 @@ struct Ack_packet::Individual_ack_rexmit_on
    *        Individual_ack_rexmit_off::m_delay.
    */
   explicit Individual_ack_rexmit_on(const Sequence_number& seq_num, unsigned int rexmit_id, ack_delay_t delay);
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  void operator=(const Individual_ack_rexmit_on&) = delete;
 };
 
 /**

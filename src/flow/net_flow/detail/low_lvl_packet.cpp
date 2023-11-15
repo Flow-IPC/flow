@@ -657,7 +657,6 @@ bool Data_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buff
 {
   using boost::asio::buffer;
   using boost::endian::little_to_native;
-  using std::move;
   using std::numeric_limits;
 
   using data_size_raw_t = decltype(m_data_size_raw);
@@ -752,7 +751,7 @@ bool Data_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buff
   }
   else
   {
-    m_data = move(*raw_packet);
+    m_data = std::move(*raw_packet);
     // Then shift begin() right to where the payload begins (size() adjusted down accordingly).
     m_data.start_past_prefix(cur_data - m_data.const_data());
     assert(m_data.const_begin() == cur_data);

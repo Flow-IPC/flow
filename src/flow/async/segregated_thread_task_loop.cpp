@@ -204,7 +204,9 @@ void Segregated_thread_task_loop::stop() // Virtual.
                 "each thread will be asked to gracefully terminate and be joined synchronously.  "
                 "Any subsequently-queued tasks will not run until start().");
 
+#ifndef NDEBUG
   size_t idx = 0;
+#endif
   for (Task_qing_thread_ptr& thread_ptr_in_container : m_qing_threads)
   {
     /* Consider E = thread_ptr_in_container->task_engine().  The following statement has the following effects,
@@ -232,7 +234,9 @@ void Segregated_thread_task_loop::stop() // Virtual.
     assert(m_task_engines[idx]->stopped());
     // Any pending tasks on that Task_engine now await another thread to ->run().  Then the queue will resume.
 
+#ifndef NDEBUG
     ++idx;
+#endif
   } // for (thread_ptr_in_container : m_qing_threads)
 
   /* Now every thread in the thread pool has exited.  Therefore by definition no post()ed tasks on `*this` will
