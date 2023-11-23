@@ -63,10 +63,9 @@ include(CheckCXXCompilerFlag)
 
 # Our own config knobs.
 
-# TODO: Is this settable per-project, or is it totally global?  My (ygoldfel) CMake knowledge as of this writing
-# is insufficient to answer.  Depending on the answer may need to add namespace-like prefix or similar.
-# Though, if we're sharing a common DNA between the different users of the present .cmake, maybe it *should*
-# be global actually; it's probably best LTO is either on for all libs or off for all....  Revisit.
+option(CFG_SKIP_CODE_GEN
+       "If OFF: Build targets (to build actual product + possibly demos/tests) shall be created; thus need Boost, etc."
+       OFF)
 option(CFG_NO_LTO
        "If OFF: LTO/IPO will be enabled (if possible) for optimized builds; if ON: it will always be disabled."
        OFF)
@@ -78,15 +77,35 @@ option(CFG_SKIP_BASIC_TESTS
        OFF)
 option(CFG_ENABLE_TEST_SUITE
        "If ON: builds/installs serious test(s) in test/suite/ (increases build time).")
+# Note: FlowLikeDocGenerate.cmake will check this -- in the same way we check CFG_SKIP_CODE_GEN below, before going
+# on to actually generate targets for building actual code (libs, executables).
+# We do not include FlowLikeDocGenerate.cmake; guy that includes us potentially should do so, depending on how
+# it wants to structure doc generation (and whether it is even applicable).
 option(CFG_ENABLE_DOC_GEN
-       "If and only if ON: Doc generation targets shall be created; thus Doxygen/Graphviz is required."
+       "If and only if ON: Doc generation targets shall be created; thus need Doxygen/Graphviz."
        OFF)
-
-# Environment checks.  Side effect: some "local" variables are set for later use.
+# Quick discussion regarding which projects are affected by the above (and any other CFG_*):
+# As an example: Suppose project `flow` uses us (FlowLikeProjectRoot.cmake), and dependent `ipc_core`
+# (while being built as part of the same meta-project `ipc`) also uses
+# us (FlowLikeProjectRoot.cmake).  The CFG_* settings (saved in CMakeCache.txt for each relevant project)
+# will affect *both* `flow` and `ipc_core`.  So it would be impossible, as of this writing, to (e.g.) have
+# CFG_SKIP_BASIC_TESTS be ON for `flow` but OFF for `ipc_core`.  There is only one `cmake` or `ccmake`
+# being invoked, and that setting affects each instance of FlowLikeProjectRoot.cmake similarly.
+# We have not added any namespace-type-thing into the name CFG_SKIP_BASIC_TESTS (or any other CFG_*).
+# So all sub-builds sharing our DNA are affected in the same way.
+#
+# However, if `flow` is built/installed as a separate project, and then `ipc_core` is built/installed
+# as a separate project (with `flow` consumed from its installed location), then CFG_SKIP_BASIC_TESTS can
+# be different for each, as there's a `cmake` or `ccmake` separate invoked for each.
+#
+# TODO: *Consider* adding the per-project namespace to these settings.  For simplicity it's good the way it is;
+# but it is conceivable a more complex setup may be desired at some point.
 
 message("Welcome to the build configuration script for [${PROJ}] (a/k/a [${PROJ_CAMEL}] or "
         "for humans [${PROJ_HUMAN}]), vesion [${PROJ_VERSION}].  We use CMake for this task.")
-message("We shall generate the build script(s) (e.g., in *nix: Makefile(s)) one can invoke to build/install us.  "
+message("We shall generate the build script(s) (e.g., in *nix: Makefile(s)) one can invoke to build/install us; "
+        "and/or generate our documentation, if relevant.  (Build generation and doc generation can each be "
+        "independently enabled/disabled using knobs CFG_ENABLE_CODE_GEN and CFG_SKIP_CODE_GEN.)  "
         "You should run `cmake` or `ccmake` on me outside any actual source directory.  "
         "Once you've set all knobs how you want them, we will generate at your command.  Then you can actually "
         "build/install (e.g., in *nix: `make -j32 && make install` assuming a 32-core machine).  You can also "
@@ -97,20 +116,29 @@ message("A couple commonly used CMake settings: CMAKE_INSTALL_PREFIX is [${CMAKE
         "INSTALL_PATH is not sufficient.  Build-system's install step shall place our results to INSTALL_PATH, "
         "and locally installed inputs for the build are often found there too.")
 
+# Environment checks.  Side effect: some "local" variables are set for later use.
+
 # OS:
 if(NOT LINUX)
   message(FATAL_ERROR ${OS_SUPPORT_MSG})
 endif()
 
-# From now on Linux assumed (which implies *nix obv).
+if(CFG_SKIP_CODE_GEN)
+  message("Build generation requested by (presumably) project root CMake script; skipped via CFG_SKIP_CODE_GEN=ON.")
+  return()
+endif()
+
+message("Build generation requested by (presumably) project root CMake script; "
+        "not skipped via CFG_SKIP_CODE_GEN=OFF.")
+
+# From now on Linux assumed (which implies *nix obv).  Though, where it's not too much trouble, lots of things
+# will work in other OS (even Windows/MSVC) when/if that restriction is removed.  I.e., we try not to not-support
+# other OS, all else being equal.
 
 # Compiler:
 
 message("Detected compiler [ID/VERSION]: ${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}.")
 
-# As of this writing common.hpp (included by everyone in practice) has identical checks using the preprocessor.
-# TODO: Perhaps remove that code, since the build here worries about it?  Granted those checks can be disabled by
-# defining macro-var FLOW_SKIP_COMPILER_CHECKS; but note any user compilations would need to do so too. Revisit.
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(GCC_MIN_VER 8)
   if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS GCC_MIN_VER)
@@ -124,8 +152,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(WARN_FLAGS -Wall -Wextra)
 
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # Same deal as for gcc.
+  # TODO: Consider a slight deep-dive into what -Wall -Wextra means for gcc versus clang.  If they do mean
+  # roughly the same thing, then remove this to-do; otherwise tweak them to be functionally similar or identical.
   set(WARN_FLAGS -Wall -Wextra)
-  message(WARNING "clang is untested.")
 
 else()
   # TODO: Maybe it's too draconian at this stage.  CMake is built around portability; we are using it now, as opposed
@@ -144,7 +174,7 @@ endif()
 # Check if the compiler is capable of LTO (link-time optimization) a/k/a IPO (interprocedural optimization).
 # This is important for us in particular, as we stylistically eschew explicitly inlining functions;
 # so that even one-liner accessor bodies are in .cpp files (unless template or constexpr); max optimization
-# (-O3 in gcc) will auto-inline, but this can only occur within a translation unit (.cpp) normally.
+# (-O3 in gcc) will auto-inline, but this can only occur within a translation unit (.cpp, .c++) normally.
 # LTO/IPO makes it occur across translation units too.
 if(CFG_NO_LTO)
   set(LTO_ON FALSE)
