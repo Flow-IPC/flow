@@ -1609,9 +1609,22 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap_impl(Basic_blob& other, log:
     }
 
     swap(m_buf_ptr, other.m_buf_ptr);
+
+    /* Some compilers in some build configs issue maybe-uninitialized warning here, when `other` is as-if
+     * default-cted (hence the following three are intentionally uninitialized), particularly with heavy
+     * auto-inlining by the optimizer.  False positive in our case, and in Blob-land we try not to give away perf
+     * at all so: */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+
     swap(m_capacity, other.m_capacity); // Meaningless if zero() but harmless.
     swap(m_size, other.m_size); // Ditto.
     swap(m_start, other.m_start); // Ditto.
+
+#pragma GCC diagnostic pop
+
     /* Skip m_alloc_raw: swap() has to do it by itself; we are called from it + move-assign/ctor which require
      * mutually different treatment for m_alloc_raw. */
   }
@@ -1910,6 +1923,11 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
         }
         else // if (!should_log()): No logging deleter; just delete[] it.
         {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
+#pragma GCC diagnostic ignored "-Walloc-size-larger-than"
+
           /* This executes: new value_type[new_capacity]; and ensures delete[] call when m_buf_ptr ref-count reaches 0.
            * As advertised, for performance, the memory is NOT initialized. */
           m_buf_ptr = make_shared_noinit<value_type[]>(new_capacity);
@@ -1919,6 +1937,29 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
       {
         m_buf_ptr = boost::movelib::make_unique_definit<value_type[]>(new_capacity);
         // Again -- the logging in make_zero() (and Blob_with_log_context dtor) is sufficient.
+
+#pragma GCC diagnostic pop
+        /* ^-- Explanation of the #pragma push/pop:
+         * In some gcc versions in some build configs, particularly with aggressive auto-inlining optimization,
+         * a warning like this can be triggered (observed, as of this writing, only in the make_unique_definit()
+         * branch; but we are including the make_shared_noinit() branch too preemptively):
+         *   argument 1 value ‘18446744073709551608’ exceeds maximum object size
+         *     9223372036854775807 [-Werror=alloc-size-larger-than=]
+         * This occurs due to (among other things) inlining from above our frame down into the boost::movelib call
+         * we make; plus allegedly the C++ front-end supplying the huge value during the diagnostics pass.
+         * No such huge value (which is 0xFFFFFFFFFFFFFFF8) is actually passed-in at run-time nor mentioned anywhere
+         * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
+         *
+         * The warning is wholly inaccurate.  This situation is known in the gcc issue database; for example
+         * see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85783 and related (linked) tickets.
+         * The question was how to work around it; I admit that the discussion in that ticket (and friends) at times
+         * gets into topics so obscure and gcc-internal as to be indecipherable to me (ygoldfel).
+         * Since I don't seem to be doing anything wrong above (though: @todo *Maybe* it has something to do with
+         * lacking `nothrow`? Would need investigation, nothrow could be good anyway...), the top work-arounds would be
+         * perhaps: 1, pragma-away the alloc-size-larger-than warning; 2, use a compiler-placating
+         * explicit `if (new_capacity < ...limit...)` branch.  (2) was suggested in the above ticket by a
+         * gcc person.  It could be argued both ways, but ultimately this seems to be a pretty good candidate for
+         * the otherwise-last-resort #pragma approach.  @todo Revisit perhaps, particularly the nothrow thing (?). */
       }
     } // if constexpr(S_IS_VANILLA_ALLOC)
     else // if constexpr(!S_IS_VANILLA_ALLOC)
