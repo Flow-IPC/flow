@@ -22,6 +22,7 @@
 #include "flow/log/log.hpp"
 #include <boost/interprocess/smart_ptr/shared_ptr.hpp>
 #include <optional>
+#include <limits>
 
 namespace flow::util
 {
@@ -1865,6 +1866,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
 {
   using boost::make_shared_noinit;
   using boost::shared_ptr;
+  using std::numeric_limits;
 
   /* As advertised do not allow enlarging existing buffer.  They can call make_zero() though (but must do so consciously
    * hence considering the performance impact). */
@@ -1883,144 +1885,147 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
                                       "allocating internal buffer sized [" << new_capacity << "].");
     }
 
-    /* Time to (1) allocate the buffer; (2) save the pointer; (3) ensure it is deallocated at the right time
-     * and with the right steps.  Due to Allocator_raw support this is a bit more complex than usual.  Please
-     * (1) see class doc header "Custom allocator" section; and (2) read Buf_ptr alias doc header for key background;
-     * then come back here. */
-
-    if constexpr(S_IS_VANILLA_ALLOC)
+    if (new_capacity <= numeric_limits<std::ptrdiff_t>::max()) // (See explanation near bottom of method.)
     {
-      /* In this case they specified std::allocator, so we are to just allocate/deallocate in regular heap using
-       * new[]/delete[].  Hence we don't need to even use actual std::allocator; we know by definition it would
-       * use new[]/delete[].  So simply use typical ..._ptr initialization.  Caveats are unrelated to allocators:
-       *   - For some extra TRACE-logging -- if enabled! -- use an otherwise-vanilla logging deleter.
-       *     - Unnecessary in case of unique_ptr: dealloc always occurs in make_zero() or dtor and can be logged
-       *       there.
-       *   - If doing so (note it implies we've given up on performance) we cannot, and do not, use
-       *     make_shared*(); the use of custom deleter requires the .reset() form of init. */
+      /* Time to (1) allocate the buffer; (2) save the pointer; (3) ensure it is deallocated at the right time
+       * and with the right steps.  Due to Allocator_raw support this is a bit more complex than usual.  Please
+       * (1) see class doc header "Custom allocator" section; and (2) read Buf_ptr alias doc header for key background;
+       * then come back here. */
 
-      /* If TRACE currently disabled, then skip the custom deleter that logs about dealloc.  (TRACE may be enabled
-       * by that point; but, hey, that is life.)  This is for perf. */
-      if constexpr(S_SHARING)
+      if constexpr(S_IS_VANILLA_ALLOC)
       {
-        if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, S_LOG_COMPONENT))
+        /* In this case they specified std::allocator, so we are to just allocate/deallocate in regular heap using
+         * new[]/delete[].  Hence we don't need to even use actual std::allocator; we know by definition it would
+         * use new[]/delete[].  So simply use typical ..._ptr initialization.  Caveats are unrelated to allocators:
+         *   - For some extra TRACE-logging -- if enabled! -- use an otherwise-vanilla logging deleter.
+         *     - Unnecessary in case of unique_ptr: dealloc always occurs in make_zero() or dtor and can be logged
+         *       there.
+         *   - If doing so (note it implies we've given up on performance) we cannot, and do not, use
+         *     make_shared*(); the use of custom deleter requires the .reset() form of init. */
+
+        /* If TRACE currently disabled, then skip the custom deleter that logs about dealloc.  (TRACE may be enabled
+         * by that point; but, hey, that is life.)  This is for perf. */
+        if constexpr(S_SHARING)
         {
-          /* This ensures delete[] call when m_buf_ptr ref-count reaches 0.
-           * As advertised, for performance, the memory is NOT initialized. */
-          m_buf_ptr.reset(new value_type[new_capacity],
-                          // Careful!  *this might be gone if some other share()ing obj is the one that zeroes ref-count.
-                          [logger_ptr, original_blob = this, new_capacity]
-                            (value_type* buf_ptr)
+          if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, S_LOG_COMPONENT))
           {
-            FLOW_LOG_SET_CONTEXT(logger_ptr, S_LOG_COMPONENT);
-            FLOW_LOG_TRACE("Deallocating internal buffer sized [" << new_capacity << "] originally allocated by "
-                           "Blob [" << original_blob << "]; note that Blob may now be gone and furthermore another "
-                           "Blob might live at that address now.  A message immediately preceding this one should "
-                           "indicate the last Blob to give up ownership of the internal buffer.");
-            // Finally just do what the default one would've done, as we've done our custom thing (logging).
-            delete [] buf_ptr;
-          });
-        }
-        else // if (!should_log()): No logging deleter; just delete[] it.
+            /* This ensures delete[] call when m_buf_ptr ref-count reaches 0.
+             * As advertised, for performance, the memory is NOT initialized. */
+            m_buf_ptr.reset(new value_type[new_capacity],
+                            // Careful!  *this might be gone if some other share()ing obj is the one that 0s ref-count.
+                            [logger_ptr, original_blob = this, new_capacity]
+                              (value_type* buf_ptr)
+            {
+              FLOW_LOG_SET_CONTEXT(logger_ptr, S_LOG_COMPONENT);
+              FLOW_LOG_TRACE("Deallocating internal buffer sized [" << new_capacity << "] originally allocated by "
+                             "Blob [" << original_blob << "]; note that Blob may now be gone and furthermore another "
+                             "Blob might live at that address now.  A message immediately preceding this one should "
+                             "indicate the last Blob to give up ownership of the internal buffer.");
+              // Finally just do what the default one would've done, as we've done our custom thing (logging).
+              delete [] buf_ptr;
+            });
+          }
+          else // if (!should_log()): No logging deleter; just delete[] it.
+          {
+            /* This executes: new value_type[new_capacity]; and ensures delete[] call when m_buf_ptr ref-count reaches 0.
+             * As advertised, for performance, the memory is NOT initialized. */
+            m_buf_ptr = make_shared_noinit<value_type[]>(new_capacity);
+          }
+        } // if constexpr(S_SHARING)
+        else // if constexpr(!S_SHARING)
         {
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
-#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
-#pragma GCC diagnostic ignored "-Walloc-size-larger-than"
-
-          /* This executes: new value_type[new_capacity]; and ensures delete[] call when m_buf_ptr ref-count reaches 0.
-           * As advertised, for performance, the memory is NOT initialized. */
-          m_buf_ptr = make_shared_noinit<value_type[]>(new_capacity);
+          m_buf_ptr = boost::movelib::make_unique_definit<value_type[]>(new_capacity);
+          // Again -- the logging in make_zero() (and Blob_with_log_context dtor) is sufficient.
         }
-      } // if constexpr(S_SHARING)
-      else // if constexpr(!S_SHARING)
+      } // if constexpr(S_IS_VANILLA_ALLOC)
+      else // if constexpr(!S_IS_VANILLA_ALLOC)
       {
-        m_buf_ptr = boost::movelib::make_unique_definit<value_type[]>(new_capacity);
-        // Again -- the logging in make_zero() (and Blob_with_log_context dtor) is sufficient.
+        /* Fancy (well, potentially) allocator time.  Again, if you've read the Buf_ptr and Deleter_raw doc headers,
+         * you'll know what's going on. */
 
-#pragma GCC diagnostic pop
-        /* ^-- Explanation of the #pragma push/pop:
-         * In some gcc versions in some build configs, particularly with aggressive auto-inlining optimization,
-         * a warning like this can be triggered (observed, as of this writing, only in the make_unique_definit()
-         * branch; but we are including the make_shared_noinit() branch too preemptively):
-         *   argument 1 value ‘18446744073709551608’ exceeds maximum object size
-         *     9223372036854775807 [-Werror=alloc-size-larger-than=]
-         * This occurs due to (among other things) inlining from above our frame down into the boost::movelib call
-         * we make; plus allegedly the C++ front-end supplying the huge value during the diagnostics pass.
-         * No such huge value (which is 0xFFFFFFFFFFFFFFF8) is actually passed-in at run-time nor mentioned anywhere
-         * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
-         *
-         * The warning is wholly inaccurate.  This situation is known in the gcc issue database; for example
-         * see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85783 and related (linked) tickets.
-         * The question was how to work around it; I admit that the discussion in that ticket (and friends) at times
-         * gets into topics so obscure and gcc-internal as to be indecipherable to me (ygoldfel).
-         * Since I don't seem to be doing anything wrong above (though: @todo *Maybe* it has something to do with
-         * lacking `nothrow`? Would need investigation, nothrow could be good anyway...), the top work-arounds would be
-         * perhaps: 1, pragma-away the alloc-size-larger-than warning; 2, use a compiler-placating
-         * explicit `if (new_capacity < ...limit...)` branch.  (2) was suggested in the above ticket by a
-         * gcc person.  It could be argued both ways, but ultimately this seems to be a pretty good candidate for
-         * the otherwise-last-resort #pragma approach.  @todo Revisit perhaps, particularly the nothrow thing (?). */
-      }
-    } // if constexpr(S_IS_VANILLA_ALLOC)
-    else // if constexpr(!S_IS_VANILLA_ALLOC)
+        if constexpr(S_SHARING)
+        {
+          m_buf_ptr.reset(m_alloc_raw.allocate(new_capacity), // Raw-allocate via Allocator_raw!  No value-init occurs.
+
+                          /* Let them allocate aux data (ref count block) via Allocator_raw::allocate()
+                           * (and dealloc it -- ref count block -- via Allocator_raw::deallocate())!
+                           * Have them store internal ptr bits as `Allocator_raw::pointer`s, not
+                           * necessarily raw `value_type*`s! */
+                          m_alloc_raw,
+
+                          /* When the time comes to dealloc, invoke this guy like: D(<the ptr>)!  It'll
+                           * perform m_alloc_raw.deallocate(<what .allocate() returned>, n).
+                           * Since only we happen to know the size of how much we actually allocated, we pass that info
+                           * into the Deleter_raw as well, as it needs to know the `n` to pass to
+                           * m_alloc_raw.deallocate(p, n). */
+                          Deleter_raw(m_alloc_raw, new_capacity));
+          /* Note: Unlike the S_IS_VANILLA_ALLOC=true case above, here we omit any attempt to log at the time
+           * of dealloc, even if the verbosity is currently set high enough.  It is not practical to achieve:
+           * Recall that the assumptions we take for granted when dealing with std::allocator/regular heap
+           * may no longer apply when dealing with an arbitrary allocator/potentially SHM-heap.  To be able
+           * to log at dealloc time, the Deleter_raw we create would need to store a Logger*.  Sure, we
+           * could pass-in logger_ptr and Deleter_raw could store it; but now recall that we do not
+           * store a Logger* in `*this` and why: because (see class doc header) doing so does not play well
+           * in some custom-allocator situations, particularly when operating in SHM-heap.  That is why
+           * we take an optional Logger* as an arg to every possibly-logging API (we can't guarantee, if
+           * S_IS_VANILLA_ALLOC=false, that a Logger* can meaningfully be stored in likely-Allocator-stored *this).
+           * For that same reason we cannot pass it to the Deleter_raw functor; m_buf_ptr (whose bits are in
+           * *this) will save a copy of that Deleter_raw and hence *this will end up storing the Logger* which
+           * (as noted) may be nonsensical.  (With S_IS_VANILLA_ALLOC=true, though, it's safe to store it; and
+           * since deleter would only fire at dealloc time, it doesn't present a new perf problem -- since TRACE
+           * log level alrady concedes bad perf -- which is the 2nd reason (see class doc header) for why
+           * we don't generally record Logger* but rather take it as an arg to each logging API.)
+           *
+           * Anyway, long story short, we don't log on dealloc in this case, b/c we can't, and the worst that'll
+           * happen as a result of that decision is: deallocs won't be trace-logged when a custom allocator
+           * is enabled at compile-time.  That price is okay to pay. */
+        } // if constexpr(S_SHARING)
+        else // if constexpr(!S_SHARING)
+        {
+          /* Conceptually it's quite similar to the S_SHARING case where we do shared_ptr::reset() above.
+           * However there is an API difference that is subtle yet real (albeit only for stateful Allocator_raw):
+           * Current m_alloc_raw was used to allocate *m_buf_ptr, so it must be used also to dealloc it.
+           * unique_ptr::reset() does *not* take a new Deleter_raw; hence if we used it (alone) here it would retain
+           * the m_alloc from ction time -- and if that does not equal current m_alloc => trouble in make_zero()
+           * or dtor.
+           *
+           * Anyway, to beat that, we can either manually overwrite get_deleter() (<-- non-const ref);
+           * or we can assign via unique_ptr move-ct.  The latter is certainly pithier and prettier,
+           * but the former might be a bit faster.  (Caution!  Recall m_buf_ptr is null currently.  If it were not
+           * we would need to explicitly nullify it before the get_deleter() assignment.) */
+          m_buf_ptr.get_deleter() = Deleter_raw(m_alloc_raw, new_capacity);
+          m_buf_ptr.reset(m_alloc_raw.allocate(new_capacity));
+        } // else if constexpr(!S_SHARING)
+      } // else if constexpr(!S_IS_VANILLA_ALLOC)
+    } // if (new_capacity <= numeric_limits<std::ptrdiff_t>::max()) // (See explanation just below.)
+    else
     {
-      /* Fancy (well, potentially) allocator time.  Again, if you've read the Buf_ptr and Deleter_raw doc headers,
-       * you'll know what's going on. */
-
-      if constexpr(S_SHARING)
-      {
-        m_buf_ptr.reset(m_alloc_raw.allocate(new_capacity), // Raw-allocate via Allocator_raw!  No value-init occurs.
-
-                        /* Let them allocate aux data (ref count block) via Allocator_raw::allocate()
-                         * (and dealloc it -- ref count block -- via Allocator_raw::deallocate())!
-                         * Have them store internal ptr bits as `Allocator_raw::pointer`s, not
-                         * necessarily raw `value_type*`s! */
-                        m_alloc_raw,
-
-                        /* When the time comes to dealloc, invoke this guy like: D(<the ptr>)!  It'll
-                         * perform m_alloc_raw.deallocate(<what .allocate() returned>, n).
-                         * Since only we happen to know the size of how much we actually allocated, we pass that info
-                         * into the Deleter_raw as well, as it needs to know the `n` to pass to
-                         * m_alloc_raw.deallocate(p, n). */
-                        Deleter_raw(m_alloc_raw, new_capacity));
-        /* Note: Unlike the S_IS_VANILLA_ALLOC=true case above, here we omit any attempt to log at the time
-         * of dealloc, even if the verbosity is currently set high enough.  It is not practical to achieve:
-         * Recall that the assumptions we take for granted when dealing with std::allocator/regular heap
-         * may no longer apply when dealing with an arbitrary allocator/potentially SHM-heap.  To be able
-         * to log at dealloc time, the Deleter_raw we create would need to store a Logger*.  Sure, we
-         * could pass-in logger_ptr and Deleter_raw could store it; but now recall that we do not
-         * store a Logger* in `*this` and why: because (see class doc header) doing so does not play well
-         * in some custom-allocator situations, particularly when operating in SHM-heap.  That is why
-         * we take an optional Logger* as an arg to every possibly-logging API (we can't guarantee, if
-         * S_IS_VANILLA_ALLOC=false, that a Logger* can meaningfully be stored in likely-Allocator-stored *this).
-         * For that same reason we cannot pass it to the Deleter_raw functor; m_buf_ptr (whose bits are in
-         * *this) will save a copy of that Deleter_raw and hence *this will end up storing the Logger* which
-         * (as noted) may be nonsensical.  (With S_IS_VANILLA_ALLOC=true, though, it's safe to store it; and
-         * since deleter would only fire at dealloc time, it doesn't present a new perf problem -- since TRACE
-         * log level alrady concedes bad perf -- which is the 2nd reason (see class doc header) for why
-         * we don't generally record Logger* but rather take it as an arg to each logging API.)
-         *
-         * Anyway, long story short, we don't log on dealloc in this case, b/c we can't, and the worst that'll
-         * happen as a result of that decision is: deallocs won't be trace-logged when a custom allocator
-         * is enabled at compile-time.  That price is okay to pay. */
-      } // if constexpr(S_SHARING)
-      else // if constexpr(!S_SHARING)
-      {
-        /* Conceptually it's quite similar to the S_SHARING case where we do shared_ptr::reset() above.
-         * However there is an API difference that is subtle yet real (albeit only for stateful Allocator_raw):
-         * Current m_alloc_raw was used to allocate *m_buf_ptr, so it must be used also to dealloc it.
-         * unique_ptr::reset() does *not* take a new Deleter_raw; hence if we used it (alone) here it would retain
-         * the m_alloc from ction time -- and if that does not equal current m_alloc => trouble in make_zero()
-         * or dtor.
-         *
-         * Anyway, to beat that, we can either manually overwrite get_deleter() (<-- non-const ref);
-         * or we can assign via unique_ptr move-ct.  The latter is certainly pithier and prettier,
-         * but the former might be a bit faster.  (Caution!  Recall m_buf_ptr is null currently.  If it were not
-         * we would need to explicitly nullify it before the get_deleter() assignment.) */
-        m_buf_ptr.get_deleter() = Deleter_raw(m_alloc_raw, new_capacity);
-        m_buf_ptr.reset(m_alloc_raw.allocate(new_capacity));
-      } // else if constexpr(!S_SHARING)
-    } // else if constexpr(!S_IS_VANILLA_ALLOC)
+      assert(false && "Enormous or corrupt new_capacity?!");
+    }
+    /* ^-- Explanation of the strange if/else:
+     * In some gcc versions in some build configs, particularly with aggressive auto-inlining optimization,
+     * a warning like this can be triggered (observed, as of this writing, only in the movelib::make_unique_definit()
+     * branch above, but to be safe we're covering all the branches with our if/else work-around):
+     *   argument 1 value ‘18446744073709551608’ exceeds maximum object size
+     *     9223372036854775807 [-Werror=alloc-size-larger-than=]
+     * This occurs due to (among other things) inlining from above our frame down into the boost::movelib call
+     * we make (and potentially the other allocating calls in the various branches above);
+     * plus allegedly the C++ front-end supplying the huge value during the diagnostics pass.
+     * No such huge value (which is 0xFFFFFFFFFFFFFFF8) is actually passed-in at run-time nor mentioned anywhere
+     * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
+     *
+     * The warning is wholly inaccurate.  This situation is known in the gcc issue database; for example
+     * see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85783 and related (linked) tickets.
+     * The question was how to work around it; I admit that the discussion in that ticket (and friends) at times
+     * gets into topics so obscure and gcc-internal as to be indecipherable to me (ygoldfel).
+     * Since I don't seem to be doing anything wrong above (though: @todo *Maybe* it has something to do with
+     * lacking `nothrow`? Would need investigation, nothrow could be good anyway...), the top work-arounds would be
+     * perhaps: 1, pragma-away the alloc-size-larger-than warning; 2, use a compiler-placating
+     * explicit `if (new_capacity < ...limit...)` branch.  (2) was suggested in the above ticket by a
+     * gcc person.  Not wanting to give even a tiny bit of perf I attempted the pragma way (1); but at least gcc-13
+     * has some bug which makes the pragma get ignored.  So I reverted to (2) by default.
+     * @todo Revisit this.  Should skip workaround unless gcc; + possibly solve it some more elegant way; look into the
+     * nothrow thing the ticket discussion briefly mentions (but might be irrelevant). */
 
     m_capacity = new_capacity;
     m_size = 0; // Went from zero() to !zero(); so m_size went from meaningless to meaningful and must be set.
