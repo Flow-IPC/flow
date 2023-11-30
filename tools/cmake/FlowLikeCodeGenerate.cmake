@@ -103,9 +103,12 @@ option(CFG_ENABLE_DOC_GEN
 # TODO: *Consider* adding the per-project namespace to these settings.  For simplicity it's good the way it is;
 # but it is conceivable a more complex setup may be desired at some point.
 
-message(CHECK_START "(Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
-                      "[${PROJ_HUMAN}]), version [${PROJ_VERSION}]: creating code-gen/install targets.)")
+message(CHECK_START "(Project [${PROJ}]: creating code-gen/install targets.)")
 list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
+message(STATUS "Version: [${PROJ_VERSION}].")
+message(VERBOSE "Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
+                  "[${PROJ_HUMAN}])].")
 
 message(VERBOSE "Install to CMAKE_INSTALL_PREFIX [${CMAKE_INSTALL_PREFIX}]; deps search path includes "
                   "CMAKE_PREFIX_PATH [${CMAKE_PREFIX_PATH}].")
@@ -176,7 +179,7 @@ endif()
 # (-O3 in gcc) will auto-inline, but this can only occur within a translation unit (.cpp, .c++) normally.
 # LTO/IPO makes it occur across translation units too.
 if(CFG_NO_LTO)
-  set(LTO_ON FALSE)
+  set(FLOW_LIKE_LTO_ON FALSE)
   message(STATUS "IPO/LTO disabled due to user-specified CFG_NO_LTO=ON.")
 else()
   # This can result in some verbose output and take some time; so we do it only once per CMake run.
@@ -194,44 +197,53 @@ else()
   #   - meta_project/CMakeLists.txt include()s us.
   #     - Our variable scope = meta_project.  Our parent variable scope = N/A.
   # Therefore the algorithm:
-  #   - Check whether LTO_ON is DEFINED.  (If not DEFINED then: either it's not a meta-project, or
-  #     we are P1.  In that case compute LTO_ON and set it both in our scope *and* the parent scope;
+  #   - Check whether FLOW_LIKE_LTO_ON is DEFINED.  (If not DEFINED then: either it's not a meta-project, or
+  #     we are P1.  In that case compute FLOW_LIKE_LTO_ON and set it both in our scope *and* the parent scope;
   #     unless there is no parent scope (then it's not a meta-project, and there's no need to worry about it).
   #     If it is defined though:
   #   - We are either P2, P3, ...; or we are the meta_project.  In the latter case, the previous bullet-point
-  #     (for P1) would have set(LTO_ON) in our scope (its parent-scope); and DEFINED would have picked that up.
-  #     In the former case (e.g., P2), the previous bullet-point (for P1) would have set(LTO_ON) in the parent
+  #     (for P1) would have set(FLOW_LIKE_LTO_ON) in our scope (its parent-scope); and DEFINED would have picked it up.
+  #     In the former case (e.g., P2), the previous bullet-point (for P1) would have set(FLOW_LIKE_LTO_ON) in the parent
   #     scope -- which is also our parent scope -- and the DEFINED check would have picked that up).
-  #     - In any case, LTO_ON's value can be used and not recomputed.
+  #     - In any case, FLOW_LIKE_LTO_ON's value can be used and not recomputed.
   # So the code is quite simple, but the reason it works is somewhat subtle.
 
   message(CHECK_START "(Checking IPO/LTO availability/capabilities.)")
   list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
-  if(DEFINED LTO_ON)
+  if(DEFINED FLOW_LIKE_LTO_ON)
     list(POP_BACK CMAKE_MESSAGE_INDENT)
-    if(LTO_ON)
+    if(FLOW_LIKE_LTO_ON)
       message(CHECK_PASS "(Determined earlier: Result = LTO available.)")
     else()
       message(CHECK_PASS "(Determined earlier: Result = LTO unavailable.)")
     endif()
   else()
-    check_ipo_supported(RESULT LTO_ON OUTPUT output)
-    set(LTO_ON ${LTO_ON} PARENT_SCOPE)
+    check_ipo_supported(RESULT FLOW_LIKE_LTO_ON OUTPUT output)
+    if(NOT PROJECT_IS_TOP_LEVEL)
+      set(FLOW_LIKE_LTO_ON ${FLOW_LIKE_LTO_ON} PARENT_SCOPE)
+      # (It is possible, though less likely than not, that a non-FlowLikeCodeGenerate-using project does
+      # add_subdirectory(X), where X = us, an individual Flow-like project but not a meta-project.  In that case
+      # we will write FLOW_LIKE_LTO_ON in their scope.  That's a little odd but okay due to the naming.  (In a real
+      # language, not a build script, this would be questionable.)  Actually functionally it's pretty good; as
+      # if they use 2+ Flow-like projects in that manner, the LTO computations will still only occur once.
+    endif()
 
-    if(LTO_ON)
+    if(FLOW_LIKE_LTO_ON)
       # Also set this thing and similarly have it available in parent-scope for following sub-projects.
-      check_cxx_compiler_flag(-ffat-lto-objects LTO_FAT_OBJECTS_IS_SUPPORTED)
-      set(LTO_FAT_OBJECTS_IS_SUPPORTED ${LTO_FAT_OBJECTS_IS_SUPPORTED} PARENT_SCOPE)
+      check_cxx_compiler_flag(-ffat-lto-objects FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED)
+      if(NOT PROJECT_IS_TOP_LEVEL)
+        set(FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED ${FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED} PARENT_SCOPE)
+      endif()
 
-      if(NOT LTO_FAT_OBJECTS_IS_SUPPORTED)
+      if(NOT FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED)
         message(WARNING "Target [${name}]:  "
                           "${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}] does not support fat LTO objects.  "
                           "This might cause difficulties in building non-LTO consumer (dependent) binaries.")
       endif()
 
       list(POP_BACK CMAKE_MESSAGE_INDENT)
-      if(LTO_FAT_OBJECTS_IS_SUPPORTED)
+      if(FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED)
         message(CHECK_PASS "(Done; result = LTO w/ fat-object format available, enabled (*Rel* build-types only).)")
       else()
         message(CHECK_PASS "(Done; result = LTO w/o fat-object format available, enabled (*Rel* build-types only).)")
@@ -301,7 +313,7 @@ function(common_set_target_properties name)
   # If LTO enabled+possible *and* not specifically and relevantly disabled (via option) for test executables...
   # ...then turn it on for this target, for all optimized build types (never for debug/unspecified build types).
   get_target_property(target_type ${name} TYPE)
-  if(LTO_ON
+  if(FLOW_LIKE_LTO_ON
        AND (NOT
               ((target_type STREQUAL "EXECUTABLE") AND CFG_NO_LTO_FOR_TEST_EXECS)))
 
@@ -316,7 +328,7 @@ function(common_set_target_properties name)
 
     # In case the consuming executable has LTO disabled generate object code that will support that as well;
     # in that case the LTO improvements will be limited to within the library -- which is most of the win anyway.
-    if(LTO_FAT_OBJECTS_IS_SUPPORTED)
+    if(FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED)
       message(STATUS "LTO: instructing compiler to generate in fat-object-LTO format.")
 
       # Again, though, do it for *Rel* build types only.

@@ -138,7 +138,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "- ")
 if(DEFINED BOOST_LIBS)
   set(BOOST_VER 1.83) # Current as of Oct 2023.
 
-  message(CHECK_START "Finding dep: Boost-${BOOST_VER}: headers plus libs [${BOOST_LIBS}].")
+  message(CHECK_START "(Finding dep: Boost-${BOOST_VER}: headers plus libs [${BOOST_LIBS}].)")
   list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
   # Boost is necessary.

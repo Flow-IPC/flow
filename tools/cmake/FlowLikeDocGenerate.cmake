@@ -67,8 +67,7 @@
 #     figures.
 # All those paths shall be specified relative to the project root (same place as the root CMakeLists.txt).
 
-message(CHECK_START "(Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
-                      "[${PROJ_HUMAN}]), version [${PROJ_VERSION}]: creating doc-generation targets.)")
+message(CHECK_START "(Project [${PROJ}]: creating doc-generation targets.)")
 list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
 if(NOT CFG_ENABLE_DOC_GEN)
