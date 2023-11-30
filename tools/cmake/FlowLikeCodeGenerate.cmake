@@ -237,8 +237,7 @@ else()
       endif()
 
       if(NOT FLOW_LIKE_LTO_FAT_OBJECTS_IS_SUPPORTED)
-        message(WARNING "Target [${name}]:  "
-                          "${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}] does not support fat LTO objects.  "
+        message(WARNING "[${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}] does not support fat LTO objects.  "
                           "This might cause difficulties in building non-LTO consumer (dependent) binaries.")
       endif()
 
