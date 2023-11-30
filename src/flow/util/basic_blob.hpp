@@ -1885,7 +1885,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
                                       "allocating internal buffer sized [" << new_capacity << "].");
     }
 
-    if (new_capacity <= numeric_limits<std::ptrdiff_t>::max()) // (See explanation near bottom of method.)
+    if (new_capacity <= size_type(numeric_limits<std::ptrdiff_t>::max())) // (See explanation near bottom of method.)
     {
       /* Time to (1) allocate the buffer; (2) save the pointer; (3) ensure it is deallocated at the right time
        * and with the right steps.  Due to Allocator_raw support this is a bit more complex than usual.  Please

@@ -172,6 +172,8 @@ set(HDRS
 
 include(${LIB_CMAKE_SCRIPT})
 
+message(STATUS "Install target: Exports FlowLikeLib.cmake: utility for dependents' CMake scripts.")
+
 # Last but not least... export that same guy, so dependents can use it!  Natually dependents need *not* do the same;
 # they should instead:
 #   find_package(Flow CONFIG REQUIRED)

@@ -15,7 +15,7 @@
 # See the License for the specific language governing
 # permissions and limitations under the License.
 
-# This is analogous to FlowLikeProjectRoot.cmake, in that it must be include()d from the root CMake script also;
+# This is analogous to FlowLikeCodeGenerate.cmake, in that it must be include()d from the root CMake script also;
 # except that:
 #   - It is optional.
 #   - It takes care of documentation generation specifically.
@@ -43,7 +43,7 @@
 # a web server or viewed locally.
 #
 # Usage: Assuming you're a dependent project: In your (root)/CMakeLists.txt: Do your non-documentation stuff
-#        as per FlowLikeProjectRoot.cmake documentation.  Then below all that:
+#        as per FlowLikeCodeGenerate.cmake documentation.  Then below all that:
 #
 #   set(DOC_INPUT (...see below...))
 #   set(DOC_EXCLUDE_PATTERNS (...see below...))
@@ -61,18 +61,27 @@
 #     The generated documentation shall have the <???>/src/proj prefix stripped from any file names.
 #   DOC_EXCLUDE_PATTERNS: Subtrees or individual files that will be excluded from DOC_INPUT.  For example if
 #     DOC_INPUT = src/flow (which contains async/ which contains a/ and b/), and
-#     DOC_EXCLUDE_PATTERNS = src/flow/async/a, then the async/a/... subtree shall be excluded from doc generation,
-#     leaving in this case async/b only.  Note: You must define this, even if is "" (no exclusions).
+#     DOC_EXCLUDE_PATTERNS = src/flow/async/a/*, then the async/a/... subtree shall be excluded from doc generation,
+#     leaving in this case async/b only.  Note: You must define this, even if it is "" (i.e., no exclusions).
 #   DOC_IMAGE_PATH: See Doxygen IMAGE_PATH config setting.  This is useful typically for guided-manual files with
 #     figures.
 # All those paths shall be specified relative to the project root (same place as the root CMakeLists.txt).
 
+message(CHECK_START "(Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
+                      "[${PROJ_HUMAN}]), version [${PROJ_VERSION}]: creating doc-generation targets.)")
+list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
 if(NOT CFG_ENABLE_DOC_GEN)
-  message("Doc generation requested by (presumably) project root CMake script; skipped via CFG_ENABLE_DOC_GEN=OFF.")
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Skipped via CFG_ENABLE_DOC_GEN=OFF.)")
   return()
 endif()
 
-message("Doc generation requested by (presumably) project root CMake script; not skipped via CFG_ENABLE_DOC_GEN=ON.")
+message(VERBOSE
+          "Doc generation requested by (presumably) project root CMake script; not skipped via CFG_ENABLE_DOC_GEN=ON.")
+
+message(CHECK_START "(Validating Doxygen/etc. environment.)")
+list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
 # We are using the delightful FindDoxygen module of CMake; it allows one to (1) ensure Doxygen and related
 # tools are available and at the proper version(s); and (2) actually generate the doc-generating `make`
@@ -87,8 +96,9 @@ set(DOC_DOXYGEN_VERSION 1.9.3)
 # CAUTION: If you decide to increase DOC_DOXYGEN_VERSION: Carefully ensure you've properly modified
 # doc_generate() below.  See inside it.
 find_package(Doxygen ${DOC_DOXYGEN_VERSION} REQUIRED dot)
+message(STATUS "Doxygen version [${DOXYGEN_VERSION}] (+ deps like `dot`) found.")
 if(DOXYGEN_VERSION STREQUAL ${DOC_DOXYGEN_VERSION})
-  message("Doxygen version *exactly* [${DOXYGEN_VERSION}] (and needed side stuff like `dot`) found by CMake.  Good.")
+  message(STATUS "That *exact* version = what we wanted.  Good.")
 else()
   message(WARNING "Doxygen version [${DOXYGEN_VERSION}] found; we require at least [${DOC_DOXYGEN_VERSION}]; but "
                     "to guarantee the proper output we ideally want *exactly* that version.  Unfortunately Doxygen "
@@ -100,14 +110,14 @@ endif()
 block()
   get_target_property(doxygen_exec Doxygen::doxygen IMPORTED_LOCATION)
   get_target_property(dot_exec Doxygen::dot IMPORTED_LOCATION)
-  message("Doxygen binary location FYI: [${doxygen_exec}].")
-  message("`dot` binary location FYI: [${dot_exec}].")
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Done; Doxygen bin at [${doxygen_exec}]; `dot` bin at [${dot_exec}].)")
 endblock()
 
 # Sanity-check the DOC_* inputs of our include()r.
 
-if(NOT PROJ_HUMAN) # This is a FlowLikeProjectRoot.cmake requirement.
-  message(FATAL_ERROR "Please set PROJ_HUMAN in your root CMake script (see FlowLikeProjectRoot.cmake for spec).")
+if(NOT PROJ_HUMAN) # This is a FlowLikeCodeGenerate.cmake requirement.
+  message(FATAL_ERROR "Please set PROJ_HUMAN in your root CMake script (see FlowLikeCodeGenerate.cmake for spec).")
 endif()
 
 if(NOT DOC_INPUT) # Must not be empty.
@@ -164,6 +174,9 @@ function(doc_generate full_else_public)
     set(DOXYGEN_PROJECT_BRIEF "${PROJ_HUMAN} project: Full implementation reference.")
     set(target ${PROJ}_doc_full)
     set(comment "Generate full docs to [html_${target}]: includes private items and a source browser.")
+
+    message(CHECK_START "(Target [${PROJ}_doc_full] [${comment}]: generating.)")
+    list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
     # Attn: Doxygen options.  Comment directly from Doxygen-generate default config file is always included.
 
@@ -243,6 +256,9 @@ function(doc_generate full_else_public)
     set(DOXYGEN_PROJECT_BRIEF "${PROJ_HUMAN} project: Public API.")
     set(target ${PROJ}_doc_public)
     set(comment "Generate public-API docs to [html_${target}]: suitable for public-facing docs like a user manual.")
+
+    message(CHECK_START "(Target [${PROJ}_doc_full] [${comment}]: generating.)")
+    list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
     # Attn: Doxygen options.  Comment directly from Doxygen-generate default config file is always included.
 
@@ -532,6 +548,26 @@ function(doc_generate full_else_public)
     list(APPEND DOXYGEN_EXCLUDE_PATTERNS "*/detail/*")
   endif()
 
+  # Check for a certain annoyance that'd halt is in our tracks.  For example say our include()r does:
+  #   set(DOC_INPUT ${IPC_META_ROOT_ipc_core}/src/ipc)
+  # but ${IPC_META_ROOT_ipc_core}, which is probably based on where the user's project source lives in their
+  # particular file-system, happens to contain "/test/" somewhere.  We happen to always exclude */test/* (see above);
+  # so now we've excluded all input files.  If ${DOC_INPUT} has only relative paths, then there's no issue;
+  # but sometimes that is not sufficient, and then this niggling issue could occur.  So we just blow up.
+  # TODO: Do something more elegant, though it's not immediately apparent what that might be, given Doxygen's
+  # semantics on this.
+  foreach(doc_exclude_pattern ${DOXYGEN_EXCLUDE_PATTERNS})
+    string(REPLACE "*" ".*" doc_exclude_pattern_regex ${doc_exclude_pattern})
+    foreach(doc_input ${DOC_INPUT})
+      if(${doc_input} MATCHES ${doc_exclude_pattern_regex})
+        message(FATAL_ERROR "A Doxygen peculiarity combined with our desire to skip doc-generating from "
+                              "[${doc_exclude_pattern}] files sadly means your source locations like "
+                              "[${doc_input}] may not contain the former stuff "
+                              "anywhere in the path prefix... please rename those.  Sorry.")
+      endif()
+    endforeach()
+  endforeach()
+
   # Almost-lastly: output subtleties:
   # Doxygen logs to stdout voluminously -- unless QUIET is enabled; then it keeps it cool.
   # If there are warnings it logs them to stderr but does not consider them fatal by default;
@@ -554,8 +590,6 @@ function(doc_generate full_else_public)
   # And lastly:
   set(DOXYGEN_HTML_OUTPUT "html_${target}")
 
-  message("Generating build rules for doc target: ${target} (comment [${comment}]).")
-
   doxygen_add_docs(${target}
                    ${DOC_INPUT}
 
@@ -574,7 +608,13 @@ function(doc_generate full_else_public)
                    # worth it is a question however.
 
                    COMMENT ${comment})
+
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Done.)")
 endfunction()
 
 doc_generate(TRUE)
 doc_generate(FALSE)
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+message(CHECK_PASS "(Done.)")
