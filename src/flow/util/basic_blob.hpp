@@ -2179,11 +2179,30 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
     // Ensure no overlap by user.
     assert(((dest_it + n) <= src_data) || ((src_data + n) <= dest_it));
 
+    /* Some compilers in some build configs issue stringop-overflow warning here, when optimizer heavily auto-inlines:
+     *   error: ‘memcpy’ specified bound between 9223372036854775808 and 18446744073709551615
+     *     exceeds maximum object size 9223372036854775807 [-Werror=stringop-overflow=]
+     * This occurs due to (among other things) inlining from above our frame down into the std::memcpy() call
+     * we make; plus allegedly the C++ front-end supplying the huge values during the diagnostics pass.
+     * No such huge values (which are 0x800000000000000F, 0xFFFFFFFFFFFFFFFF, 0x7FFFFFFFFFFFFFFF, respectively)
+     * is actually passed-in at run-time nor mentioned anywhere
+     * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
+     *
+     * The warning is wholly inaccurate in a way reminiscent of the situation in reserve() with a somewhat
+     * similar comment.  In this case, however, a pragma does properly work, so we use that approach instead of
+     * a run-time check/assert() which would give away a bit of perf. */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
+
     /* Likely linear-time in `n` but hopefully optimized.  Could use a C++ construct, but I've seen that be slower
-     * that a direct memcpy() call in practice, at least in a Linux GCC.  Could use boost.asio buffer_copy(), which
+     * that a direct memcpy() call in practice, at least in a Linux gcc.  Could use boost.asio buffer_copy(), which
      * as of this writing does do memcpy(), but the following is an absolute guarantee of best performance, so better
      * safe than sorry (hence this whole Basic_blob class's existence, at least in part). */
     memcpy(dest_it, src_data, n);
+
+#pragma GCC diagnostic pop
   }
 
   return dest_it + n;
@@ -2218,7 +2237,13 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
 
     assert(((src + n) <= dest_data) || ((dest_data + n) <= src));
 
+    // See explanation for the pragma in emplace_copy().  While warning not yet observed here, preempting it.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
     memcpy(dest_data, src, n);
+#pragma GCC diagnostic pop
   }
 
   return src + n;
@@ -2241,7 +2266,13 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
 
     if (n_moved != 0)
     {
+      // See explanation for the pragma in emplace_copy().  While warning not yet observed here, preempting it.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
+#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
       memmove(dest, iterator_sans_const(past_last), n_moved); // Cannot use memcpy() due to possible overlap.
+#pragma GCC diagnostic pop
     }
     // else { Everything past end() is to be erased: it's sufficient to just update m_size: }
 
