@@ -15,12 +15,16 @@
 # See the License for the specific language governing
 # permissions and limitations under the License.
 
-cmake_minimum_required(VERSION 3.26.3) # See FlowLikeProjectRoot.cmake for details.
+cmake_minimum_required(VERSION 3.26.3) # See FlowLikeCodeGenerate.cmake for details.
 
 # See this guy; it'll explain inside.  It mandates the following procedure and documents details.
-set(PROJECT_ROOT_CMAKE_SCRIPT "tools/cmake/FlowLikeProjectRoot.cmake")
+set(PROJECT_ROOT_CMAKE_SCRIPT "tools/cmake/FlowLikeCodeGenerate.cmake")
 
 set(PROJ "flow")
+
+message(CHECK_START "(Project [${PROJ}] root CMake script executing.)")
+list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
 set(PROJ_CAMEL "Flow")
 set(PROJ_VERSION "1.0")
 set(PROJ_HUMAN "Flow")
@@ -40,7 +44,8 @@ include(${PROJECT_ROOT_CMAKE_SCRIPT})
 # Last but not least... export that same guy, so dependents can use it!  Natually dependents need *not* do the same;
 # they should instead:
 #   find_package(Flow CONFIG REQUIRED)
-#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeProjectRoot.cmake")
+#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
+message(STATUS "Install target: Exports FlowLikeCodeGenerate.cmake: utility for dependents' CMake scripts.")
 install(FILES ${PROJECT_ROOT_CMAKE_SCRIPT} DESTINATION share/${PROJ}/cmake)
 
 # Tip: Most likely you are next interested in ./src/CMakeLists.txt and then perhaps ./test/{basic|suite}/CMakeLists.txt.
@@ -62,4 +67,8 @@ include(${DOC_GEN_CMAKE_SCRIPT})
 # Last but not least... export that same guy, so dependents can use it!  Natually dependents need *not* do the same;
 # they should instead:
 #   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeDocGenerate.cmake")
+message(STATUS "Install target: Exports FlowLikeDocGenerate.cmake: utility for dependents' CMake scripts.")
 install(FILES ${DOC_GEN_CMAKE_SCRIPT} DESTINATION share/${PROJ}/cmake)
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+message(CHECK_PASS "(Done, success.)")

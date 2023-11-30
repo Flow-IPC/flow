@@ -15,7 +15,7 @@
 # See the License for the specific language governing
 # permissions and limitations under the License.
 
-# This is to (root)/src/flow/CMakeLists.txt what FlowLikeProjectRoot.cmake is to (root)/CMakeLists.txt.
+# This is to (root)/src/flow/CMakeLists.txt what FlowLikeCodeGenerate.cmake is to (root)/CMakeLists.txt.
 # So: Essentially this *is* the Flow library's CMake script (CMakeLists.txt); but because at least one dependent
 # project/repo (ipc_core: the core part of Flow-IPC, useful in its own right but also dependency of the others as of
 # this writing) follows the same build policies/shares similar DNA, we make it available for such dependencies to
@@ -24,7 +24,7 @@
 #
 # Usage: Assuming you're a dependent project: In your root (root)/src/CMakeLists.txt, at the top:
 #
-#   # We assume you already followed the instructions in FlowLikeProjectRoot.cmake, in your root CMakeLists.txt.
+#   # We assume you already followed the instructions in FlowLikeCodeGenerate.cmake, in your root CMakeLists.txt.
 #   # So here you just need to add the stuff relevant to the library specifically; other things like ${PROJ}
 #   # and ${Flow_DIR} should already be good to go.
 #
@@ -126,7 +126,8 @@
 
 include(CMakePackageConfigHelpers)
 
-# Constants, functions.
+message(CHECK_START "(Library [${PROJ}] + headers/etc.: creating code-gen/install targets.)")
+list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
 # Prepare dependencies.
 
@@ -137,9 +138,8 @@ include(CMakePackageConfigHelpers)
 if(DEFINED BOOST_LIBS)
   set(BOOST_VER 1.83) # Current as of Oct 2023.
 
-  message("Finding dependency: Boost-${BOOST_VER}.  The following libs shall need to be linked by any consumer "
-          "executable: [${BOOST_LIBS}].  If that list was empty, then only headers are necessary (no libs) on "
-          "our behalf.")
+  message(CHECK_START "Finding dep: Boost-${BOOST_VER}: headers plus libs [${BOOST_LIBS}].")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
   # Boost is necessary.
   #   - Boost headers are assumed available and commonly `#include`d by us.
@@ -149,31 +149,35 @@ if(DEFINED BOOST_LIBS)
   #     back to CMake's own FindBoost.cmake mechanism.  CMake's FindBoost docs suggest this method is the cool way of
   #     doing it; at this stage we want to reduce entropy by relying only on that method.  Also we don't need to
   #     worry about FindBoost's various hairy switches this way.
-  #   - $BOST_VER is current as of (see above).  We have no reason to suspect a newer version would break something.
+  #   - $BOOST_VER is current as of (see above).  We have no reason to suspect a newer version would break something.
   #     Slightly older versions would probably work, but we have lost track of how far back is okay; this is the
   #     baseline of when we know it works.  TODO: Consider finding out and changing this accordingly to achieve wider
   #     usability.  PRs are welcome as ever.
   # Caution: There is related find_dependency() code closer to the bottom of this .cmake.
   find_package(Boost ${BOOST_VER} CONFIG REQUIRED COMPONENTS ${BOOST_LIBS}) # OK if ${BOOST_LIBS} blank.
 
-  message("Boost found around: [${Boost_DIR}].")
-
   foreach(boost_lib ${BOOST_LIBS})
     list(APPEND BOOST_TARGETS "Boost::${boost_lib}")
   endforeach()
   # OK if ${BOOST_TARGETS} is undefined (empty).
+
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Done; found around: [${Boost_DIR}].)")
 # elseif(NOT DEFINED BOOST_LIBS): No Boost (not even headers) required on our behalf.
 endif()
 
-message("Dependencies found.")
-
 # Make the library.
 
-message("Source (to compile) list: [${SRCS}].")
-message("Exported header list: [${HDRS}].")
+message(VERBOSE "Source (to compile) list: [${SRCS}].")
+message(VERBOSE "Exported header list: [${HDRS}].")
 if(COMMAND generate_custom_srcs)
-  message("Custom sources/headers may be generated and added further; invoking this hook presently.")
+  message(CHECK_START "(Generating custom sources/headers.)")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
   generate_custom_srcs()
+
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Done.)")
 endif() # Otherwise function does not exist; no hook to execute.
 
 # Create the library.  For now we only operate in static-library-land.  TODO: Look into shared-library-land.
@@ -181,12 +185,6 @@ add_library(${PROJ} STATIC ${SRCS})
 
 # Do stuff we've resolved to do on all our targets.
 common_set_target_properties(${PROJ})
-
-# (Keep the compiler/linker flag modifiers somewhere around here.)
-
-# For each source file compiled into library add the warning flags we've determined.
-target_compile_options(${PROJ} PRIVATE ${WARN_FLAGS})
-message("Warning level shall be set to [${WARN_FLAGS}].")
 
 # Include directories for the target.  This is somewhat subtle.
 #   - At a minimum we are specifying the -I (in gcc parlance) include-path for the building of this library itself.
@@ -217,6 +215,8 @@ if(COMMAND generate_custom_srcs)
                              $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
 endif()
 
+message(STATUS "Dependents shall need to link libs: Boost [${BOOST_TARGETS}]; other: [${DEP_LIBS}].")
+
 # Consumer of the library will need to link these.
 target_link_libraries(${PROJ} PUBLIC
                       ${BOOST_TARGETS} # OK if undefined (empty).  If not empty we find_package()d it ourselves.
@@ -225,8 +225,9 @@ target_link_libraries(${PROJ} PUBLIC
 # The above is sufficient to build (`make` or equivalent) the library.
 # Now to ensure `make install` (or equivalent) does the right thing.
 
-message("Install (`make install` or equivalent) will export static lib, headers, and some CMake script(s) for use "
-        "with a dependent's CMake script (via find_package()).")
+message(VERBOSE
+          "Install (`make install` or equivalent) will export static lib, headers, and some CMake script(s) for use "
+            "with a dependent's CMake script (via find_package()).")
 
 # The headers must be exported.  It can be done with a simple install(FILES), but apparently associating it with
 # target ${PROJ} using target_sources(FILE_SET) is the nice/modern way of doing it; then install(TARGET) will
@@ -280,7 +281,11 @@ write_basic_package_version_file(${config_version_file} # In work dir.
 # As for ...Config.cmake we shall generate it dynamically here manually.  First read docs (at top of this file) for
 # DEP_LIBS, DEP_LIBS_PKG_ARG_LISTS, and BOOST_LIBS; then return here.
 
+message(STATUS "Install target: Exports ${PROJ_CAMEL}Config.cmake: for dependents' CMake find_package().")
+
 set(config_file "${CMAKE_CURRENT_BINARY_DIR}/${PROJ_CAMEL}Config.cmake") # Prepare it in work dir.
+message(VERBOSE "Its location pre-install: [${CMAKE_CURRENT_BINARY_DIR}/${PROJ_CAMEL}Config.cmake].")
+
 file(WRITE ${config_file} [=[
 # File generated by FlowLikeLib.cmake.
 
@@ -318,3 +323,6 @@ include(CMakeFindDependencyMacro) # Needed for find_dependency() macro.
   install(FILES ${config_file} ${config_version_file}
           DESTINATION lib/cmake/${PROJ_CAMEL})
 endblock()
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+message(CHECK_PASS "(Done.)")

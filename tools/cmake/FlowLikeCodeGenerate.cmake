@@ -18,7 +18,8 @@
 # Essentially this *is* our root CMake script (CMakeLists.txt); but because at least one dependent project/repo
 # (ipc_core: the core part of Flow-IPC, useful in its own right but also dependency of the others as of this
 # writing) follows the same build policies/shares similar DNA, we make it available for such dependencies to
-# use.
+# use.  Update: That all remains true with one exception: This *is* our CMake script as far as *code generation*
+# targets go.  It does *not* do doc generation; for that see FlowLikeDocGenerate.cmake.
 #
 # Usage: Assuming you're a dependent project: In your root CMakeLists.txt, at the top:
 #
@@ -35,7 +36,7 @@
 #   project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
 #
 #   find_package(Flow CONFIG REQUIRED)
-#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeProjectRoot.cmake")
+#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
 #
 # The variables:
 #   PROJ: snake_case project name (e.g.: flow, ipc_core, ipc_transport_struct).  Various things will be keyed off
@@ -51,8 +52,9 @@
 #     (Same for compiler and other requirements.  In general, though, we intend to share as much policy DNA as
 #     possible between Flow and dependents (like Flow-IPC projects) that would use the present .cmake helper.)
 #
-# Lastly, if you'd like to set up the build environment but not actually any configure any souces to build
-# (src/, test/), then set `set(FLOW_LIKE_PROJECT_ROOT_ENV_ONLY TRUE)` just before include()ing us.
+# Lastly note that if there is no src/CMakeLists.txt, then no lib${PROJ}.a shall be built.  However
+# the tests in test/*, if present, shall still be built.  This combination may be useful in the case of a
+# meta-project of several sub-projects: No src/ of its own but has, e.g., test/suite/*.
 
 # Without further ado... let's go.  Note: it is not allowed for us to do cmake_minimum_required() or project();
 # CMake requires that they literally do so themselves.  Hence they must copy/paste the CMake version we listed above;
@@ -85,12 +87,12 @@ option(CFG_ENABLE_DOC_GEN
        "If and only if ON: Doc generation targets shall be created; thus need Doxygen/Graphviz."
        OFF)
 # Quick discussion regarding which projects are affected by the above (and any other CFG_*):
-# As an example: Suppose project `flow` uses us (FlowLikeProjectRoot.cmake), and dependent `ipc_core`
+# As an example: Suppose project `flow` uses us (FlowLikeCodeGenerate.cmake), and dependent `ipc_core`
 # (while being built as part of the same meta-project `ipc`) also uses
-# us (FlowLikeProjectRoot.cmake).  The CFG_* settings (saved in CMakeCache.txt for each relevant project)
+# us (FlowLikeCodeGenerate.cmake).  The CFG_* settings (saved in CMakeCache.txt for each relevant project)
 # will affect *both* `flow` and `ipc_core`.  So it would be impossible, as of this writing, to (e.g.) have
 # CFG_SKIP_BASIC_TESTS be ON for `flow` but OFF for `ipc_core`.  There is only one `cmake` or `ccmake`
-# being invoked, and that setting affects each instance of FlowLikeProjectRoot.cmake similarly.
+# being invoked, and that setting affects each instance of FlowLikeCodeGenerate.cmake similarly.
 # We have not added any namespace-type-thing into the name CFG_SKIP_BASIC_TESTS (or any other CFG_*).
 # So all sub-builds sharing our DNA are affected in the same way.
 #
@@ -101,20 +103,16 @@ option(CFG_ENABLE_DOC_GEN
 # TODO: *Consider* adding the per-project namespace to these settings.  For simplicity it's good the way it is;
 # but it is conceivable a more complex setup may be desired at some point.
 
-message("Welcome to the build configuration script for [${PROJ}] (a/k/a [${PROJ_CAMEL}] or "
-        "for humans [${PROJ_HUMAN}]), vesion [${PROJ_VERSION}].  We use CMake for this task.")
-message("We shall generate the build script(s) (e.g., in *nix: Makefile(s)) one can invoke to build/install us; "
-        "and/or generate our documentation, if relevant.  (Build generation and doc generation can each be "
-        "independently enabled/disabled using knobs CFG_ENABLE_CODE_GEN and CFG_SKIP_CODE_GEN.)  "
-        "You should run `cmake` or `ccmake` on me outside any actual source directory.  "
-        "Once you've set all knobs how you want them, we will generate at your command.  Then you can actually "
-        "build/install (e.g., in *nix: `make -j32 && make install` assuming a 32-core machine).  You can also "
-        "have `cmake` perform the build itself.  Please, in general, see CMake docs.")
-message("A couple commonly used CMake settings: CMAKE_INSTALL_PREFIX is [${CMAKE_INSTALL_PREFIX}]; "
-        "CMAKE_PREFIX_PATH is [${CMAKE_PREFIX_PATH}].  Installed items such as Boost and Doxygen might be "
-        "found in either place (among others) or a system location.  One typically sets PREFIX_PATH, if "
-        "INSTALL_PATH is not sufficient.  Build-system's install step shall place our results to INSTALL_PATH, "
-        "and locally installed inputs for the build are often found there too.")
+message(CHECK_START "(Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
+                      "[${PROJ_HUMAN}]), version [${PROJ_VERSION}]: creating code-gen/install targets.)")
+list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
+message(VERBOSE "Install to CMAKE_INSTALL_PREFIX [${CMAKE_INSTALL_PREFIX}]; deps search path includes "
+                  "CMAKE_PREFIX_PATH [${CMAKE_PREFIX_PATH}].")
+message(VERBOSE "Installed items such as Boost and Doxygen might be "
+                  "found in either place (among others) or a system location.  One typically sets PREFIX_PATH, if "
+                  "INSTALL_PATH is not sufficient.  Build-system's install step shall place our results to "
+                  "INSTALL_PATH, and locally installed inputs for the build are often found there too.")
 
 # Environment checks.  Side effect: some "local" variables are set for later use.
 
@@ -124,12 +122,13 @@ if(NOT LINUX)
 endif()
 
 if(CFG_SKIP_CODE_GEN)
-  message("Build generation requested by (presumably) project root CMake script; skipped via CFG_SKIP_CODE_GEN=ON.")
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Skipped via CFG_SKIP_CODE_GEN=ON.)")
   return()
 endif()
 
-message("Build generation requested by (presumably) project root CMake script; "
-        "not skipped via CFG_SKIP_CODE_GEN=OFF.")
+message(VERBOSE "Build generation requested by (presumably) project root CMake script; "
+                  "not skipped via CFG_SKIP_CODE_GEN=OFF.")
 
 # From now on Linux assumed (which implies *nix obv).  Though, where it's not too much trouble, lots of things
 # will work in other OS (even Windows/MSVC) when/if that restriction is removed.  I.e., we try not to not-support
@@ -137,7 +136,7 @@ message("Build generation requested by (presumably) project root CMake script; "
 
 # Compiler:
 
-message("Detected compiler [ID/VERSION]: ${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}.")
+message(STATUS "Detected compiler [ID/VERSION]: ${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}.")
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   set(GCC_MIN_VER 8)
@@ -161,14 +160,14 @@ else()
   # TODO: Maybe it's too draconian at this stage.  CMake is built around portability; we are using it now, as opposed
   # the much more rigid pre-open-source environment.  Consider merely warning.
   message(FATAL_ERROR "Only gcc and clang are supported for now.  Will not let build continue, "
-                      "though nearby TODO suggests merely warning here instead.")
+                        "though nearby TODO suggests merely warning here instead.")
 endif()
 
 if(NOT DEFINED WARN_FLAGS)
   message(FATAL_ERROR "Bug in our CMake script: Need to code the proper warning flags for the active compiler "
-                      "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}]) and "
-                      "load them into local variable WARN_FLAGS.  Reminder: only the warning level shall be, "
-                      "not whether to treat warnings as error or other knobs.")
+                        "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}]) and "
+                        "load them into local variable WARN_FLAGS.  Reminder: only the warning level shall be, "
+                        "not whether to treat warnings as error or other knobs.")
 endif()
 
 # Check if the compiler is capable of LTO (link-time optimization) a/k/a IPO (interprocedural optimization).
@@ -178,22 +177,76 @@ endif()
 # LTO/IPO makes it occur across translation units too.
 if(CFG_NO_LTO)
   set(LTO_ON FALSE)
-  message("IPO/LTO disabled due to user-specified CFG_NO_LTO=ON.")
+  message(STATUS "IPO/LTO disabled due to user-specified CFG_NO_LTO=ON.")
 else()
-  check_ipo_supported(RESULT LTO_ON OUTPUT output)
+  # This can result in some verbose output and take some time; so we do it only once per CMake run.
+  # (We could use INTERNAL cache state for this, but we do not want it to persist across CMake runs; the compiler
+  # specified could change between them; it'd be wrong.  So we use a different technique.)
+  # To understand the technique look at how we're to be include()d.  If this is not part of a meta-project,
+  # then we would only be include()d once, hence this doesn't matter.  Put a pin in that for now.
+  # If we are indeed part of a meta-project, then we'd be include()d 1x per sub-project; and 1x for the meta-project
+  # itself; in that order.  Hence:
+  #   - meta_project/P1/CMakeLists.txt include()s us.
+  #     - Our variable scope = meta_project/P1.  Our parent variable scope = meta_project.
+  #   - meta_project/P2/CMakeLists.txt include()s us.
+  #     - Our variable scope = meta_project/P2.  Our parent variable scope = meta_project.
+  #   - ...
+  #   - meta_project/CMakeLists.txt include()s us.
+  #     - Our variable scope = meta_project.  Our parent variable scope = N/A.
+  # Therefore the algorithm:
+  #   - Check whether LTO_ON is DEFINED.  (If not DEFINED then: either it's not a meta-project, or
+  #     we are P1.  In that case compute LTO_ON and set it both in our scope *and* the parent scope;
+  #     unless there is no parent scope (then it's not a meta-project, and there's no need to worry about it).
+  #     If it is defined though:
+  #   - We are either P2, P3, ...; or we are the meta_project.  In the latter case, the previous bullet-point
+  #     (for P1) would have set(LTO_ON) in our scope (its parent-scope); and DEFINED would have picked that up.
+  #     In the former case (e.g., P2), the previous bullet-point (for P1) would have set(LTO_ON) in the parent
+  #     scope -- which is also our parent scope -- and the DEFINED check would have picked that up).
+  #     - In any case, LTO_ON's value can be used and not recomputed.
+  # So the code is quite simple, but the reason it works is somewhat subtle.
 
-  if(LTO_ON)
-      message("IPO/LTO is supported by compiler "
-              "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}]).  "
-              "Will enable it (for optimized builds only -- *Rel* build types).")
+  message(CHECK_START "(Checking IPO/LTO availability/capabilities.)")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
+  if(DEFINED LTO_ON)
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    if(LTO_ON)
+      message(CHECK_PASS "(Determined earlier: Result = LTO available.)")
+    else()
+      message(CHECK_PASS "(Determined earlier: Result = LTO unavailable.)")
+    endif()
   else()
-      message(WARNING "IPO/LTO is not supported: ${output}.")
-  endif()
+    check_ipo_supported(RESULT LTO_ON OUTPUT output)
+    set(LTO_ON ${LTO_ON} PARENT_SCOPE)
 
-  unset(output)
+    if(LTO_ON)
+      # Also set this thing and similarly have it available in parent-scope for following sub-projects.
+      check_cxx_compiler_flag(-ffat-lto-objects LTO_FAT_OBJECTS_IS_SUPPORTED)
+      set(LTO_FAT_OBJECTS_IS_SUPPORTED ${LTO_FAT_OBJECTS_IS_SUPPORTED} PARENT_SCOPE)
+
+      if(NOT LTO_FAT_OBJECTS_IS_SUPPORTED)
+        message(WARNING "Target [${name}]:  "
+                          "${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}] does not support fat LTO objects.  "
+                          "This might cause difficulties in building non-LTO consumer (dependent) binaries.")
+      endif()
+
+      list(POP_BACK CMAKE_MESSAGE_INDENT)
+      if(LTO_FAT_OBJECTS_IS_SUPPORTED)
+        message(CHECK_PASS "(Done; result = LTO w/ fat-object format available, enabled (*Rel* build-types only).)")
+      else()
+        message(CHECK_PASS "(Done; result = LTO w/o fat-object format available, enabled (*Rel* build-types only).)")
+      endif()
+    else()
+      message(VERBOSE "IPO/LTO is not supported; CMake check-procedure output: [[[\n${output}]]].")
+      list(POP_BACK CMAKE_MESSAGE_INDENT)
+      message(CHECK_PASS "(Done; result = LTO unavailable.  See VERBOSE output for details.)")
+    endif()
+
+    unset(output)
+  endif()
 endif()
 
-message("Environment checks passed.  Configuring build environment.")
+message(VERBOSE "Environment checks passed.  Configuring build environment.")
 
 # Project proper.
 
@@ -205,11 +258,12 @@ message("Environment checks passed.  Configuring build environment.")
 set(CXX_STD 17)
 set(CMAKE_CXX_STANDARD ${CXX_STD})
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-message("C++${CXX_STD} language and STL required.")
+message(STATUS "C++${CXX_STD} language and STL required.")
 
 # When we do find_package(Threads) to link threading library this will cause it to
 # prefer -pthread flag where applicable (as of this writing, just Linux, but perhaps any *nix ultimately).
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+message(STATUS "`pthread` flag, if applicable, shall be used.")
 
 # Set our own global stuff (constants, functions).
 # Note: Some such things (WARN_FLAGS as of this writing) have already been set while scanning environment above.
@@ -217,11 +271,20 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 # Call this on each executable and library.  Doesn't seem to be a way to do it "globally" (plus some things in here
 # differ depending on the target's specifics; like library versus executable).
 function(common_set_target_properties name)
+  message(CHECK_START "(Configuring target [${name}]: uniform settings.)")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
   # Treat warnings as errors.  Note ${WARN_FLAGS} is separate and must be applied too.
-  message("Target [${name}]: Warnings shall be treated as errors.")
+  message(STATUS "Warnings: treated as errors.")
   set_target_properties(${name} PROPERTIES COMPILE_WARNING_AS_ERROR TRUE)
 
+  # For each source file compiled into library add the warning flags we've determined.
+  target_compile_options(${name} PRIVATE ${WARN_FLAGS})
+  message(STATUS "Warnings: level set to [${WARN_FLAGS}].")
+
   # Show only a few errors per file before bailing out.
+  # TODO: This is convenient when developing locally but can (IME rarely) be limiting in automated builds/CI/etc.;
+  # consider making it configurable via knob.
   set(MAX_ERRORS 3)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(${name} PRIVATE "-fmax-errors=${MAX_ERRORS}")
@@ -229,11 +292,11 @@ function(common_set_target_properties name)
     target_compile_options(${name} PRIVATE "-ferror-limit=${MAX_ERRORS}")
   else()
     message(FATAL_ERROR "Target [${name}]: For this target wanted to limit # of compile errors per file but compiler "
-                        "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}])"
-                        "is unknown; not sure what to do.  Please adjust the script to cover this eventuality.")
+                          "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}])"
+                          "is unknown; not sure what to do.  Please adjust the script to cover this eventuality.")
   endif()
 
-  message("Target [${name}]: Compiler will show at most [${MAX_ERRORS}] errors per file before bailing out.")
+  message(STATUS "Compiler will show at most [${MAX_ERRORS}] errors per file before bailing out.")
 
   # If LTO enabled+possible *and* not specifically and relevantly disabled (via option) for test executables...
   # ...then turn it on for this target, for all optimized build types (never for debug/unspecified build types).
@@ -242,19 +305,19 @@ function(common_set_target_properties name)
        AND (NOT
               ((target_type STREQUAL "EXECUTABLE") AND CFG_NO_LTO_FOR_TEST_EXECS)))
 
-    message("Target [${name}]: LTO enabled (for *Rel* build types only).")
+    # Redundant to the message about generally enabling it; so VERBOSE log-level.
+    message(VERBOSE "LTO: enabled (for *Rel* build types only).")
 
     set_target_properties(${name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
     set_target_properties(${name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE)
     set_target_properties(${name} PROPERTIES INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL TRUE)
     # Do not do that for Debug (LTO + debug = no good) or unspecified type.
 
-    check_cxx_compiler_flag(-ffat-lto-objects FAT_LTO_OBJECTS_IS_SUPPORTED)
 
     # In case the consuming executable has LTO disabled generate object code that will support that as well;
     # in that case the LTO improvements will be limited to within the library -- which is most of the win anyway.
-    if(FAT_LTO_OBJECTS_IS_SUPPORTED)
-      message("Target [${name}]: LTO: instructing compiler to generate in fat-LTO format.")
+    if(LTO_FAT_OBJECTS_IS_SUPPORTED)
+      message(STATUS "LTO: instructing compiler to generate in fat-object-LTO format.")
 
       # Again, though, do it for *Rel* build types only.
 
@@ -270,51 +333,51 @@ function(common_set_target_properties name)
       # then it'd be wrong, as it's a multi-build-type system, where a single build script is created for all
       # possible build types (Debug, Release, etc.).  Apparently this <<>> stuff handles that nicely and works
       # for the simpler `make` situation equally well too.)
-    else()
-      message(WARNING "Target [${name}]:  "
-                      "${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}] does not support fat LTO objects.")
     endif()
   endif()
+
+  list(POP_BACK CMAKE_MESSAGE_INDENT)
+  message(CHECK_PASS "(Done.)")
 endfunction()
 
-if(FLOW_LIKE_PROJECT_ROOT_ENV_ONLY)
-  return()
+message(VERBOSE "Environment configured.  Invoking further building in subdirs.")
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/CMakeLists.txt")
+  # This generates and exports lib$PROJ.a and its headers; and the $PROJ library CMake target.
+  # (By the way I looked into it, and apparently unlike with certain other situations there is no need to prepend
+  # ${CMAKE_CURRENT_SOURCE_DIR}.)
+  add_subdirectory(src)
+# else: Probably we are meta-project which typically has test/ but no C++ in src/.
 endif()
 
-message("Environment configured.  Invoking further building in subdirs.")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test/basic")
+  message(CHECK_START "(Creating code-generation targets: basic tests - simple bins for basic linkability/use "
+                        "of lib/headers.)")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
-# This generates and exports lib$PROJ.a and its headers; and the $PROJ library CMake target.
-# (By the way I looked into it, and apparently unlike with certain other situations there is no need to prepend
-# ${CMAKE_CURRENT_SOURCE_DIR}.)
-add_subdirectory(src)
-
-# This generates (and exports? if so why not) test/demo program(s).
-if(CFG_SKIP_BASIC_TESTS)
-  message("Per cache setting CFG_SKIP_BASIC_TESTS will skip building/installing any demo/test program(s) under "
-          "test/basic/.  These are intended to be limited/simple programs that ensure the basic build/linkability "
-          "of the library/headers in ${PROJ}; and a very limited sanity-check of a small subset of its capabilities.  "
-          "By skipping these the build time will be lowered (possibly quite a bit); but if there are basic build/link "
-          "issues you may discover them later in your own consumer build.")
-else()
-  message("Per cache setting CFG_SKIP_BASIC_TESTS=OFF will build/install any demo/test program(s) under test/basic/.  "
-          "Keep in mind these are not a comprehensive unit test suite or integration test; but rather limited/simple "
-          "programs that ensure the basic buildability/linkability "
-          "of the library/headers in ${PROJ}; and a very limited sanity-check of a small subset of its capabilities.")
-  add_subdirectory(test/basic)
+  if(CFG_SKIP_BASIC_TESTS)
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    message(CHECK_PASS "(Skipped via CFG_SKIP_BASIC_TESTS=ON.)")
+  else()
+    add_subdirectory(test/basic)
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    message(CHECK_PASS "(Done.)")
+  endif()
 endif()
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test/suite")
+  message(CHECK_START "(Creating code-generation targets: test suite(s) - serious testing.)")
+  list(APPEND CMAKE_MESSAGE_INDENT "- ")
+
   if(CFG_ENABLE_TEST_SUITE)
-    message("This project has a test/suite/ dir; and CFG_ENABLE_TEST_SUITE=ON enabled building/installing its contents.  "
-            "This increases build time but allows serious testing of this project.")
     add_subdirectory(test/suite)
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    message(CHECK_PASS "(Done.)")
   else()
-    message("This project has a test/suite/ dir; but CFG_ENABLE_TEST_SUITE=OFF disabled building/installing its contents.  "
-            "This decreases build time; but the orthogonal CFG_SKIP_BASIC_TESTS=ON can still ensure the basics are okay.")
+    list(POP_BACK CMAKE_MESSAGE_INDENT)
+    message(CHECK_PASS "(Skipped via CFG_ENABLE_TEST_SUITE=OFF.)")
   endif()
-else()
-  message("In this project there is no test/suite/ dir; hence no serious tests of which to worry "
-          "ignoring (CFG_ENABLE_TEST_SUITE).  "
-          "See also the message above about basic tests (CFG_SKIP_BASIC_TESTS=ON versus OFF) "
-          "which are a different (smaller) thing.")
 endif()
+
+list(POP_BACK CMAKE_MESSAGE_INDENT)
+message(CHECK_PASS "(Done.)")

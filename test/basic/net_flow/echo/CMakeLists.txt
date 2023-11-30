@@ -23,8 +23,6 @@ function(handle_binary name_sh long_name) # name_sh is "cli"/"client" or "srv"/"
   # Do stuff we've resolved to do on all our targets.
   common_set_target_properties(${name})
 
-  target_compile_options(${name} PRIVATE ${WARN_FLAGS})
-
   # Link good ol' libflow.
   target_link_libraries(${name} PRIVATE ${PROJ})
 
