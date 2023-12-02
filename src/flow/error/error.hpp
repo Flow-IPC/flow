@@ -20,6 +20,7 @@
 
 #include "flow/error/error_fwd.hpp"
 #include "flow/log/log.hpp"
+#include "flow/util/detail/util.hpp"
 #include <boost/system/system_error.hpp>
 #include <stdexcept>
 
@@ -141,7 +142,6 @@ bool exec_and_throw_on_error(const Func& func, Ret* ret,
      * Our Runtime_error-throwing wrapping services are not required. */
     return false;
   }
-  // else
 
   /* err_code is null, so we have to make our own Error_code and throw an error if the wrapped operation actually
    * sets it (indicating an error occurred). */
@@ -162,7 +162,7 @@ bool exec_and_throw_on_error(const Func& func, Ret* ret,
   }
 
   return true;
-}
+} // exec_and_throw_on_error()
 
 template<typename Func>
 bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::String_view context)
@@ -173,7 +173,6 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
   {
     return false;
   }
-  // else
 
   Error_code our_err_code;
   func(&our_err_code);
@@ -184,7 +183,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
   }
 
   return true;
-}
+} // exec_void_and_throw_on_error()
 
 } // namespace flow::error
 
@@ -415,7 +414,9 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* Also supply context info of this macro's invocation spot. */ \
     /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
     if (::flow::error::exec_and_throw_on_error(::flow::util::bind_ns::bind(&ARG_function_name, __VA_ARGS__), \
-                                               &result, err_code, FLOW_UTIL_WHERE_AM_I_STR())) \
+                                               &result, err_code, \
+                                               /* See discussion below. */ \
+                                               FLOW_UTIL_WHERE_AM_I_LITERAL(ARG_function_name))) \
     { \
       /* Aforementioned f() WAS executed; did NOT throw (no error); and return value was placed into `result`. */ \
       return result; \
@@ -424,3 +425,32 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* Recall that the idea is that f() is just recursively calling the method invoking this macro with the same */ \
     /* arguments except for the Error_code* arg. */ \
   )
+
+/* Now that we're out of that macro's body with all the backslashes...
+ * Discussion of the FLOW_UTIL_WHERE_AM_I_LITERAL(ARG_function_name) snippet above:
+ *
+ * Considering the potential frequency that FLOW_ERROR_EXEC_FUNC_AND_THROW_ON_ERROR() is invoked in a
+ * an error-reporting API (such as flow::net_flow) -- even *without* an error actually being emitted --
+ * it is important we do not add undue computation.  That macro does not take a context string, so it must
+ * compute it itself; as usual we use file/function/line for this.  With the technique used above
+ * FLOW_UTIL_WHERE_AM_I_LITERAL() is replaced by a *string literal* -- like:
+ *   "/cool/path/to/file.cpp" ":" "Class::someFunc" "(" "332" ")"
+ * which is as compile-time as it gets.  So perf-wise that's fantastic; as good as it gets.
+ *
+ * Are there weaknesses?  Yes; there is one: Per its doc header FLOW_UTIL_WHERE_AM_I_LITERAL(), due to having
+ * to be replaced by a literal, cannot cut out "/cool/path/to/" from __FILE__, even though in flow.log we do so
+ * for readability of logs.  What if we wanted to get rid of this weakness?  Then we cannot have a literal there;
+ * we can use other, not-fully-compile-time-computed FLOW_UTIL_WHERE_AM_I*(); that means extra computation
+ * at every call-site.  That, too, can be worked-around: One can add an exec_and_throw_on_error() overload
+ * that would take 3 context args instead of 1: strings for file and function, int for line (supplied via
+ * __FILE__, #ARG_function, __LINE__); and it would only actually build a context string to pass to
+ * Runtime_error *if* (1) an error actually occurred; *and* (2) user in fact used err_code=null (meaning throw on
+ * error as opposed to return an Error_code); so lazy-evaluation.
+ *
+ * That would have been a viable approach but:
+ *   - still slower (instead of a single compile-time-known pointer, at least 2 ptrs + 1 ints are passed around
+ *     the call stack) at each call-site;
+ *   - much slower on exception-throwing error (albeit this being relatively rare, typically; not at each call-site);
+ *   - much, much more impl code.
+ *
+ * So it's cool; just don't massage __FILE__ in a totally flow.log-consistent way. */

@@ -81,6 +81,8 @@ class Runtime_error;
  *        and `func()` encountered an error.
  * @param context
  *        Value suitable for the `context` argument of Runtime_error constructor.
+ *        Most likely this should be something it takes little to no runtime computation to obtain;
+ *        so either your own string literal; or FLOW_UTIL_WHERE_AM_I_LITERAL().
  * @return `true` if and only if `err_code` is null; and therefore `func()` was called.
  *         `false` otherwise (i.e., `err_code` is not null; nothing was done; and the caller should perform the
  *         equivalent of `func()` while safely assuming `*err_code` may be assigned to upon error).
