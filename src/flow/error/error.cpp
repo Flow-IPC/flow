@@ -24,7 +24,7 @@ namespace flow::error
 // Implementations.
 
 Runtime_error::Runtime_error(const Error_code& err_code_or_success, util::String_view context) :
-  // This strange-looking dichotomy is explained in ###Rationale### in m_context doc header.
+  // This strange-looking dichotomy is explained in ###Rationale### in m_context_if_no_code doc header.
   boost::system::system_error(err_code_or_success,
                               err_code_or_success
                                 ? std::string(context)
@@ -45,7 +45,7 @@ Runtime_error::Runtime_error(util::String_view context) :
 
 const char* Runtime_error::what() const noexcept // Virtual.
 {
-  // This dichotomy is explained in ###Rationale### in m_context doc header.  See ctor above also.
+  // This dichotomy is explained in ###Rationale### in m_context_if_no_code doc header.  See ctor above also.
   return code()
            ? boost::system::system_error::what()
            : m_context_if_no_code.c_str();

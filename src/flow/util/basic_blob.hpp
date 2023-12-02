@@ -2195,6 +2195,7 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
 #pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
 #pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
 #pragma GCC diagnostic ignored "-Wstringop-overflow"
+#pragma GCC diagnostic ignored "-Wrestrict" // Another similar bogus one pops up after pragma-ing away preceding one.
 
     /* Likely linear-time in `n` but hopefully optimized.  Could use a C++ construct, but I've seen that be slower
      * that a direct memcpy() call in practice, at least in a Linux gcc.  Could use boost.asio buffer_copy(), which
@@ -2242,6 +2243,7 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
 #pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
 #pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
 #pragma GCC diagnostic ignored "-Wstringop-overflow"
+#pragma GCC diagnostic ignored "-Wrestrict"
     memcpy(dest_data, src, n);
 #pragma GCC diagnostic pop
   }
@@ -2271,6 +2273,7 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
 #pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
 #pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
 #pragma GCC diagnostic ignored "-Wstringop-overflow"
+#pragma GCC diagnostic ignored "-Wrestrict"
       memmove(dest, iterator_sans_const(past_last), n_moved); // Cannot use memcpy() due to possible overlap.
 #pragma GCC diagnostic pop
     }
