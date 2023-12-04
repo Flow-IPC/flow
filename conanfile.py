@@ -1,7 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import cmake_layout, CMakeDeps
 
-class FlowConanFile(ConanFile):
+class FlowRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = (
         "CMakeToolchain"
