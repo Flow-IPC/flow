@@ -89,7 +89,7 @@ jobs:
     
     - name: Install flow dependencies with conan using the profile
       run: |
-        CONAN_VERBOSE_TRACE=1 conan install \
+        conan install \
           . \
           --profile:build=conan_profile \
           --profile:host=conan_profile \
@@ -102,21 +102,20 @@ jobs:
     - name: Prepare makefile
       run: |
         cmake \
-          --log-level=DEBUG \
           --preset ${{ matrix.build-type.conan-preset }} \
           -DCFG_ENABLE_DOC_GEN=ON \
           -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install
 
     - name: Build targets like libflow and echo test with makefile
       run: |
-        VERBOSE=1 make \
+        make \
           --keep-going \
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
     - name: Install targets with makefile
       run: |
-        VERBOSE=1 make install \
+        make install \
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
@@ -129,7 +128,7 @@ jobs:
     
     - name: Create doxygen documentation with makefile
       run: |
-        VERBOSE=1 make \
+        make \
           flow_doc_public \
           flow_doc_full \
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
