@@ -119,7 +119,7 @@ jobs:
         build-type:
           - { id: debug, conan-name: Debug, conan-preset: debug,  }
           - { id: release, conan-name: Release, conan-preset: release }
-          - { id: relwithdebinfo-tsan, conan-name: RelWithDebInfo, conan-preset: relwithdebinfo, conan-cxxflags: [ "'-fsanitize=thread'" ], conan-cflags: [ "'-fsanitize=thread'" ] }
+          - { id: relwithdebinfo-tsan, conan-name: RelWithDebInfo, conan-preset: relwithdebinfo, conan-cxxflags: [ "'-fsanitize=thread'" ], conan-cflags: [ "'-fsanitize=thread'" ], conan-ldflags: [ "'-fsanitize=thread'" ] }
           - { id: relwithdebinfo, conan-name: RelWithDebInfo, conan-preset: relwithdebinfo }
           - { id: minsizerel, conan-name: MinSizeRel, conan-preset: minsizerel }
         exclude:
@@ -182,6 +182,7 @@ jobs:
         tools.build:compiler_executables = {"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
         tools.build:cflags = [ ${{ join(matrix.build-type.conan-cflags) }} ]
         tools.build:cxxflags = [ ${{ join(matrix.build-type.conan-cxxflags) }} ]
+        tools.build:ldflags = [ ${{ join(matrix.build-type.conan-ldflags) }} ]
         tools.env.virtualenv:auto_use = True 
 
         [buildenv]
