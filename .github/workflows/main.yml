@@ -91,13 +91,17 @@ jobs:
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Upload Doxygen documentation
+    - name: Package tarball: Doxygen documentation sets (full, API-only) and landing page
+      run: |
+        cd $GITHUB_WORKSPACE/doc/flow_doc
+        $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}
+
+    - name: Upload documentation tarball
       uses: actions/upload-artifact@v3
       with:
         name: doxygen-doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
         path: |
-          ${{ github.workspace }}/build/${{ matrix.build-type.conan-name }}/html_flow_doc_public/**/* 
-          ${{ github.workspace }}/build/${{ matrix.build-type.conan-name }}/html_flow_doc_full/**/*    
+          ${{ github.workspace }}/doc/flow_doc.tgz
   
   build:
     strategy:
