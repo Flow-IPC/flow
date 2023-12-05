@@ -8,6 +8,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      use_large_runner:
+        description: 'Whether to use large runner (costs $); specify 'yes' to do so.'
+        required: true
+        default: 'no'
       
 jobs:
   doc:
@@ -18,8 +23,12 @@ jobs:
           - { id: clang-15, name: clang, version: 15, c-path: /usr/bin/clang-15, cpp-path: /usr/bin/clang++-15 }
         build-type:
           - { id: release, conan-name: Release, conan-preset: release }
-          
+
     runs-on: ubuntu-latest
+    if: github.event.inputs.use_large_runner != 'yes'
+
+    runs-on: ubuntu-latest-m
+    if: github.event.inputs.use_large_runner == 'yes'
 
     name: |
       doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
@@ -123,6 +132,10 @@ jobs:
           - { id: minsizerel, conan-name: MinSizeRel, conan-preset: minsizerel}
    
     runs-on: ubuntu-latest
+    if: github.event.inputs.use_large_runner != 'yes'
+
+    runs-on: ubuntu-latest-m
+    if: github.event.inputs.use_large_runner == 'yes'
 
     name: |
       build-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
