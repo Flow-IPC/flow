@@ -31,7 +31,7 @@ jobs:
     - name: Update available software list for apt-get
       run: sudo apt-get update
     
-    - name: Install `flow` dependencies with apt-get
+    - name: Install `flow` dependencies (Graphviz) with apt-get
       run: |
         sudo apt-get install -y graphviz
 
@@ -64,7 +64,7 @@ jobs:
         flow:doc = True
         EOF
     
-    - name: Install `flow` dependencies with Conan using the profile
+    - name: Install `flow` dependencies (Doxygen) with Conan using the profile
       run: |
         conan install \
           . \
@@ -72,7 +72,7 @@ jobs:
           --profile:host=conan_profile \
           --build=missing
     
-    - name: Get the number of CPU cores for parallelized work
+    - name: Get the number of processor cores for parallelized work
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
@@ -177,7 +177,7 @@ jobs:
         flow:doc = False
         EOF
     
-    - name: Install `flow` dependencies with conan using the profile
+    - name: Install `flow` dependencies with Conan using the profile
       run: |
         conan install \
           . \
@@ -214,6 +214,8 @@ jobs:
           cd $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
-          ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
+          # This needs to return 0 exit-code.
+          ./net_flow_echo_cli.exec 1 127.0.01 8888 # "Hello world!"
+          # Server will print exception due to SIGTERM interruption; that is fine.
           kill `pidof $PWD/net_flow_echo_srv.exec`
 
