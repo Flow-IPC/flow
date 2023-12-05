@@ -25,7 +25,12 @@ jobs:
         build-type:
           - { id: release, conan-name: Release, conan-preset: release }
 
-    runs-on: github.event.inputs.large ? ubuntu-latest-m : ubuntu-latest
+    runs-on: ubuntu-latest
+    if: !github.event.inputs.large
+
+    runs-on:
+      group: ubuntu-latest
+    if: github.event.inputs.large
 
     name: |
       doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
