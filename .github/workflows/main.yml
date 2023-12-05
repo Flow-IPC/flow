@@ -209,7 +209,6 @@ jobs:
     # TODO: It seems unusual to place install-prefix inside build-prefix.
     - name: Prepare Makefile using CMake
       run: |
-        cat $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/generators/conan_toolchain.cmake
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
           -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install
