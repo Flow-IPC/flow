@@ -35,7 +35,7 @@ jobs:
       run: |
         sudo apt-get install -y graphviz
 
-    - name: Install Conan 1.x
+    - name: Install the latest version of Conan which is less than 2
       run: |
         pip install "conan<2"
     
@@ -43,16 +43,16 @@ jobs:
       run: |
         cat <<EOF > conan_profile   
         [settings]
-        compiler=${{ matrix.compiler.name }}
-        compiler.version=${{ matrix.compiler.version }}
-        compiler.cppstd=17
-        compiler.libcxx=libstdc++11
-        arch=x86_64
-        os=Linux
-        build_type=${{ matrix.build-type.conan-name }}
+        compiler = ${{ matrix.compiler.name }}
+        compiler.version = ${{ matrix.compiler.version }}
+        compiler.cppstd = 17
+        compiler.libcxx = libstdc++11
+        arch = x86_64
+        os = Linux
+        build_type = ${{ matrix.build-type.conan-name }}
 
         [conf]
-        tools.build:compiler_executables={"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
+        tools.build:compiler_executables = {"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
         tools.env.virtualenv:auto_use = True 
 
         [buildenv]
@@ -117,10 +117,20 @@ jobs:
           - { id: clang-16, name: clang, version: 16, c-path: /usr/bin/clang-16, cpp-path: /usr/bin/clang++-16, install: True }
           - { id: clang-17, name: clang, version: 17, c-path: /usr/bin/clang-17, cpp-path: /usr/bin/clang++-17, install: True }  
         build-type:
-          - { id: debug, conan-name: Debug, conan-preset: debug }
+          - { id: debug, conan-name: Debug, conan-preset: debug,  }
           - { id: release, conan-name: Release, conan-preset: release }
+          - { id: relwithdebinfo-tsan, conan-name: RelWithDebInfo, conan-preset: relwithdebinfo, conan-cxxflags: [ "'-fsanitize=thread'" ], conan-cflags: [ "'-fsanitize=thread'" ], conan-ldflags: [ "'-fsanitize=thread'" ] }
           - { id: relwithdebinfo, conan-name: RelWithDebInfo, conan-preset: relwithdebinfo }
-          - { id: minsizerel, conan-name: MinSizeRel, conan-preset: minsizerel}
+          - { id: minsizerel, conan-name: MinSizeRel, conan-preset: minsizerel }
+        exclude:
+          - compiler: { id: gcc-9 }
+            build-type: { id: relwithdebinfo-tsan }
+          - compiler: { id: gcc-10 }
+            build-type: { id: relwithdebinfo-tsan }
+          - compiler: { id: gcc-11 }
+            build-type: { id: relwithdebinfo-tsan }
+          - compiler: { id: gcc-13 }
+            build-type: { id: relwithdebinfo-tsan }
    
     runs-on: ubuntu-latest
 
@@ -151,7 +161,7 @@ jobs:
       if: |
         matrix.compiler.install && matrix.compiler.name == 'gcc'
 
-    - name: Install Conan 1.x
+    - name: Install the latest version of Conan which is less than 2
       run: |
         pip install "conan<2"
     
@@ -159,17 +169,20 @@ jobs:
       run: |
         cat <<EOF > conan_profile   
         [settings]
-        compiler=${{ matrix.compiler.name }}
-        compiler.version=${{ matrix.compiler.version }}
-        compiler.cppstd=17
+        compiler = ${{ matrix.compiler.name }}
+        compiler.version = ${{ matrix.compiler.version }}
+        compiler.cppstd = 17
         # TODO: Consider testing with LLVM-libc++ also (with clang anyway).
-        compiler.libcxx=libstdc++11
-        arch=x86_64
-        os=Linux
-        build_type=${{ matrix.build-type.conan-name }}
+        compiler.libcxx = libstdc++11
+        arch = x86_64
+        os = Linux
+        build_type = ${{ matrix.build-type.conan-name }}
 
         [conf]
-        tools.build:compiler_executables={"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
+        tools.build:compiler_executables = {"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
+        tools.build:cflags = [ ${{ join(matrix.build-type.conan-cflags) }} ]
+        tools.build:cxxflags = [ ${{ join(matrix.build-type.conan-cxxflags) }} ]
+        tools.build:ldflags = [ ${{ join(matrix.build-type.conan-ldflags) }} ]
         tools.env.virtualenv:auto_use = True 
 
         [buildenv]
@@ -217,7 +230,8 @@ jobs:
           cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-name }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
-          # This needs to return 0 exit-code.
           ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
           echo "Server will print exception due to SIGTERM interruption; that is fine."
           kill `pidof $PWD/net_flow_echo_srv.exec`
+      if: |
+        matrix.build-type.id != 'relwithdebinfo-tsan'
