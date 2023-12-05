@@ -26,9 +26,16 @@ class FlowRecipe(ConanFile):
     
     def configure(self):
         if self.options.build:
+            # Currently need all headers;
+            # plus libs: chrono, filesystem, program_options, thread, timer (and all headers).
+            # (Boost provides the with_* way of specifying it also; the Conan Boost pkg only has without_*.)
+            self.options["boost"].without_atomic = True
+            self.options["boost"].without_container = True
             self.options["boost"].without_context = True
             self.options["boost"].without_contract = True
             self.options["boost"].without_coroutine = True
+            self.options["boost"].without_date_time = True
+            self.options["boost"].without_exception = True
             self.options["boost"].without_fiber = True
             self.options["boost"].without_graph = True
             self.options["boost"].without_graph_parallel = True
