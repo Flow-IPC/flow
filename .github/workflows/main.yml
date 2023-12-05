@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:  
+  workflow_dispatch:
       
 jobs:
   doc:
@@ -31,7 +31,7 @@ jobs:
     - name: Update available software list for apt-get
       run: sudo apt-get update
     
-    - name: Install `flow` dependencies (inc. Graphviz) with apt-get
+    - name: Install Flow dependencies (inc. Graphviz) with apt-get
       run: |
         sudo apt-get install -y graphviz
 
@@ -64,7 +64,7 @@ jobs:
         flow:doc = True
         EOF
     
-    - name: Install `flow` dependencies (inc. Doxygen) with Conan using the profile
+    - name: Install Flow dependencies (inc. Doxygen) with Conan using the profile
       run: |
         conan install \
           . \
@@ -72,10 +72,6 @@ jobs:
           --profile:host=conan_profile \
           --build=missing
     
-    - name: Get the number of processor cores for parallelized work
-      uses: SimenB/github-actions-cpu-cores@v1
-      id: cpu-cores
-
     - name: Prepare Makefile using CMake
       run: |
         cmake \
@@ -83,7 +79,11 @@ jobs:
           -DCFG_ENABLE_DOC_GEN=ON \
           -DCFG_SKIP_CODE_GEN=ON
     
-    - name: Create Doxygen documentation with Makefile
+    - name: Get the number of processor cores for parallelized work
+      uses: SimenB/github-actions-cpu-cores@v1
+      id: cpu-cores
+
+    - name: Doxygen-generate documentation sets using Makefile
       run: |
         VERBOSE=1 make \
           flow_doc_public \
@@ -91,13 +91,17 @@ jobs:
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Upload Doxygen documentation
+    - name: Package doc tarball [Doxygen documentation sets (full, API-only), landing page]
+      run: |
+        cd $GITHUB_WORKSPACE/doc/flow_doc
+        $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}
+
+    - name: Upload documentation tarball
       uses: actions/upload-artifact@v3
       with:
-        name: doxygen-doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
+        name: flow-doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
         path: |
-          ${{ github.workspace }}/build/${{ matrix.build-type.conan-name }}/html_flow_doc_public/**/* 
-          ${{ github.workspace }}/build/${{ matrix.build-type.conan-name }}/html_flow_doc_full/**/*    
+          ${{ github.workspace }}/doc/flow_doc.tgz
   
   build:
     strategy:
@@ -177,7 +181,7 @@ jobs:
         flow:doc = False
         EOF
     
-    - name: Install `flow` dependencies with Conan using the profile
+    - name: Install Flow dependencies with Conan using the profile
       run: |
         conan install \
           . \
@@ -189,6 +193,7 @@ jobs:
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
+    # TODO: It seems unusual to place install-prefix inside build-prefix.
     - name: Prepare Makefile using CMake
       run: |
         cat $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/generators/conan_toolchain.cmake

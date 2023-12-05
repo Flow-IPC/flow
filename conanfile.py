@@ -56,7 +56,6 @@ class FlowRecipe(ConanFile):
     def requirements(self):
         if self.options.build:
             self.requires("boost/1.83.0")
-            self.requires("capnproto/1.0.1")
     
     def build_requirements(self):
         if self.options.doc:
