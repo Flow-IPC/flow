@@ -185,7 +185,7 @@ jobs:
           --profile:host=conan_profile \
           --build=missing
     
-    - name: Get the number of CPU cores for parallelized work
+    - name: Get the number of processor cores for parallelized work
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
@@ -215,7 +215,6 @@ jobs:
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
           # This needs to return 0 exit-code.
-          ./net_flow_echo_cli.exec 1 127.0.01 8888 # "Hello world!"
-          # Server will print exception due to SIGTERM interruption; that is fine.
+          ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
+          echo "Server will print exception due to SIGTERM interruption; that is fine."
           kill `pidof $PWD/net_flow_echo_srv.exec`
-
