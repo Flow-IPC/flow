@@ -26,7 +26,7 @@ jobs:
           - { id: release, conan-name: Release, conan-preset: release }
 
     runs-on:
-      group: ubuntu-latest-m
+      group: default-larger-runners
 
 #if: !github.event.inputs.large
 
