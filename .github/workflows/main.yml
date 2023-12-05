@@ -208,7 +208,7 @@ jobs:
           --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Run demo/test: NetFlow echo
+    - name: Run demo/test [NetFlow echo]
       run: |
           cd $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
