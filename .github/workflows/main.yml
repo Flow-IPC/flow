@@ -83,7 +83,7 @@ jobs:
           -DCFG_ENABLE_DOC_GEN=ON \
           -DCFG_SKIP_CODE_GEN=ON
     
-    - name: Create Doxygen documentation with Makefile
+    - name: Doxygen-generate documentation sets using Makefile
       run: |
         VERBOSE=1 make \
           flow_doc_public \
