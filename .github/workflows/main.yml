@@ -193,13 +193,11 @@ jobs:
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
-    # TODO: It seems unusual to place install-prefix inside build-prefix.
     - name: Prepare Makefile using CMake
       run: |
-        cat $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/generators/conan_toolchain.cmake
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
-          -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install
+          -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-name }}
 
     - name: Build targets (library, demos/tests) with Makefile
       run: |
@@ -216,7 +214,7 @@ jobs:
 
     - name: Run demo/test [NetFlow echo]
       run: |
-          cd $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}/install/bin/
+          cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-name }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
           # This needs to return 0 exit-code.
