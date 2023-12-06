@@ -199,7 +199,7 @@ jobs:
       build-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
     
     steps:   
-    - name: Checkout `flow` repository
+    - name: Checkout Flow repository
       uses: actions/checkout@v4
     
     - name: Update available software list for apt-get
