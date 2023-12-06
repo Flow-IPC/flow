@@ -71,7 +71,7 @@ jobs:
           . \
           --profile:build=conan_profile \
           --profile:host=conan_profile \
-          --build=missing
+          --build missing
     
     - name: Prepare Makefile using CMake
       run: |
