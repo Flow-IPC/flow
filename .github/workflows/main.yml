@@ -23,7 +23,7 @@ jobs:
             cpp-path: /usr/bin/clang++-15   
         build-type:
           - id: release
-            conan-name: Release
+            conan-build-type: Release
             conan-preset: release 
           
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
         compiler.libcxx = libstdc++11
         arch = x86_64
         os = Linux
-        build_type = ${{ matrix.build-type.conan-name }}
+        build_type = ${{ matrix.build-type.conan-build-type }}
 
         [conf]
         tools.build:compiler_executables = { "c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}" }
@@ -86,22 +86,22 @@ jobs:
           -DCFG_ENABLE_DOC_GEN=ON \
           -DCFG_SKIP_CODE_GEN=ON
     
-    - name: Get the number of processor cores for parallelized work
+    - name: Get the number of processor cores to generate documentation in parallel
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
-    - name: Generate code documentation using Makefile and Doxygen
+    - name: Generate code documentation (full and API-only) using Makefile and Doxygen
       run: |
         VERBOSE=1 make \
           flow_doc_public \
           flow_doc_full \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
+          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Package documentation tarball [Doxygen documentation sets (full, API-only), landing page]
+    - name: Package documentation tarball [full, API-only and landing page]
       run: |
         cd $GITHUB_WORKSPACE/doc/flow_doc
-        $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }}
+        $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }}
 
     - name: Upload documentation tarball
       uses: actions/upload-artifact@v3
@@ -159,13 +159,13 @@ jobs:
             install: True     
         build-type:
           - id: debug
-            conan-name: Debug
+            conan-build-type: Debug
             conan-preset: debug       
           - id: release
-            conan-name: Release
+            conan-build-type: Release
             conan-preset: release    
           - id: relwithdebinfo-tsan 
-            conan-name: RelWithDebInfo
+            conan-build-type: RelWithDebInfo
             conan-preset: relwithdebinfo
             conan-custom-settings: |
               data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined-behavior']
@@ -177,10 +177,10 @@ jobs:
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
           - id: relwithdebinfo
-            conan-name: RelWithDebInfo
+            conan-build-type: RelWithDebInfo
             conan-preset: relwithdebinfo      
           - id: minsizerel
-            conan-name: MinSizeRel
+            conan-build-type: MinSizeRel
             conan-preset: minsizerel
             
         exclude:
@@ -213,7 +213,7 @@ jobs:
       if: |
         matrix.compiler.install && matrix.compiler.name == 'clang'
   
-    - name: Install gcc compiler
+    - name: Install GCC compiler
       run: |
         sudo apt-get install -y software-properties-common
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -260,7 +260,7 @@ jobs:
         compiler.libcxx = libstdc++11
         arch = x86_64
         os = Linux
-        build_type = ${{ matrix.build-type.conan-name }}
+        build_type = ${{ matrix.build-type.conan-build-type }}
         ${{ matrix.build-type.conan-profile-custom-settings }}
         
         [conf]
@@ -285,7 +285,7 @@ jobs:
           --profile:host conan_profile \
           --build missing
     
-    - name: Get the number of processor cores for parallelized work
+    - name: Get the number of processor cores to enable parallelization when working with Makefile
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
@@ -293,24 +293,24 @@ jobs:
       run: |
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
-          -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-name }}
+          -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}
 
-    - name: Build targets (library, demos/tests) with Makefile
+    - name: Build library and demos/tests with Makefile
       run: |
         VERBOSE=1 make \
           --keep-going \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
+          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Install targets with Makefile
+    - name: Install library and demos/tests with Makefile
       run: |
         VERBOSE=1 make install \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-name }} \
+          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
           -j${{ steps.cpu-cores.outputs.count }}
 
-    - name: Run demo/test [NetFlow echo]
+    - name: Run 'NetFlow echo' demo/test
       run: |
-          cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-name }}/bin/
+          cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
           ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
