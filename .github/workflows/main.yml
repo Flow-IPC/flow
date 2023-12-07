@@ -177,7 +177,7 @@ jobs:
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
             before-each-test: |
-              TSAN_OPTIONS="suppressions=$GITHUB_WORKSPACE/tsan_suppressions.cfg second_deadlock_stack=1"
+              export TSAN_OPTIONS="suppressions=$GITHUB_WORKSPACE/tsan_suppressions.cfg second_deadlock_stack=1"
           #- id: relwithdebinfo
           #  conan-build-type: RelWithDebInfo
           #  conan-preset: relwithdebinfo      
@@ -312,6 +312,7 @@ jobs:
 
     - name: Run 'NetFlow echo' demo/test
       run: |
+          ${{ matrix.build-type.before-each-test }}
           cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
