@@ -314,5 +314,3 @@ jobs:
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
           ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
-      if: |
-        matrix.build-type.id != 'relwithdebinfo-tsan'
