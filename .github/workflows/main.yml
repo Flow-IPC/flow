@@ -158,12 +158,12 @@ jobs:
             cpp-path: /usr/bin/clang++-17
             install: True     
         build-type:
-          - id: debug
-            conan-build-type: Debug
-            conan-preset: debug       
-          - id: release
-            conan-build-type: Release
-            conan-preset: release    
+          #- id: debug
+          #  conan-build-type: Debug
+          #  conan-preset: debug       
+          #- id: release
+          #  conan-build-type: Release
+          #  conan-preset: release    
           - id: relwithdebinfo-tsan 
             conan-build-type: RelWithDebInfo
             conan-preset: relwithdebinfo
@@ -176,12 +176,12 @@ jobs:
               tools.build:ldflags = [ "-fsanitize=thread" ]
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
-          - id: relwithdebinfo
-            conan-build-type: RelWithDebInfo
-            conan-preset: relwithdebinfo      
-          - id: minsizerel
-            conan-build-type: MinSizeRel
-            conan-preset: minsizerel
+          #- id: relwithdebinfo
+          #  conan-build-type: RelWithDebInfo
+          #  conan-preset: relwithdebinfo      
+          #- id: minsizerel
+          #  conan-build-type: MinSizeRel
+          #  conan-preset: minsizerel
             
         exclude:
           - compiler:  { id: gcc-9 }
@@ -257,7 +257,7 @@ jobs:
         compiler.version = ${{ matrix.compiler.version }}
         compiler.cppstd = 17
         # TODO: Consider testing with LLVM-libc++ also (with clang anyway).
-        compiler.libcxx = libstdc++11
+        compiler.libcxx = libc++
         arch = x86_64
         os = Linux
         build_type = ${{ matrix.build-type.conan-build-type }}
