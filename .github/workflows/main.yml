@@ -230,8 +230,7 @@ jobs:
     
     - name: Add custom settings for Conan packages
       run: |
-        # HACK: Trigger creation of default settings.yml:
-        conan info --build -- $GITHUB_WORKSPACE
+        conan config init
         
         pip install PyYAML
 
