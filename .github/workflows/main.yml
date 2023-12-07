@@ -176,6 +176,8 @@ jobs:
               tools.build:ldflags = [ "-fsanitize=thread" ]
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
+            before-each-test: |
+              TSAN_OPTIONS="suppressions=$GITHUB_WORKSPACE/tsan_suppressions.cfg second_deadlock_stack=1"
           #- id: relwithdebinfo
           #  conan-build-type: RelWithDebInfo
           #  conan-preset: relwithdebinfo      
