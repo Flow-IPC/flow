@@ -257,7 +257,7 @@ jobs:
         compiler.version = ${{ matrix.compiler.version }}
         compiler.cppstd = 17
         # TODO: Consider testing with LLVM-libc++ also (with clang anyway).
-        compiler.libcxx = libc++
+        compiler.libcxx = libstdc++11
         arch = x86_64
         os = Linux
         build_type = ${{ matrix.build-type.conan-build-type }}
