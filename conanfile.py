@@ -7,7 +7,8 @@ class FlowRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     
     generators = (
-        "CMakeToolchain"
+        "CMakeToolchain",
+        Virtualenv
     )
 
     tool_requires = (
@@ -69,3 +70,6 @@ class FlowRecipe(ConanFile):
         if self.options.doc:
             cmake.build_context_activated = ["doxygen/1.9.4"]
         cmake.generate()
+        
+    def package_info(self):
+        self.env_info.path.append(os.path.join(self.package_folder, "bin"))
