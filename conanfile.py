@@ -8,7 +8,7 @@ class FlowRecipe(ConanFile):
     
     generators = (
         "CMakeToolchain",
-        Virtualenv
+        "Virtualenv"
     )
 
     tool_requires = (
