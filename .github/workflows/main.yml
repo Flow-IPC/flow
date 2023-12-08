@@ -208,21 +208,21 @@ jobs:
       run: sudo apt-get update
     
     - name: Install clang compiler
+      if: |
+        matrix.compiler.install && matrix.compiler.name == 'clang'
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod u+x llvm.sh
         sudo ./llvm.sh ${{ matrix.compiler.version }}
-      if: |
-        matrix.compiler.install && matrix.compiler.name == 'clang'
   
     - name: Install GCC compiler
+      if: |
+        matrix.compiler.install && matrix.compiler.name == 'gcc'
       run: |
         sudo apt-get install -y software-properties-common
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
         sudo apt-get update
         sudo apt-get install -y gcc-${{ matrix.compiler.version }} g++-${{ matrix.compiler.version }}
-      if: |
-        matrix.compiler.install && matrix.compiler.name == 'gcc'
 
     - name: Install the latest version of Conan which is less than 2
       run: |
