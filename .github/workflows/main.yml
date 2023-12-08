@@ -267,6 +267,7 @@ jobs:
         
         [conf]
         tools.build:compiler_executables = {"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
+        tools.env.virtualenv:auto_use = True
         ${{ matrix.build-type.conan-profile-custom-conf }}
 
         [buildenv]
@@ -292,6 +293,8 @@ jobs:
 
     - name: Prepare Makefile using CMake
       run: |
+        source activate.sh
+        cmake --version
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
           -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}
