@@ -292,6 +292,7 @@ jobs:
 
     - name: Prepare Makefile using CMake
       run: |
+        source activate.sh
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
           -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}
