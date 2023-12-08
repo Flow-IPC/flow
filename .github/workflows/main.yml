@@ -174,6 +174,8 @@ jobs:
               tools.build:cflags = [ "-fsanitize=thread" ]
               tools.build:cxxflags = [ "-fsanitize=thread" ]
               tools.build:sharedlinkflags = [ "-fsanitize=thread" ]
+              tools.build:staticlinkflags = [ "-fsanitize=thread" ]
+              tools.build:exelinkflags = [ "-fsanitize=thread" ]
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
             before-each-test: |
