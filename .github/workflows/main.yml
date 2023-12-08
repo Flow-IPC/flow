@@ -81,6 +81,7 @@ jobs:
     
     - name: Prepare Makefile using CMake
       run: |
+        source activate.sh
         cmake \
           --preset ${{ matrix.build-type.conan-preset }} \
           -DCFG_ENABLE_DOC_GEN=ON \
