@@ -7,8 +7,7 @@ class FlowRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     
     generators = (
-        "CMakeToolchain",
-        "virtualenv"
+        "CMakeToolchain"
     )
 
     tool_requires = (
