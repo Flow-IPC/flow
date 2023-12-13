@@ -200,6 +200,10 @@ jobs:
 
     name: |
       build-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
+
+    env: 
+      before_each_test: |
+        export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}"
     
     steps:   
     - name: Checkout Flow repository
@@ -312,7 +316,7 @@ jobs:
 
     - name: Run 'NetFlow echo' demo/test
       run: |
-          ${{ matrix.build-type.before-each-test }}
+          ${{ matrix.build-type.before_each_test }}
           cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
