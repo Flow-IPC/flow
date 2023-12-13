@@ -316,7 +316,7 @@ jobs:
 
     - name: Run 'NetFlow echo' demo/test
       run: |
-          ${{ matrix.build-type.before_each_test }}
+          ${{ env.before_each_test }}
           cd $GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}/bin/
           ./net_flow_echo_srv.exec 8888 localhost & 
           sleep 1
