@@ -203,7 +203,7 @@ jobs:
 
     env: 
       before_each_test: |
-        export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}"
+        export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg"
     
     steps:   
     - name: Checkout Flow repository
