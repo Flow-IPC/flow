@@ -85,7 +85,7 @@ jobs:
 
     - name: Create documentation tarball (full, API-only, landing page)
       run: |
-        cd $GITHUB_WORKSPACE/doc/ipc_doc
+        cd $GITHUB_WORKSPACE/doc/flow_doc
         $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-config.conan-profile-build-type }}
 
          # Save runner space.
@@ -94,7 +94,7 @@ jobs:
     - name: Upload documentation tarball
       uses: actions/upload-artifact@v3
       with:
-        name: ipc-doc-${{ matrix.compiler.id }}-${{ matrix.build-config.id }}
+        name: flow-doc-${{ matrix.compiler.id }}-${{ matrix.build-config.id }}
         path: |
           ${{ github.workspace }}/doc/flow_doc.tgz
   
