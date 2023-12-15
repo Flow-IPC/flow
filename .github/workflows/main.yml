@@ -86,17 +86,9 @@ jobs:
           -DCFG_ENABLE_DOC_GEN=ON \
           -DCFG_SKIP_CODE_GEN=ON
     
-    - name: Get the number of processor cores to generate documentation in parallel
-      uses: SimenB/github-actions-cpu-cores@v1
-      id: cpu-cores
-
-    - name: Generate code documentation (full and API-only) using Makefile and Doxygen
+    - name: Generate code documentation using Conan and Doxygen
       run: |
-        VERBOSE=1 make \
-          flow_doc_public \
-          flow_doc_full \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
-          -j${{ steps.cpu-cores.outputs.count }}
+        conan build .
 
     - name: Package documentation tarball [full, API-only and landing page]
       run: |
@@ -297,24 +289,15 @@ jobs:
       uses: SimenB/github-actions-cpu-cores@v1
       id: cpu-cores
 
-    - name: Prepare Makefile using CMake
+    - name: Build library and demos/tests with Conan
       run: |
-        cmake \
-          --preset ${{ matrix.build-type.conan-preset }} \
-          -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install/${{ matrix.build-type.conan-build-type }}
+        conan build .
 
-    - name: Build library and demos/tests with Makefile
-      run: |
-        VERBOSE=1 make \
-          --keep-going \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
-          -j${{ steps.cpu-cores.outputs.count }}
-
-    - name: Install library and demos/tests with Makefile
+    - name: Install targets with Makefile
       run: |
         VERBOSE=1 make install \
-          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-type.conan-build-type }} \
-          -j${{ steps.cpu-cores.outputs.count }}
+          --directory $GITHUB_WORKSPACE/build/${{ matrix.build-and-test-config.conan-profile-build-type }} \
+          DESTDIR=${{ github.workspace }}/install/${{ matrix.build-and-test-config.conan-profile-build-type }}
 
     - name: Run 'NetFlow echo' demo/test
       run: |
