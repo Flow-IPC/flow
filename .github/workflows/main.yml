@@ -285,10 +285,6 @@ jobs:
           --profile:host conan_profile \
           --build missing
     
-    - name: Get the number of processor cores to enable parallelization when working with Makefile
-      uses: SimenB/github-actions-cpu-cores@v1
-      id: cpu-cores
-
     - name: Build library and demos/tests with Conan
       run: |
         conan build .
