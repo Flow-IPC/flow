@@ -203,8 +203,10 @@ jobs:
 
     env: 
       before_each_test: |
-        export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg"
-    
+        if [ "${{ matrix.build-type.id }}" = relwithdebinfo-tsan ]; then
+          export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg"
+        fi
+        
     steps:   
     - name: Checkout Flow repository
       uses: actions/checkout@v4
