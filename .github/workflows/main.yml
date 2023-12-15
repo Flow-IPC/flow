@@ -56,7 +56,7 @@ jobs:
         compiler.libcxx = libstdc++11
         arch = x86_64
         os = Linux
-        build_type = ${{ matrix.build-type.conan-build-type }}
+        build_type = ${{ matrix.build-config.conan-profile-build-type }}
 
         [conf]
         tools.build:compiler_executables = { "c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}" }
@@ -230,7 +230,7 @@ jobs:
         with open('$CONAN_SETTINGS_PATH', 'r') as file:
           data = yaml.safe_load(file)
         
-        ${{ matrix.build-type.conan-custom-settings }}
+        ${{ matrix.build-and-test-config.conan-custom-package-settings }}
       
         with open('$CONAN_SETTINGS_PATH', 'w') as file:
           yaml.dump(data, file)
@@ -249,13 +249,13 @@ jobs:
         compiler.libcxx = libstdc++11
         arch = x86_64
         os = Linux
-        build_type = ${{ matrix.build-type.conan-build-type }}
-        ${{ matrix.build-type.conan-profile-custom-settings }}
+        build_type = ${{ matrix.build-and-test-config.conan-profile-build-type }}
+        ${{ matrix.build-and-test-config.conan-profile-custom-settings }}
         
         [conf]
         tools.build:compiler_executables = {"c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}"}
         tools.env.virtualenv:auto_use = True
-        ${{ matrix.build-type.conan-profile-custom-conf }}
+        ${{ matrix.build-and-test-config.conan-profile-custom-conf }}
 
         [buildenv]
         CC = ${{ matrix.compiler.c-path }}
