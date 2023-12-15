@@ -83,7 +83,7 @@ jobs:
       run: |
         conan build .
 
-    - name: Create documentation tarball [full, API-only, landing page]
+    - name: Create documentation tarball (full, API-only, landing page)
       run: |
         cd $GITHUB_WORKSPACE/doc/ipc_doc
         $GITHUB_WORKSPACE/tools/doc/stage_generated_docs.sh $GITHUB_WORKSPACE/build/${{ matrix.build-config.conan-profile-build-type }}
