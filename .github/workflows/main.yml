@@ -236,7 +236,7 @@ jobs:
           yaml.dump(data, file)
         "
       if: |
-        matrix.build-type.conan-custom-settings
+        matrix.build-and-test-config.conan-custom-package-settings
         
     - name: Create Conan profile
       run: |
