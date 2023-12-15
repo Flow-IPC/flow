@@ -159,7 +159,7 @@ jobs:
               tools.build:exelinkflags = [ "-fsanitize=thread" ]
             conan-profile-custom-settings: |
               compiler.sanitizer = thread   
-            conan-custom-package-settings: |
+            conan-custom-settings-definitions: |
               data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined-behavior']
               data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined-behavior']
           - id: relwithdebinfo
@@ -230,13 +230,13 @@ jobs:
         with open('$CONAN_SETTINGS_PATH', 'r') as file:
           data = yaml.safe_load(file)
         
-        ${{ matrix.build-and-test-config.conan-custom-package-settings }}
+        ${{ matrix.build-and-test-config.conan-custom-settings-definitions }}
       
         with open('$CONAN_SETTINGS_PATH', 'w') as file:
           yaml.dump(data, file)
         "
       if: |
-        matrix.build-and-test-config.conan-custom-package-settings
+        matrix.build-and-test-config.conan-custom-settings-definitions
         
     - name: Create Conan profile
       run: |
