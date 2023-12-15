@@ -1,18 +1,9 @@
 from conan import ConanFile
-from conan.tools.cmake import cmake_layout, CMakeDeps
+from conan.tools.cmake import CMake, cmake_layout, CMakeDeps, CMakeToolchain
 
 class FlowRecipe(ConanFile):
-    name = "flow"
-    
+    name = "flow"   
     settings = "os", "compiler", "build_type", "arch"
-    
-    generators = (
-        "CMakeToolchain"
-    )
-
-    tool_requires = (
-        "cmake/3.26.3", 
-    )
 
     options = {
         "build": [True, False], 
@@ -53,19 +44,44 @@ class FlowRecipe(ConanFile):
             self.options["boost"].without_url = True
             self.options["boost"].without_wave = True
 
+    def generate(self):
+        cmake = CMakeDeps(self)
+        if self.options.doc:
+            cmake.build_context_activated = ["doxygen/1.9.4"]      
+        cmake.generate()
+
+        toolchain = CMakeToolchain(self)
+        if self.options.doc:
+            toolchain.variables["CFG_ENABLE_DOC_GEN"] = "ON"
+            toolchain.variables["CFG_SKIP_CODE_GEN"] = "ON"
+        toolchain.generate()
+    
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+
+        # Cannot use cmake.build(...) because not possible to pass make arguments like --keep-going.
+        if self.options.build:
+            self.run("cmake --build . -- --keep-going VERBOSE=1")
+        if self.options.doc:
+            self.run("cmake --build . -- flow_doc_public flow_doc_full --keep-going VERBOSE=1")
+    
     def requirements(self):
         if self.options.build:
             self.requires("boost/1.83.0")
     
     def build_requirements(self):
+        self.tool_requires("cmake/3.26.3")
         if self.options.doc:
             self.tool_requires("doxygen/1.9.4")
-            
+
+    def package(self):
+        cmake = CMake(self)
+        cmake.install()
+
     def layout(self):
         cmake_layout(self)
 
-    def generate(self):
-        cmake = CMakeDeps(self)
-        if self.options.doc:
-            cmake.build_context_activated = ["doxygen/1.9.4"]
-        cmake.generate()
+            
+    def layout(self):
+        cmake_layout(self)
