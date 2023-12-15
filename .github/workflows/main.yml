@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     name: |
-      doc-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
+      doc-${{ matrix.compiler.id }}-${{ matrix.build-config.id }}
     
     steps:   
     - name: Checkout Flow repository
@@ -180,7 +180,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     name: |
-      build-${{ matrix.compiler.id }}-${{ matrix.build-type.id }}
+      build-${{ matrix.compiler.id }}-${{ matrix.build-and-test-config.id }}
 
     env: 
       setup-tests-env: |
