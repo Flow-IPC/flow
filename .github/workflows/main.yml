@@ -185,7 +185,7 @@ jobs:
     env: 
       setup-tests-env: |
         if [ "${{ matrix.build-and-test-config.id }}" = relwithdebinfo-tsan ]; then
-          export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/tsan_suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg"
+          export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=${{ github.workspace }}/src/sanitize/tsan/suppressions_${{ matrix.compiler.name }}.cfg"
         fi
         
     steps:   
