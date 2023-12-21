@@ -270,8 +270,7 @@ jobs:
 
     runs-on: ubuntu-22.04
 
-    name: |
-      doc-${{ matrix.compiler.id }}-${{ matrix.build-cfg.id }}
+    name: doc
 
     steps:
     - name: Update available software list for apt-get
