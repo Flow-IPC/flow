@@ -1224,7 +1224,7 @@ struct Ack_packet::Individual_ack
  * array of these `struct`s and transmit that entire array over the network with no need for scatter/gather
  * or any additional transformation of data post-construction and pushing onto aforementioned array.
  * These are copy-constructible, for pushing onto containers and such, but not assignable to avoid unnecessary
- * copying.  Update: A later version of `clang` does not like
+ * copying.  Update: A later version of clang does not like
  * this technique and warns about it; to avoid any such trouble just forget the non-assignability stuff;
  * it's internal code; we should be fine.
  *

@@ -3785,7 +3785,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
 
 void Node::snd_flying_pkts_erase_one(Peer_socket::Ptr sock, Peer_socket::Sent_pkt_ordered_by_when_iter pkt_it)
 {
-  // using boost::next; // Still ambiguous for some reason (a clang at least).
+  // using boost::next; // Still ambiguous for some reason (in clang at least).
 
   auto const logger_ptr = get_logger();
   if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, get_log_component()))
@@ -3826,7 +3826,7 @@ void Node::snd_flying_pkts_push_one(Peer_socket::Ptr sock,
 {
   using std::pair;
   using std::make_pair;
-  // using boost::next; // Still ambiguous for some reason (a clang at least).
+  // using boost::next; // Still ambiguous for some reason (in clang at least).
 
   // For brevity and a bit of speed:
   auto& snd_flying_pkts_by_when = sock->m_snd_flying_pkts_by_sent_when;

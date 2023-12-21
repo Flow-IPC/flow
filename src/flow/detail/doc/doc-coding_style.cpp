@@ -1239,11 +1239,16 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
  * So we've made the call to go with known positives and to deal with the negative if or when necessary in practive.
  * Since LTO exists in the compilers we use, we know the path to take when/if needed.
  *
+ * Update: Now that Flow is an open-source project with a nice CI/CD pipeline, we auto-test with a number of modern
+ * clang and gcc versions; all of them support LTO; and this support works just fine.  Hence the above objection
+ * to the tune of "uneven" compiler support is no longer accurate; the support is quite good and even.
+ *
  * To summarize, some may see this as a controversial rule.  We can iterate on this if someone feels strongly the
  * above logic does not stand up to scrutiny.  In terms of my (ygoldfel) experiences, which span now almost a decade,
  * the lack of full-on inlining has not been a practical perf issue.  It is even quite possible that the gains from
  * letting the compiler decide (`gcc -O3`) instead of the human constantly having to make the judgment call about what
- * to inline (`gcc -O2` + explicit inlining by dev) exceed the losses from LTO not being in effect yet.] */
+ * to inline (`gcc -O2` + explicit inlining by dev) exceed the losses from LTO not being in effect yet.  Update:
+ * with widespread LTO support in all modern gcc and clang compilers this complaint is mitigated/eliminated.] */
 
 // -- BEST PRACTICES: Doxygen doc header deep-dive --
 

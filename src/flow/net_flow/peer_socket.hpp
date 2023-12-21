@@ -2275,7 +2275,7 @@ struct Peer_socket::Sent_packet :
  *
  * Data store to keep timing related info when a packet is sent out.  Construct via direct member initialization.
  * It is copy-constructible (for initially copying into containers and such) but not assignable to discourage
- * unneeded copying (though it is not a heavy structure).  Update: A later version of `clang` does not like
+ * unneeded copying (though it is not a heavy structure).  Update: A later version of clang does not like
  * this technique and warns about it; to avoid any such trouble just forget the non-assignability stuff;
  * it's internal code; we should be fine.
  */
