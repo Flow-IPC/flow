@@ -70,21 +70,80 @@ jobs:
             conan-profile-build-type: RelWithDebInfo
           - id: minsizerel
             conan-profile-build-type: MinSizeRel
+          # The sanitized (-*san) build/test configs follow.  Here we follow Flow-IPC workflow counterpart.
+          # This can be a non-trivial topic -- though by definition Flow's situation is simpler than Flow-IPC's,
+          # as the latter includes the former entirely -- so if changing or trying to understand sanitizer-related
+          # stuff, *please* check the Flow-IPC workflow counterpart file, particularly comments near each thing.
+          # Keeping comments here light.
+          #
+          # Note that, as of this writing, MSAN support is present in Flow-IPC workflow counterpart but is disabled
+          # for reasons explained therein.  We therefore omit it here entirely; no need to have it taking up space here
+          # too.
+          - id: relwithdebinfo-asan
+            conan-profile-build-type: RelWithDebInfo
+            conan-profile-custom-conf: |
+              tools.build:cflags = ["-fsanitize=address", "-fno-omit-frame-pointer"]
+              tools.build:cxxflags = ["-fsanitize=address", "-fno-omit-frame-pointer"]
+              tools.build:sharedlinkflags = ["-fsanitize=address"]
+              tools.build:exelinkflags = ["-fsanitize=address"]
+            conan-profile-custom-settings: |
+              compiler.sanitizer = address
+            conan-custom-settings-defs: | # Could we not copy/paste these 4x?
+              data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+              data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+            sanitizer-name: asan
+            no-lto: True
+          - id: relwithdebinfo-ubsan
+            conan-profile-build-type: RelWithDebInfo
+            conan-profile-custom-conf: |
+              tools.build:cflags = ["-fsanitize=undefined", "-fno-omit-frame-pointer"]
+              tools.build:cxxflags = ["-fsanitize=undefined", "-fno-omit-frame-pointer"]
+              tools.build:sharedlinkflags = ["-fsanitize=undefined"]
+              tools.build:exelinkflags = ["-fsanitize=undefined"]
+            conan-profile-custom-settings: |
+              compiler.sanitizer = undefined
+            conan-custom-settings-defs: |
+              data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+              data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+            sanitizer-name: ubsan
+            no-lto: True
           - id: relwithdebinfo-tsan
             conan-profile-build-type: RelWithDebInfo
             conan-profile-custom-conf: |
-              tools.build:cflags = [ "-fsanitize=thread" ]
-              tools.build:cxxflags = [ "-fsanitize=thread" ]
-              tools.build:sharedlinkflags = [ "-fsanitize=thread" ]
-              tools.build:exelinkflags = [ "-fsanitize=thread" ]
+              tools.build:cflags = ["-fsanitize=thread"]
+              tools.build:cxxflags = ["-fsanitize=thread"]
+              tools.build:sharedlinkflags = ["-fsanitize=thread"]
+              tools.build:exelinkflags = ["-fsanitize=thread"]
             conan-profile-custom-settings: |
               compiler.sanitizer = thread
             conan-custom-settings-defs: |
               data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
               data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
             sanitizer-name: tsan
+            no-lto: True
 
+        # Again, these exclusions are explained in FLow-IPC workflow counterpart.
         exclude:
+          - compiler:  { id: gcc-9 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - compiler:  { id: gcc-10 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - compiler:  { id: gcc-11 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - compiler:  { id: gcc-13 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - compiler:  { id: clang-13 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - compiler:  { id: gcc-9 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - compiler:  { id: gcc-10 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - compiler:  { id: gcc-11 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - compiler:  { id: gcc-13 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - compiler:  { id: clang-13 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
           - compiler:  { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           - compiler:  { id: gcc-10 }
@@ -92,6 +151,8 @@ jobs:
           - compiler:  { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           - compiler:  { id: gcc-13 }
+            build-test-cfg: { id: relwithdebinfo-tsan }
+          - compiler:  { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
 
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
@@ -109,7 +170,15 @@ jobs:
       san-suppress-cfg-in-file1: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}.cfg
       san-suppress-cfg-in-file2: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg
       setup-tests-env: |
-        if [ "${{ matrix.build-test-cfg.sanitizer-name }}" = tsan ]; then
+        if [ "${{ matrix.build-test-cfg.sanitizer-name }}" = asan ]; then
+          export ASAN_OPTIONS='disable_coredump=0'
+          echo "ASAN_OPTIONS = [$ASAN_OPTIONS]."
+        elif [ "${{ matrix.build-test-cfg.sanitizer-name }}" = ubsan ]; then
+          export SAN_SUPP=1
+          export SAN_SUPP_CFG=${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
+          export UBSAN_OPTIONS="disable_coredump=0 print_stacktrace=1 suppressions=$SAN_SUPP_CFG"
+          echo "UBSAN_OPTIONS = [$UBSAN_OPTIONS]."
+        elif [ "${{ matrix.build-test-cfg.sanitizer-name }}" = tsan ]; then
           export SAN_SUPP=1
           export SAN_SUPP_CFG=${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
           export TSAN_OPTIONS="disable_coredump=0 second_deadlock_stack=1 suppressions=$SAN_SUPP_CFG"
@@ -239,6 +308,25 @@ jobs:
         echo "Server will print exception due to SIGTERM interruption; that is fine."
         kill `pidof $PWD/net_flow_echo_srv.exec`
 
+    - name: Check test/demo logs for non-fatal sanitizer error(s)
+      if: (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
+      run: |
+        cd ${{ env.install-dir }}/bin/logs
+        # grep returns 0 if 1+ found, 1 if none found, 2+ on error.  So check results explicitly instead of -e.
+        # Namely, for us, the only OK result is an empty stdout and empty stderr.
+        # Otherwise either grep failed (unlikely) or found 1+ problems; either way redirection target will
+        # be not-empty, and we will force failure.
+        { grep 'SUMMARY: UndefinedBehaviorSanitizer:' `find . -type f` > san_failure_summaries.txt 2>&1; } || true
+        if [ -s san_failure_summaries.txt ]; then
+          echo 'Error(s) found.  Pipeline will fail.  Failures summarized below.'
+          echo 'Please peruse uploaded log artifacts, resolve the issues, and run pipeline again.'
+          echo '[[[ file--'
+          cat san_failure_summaries.txt
+          echo '--file ]]]'
+          false
+        fi
+        echo 'No errors found in logs.'
+
     - name: Package test/demo logs tarball
       if: always()
       run: |
@@ -258,6 +346,7 @@ jobs:
       fail-fast: false
       matrix:
         compiler:
+          # Pick a reasonably modern but pre-installed compiler for building Doxygen/etc.
           - id: clang-15
             name: clang
             version: 15
