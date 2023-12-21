@@ -200,14 +200,16 @@ jobs:
       run: sudo apt-get update
 
     - name: Install clang compiler
-      if: matrix.compiler.install && (matrix.compiler.name == 'clang')
+      if: |
+        matrix.compiler.install && (matrix.compiler.name == 'clang')
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod u+x llvm.sh
         sudo ./llvm.sh ${{ matrix.compiler.version }}
 
     - name: Install gcc compiler
-      if: matrix.compiler.install && (matrix.compiler.name == 'gcc')
+      if: |
+        matrix.compiler.install && (matrix.compiler.name == 'gcc')
       run: |
         sudo apt-get install -y software-properties-common
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -222,7 +224,8 @@ jobs:
         pip install "conan<2"
 
     - name: Add custom settings for Conan packages
-      if: matrix.build-test-cfg.conan-custom-settings-defs
+      if: |
+        matrix.build-test-cfg.conan-custom-settings-defs
       run: |
         conan config init
         pip install PyYAML
@@ -309,7 +312,8 @@ jobs:
         kill `pidof $PWD/net_flow_echo_srv.exec`
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
-      if: (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
+      if: |
+        (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
       run: |
         cd ${{ env.install-dir }}/bin/logs
         # grep returns 0 if 1+ found, 1 if none found, 2+ on error.  So check results explicitly instead of -e.
@@ -328,14 +332,16 @@ jobs:
         echo 'No errors found in logs.'
 
     - name: Package test/demo logs tarball
-      if: always()
+      if: |
+        always()
       run: |
         cd ${{ env.install-dir }}/bin
         tar cvzf logs.tgz logs
         rm -rf logs # Save runner space.
 
     - name: Upload test/demo logs (please inspect if failure(s) seen above)
-      if: always()
+      if: |
+        always()
       uses: actions/upload-artifact@v3
       with:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
