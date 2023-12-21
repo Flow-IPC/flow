@@ -14,90 +14,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  doc:
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler:
-          - id: clang-15
-            name: clang
-            version: 15
-            c-path: /usr/bin/clang-15
-            cpp-path: /usr/bin/clang++-15
-        build-cfg:
-          - id: release
-            conan-profile-build-type: Release
-            conan-preset: release
-
-    runs-on: ubuntu-22.04
-
-    name: |
-      doc-${{ matrix.compiler.id }}-${{ matrix.build-cfg.id }}
-
-    steps:
-    - name: Update available software list for apt-get
-      run: sudo apt-get update
-
-    - name: Checkout `flow` repository
-      uses: actions/checkout@v4
-
-    - name: Install Flow dependencies (like Graphviz) with apt-get
-      run: |
-        sudo apt-get install -y graphviz
-
-    - name: Install the latest version of Conan which is less than 2
-      run: |
-        pip install "conan<2"
-
-    - name: Create Conan profile
-      run: |
-        cat <<EOF > conan_profile
-        [settings]
-        compiler = ${{ matrix.compiler.name }}
-        compiler.version = ${{ matrix.compiler.version }}
-        compiler.cppstd = 17
-        compiler.libcxx = libstdc++11
-        arch = x86_64
-        os = Linux
-        build_type = ${{ matrix.build-cfg.conan-profile-build-type }}
-
-        [conf]
-        tools.build:compiler_executables = { "c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}" }
-        tools.env.virtualenv:auto_use = True
-
-        [buildenv]
-        CC = ${{ matrix.compiler.c-path }}
-        CXX = ${{ matrix.compiler.cpp-path }}
-
-        [options]
-        flow:build = False
-        flow:doc = True
-        EOF
-
-    - name: Install Flow dependencies (like Doxygen) with Conan using the profile
-      run: |
-        conan install . \
-          --profile:build conan_profile --profile:host conan_profile --build missing
-
-    - name: Generate code documentation using Conan and Doxygen
-      run: |
-        conan build .
-
-    - name: Create documentation tarball (full docs, API-only docs, landing page)
-      run: |
-        cd ${{ github.workspace }}/doc/ipc_doc
-        ${{ github.workspace }}/tools/doc/stage_generated_docs.sh \
-          ${{ github.workspace }}/build/${{ matrix.build-cfg.conan-profile-build-type }}
-        # Save runner space.
-        rm -rf generated
-
-    - name: Upload documentation tarball
-      uses: actions/upload-artifact@v3
-      with:
-        name: flow-doc
-        path: |
-          ${{ github.workspace }}/doc/flow_doc.tgz
-
   build:
     strategy:
       fail-fast: false
@@ -335,5 +251,87 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
-        path: |
-          ${{ env.install-dir }}/bin/logs.tgz
+        path: ${{ env.install-dir }}/bin/logs.tgz
+
+  doc:
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+          - id: clang-15
+            name: clang
+            version: 15
+            c-path: /usr/bin/clang-15
+            cpp-path: /usr/bin/clang++-15
+        build-cfg:
+          - id: release
+            conan-profile-build-type: Release
+            conan-preset: release
+
+    runs-on: ubuntu-22.04
+
+    name: |
+      doc-${{ matrix.compiler.id }}-${{ matrix.build-cfg.id }}
+
+    steps:
+    - name: Update available software list for apt-get
+      run: sudo apt-get update
+
+    - name: Checkout `flow` repository
+      uses: actions/checkout@v4
+
+    - name: Install Flow dependencies (like Graphviz) with apt-get
+      run: |
+        sudo apt-get install -y graphviz
+
+    - name: Install the latest version of Conan which is less than 2
+      run: |
+        pip install "conan<2"
+
+    - name: Create Conan profile
+      run: |
+        cat <<EOF > conan_profile
+        [settings]
+        compiler = ${{ matrix.compiler.name }}
+        compiler.version = ${{ matrix.compiler.version }}
+        compiler.cppstd = 17
+        compiler.libcxx = libstdc++11
+        arch = x86_64
+        os = Linux
+        build_type = ${{ matrix.build-cfg.conan-profile-build-type }}
+
+        [conf]
+        tools.build:compiler_executables = { "c": "${{ matrix.compiler.c-path }}", "cpp": "${{ matrix.compiler.cpp-path }}" }
+        tools.env.virtualenv:auto_use = True
+
+        [buildenv]
+        CC = ${{ matrix.compiler.c-path }}
+        CXX = ${{ matrix.compiler.cpp-path }}
+
+        [options]
+        flow:build = False
+        flow:doc = True
+        EOF
+
+    - name: Install Flow dependencies (like Doxygen) with Conan using the profile
+      run: |
+        conan install . \
+          --profile:build conan_profile --profile:host conan_profile --build missing
+
+    - name: Generate code documentation using Conan and Doxygen
+      run: |
+        conan build .
+
+    - name: Create documentation tarball (full docs, API-only docs, landing page)
+      run: |
+        cd ${{ github.workspace }}/doc/ipc_doc
+        ${{ github.workspace }}/tools/doc/stage_generated_docs.sh \
+          ${{ github.workspace }}/build/${{ matrix.build-cfg.conan-profile-build-type }}
+        # Save runner space.
+        rm -rf generated
+
+    - name: Upload documentation tarball
+      uses: actions/upload-artifact@v3
+      with:
+        name: flow-doc
+        path: ${{ github.workspace }}/doc/flow_doc.tgz
