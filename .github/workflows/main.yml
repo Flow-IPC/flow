@@ -323,7 +323,7 @@ jobs:
 
     - name: Create documentation tarball (full docs, API-only docs, landing page)
       run: |
-        cd ${{ github.workspace }}/doc/ipc_doc
+        cd ${{ github.workspace }}/doc/flow_doc
         ${{ github.workspace }}/tools/doc/stage_generated_docs.sh \
           ${{ github.workspace }}/build/${{ matrix.build-cfg.conan-profile-build-type }}
         # Save runner space.
