@@ -140,8 +140,8 @@ flow_port_t Port_space::reserve_ephemeral_port(Error_code* err_code)
     // Use the top of the queue: the port least recently added to the FIFO.
     port = m_recent_ephemeral_ports.front();
     m_recent_ephemeral_ports.pop();
-    FLOW_LOG_INFO("Ran out of non-recently used and available Net-Flow ports; "
-                  "reserving oldest recently used available Net-Flow port [" << port << "].");
+    FLOW_LOG_INFO("Ran out of non-recently used and available NetFlow ports; "
+                  "reserving oldest recently used available NetFlow port [" << port << "].");
 
     /* Port not being returned => no effect on m_recent_ephemeral_ports.
      * Port changing from recently-used-but available to reserved => still should be 0 to maintain invariant. */
@@ -164,7 +164,7 @@ flow_port_t Port_space::reserve_ephemeral_port(Error_code* err_code)
   else
   {
     err_code->clear();
-    FLOW_LOG_INFO("Net-Flow ephemeral port [" << port << "] reserved.");
+    FLOW_LOG_INFO("NetFlow ephemeral port [" << port << "] reserved.");
   }
 
   FLOW_LOG_TRACE("Available ephemeral port count [" << m_ephemeral_ports.count() << "]; "
@@ -192,7 +192,7 @@ void Port_space::return_port(flow_port_t port, Error_code* err_code)
     m_service_ports.set(port_bit_idx, true);
 
     err_code->clear();
-    FLOW_LOG_INFO("Net-Flow service port [" << port << "] returned.");
+    FLOW_LOG_INFO("NetFlow service port [" << port << "] returned.");
     return;
   } // if (service port)
   // else
@@ -246,7 +246,7 @@ void Port_space::return_port(flow_port_t port, Error_code* err_code)
     }
 
     err_code->clear();
-    FLOW_LOG_INFO("Net-Flow ephemeral port [" << port << "] returned.");
+    FLOW_LOG_INFO("NetFlow ephemeral port [" << port << "] returned.");
     FLOW_LOG_TRACE("Available ephemeral port count [" << m_ephemeral_ports.count() << "]; "
                    "recently used ephemeral port count [" << m_recent_ephemeral_ports.size() << "].");
     return;

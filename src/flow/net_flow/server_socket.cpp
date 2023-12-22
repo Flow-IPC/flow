@@ -269,7 +269,7 @@ void Node::listen_worker(flow_port_t local_port, const Peer_socket_options* chil
   // else
   local_port = serv->m_local_port; // If they'd specified S_PORT_ANY, this is now a random port.
 
-  FLOW_LOG_INFO("Net-Flow worker thread listening for passive-connects on [" << serv << "].");
+  FLOW_LOG_INFO("NetFlow worker thread listening for passive-connects on [" << serv << "].");
 
   if (util::key_exists(m_servs, local_port))
   {
@@ -469,7 +469,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   sock->m_active_connect = false;
   sock->m_node = this;
   sock_set_state(sock, Peer_socket::State::S_OPEN, Peer_socket::Open_sub_state::S_CONNECTING);
-  sock->m_remote_endpoint = Remote_endpoint{ low_lvl_remote_endpoint, syn->m_src_port };
+  sock->m_remote_endpoint = Remote_endpoint{ low_lvl_remote_endpoint, syn->m_packed.m_src_port };
   sock->m_local_port = serv->m_local_port;
   // Save it for user to be able to call sock->get_connect_metadata().  Add const to express we want copy, not move.
   sock->m_serialized_metadata = static_cast<const Blob&>(syn->m_serialized_metadata);
@@ -490,14 +490,14 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   // ^-- No need to use opt() yet: user doesn't have socket and cannot set_options() on it yet.
 
   const Socket_id& socket_id = Node::socket_id(sock);
-  FLOW_LOG_INFO("Net-Flow worker thread starting passive-connect of [" << sock << "] on [" << serv << "].  "
+  FLOW_LOG_INFO("NetFlow worker thread starting passive-connect of [" << sock << "] on [" << serv << "].  "
                 "Received [" << syn->m_type_ostream_manip << "] with ISN [" << syn->m_init_seq_num << "].");
 
   // Ensure we can support the specified packet options.
 
   if (syn->m_opt_rexmit_on != sock->rexmit_on())
   {
-    FLOW_LOG_WARNING("Net-Flow worker thread starting passive-connect of [" << sock << "] on [" << serv << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread starting passive-connect of [" << sock << "] on [" << serv << "].  "
                      "Received [" << syn->m_type_ostream_manip << "] with "
                      "opt_rexmit_on [" << syn->m_opt_rexmit_on << "]; was configured otherwise on this side; "
                      "resetting connection.");
@@ -591,17 +591,17 @@ void Node::handle_syn_ack_ack_to_syn_rcvd(const Socket_id& socket_id,
   /* We'd sent SYN_ACK and just got SYN_ACK_ACK.  Assuming their SYN_ACK_ACK is valid, our side of
    * connection can move to ESTABLISHED state, as theirs already has. */
 
-  FLOW_LOG_INFO("Net-Flow worker thread continuing passive-connect of socket [" << sock << "].  "
+  FLOW_LOG_INFO("NetFlow worker thread continuing passive-connect of socket [" << sock << "].  "
                 "Received [" << syn_ack_ack->m_type_ostream_manip << "]; "
-                "security token [" << syn_ack_ack->m_security_token << "].");
+                "security token [" << syn_ack_ack->m_packed.m_security_token << "].");
 
   // First, validate their security token equals the one we've sent.
-  if (sock->m_security_token != syn_ack_ack->m_security_token)
+  if (sock->m_security_token != syn_ack_ack->m_packed.m_security_token)
   {
     FLOW_LOG_WARNING("Received [" << syn_ack_ack->m_type_ostream_manip << "] targeted at state "
                      "[" << Peer_socket::Int_state::S_SYN_RCVD << "] socket [" << sock << "] "
                      "with mismatching security token "
-                     "[" << syn_ack_ack->m_security_token << "]; we had received and sent and expect "
+                     "[" << syn_ack_ack->m_packed.m_security_token << "]; we had received and sent and expect "
                      "[" << sock->m_security_token << "].  Closing.");
     /* Close connection in our structures (inform user if necessary as well).  Pre-conditions
      * assumed by call: sock in m_socks and sock->state() == S_OPEN (yes, since m_int_state ==
@@ -635,7 +635,7 @@ void Node::handle_syn_ack_ack_to_syn_rcvd(const Socket_id& socket_id,
   // BTW serv->m_originating_serv is now null.
 
   // Record initial rcv_wnd; it should be the entire size of the other side's Receive buffer.
-  sock->m_snd_remote_rcv_wnd = syn_ack_ack->m_rcv_wnd;
+  sock->m_snd_remote_rcv_wnd = syn_ack_ack->m_packed.m_rcv_wnd;
 
   /* We may have queued up some DATA packets while we were SYN_RCVD (due to loss and/or
    * re-ordering).  See handle_data_to_syn_rcvd() for more information.  So, handle the queued DATA
@@ -735,7 +735,7 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
 
   // Not a WARNING, because we didn't do anything wrong; could be network conditions; and avoid verbosity after 1st one.
   FLOW_LOG_WITH_CHECKING(first_time ? log::Sev::S_INFO : log::Sev::S_TRACE,
-                         "Net-Flow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
+                         "NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
                            "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
                            "saving for processing later when in [" << Peer_socket::Int_state::S_ESTABLISHED << "] "
                            "state; packet data size = [" << packet->m_data.size() << "]; "
@@ -749,7 +749,7 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
            > sock->opt(sock->m_opts.m_st_snd_buf_max_size))
   {
     // Not a WARNING, because we didn't do anything wrong; could be network conditions.
-    FLOW_LOG_INFO("Net-Flow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
+    FLOW_LOG_INFO("NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
                   "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
                   "dropping because Receive queue full at [" << sock->m_rcv_syn_rcvd_data_cumulative_size << "].");
     return;
@@ -883,8 +883,8 @@ std::ostream& operator<<(std::ostream& os, const Server_socket* serv)
   return
     serv
       ? (os
-         << "Net-Flow_server [Net-Flow [:" << serv->local_port() << "]] @" << static_cast<const void*>(serv))
-      : (os << "Net-Flow_server@null");
+         << "NetFlow_server [NetFlow [:" << serv->local_port() << "]] @" << static_cast<const void*>(serv))
+      : (os << "NetFlow_server@null");
 }
 
 /// @cond

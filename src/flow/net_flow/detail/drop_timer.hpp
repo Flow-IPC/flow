@@ -33,7 +33,7 @@ namespace flow::net_flow
  * over a connection but not yet acknowledged by the receiver.  This is similar to the
  * Retransmission Timer of TCP (although the way that timer works is not solidly standardized,
  * though there are recommended setups in RFCs like RFC 6298).  However, this applies even with
- * retransmission disabled (which is allowed in Net-Flow but not in TCP), so it would be incorrect to
+ * retransmission disabled (which is allowed in NetFlow but not in TCP), so it would be incorrect to
  * call it `Rexmit_timer`; on the other hand when retransmission is enabled, Drop_timer will still be
  * an accurate name (as a packet has to be considered Dropped before we retransmit it).  `net_flow`
  * users should not use this class directly.

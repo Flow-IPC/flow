@@ -594,8 +594,8 @@ void Node::async_no_sock_low_lvl_rst_send(Low_lvl_packet::Const_ptr causing_pack
   // Fill out typical info.
   auto rst_base = Low_lvl_packet::create_uninit_packet_base<Rst_packet>(get_logger());
   // No sequence number.  See m_seq_num for discussion.
-  rst_base->m_src_port = causing_packet->m_dst_port; // Right back atcha.
-  rst_base->m_dst_port = causing_packet->m_src_port;
+  rst_base->m_packed.m_src_port = causing_packet->m_packed.m_dst_port; // Right back atcha.
+  rst_base->m_packed.m_dst_port = causing_packet->m_packed.m_src_port;
   rst_base->m_opt_rexmit_on = false; // Not used in RST packets, so set it to something.
 
   async_no_sock_low_lvl_packet_send(low_lvl_remote_endpoint, rst_base);
@@ -616,8 +616,8 @@ bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
   sock->m_snd_stats.low_lvl_packet_xfer_requested(packet_type_id);
 
   // Fill out typical info.
-  packet->m_src_port = sock->m_local_port;
-  packet->m_dst_port = sock->remote_endpoint().m_flow_port;
+  packet->m_packed.m_src_port = sock->m_local_port;
+  packet->m_packed.m_dst_port = sock->remote_endpoint().m_flow_port;
   packet->m_opt_rexmit_on = sock->rexmit_on();
 
   /* Apply packet pacing, which tries to spread out bursts of packets to prevent loss.  For much
@@ -1048,8 +1048,8 @@ void Node::sync_sock_low_lvl_rst_send(Peer_socket::Ptr sock)
 
   // Fill out fields.
   auto rst = Low_lvl_packet::create_uninit_packet_base<Rst_packet>(get_logger());
-  rst->m_src_port = sock->m_local_port;
-  rst->m_dst_port = sock->remote_endpoint().m_flow_port;
+  rst->m_packed.m_src_port = sock->m_local_port;
+  rst->m_packed.m_dst_port = sock->remote_endpoint().m_flow_port;
   rst->m_opt_rexmit_on = false; // Unused in RST packets, so set it to something.
 
   // Serialize to a buffer sequence (basically sequence of pointers/lengths referring to existing memory areas).

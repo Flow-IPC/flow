@@ -31,9 +31,6 @@
 namespace flow::net_flow
 {
 
-// Disable padding in the following structures.  Explained in Low_lvl_packet doc header.
-#pragma pack(push, 1)
-
 /**
  * Internal `net_flow` `struct` that encapsulates the Flow-protocol low-level packet structure and serves as
  * the super-type for all specific packet types, represented by derived `struct`s like Ack_packet, Rst_packet,
@@ -148,12 +145,8 @@ namespace flow::net_flow
  *
  * ### Packed structures, stored integers, and alignment ###
  * When 2 or more contiguous data members are used in serializing (serialize_to_raw_data() or overridden
- * version), they are packed together via `"#pragma pack"`.  Since this is done in isolated places that don't
- * comprise entire `struct`s, it would have been nice to apply this `"#pragma"` just to those fields, but it
- * does not seem to work.  Due to the way these little pairs, etc., of members are sprinkled about the
- * whole hierarchy, I just put one giant packing `"#pragma"` around the whole hierarchy.  This might slightly
- * decrease caching performance due to misalignment of various fields, including ones unrelated to serialization,
- * but I doubt it's really tangible -- and the code is a whole lot simpler than it would be otherwise.
+ * version), they are packed together via `"#pragma pack"`.  (Note that this affect entire `struct`s at a time
+ * only; hence we need to use some anonymously-typed grouping `struct`s named `m_packed`.)
  *
  * Numeric values are stored as unsigned integers, which is the most portable choice for serializing.
  * Booleans are serialized as bytes for compactness.
@@ -227,6 +220,19 @@ struct Low_lvl_packet :
    * rest of the connection.
    */
   bool m_opt_rexmit_on;
+
+#pragma pack(push, 1)
+  /// Packed group affected by `#pragma pack`.
+  struct
+  {
+    // Data.
+
+    /// Flow-protocol port # of socket in sending Node.
+    flow_port_t m_src_port;
+    /// Flow-protocol port # of socket in receiving Node.
+    flow_port_t m_dst_port;
+  } m_packed;
+#pragma pack(pop)
 
   /// Flow-protocol port # of socket in sending Node.
   flow_port_t m_src_port;
@@ -425,6 +431,8 @@ protected:
 private:
   // Types.
 
+#pragma pack(push, 1)
+
   /**
    * Helper data store type for storing binary data needed by serialize_to_raw_data(), when certains bits
    * are not already represented by the public data members present in `struct` Low_lvl_packet.
@@ -455,6 +463,8 @@ private:
     /// Constructs a mostly-uninitialized object, except for the `const` member(s), if any.
     explicit Aux_raw_data();
   };
+
+#pragma pack(pop)
 
   /**
    * A simple, unmodifiable data store that contains the properties unique to each packet type a/k/a
@@ -591,7 +601,7 @@ struct Syn_packet : public Low_lvl_packet
    * Arbitrary serialized user-supplied metadata to send in SYN, where it can be deserialized by
    * the user on the other side.
    *
-   * @todo Possibly eliminate this, since Net-Flow is reliable; the metadata can just be sent explicitly by the
+   * @todo Possibly eliminate this, since NetFlow is reliable; the metadata can just be sent explicitly by the
    * user once the connection is established.  However, for now reliability is optional.
    */
   util::Blob m_serialized_metadata;
@@ -679,26 +689,32 @@ struct Syn_ack_packet : public Low_lvl_packet
    */
   Sequence_number m_init_seq_num;
 
-  /**
-   * Random security token used during SYN_ACK-SYN_ACK_ACK.  For a given connection handshake, the SYN_ACK_ACK
-   * receiver ensures that Syn_ack_ack_packet::m_security_token it receives is equal to the original one it had
-   * sent (this #m_security_token here).
-   */
-  security_token_t m_security_token;
+#pragma pack(push, 1)
+  /// Packed group affected by `#pragma pack`.
+  struct
+  {
+    /**
+     * Random security token used during SYN_ACK-SYN_ACK_ACK.  For a given connection handshake, the SYN_ACK_ACK
+     * receiver ensures that Syn_ack_ack_packet::m_security_token it receives is equal to the original one it had
+     * sent (this #m_security_token here).
+     */
+    security_token_t m_security_token;
 
-  /**
-   * Number of DATA payload bytes the sender of this packet would accept into its Receive buffer,
-   * without dropping, at the moment this packet was generated to send.  This information is
-   * piggybacked into ACK (and SYN_ACK/SYN_ACK_ACK) packets.
-   *
-   * @todo We could be similar to TCP by opportunistically sending rcv_wnd in other packet types,
-   * namely Data_packet.  However this would only help in connections with heavy 2-way traffic.
-   * Personally I would then prefer to create a new packet type instead, Rcv_wnd_packet, and also
-   * implement some generalized "packet combo" scheme which would allow to piggy-back arbitrary
-   * packet types together into a single packet; and then we'd dissociate
-   * ACK/SYN_ACK/SYN_ACK_ACK from rcv_wnd.
-   */
-  rcv_wnd_t m_rcv_wnd;
+    /**
+     * Number of DATA payload bytes the sender of this packet would accept into its Receive buffer,
+     * without dropping, at the moment this packet was generated to send.  This information is
+     * piggybacked into ACK (and SYN_ACK/SYN_ACK_ACK) packets.
+     *
+     * @todo We could be similar to TCP by opportunistically sending rcv_wnd in other packet types,
+     * namely Data_packet.  However this would only help in connections with heavy 2-way traffic.
+     * Personally I would then prefer to create a new packet type instead, Rcv_wnd_packet, and also
+     * implement some generalized "packet combo" scheme which would allow to piggy-back arbitrary
+     * packet types together into a single packet; and then we'd dissociate
+     * ACK/SYN_ACK/SYN_ACK_ACK from rcv_wnd.
+     */
+    rcv_wnd_t m_rcv_wnd;
+  } m_packed;
+#pragma pack(pop)
 
   // Type checks.
   static_assert(std::numeric_limits<Sequence_number::seq_num_t>::is_integer
@@ -781,17 +797,23 @@ struct Syn_ack_ack_packet : public Low_lvl_packet
 {
   // Data.
 
-  /**
-   * This must equal Syn_ack_packet::m_security_token received in the packet to which `*this` is
-   * replying.  The other side will only proceed with the connection if the two are equal.
-   */
-  security_token_t m_security_token;
+#pragma pack(push, 1)
+  /// Packed group affected by `#pragma pack`.
+  struct
+  {
+    /**
+     * This must equal Syn_ack_packet::m_security_token received in the packet to which `*this` is
+     * replying.  The other side will only proceed with the connection if the two are equal.
+     */
+    security_token_t m_security_token;
 
-  /**
-   * Same meaning as Syn_ack_packet::m_rcv_wnd but applied to the essentially independent opposite
-   * traffic direction of the full-duplex connection being established.
-   */
-  rcv_wnd_t m_rcv_wnd;
+    /**
+     * Same meaning as Syn_ack_packet::m_rcv_wnd but applied to the essentially independent opposite
+     * traffic direction of the full-duplex connection being established.
+     */
+    rcv_wnd_t m_rcv_wnd;
+  } m_packed;
+#pragma pack(pop)
 
   // Type checks.
   static_assert(std::numeric_limits<security_token_t>::is_integer
@@ -1217,6 +1239,8 @@ struct Ack_packet::Individual_ack
   void operator=(const Individual_ack&) = delete;
 };
 
+#pragma pack(push, 1)
+
 /**
  * Specifies the *outgoing* (pre-serialization) acknowledgment of a single received Data_packet, when
  * retranmission is disabled on the socket.  Assuming network byte order equals native byte order,
@@ -1293,6 +1317,8 @@ struct Ack_packet::Individual_ack_rexmit_on
   explicit Individual_ack_rexmit_on(const Sequence_number& seq_num, unsigned int rexmit_id, ack_delay_t delay);
 };
 
+#pragma pack(pop)
+
 /**
  * Internal `net_flow` `struct` that encapsulates the Flow-protocol low-level RST packet.
  * See Low_lvl_packet doc header for information common to all low-level packets including this one.
@@ -1327,7 +1353,6 @@ struct Rst_packet : public Low_lvl_packet
   /// In serialized packet, the type ID byte identifying this as an RST packet.  Must not equal any other packet type's.
   static const uint8_t S_RAW_TYPE_ID;
 
-
 private:
   // Friends.
 
@@ -1361,7 +1386,6 @@ private:
   bool deserialize_type_specific_data_from_raw_data_packet(Const_buffer* raw_buf,
                                                            bool prefer_no_move, util::Blob* raw_packet) override;
 }; // struct Rst_packet
-#pragma pack(pop)
 
 // Template and constexpr implementations.
 
