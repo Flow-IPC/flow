@@ -300,18 +300,24 @@ jobs:
     - name: Run test/demo [NetFlow echo]
       run: |
         cd ${{ env.install-dir }}/bin
-        mkdir -p logs/net_flow_echo
+        OUT_DIR=logs/net_flow_echo
+        mkdir -p $OUT_DIR
         SUPP_DIR_A=${{ github.workspace }}/src
         { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
             > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
         ${{ env.setup-tests-env }}
-        ./net_flow_echo_srv.exec 8888 localhost > logs/net_flow_echo/srv.console.log 2>&1 &
+        ./net_flow_echo_srv.exec 8888 localhost > $OUT_DIR/srv.console.log 2>&1 &
         sleep 1
-        if ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!" > logs/net_flow_echo/cli.console.log 2>&1; \
+        if ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!" > $OUT_DIR/cli.console.log 2>&1; \
           then EC=0; else EC=$?; fi
         echo "Client finished with code [$EC]."
         echo "Server may print exception due to SIGTERM interruption; that is fine."
         kill `pidof $PWD/net_flow_echo_srv.exec`
+        # The executables also produce Flow logs with these hard-coded names in CWD.
+        touch flow_echo_srv.log # Create if needed just in case.
+        touch flow_echo_cli.log
+        mv flow_echo_srv.log $OUT_DIR/srv.log
+        mv flow_echo_cli.log $OUT_DIR/cli.log
         [ $EC -eq 0 ]
 
     # (More tests/demos here as needed.)
