@@ -31,6 +31,9 @@
 namespace flow::net_flow
 {
 
+// Disable padding in the following structures.  Explained in Low_lvl_packet doc header.
+#pragma pack(push, 1)
+
 /**
  * Internal `net_flow` `struct` that encapsulates the Flow-protocol low-level packet structure and serves as
  * the super-type for all specific packet types, represented by derived `struct`s like Ack_packet, Rst_packet,
@@ -213,9 +216,6 @@ struct Low_lvl_packet :
    * (C++ subtlety: typeid(this) will just yield typeid(Low_lvl_packet), which isn't that useful;
    * but typeid(*this) will actually get you typeid(Data_packet), typeid(Ack_packet), etc. */
 
-// Disable padding in the following structures.  Explained in Low_lvl_packet doc header.
-#pragma pack(push, 1)
-
   /**
    * Option indicating whether this connection is using retransmission or not.  This value must not
    * change over the course of a connection and is provided in each packet for simpler
@@ -232,8 +232,6 @@ struct Low_lvl_packet :
   flow_port_t m_src_port;
   /// Flow-protocol port # of socket in receiving Node.
   flow_port_t m_dst_port;
-
-#pragma pack(pop)
 
   // Type checks.
   static_assert(std::numeric_limits<flow_port_t>::is_integer
@@ -437,7 +435,6 @@ private:
   struct Aux_raw_data :
     private boost::noncopyable
   {
-#pragma pack(push, 1)
     /**
      * This is the serialized version of the multi-byte `bool` Low_lvl_packet::m_opt_rexmit_on.
      * Since the latter is of a more civilized `bool` type, and we need a single byte version, this here
@@ -457,7 +454,6 @@ private:
 
     /// Constructs a mostly-uninitialized object, except for the `const` member(s), if any.
     explicit Aux_raw_data();
-#pragma pack(pop)
   };
 
   /**
@@ -595,7 +591,7 @@ struct Syn_packet : public Low_lvl_packet
    * Arbitrary serialized user-supplied metadata to send in SYN, where it can be deserialized by
    * the user on the other side.
    *
-   * @todo Possibly eliminate this, since NetFlow is reliable; the metadata can just be sent explicitly by the
+   * @todo Possibly eliminate this, since Net-Flow is reliable; the metadata can just be sent explicitly by the
    * user once the connection is established.  However, for now reliability is optional.
    */
   util::Blob m_serialized_metadata;
@@ -1365,6 +1361,7 @@ private:
   bool deserialize_type_specific_data_from_raw_data_packet(Const_buffer* raw_buf,
                                                            bool prefer_no_move, util::Blob* raw_packet) override;
 }; // struct Rst_packet
+#pragma pack(pop)
 
 // Template and constexpr implementations.
 
