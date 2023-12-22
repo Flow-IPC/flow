@@ -4331,6 +4331,7 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
   using util::scheduled_task_fired;
   using boost::chrono::microseconds;
   using boost::chrono::duration_cast;
+  using boost::weak_ptr;
 
   // We are in thread W.
 
@@ -4353,8 +4354,13 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
   // Firing time is set; start timer.  Call that body when task fires, unless it is first canceled.
   sock->m_init_rexmit_scheduled_task
     = schedule_task_from_now(get_logger(), rexmit_from_now, true, &m_task_engine,
-                             [this, socket_id, sock](bool)
+                             [this, socket_id,
+                              sock_observer = weak_ptr<Peer_socket>(sock)]
+                               (bool)
   {
+    auto sock = sock_observer.lock();
+    assert(sock);
+
     handle_connection_rexmit_timer_event(socket_id, sock);
   });
 
@@ -4365,9 +4371,14 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
       = schedule_task_from_now(get_logger(),
                                sock->opt(sock->m_opts.m_st_connect_retransmit_timeout),
                                true, &m_task_engine,
-                               [this, socket_id, sock](bool)
-    {
+                               [this, socket_id,
+                                sock_observer = weak_ptr<Peer_socket>(sock)]
+                                 (bool)
+   {
       // We are in thread W.
+
+      auto sock = sock_observer.lock();
+      assert(sock);
 
       FLOW_LOG_INFO("Connection handshake timeout timer [" << sock << "] has been triggered; was on "
                     "attempt [" << (sock->m_init_rexmit_count + 1) << "].");
@@ -4476,6 +4487,10 @@ void Node::cancel_timers(Peer_socket::Ptr sock)
   {
     // This Drop_timer guy actually will prevent any callbacks from firing.
     sock->m_snd_drop_timer->done();
+
+    /* The two `shared_ptr`s (sock and m_snd_drop_timer) point to each other.  Nullify this to break the cycle
+     * and thus avoid memory leak. */
+    sock->m_snd_drop_timer.reset();
   }
 }
 
@@ -5382,6 +5397,7 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::round;
+  using boost::weak_ptr;
 
   // We are in thread W.
 
@@ -5421,9 +5437,12 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
 
   sock->m_rcv_wnd_recovery_scheduled_task
     = schedule_task_from_now(get_logger(), fire_when_from_now, true, &m_task_engine,
-                             [this, sock](bool)
+                             [this, sock_observer = weak_ptr<Peer_socket>(sock)](bool)
   {
-    // We are in thread W.
+     // We are in thread W.
+
+    auto sock = sock_observer.lock();
+    assert(sock);
 
     const Fine_duration since_recovery_started = Fine_clock::now() - sock->m_rcv_wnd_recovery_start_time;
     if (since_recovery_started > sock->opt(sock->m_opts.m_dyn_rcv_wnd_recovery_max_period))

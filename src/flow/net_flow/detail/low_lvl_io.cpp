@@ -851,6 +851,7 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
   using boost::chrono::milliseconds;
   using boost::chrono::round;
   using boost::shared_ptr;
+  using boost::weak_ptr;
   using boost::static_pointer_cast;
   using boost::dynamic_pointer_cast;
   using std::max;
@@ -947,8 +948,12 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
   // else
 
   // When triggered or canceled, call this->sock_pacing_time_slice_end(sock, <error code>).
-  pacing.m_slice_timer.async_wait([this, sock](const Error_code& sys_err_code)
+  pacing.m_slice_timer.async_wait([this, sock_observer = weak_ptr<Peer_socket>(sock)]
+                                    (const Error_code& sys_err_code)
   {
+    auto sock = sock_observer.lock();
+    assert(sock);
+
     sock_pacing_time_slice_end(sock, sys_err_code);
   });
 

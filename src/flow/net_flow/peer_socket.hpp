@@ -54,7 +54,7 @@ namespace flow::net_flow
  * Node's Server_socket and accepting such a connection (Server_socket::accept() or
  * Server_socket::sync_accept()).  In all cases, Node or Server_socket generates a new Peer_socket
  * and returns it (factory pattern).  Peer_socket is not instantiable otherwise.  A Peer_socket
- * cannot be deleted explicitly by the user and will only be returned via boost::shared_ptr<>; when
+ * cannot be deleted explicitly by the user and will only be returned via `boost::shared_ptr<>`; when
  * both the Node and all user code no longer refers to it, the Peer_socket will be destroyed.
  *
  * Once a `net_flow` user has a Peer_socket object, that object represents a socket in one of the
