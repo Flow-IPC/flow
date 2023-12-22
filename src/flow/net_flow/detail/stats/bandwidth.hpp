@@ -29,7 +29,7 @@ namespace flow::net_flow
 /**
  * A per-Peer_socket module that tries to estimate the bandwidth available to the outgoing flow.
  * That is, it tries to get at the # of bytes per unit time the outgoing empty pipe can support,
- * minus the # of bytes per unit time being transferred by all other flows in that pipe (Net-Flow or
+ * minus the # of bytes per unit time being transferred by all other flows in that pipe (NetFlow or
  * otherwise).  This is useful primarily for certain congestion control strategies (like
  * Congestion_control_classic_with_bandwidth_est) but may also be good information to make available
  * to the application layer (e.g., if the user wants to inform a media player what is a suitable bit

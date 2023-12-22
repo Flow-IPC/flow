@@ -93,7 +93,7 @@ namespace flow::net_flow::asio
  *     - net_flow::Server_socket::accept() -> net_flow::Peer_socket: Return a fully connected peer socket object,
  *       if one is immediately ready due to the listening done so far.
  *       - Equivalent: `tcp::acceptor::accept()` after ensuring `tcp::acceptor::non_blocking(true)`.
- *         Net-Flow null return value <-> TCP "would-block" error code.
+ *         NetFlow null return value <-> TCP "would-block" error code.
  *     - net_flow::Node::connect() -> net_flow::Peer_socket: Return a connectING peer socket object immediately,
  *       as it tries to connected to the server socket on the remote side.
  *       - Equivalent: `tcp::socket::connect()` after ensuring `tcp::socket::non_blocking(true)`.
@@ -101,11 +101,11 @@ namespace flow::net_flow::asio
  *     - net_flow::Peer_socket::send(): Queue up at least 1 of the N given bytes to send to peer ASAP; or
  *       indicate no bytes could be *immediately* queued.
  *       - Equivalent: `tcp::socket::send()` after ensuring `tcp::socket::non_blocking(true)`.
- *         Net-Flow 0 return value <-> TCP "would-block" error code.
+ *         NetFlow 0 return value <-> TCP "would-block" error code.
  *     - net_flow::Peer_socket::receive(): Dequeue at least 1 of the desired N bytes earlier received from peer; or
  *       indicate none were *immediately* available.
  *       - Equivalent: `tcp::socket::receive()` after ensuring `tcp::socket::non_blocking(true)`.
- *         Net-Flow 0 return value <-> TCP "would-block" error code.
+ *         NetFlow 0 return value <-> TCP "would-block" error code.
  *   - Blocking operations:
  *     - net_flow::Server_socket::sync_accept() -> net_flow::Peer_socket: Return a fully connected peer socket object,
  *       blocking thread if necessary to wait for a connection to come in and fully establish.

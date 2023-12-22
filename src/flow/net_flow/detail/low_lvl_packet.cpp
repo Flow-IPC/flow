@@ -190,7 +190,7 @@ size_t Low_lvl_packet::serialize_common_header_to_raw_data(Const_buffer_sequence
   size += raw_bufs->back().size();
 
   // Subtlety: These are stored together in packed fashion, so refer to them in one buffer.
-  raw_bufs->push_back(const_buffer(&m_src_port, sizeof m_src_port + sizeof m_dst_port));
+  raw_bufs->push_back(const_buffer(&m_packed.m_src_port, sizeof m_packed.m_src_port + sizeof m_packed.m_dst_port));
   size += raw_bufs->back().size();
 
   return size;
@@ -249,8 +249,8 @@ size_t Syn_ack_packet::serialize_to_raw_data(Const_buffer_sequence* raw_bufs) co
   size += sizeof *raw_seq_num;
 
   // Subtlety: These are stored together in packed fashion, so refer to them in one buffer.
-  raw_bufs->push_back(const_buffer(&m_security_token,
-                                   sizeof m_security_token + sizeof m_rcv_wnd));
+  raw_bufs->push_back(const_buffer(&m_packed.m_security_token,
+                                   sizeof m_packed.m_security_token + sizeof m_packed.m_rcv_wnd));
   size += raw_bufs->back().size();
 
   return size;
@@ -269,8 +269,8 @@ size_t Syn_ack_ack_packet::serialize_to_raw_data(Const_buffer_sequence* raw_bufs
   size_t size = serialize_common_header_to_raw_data(raw_bufs);
 
   // Subtlety: These are stored together in packed fashion, so refer to them in one buffer.
-  raw_bufs->push_back(const_buffer(&m_security_token,
-                                   sizeof m_security_token + sizeof m_rcv_wnd));
+  raw_bufs->push_back(const_buffer(&m_packed.m_security_token,
+                                   sizeof m_packed.m_security_token + sizeof m_packed.m_rcv_wnd));
   size += raw_bufs->back().size();
 
   return size;
@@ -411,7 +411,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
 
   // This is the expected size of the Common Header mentioned above.
   const size_t common_data_size
-    = sizeof(uint8_t) + sizeof m_src_port + sizeof m_dst_port
+    = sizeof(uint8_t) + sizeof m_packed.m_src_port + sizeof m_packed.m_dst_port
     + sizeof m_aux_raw_data.m_opt_rexmit_on_raw + sizeof m_aux_raw_data.m_reserved2;
 
   if (raw_buf_size < common_data_size)
@@ -474,17 +474,17 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
 
   const auto& src_port_raw = *reinterpret_cast<const flow_port_t*>(common_data);
   common_data += sizeof src_port_raw;
-  packet->m_src_port = little_to_native(src_port_raw);
+  packet->m_packed.m_src_port = little_to_native(src_port_raw);
 
   const auto& dst_port_raw = *reinterpret_cast<const flow_port_t*>(common_data);
   common_data += sizeof dst_port_raw;
-  packet->m_dst_port = little_to_native(dst_port_raw);
+  packet->m_packed.m_dst_port = little_to_native(dst_port_raw);
 
   // Did we claculate the total size of Common Header correctly at the start?
   assert(common_data == static_cast<const uint8_t*>(raw_buf.data()));
 
   FLOW_LOG_TRACE("Deserialized packet [" << packet << "] common info: "
-                 "Net-Flow ports [" << packet->m_src_port << "] -> [" << packet->m_dst_port << "]; "
+                 "NetFlow ports [" << packet->m_packed.m_src_port << "] -> [" << packet->m_packed.m_dst_port << "]; "
                  "opt_rexmit_on = [" << packet->m_opt_rexmit_on << "]; "
                  "common serialized size was [" << common_data_size << "].");
 
@@ -573,7 +573,8 @@ bool Syn_ack_packet::deserialize_type_specific_data_from_raw_data_packet(Const_b
 
   // Use same techniques as in Low_lvl_packet::create_from_raw_data_packet().  Keeping comments light.
 
-  const size_t exp_data_size = sizeof(Sequence_number::seq_num_t) + sizeof m_security_token + sizeof m_rcv_wnd;
+  const size_t exp_data_size = sizeof(Sequence_number::seq_num_t)
+                             + sizeof m_packed.m_security_token + sizeof m_packed.m_rcv_wnd;
   const size_t raw_buf_size = raw_buf->size();
   if (raw_buf_size != exp_data_size)
   {
@@ -594,17 +595,17 @@ bool Syn_ack_packet::deserialize_type_specific_data_from_raw_data_packet(Const_b
 
   const auto& security_token_raw = *reinterpret_cast<const security_token_t*>(data);
   data += sizeof security_token_raw;
-  m_security_token = little_to_native(security_token_raw);
+  m_packed.m_security_token = little_to_native(security_token_raw);
 
   const auto& rcv_wnd_raw = *reinterpret_cast<const rcv_wnd_t*>(data);
   data += sizeof rcv_wnd_raw;
-  m_rcv_wnd = little_to_native(rcv_wnd_raw);
+  m_packed.m_rcv_wnd = little_to_native(rcv_wnd_raw);
 
   assert(data == static_cast<const uint8_t*>(raw_buf->data()));
 
   FLOW_LOG_INFO("Deserialized low-level [" << m_type_ostream_manip << "] packet with "
                 "ISN [" << m_init_seq_num << "]; "
-                "rcv_wnd ["<< m_rcv_wnd << "] bytes; "
+                "rcv_wnd ["<< m_packed.m_rcv_wnd << "] bytes; "
                 "serialized size beyond common header was [" << raw_buf_size << "].");
 
   return true;
@@ -621,7 +622,7 @@ bool Syn_ack_ack_packet::deserialize_type_specific_data_from_raw_data_packet(Con
 
   // Use same techniques as in Low_lvl_packet::create_from_raw_data_packet().  Keeping comments light.
 
-  const size_t exp_data_size = sizeof m_security_token + sizeof m_rcv_wnd;
+  const size_t exp_data_size = sizeof m_packed.m_security_token + sizeof m_packed.m_rcv_wnd;
   const size_t raw_buf_size = raw_buf->size();
   if (raw_buf_size != exp_data_size)
   {
@@ -636,16 +637,16 @@ bool Syn_ack_ack_packet::deserialize_type_specific_data_from_raw_data_packet(Con
 
   const auto& security_token_raw = *reinterpret_cast<const security_token_t*>(data);
   data += sizeof security_token_raw;
-  m_security_token = little_to_native(security_token_raw);
+  m_packed.m_security_token = little_to_native(security_token_raw);
 
   const auto& rcv_wnd_raw = *reinterpret_cast<const rcv_wnd_t*>(data);
   data += sizeof rcv_wnd_raw;
-  m_rcv_wnd = little_to_native(rcv_wnd_raw);
+  m_packed.m_rcv_wnd = little_to_native(rcv_wnd_raw);
 
   assert(data == static_cast<const uint8_t*>(raw_buf->data()));
 
   FLOW_LOG_INFO("Deserialized low-level [" << m_type_ostream_manip << "] packet with "
-                "rcv_wnd ["<< m_rcv_wnd << "] bytes; "
+                "rcv_wnd ["<< m_packed.m_rcv_wnd << "] bytes; "
                 "serialized size beyond common header was [" << raw_buf_size << "].");
 
   return true;
@@ -658,6 +659,7 @@ bool Data_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buff
   using boost::asio::buffer;
   using boost::endian::little_to_native;
   using std::numeric_limits;
+  using std::memcpy;
 
   using data_size_raw_t = decltype(m_data_size_raw);
 
@@ -707,8 +709,11 @@ bool Data_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buff
    * be aware of it; whereas using a couple of bytes to do this eliminates that problem at a fairly low cost.
    * @todo Revisit this sometime. */
 
-  auto data_size_raw = *reinterpret_cast<const data_size_raw_t*>(cur_data);
+  data_size_raw_t data_size_raw;
+  // Using `= *reinterpret_cast<...*>` makes UBSAN complain; so humor it by using explicit memcpy().
+  memcpy(&data_size_raw, cur_data, sizeof data_size_raw);
   cur_data += sizeof data_size_raw;
+
   data_size_raw = little_to_native(data_size_raw);
 
   if (data_size_raw == 0)
@@ -912,8 +917,8 @@ std::ostream& Low_lvl_packet::to_ostream(std::ostream& os, [[maybe_unused]] bool
 
   return os << "Low-level packet " << this << ":\n"
             << INDENTATION << "type: " << m_type_ostream_manip << "\n"
-            << INDENTATION << "m_src_port: " << m_src_port << "\n"
-            << INDENTATION << "m_dst_port: " << m_dst_port << "\n"
+            << INDENTATION << "m_src_port: " << m_packed.m_src_port << "\n"
+            << INDENTATION << "m_dst_port: " << m_packed.m_dst_port << "\n"
             << INDENTATION << "m_opt_rexmit_on: " << m_opt_rexmit_on << "\n";
 }
 
@@ -946,8 +951,8 @@ std::ostream& Syn_ack_packet::to_ostream(std::ostream& os, bool verbose) const /
   this->Low_lvl_packet::to_ostream(os, verbose); // Super-method.
 
   return os << INDENTATION << "m_init_seq_num: " << m_init_seq_num << "\n"
-            << INDENTATION << "m_rcv_wnd: " << m_rcv_wnd << "\n"
-            << INDENTATION << "m_security_token: " << m_security_token << "\n";
+            << INDENTATION << "m_rcv_wnd: " << m_packed.m_rcv_wnd << "\n"
+            << INDENTATION << "m_security_token: " << m_packed.m_security_token << "\n";
 }
 
 std::ostream& Syn_ack_ack_packet::to_ostream(std::ostream& os, bool verbose) const // Virtual.
@@ -956,8 +961,8 @@ std::ostream& Syn_ack_ack_packet::to_ostream(std::ostream& os, bool verbose) con
 
   this->Low_lvl_packet::to_ostream(os, verbose); // Super-method.
 
-  return os << INDENTATION << "m_rcv_wnd: " << m_rcv_wnd << "\n"
-            << INDENTATION << "m_security_token: " << m_security_token << "\n";
+  return os << INDENTATION << "m_rcv_wnd: " << m_packed.m_rcv_wnd << "\n"
+            << INDENTATION << "m_security_token: " << m_packed.m_security_token << "\n";
 }
 
 std::ostream& Data_packet::to_ostream(std::ostream& os, bool verbose) const // Virtual.

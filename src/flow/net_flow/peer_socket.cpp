@@ -481,10 +481,10 @@ void Node::handle_syn_ack_to_syn_sent(const Socket_id& socket_id,
    * move to ESTABLISHED state.  We can also complete the other side's connection by sending
    * SYN_ACK_ACK. */
 
-  FLOW_LOG_INFO("Net-Flow worker thread continuing active-connect of [" << sock << "].  "
+  FLOW_LOG_INFO("NetFlow worker thread continuing active-connect of [" << sock << "].  "
                 "Received [" << syn_ack->m_type_ostream_manip << "] with "
                 "ISN [" << syn_ack->m_init_seq_num << "]; "
-                "security token [" << syn_ack->m_security_token << "].");
+                "security token [" << syn_ack->m_packed.m_security_token << "].");
 
   // Send SYN_ACK_ACK to finish the handshake.
 
@@ -517,7 +517,7 @@ void Node::handle_syn_ack_to_syn_sent(const Socket_id& socket_id,
   setup_drop_timer(socket_id, sock);
 
   // Record initial rcv_wnd; it should be the entire size of the other side's Receive buffer.
-  sock->m_snd_remote_rcv_wnd = syn_ack->m_rcv_wnd;
+  sock->m_snd_remote_rcv_wnd = syn_ack->m_packed.m_rcv_wnd;
 
   /* Since sock is now connected and has an empty Send buffer, it is certainly now Writable.
    * Therefore we should soon inform anyone waiting on any Event_sets for sock to become Writable.
@@ -545,10 +545,11 @@ void Node::handle_syn_ack_to_established(Peer_socket::Ptr sock,
    * handle_incoming() at the call to the current method, we simply give them a SYN_ACK_ACK again
    * and continue like nothing happened. */
 
-  FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+  FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                 "In [" << Peer_socket::Int_state::S_ESTABLISHED << "] state "
                 "received duplicate [" << syn_ack->m_type_ostream_manip << "] with "
-                "ISN [" << syn_ack->m_init_seq_num << "]; security token [" << syn_ack->m_security_token << "].  "
+                "ISN [" << syn_ack->m_init_seq_num << "]; "
+                "security token [" << syn_ack->m_packed.m_security_token << "].  "
                 "Could be from packet loss.");
 
   // Everything has already been validated.
@@ -627,7 +628,7 @@ void Node::handle_data_to_established(const Socket_id& socket_id,
 
   // Before potential changes, log.
 
-  FLOW_LOG_TRACE("Net-Flow worker thread working on [" << sock << "].  "
+  FLOW_LOG_TRACE("NetFlow worker thread working on [" << sock << "].  "
                  "Received [" << packet->m_type_ostream_manip << "] with "
                  "sequence number [" << seq_num << "]; data size [" << data_size << "].");
   // Very verbose and CPU-intensive!
@@ -861,7 +862,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
      * they'll get more RSTs still. */
 
     // Interesting/rare enough to log a WARNING.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Received [" << packet->m_type_ostream_manip << "] with "
                      "sequence number [" << seq_num << "]; data size [" << data.size() << "]; "
                      "sequence number precedes "
@@ -881,7 +882,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     if (seq_num_end > rcv_next_seq_num)
     {
       // Interesting/rare enough to log a WARNING.
-      FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+      FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                        "Received [" << packet->m_type_ostream_manip << "] with "
                        "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                        "data size [" << data.size() << "]; "
@@ -915,7 +916,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     if (first_gap_exists && (seq_num_end > seq_num_after_first_gap))
     {
       // Interesting/rare enough to log a WARNING.
-      FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+      FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                        "Received [" << packet->m_type_ostream_manip << "] with "
                        "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                        "data size [" << data.size() << "]; "
@@ -998,7 +999,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
         // Yep, packet straddles boundary of last_packet.
 
         // Interesting/rare enough to log a WARNING.
-        FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+        FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                          "Received [" << packet->m_type_ostream_manip << "] with "
                          "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                          "data size [" << data.size() << "]; "
@@ -1042,7 +1043,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
       // Yep, not a valid duplicate.
 
       // Interesting/rare enough to log a WARNING.
-      FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+      FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                        "Received [" << packet->m_type_ostream_manip << "] with "
                        "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                        "data size [" << data.size() << "]; "
@@ -1081,7 +1082,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     // Straddle one or more succeding packets.  RST/close as above.
 
     // Interesting/rare enough to log a WARNING.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Received [" << packet->m_type_ostream_manip << "] with "
                      "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                      "data size [" << data.size() << "]; "
@@ -1110,7 +1111,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     // Straddling one or more preceding packets.  RST/close as above.
 
     // Interesting/rare enough to log a WARNING.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Received [" << packet->m_type_ostream_manip << "] with "
                      "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                      "data size [" << data.size() << "]; "
@@ -1167,7 +1168,7 @@ bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
       rcv_stats.good_data_dropped_buf_overflow_packet(data_size);
 
       // Not an error but interesting.  Might be too verbose for INFO but what the hell.
-      FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+      FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                     "Received [" << packet->m_type_ostream_manip << "] with "
                     "sequence numbers [" << packet->m_seq_num << ", " << (packet->m_seq_num + data_size) << "); "
                     "data size [" << data_size << "]; "
@@ -1302,7 +1303,7 @@ void Node::sock_track_new_data_after_gap_rexmit_off(Peer_socket::Ptr sock,
     rcv_stats.presumed_dropped_data(data_size);
 
     // Not an error but interesting.  Might be too verbose for INFO but what the hell.
-    FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                   "Received [" << packet->m_type_ostream_manip << "] with "
                   "sequence numbers [" << packet->m_seq_num << ", " << (packet->m_seq_num + data_size) << "); "
                   "exceeded max gapped packet list size [" << max_packets_after_unrecvd_packet << "]; "
@@ -1427,7 +1428,7 @@ bool Node::sock_data_to_reassembly_q_unless_overflow(Peer_socket::Ptr sock,
     rcv_stats.good_data_dropped_reassembly_q_overflow_packet(data_size);
 
     // This is an error, though not our fault.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Received [" << packet->m_type_ostream_manip << "] with "
                      "sequence numbers [" << packet->m_seq_num << ", " << (packet->m_seq_num + data_size) << "); "
                      "exceeded max gapped packet list size [" << max_packets_after_unrecvd_packet << "]; "
@@ -1436,7 +1437,7 @@ bool Node::sock_data_to_reassembly_q_unless_overflow(Peer_socket::Ptr sock,
   }
   // else we can insert into reassembly queue (priority queue by seq. #) rcv_packets_with_gaps.
 
-  FLOW_LOG_TRACE("Net-Flow worker thread working on [" << sock << "].  "
+  FLOW_LOG_TRACE("NetFlow worker thread working on [" << sock << "].  "
                  "Enqueueing [" << packet->m_type_ostream_manip << "] payload onto reassembly queue with "
                  "sequence numbers [" << packet->m_seq_num << ", " << (packet->m_seq_num + data_size) << ") "
                  "of size [" << data_size << "]; "
@@ -1613,7 +1614,7 @@ void Node::async_acknowledge_packet(Peer_socket::Ptr sock, const Sequence_number
    * each other chronologically.  What if there is another type of packet between some two of these
    * DATAs?  Well, it depends on what it is.  Ignoring the misbehaving/duplicate/whatever packets
    * (SYN, for example) -- which will just be discarded basically -- let's consider the
-   * possibilities.  If the packet is ACK, then it is irrelevant; Net-Flow (like TCP) is full-duplex
+   * possibilities.  If the packet is ACK, then it is irrelevant; NetFlow (like TCP) is full-duplex
    * (actually more so, since there's no DATA+ACK piggy-backing), therefore the micro-ordering of
    * traffic in opposite directions is irrelevant.  If the packet is RST, then that means the socket
    * will get closed (no longer ESTABLISHED) before we get a chance to send any of the individual
@@ -2018,7 +2019,7 @@ void Node::handle_ack_to_established(Peer_socket::Ptr sock,
    * other chronologically.  What if there is another type of packet between some two of these ACKs?
    * Well, it depends on what it is.  Ignoring the misbehaving/duplicate/whatever packets (SYN, for
    * example) -- which will just be discarded basically -- let's consider the possibilities.  If
-   * the packet is DATA, then it is irrelevant; Net-Flow (like TCP) is full-duplex (actually more so,
+   * the packet is DATA, then it is irrelevant; NetFlow (like TCP) is full-duplex (actually more so,
    * since there's no DATA+ACK piggy-backing), therefore the micro-ordering of traffic in opposite
    * directions is irrelevant.  If the packet is RST, then that means the socket will get closed (no
    * longer ESTABLISHED) before we get a chance to process any of the individual acknowledgments.
@@ -2048,7 +2049,7 @@ void Node::handle_ack_to_established(Peer_socket::Ptr sock,
                                    ack->m_rcv_acked_packets.begin(), ack->m_rcv_acked_packets.end());
   m_socks_with_accumulated_acks.insert(sock); // May already be in there.
 
-  FLOW_LOG_TRACE("Net-Flow worker thread working on [" << sock << "].  "
+  FLOW_LOG_TRACE("NetFlow worker thread working on [" << sock << "].  "
                  "Received and accumulated [" << ack->m_type_ostream_manip << "] with "
                  "[" << ack->m_rcv_acked_packets.size() << "] individual acknowledgments "
                  "and rcv_wnd = [" << ack->m_rcv_wnd << "]; total for this socket in this "
@@ -2095,7 +2096,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
   if (sock->m_int_state != Peer_socket::Int_state::S_ESTABLISHED)
   {
     // Rare/interesting enough for INFO.
-    FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                   "Accumulated [ACK] packets with [" << acked_packets.size() << "] "
                   "individual acknowledgments, but state is now [" << sock->m_int_state << "]; ignoring ACKs forever.");
     return;
@@ -2391,7 +2392,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
 
   /* Bandwidth estimation: It can be useful to estimate the available outgoing bandwidth (available
    * meaning the total bandwidth of the empty pipe minus any other traffic other than this
-   * connection [Net-Flow or otherwise] currently occupying this pipe).  Mostly it's useful for certain
+   * connection [NetFlow or otherwise] currently occupying this pipe).  Mostly it's useful for certain
    * congestion control strategies like Congestion_control_classic_with_bandwidth_est, but it may be
    * good information to have if only for the user's general information.  Therefore we keep an
    * independent m_snd_bandwidth_estimator regardless of the congestion control strategy in use.
@@ -2406,7 +2407,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
   if (dropped_pkts != 0)
   {
     // @todo Might be too verbose to keep it as INFO!
-    FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                   "Considering Dropped: [" << dropped_bytes << "] bytes = [" << dropped_pkts << "] packets.");
 
     if (cong_ctl_dropped_pkts != 0) // Again, cong_ctl_dropped_pkts != dropped_pkts, potentially.
@@ -2622,7 +2623,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
      * many could already be on the way), they'll get more RSTs still. */
 
     // Interesting/rare enough to log a WARNING.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Received [ACK]; "
                      "acknowledgment [" << seq_num << ", ...) is outside (ISN, snd_next) "
                      "range (" << sock->m_snd_init_seq_num << ", " << sock->m_snd_next_seq_num << ").");
@@ -2728,7 +2729,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
         // Register one individual acknowledgment of unknown # of bytes of data (not acceptable due to error).
         snd_stats.error_ack();
 
-        FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+        FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                          "Received [ACK]; "
                          "acknowledgment [" << seq_num << ", ...) is at least partially inside "
                          "packet [" << l1 << ", " << l2 << ").");
@@ -2769,7 +2770,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
     // Register one individual acknowledgment of unknown # of bytes of data (late, dupe, or maybe invalid).
     snd_stats.late_or_dupe_ack();
 
-    FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                   "Acknowledged packet [" << seq_num << ", ...) is duplicate or late (or invalid).  "
                   "RTT unknown.  Ignoring.");
 
@@ -2793,7 +2794,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
   if (rexmit_id > acked_rexmit_id)
   {
     // This is entirely illegal.  Can't acknowledge a packet copy we hadn't sent yet.
-    FLOW_LOG_WARNING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_WARNING("NetFlow worker thread working on [" << sock << "].  "
                      "Acknowledged packet [" << seq_num << ", " << seq_num_end << ") "
                      "rexmit_id [" << int(rexmit_id) << "] "
                      "exceeds highest sent rexmit_id [" << int(acked_rexmit_id) << "].");
@@ -2847,7 +2848,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
     // Register one individual acknowledgment of unknown # of bytes of data (late).
     snd_stats.late_or_dupe_ack();
 
-    FLOW_LOG_INFO("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_INFO("NetFlow worker thread working on [" << sock << "].  "
                   "Acknowledged packet [" << seq_num << ", " << seq_num_end << ") "
                   "order_num [" << acked_pkt.m_sent_when[rexmit_id].m_order_num << "] "
                   "rexmit_id [" << int(rexmit_id) << "] "
@@ -3300,14 +3301,14 @@ void Node::log_accumulated_acks(Peer_socket::Const_ptr sock) const
     });
     const string ack_str = join(ack_strs, " ");
 
-    FLOW_LOG_DATA_WITHOUT_CHECKING("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_DATA_WITHOUT_CHECKING("NetFlow worker thread working on [" << sock << "].  "
                                    "Accumulated [ACK] packets with "
                                    "acknowledgments [seq_num, rexmit_id, delay]: "
                                    "[" << ack_str << "].");
   } // if (DATA)
   else
   {
-    FLOW_LOG_TRACE("Net-Flow worker thread working on [" << sock << "].  "
+    FLOW_LOG_TRACE("NetFlow worker thread working on [" << sock << "].  "
                    "Accumulated [ACK] packets with "
                    "[" << acked_packets.size() << "] individual acknowledgments.");
   }
@@ -3556,7 +3557,7 @@ void Node::new_round_trip_time_sample(Peer_socket::Ptr sock, Fine_duration round
 
     // @todo Per last paragraph of RFC 6298-5, we MAY want to clear srtt/rtt_var afer multiple RTOs or maybe idleness.
     // (RTO = Retransmission Timeout, though we call it a Drop Timeout more accurately [we don't necessarily
-    // retransmit on loss in Net-Flow, unlike TCP].)
+    // retransmit on loss in NetFlow, unlike TCP].)
 
     const Fine_duration prev_srtt = srtt;
     const Fine_duration prev_rtt_var = rtt_var;
@@ -3785,7 +3786,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
 
 void Node::snd_flying_pkts_erase_one(Peer_socket::Ptr sock, Peer_socket::Sent_pkt_ordered_by_when_iter pkt_it)
 {
-  // using boost::next; // Still ambiguous for some reason (a clang at least).
+  // using boost::next; // Still ambiguous for some reason (in clang at least).
 
   auto const logger_ptr = get_logger();
   if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, get_log_component()))
@@ -3826,7 +3827,7 @@ void Node::snd_flying_pkts_push_one(Peer_socket::Ptr sock,
 {
   using std::pair;
   using std::make_pair;
-  // using boost::next; // Still ambiguous for some reason (a clang at least).
+  // using boost::next; // Still ambiguous for some reason (in clang at least).
 
   // For brevity and a bit of speed:
   auto& snd_flying_pkts_by_when = sock->m_snd_flying_pkts_by_sent_when;
@@ -4119,7 +4120,7 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
   // else
 
   const Socket_id socket_id = Node::socket_id(sock);
-  FLOW_LOG_INFO("Net-Flow worker thread starting active-connect of [" << sock << "].");
+  FLOW_LOG_INFO("NetFlow worker thread starting active-connect of [" << sock << "].");
 
   if (util::key_exists(m_socks, socket_id))
   {
@@ -4331,6 +4332,7 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
   using util::scheduled_task_fired;
   using boost::chrono::microseconds;
   using boost::chrono::duration_cast;
+  using boost::weak_ptr;
 
   // We are in thread W.
 
@@ -4353,8 +4355,13 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
   // Firing time is set; start timer.  Call that body when task fires, unless it is first canceled.
   sock->m_init_rexmit_scheduled_task
     = schedule_task_from_now(get_logger(), rexmit_from_now, true, &m_task_engine,
-                             [this, socket_id, sock](bool)
+                             [this, socket_id,
+                              sock_observer = weak_ptr<Peer_socket>(sock)]
+                               (bool)
   {
+    auto sock = sock_observer.lock();
+    assert(sock);
+
     handle_connection_rexmit_timer_event(socket_id, sock);
   });
 
@@ -4365,9 +4372,14 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
       = schedule_task_from_now(get_logger(),
                                sock->opt(sock->m_opts.m_st_connect_retransmit_timeout),
                                true, &m_task_engine,
-                               [this, socket_id, sock](bool)
-    {
+                               [this, socket_id,
+                                sock_observer = weak_ptr<Peer_socket>(sock)]
+                                 (bool)
+   {
       // We are in thread W.
+
+      auto sock = sock_observer.lock();
+      assert(sock);
 
       FLOW_LOG_INFO("Connection handshake timeout timer [" << sock << "] has been triggered; was on "
                     "attempt [" << (sock->m_init_rexmit_count + 1) << "].");
@@ -4476,6 +4488,10 @@ void Node::cancel_timers(Peer_socket::Ptr sock)
   {
     // This Drop_timer guy actually will prevent any callbacks from firing.
     sock->m_snd_drop_timer->done();
+
+    /* The two `shared_ptr`s (sock and m_snd_drop_timer) point to each other.  Nullify this to break the cycle
+     * and thus avoid memory leak. */
+    sock->m_snd_drop_timer.reset();
   }
 }
 
@@ -4806,7 +4822,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
    * packet has expired, and no retransmission/further transmission has occurred, then there must
    * have been no more data for a while), I can't quite prove to myself that it's exactly right,
    * mostly due to the fact that DTO may change over time.  It's probably right though, as RFC 4341
-   * recommends it, even though that protocol is closer to Net-Flow than TCP (full selective ACKs).
+   * recommends it, even though that protocol is closer to NetFlow than TCP (full selective ACKs).
    * Anyway, if we see too many false Idle timeouts, revisit this.
    *
    * Why check this now?  Why not start a proper timer, each time packet is sent, instead and just
@@ -5382,6 +5398,7 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::round;
+  using boost::weak_ptr;
 
   // We are in thread W.
 
@@ -5421,9 +5438,12 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
 
   sock->m_rcv_wnd_recovery_scheduled_task
     = schedule_task_from_now(get_logger(), fire_when_from_now, true, &m_task_engine,
-                             [this, sock](bool)
+                             [this, sock_observer = weak_ptr<Peer_socket>(sock)](bool)
   {
-    // We are in thread W.
+     // We are in thread W.
+
+    auto sock = sock_observer.lock();
+    assert(sock);
 
     const Fine_duration since_recovery_started = Fine_clock::now() - sock->m_rcv_wnd_recovery_start_time;
     if (since_recovery_started > sock->opt(sock->m_opts.m_dyn_rcv_wnd_recovery_max_period))
@@ -5805,9 +5825,9 @@ Syn_ack_packet::Ptr Node::create_syn_ack(Peer_socket::Const_ptr sock)
   // Initial Sequence Number (the start of our own series).
   syn_ack->m_init_seq_num = sock->m_snd_init_seq_num;
   // Random security token.
-  syn_ack->m_security_token = sock->m_security_token;
+  syn_ack->m_packed.m_security_token = sock->m_security_token;
   // Advertise initial rcv_wnd.
-  syn_ack->m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd;
+  syn_ack->m_packed.m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd;
 
   return syn_ack;
 }
@@ -5819,9 +5839,9 @@ bool Node::async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket
   auto syn_ack_ack = Low_lvl_packet::create_uninit_packet<Syn_ack_ack_packet>(get_logger());
   // No sequence number (not the initial SYN; not data).
   // Security token: give it back to them (they will verify).
-  syn_ack_ack->m_security_token = syn_ack->m_security_token;
+  syn_ack_ack->m_packed.m_security_token = syn_ack->m_packed.m_security_token;
   // Initial receive window is probably the entire, ~empty Receive buffer.  Save the advertised rcv_wnd as promised.
-  syn_ack_ack->m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
+  syn_ack_ack->m_packed.m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
 
   // Fill out common fields and asynchronously send packet.
   return async_sock_low_lvl_packet_send_or_close_immediately(sock,
@@ -6486,10 +6506,10 @@ std::ostream& operator<<(std::ostream& os, const Peer_socket* sock)
   return
     sock
       ? (os
-         << "Net-Flow_socket "
-         << "[" << sock->remote_endpoint() << "]<=>[Net-Flow [:" << sock->local_port() << "]] "
+         << "NetFlow_socket "
+         << "[" << sock->remote_endpoint() << "]<=>[NetFlow [:" << sock->local_port() << "]] "
          "@" << static_cast<const void*>(sock))
-      : (os << "Net-Flow_socket@null");
+      : (os << "NetFlow_socket@null");
 }
 
 /// @cond

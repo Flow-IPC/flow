@@ -516,8 +516,8 @@ void Node::handle_incoming(util::Blob* packet_data,
   // Sanity-check basic fields.
 
   // Sanity-check source and destination Flow ports.
-  const flow_port_t flow_local_port = packet->m_dst_port;
-  const flow_port_t flow_remote_port = packet->m_src_port;
+  const flow_port_t flow_local_port = packet->m_packed.m_dst_port;
+  const flow_port_t flow_remote_port = packet->m_packed.m_src_port;
   if (flow_remote_port == S_PORT_ANY)
   {
     FLOW_LOG_WARNING("Invalid src_port value [" << S_PORT_ANY << "] from [UDP " << low_lvl_remote_endpoint << "].  "
@@ -815,7 +815,8 @@ void Node::handle_incoming(util::Blob* packet_data,
          * If it's a duplicate SYN_ACK_ACK, we just drop it as harmless.  Otherwise the other guy
          * is misbehaving, so we RST/close. */
         if ((!sock->m_active_connect) &&
-            (static_pointer_cast<const Syn_ack_ack_packet>(packet)->m_security_token == sock->m_security_token))
+            (static_pointer_cast<const Syn_ack_ack_packet>(packet)->m_packed.m_security_token
+               == sock->m_security_token))
         {
           // Should be plenty of context if TRACE logging enabled anyway.
           FLOW_LOG_TRACE("Duplicate valid [" << packet->m_type_ostream_manip << "] packet; ignoring.");

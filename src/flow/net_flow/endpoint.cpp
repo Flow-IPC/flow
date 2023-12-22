@@ -64,7 +64,7 @@ bool operator==(const Remote_endpoint& lhs, const Remote_endpoint& rhs)
 
 std::ostream& operator<<(std::ostream& os, const Remote_endpoint& endpoint)
 {
-  return os << "Net-Flow [UDP " << endpoint.m_udp_endpoint << "]:" << endpoint.m_flow_port;
+  return os << "NetFlow [UDP " << endpoint.m_udp_endpoint << "]:" << endpoint.m_flow_port;
 }
 
 size_t hash_value(const Remote_endpoint& remote_endpoint)

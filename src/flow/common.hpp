@@ -324,7 +324,7 @@
  * hand, will mostly inline things explicitly declared as such in code (again, via `inline` or inlining inside
  * class bodies or other techniques).)  Update: Now using clang (not gcc) with maximum auto-inlining AND FLTO
  * (link-time optimization will allow inlining across object file boundaries) in at least some platforms.
- * This should be close to as good as possible.
+ * This should be close to as good as possible.  Update: gcc auto-inlining+FLTO also works.
  *
  * @todo One space after period, not two:
  * For some reason in this project I've been following the convention -- in comments and (I think) log
