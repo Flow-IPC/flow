@@ -297,7 +297,7 @@ jobs:
     # of tests/demos below and their small amount of output (as of this writing); but this can
     # and will grow.  The techniques will still apply.
 
-    - name: Run 'NetFlow echo' test/demo
+    - name: Run test/demo [NetFlow echo]
       run: |
         cd ${{ env.install-dir }}/bin
         mkdir -p logs/net_flow_echo
@@ -305,11 +305,16 @@ jobs:
         { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
             > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
         ${{ env.setup-tests-env }}
-        ./net_flow_echo_srv.exec 8888 localhost &
+        ./net_flow_echo_srv.exec 8888 localhost > logs/net_flow_echo/srv.console.log 2>&1 &
         sleep 1
-        ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!"
-        echo "Server will print exception due to SIGTERM interruption; that is fine."
+        if [ { ./net_flow_echo_cli.exec 1 127.0.01 8888 "Hello world!" > logs/net_flow_echo/cli.console.log 2>&1; } ]; \
+          then EC=0; else EC=$?; fi
+        echo "Client finished with code [$EC]."
+        echo "Server may print exception due to SIGTERM interruption; that is fine."
         kill `pidof $PWD/net_flow_echo_srv.exec`
+        [ $EC -eq 0 ]
+
+    # (More tests/demos here as needed.)
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
       if: |
