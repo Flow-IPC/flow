@@ -4360,9 +4360,11 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
                                (bool)
   {
     auto sock = sock_observer.lock();
-    assert(sock);
-
-    handle_connection_rexmit_timer_event(socket_id, sock);
+    if (sock)
+    {
+      handle_connection_rexmit_timer_event(socket_id, sock);
+    }
+    // else { Possible or not, allow for this possibility for maintainability. }
   });
 
   // Also set up the timeout that will stop these retries from happening.
@@ -4379,7 +4381,11 @@ void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr 
       // We are in thread W.
 
       auto sock = sock_observer.lock();
-      assert(sock);
+      if (!sock)
+      {
+        return; // Possible or not, allow for this possibility for maintainability.
+      }
+      // else
 
       FLOW_LOG_INFO("Connection handshake timeout timer [" << sock << "] has been triggered; was on "
                     "attempt [" << (sock->m_init_rexmit_count + 1) << "].");
@@ -5443,7 +5449,11 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
      // We are in thread W.
 
     auto sock = sock_observer.lock();
-    assert(sock);
+    if (!sock)
+    {
+      return; // Possible or not, allow for this possibility for maintainability.
+    }
+    // else
 
     const Fine_duration since_recovery_started = Fine_clock::now() - sock->m_rcv_wnd_recovery_start_time;
     if (since_recovery_started > sock->opt(sock->m_opts.m_dyn_rcv_wnd_recovery_max_period))
