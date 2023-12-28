@@ -952,9 +952,11 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
                                     (const Error_code& sys_err_code)
   {
     auto sock = sock_observer.lock();
-    assert(sock);
-
-    sock_pacing_time_slice_end(sock, sys_err_code);
+    if (sock)
+    {
+      sock_pacing_time_slice_end(sock, sys_err_code);
+    }
+    // else { Possible or not, allow for this possibility for maintainability. }
   });
 
   // More work to do later, but for now we've been successful.
