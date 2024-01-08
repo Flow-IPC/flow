@@ -234,11 +234,6 @@ struct Low_lvl_packet :
   } m_packed;
 #pragma pack(pop)
 
-  /// Flow-protocol port # of socket in sending Node.
-  flow_port_t m_src_port;
-  /// Flow-protocol port # of socket in receiving Node.
-  flow_port_t m_dst_port;
-
   // Type checks.
   static_assert(std::numeric_limits<flow_port_t>::is_integer
                   && (!std::numeric_limits<flow_port_t>::is_signed),
@@ -695,8 +690,8 @@ struct Syn_ack_packet : public Low_lvl_packet
   {
     /**
      * Random security token used during SYN_ACK-SYN_ACK_ACK.  For a given connection handshake, the SYN_ACK_ACK
-     * receiver ensures that Syn_ack_ack_packet::m_security_token it receives is equal to the original one it had
-     * sent (this #m_security_token here).
+     * receiver ensures that `Syn_ack_ack_packet` `m_security_token` it receives is equal to the original
+     * one it had sent (this #m_security_token here).
      */
     security_token_t m_security_token;
 
@@ -802,13 +797,13 @@ struct Syn_ack_ack_packet : public Low_lvl_packet
   struct
   {
     /**
-     * This must equal Syn_ack_packet::m_security_token received in the packet to which `*this` is
+     * This must equal `Syn_ack_packet` `m_security_token` received in the packet to which `*this` is
      * replying.  The other side will only proceed with the connection if the two are equal.
      */
     security_token_t m_security_token;
 
     /**
-     * Same meaning as Syn_ack_packet::m_rcv_wnd but applied to the essentially independent opposite
+     * Same meaning as in `Syn_ack_packet` but applied to the essentially independent opposite
      * traffic direction of the full-duplex connection being established.
      */
     rcv_wnd_t m_rcv_wnd;
