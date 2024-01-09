@@ -432,11 +432,21 @@ jobs:
         cd ${{ github.workspace }}/doc/flow_doc
         ${{ github.workspace }}/tools/doc/stage_generated_docs.sh \
           ${{ github.workspace }}/build/${{ matrix.build-cfg.conan-profile-build-type }}
-        # Save runner space.
-        rm -rf generated
 
     - name: Upload documentation tarball
       uses: actions/upload-artifact@v3
       with:
         name: flow-doc
         path: ${{ github.workspace }}/doc/flow_doc.tgz
+
+    # TODO: Possibly use `git config` to set user/email of committer-guy.  Default is pretty clear but involves
+    # a no-reply email; possibly we'd want some other behavior.
+    - name: (`main` branch only) Check-in generated documentation directly into source control
+      if: github.ref == 'refs/heads/main'
+      run: |
+        cd ${{ github.workspace }}/doc/flow_doc
+        echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
+        git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
+        git add generated
+        git commit -m '[Workflow script] Update generated documentation.'
+        git push origin main
