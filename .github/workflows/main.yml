@@ -467,8 +467,9 @@ jobs:
         path: ${{ github.workspace }}/doc/flow_doc.tgz
 
     - name: (`main` branch only) Check-in generated documentation directly into source control
-      if: github.ref == 'refs/heads/main'
+      if: success() && (github.ref == 'refs/heads/main')
       run: |
+        echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         # These values informally recommended in:
         #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
         git config user.name github-actions
@@ -481,7 +482,6 @@ jobs:
         git config --local http.https://github.com/.extraheader \
           "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.GIT_BOT_PAT }} | base64)"
         cd ${{ github.workspace }}/doc/flow_doc
-        echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
         git commit -m '${{ needs.setup.outputs.doc-commit-message }}'
