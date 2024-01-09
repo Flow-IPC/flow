@@ -439,8 +439,9 @@ jobs:
         name: flow-doc
         path: ${{ github.workspace }}/doc/flow_doc.tgz
 
+    # TODO: Disabled for now (in development).
     - name: (`main` branch only) Check-in generated documentation directly into source control
-      if: github.ref == 'refs/heads/main'
+      if: false && (github.ref == 'refs/heads/main')
       run: |
         # These values informally recommended in:
         #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
