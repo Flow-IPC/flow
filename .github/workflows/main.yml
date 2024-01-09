@@ -13,8 +13,16 @@ on:
   # To create the button that runs a workflow manually (has to be in `main` at least):
   workflow_dispatch:
 
+env:
+  doc-commit-message: (Commit by workflow script) Update generated documentation.
+
 jobs:
-  build:
+  # Prevent endless self-triggering from `doc` job on `main`.
+  build: # Repeated in another job below.  TODO: Code reuse?
+    if: |
+      !((github.ref == 'refs/heads/main')
+        && (github.event_name == 'push')
+        && startsWith(github.event.head_commit.message, env.doc-commit-message))
     strategy:
       fail-fast: false
       matrix:
@@ -359,6 +367,10 @@ jobs:
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc:
+    if: |
+      !((github.ref == 'refs/heads/main')
+        && (github.event_name == 'push')
+        && startsWith(github.event.head_commit.message, env.doc-commit-message))
     strategy:
       fail-fast: false
       matrix:
@@ -439,9 +451,8 @@ jobs:
         name: flow-doc
         path: ${{ github.workspace }}/doc/flow_doc.tgz
 
-    # TODO: Disabled for now (in development).
     - name: (`main` branch only) Check-in generated documentation directly into source control
-      if: false && (github.ref == 'refs/heads/main')
+      if: github.ref == 'refs/heads/main'
       run: |
         # These values informally recommended in:
         #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
@@ -458,5 +469,5 @@ jobs:
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
-        git commit -m '[Workflow script] Update generated documentation.'
+        git commit -m '${{ env.doc-commit-message }}'
         git push origin main
