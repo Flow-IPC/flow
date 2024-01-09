@@ -439,8 +439,6 @@ jobs:
         name: flow-doc
         path: ${{ github.workspace }}/doc/flow_doc.tgz
 
-    # TODO: Possibly use `git config` to set user/email of committer-guy.  Default is pretty clear but involves
-    # a no-reply email; possibly we'd want some other behavior.
     - name: (`main` branch only) Check-in generated documentation directly into source control
       if: github.ref == 'refs/heads/main'
       run: |
@@ -448,5 +446,9 @@ jobs:
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
+        # These values (and overall technique) informally recommended in:
+        #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+        git config user.name github-actions
+        git config user.email github-actions@github.com
         git commit -m '[Workflow script] Update generated documentation.'
         git push origin main
