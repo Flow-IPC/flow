@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  doc-commit-message: (Commit by workflow script) Update generated documentation.
+  doc_commit_message: (Commit by workflow script) Update generated documentation.
 
 jobs:
   # Prevent endless self-triggering from `doc` job on `main`.
@@ -22,7 +22,7 @@ jobs:
     if: |
       !((github.ref == 'refs/heads/main')
         && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, env.doc-commit-message))
+        && startsWith(github.event.head_commit.message, env.doc_commit_message))
     strategy:
       fail-fast: false
       matrix:
@@ -370,7 +370,7 @@ jobs:
     if: |
       !((github.ref == 'refs/heads/main')
         && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, env.doc-commit-message))
+        && startsWith(github.event.head_commit.message, env.doc_commit_message))
     strategy:
       fail-fast: false
       matrix:
@@ -469,5 +469,5 @@ jobs:
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
-        git commit -m '${{ env.doc-commit-message }}'
+        git commit -m '${{ env.doc_commit_message }}'
         git push origin main
