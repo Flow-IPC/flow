@@ -442,13 +442,20 @@ jobs:
     - name: (`main` branch only) Check-in generated documentation directly into source control
       if: github.ref == 'refs/heads/main'
       run: |
+        # These values informally recommended in:
+        #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        # We are forced to use a Personal Access Token attached to a special bot user such that in repo Settings
+        # we've configured that "guy" as allowed to bypass the requirement to merge via PR.  As of this writing
+        # there's no way to configure the default token of being able to do this.
+        # TODO: Keep an eye on that in case they provide for a better way:
+        #   https://github.com/orgs/community/discussions/25305
+        git config --local http.https://github.com/.extraheader \
+          "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.GIT_BOT_PAT }} | base64)"
         cd ${{ github.workspace }}/doc/flow_doc
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
-        # These values (and overall technique) informally recommended in:
-        #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
-        git config user.name github-actions
-        git config user.email github-actions@github.com
         git commit -m '[Workflow script] Update generated documentation.'
         git push origin main
