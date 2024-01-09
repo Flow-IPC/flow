@@ -13,16 +13,27 @@ on:
   # To create the button that runs a workflow manually (has to be in `main` at least):
   workflow_dispatch:
 
-env:
-  doc_commit_message: (Commit by workflow script) Update generated documentation.
-
 jobs:
-  # Prevent endless self-triggering from `doc` job on `main`.
-  build: # Repeated in another job below.  TODO: Code reuse?
+  # Impetus behind this is to set up at least one magic string used in 2+ places.
+  # Unfortunately simply using `env:` does not work, as jobs.<id>.if refuses to access the workflow-global `env.<id>`.
+  # Ridiculous.  TODO: Revisit.
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      doc-commit-message: (Commit by workflow script) Update generated documentation.
+    steps:
+      - id: setup
+        run: echo 'Setting up (prerequisite for the real jobs).'
+
+  build: # Repeated in another job below.  TODO: Code reuse by placing into jobs.setup?  Sadly it's not easy.
+    needs: setup
+
+    # Prevent endless self-triggering from `doc` job on `main`.
     if: |
       !((github.ref == 'refs/heads/main')
         && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, env.doc_commit_message))
+        && startsWith(github.event.head_commit.message, needs.setup.outputs.doc-commit-message))
+
     strategy:
       fail-fast: false
       matrix:
@@ -367,10 +378,14 @@ jobs:
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc:
+    needs: setup
+
+    # Prevent endless self-triggering from `doc` job on `main`.
     if: |
       !((github.ref == 'refs/heads/main')
         && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, env.doc_commit_message))
+        && startsWith(github.event.head_commit.message, needs.setup.outputs.doc-commit-message))
+
     strategy:
       fail-fast: false
       matrix:
