@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Sequence_number::operator+" name="flow::net_flow::Sequence_number::operator+">
+<area shape="rect" id="node1" title="Returns new sequence number that is *this advanced (or reversed) by the given distance." alt="" coords="5,5,165,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Sequence__number.html#ad86f280e517a60ebbe1edfeac7263d6e" title="Constructs sequence number that is zero (not a valid sequence number; less than all others)." alt="" coords="213,5,392,41"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::events_detected" name="flow::net_flow::Event_set::events_detected">
+<area shape="rect" id="node1" title="Returns true if and only if the last wait, if any, detected at least one event." alt="" coords="5,29,148,65"/>
+</map>

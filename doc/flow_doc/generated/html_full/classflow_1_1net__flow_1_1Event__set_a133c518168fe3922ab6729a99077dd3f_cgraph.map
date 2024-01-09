@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::sync_wait" name="flow::net_flow::Event_set::sync_wait">
+<area shape="rect" id="node1" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr..." alt="" coords="5,29,141,65"/>
+</map>

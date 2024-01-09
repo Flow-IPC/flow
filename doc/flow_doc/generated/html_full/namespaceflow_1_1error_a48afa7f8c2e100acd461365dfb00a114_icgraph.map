@@ -1,0 +1,6 @@
+<map id="flow::error::exec_void_and_throw_on_error" name="flow::error::exec_void_and_throw_on_error">
+<area shape="rect" id="node1" title="Equivalent of exec_and_throw_on_error() for operations with void return type." alt="" coords="204,113,343,149"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a9ae292072a84d07c867536e3de3b878e" title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()..." alt="" coords="13,29,149,65"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection." alt="" coords="5,113,156,149"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a1124027c715d674f113f2d961e4c6861" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo..." alt="" coords="13,173,148,209"/>
+</map>

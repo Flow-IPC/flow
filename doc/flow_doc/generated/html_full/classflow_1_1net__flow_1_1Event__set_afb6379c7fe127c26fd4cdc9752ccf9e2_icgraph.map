@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::clear_result_sockets" name="flow::net_flow::Event_set::clear_result_sockets">
+<area shape="rect" id="node1" title="Identical to emit_result_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ..." alt="" coords="5,29,168,65"/>
+</map>

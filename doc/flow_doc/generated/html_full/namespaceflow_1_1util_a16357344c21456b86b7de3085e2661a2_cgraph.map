@@ -1,0 +1,5 @@
+<map id="flow::util::buffers_dump_string" name="flow::util::buffers_dump_string">
+<area shape="rect" id="node1" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="5,36,120,72"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf" title="Writes a multi&#45; or single&#45;line string representation of the provided binary data to an output stream,..." alt="" coords="168,5,283,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="171,65,280,101"/>
+</map>

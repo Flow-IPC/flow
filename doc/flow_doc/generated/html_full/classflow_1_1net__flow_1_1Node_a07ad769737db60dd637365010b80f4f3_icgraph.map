@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::sock_info" name="flow::net_flow::Node::sock_info">
+<area shape="rect" id="node1" title="Implementation of sock&#45;&gt;info() for socket sock in all cases except when sock&#45;&gt;state() == Peer_socket:..." alt="" coords="183,5,317,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#aad81cc16fc6f0d353fdc1379e1dd4712" title="Returns a structure containing the most up&#45;to&#45;date stats about this connection." alt="" coords="5,5,135,41"/>
+</map>

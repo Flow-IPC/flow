@@ -1,0 +1,16 @@
+<map id="flow::util::in_closed_open_range" name="flow::util::in_closed_open_range">
+<area shape="rect" id="node1" title="Returns true if and only if the given value is within the given range, given as a [low,..." alt="" coords="849,184,977,220"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a198eb271d009f153cae041ba1948e945" title="Returns true if and only if the given iterator points to an element within this blob&#39;s size() element..." alt="" coords="660,124,795,160"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Port__space.html#ac43e4303aac2bde697b99bf03901ec85" title="Returns true if and only if the given port is a service port (as opposed to ephemeral or S_PORT_ANY)." alt="" coords="653,184,801,220"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Port__space.html#a9fe1be917ff7584ff587b5da5967127a" title="Return a previously reserved port (of any type)." alt="" coords="473,240,601,276"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Port__space.html#a1168841ecd09d3187f9803eac2b8b703" title="Reserve the specified service port, or reserve_ephemeral_port() if the specified port is S_PORT_ANY." alt="" coords="469,180,605,216"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#aba411df8746d5fd4db2d28df3a016f5e" title="Thread W implementation of listen()." alt="" coords="255,180,390,216"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s..." alt="" coords="23,29,158,65"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Node.html#ade49e7bc7202a0adf33fec2d93d1b177" title="A thread W method that handles the transition of the given socket from OPEN (any sub&#45;state) to CLOSED..." alt="" coords="224,240,421,276"/>
+<area shape="rect" id="node14" href="$classflow_1_1net__flow_1_1Node.html#adf6d71af81def2d030f0fef159c1b06d" title="Handles the transition of the given server socket from S_LISTENING/S_CLOSING to S_CLOSED (including e..." alt="" coords="254,337,391,385"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Node.html#aa5f7c019665d9dd91af0ad6431f8f97d" title="Similar to async_sock_low_lvl_packet_send_paced() except it also calls close_connection_immediately(s..." alt="" coords="17,89,164,149"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1Node.html#a1699dfdaf3e5ebe1b1d715a9c306d116" title="Handles a just&#45;received, not&#45;yet&#45;deserialized low&#45;level packet." alt="" coords="23,173,158,209"/>
+<area shape="rect" id="node11" href="$classflow_1_1net__flow_1_1Node.html#ad608f9bbe76426f4fbf4bf5af908e4e0" title="Placed by receive() onto W during a graceful close, after the Receive buffer had been emptied by the ..." alt="" coords="10,234,171,282"/>
+<area shape="rect" id="node12" href="$classflow_1_1net__flow_1_1Node.html#afe70a0c32695e417e7a09e0ba773f151" title="Asynchronously send RST to the other side of the given socket and close_connection_immediately()." alt="" coords="5,306,176,354"/>
+<area shape="rect" id="node13" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="23,379,158,415"/>
+</map>

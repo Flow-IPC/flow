@@ -1,0 +1,5 @@
+<map id="flow::log::Config::normalized_component_name" name="flow::log::Config::normalized_component_name">
+<area shape="rect" id="node1" title="Normalized version of given component name." alt="" coords="201,45,388,81"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#a2f266ee7e22d1090ab4de76e532cab89" title="Like configure_component_verbosity(), but the component is to be specified by its registered string n..." alt="" coords="9,5,150,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Config.html#a146a60d96256dbaed4f5f0e7dcd8f529" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="5,78,153,114"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::asio::Node::sock_create" name="flow::net_flow::asio::Node::sock_create">
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="5,11,137,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a03a8a4b4ab5338d80b5d78a03279510a" title="Overwrites the value to be returned by next async_task_engine()." alt="" coords="185,5,343,53"/>
+</map>

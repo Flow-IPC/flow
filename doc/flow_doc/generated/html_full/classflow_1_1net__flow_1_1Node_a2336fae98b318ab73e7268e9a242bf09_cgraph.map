@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Node::sock_load_info_struct" name="flow::net_flow::Node::sock_load_info_struct">
+<area shape="rect" id="node1" title="Given a Peer_socket, copies all stats info (as available via Peer_socket::info()) from various struct..." alt="" coords="5,27,152,63"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a43c42121d48a55a43a48e3a84bd10595" title="Obtain a copy of the value of a given option in a thread&#45;safe manner." alt="" coords="200,5,360,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#ac397d3fd163f1456b7bb370a3cff951c" title="Computes and returns the currently correct rcv_wnd value; that is the amount of space free in Receive..." alt="" coords="213,54,347,90"/>
+</map>

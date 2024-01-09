@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Sequence_number::operator+=" name="flow::net_flow::Sequence_number::operator+=">
+<area shape="rect" id="node1" title="Advances (or reverses) this sequence number by the given distance." alt="" coords="213,5,373,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Sequence__number.html#aab26c0d5ac005a150ec9c31c3d83802c" title="Equivalent to: operator+=(&#45;delta)." alt="" coords="5,5,165,41"/>
+</map>

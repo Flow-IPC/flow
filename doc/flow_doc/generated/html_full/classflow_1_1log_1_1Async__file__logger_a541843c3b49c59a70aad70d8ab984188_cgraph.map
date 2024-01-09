@@ -1,0 +1,3 @@
+<map id="flow::log::Async_file_logger::on_rotate_signal" name="flow::log::Async_file_logger::on_rotate_signal">
+<area shape="rect" id="node1" title="SIGHUP/equivalent handler for the optional feature capture_rotate_signals_internally in constructor." alt="" coords="5,29,165,65"/>
+</map>

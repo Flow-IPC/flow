@@ -1,0 +1,4 @@
+<map id="flow::log::Config::configure_default_verbosity" name="flow::log::Config::configure_default_verbosity">
+<area shape="rect" id="node1" title="Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() c..." alt="" coords="5,5,179,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#aee6877cec4b070e18a40090f080e76ca" title="Helper that for the given flat&#45;union&#45;component&#45;index saves the given per&#45;component verbosity,..." alt="" coords="227,5,409,41"/>
+</map>

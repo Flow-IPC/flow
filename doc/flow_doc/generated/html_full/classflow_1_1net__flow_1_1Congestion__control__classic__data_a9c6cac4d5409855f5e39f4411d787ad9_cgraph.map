@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Congestion_control_classic_data::congestion_window_at_limit" name="flow::net_flow::Congestion_control_classic_data::congestion_window_at_limit">
+<area shape="rect" id="node1" title="Returns true if and only if the stored CWND is &gt;= a certain constant maximum value." alt="" coords="5,5,212,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a842fd11c65c3be53ce3d81a7f050f7d7" title="Analogous to Congestion_control_strategy::socket()." alt="" coords="260,11,441,47"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Node::perform_accumulated_on_recv_tasks" name="flow::net_flow::Node::perform_accumulated_on_recv_tasks">
+<area shape="rect" id="node1" title="Performs all tasks to be performed at the end of low_lvl_recv_and_handle() or async part of async_wai..." alt="" coords="796,60,945,108"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a4368247d07e930bdd07ab8d2425c6de8" title="Sets up handle_incoming(packet_data, low_lvl_remote_endpoint) to be called asynchronously after a spe..." alt="" coords="597,29,748,77"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre&#45;condition that m_low_lvl_sock has a UDP packet available for reading,..." alt="" coords="188,66,351,102"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a90ecbad1ff3a8d2fe4b3ad1c474f7513" title="Helper for low_lvl_recv_and_handle() that calls handle_incoming() on the not&#45;yet&#45;deserialized low&#45;lev..." alt="" coords="399,29,549,77"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#ade12d2ebbd88b62432089a3a071b9514" title="Registers so that during the current or next m_task_engine.run(), the latter will wait for a receivab..." alt="" coords="5,66,140,102"/>
+</map>

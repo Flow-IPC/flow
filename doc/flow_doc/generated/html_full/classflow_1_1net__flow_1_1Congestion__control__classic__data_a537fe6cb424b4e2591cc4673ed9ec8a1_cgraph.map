@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Congestion_control_classic_data::Congestion_control_classic_data" name="flow::net_flow::Congestion_control_classic_data::Congestion_control_classic_data">
+<area shape="rect" id="node1" title="Constructs object by setting up logging and saving a pointer to the containing Peer_socket,..." alt="" coords="5,63,212,111"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a092ddd8d1f700b426a5f9e0184af004f" title="Logs, in a TRACE message, all internal state values." alt="" coords="260,69,455,105"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#aecb03f208c177ec3cbce5242f19efee0" title="Return true if and only if CWND &lt; SSTHRESH." alt="" coords="510,29,677,77"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a842fd11c65c3be53ce3d81a7f050f7d7" title="Analogous to Congestion_control_strategy::socket()." alt="" coords="503,102,684,138"/>
+</map>

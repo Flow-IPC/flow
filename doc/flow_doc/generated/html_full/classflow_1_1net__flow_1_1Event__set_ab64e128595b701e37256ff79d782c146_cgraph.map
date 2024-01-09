@@ -1,0 +1,10 @@
+<map id="flow::net_flow::Event_set::clear" name="flow::net_flow::Event_set::clear">
+<area shape="rect" id="node1" title="Forgets all sockets stored in this object in any fashion." alt="" coords="5,91,141,127"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a0edced1cb69b2cad299ee32e652ccea7" title="Helper that clears each Sockets set inside an Ev_type_to_socks_map." alt="" coords="205,13,347,61"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a19e241ae4dfe1ea54de6027052bc2135" title="Helper that returns a loggable string summarizing the sizes of the socket sets, by type,..." alt="" coords="203,85,349,133"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Event__set.html#a8e16d91f81860eb2a6c971863548e466" title="Helper that ensures the state of *this is such that one may modify the m_can and m_want socket sets." alt="" coords="189,157,363,193"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="411,60,533,96"/>
+<area shape="rect" id="node7" href="$classflow_1_1util_1_1Linked__hash__map.html#aba0949de5032e8dd6d75a48bcac9b060" title="Returns number of elements stored." alt="" coords="415,120,529,156"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="581,29,712,65"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="592,89,701,125"/>
+</map>

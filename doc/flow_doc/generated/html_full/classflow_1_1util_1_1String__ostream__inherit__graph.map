@@ -1,0 +1,4 @@
+<map id="flow::util::String_ostream" name="flow::util::String_ostream">
+<area shape="rect" id="node1" title="Similar to ostringstream but allows fast read&#45;only access directly into the std::string being written..." alt="" coords="17,77,126,113"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,137,29"/>
+</map>

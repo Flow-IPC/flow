@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Node::advance_seq_num" name="flow::net_flow::Node::advance_seq_num">
+<area shape="rect" id="node1" title="Assuming *seq_num points to the start of data.m_data, increments *seq_num to point to the datum just ..." alt="" coords="5,29,140,65"/>
+</map>

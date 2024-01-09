@@ -1,0 +1,22 @@
+<map id="flow::util::Null_interface" name="flow::util::Null_interface">
+<area shape="rect" id="node1" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,567,157,591"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi&#45;threaded thread pool onto which runnabl..." alt="" coords="205,204,357,240"/>
+<area shape="rect" id="node9" href="$classflow_1_1async_1_1Single__thread__task__loop.html" title="A Concurrent_task_loop&#45;related adapter&#45;style class that represents a single&#45;thread task loop; essenti..." alt="" coords="218,424,345,460"/>
+<area shape="rect" id="node11" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="224,515,339,539"/>
+<area shape="rect" id="node15" href="$classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow&#45;protocol networking node, in the sense that: (1) it has a di..." alt="" coords="214,597,349,621"/>
+<area shape="rect" id="node17" href="$classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non&#45;server) socket operating over the Flow network protocol, with optional stream&#45;of&#45;bytes an..." alt="" coords="217,647,346,683"/>
+<area shape="rect" id="node19" href="$classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets..." alt="" coords="211,709,351,745"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html" title=" " alt="" coords="413,5,571,65"/>
+<area shape="rect" id="node5" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html" title=" " alt="" coords="421,89,563,149"/>
+<area shape="rect" id="node6" href="$classflow_1_1async_1_1Cross__thread__task__loop.html" title="Concrete Concurrent_task_loop that is able to efficiently schedule Tasks within a given Op to execute..." alt="" coords="431,173,553,209"/>
+<area shape="rect" id="node7" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin&#45;Tasks&#45;within&#45;1&#45;Op&#45;to&#45;1&#45;thread method of achiev..." alt="" coords="414,233,570,269"/>
+<area shape="rect" id="node8" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html" title="Decorator of a Concurrent_task_loop with same or greater lifetime that accumulates time elapsed in an..." alt="" coords="405,294,579,342"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Timed__concurrent__task__loop.html" title="Decorates a general – potentially multi&#45;threaded – Concurrent_task_loop of any kind but with timing c..." alt="" coords="627,17,769,53"/>
+<area shape="rect" id="node10" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html" title="Identical to Single_thread_task_loop, but all tasks posted through it are automatically timed,..." alt="" coords="413,367,571,403"/>
+<area shape="rect" id="node12" href="$classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file&#45;system path but never blocks any loggi..." alt="" coords="427,427,557,463"/>
+<area shape="rect" id="node13" href="$classflow_1_1log_1_1Buffer__logger.html" title="An implementation of Logger that logs messages to an internal std::string buffer and provides read&#45;on..." alt="" coords="417,487,567,511"/>
+<area shape="rect" id="node14" href="$classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a..." alt="" coords="410,536,574,572"/>
+<area shape="rect" id="node16" href="$classflow_1_1net__flow_1_1asio_1_1Node.html" title="A subclass of net_flow::Node that adds the ability to easily and directly use net_flow sockets in gen..." alt="" coords="428,596,556,632"/>
+<area shape="rect" id="node18" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html" title="A net_flow::Peer_socket that adds integration with boost.asio." alt="" coords="428,656,556,692"/>
+<area shape="rect" id="node20" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html" title="A net_flow::Server_socket that adds integration with boost.asio." alt="" coords="428,716,556,752"/>
+</map>

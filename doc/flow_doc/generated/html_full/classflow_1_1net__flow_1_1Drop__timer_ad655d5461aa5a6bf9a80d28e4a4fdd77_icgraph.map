@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Drop_timer::disable_timer" name="flow::net_flow::Drop_timer::disable_timer">
+<area shape="rect" id="node1" title="Invalidates the running asynchronous wait on m_timer. Pre&#45;condition: m_timer_running." alt="" coords="243,39,379,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Drop__timer.html#ab6b96e0200579afdee1bf1ce58ab5ad2" title="Causes the Drop_timer to guarantee none of the action callbacks provided at construction will be call..." alt="" coords="35,5,165,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Drop__timer.html#a45d4cf2dfecc2cd5c35f452cd7c8d05d" title="Finishes the group started by start start_contemporaneous_events()." alt="" coords="5,66,195,114"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Server_socket::local_port" name="flow::net_flow::Server_socket::local_port">
+<area shape="rect" id="node1" title="The local Flow&#45;protocol port on which this server is or was listening." alt="" coords="193,5,333,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Server__socket.html#acbbe4fae58626a54fabdcd4bcdfdb011" title="Prints string representation of given socket to given standard ostream and returns the latter." alt="" coords="5,5,145,41"/>
+</map>

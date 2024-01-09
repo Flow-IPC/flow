@@ -1,0 +1,4 @@
+<map id="flow::log::Log_context::Log_context" name="flow::log::Log_context::Log_context">
+<area shape="rect" id="node1" title="Move constructor that makes this equal to src, while the latter becomes as&#45;if default&#45;constructed." alt="" coords="5,5,148,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e" title="Assignment operator that behaves similarly to the copy constructor." alt="" coords="196,5,339,41"/>
+</map>

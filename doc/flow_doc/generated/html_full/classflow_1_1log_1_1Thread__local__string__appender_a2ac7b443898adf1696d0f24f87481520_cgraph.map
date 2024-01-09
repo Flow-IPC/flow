@@ -1,0 +1,4 @@
+<map id="flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev" name="flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev">
+<area shape="rect" id="node1" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t..." alt="" coords="5,5,221,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="269,11,379,47"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::async::Op_list::random_op" name="flow::async::Op_list::random_op">
+<area shape="rect" id="node1" title="Returns (*this)[R], where we randomly select R as if by random_idx() and communicate it to the caller..." alt="" coords="236,5,364,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a8257d8aa45ea527ce6c0783e37346743" title="Implements superclass API." alt="" coords="5,5,188,41"/>
+</map>

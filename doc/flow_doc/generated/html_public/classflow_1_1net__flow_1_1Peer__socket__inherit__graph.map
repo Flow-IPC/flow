@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Peer_socket" name="flow::net_flow::Peer_socket">
+<area shape="rect" id="node1" title="A peer (non&#45;server) socket operating over the Flow network protocol, with optional stream&#45;of&#45;bytes an..." alt="" coords="243,59,372,95"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html" title="A net_flow::Peer_socket that adds integration with boost.asio." alt="" coords="420,59,548,95"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="24,5,176,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="5,53,195,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="29,125,171,149"/>
+</map>

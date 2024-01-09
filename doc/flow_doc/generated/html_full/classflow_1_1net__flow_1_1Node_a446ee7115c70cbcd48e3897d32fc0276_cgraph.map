@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Node::sock_validate_options" name="flow::net_flow::Node::sock_validate_options">
+<area shape="rect" id="node1" title="Analogous to validate_options() but checks per&#45;socket options instead of per&#45;Node options." alt="" coords="5,36,156,72"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#ab10bc9e8bef148f875aa743fe0852743" title="Returns true if and only if the given value is within the given range, inclusive." alt="" coords="204,5,332,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a8ae762ea4f743a98a73953d7f9ec2164" title="Returns true if and only if the given value is within the given range, given as a (low,..." alt="" coords="208,65,328,101"/>
+</map>

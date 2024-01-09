@@ -1,0 +1,6 @@
+<map id="flow::perf::Checkpointing_timer::scale" name="flow::perf::Checkpointing_timer::scale">
+<area shape="rect" id="node1" title="Called anytime after the last checkpoint(), this modifies the data collected so far to be as if every..." alt="" coords="5,61,164,97"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp..." alt="" coords="212,33,371,69"/>
+<area shape="rect" id="node4" href="$classflow_1_1perf_1_1Checkpointing__timer.html#afeb1faa0e4962dacf9b6a134191a4933" title="Returns the duration(s) (for all enabled Clock_types) between construction and the last checkpoint() ..." alt="" coords="419,89,577,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta..." alt="" coords="419,29,577,65"/>
+</map>

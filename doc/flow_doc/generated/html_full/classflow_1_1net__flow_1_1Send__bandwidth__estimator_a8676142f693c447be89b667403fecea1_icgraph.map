@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Send_bandwidth_estimator::socket" name="flow::net_flow::Send_bandwidth_estimator::socket">
+<area shape="rect" id="node1" title="Utility that returns a handle to the containing Peer_socket." alt="" coords="196,5,339,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#afe271b3d4c8cb73d06048a41871c795e" title="Informs the bandwidth estimator strategy that 1 or more previously sent packets whose status was In&#45;f..." alt="" coords="5,5,148,53"/>
+</map>

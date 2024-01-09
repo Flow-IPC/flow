@@ -1,0 +1,4 @@
+<map id="flow::cfg::Option_set::reject_candidate" name="flow::cfg::Option_set::reject_candidate">
+<area shape="rect" id="node1" title="In PARSING state, returns to CANONICAL state, as if no parse attempts have occurred." alt="" coords="220,11,355,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Config__manager.html#a2c9f7e2dd8973d5ff191eee1c2394cae" title="Helper that executes opt_set&#45;&gt;canonicalize_candidate() or opt_set&#45;&gt;reject_candidate()." alt="" coords="5,5,172,53"/>
+</map>

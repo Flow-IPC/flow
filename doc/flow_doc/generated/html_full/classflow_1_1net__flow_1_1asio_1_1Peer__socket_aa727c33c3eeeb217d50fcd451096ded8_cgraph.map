@@ -1,0 +1,4 @@
+<map id="flow::net_flow::asio::Peer_socket::handler_func" name="flow::net_flow::asio::Peer_socket::handler_func">
+<area shape="rect" id="node1" title="Returns a functor that essentially performs post() on_result onto *async_task_engine() in a way suita..." alt="" coords="5,11,180,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a1c63aaece6a9b056688a35405f064c70" title="Pointer (possibly null) for the flow::util::Task_engine used by any coming async_*() I/O calls." alt="" coords="228,5,363,53"/>
+</map>

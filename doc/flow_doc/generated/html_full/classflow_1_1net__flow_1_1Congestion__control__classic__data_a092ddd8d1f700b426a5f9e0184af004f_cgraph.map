@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Congestion_control_classic_data::log_state" name="flow::net_flow::Congestion_control_classic_data::log_state">
+<area shape="rect" id="node1" title="Logs, in a TRACE message, all internal state values." alt="" coords="5,69,200,105"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#aecb03f208c177ec3cbce5242f19efee0" title="Return true if and only if CWND &lt; SSTHRESH." alt="" coords="255,29,422,77"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a842fd11c65c3be53ce3d81a7f050f7d7" title="Analogous to Congestion_control_strategy::socket()." alt="" coords="248,102,429,138"/>
+</map>

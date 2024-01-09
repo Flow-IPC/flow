@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Peer_socket::operator&lt;&lt;" name="flow::net_flow::Peer_socket::operator&lt;&lt;">
+<area shape="rect" id="node1" title="Prints string representation of given socket to given standard ostream and returns the latter." alt="" coords="5,36,141,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a7af387476aa0bdc6b3906c153d824acb" title="The local Flow&#45;protocol port chosen by the Node (if active or passive open) or user (if passive open)..." alt="" coords="207,5,336,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#a5e423a9fd18a45cc7cc5fc34af29161e" title="Intended other side of the connection (regardless of success, failure, or current State)." alt="" coords="189,65,353,101"/>
+</map>

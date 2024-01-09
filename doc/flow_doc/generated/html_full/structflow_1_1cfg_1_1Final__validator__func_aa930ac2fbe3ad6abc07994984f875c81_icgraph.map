@@ -1,0 +1,4 @@
+<map id="flow::cfg::Final_validator_func::null" name="flow::cfg::Final_validator_func::null">
+<area shape="rect" id="node1" title="Returns a final&#45;validator function that simply always returns Final_validator_outcome::S_ACCEPT." alt="" coords="180,5,335,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1cfg.html#af1a4e0a153ec8216ead76450e900e386" title="Returns a value usable as final_validator_func arg to Config_manager::apply_static() and others – for..." alt="" coords="5,5,132,41"/>
+</map>

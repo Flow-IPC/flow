@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Congestion_control_classic_data::on_idle_timeout" name="flow::net_flow::Congestion_control_classic_data::on_idle_timeout">
+<area shape="rect" id="node1" title="Adjust state, namely CWND, assuming an Idle Timeout just occurred." alt="" coords="5,155,172,203"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a79e85a67e583b74cc414524d53650892" title="Sets internally stored SSHTRESH and CWND to the given values; appropriately resets internal state so ..." alt="" coords="220,91,387,139"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a842fd11c65c3be53ce3d81a7f050f7d7" title="Analogous to Congestion_control_strategy::socket()." alt="" coords="677,130,859,166"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a7b798f3211fd2214477355b95e2d10d2" title="If congestion_window_at_limit(), sets CWND to the limit value." alt="" coords="443,124,621,172"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#aecb03f208c177ec3cbce5242f19efee0" title="Return true if and only if CWND &lt; SSTHRESH." alt="" coords="685,29,851,77"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a092ddd8d1f700b426a5f9e0184af004f" title="Logs, in a TRACE message, all internal state values." alt="" coords="435,63,629,99"/>
+</map>

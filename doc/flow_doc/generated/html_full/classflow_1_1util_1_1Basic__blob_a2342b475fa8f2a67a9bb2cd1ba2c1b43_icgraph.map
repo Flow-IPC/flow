@@ -1,0 +1,4 @@
+<map id="flow::util::Basic_blob::resize" name="flow::util::Basic_blob::resize">
+<area shape="rect" id="node1" title="Guarantees post&#45;condition size() == size and start() == start; no values in pre&#45;call range [begin(),..." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a77d658402197aeda90c4b813e50b5f4c" title="Constructs blob with size() and capacity() equal to the given size, and start() == 0." alt="" coords="5,5,140,41"/>
+</map>

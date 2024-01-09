@@ -1,0 +1,26 @@
+<map id="flow::net_flow::Peer_socket_info" name="flow::net_flow::Peer_socket_info">
+<area shape="rect" id="node1" title="A data store that keeps stats about the a Peer_socket connection." alt="" coords="1267,1323,1396,1359"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__receive__stats.html" title="A data store that keeps stats about the incoming direction of a Peer_socket connection to another Flo..." alt="" coords="619,361,759,397"/>
+<area shape="rect" id="node3" title=" " alt="" coords="283,352,361,376"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket__send__stats.html" title="A data store that keeps stats about the outgoing direction of a Peer_socket connection to another Flo..." alt="" coords="625,571,754,607"/>
+<area shape="rect" id="node4" title=" " alt="" coords="41,297,108,321"/>
+<area shape="rect" id="node6" title=" " alt="" coords="256,291,388,327"/>
+<area shape="rect" id="node5" title=" " alt="" coords="295,777,349,801"/>
+<area shape="rect" id="node20" href="$structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low&#45;level options affecting a single Peer_socket." alt="" coords="625,1307,754,1343"/>
+<area shape="rect" id="node23" href="$structflow_1_1net__flow_1_1Node__options.html" title="A set of low&#45;level options affecting a single Flow Node, including Peer_socket objects and other obje..." alt="" coords="960,1253,1095,1289"/>
+<area shape="rect" id="node7" title=" " alt="" coords="35,595,115,619"/>
+<area shape="rect" id="node10" title=" " alt="" coords="256,583,388,631"/>
+<area shape="rect" id="node12" title=" " alt="" coords="247,679,397,727"/>
+<area shape="rect" id="node9" href="$classbool.html" title=" " alt="" coords="299,991,345,1015"/>
+<area shape="rect" id="node11" title=" " alt="" coords="9,680,140,704"/>
+<area shape="rect" id="node13" title=" " alt="" coords="5,729,144,765"/>
+<area shape="rect" id="node14" title=" " alt="" coords="988,1583,1067,1607"/>
+<area shape="rect" id="node15" title=" " alt="" coords="629,1710,750,1746"/>
+<area shape="rect" id="node16" title=" " alt="" coords="987,1631,1067,1655"/>
+<area shape="rect" id="node17" title=" " alt="" coords="275,1777,369,1801"/>
+<area shape="rect" id="node18" title=" " alt="" coords="983,1679,1072,1703"/>
+<area shape="rect" id="node19" title=" " alt="" coords="997,1733,1057,1757"/>
+<area shape="rect" id="node21" title=" " alt="" coords="277,1535,367,1559"/>
+<area shape="rect" id="node22" title=" " alt="" coords="259,1307,385,1343"/>
+<area shape="rect" id="node24" title=" " alt="" coords="642,1243,737,1267"/>
+</map>

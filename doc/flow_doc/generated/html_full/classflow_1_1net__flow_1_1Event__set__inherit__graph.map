@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Event_set" name="flow::net_flow::Event_set">
+<area shape="rect" id="node1" title="A user&#45;set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t..." alt="" coords="231,112,389,136"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="5,5,183,53"/>
+<area shape="rect" id="node3" title=" " alt="" coords="17,78,171,114"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="23,139,165,163"/>
+<area shape="rect" id="node5" title=" " alt="" coords="28,187,160,211"/>
+</map>

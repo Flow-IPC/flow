@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Low_lvl_packet::serialize_common_header_to_raw_data" name="flow::net_flow::Low_lvl_packet::serialize_common_header_to_raw_data">
+<area shape="rect" id="node1" title="Helper for serialize_to_raw_data() implementations in sub&#45;types that encodes the header common to all..." alt="" coords="5,5,195,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a6b3de1eb7a337002440ecd1ab0ad058f" title="Helper that looks up the Packet_type_info::m_raw_type_id value for the given typeid(p),..." alt="" coords="243,5,371,53"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="flow::net_flow::asio::Peer_socket::async_send_impl" name="flow::net_flow::asio::Peer_socket::async_send_impl">
+<area shape="rect" id="node1" title="De&#45;templated implementation of all async_send() methods." alt="" coords="5,72,140,120"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a0744682e2dc9118b4da3f00bc5267bec" title="Convenience method that polymorphically casts from net_flow::Peer_socket::Ptr to subclass pointer net..." alt="" coords="208,11,336,47"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#aa9e96966c7a8f5d35a34c0f5b3f65eb6" title="Helper that returns the net_flow::asio::Node that generated *this; unless *this is closed; in which c..." alt="" coords="199,72,345,120"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#abac02ab0468161ea5ce431a2f53c4703" title="Constructs object." alt="" coords="188,145,356,181"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a1c63aaece6a9b056688a35405f064c70" title="Pointer (possibly null) for the flow::util::Task_engine used by any coming async_*() I/O calls." alt="" coords="421,5,556,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#a74f6fd527766fdeb05a96c5c03729a00" title="The error code that perviously caused state() to become State::S_CLOSED, or success code if state is ..." alt="" coords="404,78,573,114"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa9e7e1be830c901bc7348742e79ba2e7" title="Node that produced this Peer_socket." alt="" coords="424,138,553,174"/>
+</map>

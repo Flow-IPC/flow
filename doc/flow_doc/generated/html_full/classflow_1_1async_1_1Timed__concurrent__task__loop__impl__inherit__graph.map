@@ -1,0 +1,5 @@
+<map id="flow::async::Timed_concurrent_task_loop_impl&lt; Time_accumulator &gt;" name="flow::async::Timed_concurrent_task_loop_impl&lt; Time_accumulator &gt;">
+<area shape="rect" id="node1" title="Decorator of a Concurrent_task_loop with same or greater lifetime that accumulates time elapsed in an..." alt="" coords="5,161,179,209"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi&#45;threaded thread pool onto which runnabl..." alt="" coords="16,77,168,113"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="16,5,168,29"/>
+</map>

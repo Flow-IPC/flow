@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Net_env_simulator" name="flow::net_flow::Net_env_simulator">
+<area shape="rect" id="node1" title="Objects of this class can be fed to Node to make it internally simulate network conditions like loss,..." alt="" coords="95,77,219,113"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="5,5,148,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="172,5,304,29"/>
+</map>

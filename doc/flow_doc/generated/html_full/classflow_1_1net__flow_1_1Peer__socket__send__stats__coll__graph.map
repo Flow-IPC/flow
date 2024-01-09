@@ -1,0 +1,13 @@
+<map id="flow::net_flow::Peer_socket_send_stats" name="flow::net_flow::Peer_socket_send_stats">
+<area shape="rect" id="node1" title="A data store that keeps stats about the outgoing direction of a Peer_socket connection to another Flo..." alt="" coords="592,270,721,306"/>
+<area shape="rect" id="node2" title=" " alt="" coords="283,5,361,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="41,211,108,235"/>
+<area shape="rect" id="node6" title=" " alt="" coords="256,330,388,366"/>
+<area shape="rect" id="node4" href="$classbool.html" title=" " alt="" coords="299,233,345,257"/>
+<area shape="rect" id="node5" title=" " alt="" coords="295,281,349,305"/>
+<area shape="rect" id="node7" title=" " alt="" coords="35,429,115,453"/>
+<area shape="rect" id="node8" title=" " alt="" coords="256,500,388,548"/>
+<area shape="rect" id="node10" title=" " alt="" coords="247,417,397,465"/>
+<area shape="rect" id="node9" title=" " alt="" coords="9,515,140,539"/>
+<area shape="rect" id="node11" title=" " alt="" coords="5,338,144,374"/>
+</map>

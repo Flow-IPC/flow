@@ -1,0 +1,5 @@
+<map id="flow::util::Unique_id_holder" name="flow::util::Unique_id_holder">
+<area shape="rect" id="node1" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="5,173,121,209"/>
+<area shape="rect" id="node2" title=" " alt="" coords="30,5,97,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="96,89,223,113"/>
+</map>

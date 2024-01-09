@@ -1,0 +1,4 @@
+<map id="flow::log::Config::Atomic_raw_sev" name="flow::log::Config::Atomic_raw_sev">
+<area shape="rect" id="node1" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,..." alt="" coords="5,77,125,113"/>
+<area shape="rect" id="node2" title=" " alt="" coords="8,5,123,29"/>
+</map>

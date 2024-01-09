@@ -1,0 +1,4 @@
+<map id="flow::util::istream_to_enum" name="flow::util::istream_to_enum">
+<area shape="rect" id="node1" title="Deserializes an enum class value from a standard input stream." alt="" coords="196,5,315,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1log.html#a350b25cb85d91052c0fb3dd80d513056" title="Deserializes a log::Sev from a standard input stream." alt="" coords="5,11,148,35"/>
+</map>

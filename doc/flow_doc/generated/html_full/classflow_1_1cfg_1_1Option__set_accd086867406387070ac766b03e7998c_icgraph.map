@@ -1,0 +1,5 @@
+<map id="flow::cfg::Option_set::null" name="flow::cfg::Option_set::null">
+<area shape="rect" id="node1" title="Return true if and only if the option&#45;declaring function passed to the constructor declared no option..." alt="" coords="220,39,355,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Option__set.html#abbbc9648c8c4bac0c456ed176106a0d2" title="Constructs an option set in CANONICAL state with a default&#45;valued values() payload and options declar..." alt="" coords="21,5,156,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1cfg_1_1Config__manager.html#a2c9f7e2dd8973d5ff191eee1c2394cae" title="Helper that executes opt_set&#45;&gt;canonicalize_candidate() or opt_set&#45;&gt;reject_candidate()." alt="" coords="5,66,172,114"/>
+</map>

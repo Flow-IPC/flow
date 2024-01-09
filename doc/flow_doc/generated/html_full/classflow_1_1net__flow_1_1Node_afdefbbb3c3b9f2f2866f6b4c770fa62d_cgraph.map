@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::event_set_fire_if_got_events" name="flow::net_flow::Node::event_set_fire_if_got_events">
+<area shape="rect" id="node1" title="Check whether given Event_set contains any active sockets (Event_set::m_can); if so,..." alt="" coords="5,5,147,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#aed9505b886c78169fe35b527f4e01855" title="Functional helper that checks whether a given pair in an Ev_type_to_socks_map contains an empty set o..." alt="" coords="195,5,341,53"/>
+</map>

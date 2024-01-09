@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::options" name="flow::net_flow::Peer_socket::options">
+<area shape="rect" id="node1" title="Copies this socket&#39;s option set and returns that copy." alt="" coords="5,5,135,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="183,5,312,41"/>
+</map>

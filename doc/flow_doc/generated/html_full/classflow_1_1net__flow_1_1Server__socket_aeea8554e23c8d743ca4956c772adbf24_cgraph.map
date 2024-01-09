@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Server_socket::accept" name="flow::net_flow::Server_socket::accept">
+<area shape="rect" id="node1" title="Non&#45;blocking accept: obtain socket for the least recently established not&#45;yet&#45;obtained peer connectio..." alt="" coords="5,36,145,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#ac3c67514c259404de3f27a8cae8b0567" title="Implementation of non&#45;blocking serv&#45;&gt;accept() for server socket serv in all cases except when serv&#45;&gt;s..." alt="" coords="193,5,328,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a109a118ca312e94686595ea08dac7ad0" title="Helper method that checks whether the given Peer_socket or Server_socket is CLOSED; if so,..." alt="" coords="193,65,328,101"/>
+</map>

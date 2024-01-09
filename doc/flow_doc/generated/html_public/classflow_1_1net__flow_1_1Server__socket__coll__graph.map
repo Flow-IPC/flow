@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Server_socket" name="flow::net_flow::Server_socket">
+<area shape="rect" id="node1" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets..." alt="" coords="253,59,393,95"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="29,5,181,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="5,53,205,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="34,125,177,149"/>
+</map>

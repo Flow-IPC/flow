@@ -1,0 +1,4 @@
+<map id="flow::log::Ostream_log_msg_writer" name="flow::log::Ostream_log_msg_writer">
+<area shape="rect" id="node1" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned..." alt="" coords="10,77,133,113"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,137,29"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::event_set_close_worker" name="flow::net_flow::Node::event_set_close_worker">
+<area shape="rect" id="node1" title="The guts of event_set_close_worker_check_state(): same thing, but assumes Event_set::state() == Event..." alt="" coords="5,11,164,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a0edced1cb69b2cad299ee32e652ccea7" title="Helper that clears each Sockets set inside an Ev_type_to_socks_map." alt="" coords="212,5,355,53"/>
+</map>

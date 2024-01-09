@@ -1,0 +1,8 @@
+<map id="flow::log::Logger" name="flow::log::Logger">
+<area shape="rect" id="node1" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="205,66,320,90"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file&#45;system path but never blocks any loggi..." alt="" coords="385,5,515,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Buffer__logger.html" title="An implementation of Logger that logs messages to an internal std::string buffer and provides read&#45;on..." alt="" coords="375,66,525,90"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a..." alt="" coords="368,115,532,151"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,38,157,62"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="23,87,139,123"/>
+</map>

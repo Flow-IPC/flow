@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::interrupt_all_waits" name="flow::net_flow::Node::interrupt_all_waits">
+<area shape="rect" id="node1" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo..." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1error.html#a48afa7f8c2e100acd461365dfb00a114" title="Equivalent of exec_and_throw_on_error() for operations with void return type." alt="" coords="188,5,327,41"/>
+</map>

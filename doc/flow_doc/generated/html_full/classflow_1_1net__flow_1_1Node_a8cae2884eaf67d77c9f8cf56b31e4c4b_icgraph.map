@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::rcv_buf_deqable" name="flow::net_flow::Node::rcv_buf_deqable">
+<area shape="rect" id="node1" title="Return true if and only if there are enough data in Peer_socket::m_rcv_buf of sock to give the user s..." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aa44feae2c97b4bc1fe1f14f83e932d84" title="Returns true if and only if calling sock&#45;&gt;receive() with at least some arguments would return either ..." alt="" coords="5,5,140,41"/>
+</map>

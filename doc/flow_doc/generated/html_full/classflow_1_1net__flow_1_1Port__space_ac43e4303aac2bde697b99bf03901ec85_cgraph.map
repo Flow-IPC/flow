@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Port_space::is_service_port" name="flow::net_flow::Port_space::is_service_port">
+<area shape="rect" id="node1" title="Returns true if and only if the given port is a service port (as opposed to ephemeral or S_PORT_ANY)." alt="" coords="5,5,153,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a024ddda9acb2b66f2a1b35cdb0c016aa" title="Returns true if and only if the given value is within the given range, given as a [low,..." alt="" coords="201,5,329,41"/>
+</map>

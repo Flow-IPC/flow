@@ -1,0 +1,4 @@
+<map id="flow::log::Thread_local_string_appender::get_this_thread_string_appender" name="flow::log::Thread_local_string_appender::get_this_thread_string_appender">
+<area shape="rect" id="node1" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ..." alt="" coords="5,5,188,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae" title="Raw unique ID identifying this object as well as any object of a derived type." alt="" coords="236,11,375,47"/>
+</map>

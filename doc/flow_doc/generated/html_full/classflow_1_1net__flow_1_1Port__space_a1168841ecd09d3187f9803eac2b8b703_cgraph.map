@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Port_space::reserve_port" name="flow::net_flow::Port_space::reserve_port">
+<area shape="rect" id="node1" title="Reserve the specified service port, or reserve_ephemeral_port() if the specified port is S_PORT_ANY." alt="" coords="5,40,141,76"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Port__space.html#ac43e4303aac2bde697b99bf03901ec85" title="Returns true if and only if the given port is a service port (as opposed to ephemeral or S_PORT_ANY)." alt="" coords="215,8,363,44"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Port__space.html#a65dbe99c7c4433e6c090f26c92ab3f78" title="Reserve a randomly chosen available ephemeral port." alt="" coords="189,69,389,105"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a024ddda9acb2b66f2a1b35cdb0c016aa" title="Returns true if and only if the given value is within the given range, given as a [low,..." alt="" coords="445,5,573,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Port__space.html#ad5a6a34a24c95364bb8348e5030d955b" title="Helper method that, given a reference to a bit set representing available ports (1 available,..." alt="" coords="437,66,581,114"/>
+</map>

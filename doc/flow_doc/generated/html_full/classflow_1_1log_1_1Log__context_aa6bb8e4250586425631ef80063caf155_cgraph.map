@@ -1,0 +1,4 @@
+<map id="flow::log::Log_context::swap" name="flow::log::Log_context::swap">
+<area shape="rect" id="node1" title="Swaps Logger pointers and Component objects held by *this and other." alt="" coords="5,29,148,65"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1log.html#a1b475cd2cc2e476aa96c002927bf1690" title="Log_context ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="196,35,303,59"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::log::Serial_file_logger::log_flush_and_reopen" name="flow::log::Serial_file_logger::log_flush_and_reopen">
+<area shape="rect" id="node1" title="Causes the log at the file&#45;system path to be flushed/closed (if needed) and re&#45;opened; this will occu..." alt="" coords="216,30,361,78"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Serial__file__logger.html#a2604031c07cbb4753bd3563d519a0872" title="Implements interface method by synchronously logging the message and some subset of the metadata in a..." alt="" coords="21,5,152,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Serial__file__logger.html#a979efc0eb7577c2175c8fe9debdced94" title="Constructs logger to subsequently log to the given file&#45;system path." alt="" coords="5,65,168,101"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Node::can_send" name="flow::net_flow::Node::can_send">
+<area shape="rect" id="node1" title="Answers the perennial question of congestion and flow control: assuming there is a DATA packet to sen..." alt="" coords="797,36,932,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a10a92f11a2c9f218cdd9a55f282e79b1" title="Thread W implemention of send(): synchronously or asynchronously send the contents of sock&#45;&gt;m_snd_buf..." alt="" coords="615,36,749,72"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a2565b7c0bd82cad86eb168b62f8ffd9d" title="Helper placed by send() onto W to invoke send_worker() but ensures that the socket has not entered so..." alt="" coords="397,36,567,72"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#aa19d1f49638ef8ce8883e7477a06d3fc" title="Implementation of non&#45;blocking sock&#45;&gt;send() for socket sock in all cases except when sock&#45;&gt;state() ==..." alt="" coords="215,36,349,72"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#a83ba2b4c39555afad67932ea6ed39bbe" title="Non&#45;template helper for template send() that forwards the send() logic to Node::send()." alt="" coords="21,5,151,41"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#a34e2c7dfb5596269a6f86a716015f1a6" title="This is to sync_send() as node_send() is to send()." alt="" coords="5,65,167,101"/>
+</map>

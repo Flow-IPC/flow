@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Peer_socket::Peer_socket" name="flow::net_flow::Peer_socket::Peer_socket">
+<area shape="rect" id="node1" title="Constructs object; initializes most values to well&#45;defined (0, empty, etc.) but not necessarily meani..." alt="" coords="5,5,141,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#ad94e37c8cca01f801f13e9e0e0bc857d" title="Copies this socket&#39;s option set and returns that copy." alt="" coords="189,5,319,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="367,5,496,41"/>
+</map>

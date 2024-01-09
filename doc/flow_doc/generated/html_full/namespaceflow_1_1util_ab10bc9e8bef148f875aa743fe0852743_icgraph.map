@@ -1,0 +1,13 @@
+<map id="flow::util::in_closed_range" name="flow::util::in_closed_range">
+<area shape="rect" id="node1" title="Returns true if and only if the given value is within the given range, inclusive." alt="" coords="597,96,725,132"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__info.html#adaa22131f82263a6c8c9c0512cb016be" title="Outputs the current stats, across multiple lines but not ending with a newline, into the given output..." alt="" coords="407,21,541,57"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a446ee7115c70cbcd48e3897d32fc0276" title="Analogous to validate_options() but checks per&#45;socket options instead of per&#45;Node options." alt="" coords="399,96,549,132"/>
+<area shape="rect" id="node11" href="$classflow_1_1util_1_1Basic__blob.html#a73e09b11e0067730db64f1fac7620a04" title="Returns true if and only if: this&#45;&gt;derefable_iterator(it) || (it == this&#45;&gt;const_end())." alt="" coords="407,156,541,192"/>
+<area shape="rect" id="node3" href="$structflow_1_1net__flow_1_1Peer__socket__info.html#a13391099a7662dbbef0a2ea171d1e7e9" title="Prints string representation of the stats in the given stats object to the standard ostream and retur..." alt="" coords="188,5,351,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#aba411df8746d5fd4db2d28df3a016f5e" title="Thread W implementation of listen()." alt="" coords="202,65,337,101"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Node.html#aadea4a9941c6138d9c025401b1f85ceb" title="Thread W implementation of sock&#45;&gt;set_options()." alt="" coords="202,125,337,161"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Node.html#ab2595f47710ddb06cfb22b6710b7286e" title="Given a new set of Node_options intended to replace (or initialize) a Node&#39;s m_opts,..." alt="" coords="202,209,337,245"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s..." alt="" coords="5,41,140,77"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,125,140,161"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1Node.html#a2779cc2429651696df1bca8de73534f3" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,209,140,245"/>
+</map>

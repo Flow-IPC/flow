@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted_bytes" name="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted_bytes">
+<area shape="rect" id="node1" title="Returns the best bandwidth/latency&#45;based guess for what the current window (pipe) size should be." alt="" coords="252,41,500,89"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a3358f8b8700d5427a5163f2f480b2e8d" title="Implements Congestion_control_strategy::on_drop_timeout() API." alt="" coords="5,5,204,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a942ce2561d6d2bbbb8faa8160a772416" title="Implements Congestion_control_strategy::on_loss_event() API." alt="" coords="5,77,204,125"/>
+</map>

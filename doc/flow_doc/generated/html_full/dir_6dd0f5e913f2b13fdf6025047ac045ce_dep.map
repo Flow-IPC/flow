@@ -1,0 +1,15 @@
+<map id="net_flow/detail" name="net_flow/detail">
+<area shape="rect" id="node1" href="dir_aee2b3c67924e0eefa590b781c13db02.html" title="error" alt="" coords="133,156,205,204"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000008_000012.html" title="1" alt="" coords="135,131,143,143"/>
+<area shape="rect" id="node3" href="dir_2e2c6296987b56cb51feb2e618f819df.html" title="cong_ctl" alt="" coords="37,156,109,204"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000008_000003.html" title="2" alt="" coords="78,132,86,144"/>
+<area shape="rect" id="node5" href="dir_23ec12649285f9fabf3a6b7380226c28.html" title="util" alt="" coords="121,348,193,396"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000008_000019.html" title="14" alt="" coords="186,332,201,344"/>
+<area shape="rect" id="node6" href="dir_9381a7bbd03577d6d8720c7f35c94ffa.html" title="log" alt="" coords="280,156,352,204"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000008_000013.html" title="5" alt="" coords="262,143,270,155"/>
+<area shape="rect" id="node4" href="dir_9d19ee70020ba699428208fa42b853e3.html" title="stats" alt="" coords="37,252,109,300"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000003_000018.html" title="1" alt="" coords="78,228,86,240"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000018_000019.html" title="1" alt="" coords="127,323,135,335"/>
+<area shape="rect" id="clust2" href="dir_6dd0f5e913f2b13fdf6025047ac045ce.html" alt="" coords="27,49,120,311"/>
+<area shape="rect" id="clust1" href="dir_460afd45d0ec637b1427e0e06a6fbcf7.html" title="net_flow" alt="" coords="16,16,216,321"/>
+</map>

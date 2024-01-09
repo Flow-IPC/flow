@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Peer_socket::bytes_blocks_str" name="flow::net_flow::Peer_socket::bytes_blocks_str">
+<area shape="rect" id="node1" title="Helper that, given a byte count, returns a string with that byte count and the number of max_block_si..." alt="" coords="5,5,165,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa1f821dde38a7aa572651730744edbd8" title="The maximum number of bytes of user data per received or sent packet on this connection." alt="" coords="213,5,368,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="416,5,545,41"/>
+</map>

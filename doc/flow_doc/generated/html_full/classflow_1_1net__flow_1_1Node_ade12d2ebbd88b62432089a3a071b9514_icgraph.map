@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Node::async_low_lvl_recv" name="flow::net_flow::Node::async_low_lvl_recv">
+<area shape="rect" id="node1" title="Registers so that during the current or next m_task_engine.run(), the latter will wait for a receivab..." alt="" coords="216,5,351,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre&#45;condition that m_low_lvl_sock has a UDP packet available for reading,..." alt="" coords="5,5,168,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="19,65,154,101"/>
+</map>

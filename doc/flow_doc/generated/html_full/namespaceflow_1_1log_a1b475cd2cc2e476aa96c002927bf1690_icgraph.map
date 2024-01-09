@@ -1,0 +1,5 @@
+<map id="flow::log::swap" name="flow::log::swap">
+<area shape="rect" id="node1" title="Log_context ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="387,58,493,82"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#aae857197aecba8606c32296bc7bec308" title="Move assignment operator that behaves similarly to the move constructor." alt="" coords="5,12,148,48"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html#aa6bb8e4250586425631ef80063caf155" title="Swaps Logger pointers and Component objects held by *this and other." alt="" coords="196,52,339,88"/>
+</map>

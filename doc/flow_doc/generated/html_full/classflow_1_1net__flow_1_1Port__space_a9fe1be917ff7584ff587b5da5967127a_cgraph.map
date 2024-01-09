@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Port_space::return_port" name="flow::net_flow::Port_space::return_port">
+<area shape="rect" id="node1" title="Return a previously reserved port (of any type)." alt="" coords="5,5,133,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a024ddda9acb2b66f2a1b35cdb0c016aa" title="Returns true if and only if the given value is within the given range, given as a [low,..." alt="" coords="377,5,505,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Port__space.html#ac43e4303aac2bde697b99bf03901ec85" title="Returns true if and only if the given port is a service port (as opposed to ephemeral or S_PORT_ANY)." alt="" coords="181,33,329,69"/>
+</map>

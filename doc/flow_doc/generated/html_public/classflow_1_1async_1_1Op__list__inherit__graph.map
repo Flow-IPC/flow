@@ -1,0 +1,4 @@
+<map id="flow::async::Op_list" name="flow::async::Op_list">
+<area shape="rect" id="node1" title="Simple, immutable vector&#45;like sequence of N opaque async::Op objects, usually corresponding to N work..." alt="" coords="13,77,141,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="5,5,148,29"/>
+</map>

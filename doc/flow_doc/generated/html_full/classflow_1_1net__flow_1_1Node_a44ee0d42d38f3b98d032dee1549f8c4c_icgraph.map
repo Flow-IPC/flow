@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::event_set_close" name="flow::net_flow::Node::event_set_close">
+<area shape="rect" id="node1" title="Implementation of Event_set::close() when Event_set::state() != Event_set::State::S_CLOSED for event_..." alt="" coords="189,29,324,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a9ae292072a84d07c867536e3de3b878e" title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()..." alt="" coords="5,29,141,65"/>
+</map>

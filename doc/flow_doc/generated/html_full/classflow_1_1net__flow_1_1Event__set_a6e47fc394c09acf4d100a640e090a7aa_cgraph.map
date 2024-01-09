@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Event_set::swap_wanted_sockets" name="flow::net_flow::Event_set::swap_wanted_sockets">
+<area shape="rect" id="node1" title="Efficiently exchanges the current set of sockets we want to know are &quot;ready&quot; by the definiton of the ..." alt="" coords="5,65,180,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a8e16d91f81860eb2a6c971863548e466" title="Helper that ensures the state of *this is such that one may modify the m_can and m_want socket sets." alt="" coords="228,5,401,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Linked__hash__set.html#ad2ce3ff8f57696dcb230f419775ab865" title="Returns number of elements stored." alt="" coords="258,65,371,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#a46e27b1b9b75e5dc890af26f85956190" title="Swaps the contents of this structure and other." alt="" coords="258,125,371,161"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#ac7fd808e839d422a3f74fbea57fe367e" title="Equivalent to val1.swap(val2)." alt="" coords="449,131,556,155"/>
+</map>

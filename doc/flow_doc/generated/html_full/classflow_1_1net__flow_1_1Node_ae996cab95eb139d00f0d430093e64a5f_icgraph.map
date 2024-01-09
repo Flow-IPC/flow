@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::interrupt_all_waits_internal_sig_handler" name="flow::net_flow::Node::interrupt_all_waits_internal_sig_handler">
+<area shape="rect" id="node1" title="signal_set handler, executed on SIGINT and SIGTERM, if user has enabled this feature: causes interrup..." alt="" coords="188,5,325,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,11,140,47"/>
+</map>

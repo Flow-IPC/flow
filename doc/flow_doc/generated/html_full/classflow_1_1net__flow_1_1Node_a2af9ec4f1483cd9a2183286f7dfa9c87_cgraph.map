@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::serv_close_detected" name="flow::net_flow::Node::serv_close_detected">
+<area shape="rect" id="node1" title="Records that thread W shows this socket is not to listen to incoming connections and is to abort any ..." alt="" coords="5,5,147,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a0bac29a091e1026e5b4f0b5d84a710c7" title="Sets Server_socket::m_state." alt="" coords="195,5,329,41"/>
+</map>

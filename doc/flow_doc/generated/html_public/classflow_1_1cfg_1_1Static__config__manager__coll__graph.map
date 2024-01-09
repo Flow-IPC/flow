@@ -1,0 +1,5 @@
+<map id="flow::cfg::Static_config_manager&lt; Value_set &gt;" name="flow::cfg::Static_config_manager&lt; Value_set &gt;">
+<area shape="rect" id="node1" title="A Config_manager&#45;related adapter&#45;style class that manages a simple config setup involving a single (t..." alt="" coords="21,161,173,197"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Config__manager.html" title=" " alt="" coords="5,77,188,113"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="25,5,168,29"/>
+</map>

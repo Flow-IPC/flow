@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::create_syn_ack" name="flow::net_flow::Node::create_syn_ack">
+<area shape="rect" id="node1" title="Like create_syn() but for SYN_ACK." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="188,5,331,41"/>
+</map>

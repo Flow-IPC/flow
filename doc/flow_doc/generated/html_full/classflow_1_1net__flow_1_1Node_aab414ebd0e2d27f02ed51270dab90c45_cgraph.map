@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow" name="flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow">
+<area shape="rect" id="node1" title="Helper for handle_data_to_established() that aims to pass the payload of the given DATA packet to the..." alt="" coords="5,127,151,175"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#ac2753b3e8e3932593fed431771b1df80" title="Indicates the Receive buffer was enqueued with data from network (so its data_size() increased)." alt="" coords="215,5,373,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#a20f2fe00c0874f075fade075bb82e234" title="Indicates good_data_packet(), and these data are not dropped (so either delivered into Receive buffer..." alt="" coords="213,78,375,138"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#a5cc77830ee793725a5bbc1e7660fb230" title="Indicates good_data_accepted_packet(), and these data are delivered into Receive buffer (either immed..." alt="" coords="213,162,375,222"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#aede48ce8c717e5e8f69accc4d8608613" title="Indicates good_data_packet(), but these data are dropped due to insufficient Receive buffer space." alt="" coords="199,246,389,306"/>
+</map>

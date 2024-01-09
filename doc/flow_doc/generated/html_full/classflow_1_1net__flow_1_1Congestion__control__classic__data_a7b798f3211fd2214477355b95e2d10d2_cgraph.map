@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Congestion_control_classic_data::clamp_congestion_window" name="flow::net_flow::Congestion_control_classic_data::clamp_congestion_window">
+<area shape="rect" id="node1" title="If congestion_window_at_limit(), sets CWND to the limit value." alt="" coords="5,5,184,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a842fd11c65c3be53ce3d81a7f050f7d7" title="Analogous to Congestion_control_strategy::socket()." alt="" coords="232,11,413,47"/>
+</map>

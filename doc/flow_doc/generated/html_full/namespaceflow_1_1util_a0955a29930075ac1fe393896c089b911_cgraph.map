@@ -1,0 +1,4 @@
+<map id="flow::util::beautify_chrono_ostream" name="flow::util::beautify_chrono_ostream">
+<area shape="rect" id="node1" title="Sets certain chrono&#45;related formatting on the given ostream that results in a consistent,..." alt="" coords="5,11,128,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Duration__units__beautified.html#aa689f853f75e06263d6875ae5824a4c6" title="Returns a reference to a locale that – if imbued onto an ostream – equals std::locale::classic except..." alt="" coords="176,5,355,53"/>
+</map>

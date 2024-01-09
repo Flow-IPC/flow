@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::node_receive" name="flow::net_flow::Peer_socket::node_receive">
+<area shape="rect" id="node1" title="Non&#45;template helper for template receive() that forwards the receive() logic to Node::receive()." alt="" coords="183,5,327,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of..." alt="" coords="5,5,135,41"/>
+</map>

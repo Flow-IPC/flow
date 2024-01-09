@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Event_set::events_wanted" name="flow::net_flow::Event_set::events_wanted">
+<area shape="rect" id="node1" title="Returns true if and only if at least one wanted event for at least one socket is registered (via add_..." alt="" coords="5,29,141,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#aed9505b886c78169fe35b527f4e01855" title="Functional helper that checks whether a given pair in an Ev_type_to_socks_map contains an empty set o..." alt="" coords="189,23,336,71"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Remote_endpoint" name="flow::net_flow::Remote_endpoint">
+<area shape="rect" id="node1" title="Represents the remote endpoint of a Flow&#45;protocol connection; identifies the UDP endpoint of the remo..." alt="" coords="29,89,175,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,76,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="131,5,198,29"/>
+</map>

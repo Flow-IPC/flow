@@ -1,0 +1,6 @@
+<map id="flow::async::Single_thread_task_loop" name="flow::async::Single_thread_task_loop">
+<area shape="rect" id="node1" title="A Concurrent_task_loop&#45;related adapter&#45;style class that represents a single&#45;thread task loop; essenti..." alt="" coords="99,77,225,113"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html" title="Identical to Single_thread_task_loop, but all tasks posted through it are automatically timed,..." alt="" coords="83,161,241,197"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="5,5,148,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="173,5,325,29"/>
+</map>

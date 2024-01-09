@@ -1,0 +1,4 @@
+<map id="flow::async::asio_handler_via_op" name="flow::async::asio_handler_via_op">
+<area shape="rect" id="node1" title="Given a boost.asio completion handler handler for a boost.asio async_*() action on some boost...." alt="" coords="5,5,168,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,..." alt="" coords="216,5,368,41"/>
+</map>

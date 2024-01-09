@@ -1,0 +1,4 @@
+<map id="flow::async::Timed_concurrent_task_loop_impl::accumulated_time" name="flow::async::Timed_concurrent_task_loop_impl::accumulated_time">
+<area shape="rect" id="node1" title="Returns the accumulated time spent on tasks this thread pool handles since its last invocation; and r..." alt="" coords="212,5,371,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#ae429fb31d17d422306cd9da398e53e5c" title="See Timed_concurrent_task_loop_impl::accumulated_time()." alt="" coords="5,5,164,53"/>
+</map>

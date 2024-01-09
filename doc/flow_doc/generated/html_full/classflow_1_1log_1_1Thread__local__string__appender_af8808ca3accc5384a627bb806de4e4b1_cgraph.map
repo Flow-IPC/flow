@@ -1,0 +1,6 @@
+<map id="flow::log::Thread_local_string_appender::fresh_appender_ostream" name="flow::log::Thread_local_string_appender::fresh_appender_ostream">
+<area shape="rect" id="node1" title="Clears the internally stored string (accessible for reading via target_contents()),..." alt="" coords="5,39,157,87"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Thread__local__string__appender.html#a64383811f529af676dde0028f61831f7" title="Same as fresh_appender_ostream() but does not clear the result string, enabling piecemeal writing to ..." alt="" coords="205,5,383,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1String__ostream.html#a55008c2e651cfc832182a941284f7e7e" title="Performs std::string::clear() on the object returned by str()." alt="" coords="231,78,357,114"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="431,11,540,47"/>
+</map>

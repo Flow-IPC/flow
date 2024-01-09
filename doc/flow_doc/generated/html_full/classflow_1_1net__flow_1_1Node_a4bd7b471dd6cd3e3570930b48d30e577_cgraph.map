@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::max_block_size" name="flow::net_flow::Node::max_block_size">
+<area shape="rect" id="node1" title="The maximum number of bytes of user data per received or sent block on connections generated from thi..." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a43c42121d48a55a43a48e3a84bd10595" title="Obtain a copy of the value of a given option in a thread&#45;safe manner." alt="" coords="188,11,348,35"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="flow::perf::Checkpointing_timer::now" name="flow::perf::Checkpointing_timer::now">
+<area shape="rect" id="node1" title="Based on the passed in which_clocks argument, the current time is returned for the clock types enable..." alt="" coords="5,89,164,125"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta..." alt="" coords="219,29,378,65"/>
+<area shape="rect" id="node3" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a82e717d5b1f6df56dc70b26c7da100f3" title="Returns individual Time_pt value returnable by now() various overloads: either the user time or syste..." alt="" coords="219,89,378,125"/>
+<area shape="rect" id="node4" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a7c799f400ceddd5ad5529fa66f026fd0" title="Returns the current Cpu_split_clock time, essentially as a combo struct containing raw (integer) coun..." alt="" coords="212,149,385,185"/>
+</map>

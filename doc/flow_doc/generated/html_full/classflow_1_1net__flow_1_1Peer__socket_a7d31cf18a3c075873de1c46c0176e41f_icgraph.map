@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Peer_socket::set_options" name="flow::net_flow::Peer_socket::set_options">
+<area shape="rect" id="node1" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,29,140,65"/>
+</map>

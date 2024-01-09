@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Node::sock_disconnect_completed" name="flow::net_flow::Node::sock_disconnect_completed">
+<area shape="rect" id="node1" title="While in S_OPEN+S_DISCONNECTING state (i.e., after beginning a graceful close with sock_disconnect_de..." alt="" coords="5,36,188,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a1d5f13062bec6730db533cc1e89bf515" title="Helper that clears all non&#45;O(1)&#45;space data structures stored inside sock." alt="" coords="236,5,371,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#ad502e0a992a79b71af42a9cdc20a4280" title="Sets Peer_socket::m_state and Peer_socket::m_open_sub_state." alt="" coords="236,65,371,101"/>
+</map>

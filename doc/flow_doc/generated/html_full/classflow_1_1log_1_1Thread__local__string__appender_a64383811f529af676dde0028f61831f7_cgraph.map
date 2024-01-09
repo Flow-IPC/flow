@@ -1,0 +1,4 @@
+<map id="flow::log::Thread_local_string_appender::appender_ostream" name="flow::log::Thread_local_string_appender::appender_ostream">
+<area shape="rect" id="node1" title="Same as fresh_appender_ostream() but does not clear the result string, enabling piecemeal writing to ..." alt="" coords="5,5,183,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="231,11,340,47"/>
+</map>

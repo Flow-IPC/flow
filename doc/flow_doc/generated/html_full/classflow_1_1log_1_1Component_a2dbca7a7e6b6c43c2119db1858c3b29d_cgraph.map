@@ -1,0 +1,5 @@
+<map id="flow::log::Component::Component" name="flow::log::Component::Component">
+<area shape="rect" id="node1" title="Constructs a Component with the given payload of arbitrary type, so long as that type is an enum clas..." alt="" coords="5,36,145,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Component.html#a146ce02cc7422b3a3bca07533536450e" title="Overwrites *this with a copy of src." alt="" coords="193,5,333,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Component.html#a656f5868adbd8c58c493981fe1764699" title="Returns reference to immutable payload stored in *this; undefined behavior if empty() == true." alt="" coords="193,65,333,101"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="flow::util::Unique_id_holder::unique_id" name="flow::util::Unique_id_holder::unique_id">
+<area shape="rect" id="node1" title="Raw unique ID identifying this object as well as any object of a derived type." alt="" coords="833,36,972,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ..." alt="" coords="603,30,785,78"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Logger.html#ad6ead44c19a7b15111b2f77656a2ea31" title="Returns the stream dedicated to the executing thread and this Logger, so that the caller can apply st..." alt="" coords="421,36,555,72"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc" title="Sets certain chrono&#45;related formatting on the given Logger in the current thread that results in a co..." alt="" coords="243,30,373,78"/>
+<area shape="rect" id="node5" href="$classflow_1_1async_1_1Task__qing__thread.html#abb03d1b5f50a2b6148da27139a2391da" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th..." alt="" coords="17,5,183,41"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#aa894fd58b246c2a8d6c7c7d25a8748cb" title="Helper to invoke for each thread in which this Node executes, whether or not it starts that thread,..." alt="" coords="5,65,195,101"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Peer_socket_options::setup_config_parsing_helper" name="flow::net_flow::Peer_socket_options::setup_config_parsing_helper">
+<area shape="rect" id="node1" title="Analogous to Node_options::setup_config_parsing_helper()." alt="" coords="396,41,544,89"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__options.html#aa6d94acf3c746c8f59c91ffa824ef8bd" title="Analogous to Node_options::setup_config_parsing()." alt="" coords="200,5,348,53"/>
+<area shape="rect" id="node3" href="$structflow_1_1net__flow_1_1Node__options.html#a07d18f7e934d079835f5367fbf7d6d1b" title="Loads the full set of boost.program_options config options into the given Options_description,..." alt="" coords="201,77,347,125"/>
+<area shape="rect" id="node4" href="$structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1" title="Modifies a boost.program_options options description object to enable subsequent parsing of a command..." alt="" coords="5,77,152,125"/>
+</map>

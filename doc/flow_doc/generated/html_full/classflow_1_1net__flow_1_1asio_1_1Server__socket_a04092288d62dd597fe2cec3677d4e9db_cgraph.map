@@ -1,0 +1,9 @@
+<map id="flow::net_flow::asio::Server_socket::async_accept" name="flow::net_flow::asio::Server_socket::async_accept">
+<area shape="rect" id="node1" title="Equivalent to async_accept(duration::max(), reactor_pattern, on_result); i.e., async_accept() with no..." alt="" coords="5,119,152,167"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a01233841b5cde6b22a2ae2481c14c51b" title="De&#45;templated implementation of all async_accept() methods." alt="" coords="200,119,347,167"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a0744682e2dc9118b4da3f00bc5267bec" title="Convenience method that polymorphically casts from net_flow::Peer_socket::Ptr to subclass pointer net..." alt="" coords="415,5,543,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a5f28c0b6770b68994aa95ae5df50afc2" title="Convenience method that polymorphically casts from net_flow::Server_socket::Ptr to subclass pointer n..." alt="" coords="411,65,548,101"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Server__socket.html#a6ba400221e347613c0d101b19602a3a2" title="The error code that perviously caused state() to become State::S_CLOSED, or success code if state is ..." alt="" coords="395,125,564,161"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Server__socket.html#ae22e94978d59dfe23559a254349670bd" title="Node that produced this Server_socket." alt="" coords="409,185,549,221"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a201bb6012ddffe83f9a1a3daf5e78645" title="Constructs object." alt="" coords="405,246,554,294"/>
+</map>

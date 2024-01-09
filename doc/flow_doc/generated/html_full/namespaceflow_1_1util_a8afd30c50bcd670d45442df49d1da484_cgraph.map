@@ -1,0 +1,5 @@
+<map id="flow::util::ostream_op_to_string" name="flow::util::ostream_op_to_string">
+<area shape="rect" id="node1" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="5,60,128,96"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="176,29,307,65"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="187,89,296,125"/>
+</map>

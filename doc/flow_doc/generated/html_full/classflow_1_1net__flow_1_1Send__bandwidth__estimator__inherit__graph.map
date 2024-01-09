@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Send_bandwidth_estimator" name="flow::net_flow::Send_bandwidth_estimator">
+<area shape="rect" id="node1" title="A per&#45;Peer_socket module that tries to estimate the bandwidth available to the outgoing flow." alt="" coords="85,77,228,113"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="5,5,148,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="172,5,304,29"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Low_lvl_packet::serialize_to_raw_data" name="flow::net_flow::Low_lvl_packet::serialize_to_raw_data">
+<area shape="rect" id="node1" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,..." alt="" coords="195,5,329,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a5856c405aa18f4f54a35515786befea8" title="Identical to serialize_to_raw_data() but adds log&#45;level&#45;appropriate logging after the operation." alt="" coords="5,5,147,53"/>
+</map>

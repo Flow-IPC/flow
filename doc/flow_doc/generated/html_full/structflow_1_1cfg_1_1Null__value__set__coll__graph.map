@@ -1,0 +1,4 @@
+<map id="flow::cfg::Null_value_set" name="flow::cfg::Null_value_set">
+<area shape="rect" id="node1" title="Empty struct suitable as a *_value_set template arg for Config_manager, when a slot requires a Value_..." alt="" coords="6,113,161,137"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="5,5,161,65"/>
+</map>

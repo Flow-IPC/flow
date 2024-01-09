@@ -1,0 +1,4 @@
+<map id="flow::cfg::Option_set_base::throw_on_invalid_func" name="flow::cfg::Option_set_base::throw_on_invalid_func">
+<area shape="rect" id="node1" title="Returns a function that wraps a Value&#45;&gt;Boolean validator function, as passed to declare_option_for_pa..." alt="" coords="203,11,385,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Option__set__base.html#ab79c61f62032b238cb25e132ce1e1d43" title="Internal&#45;through&#45;macro helper function; the user shall not call this directly but only through FLOW_C..." alt="" coords="5,5,155,53"/>
+</map>

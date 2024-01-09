@@ -1,0 +1,22 @@
+<map id="flow::log::Simple_ostream_logger" name="flow::log::Simple_ostream_logger">
+<area shape="rect" id="node1" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a..." alt="" coords="1168,390,1332,426"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="924,115,1039,139"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="537,5,689,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="555,54,671,90"/>
+<area shape="rect" id="node5" title=" " alt="" coords="135,55,201,79"/>
+<area shape="rect" id="node6" title=" " alt="" coords="292,97,419,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="547,115,679,139"/>
+<area shape="rect" id="node8" title=" " alt="" coords="550,163,675,199"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers..." alt="" coords="925,363,1037,387"/>
+<area shape="rect" id="node10" title=" " alt="" coords="559,224,667,248"/>
+<area shape="rect" id="node11" href="$classbool.html" title=" " alt="" coords="589,272,636,296"/>
+<area shape="rect" id="node12" title=" " alt="" coords="534,320,691,368"/>
+<area shape="rect" id="node13" href="$classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,..." alt="" coords="295,410,415,446"/>
+<area shape="rect" id="node16" title=" " alt="" coords="547,453,678,489"/>
+<area shape="rect" id="node14" title=" " alt="" coords="111,416,225,440"/>
+<area shape="rect" id="node15" title=" " alt="" coords="5,416,44,440"/>
+<area shape="rect" id="node17" title=" " alt="" coords="521,513,704,549"/>
+<area shape="rect" id="node18" title=" " alt="" coords="544,573,681,621"/>
+<area shape="rect" id="node19" title=" " alt="" coords="916,411,1047,447"/>
+<area shape="rect" id="node20" title=" " alt="" coords="954,472,1009,496"/>
+</map>

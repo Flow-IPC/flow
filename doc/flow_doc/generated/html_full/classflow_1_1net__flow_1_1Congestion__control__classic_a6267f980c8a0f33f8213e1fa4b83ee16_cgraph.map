@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Congestion_control_classic::congestion_window_decay" name="flow::net_flow::Congestion_control_classic::congestion_window_decay">
+<area shape="rect" id="node1" title="Returns the decay (as a percentage) to apply to the congestion window upon encounterling loss." alt="" coords="5,5,181,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__strategy.html#a3e9786f9e5f170ca23135a2a815bc3f4" title="Utility for subclasses that returns a handle to the containing Peer_socket." alt="" coords="229,11,396,47"/>
+</map>

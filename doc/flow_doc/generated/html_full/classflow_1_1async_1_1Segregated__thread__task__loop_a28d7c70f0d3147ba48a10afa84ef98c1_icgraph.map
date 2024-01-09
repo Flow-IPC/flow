@@ -1,0 +1,8 @@
+<map id="flow::async::Segregated_thread_task_loop::n_threads" name="flow::async::Segregated_thread_task_loop::n_threads">
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="715,83,897,119"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a8fbd7b964d140c770eac1f71e52bcf1c" title="Helper performing the core util::schedule_task_from_now() call on behalf of the various schedule_from..." alt="" coords="481,5,660,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a224eeb57edd6e218f984dcbe603b68d3" title="Constructs object, making it available for post() and similar work, but without starting any threads ..." alt="" coords="475,77,667,125"/>
+<area shape="rect" id="node6" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a55fcb2e9f5410174c69cb1b9053a6ffd" title="Implements superclass API." alt="" coords="493,150,649,186"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a4cb5a3192dad0ef7d5a228b18d11900a" title="Implements superclass API." alt="" coords="248,5,427,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#aec44a292a4f2800f40f67bfc4bf19367" title="Implements superclass API." alt="" coords="5,11,200,47"/>
+</map>

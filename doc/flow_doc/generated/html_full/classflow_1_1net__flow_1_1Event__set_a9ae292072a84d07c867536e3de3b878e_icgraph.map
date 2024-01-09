@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::close" name="flow::net_flow::Event_set::close">
+<area shape="rect" id="node1" title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()..." alt="" coords="5,29,141,65"/>
+</map>

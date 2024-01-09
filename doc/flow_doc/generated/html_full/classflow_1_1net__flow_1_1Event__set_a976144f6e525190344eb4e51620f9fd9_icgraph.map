@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::events_wanted" name="flow::net_flow::Event_set::events_wanted">
+<area shape="rect" id="node1" title="Returns true if and only if at least one wanted event for at least one socket is registered (via add_..." alt="" coords="5,29,141,65"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="flow::async::Timed_single_thread_task_loop::asio_handler_timed" name="flow::async::Timed_single_thread_task_loop::asio_handler_timed">
+<area shape="rect" id="node1" title="See Timed_concurrent_task_loop_impl::asio_handler_timed()." alt="" coords="5,23,171,71"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a9e915ee364537114a9e2f50574d960b7" title="Given a boost.asio completion handler handler for a boost.asio async_*() action on some boost...." alt="" coords="219,23,383,71"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1perf.html#a7a3694bcd6e4bd506715d5931bc0c009" title="Identical to timed_function() but suitable for boost.asio&#45;targeted handler functions." alt="" coords="431,35,589,59"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1perf.html#a0dee22ec7bf250bbbf556a7e15c1f784" title="Constructs a closure that times and executes void&#45;returning function(), adding the elapsed time with ..." alt="" coords="637,35,800,59"/>
+<area shape="rect" id="node5" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta..." alt="" coords="848,29,1007,65"/>
+</map>

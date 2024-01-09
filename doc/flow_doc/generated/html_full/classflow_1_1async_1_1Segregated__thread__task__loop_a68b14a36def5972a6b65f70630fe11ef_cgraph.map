@@ -1,0 +1,4 @@
+<map id="flow::async::Segregated_thread_task_loop::post_impl" name="flow::async::Segregated_thread_task_loop::post_impl">
+<area shape="rect" id="node1" title="Helper performing the core Task_engine::post() (or similar) call on behalf of the various post() over..." alt="" coords="5,5,185,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="233,5,376,41"/>
+</map>

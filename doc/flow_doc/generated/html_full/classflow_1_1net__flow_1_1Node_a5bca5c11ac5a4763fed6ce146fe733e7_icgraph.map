@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::create_syn" name="flow::net_flow::Node::create_syn">
+<area shape="rect" id="node1" title="Helper that creates a new SYN packet object to the extent that is suitable for immediately passing to..." alt="" coords="225,11,360,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#addd654cb6b1ccff34ddccbe5226be8f0" title="Handles the triggering of the retransmit timer wait set up by setup_connection_timers(); it will re&#45;s..." alt="" coords="5,5,177,53"/>
+</map>

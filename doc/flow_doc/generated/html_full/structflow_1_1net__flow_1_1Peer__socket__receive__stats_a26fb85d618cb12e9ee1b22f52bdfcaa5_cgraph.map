@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Peer_socket_receive_stats::operator&lt;&lt;" name="flow::net_flow::Peer_socket_receive_stats::operator&lt;&lt;">
+<area shape="rect" id="node1" title="Prints string representation of the stats in the given stats object to the standard ostream and retur..." alt="" coords="5,41,145,89"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a19d651860486de148e6e46466a5048e0" title="Outputs the current stats, across multiple lines but not ending with a newline, into the given output..." alt="" coords="193,41,333,89"/>
+<area shape="rect" id="node3" href="$structflow_1_1net__flow_1_1Peer__socket__info.html#a116259f40c07caafe63017dddb9a837c" title="Helper for various output() methods that outputs a one&#45;line representation of a sorted map,..." alt="" coords="381,41,515,89"/>
+<area shape="rect" id="node4" href="$structflow_1_1net__flow_1_1Peer__socket__info.html#ad7f9a5c76ba47a6c55f539bb685b5223" title="Helper for output_map_of_pkt_counts() that outputs a raw packet type ID index, namely type_index(type..." alt="" coords="563,5,696,53"/>
+<area shape="rect" id="node6" href="$structflow_1_1net__flow_1_1Peer__socket__info.html#acb82e68bb8681201e735bf2fe1a2e620" title="Helper for output_map_of_pkt_counts() that outputs a count or size." alt="" coords="563,77,696,125"/>
+<area shape="rect" id="node5" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a37c9c6b04502d73defb803c1efabdf63" title="Returns a brief (a few characters) string description of the given packet type given as type_index(ty..." alt="" coords="744,5,872,53"/>
+</map>

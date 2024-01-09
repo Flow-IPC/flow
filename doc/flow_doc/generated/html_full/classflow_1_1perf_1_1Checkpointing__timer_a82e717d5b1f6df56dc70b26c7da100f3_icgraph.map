@@ -1,0 +1,4 @@
+<map id="flow::perf::Checkpointing_timer::now_cpu_lo_res" name="flow::perf::Checkpointing_timer::now_cpu_lo_res">
+<area shape="rect" id="node1" title="Returns individual Time_pt value returnable by now() various overloads: either the user time or syste..." alt="" coords="212,5,371,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3138f716f6f5b3973a5ed53f68a3c332" title="Based on the passed in clock_type argument, the current time is returned for that one particular cloc..." alt="" coords="5,5,164,41"/>
+</map>
