@@ -484,5 +484,5 @@ jobs:
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
-        git commit -m '${{ env.doc_commit_message }}'
+        git commit -m '${{ needs.setup.outputs.doc-commit-message }}'
         git push origin main
