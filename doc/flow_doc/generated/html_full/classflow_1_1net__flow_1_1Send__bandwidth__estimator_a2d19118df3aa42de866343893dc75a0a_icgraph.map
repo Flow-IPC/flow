@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Send_bandwidth_estimator::apply_filter" name="flow::net_flow::Send_bandwidth_estimator::apply_filter">
+<area shape="rect" id="node1" title="Applies the low&#45;pass filter that takes the given previous result of the filter and blends in the give..." alt="" coords="196,5,339,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#afe271b3d4c8cb73d06048a41871c795e" title="Informs the bandwidth estimator strategy that 1 or more previously sent packets whose status was In&#45;f..." alt="" coords="5,5,148,53"/>
+</map>

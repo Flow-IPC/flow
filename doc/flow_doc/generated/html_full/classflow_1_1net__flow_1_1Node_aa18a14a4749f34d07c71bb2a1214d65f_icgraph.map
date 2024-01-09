@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Node::event_set_async_wait" name="flow::net_flow::Node::event_set_async_wait">
+<area shape="rect" id="node1" title="Implementation of Event_set::async_wait() when Event_set::state() == Event_set::State::S_INACTIVE." alt="" coords="557,29,705,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a43dfb881ab3a9488a6a60dd83ad21c85" title="Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,..." alt="" coords="373,29,509,65"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a13a17c404f0ce43da5fec53a550da9be" title="Same as the public sync_wait(max_wait) but uses a Fine_clock&#45;based Fine_duration non&#45;template type fo..." alt="" coords="189,29,325,65"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires." alt="" coords="5,29,141,65"/>
+</map>

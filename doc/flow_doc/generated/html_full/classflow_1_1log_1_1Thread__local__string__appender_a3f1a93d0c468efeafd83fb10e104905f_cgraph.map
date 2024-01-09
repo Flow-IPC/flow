@@ -1,0 +1,4 @@
+<map id="flow::log::Thread_local_string_appender::target_contents" name="flow::log::Thread_local_string_appender::target_contents">
+<area shape="rect" id="node1" title="Read&#45;only accessor for the contents of the string, as written to it since the last fresh_appender_ost..." alt="" coords="5,5,163,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1String__ostream.html#aa7682e71a5e96955a52643e63bf97ad0" title="Read&#45;only access to the string being wrapped." alt="" coords="211,11,320,47"/>
+</map>

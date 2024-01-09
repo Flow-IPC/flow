@@ -1,0 +1,9 @@
+<map id="flow::net_flow::Node::sock_validate_options" name="flow::net_flow::Node::sock_validate_options">
+<area shape="rect" id="node1" title="Analogous to validate_options() but checks per&#45;socket options instead of per&#45;Node options." alt="" coords="371,113,521,149"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aba411df8746d5fd4db2d28df3a016f5e" title="Thread W implementation of listen()." alt="" coords="188,41,323,77"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#aadea4a9941c6138d9c025401b1f85ceb" title="Thread W implementation of sock&#45;&gt;set_options()." alt="" coords="188,113,323,149"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#ab2595f47710ddb06cfb22b6710b7286e" title="Given a new set of Node_options intended to replace (or initialize) a Node&#39;s m_opts,..." alt="" coords="188,197,323,233"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s..." alt="" coords="5,29,140,65"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,113,140,149"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Node.html#a2779cc2429651696df1bca8de73534f3" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,197,140,233"/>
+</map>

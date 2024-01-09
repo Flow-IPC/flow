@@ -1,0 +1,9 @@
+<map id="flow::net_flow::Event_set::events_detected" name="flow::net_flow::Event_set::events_detected">
+<area shape="rect" id="node1" title="Returns true if and only if the last wait, if any, detected at least one event." alt="" coords="5,53,148,89"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#aed9505b886c78169fe35b527f4e01855" title="Functional helper that checks whether a given pair in an Ev_type_to_socks_map contains an empty set o..." alt="" coords="196,11,343,59"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a19e241ae4dfe1ea54de6027052bc2135" title="Helper that returns a loggable string summarizing the sizes of the socket sets, by type,..." alt="" coords="196,83,343,131"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="391,59,513,95"/>
+<area shape="rect" id="node7" href="$classflow_1_1util_1_1Linked__hash__map.html#aba0949de5032e8dd6d75a48bcac9b060" title="Returns number of elements stored." alt="" coords="395,119,509,155"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="561,29,692,65"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="572,89,681,125"/>
+</map>

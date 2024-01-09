@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::sock_pacing_new_time_slice" name="flow::net_flow::Node::sock_pacing_new_time_slice">
+<area shape="rect" id="node1" title="async_sock_low_lvl_packet_send_paced() pacing helper: Resets the socket&#39;s Send_pacing_data structure ..." alt="" coords="5,5,189,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a43c42121d48a55a43a48e3a84bd10595" title="Obtain a copy of the value of a given option in a thread&#45;safe manner." alt="" coords="237,11,397,35"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="flow::perf::Checkpointing_timer::Checkpoint" name="flow::perf::Checkpointing_timer::Checkpoint">
+<area shape="rect" id="node1" title="The entirety of the information recorded with each Checkpointing_timer::checkpoint() call; it contain..." alt="" coords="695,36,853,72"/>
+<area shape="rect" id="node2" title=" " alt="" coords="459,14,537,38"/>
+<area shape="rect" id="node3" title=" " alt="" coords="188,5,309,41"/>
+<area shape="rect" id="node4" href="$structflow_1_1perf_1_1Duration__set.html" title="Convenience wrapper around an array&lt;Duration, N&gt;, which stores a duration for each of the N possible ..." alt="" coords="423,66,573,90"/>
+<area shape="rect" id="node5" title=" " alt="" coords="177,66,320,114"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,78,75,102"/>
+</map>

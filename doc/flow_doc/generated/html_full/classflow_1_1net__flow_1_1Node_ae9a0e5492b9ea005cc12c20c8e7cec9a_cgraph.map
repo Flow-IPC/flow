@@ -1,0 +1,9 @@
+<map id="flow::net_flow::Node::connect_with_metadata" name="flow::net_flow::Node::connect_with_metadata">
+<area shape="rect" id="node1" title="Same as connect() but sends, as part of the connection handshake, the user&#45;supplied metadata,..." alt="" coords="5,86,165,122"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4" title="An extension of boost.asio&#39;s post() and dispatch() free function templates, this free function templa..." alt="" coords="218,26,363,62"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="219,86,362,122"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa1f821dde38a7aa572651730744edbd8" title="The maximum number of bytes of user data per received or sent packet on this connection." alt="" coords="213,146,368,182"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60" title="Returns the 0&#45;based processor logical (not hardware) core index of the core executing the calling thr..." alt="" coords="416,5,549,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="421,54,544,90"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="418,146,547,182"/>
+</map>

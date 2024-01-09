@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::local_port" name="flow::net_flow::Peer_socket::local_port">
+<area shape="rect" id="node1" title="The local Flow&#45;protocol port chosen by the Node (if active or passive open) or user (if passive open)..." alt="" coords="189,5,319,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a8497776b61df32a79707c264f8f2422b" title="Prints string representation of given socket to given standard ostream and returns the latter." alt="" coords="5,5,141,41"/>
+</map>

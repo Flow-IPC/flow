@@ -1,0 +1,4 @@
+<map id="flow::cfg::Option_set::canonicalize_candidate" name="flow::cfg::Option_set::canonicalize_candidate">
+<area shape="rect" id="node1" title="In PARSING state enters CANONICAL state, finalizing values() from values_candidate()." alt="" coords="5,5,164,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a03984e29450abf9cf287c501d6c8f866" title="Returns true if and only if the given key is present at least once in the given associative container..." alt="" coords="212,11,344,35"/>
+</map>

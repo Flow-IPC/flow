@@ -1,0 +1,6 @@
+<map id="flow::util::String_ostream::str" name="flow::util::String_ostream::str">
+<area shape="rect" id="node1" title="Read&#45;only access to the string being wrapped." alt="" coords="408,39,517,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Buffer__logger.html#a275d3e573627ffe0595043c4fdfe8e19" title="Read&#45;only access to the buffer string containing the messages logged thus far." alt="" coords="207,5,356,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read&#45;only accessor for the contents of the string, as written to it since the last fresh_appender_ost..." alt="" coords="203,66,360,114"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Buffer__logger.html#af13a09b5360373f8aeb17f1e459fc677" title="Returns a copy of buffer_str() in thread&#45;safe fashion." alt="" coords="5,5,155,41"/>
+</map>

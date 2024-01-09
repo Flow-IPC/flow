@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Node::serv_close_detected" name="flow::net_flow::Node::serv_close_detected">
+<area shape="rect" id="node1" title="Records that thread W shows this socket is not to listen to incoming connections and is to abort any ..." alt="" coords="373,11,515,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#adf6d71af81def2d030f0fef159c1b06d" title="Handles the transition of the given server socket from S_LISTENING/S_CLOSING to S_CLOSED (including e..." alt="" coords="188,5,325,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,11,140,47"/>
+</map>

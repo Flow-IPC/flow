@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Low_lvl_packet::Aux_raw_data" name="flow::net_flow::Low_lvl_packet::Aux_raw_data">
+<area shape="rect" id="node1" title="Helper data store type for storing binary data needed by serialize_to_raw_data(), when certains bits ..." alt="" coords="5,77,169,113"/>
+<area shape="rect" id="node2" title=" " alt="" coords="21,5,153,29"/>
+</map>

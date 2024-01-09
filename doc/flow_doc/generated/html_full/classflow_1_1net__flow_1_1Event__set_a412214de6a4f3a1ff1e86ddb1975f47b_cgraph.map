@@ -1,0 +1,11 @@
+<map id="flow::net_flow::Event_set::poll" name="flow::net_flow::Event_set::poll">
+<area shape="rect" id="node1" title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res..." alt="" coords="5,45,141,81"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a0edced1cb69b2cad299ee32e652ccea7" title="Helper that clears each Sockets set inside an Ev_type_to_socks_map." alt="" coords="204,5,347,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a2195fb7d86acfaf340b3e7e59e7e10e8" title="Checks each desired (Event_set::m_want) event in event_set; any that holds true is saved into event_s..." alt="" coords="189,78,361,114"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#a048a8d78c4ae3bc45c8bcede6b0e2dc6" title="Returns true if and only if container is empty." alt="" coords="427,18,546,54"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Linked__hash__set.html#a517b9b0ac9d6ab2c56e27ba380f87180" title="Attempts to insert the given key into the set." alt="" coords="429,78,544,114"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Event__set.html#ae04c117b15179ba37a94f6836c63497b" title="Helper that returns a loggable string representing the socket stored in the given boost::any that sto..." alt="" coords="409,138,564,174"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="612,138,735,174"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="783,107,913,143"/>
+<area shape="rect" id="node9" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="793,167,903,203"/>
+</map>

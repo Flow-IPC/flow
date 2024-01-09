@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Peer_socket::node_sync_send" name="flow::net_flow::Peer_socket::node_sync_send">
+<area shape="rect" id="node1" title="This is to sync_send() as node_send() is to send()." alt="" coords="403,51,564,87"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a3f1a802024549a59978a53343b09a86d" title="Same as sync_send() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation co..." alt="" coords="191,5,347,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" title="Helper similar to sync_send_impl() but for the null_buffers versions of sync_send()." alt="" coords="183,90,355,138"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#a6b9fa02a7c41b52fde9e05e862a9d20f" title="Equivalent to sync_send(data, duration::max(), err_code); i.e., sync_send() with no timeout." alt="" coords="5,5,135,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#a28cb6fc51585c9fa2bf2f152675615a1" title="sync_send() operating in null_buffers mode, wherein – if Writable state is reached – the actual data ..." alt="" coords="5,96,135,132"/>
+</map>

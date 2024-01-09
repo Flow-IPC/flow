@@ -1,0 +1,22 @@
+<map id="flow::cfg::Static_config_manager&lt; Value_set &gt;" name="flow::cfg::Static_config_manager&lt; Value_set &gt;">
+<area shape="rect" id="node1" title="A Config_manager&#45;related adapter&#45;style class that manages a simple config setup involving a single (t..." alt="" coords="1204,414,1356,450"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Config__manager.html" title=" " alt="" coords="972,414,1155,450"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="640,203,783,227"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="371,115,486,139"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,5,157,29"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="23,54,139,90"/>
+<area shape="rect" id="node7" title=" " alt="" coords="15,115,147,139"/>
+<area shape="rect" id="node8" title=" " alt="" coords="19,163,144,199"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="359,224,499,248"/>
+<area shape="rect" id="node10" title=" " alt="" coords="25,224,138,248"/>
+<area shape="rect" id="node11" title=" " alt="" coords="36,279,127,303"/>
+<area shape="rect" id="node12" title=" " alt="" coords="640,251,783,275"/>
+<area shape="rect" id="node13" title=" " alt="" coords="672,299,751,323"/>
+<area shape="rect" id="node14" title=" " alt="" coords="368,293,489,329"/>
+<area shape="rect" id="node15" title=" " alt="" coords="652,347,771,383"/>
+<area shape="rect" id="node16" title=" " alt="" coords="645,407,777,443"/>
+<area shape="rect" id="node17" title=" " alt="" coords="684,468,739,492"/>
+<area shape="rect" id="node18" title=" " alt="" coords="628,516,795,564"/>
+<area shape="rect" id="node19" href="$classbool.html" title=" " alt="" coords="688,588,735,612"/>
+<area shape="rect" id="node20" title=" " alt="" coords="666,639,757,663"/>
+</map>

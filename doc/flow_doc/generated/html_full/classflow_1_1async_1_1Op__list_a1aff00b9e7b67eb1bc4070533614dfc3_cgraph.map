@@ -1,0 +1,6 @@
+<map id="flow::async::Op_list::random_op" name="flow::async::Op_list::random_op">
+<area shape="rect" id="node1" title="Returns (*this)[R], where we randomly select R as if by random_idx() and communicate it to the caller..." alt="" coords="5,65,133,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Op__list.html#a84e66e05d69e52adf455fede047cf265" title="Returns reference to immutable async::Op at the given index in [0, size())." alt="" coords="181,5,309,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Op__list.html#ad0929efa574298c96c13845a6e020d7d" title="Returns a randomly selected index from range [O, size())." alt="" coords="181,65,309,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Op__list.html#af57eb8d75c812add02418ef5b1dcafa6" title="Returns the number of async::Op stored in this Op_list." alt="" coords="181,125,309,161"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="flow::cfg::Config_manager::apply_impl" name="flow::cfg::Config_manager::apply_impl">
+<area shape="rect" id="node1" title="Work&#45;horse helper that parses into one given Option_set in m_s_d_opt_sets (from opt_set()) from the s..." alt="" coords="5,65,172,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1cfg_1_1Option__set.html#afcd900a94beabe8e9964efc3bc1b91bc" title="Enters into (from CANONICAL state) or continues in PARSING state by simply setting *values_candidate(..." alt="" coords="220,5,359,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1cfg_1_1Option__set.html#a93ab889bf230d21961c22bd4bf21e06a" title="Externally immutable internally stored canonical (current) config values as last constructed or parse..." alt="" coords="222,65,357,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1cfg_1_1Option__set.html#adce212853383183bd1b60505157f7215" title="Returns null in CANONICAL state; or in PARSING state a pointer to the not&#45;yet&#45;canonical values after ..." alt="" coords="222,125,357,161"/>
+</map>

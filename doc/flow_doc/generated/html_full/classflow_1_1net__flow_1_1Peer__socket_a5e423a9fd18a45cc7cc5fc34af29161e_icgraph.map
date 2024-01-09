@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::remote_endpoint" name="flow::net_flow::Peer_socket::remote_endpoint">
+<area shape="rect" id="node1" title="Intended other side of the connection (regardless of success, failure, or current State)." alt="" coords="189,5,353,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a8497776b61df32a79707c264f8f2422b" title="Prints string representation of given socket to given standard ostream and returns the latter." alt="" coords="5,5,141,41"/>
+</map>

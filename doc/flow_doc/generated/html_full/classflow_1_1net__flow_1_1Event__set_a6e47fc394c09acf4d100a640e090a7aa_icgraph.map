@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::swap_wanted_sockets" name="flow::net_flow::Event_set::swap_wanted_sockets">
+<area shape="rect" id="node1" title="Efficiently exchanges the current set of sockets we want to know are &quot;ready&quot; by the definiton of the ..." alt="" coords="5,29,180,65"/>
+</map>

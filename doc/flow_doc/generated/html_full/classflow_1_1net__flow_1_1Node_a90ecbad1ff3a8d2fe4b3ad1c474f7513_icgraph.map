@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Node::handle_incoming_with_simulation" name="flow::net_flow::Node::handle_incoming_with_simulation">
+<area shape="rect" id="node1" title="Helper for low_lvl_recv_and_handle() that calls handle_incoming() on the not&#45;yet&#45;deserialized low&#45;lev..." alt="" coords="581,29,732,77"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre&#45;condition that m_low_lvl_sock has a UDP packet available for reading,..." alt="" coords="371,35,533,71"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#ade12d2ebbd88b62432089a3a071b9514" title="Registers so that during the current or next m_task_engine.run(), the latter will wait for a receivab..." alt="" coords="188,35,323,71"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,35,140,71"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Send_bandwidth_estimator::on_acks" name="flow::net_flow::Send_bandwidth_estimator::on_acks">
+<area shape="rect" id="node1" title="Informs the bandwidth estimator strategy that 1 or more previously sent packets whose status was In&#45;f..." alt="" coords="5,41,148,89"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a2d19118df3aa42de866343893dc75a0a" title="Applies the low&#45;pass filter that takes the given previous result of the filter and blends in the give..." alt="" coords="196,5,339,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a8676142f693c447be89b667403fecea1" title="Utility that returns a handle to the containing Peer_socket." alt="" coords="196,77,339,125"/>
+</map>

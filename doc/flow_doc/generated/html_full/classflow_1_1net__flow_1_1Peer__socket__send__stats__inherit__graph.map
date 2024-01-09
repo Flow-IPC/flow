@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket_send_stats" name="flow::net_flow::Peer_socket_send_stats">
+<area shape="rect" id="node1" title="A data store that keeps stats about the outgoing direction of a Peer_socket connection to another Flo..." alt="" coords="41,5,170,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket__send__stats__accumulator.html" title="A class that keeps a Peer_socket_send_stats data store, includes methods to conveniently accumulate d..." alt="" coords="5,89,205,125"/>
+</map>

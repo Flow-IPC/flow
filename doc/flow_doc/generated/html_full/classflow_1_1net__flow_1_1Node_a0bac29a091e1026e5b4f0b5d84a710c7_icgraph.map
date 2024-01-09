@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Node::serv_set_state" name="flow::net_flow::Node::serv_set_state">
+<area shape="rect" id="node1" title="Sets Server_socket::m_state." alt="" coords="563,64,697,100"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aba411df8746d5fd4db2d28df3a016f5e" title="Thread W implementation of listen()." alt="" coords="377,32,511,68"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a2af9ec4f1483cd9a2183286f7dfa9c87" title="Records that thread W shows this socket is not to listen to incoming connections and is to abort any ..." alt="" coords="373,93,515,129"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s..." alt="" coords="189,29,324,65"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#adf6d71af81def2d030f0fef159c1b06d" title="Handles the transition of the given server socket from S_LISTENING/S_CLOSING to S_CLOSED (including e..." alt="" coords="188,90,325,138"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,96,140,132"/>
+</map>

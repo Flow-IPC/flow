@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::validate_options" name="flow::net_flow::Node::validate_options">
+<area shape="rect" id="node1" title="Given a new set of Node_options intended to replace (or initialize) a Node&#39;s m_opts,..." alt="" coords="188,29,323,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a2779cc2429651696df1bca8de73534f3" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,29,140,65"/>
+</map>

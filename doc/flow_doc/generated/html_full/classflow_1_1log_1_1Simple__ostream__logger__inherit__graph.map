@@ -1,0 +1,7 @@
+<map id="flow::log::Simple_ostream_logger" name="flow::log::Simple_ostream_logger">
+<area shape="rect" id="node1" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a..." alt="" coords="158,161,322,197"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="183,89,297,113"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,11,157,35"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="182,5,298,41"/>
+<area shape="rect" id="node5" title=" " alt="" coords="322,11,454,35"/>
+</map>

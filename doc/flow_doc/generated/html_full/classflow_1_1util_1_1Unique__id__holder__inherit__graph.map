@@ -1,0 +1,8 @@
+<map id="flow::util::Unique_id_holder" name="flow::util::Unique_id_holder">
+<area shape="rect" id="node1" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="5,88,121,124"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="169,94,284,118"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file&#45;system path but never blocks any loggi..." alt="" coords="349,5,479,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Buffer__logger.html" title="An implementation of Logger that logs messages to an internal std::string buffer and provides read&#45;on..." alt="" coords="339,66,489,90"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Serial__file__logger.html" title="An internal&#45;use implementation of Logger that logs messages to a given file&#45;system path,..." alt="" coords="349,115,479,151"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a..." alt="" coords="332,175,496,211"/>
+</map>

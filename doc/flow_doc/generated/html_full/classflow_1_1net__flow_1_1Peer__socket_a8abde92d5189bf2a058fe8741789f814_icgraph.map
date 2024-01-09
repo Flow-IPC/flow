@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Peer_socket::node_sync_receive" name="flow::net_flow::Peer_socket::node_sync_receive">
+<area shape="rect" id="node1" title="This is to sync_receive() as node_receive() is to receive()." alt="" coords="412,51,587,87"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#ad29f61b9885b10ddc3846cdae0560518" title="Same as sync_receive() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation..." alt="" coords="195,5,364,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket.html#a1a2eccfa314a397c12259f414ef6798c" title="Helper similar to sync_receive_impl() but for the null_buffers versions of sync_receive()." alt="" coords="209,90,350,138"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44" title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout." alt="" coords="5,5,147,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#a45d796625339aa1aae09326091509d18" title="sync_receive() operating in null_buffers mode, wherein – if Readable state is reached – the actual da..." alt="" coords="5,96,147,132"/>
+</map>

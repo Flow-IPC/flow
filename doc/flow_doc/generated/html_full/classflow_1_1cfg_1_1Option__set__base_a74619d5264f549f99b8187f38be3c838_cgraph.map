@@ -1,0 +1,5 @@
+<map id="flow::cfg::Option_set_base::throw_on_invalid_func" name="flow::cfg::Option_set_base::throw_on_invalid_func">
+<area shape="rect" id="node1" title="Returns a function that wraps a Value&#45;&gt;Boolean validator function, as passed to declare_option_for_pa..." alt="" coords="5,36,188,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="243,5,352,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96" title="Serializes a value of type Value to the given ostream suitably for output in Option_set&#45;related outpu..." alt="" coords="236,65,359,101"/>
+</map>

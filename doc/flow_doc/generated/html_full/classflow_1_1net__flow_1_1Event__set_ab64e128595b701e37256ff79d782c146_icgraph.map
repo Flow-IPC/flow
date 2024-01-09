@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::clear" name="flow::net_flow::Event_set::clear">
+<area shape="rect" id="node1" title="Forgets all sockets stored in this object in any fashion." alt="" coords="5,29,141,65"/>
+</map>

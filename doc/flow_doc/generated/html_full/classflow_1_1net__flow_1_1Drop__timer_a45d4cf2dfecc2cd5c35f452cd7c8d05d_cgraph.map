@@ -1,0 +1,11 @@
+<map id="flow::net_flow::Drop_timer::end_contemporaneous_events" name="flow::net_flow::Drop_timer::end_contemporaneous_events">
+<area shape="rect" id="node1" title="Finishes the group started by start start_contemporaneous_events()." alt="" coords="5,71,195,119"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Drop__timer.html#ad655d5461aa5a6bf9a80d28e4a4fdd77" title="Invalidates the running asynchronous wait on m_timer. Pre&#45;condition: m_timer_running." alt="" coords="243,23,379,59"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a03984e29450abf9cf287c501d6c8f866" title="Returns true if and only if the given key is present at least once in the given associative container..." alt="" coords="245,83,377,107"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Drop__timer.html#a4a5f0bbb91232e17e258722e4dfa237b" title="Starts a new wait on the timer, so that is it asynchronously triggered according to the current DTO v..." alt="" coords="245,132,376,168"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="427,5,569,41"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="427,65,569,101"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Drop__timer.html#aaf4f0fce1d41e16309beca40a126e2f0" title="Called by boost.asio when the Drop Timer fires; disables timer and calls an outside action callback (..." alt="" coords="431,126,565,174"/>
+<area shape="rect" id="node8" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="437,199,559,235"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Drop__timer.html#a40029643f0a6c7a2a6b20499ca4c5a67" title="Called by boost.asio after we post it, in the event of some timer error." alt="" coords="433,259,563,295"/>
+</map>

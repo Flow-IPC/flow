@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Server_socket::accept" name="flow::net_flow::Server_socket::accept">
+<area shape="rect" id="node1" title="Non&#45;blocking accept: obtain socket for the least recently established not&#45;yet&#45;obtained peer connectio..." alt="" coords="5,29,145,65"/>
+</map>

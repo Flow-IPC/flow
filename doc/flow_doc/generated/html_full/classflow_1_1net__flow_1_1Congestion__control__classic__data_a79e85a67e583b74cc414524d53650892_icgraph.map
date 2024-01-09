@@ -1,0 +1,11 @@
+<map id="flow::net_flow::Congestion_control_classic_data::on_congestion_event" name="flow::net_flow::Congestion_control_classic_data::on_congestion_event">
+<area shape="rect" id="node1" title="Sets internally stored SSHTRESH and CWND to the given values; appropriately resets internal state so ..." alt="" coords="499,183,665,231"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#a63316b5d9e9a27816b09bb52c464b588" title="Adjust state, including CWND and SSTHRESH, assuming a Drop Timeout just occurred." alt="" coords="268,77,435,125"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#afbe0609319f117e90074e1241abbba5c" title="Adjust state, namely CWND, assuming an Idle Timeout just occurred." alt="" coords="268,149,435,197"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Congestion__control__classic.html#af2340e68dbdbb8d6065ae487b05074be" title="Implements Congestion_control_strategy::on_loss_event() API." alt="" coords="255,222,447,258"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a942ce2561d6d2bbbb8faa8160a772416" title="Implements Congestion_control_strategy::on_loss_event() API." alt="" coords="252,283,451,331"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic.html#a59148ce4dafea4063b6992b9670909dc" title="Implements Congestion_control_strategy::on_drop_timeout() API." alt="" coords="21,5,188,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a3358f8b8700d5427a5163f2f480b2e8d" title="Implements Congestion_control_strategy::on_drop_timeout() API." alt="" coords="5,77,204,125"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Congestion__control__classic.html#a588baa530b660a3437d3a39d68b16404" title="Implements Congestion_control_strategy::on_idle_timeout() API." alt="" coords="21,149,188,197"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a461064f1ff0303cded61131df593599a" title="Implements Congestion_control_strategy::on_idle_timeout() API." alt="" coords="5,221,204,269"/>
+</map>

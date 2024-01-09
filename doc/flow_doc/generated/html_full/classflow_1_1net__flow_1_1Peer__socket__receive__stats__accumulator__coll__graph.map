@@ -1,0 +1,10 @@
+<map id="flow::net_flow::Peer_socket_receive_stats_accumulator" name="flow::net_flow::Peer_socket_receive_stats_accumulator">
+<area shape="rect" id="node1" title="A class that keeps a Peer_socket_receive_stats data store, includes methods to conveniently accumulat..." alt="" coords="197,475,337,523"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__receive__stats.html" title="A data store that keeps stats about the incoming direction of a Peer_socket connection to another Flo..." alt="" coords="117,389,257,425"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,179,84,203"/>
+<area shape="rect" id="node4" title=" " alt="" coords="161,5,227,29"/>
+<area shape="rect" id="node6" title=" " alt="" coords="287,173,419,209"/>
+<area shape="rect" id="node5" title=" " alt="" coords="443,179,497,203"/>
+<area shape="rect" id="node7" title=" " alt="" coords="313,5,393,29"/>
+<area shape="rect" id="node8" title=" " alt="" coords="281,395,413,419"/>
+</map>

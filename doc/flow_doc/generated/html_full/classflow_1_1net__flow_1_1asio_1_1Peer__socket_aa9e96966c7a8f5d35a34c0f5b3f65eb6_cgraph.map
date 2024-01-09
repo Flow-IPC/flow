@@ -1,0 +1,6 @@
+<map id="flow::net_flow::asio::Peer_socket::node_or_post_error" name="flow::net_flow::asio::Peer_socket::node_or_post_error">
+<area shape="rect" id="node1" title="Helper that returns the net_flow::asio::Node that generated *this; unless *this is closed; in which c..." alt="" coords="5,72,152,120"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a1c63aaece6a9b056688a35405f064c70" title="Pointer (possibly null) for the flow::util::Task_engine used by any coming async_*() I/O calls." alt="" coords="217,5,352,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#a74f6fd527766fdeb05a96c5c03729a00" title="The error code that perviously caused state() to become State::S_CLOSED, or success code if state is ..." alt="" coords="200,78,369,114"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa9e7e1be830c901bc7348742e79ba2e7" title="Node that produced this Peer_socket." alt="" coords="220,138,349,174"/>
+</map>

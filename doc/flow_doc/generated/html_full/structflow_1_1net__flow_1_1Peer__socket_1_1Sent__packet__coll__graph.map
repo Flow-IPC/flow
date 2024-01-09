@@ -1,0 +1,13 @@
+<map id="flow::net_flow::Peer_socket::Sent_packet" name="flow::net_flow::Peer_socket::Sent_packet">
+<area shape="rect" id="node1" title="Metadata (and data, if retransmission is on) for a packet that has been sent one (if retransmission i..." alt="" coords="808,155,947,191"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="491,5,657,65"/>
+<area shape="rect" id="node3" title=" " alt="" coords="508,90,640,114"/>
+<area shape="rect" id="node4" title=" " alt="" coords="531,138,617,162"/>
+<area shape="rect" id="node5" title=" " alt="" coords="485,186,663,234"/>
+<area shape="rect" id="node6" href="$structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html" title="Data store to keep timing related info when a packet is sent out." alt="" coords="244,186,383,234"/>
+<area shape="rect" id="node7" title=" " alt="" coords="11,150,78,174"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,198,84,222"/>
+<area shape="rect" id="node9" title=" " alt="" coords="18,246,71,270"/>
+<area shape="rect" id="node10" title=" " alt="" coords="541,258,607,282"/>
+<area shape="rect" id="node11" title=" " alt="" coords="504,307,644,343"/>
+</map>

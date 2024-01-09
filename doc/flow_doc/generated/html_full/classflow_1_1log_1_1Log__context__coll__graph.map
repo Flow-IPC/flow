@@ -1,0 +1,13 @@
+<map id="flow::log::Log_context" name="flow::log::Log_context">
+<area shape="rect" id="node1" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="985,169,1128,193"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="729,115,843,139"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="363,5,515,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="381,54,497,90"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,67,72,91"/>
+<area shape="rect" id="node6" title=" " alt="" coords="139,97,265,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="373,115,505,139"/>
+<area shape="rect" id="node8" title=" " alt="" coords="376,163,501,199"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="716,224,856,248"/>
+<area shape="rect" id="node10" title=" " alt="" coords="382,224,495,248"/>
+<area shape="rect" id="node11" title=" " alt="" coords="393,279,484,303"/>
+</map>

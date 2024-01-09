@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Peer_socket::Sent_packet::Sent_when" name="flow::net_flow::Peer_socket::Sent_packet::Sent_when">
+<area shape="rect" id="node1" title="Data store to keep timing related info when a packet is sent out." alt="" coords="77,89,216,137"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,72,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="107,5,186,29"/>
+<area shape="rect" id="node4" title=" " alt="" coords="223,5,276,29"/>
+</map>

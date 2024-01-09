@@ -1,0 +1,5 @@
+<map id="flow::async::Cross_thread_task_loop::stop" name="flow::async::Cross_thread_task_loop::stop">
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="212,39,364,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Single__thread__task__loop.html#aad1053b2d86401d34fd3658630064135" title="Waits for the ongoing task/completion handler – if one is running – to return; then prevents any furt..." alt="" coords="9,5,161,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#a1bdaa64396435066a41857e3c5f6c6cb" title="See superclass destructor." alt="" coords="5,66,164,114"/>
+</map>

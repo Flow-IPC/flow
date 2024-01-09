@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::sync_connect_impl" name="flow::net_flow::Node::sync_connect_impl">
+<area shape="rect" id="node1" title="Implementation core of sync_connect*() that gets rid of templated or missing arguments thereof." alt="" coords="5,29,140,65"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block." alt="" coords="188,29,327,65"/>
+</map>

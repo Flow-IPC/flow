@@ -1,0 +1,4 @@
+<map id="flow::net_flow::asio::Server_socket::async_task_engine" name="flow::net_flow::asio::Server_socket::async_task_engine">
+<area shape="rect" id="node1" title="Pointer (possibly null) for the flow::util::Task_engine used by any coming async I/O calls and inheri..." alt="" coords="239,5,385,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#abcc92483255a34998be78cfd228555a1" title="Returns a functor that essentially performs post() on_result onto *async_task_engine() in a way suita..." alt="" coords="5,11,191,47"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="flow::async::Cross_thread_task_loop::start" name="flow::async::Cross_thread_task_loop::start">
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="5,103,159,139"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="408,31,551,67"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#a5c9a3da291fa961bb4d8c4be13c39bb8" title="Implements superclass API." alt="" coords="216,31,351,79"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),..." alt="" coords="207,163,360,199"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="418,219,541,255"/>
+<area shape="rect" id="node10" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API." alt="" coords="207,103,359,139"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX&#45;affecting (in particul..." alt="" coords="409,147,550,195"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="599,219,721,255"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="769,189,900,225"/>
+<area shape="rect" id="node9" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="780,249,889,285"/>
+</map>

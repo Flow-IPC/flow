@@ -1,0 +1,4 @@
+<map id="flow::cfg::Config_manager&lt; S_d_value_set &gt;" name="flow::cfg::Config_manager&lt; S_d_value_set &gt;">
+<area shape="rect" id="node1" title="Manages a config setup, intended for a single daemon process, by maintaining 1 or more set(s) of stat..." alt="" coords="5,77,172,113"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="17,5,160,29"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="flow::perf::Checkpointing_timer::since_start" name="flow::perf::Checkpointing_timer::since_start">
+<area shape="rect" id="node1" title="Returns the duration(s) (for all enabled Clock_types) between construction and the last checkpoint() ..." alt="" coords="633,72,792,108"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp..." alt="" coords="427,72,585,108"/>
+<area shape="rect" id="node4" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a07204b9119b94bc10d53a8ba15c44797" title="Equivalent to (*os) &lt;&lt; (*this)." alt="" coords="216,5,375,41"/>
+<area shape="rect" id="node6" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a378be385d0c3dda261c8944551280010" title="Called anytime after the last checkpoint(), this modifies the data collected so far to be as if every..." alt="" coords="216,139,375,175"/>
+<area shape="rect" id="node3" href="$classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#acbacf3b4842b77f542082e7a186f1434" title="Provides programmatic access to the aggregation result that would be logged by log_aggregated_results..." alt="" coords="212,66,379,114"/>
+<area shape="rect" id="node5" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a6d5b7cbbe0ec5133299f97148ef3eaa0" title="Prints string representation of the given Checkpointing_timer (whether with original data or an aggre..." alt="" coords="5,5,164,41"/>
+</map>

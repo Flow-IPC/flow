@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Peer_socket::close_abruptly" name="flow::net_flow::Peer_socket::close_abruptly">
+<area shape="rect" id="node1" title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection." alt="" coords="5,29,156,65"/>
+</map>

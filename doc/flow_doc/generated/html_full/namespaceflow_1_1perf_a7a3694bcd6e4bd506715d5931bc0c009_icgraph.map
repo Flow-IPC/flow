@@ -1,0 +1,5 @@
+<map id="flow::perf::timed_handler" name="flow::perf::timed_handler">
+<area shape="rect" id="node1" title="Identical to timed_function() but suitable for boost.asio&#45;targeted handler functions." alt="" coords="431,17,589,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a9e915ee364537114a9e2f50574d960b7" title="Given a boost.asio completion handler handler for a boost.asio async_*() action on some boost...." alt="" coords="219,5,383,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#a37f2f0d5c163cc1d0b56213ebb080af0" title="See Timed_concurrent_task_loop_impl::asio_handler_timed()." alt="" coords="5,5,171,53"/>
+</map>

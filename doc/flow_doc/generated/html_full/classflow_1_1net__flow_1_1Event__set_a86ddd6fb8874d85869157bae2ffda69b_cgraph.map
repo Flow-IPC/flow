@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Event_set::clear_wanted_sockets" name="flow::net_flow::Event_set::clear_wanted_sockets">
+<area shape="rect" id="node1" title="Identical to swap_wanted_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ..." alt="" coords="5,65,177,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__set.html#a8844c7594a079eb2d52d78436ed832c6" title="Makes it so that size() == 0." alt="" coords="255,5,369,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a8e16d91f81860eb2a6c971863548e466" title="Helper that ensures the state of *this is such that one may modify the m_can and m_want socket sets." alt="" coords="225,65,399,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#ad2ce3ff8f57696dcb230f419775ab865" title="Returns number of elements stored." alt="" coords="255,125,369,161"/>
+</map>

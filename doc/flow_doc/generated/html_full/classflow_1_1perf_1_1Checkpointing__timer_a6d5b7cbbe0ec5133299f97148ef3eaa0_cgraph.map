@@ -1,0 +1,7 @@
+<map id="flow::perf::Checkpointing_timer::operator&lt;&lt;" name="flow::perf::Checkpointing_timer::operator&lt;&lt;">
+<area shape="rect" id="node1" title="Prints string representation of the given Checkpointing_timer (whether with original data or an aggre..." alt="" coords="5,61,164,97"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a07204b9119b94bc10d53a8ba15c44797" title="Equivalent to (*os) &lt;&lt; (*this)." alt="" coords="212,61,371,97"/>
+<area shape="rect" id="node3" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp..." alt="" coords="419,33,577,69"/>
+<area shape="rect" id="node5" href="$classflow_1_1perf_1_1Checkpointing__timer.html#afeb1faa0e4962dacf9b6a134191a4933" title="Returns the duration(s) (for all enabled Clock_types) between construction and the last checkpoint() ..." alt="" coords="625,89,784,125"/>
+<area shape="rect" id="node4" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta..." alt="" coords="625,29,784,65"/>
+</map>

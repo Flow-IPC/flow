@@ -1,0 +1,4 @@
+<map id="flow::log::Buffer_logger::buffer_str" name="flow::log::Buffer_logger::buffer_str">
+<area shape="rect" id="node1" title="Read&#45;only access to the buffer string containing the messages logged thus far." alt="" coords="203,5,352,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Buffer__logger.html#af13a09b5360373f8aeb17f1e459fc677" title="Returns a copy of buffer_str() in thread&#45;safe fashion." alt="" coords="5,5,155,41"/>
+</map>

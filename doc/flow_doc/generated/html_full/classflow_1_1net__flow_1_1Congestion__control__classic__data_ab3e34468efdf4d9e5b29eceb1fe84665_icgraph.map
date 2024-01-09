@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Congestion_control_classic_data::on_acks" name="flow::net_flow::Congestion_control_classic_data::on_acks">
+<area shape="rect" id="node1" title="Adjusts state, including potentially CWND, based on either &quot;congestion avoidance&quot; or &quot;slow start&quot; alg..." alt="" coords="252,39,441,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic.html#a34b8ef88093f082df7a935bbebfae2f3" title="Implements Congestion_control_strategy::on_acks() API." alt="" coords="21,5,188,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html#a83ee8438d6033c26a6af03b9dd173dc3" title="Implements Congestion_control_strategy::on_acks() API." alt="" coords="5,66,204,114"/>
+</map>

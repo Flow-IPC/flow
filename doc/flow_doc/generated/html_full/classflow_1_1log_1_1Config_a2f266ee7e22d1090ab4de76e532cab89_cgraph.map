@@ -1,0 +1,5 @@
+<map id="flow::log::Config::configure_component_verbosity_by_name" name="flow::log::Config::configure_component_verbosity_by_name">
+<area shape="rect" id="node1" title="Like configure_component_verbosity(), but the component is to be specified by its registered string n..." alt="" coords="5,30,147,78"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#a428c0ae690c951c1667e24afb6ef43de" title="Normalized version of given component name." alt="" coords="195,5,381,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Config.html#aee6877cec4b070e18a40090f080e76ca" title="Helper that for the given flat&#45;union&#45;component&#45;index saves the given per&#45;component verbosity,..." alt="" coords="197,65,379,101"/>
+</map>

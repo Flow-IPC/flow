@@ -1,0 +1,24 @@
+<map id="flow::perf::Checkpointing_timer" name="flow::perf::Checkpointing_timer">
+<area shape="rect" id="node1" title="The central class in the perf Flow module, this efficiently times the user&#39;s operation,..." alt="" coords="1357,405,1516,441"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="1027,252,1169,276"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="759,115,874,139"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="384,5,536,29"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="402,54,518,90"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,60,72,84"/>
+<area shape="rect" id="node7" title=" " alt="" coords="147,91,273,115"/>
+<area shape="rect" id="node8" title=" " alt="" coords="394,115,526,139"/>
+<area shape="rect" id="node9" title=" " alt="" coords="397,163,523,199"/>
+<area shape="rect" id="node10" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="747,252,887,276"/>
+<area shape="rect" id="node11" title=" " alt="" coords="403,224,517,248"/>
+<area shape="rect" id="node12" title=" " alt="" coords="415,279,505,303"/>
+<area shape="rect" id="node13" title=" " alt="" coords="421,401,499,425"/>
+<area shape="rect" id="node20" href="$structflow_1_1perf_1_1Checkpointing__timer_1_1Checkpoint.html" title="The entirety of the information recorded with each Checkpointing_timer::checkpoint() call; it contain..." alt="" coords="737,343,896,379"/>
+<area shape="rect" id="node14" title=" " alt="" coords="149,395,271,431"/>
+<area shape="rect" id="node15" title=" " alt="" coords="1037,460,1159,484"/>
+<area shape="rect" id="node16" href="$structflow_1_1perf_1_1Time__pt__set.html" title="Convenience wrapper around an array&lt;Time_pt, N&gt;, which stores a time point for each of the N possible..." alt="" coords="1025,511,1171,535"/>
+<area shape="rect" id="node17" title=" " alt="" coords="745,499,888,547"/>
+<area shape="rect" id="node18" title=" " alt="" coords="428,511,492,535"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1030,337,1166,385"/>
+<area shape="rect" id="node21" href="$structflow_1_1perf_1_1Duration__set.html" title="Convenience wrapper around an array&lt;Duration, N&gt;, which stores a duration for each of the N possible ..." alt="" coords="385,327,535,351"/>
+<area shape="rect" id="node22" title=" " alt="" coords="139,315,281,363"/>
+</map>

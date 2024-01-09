@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket_receive_stats_accumulator::presumed_dropped_data" name="flow::net_flow::Peer_socket_receive_stats_accumulator::presumed_dropped_data">
+<area shape="rect" id="node1" title="Indicates that one or more unreceived data packets have been considered Dropped due to the number of ..." alt="" coords="199,5,357,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a0ea53f6b451895e8efcdc68ba8770a43" title="Helper for handle_data_to_established() that aims to register the given DATA packet as an out&#45;of&#45;orde..." alt="" coords="5,11,151,59"/>
+</map>

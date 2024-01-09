@@ -1,0 +1,7 @@
+<map id="flow::net_flow::asio::Peer_socket::node_or_post_error" name="flow::net_flow::asio::Peer_socket::node_or_post_error">
+<area shape="rect" id="node1" title="Helper that returns the net_flow::asio::Node that generated *this; unless *this is closed; in which c..." alt="" coords="403,41,549,89"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a85e456ae997bae047e022d234bec9531" title="De&#45;templated implementation of all async_receive() methods." alt="" coords="220,5,355,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#ab6c48bcfc9cab0b42216443f39fa8a4b" title="De&#45;templated implementation of all async_send() methods." alt="" coords="220,77,355,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="21,5,156,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="5,83,172,119"/>
+</map>

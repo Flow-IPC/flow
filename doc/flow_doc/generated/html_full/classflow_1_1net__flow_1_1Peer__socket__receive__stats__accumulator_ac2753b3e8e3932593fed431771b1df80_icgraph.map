@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Peer_socket_receive_stats_accumulator::buffer_fed" name="flow::net_flow::Peer_socket_receive_stats_accumulator::buffer_fed">
+<area shape="rect" id="node1" title="Indicates the Receive buffer was enqueued with data from network (so its data_size() increased)." alt="" coords="199,41,357,89"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aab414ebd0e2d27f02ed51270dab90c45" title="Helper for handle_data_to_established() that aims to pass the payload of the given DATA packet to the..." alt="" coords="5,5,151,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a74adc7d61419f4beb7941d418a31a648" title="Helper for handle_data_to_established() that aims to register a set of received DATA packet data as i..." alt="" coords="11,77,145,125"/>
+</map>

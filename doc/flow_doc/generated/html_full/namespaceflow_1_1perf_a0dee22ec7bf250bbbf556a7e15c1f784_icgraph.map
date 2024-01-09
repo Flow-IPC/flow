@@ -1,0 +1,12 @@
+<map id="flow::perf::timed_function" name="flow::perf::timed_function">
+<area shape="rect" id="node1" title="Constructs a closure that times and executes void&#45;returning function(), adding the elapsed time with ..." alt="" coords="648,125,811,149"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#adb9a4a09e821aad135cfa1f493624630" title="Implements superclass API." alt="" coords="445,5,588,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a2c3566acb42c14ce7fe31026a711a30b" title="Implements superclass API." alt="" coords="445,77,588,125"/>
+<area shape="rect" id="node6" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a79b1d2f2b5bf4fdf16e7701fe3bb44d1" title="Implements superclass API." alt="" coords="433,149,600,197"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1perf.html#a7a3694bcd6e4bd506715d5931bc0c009" title="Identical to timed_function() but suitable for boost.asio&#45;targeted handler functions." alt="" coords="437,227,596,251"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#aafc6c8e2d94c5387bfd4e49795244feb" title="Implements superclass method but with the addition of timing of task, accessible through accumulated_..." alt="" coords="237,5,367,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#a939142533e48fc54040825aad2010121" title="Implements superclass method but with the addition of timing of task, accessible through accumulated_..." alt="" coords="237,77,367,125"/>
+<area shape="rect" id="node7" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#afed368e611529a648a7dd2999a89ab0d" title="Implements superclass method but with the addition of timing of task, accessible through accumulated_..." alt="" coords="219,149,385,197"/>
+<area shape="rect" id="node9" href="$classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a9e915ee364537114a9e2f50574d960b7" title="Given a boost.asio completion handler handler for a boost.asio async_*() action on some boost...." alt="" coords="220,221,384,269"/>
+<area shape="rect" id="node10" href="$classflow_1_1async_1_1Timed__single__thread__task__loop.html#a37f2f0d5c163cc1d0b56213ebb080af0" title="See Timed_concurrent_task_loop_impl::asio_handler_timed()." alt="" coords="5,221,171,269"/>
+</map>

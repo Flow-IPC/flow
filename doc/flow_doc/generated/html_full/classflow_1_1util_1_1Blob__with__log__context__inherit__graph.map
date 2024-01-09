@@ -1,0 +1,5 @@
+<map id="flow::util::Blob_with_log_context&lt; S_SHARING_ALLOWED &gt;" name="flow::util::Blob_with_log_context&lt; S_SHARING_ALLOWED &gt;">
+<area shape="rect" id="node1" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo..." alt="" coords="232,24,393,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="23,5,166,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__blob.html" title=" " alt="" coords="5,53,184,101"/>
+</map>

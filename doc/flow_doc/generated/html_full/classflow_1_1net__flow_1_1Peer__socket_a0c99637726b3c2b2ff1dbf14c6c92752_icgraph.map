@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Peer_socket::get_connect_metadata" name="flow::net_flow::Peer_socket::get_connect_metadata">
+<area shape="rect" id="node1" title="Obtains the serialized connect metadata, as supplied by the user during the connection handshake." alt="" coords="5,29,144,77"/>
+</map>

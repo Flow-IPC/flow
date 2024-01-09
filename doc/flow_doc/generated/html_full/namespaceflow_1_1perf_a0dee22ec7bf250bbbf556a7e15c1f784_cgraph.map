@@ -1,0 +1,4 @@
+<map id="flow::perf::timed_function" name="flow::perf::timed_function">
+<area shape="rect" id="node1" title="Constructs a closure that times and executes void&#45;returning function(), adding the elapsed time with ..." alt="" coords="5,35,168,59"/>
+<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta..." alt="" coords="216,29,375,65"/>
+</map>

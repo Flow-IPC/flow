@@ -1,0 +1,4 @@
+<map id="flow::util::String_ostream::str_clear" name="flow::util::String_ostream::str_clear">
+<area shape="rect" id="node1" title="Performs std::string::clear() on the object returned by str()." alt="" coords="205,11,332,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),..." alt="" coords="5,5,157,53"/>
+</map>

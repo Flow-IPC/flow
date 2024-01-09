@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::event_set_close_worker" name="flow::net_flow::Node::event_set_close_worker">
+<area shape="rect" id="node1" title="The guts of event_set_close_worker_check_state(): same thing, but assumes Event_set::state() == Event..." alt="" coords="188,5,347,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,5,140,41"/>
+</map>

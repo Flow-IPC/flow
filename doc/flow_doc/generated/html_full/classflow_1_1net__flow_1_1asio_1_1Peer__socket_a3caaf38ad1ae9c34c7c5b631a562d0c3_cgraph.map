@@ -1,0 +1,11 @@
+<map id="flow::net_flow::asio::Peer_socket::async_send" name="flow::net_flow::asio::Peer_socket::async_send">
+<area shape="rect" id="node1" title="Equivalent to async_send(target, duration::max(), on_result); i.e., async_send() with no timeout." alt="" coords="5,133,172,169"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#ab6c48bcfc9cab0b42216443f39fa8a4b" title="De&#45;templated implementation of all async_send() methods." alt="" coords="240,81,375,129"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#aa727c33c3eeeb217d50fcd451096ded8" title="Returns a functor that essentially performs post() on_result onto *async_task_engine() in a way suita..." alt="" coords="220,167,395,203"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a0744682e2dc9118b4da3f00bc5267bec" title="Convenience method that polymorphically casts from net_flow::Peer_socket::Ptr to subclass pointer net..." alt="" coords="463,5,591,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#aa9e96966c7a8f5d35a34c0f5b3f65eb6" title="Helper that returns the net_flow::asio::Node that generated *this; unless *this is closed; in which c..." alt="" coords="453,66,600,114"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#abac02ab0468161ea5ce431a2f53c4703" title="Constructs object." alt="" coords="443,139,611,175"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a1c63aaece6a9b056688a35405f064c70" title="Pointer (possibly null) for the flow::util::Task_engine used by any coming async_*() I/O calls." alt="" coords="676,161,811,209"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#a74f6fd527766fdeb05a96c5c03729a00" title="The error code that perviously caused state() to become State::S_CLOSED, or success code if state is ..." alt="" coords="659,27,828,63"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa9e7e1be830c901bc7348742e79ba2e7" title="Node that produced this Peer_socket." alt="" coords="679,87,808,123"/>
+</map>

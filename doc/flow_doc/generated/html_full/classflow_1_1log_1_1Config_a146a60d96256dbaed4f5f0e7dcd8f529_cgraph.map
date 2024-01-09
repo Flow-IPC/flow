@@ -1,0 +1,11 @@
+<map id="flow::log::Config::init_component_names" name="flow::log::Config::init_component_names">
+<area shape="rect" id="node1" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="5,117,153,153"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#af2d963a6e1e9e0fc5809764d5718e938" title="Given a component in the form user provides it at log call sites, returns its index in the flat compo..." alt="" coords="216,35,373,71"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util.html#a03984e29450abf9cf287c501d6c8f866" title="Returns true if and only if the given key is present at least once in the given associative container..." alt="" coords="229,95,361,119"/>
+<area shape="rect" id="node8" href="$classflow_1_1log_1_1Config.html#a2a7be5337621d131ef084ba69ad95f1b" title="Normalizes given component name in place." alt="" coords="205,144,384,180"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Config.html#a428c0ae690c951c1667e24afb6ef43de" title="Normalized version of given component name." alt="" coords="201,204,388,240"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Component.html#a899a7d2b0c5daa8e4d666d431b9bf48e" title="Returns the numeric value of the enum payload stored by this Component, originating in the one&#45;arg co..." alt="" coords="624,5,795,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Component.html#ab071f597ddeee9ad0fdb9e40bff8d988" title="Convenience accessor that returns std::type_index(payload_type()), which can be used most excellently..." alt="" coords="436,64,576,100"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Component.html#a5af2f66731c407bd519a873706bd04c4" title="Returns true if *this is as if default&#45;constructed (a null Component); false if as if constructed via..." alt="" coords="843,36,983,72"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Component.html#a3ff8ff4d75add447b3e10ded5430833d" title="Returns typeid(Payload), where Payload was the template param used when calling the originating one&#45;a..." alt="" coords="639,65,779,101"/>
+</map>

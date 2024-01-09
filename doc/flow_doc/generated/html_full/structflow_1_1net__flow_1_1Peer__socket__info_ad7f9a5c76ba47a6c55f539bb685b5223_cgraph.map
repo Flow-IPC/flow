@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket_info::output_pkt_count_key" name="flow::net_flow::Peer_socket_info::output_pkt_count_key">
+<area shape="rect" id="node1" title="Helper for output_map_of_pkt_counts() that outputs a raw packet type ID index, namely type_index(type..." alt="" coords="5,5,139,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a37c9c6b04502d73defb803c1efabdf63" title="Returns a brief (a few characters) string description of the given packet type given as type_index(ty..." alt="" coords="187,5,315,53"/>
+</map>

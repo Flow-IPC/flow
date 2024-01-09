@@ -1,0 +1,4 @@
+<map id="flow::util::Basic_blob::assign_copy" name="flow::util::Basic_blob::assign_copy">
+<area shape="rect" id="node1" title="Replaces logical contents with a copy of the given non&#45;overlapping area anywhere in memory." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a7feb29f4d1045490e8497ec067f8a70b" title="Copy constructor, constructing a blob logically equal to src." alt="" coords="5,5,140,41"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Low_lvl_packet::type_id_native_to_raw" name="flow::net_flow::Low_lvl_packet::type_id_native_to_raw">
+<area shape="rect" id="node1" title="Helper that looks up the Packet_type_info::m_raw_type_id value for the given typeid(p),..." alt="" coords="823,72,951,120"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a186d7dae0c4b4402aed22a25d595ed30" title="Constructs packet on the heap with values determined by the given raw binary data as presumably recei..." alt="" coords="605,36,755,84"/>
+<area shape="rect" id="node6" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#ac7b199700e34d3cc17a7653d7bbb134b" title="Helper for serialize_to_raw_data() implementations in sub&#45;types that encodes the header common to all..." alt="" coords="585,108,775,156"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a1699dfdaf3e5ebe1b1d715a9c306d116" title="Handles a just&#45;received, not&#45;yet&#45;deserialized low&#45;level packet." alt="" coords="403,42,537,78"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a4368247d07e930bdd07ab8d2425c6de8" title="Sets up handle_incoming(packet_data, low_lvl_remote_endpoint) to be called asynchronously after a spe..." alt="" coords="204,5,355,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#a90ecbad1ff3a8d2fe4b3ad1c474f7513" title="Helper for low_lvl_recv_and_handle() that calls handle_incoming() on the not&#45;yet&#45;deserialized low&#45;lev..." alt="" coords="5,36,156,84"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::async::op_to_exec_ctx&lt; Task_engine_ptr &gt;" name="flow::async::op_to_exec_ctx&lt; Task_engine_ptr &gt;">
+<area shape="rect" id="node1" title="Template specialization for operation that obtains the underlying execution context,..." alt="" coords="232,39,416,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a1b0703dffa2ea0a1105581e50cc17b9e" title="Implements superclass API." alt="" coords="17,5,173,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a31bc0b91253d44f4ab6ee350b916d6f7" title="Implements superclass API." alt="" coords="5,66,184,114"/>
+</map>

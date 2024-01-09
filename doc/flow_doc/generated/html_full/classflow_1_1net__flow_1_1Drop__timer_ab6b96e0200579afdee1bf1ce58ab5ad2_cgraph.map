@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Drop_timer::done" name="flow::net_flow::Drop_timer::done">
+<area shape="rect" id="node1" title="Causes the Drop_timer to guarantee none of the action callbacks provided at construction will be call..." alt="" coords="5,5,136,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Drop__timer.html#ad655d5461aa5a6bf9a80d28e4a4fdd77" title="Invalidates the running asynchronous wait on m_timer. Pre&#45;condition: m_timer_running." alt="" coords="184,5,320,41"/>
+</map>

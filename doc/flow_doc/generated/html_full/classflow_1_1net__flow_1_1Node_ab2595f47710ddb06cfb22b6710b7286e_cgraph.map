@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Node::validate_options" name="flow::net_flow::Node::validate_options">
+<area shape="rect" id="node1" title="Given a new set of Node_options intended to replace (or initialize) a Node&#39;s m_opts,..." alt="" coords="5,36,140,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a446ee7115c70cbcd48e3897d32fc0276" title="Analogous to validate_options() but checks per&#45;socket options instead of per&#45;Node options." alt="" coords="188,36,339,72"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#ab10bc9e8bef148f875aa743fe0852743" title="Returns true if and only if the given value is within the given range, inclusive." alt="" coords="387,5,515,41"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a8ae762ea4f743a98a73953d7f9ec2164" title="Returns true if and only if the given value is within the given range, given as a (low,..." alt="" coords="391,65,511,101"/>
+</map>

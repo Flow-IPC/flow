@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_bytes" name="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_bytes">
+<area shape="rect" id="node1" title="Implements Congestion_control_strategy::congestion_window_bytes() API." alt="" coords="5,5,204,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__classic__data.html#adbda0ed3747b1eea62f4d790c37dbe46" title="Return current stored CWND value in bytes." alt="" coords="252,5,459,53"/>
+</map>

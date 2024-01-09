@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Low_lvl_packet::create_uninit_packet_base" name="flow::net_flow::Low_lvl_packet::create_uninit_packet_base">
+<area shape="rect" id="node1" title="A simple convenience method that casts the result of create_uninit_packet() from shared_ptr&lt;T&gt;,..." alt="" coords="5,11,137,59"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html#a55a247bb8fb2ec94b7cbfdd56be65a81" title="Provides syntactic&#45;sugary way to perform a static_pointer_cast&lt;&gt; from a compatible smart pointer type..." alt="" coords="185,5,367,65"/>
+</map>

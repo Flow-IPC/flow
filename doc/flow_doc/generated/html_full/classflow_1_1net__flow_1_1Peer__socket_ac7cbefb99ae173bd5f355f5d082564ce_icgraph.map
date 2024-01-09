@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::ensure_open" name="flow::net_flow::Peer_socket::ensure_open">
+<area shape="rect" id="node1" title="Helper that is equivalent to Node::ensure_sock_open(this, err_code)." alt="" coords="192,35,335,71"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a0c99637726b3c2b2ff1dbf14c6c92752" title="Obtains the serialized connect metadata, as supplied by the user during the connection handshake." alt="" coords="5,29,144,77"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Node::event_set_check_baseline" name="flow::net_flow::Node::event_set_check_baseline">
+<area shape="rect" id="node1" title="Checks each desired (Event_set::m_want) event in event_set; any that holds true is saved into event_s..." alt="" coords="557,29,729,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a412214de6a4f3a1ff1e86ddb1975f47b" title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res..." alt="" coords="373,29,509,65"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a13a17c404f0ce43da5fec53a550da9be" title="Same as the public sync_wait(max_wait) but uses a Fine_clock&#45;based Fine_duration non&#45;template type fo..." alt="" coords="189,29,325,65"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires." alt="" coords="5,29,141,65"/>
+</map>

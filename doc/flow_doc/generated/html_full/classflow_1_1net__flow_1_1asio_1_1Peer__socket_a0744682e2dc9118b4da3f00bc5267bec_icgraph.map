@@ -1,0 +1,12 @@
+<map id="flow::net_flow::asio::Peer_socket::cast" name="flow::net_flow::asio::Peer_socket::cast">
+<area shape="rect" id="node1" title="Convenience method that polymorphically casts from net_flow::Peer_socket::Ptr to subclass pointer net..." alt="" coords="444,178,572,214"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a01233841b5cde6b22a2ae2481c14c51b" title="De&#45;templated implementation of all async_accept() methods." alt="" coords="235,39,381,87"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1asio_1_1Node.html#aecac8b38cd35267b1af57e2443a55ea0" title="Implementation core of async_connect*() that gets rid of templated or missing arguments thereof." alt="" coords="220,145,396,181"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a85e456ae997bae047e022d234bec9531" title="De&#45;templated implementation of all async_receive() methods." alt="" coords="241,205,375,253"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#ab6c48bcfc9cab0b42216443f39fa8a4b" title="De&#45;templated implementation of all async_send() methods." alt="" coords="241,277,375,325"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a8f374618b5d754321ac288cd6f1f50ea" title="boost.asio&#45;style asynchronous version that essentially performs net_flow::Server_socket::sync_accept(..." alt="" coords="15,5,162,53"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1asio_1_1Node.html#a97d21b9a18651cd234589f3b0b6d2971" title="The boost.asio asynchronous version of sync_connect(), performing any necessary wait and connection i..." alt="" coords="15,78,163,114"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1asio_1_1Node.html#af8ae97d499f6de21140b89218e52fc4c" title="A combination of async_connect() and connect_with_metadata() (asynchronously blocking connect,..." alt="" coords="15,139,163,187"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="21,211,156,259"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="5,283,172,319"/>
+</map>

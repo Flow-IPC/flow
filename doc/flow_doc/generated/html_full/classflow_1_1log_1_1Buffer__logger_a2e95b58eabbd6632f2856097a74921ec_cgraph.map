@@ -1,0 +1,4 @@
+<map id="flow::log::Buffer_logger::do_log" name="flow::log::Buffer_logger::do_log">
+<area shape="rect" id="node1" title="Implements interface method by synchronously logging the message and some subset of the metadata in a..." alt="" coords="5,5,155,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html#aba0a94e36e435aeb67bbc25fee8380f7" title="Logs to the wrapped ostream the given message and associated metadata like severity and time stamp; p..." alt="" coords="203,5,336,41"/>
+</map>

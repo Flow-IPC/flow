@@ -1,0 +1,5 @@
+<map id="flow::util::Rnd_gen_uniform_range_mt&lt; range_t &gt;" name="flow::util::Rnd_gen_uniform_range_mt&lt; range_t &gt;">
+<area shape="rect" id="node1" title="Identical to Rnd_gen_uniform_range but safe for concurrent RNG given a single object." alt="" coords="5,173,196,209"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Rnd__gen__uniform__range.html" title="Simple, non&#45;thread&#45;safe uniform&#45;range random number generator." alt="" coords="15,89,186,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Rnd__gen__uniform__range__base.html" title="Base class for Rnd_gen_uniform_range and Rnd_gen_uniform_range_mt for various aliases and similar,..." alt="" coords="31,5,170,41"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node::sock_is_writable" name="flow::net_flow::Node::sock_is_writable">
+<area shape="rect" id="node1" title="Returns true if and only if calling sock&#45;&gt;send() with at least some arguments would return either non..." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a70d124ba678e2ab72f8c6d28140ca137" title="Return true if and only if there is enough free space in Peer_socket::m_snd_buf of sock to enqueue an..." alt="" coords="188,5,323,41"/>
+</map>

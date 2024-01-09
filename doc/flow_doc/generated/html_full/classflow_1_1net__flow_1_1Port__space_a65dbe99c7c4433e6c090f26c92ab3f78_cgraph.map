@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Port_space::reserve_ephemeral_port" name="flow::net_flow::Port_space::reserve_ephemeral_port">
+<area shape="rect" id="node1" title="Reserve a randomly chosen available ephemeral port." alt="" coords="5,11,205,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Port__space.html#ad5a6a34a24c95364bb8348e5030d955b" title="Helper method that, given a reference to a bit set representing available ports (1 available,..." alt="" coords="253,5,397,53"/>
+</map>

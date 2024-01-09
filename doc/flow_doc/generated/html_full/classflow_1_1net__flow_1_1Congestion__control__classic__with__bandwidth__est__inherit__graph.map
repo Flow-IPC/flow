@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Congestion_control_classic_with_bandwidth_est" name="flow::net_flow::Congestion_control_classic_with_bandwidth_est">
+<area shape="rect" id="node1" title="Classic congestion control but with backoff to bandwidth estimate&#45;based pipe size." alt="" coords="143,161,363,197"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__strategy.html" title="The abstract interface for a per&#45;socket module that determines the socket&#39;s congestion control behavi..." alt="" coords="170,77,337,113"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,5,157,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="182,5,325,29"/>
+<area shape="rect" id="node5" title=" " alt="" coords="349,5,481,29"/>
+</map>

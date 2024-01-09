@@ -1,0 +1,4 @@
+<map id="flow::log::Config::this_thread_verbosity_override_auto" name="flow::log::Config::this_thread_verbosity_override_auto">
+<area shape="rect" id="node1" title="Sets *(this_thread_verbosity_override()) = most_verbose_sev_or_none; and returns an object that shall..." alt="" coords="5,5,144,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#a81da2c80d99cdd43c66a0df2eed64c70" title="Returns pointer to this thread&#39;s mutable verbosity override, for querying or assignment alike." alt="" coords="192,5,331,53"/>
+</map>

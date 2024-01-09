@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Node_options" name="flow::net_flow::Node_options">
+<area shape="rect" id="node1" title="A set of low&#45;level options affecting a single Flow Node, including Peer_socket objects and other obje..." alt="" coords="5,101,140,137"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low&#45;level options affecting a single Peer_socket." alt="" coords="8,5,137,41"/>
+</map>

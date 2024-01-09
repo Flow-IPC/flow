@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Node::set_options" name="flow::net_flow::Node::set_options">
+<area shape="rect" id="node1" title="Dynamically replaces the current options set (options()) with the given options set." alt="" coords="5,48,140,84"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aae148cec361b59237996a4b30c6624b5" title="Returns true if and only if the Node is operating." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#ab2595f47710ddb06cfb22b6710b7286e" title="Given a new set of Node_options intended to replace (or initialize) a Node&#39;s m_opts,..." alt="" coords="188,89,323,125"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a446ee7115c70cbcd48e3897d32fc0276" title="Analogous to validate_options() but checks per&#45;socket options instead of per&#45;Node options." alt="" coords="371,89,521,125"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#ab10bc9e8bef148f875aa743fe0852743" title="Returns true if and only if the given value is within the given range, inclusive." alt="" coords="569,59,697,95"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util.html#a8ae762ea4f743a98a73953d7f9ec2164" title="Returns true if and only if the given value is within the given range, given as a (low,..." alt="" coords="573,119,693,155"/>
+</map>

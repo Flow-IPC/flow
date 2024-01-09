@@ -1,0 +1,7 @@
+<map id="flow::log::Logger::this_thread_ostream" name="flow::log::Logger::this_thread_ostream">
+<area shape="rect" id="node1" title="Returns the stream dedicated to the executing thread and this Logger, so that the caller can apply st..." alt="" coords="5,47,139,83"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Thread__local__string__appender.html#a64383811f529af676dde0028f61831f7" title="Same as fresh_appender_ostream() but does not clear the result string, enabling piecemeal writing to ..." alt="" coords="189,5,367,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ..." alt="" coords="187,77,369,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="432,11,541,47"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae" title="Raw unique ID identifying this object as well as any object of a derived type." alt="" coords="417,83,556,119"/>
+</map>

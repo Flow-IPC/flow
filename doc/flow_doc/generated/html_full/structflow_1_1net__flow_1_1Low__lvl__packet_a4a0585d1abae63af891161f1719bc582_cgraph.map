@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Low_lvl_packet::Low_lvl_packet" name="flow::net_flow::Low_lvl_packet::Low_lvl_packet">
+<area shape="rect" id="node1" title="Constructs packet with uninitialized (essentially random) values." alt="" coords="5,5,133,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a720372b60ae7b7ee23c9f2d6775c7de1" title="Writes a brief representation of typeid(*this) – i.e., the packet type (ACK, RST, etc...." alt="" coords="181,5,311,53"/>
+<area shape="rect" id="node3" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a37c9c6b04502d73defb803c1efabdf63" title="Returns a brief (a few characters) string description of the given packet type given as type_index(ty..." alt="" coords="359,5,487,53"/>
+</map>

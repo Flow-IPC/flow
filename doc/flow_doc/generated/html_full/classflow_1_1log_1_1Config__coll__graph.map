@@ -1,0 +1,12 @@
+<map id="flow::log::Config" name="flow::log::Config">
+<area shape="rect" id="node1" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers..." alt="" coords="892,200,1004,224"/>
+<area shape="rect" id="node2" title=" " alt="" coords="535,28,643,52"/>
+<area shape="rect" id="node3" href="$classbool.html" title=" " alt="" coords="565,80,612,104"/>
+<area shape="rect" id="node4" title=" " alt="" coords="510,128,667,176"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,..." alt="" coords="275,227,395,263"/>
+<area shape="rect" id="node8" title=" " alt="" coords="523,261,654,297"/>
+<area shape="rect" id="node6" title=" " alt="" coords="111,233,225,257"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,233,44,257"/>
+<area shape="rect" id="node9" title=" " alt="" coords="497,321,680,357"/>
+<area shape="rect" id="node10" title=" " alt="" coords="520,381,657,429"/>
+</map>

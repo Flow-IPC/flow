@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket_receive_stats::output" name="flow::net_flow::Peer_socket_receive_stats::output">
+<area shape="rect" id="node1" title="Outputs the current stats, across multiple lines but not ending with a newline, into the given output..." alt="" coords="193,5,333,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a26fb85d618cb12e9ee1b22f52bdfcaa5" title="Prints string representation of the stats in the given stats object to the standard ostream and retur..." alt="" coords="5,5,145,53"/>
+</map>

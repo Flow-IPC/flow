@@ -1,0 +1,102 @@
+<map id="flow::net_flow::asio::Peer_socket" name="flow::net_flow::asio::Peer_socket">
+<area shape="rect" id="node1" title="A net_flow::Peer_socket that adds integration with boost.asio." alt="" coords="2385,2954,2513,2990"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non&#45;server) socket operating over the Flow network protocol, with optional stream&#45;of&#45;bytes an..." alt="" coords="2085,2915,2215,2951"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="175,3424,327,3448"/>
+<area shape="rect" id="node7" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="556,3424,671,3448"/>
+<area shape="rect" id="node23" href="$classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow&#45;protocol networking node, in the sense that: (1) it has a di..." alt="" coords="1711,2921,1846,2945"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Shared__ptr__alias__holder.html" title=" " alt="" coords="1684,3203,1873,3251"/>
+<area shape="rect" id="node5" title=" " alt="" coords="1695,3275,1862,3311"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="895,3365,1038,3389"/>
+<area shape="rect" id="node36" href="$classflow_1_1net__flow_1_1Port__space.html" title="Internal net_flow class that maintains the available Flow&#45;protocol port space, somewhat similarly to ..." alt="" coords="1299,3238,1426,3274"/>
+<area shape="rect" id="node41" href="$classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html" title="An object of this type generates a series of initial sequence numbers (ISN) that are meant to be suff..." alt="" coords="1283,2801,1443,2837"/>
+<area shape="rect" id="node60" href="$classflow_1_1net__flow_1_1Socket__buffer.html" title="Internal net_flow class that implements a socket buffer, as used by Peer_socket for Send and Receive ..." alt="" coords="1291,701,1434,737"/>
+<area shape="rect" id="node8" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="193,3750,309,3786"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,272,72,296"/>
+<area shape="rect" id="node42" href="$classflow_1_1net__flow_1_1Sequence__number.html" title="An internal net_flow sequence number identifying a piece of data." alt="" coords="887,190,1047,226"/>
+<area shape="rect" id="node79" href="$structflow_1_1net__flow_1_1Peer__socket__receive__stats.html" title="A data store that keeps stats about the incoming direction of a Peer_socket connection to another Flo..." alt="" coords="1293,633,1433,669"/>
+<area shape="rect" id="node80" title=" " alt="" coords="901,634,1033,670"/>
+<area shape="rect" id="node84" title=" " alt="" coords="366,99,489,135"/>
+<area shape="rect" id="node95" href="$classflow_1_1net__flow_1_1Peer__socket__send__stats.html" title="A data store that keeps stats about the outgoing direction of a Peer_socket connection to another Flo..." alt="" coords="1298,982,1427,1018"/>
+<area shape="rect" id="node10" title=" " alt="" coords="185,2187,317,2211"/>
+<area shape="rect" id="node44" href="$classflow_1_1util_1_1Rnd__gen__uniform__range.html" title=" " alt="" coords="528,2605,699,2653"/>
+<area shape="rect" id="node78" href="$classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html" title="A class that keeps a Peer_socket_receive_stats data store, includes methods to conveniently accumulat..." alt="" coords="1709,328,1849,376"/>
+<area shape="rect" id="node92" href="$structflow_1_1net__flow_1_1Send__pacing__data.html" title="The current outgoing packet pacing state, including queue of low&#45;level packets to be sent,..." alt="" coords="1296,1887,1429,1923"/>
+<area shape="rect" id="node94" href="$classflow_1_1net__flow_1_1Peer__socket__send__stats__accumulator.html" title="A class that keeps a Peer_socket_send_stats data store, includes methods to conveniently accumulate d..." alt="" coords="1679,771,1879,807"/>
+<area shape="rect" id="node11" title=" " alt="" coords="188,3690,313,3726"/>
+<area shape="rect" id="node12" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="543,2919,683,2943"/>
+<area shape="rect" id="node13" title=" " alt="" coords="194,2919,307,2943"/>
+<area shape="rect" id="node14" title=" " alt="" coords="205,2279,296,2303"/>
+<area shape="rect" id="node15" href="$structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low&#45;level options affecting a single Peer_socket." alt="" coords="902,1623,1031,1659"/>
+<area shape="rect" id="node28" href="$structflow_1_1net__flow_1_1Node__options.html" title="A set of low&#45;level options affecting a single Flow Node, including Peer_socket objects and other obje..." alt="" coords="1295,2122,1430,2158"/>
+<area shape="rect" id="node96" href="$structflow_1_1net__flow_1_1Peer__socket__info.html" title="A data store that keeps stats about the a Peer_socket connection." alt="" coords="1714,1601,1843,1637"/>
+<area shape="rect" id="node16" title=" " alt="" coords="587,1200,640,1224"/>
+<area shape="rect" id="node17" title=" " alt="" coords="566,1536,661,1560"/>
+<area shape="rect" id="node18" href="$classbool.html" title=" " alt="" coords="590,2048,637,2072"/>
+<area shape="rect" id="node19" title=" " alt="" coords="550,1678,677,1714"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1711,3336,1846,3360"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1753,3384,1804,3408"/>
+<area shape="rect" id="node22" title=" " alt="" coords="1724,3432,1833,3456"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1297,2861,1428,2885"/>
+<area shape="rect" id="node25" title=" " alt="" coords="580,2683,647,2707"/>
+<area shape="rect" id="node39" title=" " alt="" coords="884,2911,1049,2935"/>
+<area shape="rect" id="node66" href="$structflow_1_1net__flow_1_1Remote__endpoint.html" title="Represents the remote endpoint of a Flow&#45;protocol connection; identifies the UDP endpoint of the remo..." alt="" coords="1705,2261,1852,2297"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1313,2981,1413,3005"/>
+<area shape="rect" id="node27" title=" " alt="" coords="886,2863,1047,2887"/>
+<area shape="rect" id="node29" title=" " alt="" coords="919,2299,1014,2323"/>
+<area shape="rect" id="node30" title=" " alt="" coords="1311,3029,1414,3053"/>
+<area shape="rect" id="node31" title=" " alt="" coords="1278,3078,1447,3114"/>
+<area shape="rect" id="node32" title=" " alt="" coords="1325,3189,1401,3213"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1333,3299,1392,3323"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1327,2284,1398,2308"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1283,3725,1442,3749"/>
+<area shape="rect" id="node37" title=" " alt="" coords="907,3239,1026,3263"/>
+<area shape="rect" id="node38" title=" " alt="" coords="905,3317,1028,3341"/>
+<area shape="rect" id="node40" title=" " alt="" coords="903,3132,1030,3156"/>
+<area shape="rect" id="node70" title=" " alt="" coords="1277,184,1448,232"/>
+<area shape="rect" id="node82" title=" " alt="" coords="1277,256,1448,304"/>
+<area shape="rect" id="node43" title=" " alt="" coords="927,1392,1006,1416"/>
+<area shape="rect" id="node45" href="$classflow_1_1util_1_1Rnd__gen__uniform__range__base.html" title="Base class for Rnd_gen_uniform_range and Rnd_gen_uniform_range_mt for various aliases and similar,..." alt="" coords="181,2683,320,2719"/>
+<area shape="rect" id="node46" title=" " alt="" coords="187,2744,314,2768"/>
+<area shape="rect" id="node47" href="$classboost_1_1random_1_1uniform__int__distribution_3_01Peer__socket_1_1security__token__t_01_4.html" title=" " alt="" coords="175,2605,326,2653"/>
+<area shape="rect" id="node48" title=" " alt="" coords="1284,3398,1441,3434"/>
+<area shape="rect" id="node49" title=" " alt="" coords="1291,3459,1434,3507"/>
+<area shape="rect" id="node50" title=" " alt="" coords="1291,3531,1435,3567"/>
+<area shape="rect" id="node51" href="$classflow_1_1util_1_1Linked__hash__map.html" title=" " alt="" coords="1283,3592,1442,3640"/>
+<area shape="rect" id="node52" title=" " alt="" coords="908,3833,1025,3857"/>
+<area shape="rect" id="node81" href="$classflow_1_1util_1_1Linked__hash__map.html" title=" " alt="" coords="1287,3825,1439,3885"/>
+<area shape="rect" id="node53" title=" " alt="" coords="903,3747,1030,3783"/>
+<area shape="rect" id="node54" title=" " alt="" coords="1294,3665,1431,3701"/>
+<area shape="rect" id="node55" title=" " alt="" coords="1289,2544,1437,2568"/>
+<area shape="rect" id="node56" title=" " alt="" coords="1295,2593,1431,2629"/>
+<area shape="rect" id="node57" title=" " alt="" coords="1324,2653,1401,2677"/>
+<area shape="rect" id="node58" title=" " alt="" coords="1333,2701,1392,2725"/>
+<area shape="rect" id="node59" title=" " alt="" coords="1759,3480,1798,3504"/>
+<area shape="rect" id="node61" title=" " alt="" coords="923,829,1010,853"/>
+<area shape="rect" id="node62" title=" " alt="" coords="891,567,1042,591"/>
+<area shape="rect" id="node63" title=" " alt="" coords="580,660,647,684"/>
+<area shape="rect" id="node64" title=" " alt="" coords="1323,1779,1403,1803"/>
+<area shape="rect" id="node65" title=" " alt="" coords="1724,3528,1833,3552"/>
+<area shape="rect" id="node67" title=" " alt="" coords="1744,3576,1813,3600"/>
+<area shape="rect" id="node68" title=" " alt="" coords="1683,3625,1875,3661"/>
+<area shape="rect" id="node69" title=" " alt="" coords="1277,3960,1449,3984"/>
+<area shape="rect" id="node71" title=" " alt="" coords="895,117,1038,153"/>
+<area shape="rect" id="node72" title=" " alt="" coords="1709,3685,1849,3745"/>
+<area shape="rect" id="node73" title=" " alt="" coords="1253,4009,1472,4045"/>
+<area shape="rect" id="node74" title=" " alt="" coords="1701,3769,1856,3805"/>
+<area shape="rect" id="node75" title=" " alt="" coords="1343,4069,1382,4093"/>
+<area shape="rect" id="node76" title=" " alt="" coords="1703,3829,1854,3865"/>
+<area shape="rect" id="node77" title=" " alt="" coords="899,1846,1035,1882"/>
+<area shape="rect" id="node83" title=" " alt="" coords="899,267,1034,303"/>
+<area shape="rect" id="node85" title=" " alt="" coords="1739,3889,1819,3913"/>
+<area shape="rect" id="node86" title=" " alt="" coords="1697,3937,1860,3985"/>
+<area shape="rect" id="node87" title=" " alt="" coords="1285,4117,1440,4165"/>
+<area shape="rect" id="node88" title=" " alt="" coords="1697,4009,1860,4057"/>
+<area shape="rect" id="node89" title=" " alt="" coords="1705,4081,1853,4129"/>
+<area shape="rect" id="node90" title=" " alt="" coords="933,1907,1001,1931"/>
+<area shape="rect" id="node91" title=" " alt="" coords="1697,4153,1860,4177"/>
+<area shape="rect" id="node93" title=" " alt="" coords="899,1786,1034,1822"/>
+<area shape="rect" id="node97" title=" " alt="" coords="1323,1584,1402,1608"/>
+<area shape="rect" id="node98" title=" " alt="" coords="1318,1683,1407,1707"/>
+<area shape="rect" id="node99" title=" " alt="" coords="1333,1731,1393,1755"/>
+<area shape="rect" id="node100" title=" " alt="" coords="2101,2976,2199,3000"/>
+</map>

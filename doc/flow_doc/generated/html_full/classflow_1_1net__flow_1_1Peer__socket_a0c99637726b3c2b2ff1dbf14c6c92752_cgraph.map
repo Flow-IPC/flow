@@ -1,0 +1,5 @@
+<map id="flow::net_flow::Peer_socket::get_connect_metadata" name="flow::net_flow::Peer_socket::get_connect_metadata">
+<area shape="rect" id="node1" title="Obtains the serialized connect metadata, as supplied by the user during the connection handshake." alt="" coords="5,29,144,77"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#ac7cbefb99ae173bd5f355f5d082564ce" title="Helper that is equivalent to Node::ensure_sock_open(this, err_code)." alt="" coords="192,35,335,71"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a109a118ca312e94686595ea08dac7ad0" title="Helper method that checks whether the given Peer_socket or Server_socket is CLOSED; if so,..." alt="" coords="383,35,517,71"/>
+</map>

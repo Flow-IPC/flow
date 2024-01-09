@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted_bytes" name="flow::net_flow::Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted_bytes">
+<area shape="rect" id="node1" title="Returns the best bandwidth/latency&#45;based guess for what the current window (pipe) size should be." alt="" coords="5,5,253,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Congestion__control__strategy.html#a3e9786f9e5f170ca23135a2a815bc3f4" title="Utility for subclasses that returns a handle to the containing Peer_socket." alt="" coords="301,11,468,47"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="flow::net_flow::Node::sync_op" name="flow::net_flow::Node::sync_op">
+<area shape="rect" id="node1" title="Implementation of core blocking transfer methods, namely Peer_socket::sync_send(),..." alt="" coords="5,146,140,182"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#ad100464cf0126dbbad39bde1c90a774f" title="Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns ..." alt="" coords="190,86,325,122"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Node.html#aae148cec361b59237996a4b30c6624b5" title="Returns true if and only if the Node is operating." alt="" coords="190,146,325,182"/>
+<area shape="rect" id="node9" href="$namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block." alt="" coords="188,206,327,242"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4" title="An extension of boost.asio&#39;s post() and dispatch() free function templates, this free function templa..." alt="" coords="375,26,520,62"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Event__set.html#a7b8e6cf7046b6905015301a203cd88f5" title="Constructs object; initializes all values to well&#45;defined but possibly meaningless values (0,..." alt="" coords="379,86,515,122"/>
+<area shape="rect" id="node7" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="376,146,519,182"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60" title="Returns the 0&#45;based processor logical (not hardware) core index of the core executing the calling thr..." alt="" coords="568,5,701,29"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="573,54,696,90"/>
+</map>

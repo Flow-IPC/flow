@@ -1,0 +1,6 @@
+<map id="flow::log::Config::store_severity_by_component" name="flow::log::Config::store_severity_by_component">
+<area shape="rect" id="node1" title="Helper that for the given flat&#45;union&#45;component&#45;index saves the given per&#45;component verbosity,..." alt="" coords="227,83,409,119"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#adfde40890c0dc1fa8956451f44251dc8" title="Sets the per&#45;component verbosity for the given component to the given value, to be used by subsequent..." alt="" coords="21,5,163,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Config.html#a2f266ee7e22d1090ab4de76e532cab89" title="Like configure_component_verbosity(), but the component is to be specified by its registered string n..." alt="" coords="21,77,163,125"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Config.html#ac562cc0132f6cfa81b42c332400033ae" title="Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() c..." alt="" coords="5,150,179,186"/>
+</map>

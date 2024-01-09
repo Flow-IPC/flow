@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Peer_socket::max_block_size" name="flow::net_flow::Peer_socket::max_block_size">
+<area shape="rect" id="node1" title="The maximum number of bytes of user data per received or sent packet on this connection." alt="" coords="5,5,160,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="208,5,337,41"/>
+</map>

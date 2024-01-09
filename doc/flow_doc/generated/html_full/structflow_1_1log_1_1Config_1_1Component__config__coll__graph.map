@@ -1,0 +1,4 @@
+<map id="flow::log::Config::Component_config" name="flow::log::Config::Component_config">
+<area shape="rect" id="node1" title="The set of config stored for each distinct (as determined by Component::payload_type(),..." alt="" coords="5,89,129,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="22,5,113,29"/>
+</map>

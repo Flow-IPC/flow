@@ -1,0 +1,4 @@
+<map id="flow::log::Serial_file_logger::Serial_file_logger" name="flow::log::Serial_file_logger::Serial_file_logger">
+<area shape="rect" id="node1" title="Constructs logger to subsequently log to the given file&#45;system path." alt="" coords="5,11,168,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Serial__file__logger.html#a7d38efd094d69b5ef38fc44ba153c9ed" title="Causes the log at the file&#45;system path to be flushed/closed (if needed) and re&#45;opened; this will occu..." alt="" coords="216,5,361,53"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="flow::net_flow::Event_set::async_wait_finish" name="flow::net_flow::Event_set::async_wait_finish">
+<area shape="rect" id="node1" title="Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(..." alt="" coords="5,29,152,65"/>
+</map>

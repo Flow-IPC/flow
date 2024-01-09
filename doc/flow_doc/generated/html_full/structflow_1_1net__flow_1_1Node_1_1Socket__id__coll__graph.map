@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Node::Socket_id" name="flow::net_flow::Node::Socket_id">
+<area shape="rect" id="node1" title="The data nugget uniquely identifying a peer&#45;to&#45;peer connection from a remote endpoint to a port in th..." alt="" coords="120,185,255,221"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Remote__endpoint.html" title="Represents the remote endpoint of a Flow&#45;protocol connection; identifies the UDP endpoint of the remo..." alt="" coords="49,89,195,125"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,76,29"/>
+<area shape="rect" id="node4" title=" " alt="" coords="175,5,242,29"/>
+</map>

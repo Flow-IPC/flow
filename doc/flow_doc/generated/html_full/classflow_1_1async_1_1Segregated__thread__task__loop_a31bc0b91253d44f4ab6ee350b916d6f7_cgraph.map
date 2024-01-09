@@ -1,0 +1,12 @@
+<map id="flow::async::Segregated_thread_task_loop::schedule_from_now" name="flow::async::Segregated_thread_task_loop::schedule_from_now">
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="5,75,184,123"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1async.html#ad932f51435b1776625df394e159e7e55" title="Template specialization for operation that obtains the underlying execution context,..." alt="" coords="232,47,416,83"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a8fbd7b964d140c770eac1f71e52bcf1c" title="Helper performing the core util::schedule_task_from_now() call on behalf of the various schedule_from..." alt="" coords="235,108,413,156"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60" title="Returns the 0&#45;based processor logical (not hardware) core index of the core executing the calling thr..." alt="" coords="489,5,622,29"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="484,54,627,90"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="484,114,627,150"/>
+<area shape="rect" id="node7" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a28d7c70f0d3147ba48a10afa84ef98c1" title="Implements superclass API." alt="" coords="464,174,647,210"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi..." alt="" coords="492,234,619,270"/>
+<area shape="rect" id="node9" href="$classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself." alt="" coords="695,234,873,270"/>
+<area shape="rect" id="node10" href="$classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52" title="Thread&#45;safely construct an ID whose value is different from any other object of this class,..." alt="" coords="921,228,1060,276"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::net_flow::Low_lvl_packet::type_to_ostream" name="flow::net_flow::Low_lvl_packet::type_to_ostream">
+<area shape="rect" id="node1" title="Writes a brief representation of typeid(*this) – i.e., the packet type (ACK, RST, etc...." alt="" coords="5,5,135,53"/>
+<area shape="rect" id="node2" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a37c9c6b04502d73defb803c1efabdf63" title="Returns a brief (a few characters) string description of the given packet type given as type_index(ty..." alt="" coords="183,5,311,53"/>
+</map>

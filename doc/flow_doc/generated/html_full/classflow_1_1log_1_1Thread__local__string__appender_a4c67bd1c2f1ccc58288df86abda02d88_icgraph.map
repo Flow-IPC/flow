@@ -1,0 +1,8 @@
+<map id="flow::log::Thread_local_string_appender::get_this_thread_string_appender" name="flow::log::Thread_local_string_appender::get_this_thread_string_appender">
+<area shape="rect" id="node1" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ..." alt="" coords="785,30,968,78"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html#ad6ead44c19a7b15111b2f77656a2ea31" title="Returns the stream dedicated to the executing thread and this Logger, so that the caller can apply st..." alt="" coords="604,36,737,72"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc" title="Sets certain chrono&#45;related formatting on the given Logger in the current thread that results in a co..." alt="" coords="425,30,556,78"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Task__qing__thread.html#abb03d1b5f50a2b6148da27139a2391da" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th..." alt="" coords="200,5,365,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#aa894fd58b246c2a8d6c7c7d25a8748cb" title="Helper to invoke for each thread in which this Node executes, whether or not it starts that thread,..." alt="" coords="188,65,377,101"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,65,140,101"/>
+</map>

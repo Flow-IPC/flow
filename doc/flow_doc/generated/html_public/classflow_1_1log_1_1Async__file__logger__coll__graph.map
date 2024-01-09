@@ -1,0 +1,8 @@
+<map id="flow::log::Async_file_logger" name="flow::log::Async_file_logger">
+<area shape="rect" id="node1" title="An implementation of Logger that logs messages to a given file&#45;system path but never blocks any loggi..." alt="" coords="248,175,379,211"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="103,91,217,115"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,11,157,35"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="182,5,298,41"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="242,91,385,115"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers..." alt="" coords="409,91,521,115"/>
+</map>

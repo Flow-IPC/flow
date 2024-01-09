@@ -1,0 +1,13 @@
+<map id="flow::net_flow::Peer_socket::info" name="flow::net_flow::Peer_socket::info">
+<area shape="rect" id="node1" title="Returns a structure containing the most up&#45;to&#45;date stats about this connection." alt="" coords="5,87,135,123"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a109a118ca312e94686595ea08dac7ad0" title="Helper method that checks whether the given Peer_socket or Server_socket is CLOSED; if so,..." alt="" coords="183,57,317,93"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a07ad769737db60dd637365010b80f4f3" title="Implementation of sock&#45;&gt;info() for socket sock in all cases except when sock&#45;&gt;state() == Peer_socket:..." alt="" coords="183,117,317,153"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4" title="An extension of boost.asio&#39;s post() and dispatch() free function templates, this free function templa..." alt="" coords="366,26,511,62"/>
+<area shape="rect" id="node7" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="367,86,510,122"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Node.html#aae148cec361b59237996a4b30c6624b5" title="Returns true if and only if the Node is operating." alt="" coords="371,146,506,182"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Node.html#a2336fae98b318ab73e7268e9a242bf09" title="Given a Peer_socket, copies all stats info (as available via Peer_socket::info()) from various struct..." alt="" coords="365,206,512,242"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60" title="Returns the 0&#45;based processor logical (not hardware) core index of the core executing the calling thr..." alt="" coords="573,5,707,29"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="579,54,701,90"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1Node.html#a43c42121d48a55a43a48e3a84bd10595" title="Obtain a copy of the value of a given option in a thread&#45;safe manner." alt="" coords="560,184,720,208"/>
+<area shape="rect" id="node11" href="$classflow_1_1net__flow_1_1Node.html#ac397d3fd163f1456b7bb370a3cff951c" title="Computes and returns the currently correct rcv_wnd value; that is the amount of space free in Receive..." alt="" coords="573,233,707,269"/>
+</map>

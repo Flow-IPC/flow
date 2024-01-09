@@ -1,0 +1,9 @@
+<map id="flow::net_flow::Node::event_set_check_baseline" name="flow::net_flow::Node::event_set_check_baseline">
+<area shape="rect" id="node1" title="Checks each desired (Event_set::m_want) event in event_set; any that holds true is saved into event_s..." alt="" coords="5,65,177,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__set.html#a048a8d78c4ae3bc45c8bcede6b0e2dc6" title="Returns true if and only if container is empty." alt="" coords="243,5,362,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Linked__hash__set.html#a517b9b0ac9d6ab2c56e27ba380f87180" title="Attempts to insert the given key into the set." alt="" coords="245,65,360,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Event__set.html#ae04c117b15179ba37a94f6836c63497b" title="Helper that returns a loggable string representing the socket stored in the given boost::any that sto..." alt="" coords="225,125,380,161"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="428,125,551,161"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="599,95,729,131"/>
+<area shape="rect" id="node7" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="609,155,719,191"/>
+</map>

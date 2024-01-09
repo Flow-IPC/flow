@@ -1,0 +1,4 @@
+<map id="flow::log::Msg_metadata" name="flow::log::Msg_metadata">
+<area shape="rect" id="node1" title="Simple data store containing all of the information generated at every logging call site by flow::log..." alt="" coords="5,89,163,113"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="14,5,154,29"/>
+</map>
