@@ -17,22 +17,44 @@ jobs:
   # Impetus behind this is to set up at least one magic string used in 2+ places.
   # Unfortunately simply using `env:` does not work, as jobs.<id>.if refuses to access the workflow-global `env.<id>`.
   # Ridiculous.  TODO: Revisit.
-  setup:
+  #
+  # Folding this into `setup` would have been fine, but as of this writing `setup` needs at least one constant
+  # from here, and getting the order of operations correct within that one job is non-trivial at best.
+  set-vars:
     runs-on: ubuntu-latest
     outputs:
       doc-commit-message: (Commit by workflow script) Update generated documentation.
     steps:
-      - id: setup
-        run: echo 'Setting up (prerequisite for the real jobs).'
+      - id: set-vars
+        run: echo 'Setting variables/constants.'
 
-  build: # Repeated in another job below.  TODO: Code reuse by placing into jobs.setup?  Sadly it's not easy.
-    needs: setup
+  # Impetus behind this is to gate whether the real jobs below actually need to run.  Can of course also compute
+  # other things as needed.
+  setup:
+    needs: set-vars
+    runs-on: ubuntu-latest
+    outputs:
+      proceed-else-not: ${{ steps.compute-proceed-else-not.outputs.proceed-else-not }}
+    steps:
+      - id: compute-proceed-else-not
+        run: |
+          # Using [[ ]] at least for the * pattern-match feature.  Could probably instead compute this
+          # via YAML earlier-on (then can use startsWith() and such).  Whichever.
+          if [[ '${{ github.ref }}' != 'refs/heads/main' || \
+                '${{ github.event_name }}' != 'push' || \
+                '${{ github.event.head_commit.message }}' != \
+                  '${{ needs.set-vars.outputs.doc-commit-message}}'* ]]; then
+            echo '::set-output name=proceed-else-not::true'
+          else
+            echo '::set-output name=proceed-else-not::false'
+            echo 'The real jobs will not run: earlier `doc` job checked-in generated docs to `main`.'
+            echo 'That is not a source change and requires no actual pipeline to execute.'
+          fi
 
-    # Prevent endless self-triggering from `doc` job on `main`.
+  build:
+    needs: [setup, set-vars]
     if: |
-      !((github.ref == 'refs/heads/main')
-        && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, needs.setup.outputs.doc-commit-message))
+      needs.setup.outputs.proceed-else-not == 'true'
 
     strategy:
       fail-fast: false
@@ -378,13 +400,9 @@ jobs:
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc:
-    needs: setup
-
-    # Prevent endless self-triggering from `doc` job on `main`.
+    needs: [setup, set-vars]
     if: |
-      !((github.ref == 'refs/heads/main')
-        && (github.event_name == 'push')
-        && startsWith(github.event.head_commit.message, needs.setup.outputs.doc-commit-message))
+      needs.setup.outputs.proceed-else-not == 'true'
 
     strategy:
       fail-fast: false
@@ -476,7 +494,7 @@ jobs:
         git config user.email github-actions@github.com
         # We are forced to use a Personal Access Token attached to a special bot user such that in repo Settings
         # we've configured that "guy" as allowed to bypass the requirement to merge via PR.  As of this writing
-        # there's no way to configure the default token of being able to do this.
+        # there's no way to configure the default token to being able to do this.
         # TODO: Keep an eye on that in case they provide for a better way:
         #   https://github.com/orgs/community/discussions/25305
         git config --local http.https://github.com/.extraheader \
@@ -484,5 +502,5 @@ jobs:
         cd ${{ github.workspace }}/doc/flow_doc
         git rm -r --cached generated || echo 'No generated/ currently checked in; no problem.'
         git add generated
-        git commit -m '${{ needs.setup.outputs.doc-commit-message }}'
+        git commit -m '${{ needs.set-vars.outputs.doc-commit-message }}'
         git push origin main
