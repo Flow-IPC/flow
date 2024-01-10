@@ -26,7 +26,8 @@ jobs:
       doc-commit-message: (Commit by workflow script) Update generated documentation.
     steps:
       - id: set-vars
-        run: echo 'Setting variables/constants.'
+        run: |
+          # Setting variables/constants.
 
   # Impetus behind this is to gate whether the real jobs below actually need to run.  Can of course also compute
   # other things as needed.
@@ -46,6 +47,7 @@ jobs:
         # then we can just use here-doc syntax and a temp file, so if the commit message does not have the
         # here-doc terminator token, then we're fine.
         run: |
+          # Compute whether for main jobs to proceed or not.
           TMP_MSG=/tmp/flow-pipeline-head-cmt-msg.txt
           cat <<'FLOW_PIPELINE_HEAD_CMD_MSG_EOF' > $TMP_MSG
           ${{ github.event.head_commit.message }}
@@ -253,6 +255,7 @@ jobs:
       if: |
         matrix.compiler.install && (matrix.compiler.name == 'clang')
       run: |
+        # Install clang compiler.
         wget https://apt.llvm.org/llvm.sh
         chmod u+x llvm.sh
         sudo ./llvm.sh ${{ matrix.compiler.version }}
@@ -261,6 +264,7 @@ jobs:
       if: |
         matrix.compiler.install && (matrix.compiler.name == 'gcc')
       run: |
+        # Install gcc compiler.
         sudo apt-get install -y software-properties-common
         sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
         sudo apt-get update
@@ -270,13 +274,13 @@ jobs:
     # file).  See explanation in that file.  The to-do there applies to us as well (both should be done
     # at ~the same time).
     - name: Install the latest version of Conan which is less than 2
-      run: |
-        pip install "conan<2"
+      run: pip install 'conan<2'
 
     - name: Add custom settings for Conan packages
       if: |
         matrix.build-test-cfg.conan-custom-settings-defs
       run: |
+        # Add custom settings for Conan packages.
         conan config init
         pip install PyYAML
         CONAN_SETTINGS_PATH=$(conan config home)/settings.yml
@@ -295,6 +299,7 @@ jobs:
 
     - name: Create Conan profile
       run: |
+        # Create Conan profile.
         cat <<'EOF' > conan_profile
         [settings]
         compiler = ${{ matrix.compiler.name }}
@@ -322,13 +327,10 @@ jobs:
         EOF
 
     - name: Install Flow dependencies with Conan using the profile
-      run: |
-        conan install . \
-          --profile:build conan_profile --profile:host conan_profile --build missing
+      run: conan install . --profile:build conan_profile --profile:host conan_profile --build missing
 
     - name: Build library and demos/tests with Conan
-      run: |
-        conan build .
+      run: conan build .
 
     - name: Install built targets with Makefile
       run: |
@@ -349,6 +351,7 @@ jobs:
 
     - name: Run test/demo [NetFlow echo]
       run: |
+        # Run test/demo [NetFlow echo].
         cd ${{ env.install-dir }}/bin
         OUT_DIR=logs/net_flow_echo
         mkdir -p $OUT_DIR
@@ -376,6 +379,7 @@ jobs:
       if: |
         (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
       run: |
+        # Check test/demo logs for non-fatal sanitizer error(s)
         cd ${{ env.install-dir }}/bin/logs
         # grep returns 0 if 1+ found, 1 if none found, 2+ on error.  So check results explicitly instead of -e.
         # Namely, for us, the only OK result is an empty stdout and empty stderr.
@@ -396,6 +400,7 @@ jobs:
       if: |
         always()
       run: |
+        # Package test/demo logs tarball.
         cd ${{ env.install-dir }}/bin
         tar cvzf logs.tgz logs
         rm -rf logs # Save runner space.
@@ -440,15 +445,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install Flow dependencies (like Graphviz) with apt-get
-      run: |
-        sudo apt-get install -y graphviz
+      run: sudo apt-get install -y graphviz
 
     - name: Install the latest version of Conan which is less than 2
-      run: |
-        pip install "conan<2"
+      run: pip install 'conan<2'
 
     - name: Create Conan profile
       run: |
+        # Create Conan profile.
         cat <<EOF > conan_profile
         [settings]
         compiler = ${{ matrix.compiler.name }}
@@ -473,16 +477,14 @@ jobs:
         EOF
 
     - name: Install Flow dependencies (like Doxygen) with Conan using the profile
-      run: |
-        conan install . \
-          --profile:build conan_profile --profile:host conan_profile --build missing
+      run: conan install . --profile:build conan_profile --profile:host conan_profile --build missing
 
     - name: Generate code documentation using Conan and Doxygen
-      run: |
-        conan build .
+      run: conan build .
 
     - name: Create documentation tarball (full docs, API-only docs, landing page)
       run: |
+        # Create documentation tarball (full docs, API-only docs, landing page).
         cd ${{ github.workspace }}/doc/flow_doc
         ${{ github.workspace }}/tools/doc/stage_generated_docs.sh \
           ${{ github.workspace }}/build/${{ matrix.build-cfg.conan-profile-build-type }}
@@ -496,6 +498,7 @@ jobs:
     - name: (`main` branch only) Check-in generated documentation directly into source control
       if: success() && (github.ref == 'refs/heads/main')
       run: |
+        # (`main` branch only) Check-in generated documentation directly into source control.
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
         # These values informally recommended in:
         #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
