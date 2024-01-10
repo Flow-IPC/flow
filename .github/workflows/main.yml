@@ -52,7 +52,7 @@ jobs:
           fi
 
   build:
-    needs: setup, set-vars
+    needs: [setup, set-vars]
     if: |
       needs.setup.outputs.proceed-else-not == 'true'
 
@@ -400,7 +400,7 @@ jobs:
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc:
-    needs: setup, set-vars
+    needs: [setup, set-vars]
     if: |
       needs.setup.outputs.proceed-else-not == 'true'
 
