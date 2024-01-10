@@ -14,12 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Impetus behind this is to set up at least one magic string used in 2+ places.
-  # Unfortunately simply using `env:` does not work, as jobs.<id>.if refuses to access the workflow-global `env.<id>`.
-  # Ridiculous.  TODO: Revisit.
-  #
-  # Folding this into `setup` would have been fine, but as of this writing `setup` needs at least one constant
-  # from here, and getting the order of operations correct within that one job is non-trivial at best.
+  # See comments in Flow-IPC workflow counterpart.  We use same techniques.
   set-vars:
     runs-on: ubuntu-latest
     steps:
@@ -37,14 +32,7 @@ jobs:
     steps:
       - id: compute-proceed-else-not
         name: Compute whether for main jobs to proceed or not
-        # For checking whether github.event.head_commit.message starts with needs.set-vars.outputs.doc-commit-message
-        # it is tempting to just use:
-        #   '${{ github.event.head_commit.message }}' != '${{ needs.set-vars.outputs.doc-commit-message }}'*
-        # This works usually but is unsafe: If the head commit message contains, for example, a single-quote,
-        # then the shell syntax breaks down.  One approach would be to use pipeline startsWith() before `run`,
-        # but apparently it cannot be done directly inside `run`; so it is a pain.  Staying with shell scripting
-        # then we can just use here-doc syntax and a temp file, so if the commit message does not have the
-        # here-doc terminator token, then we're fine.
+        # See comments in Flow-IPC workflow counterpart.  We use same techniques.
         run: |
           # Compute whether for main jobs to proceed or not.
           TMP_MSG=/tmp/flow-pipeline-head-cmt-msg.txt
@@ -496,20 +484,14 @@ jobs:
         name: flow-doc
         path: ${{ github.workspace }}/doc/flow_doc.tgz
 
+    # See comments in Flow-IPC workflow counterpart.  We use same techniques.
     - name: (`main` branch only) Check-in generated documentation directly into source control
       if: success() && (github.ref == 'refs/heads/main')
       run: |
         # (`main` branch only) Check-in generated documentation directly into source control.
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
-        # These values informally recommended in:
-        #   https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
         git config user.name github-actions
         git config user.email github-actions@github.com
-        # We are forced to use a Personal Access Token attached to a special bot user such that in repo Settings
-        # we've configured that "guy" as allowed to bypass the requirement to merge via PR.  As of this writing
-        # there's no way to configure the default token to being able to do this.
-        # TODO: Keep an eye on that in case they provide for a better way:
-        #   https://github.com/orgs/community/discussions/25305
         git config --local http.https://github.com/.extraheader \
           "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.GIT_BOT_PAT }} | base64)"
         cd ${{ github.workspace }}/doc/flow_doc
