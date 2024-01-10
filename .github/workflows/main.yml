@@ -39,11 +39,22 @@ jobs:
       - id: compute-proceed-else-not
         run: |
           # Using [[ ]] at least for the * pattern-match feature.  Could probably instead compute this
-          # via YAML earlier-on (then can use startsWith() and such).  Whichever.
+          # via YAML earlier-on (then can use startsWith() and such).  Whichever.  Going with this for now.
+          # For checking whether github.event.head_commit.message starts with needs.set-vars.outputs.doc-commit-message
+          # it is tempting to just use:
+          #   '${{ github.event.head_commit.message }}' != '${{ needs.set-vars.outputs.doc-commit-message }}'*
+          # This works usually but is unsafe: If the head commit message contains, for example, a single-quote,
+          # then the shell syntax breaks down.  One approach would be to use pipeline startsWith() before `run`,
+          # but apparently it cannot be done directly inside `run`; so it is a pain.  Staying with shell scripting
+          # then we can just use here-doc syntax and a temp file, so if the commit message does not have the
+          # here-doc terminator token, then we're fine.
+          TMP_MSG=/tmp/flow-pipeline-head-cmt-msg.txt
+          cat <<'FLOW_PIPELINE_HEAD_CMD_MSG_EOF' > $TMP_MSG
+          ${{ github.event.head_commit.message }}
+          FLOW_PIPELINE_HEAD_CMD_MSG_EOF
           if [[ '${{ github.ref }}' != 'refs/heads/main' || \
                 '${{ github.event_name }}' != 'push' || \
-                '${{ github.event.head_commit.message }}' != \
-                  '${{ needs.set-vars.outputs.doc-commit-message}}'* ]]; then
+                ! head --lines=1 $TMP_MSG | grep -Fxq '${{ needs.set-vars.outputs.doc-commit-message }}' ]]; then
             echo 'proceed-else-not=true' >> $GITHUB_OUTPUT
           else
             echo 'proceed-else-not=false' >> $GITHUB_OUTPUT
