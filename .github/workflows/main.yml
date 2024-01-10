@@ -22,22 +22,21 @@ jobs:
   # from here, and getting the order of operations correct within that one job is non-trivial at best.
   set-vars:
     runs-on: ubuntu-latest
+    steps:
+      - name: Set variables/constants for subsequent use
+        run: |
+          # Set variables/constants for subsequent use.
     outputs:
       doc-commit-message: (Commit by workflow script) Update generated documentation.
-    steps:
-      - id: set-vars
-        run: |
-          # Setting variables/constants.
 
   # Impetus behind this is to gate whether the real jobs below actually need to run.  Can of course also compute
   # other things as needed.
   setup:
     needs: set-vars
     runs-on: ubuntu-latest
-    outputs:
-      proceed-else-not: ${{ steps.compute-proceed-else-not.outputs.proceed-else-not }}
     steps:
       - id: compute-proceed-else-not
+        name: Compute whether for main jobs to proceed or not
         # For checking whether github.event.head_commit.message starts with needs.set-vars.outputs.doc-commit-message
         # it is tempting to just use:
         #   '${{ github.event.head_commit.message }}' != '${{ needs.set-vars.outputs.doc-commit-message }}'*
@@ -61,6 +60,8 @@ jobs:
             echo 'The real jobs will not run: earlier `doc` job checked-in generated docs to `main`.'
             echo 'That is not a source change and requires no actual pipeline to execute.'
           fi
+    outputs:
+      proceed-else-not: ${{ steps.compute-proceed-else-not.outputs.proceed-else-not }}
 
   build:
     needs: [setup, set-vars]
