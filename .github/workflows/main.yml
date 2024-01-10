@@ -37,15 +37,15 @@ jobs:
       proceed-else-not: ${{ steps.compute-proceed-else-not.outputs.proceed-else-not }}
     steps:
       - id: compute-proceed-else-not
+        # For checking whether github.event.head_commit.message starts with needs.set-vars.outputs.doc-commit-message
+        # it is tempting to just use:
+        #   '${{ github.event.head_commit.message }}' != '${{ needs.set-vars.outputs.doc-commit-message }}'*
+        # This works usually but is unsafe: If the head commit message contains, for example, a single-quote,
+        # then the shell syntax breaks down.  One approach would be to use pipeline startsWith() before `run`,
+        # but apparently it cannot be done directly inside `run`; so it is a pain.  Staying with shell scripting
+        # then we can just use here-doc syntax and a temp file, so if the commit message does not have the
+        # here-doc terminator token, then we're fine.
         run: |
-          # For checking whether github.event.head_commit.message starts with needs.set-vars.outputs.doc-commit-message
-          # it is tempting to just use:
-          #   '${{ github.event.head_commit.message }}' != '${{ needs.set-vars.outputs.doc-commit-message }}'*
-          # This works usually but is unsafe: If the head commit message contains, for example, a single-quote,
-          # then the shell syntax breaks down.  One approach would be to use pipeline startsWith() before `run`,
-          # but apparently it cannot be done directly inside `run`; so it is a pain.  Staying with shell scripting
-          # then we can just use here-doc syntax and a temp file, so if the commit message does not have the
-          # here-doc terminator token, then we're fine.
           TMP_MSG=/tmp/flow-pipeline-head-cmt-msg.txt
           cat <<'FLOW_PIPELINE_HEAD_CMD_MSG_EOF' > $TMP_MSG
           ${{ github.event.head_commit.message }}
