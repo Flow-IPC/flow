@@ -44,9 +44,9 @@ jobs:
                 '${{ github.event_name }}' != 'push' || \
                 '${{ github.event.head_commit.message }}' != \
                   '${{ needs.set-vars.outputs.doc-commit-message}}'* ]]; then
-            echo '::set-output name=proceed-else-not::true'
+            echo 'proceed-else-not=true' >> $GITHUB_OUTPUT
           else
-            echo '::set-output name=proceed-else-not::false'
+            echo 'proceed-else-not=false' >> $GITHUB_OUTPUT
             echo 'The real jobs will not run: earlier `doc` job checked-in generated docs to `main`.'
             echo 'That is not a source change and requires no actual pipeline to execute.'
           fi
