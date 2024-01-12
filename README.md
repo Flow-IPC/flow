@@ -32,7 +32,8 @@ So, that said, Flow includes (alphabetically ordered):
 An exported Flow consists of C++ header files installed under "flow/..." in the include-root; and a
 library such as `libflow.a`.  Certain items are also exported for people who use CMake to build their own
 projects; we make it particularly easy to use Flow in that case (`find_package(Flow)`).  Lastly documentation
-can be optionally generated.
+is included in the source tree for local perusal; and can be optionally re-generated from local source (more
+on that below).
 
 The basic prerequisites for *building* the above:
 
