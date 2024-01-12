@@ -120,7 +120,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
    *     and predictable form.
    *     - Before that, I (ygoldfel) jumped through unspeakable hoops, including boost.locale haxoring, to get
    *       some kind of decent human-friendly output which included microsecond+ precision.  So this is so much easier.
-   *       It also gives us predicate zZZZZ output, whereas the best I was able to come up with with boost.locale was
+   *       It also gives us predictable zZZZZ output, whereas the best I was able to come up with with boost.locale was
    *       %Z which made unpredictable (though usually nice -- but sometimes super long) results.
    *   - As mentioned, this is in the local time zone.  It is also possible, via boost.chrono time_fmt(timezone::utc),
    *     to select UTC.  (It is not possible to choose any other time zone.) */

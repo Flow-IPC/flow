@@ -829,7 +829,7 @@ namespace flow::log
  *   - This does not mean `boost::any` is just too slow, because most operations are not done
  *     as frequently as should-log checks.  It *does* mean it may be too slow in production in this *particular*
  *     context.
- *     - It has been alleged that `std::any` (appearing first in C++17) in some or all GCC versions optimized-away these
+ *     - It has been alleged that `std::any` (appearing first in C++17) in some or all gcc versions optimized-away these
  *       perf problems by storing certain values directly inside it, when those values were small enough to "fit."
  *       (Our `enum`s presumably would fit that bill, being glorified `int`s.)  This is believable: Many `std::string`
  *       impls will directly store strings of sufficiently small length; e.g., <=15 bytes would fit into the same area
@@ -1138,7 +1138,7 @@ struct Msg_metadata
    * for every single log call site, if the nickname is indeed set.  See performance note in doc header of
    * Logger::this_thread_set_logged_nickname() for the recommendation and details.  (Long story short, if you keep
    * it at N `char`s or fewer, the cost of a non-empty #m_call_thread_nickname becomes equal to that of an
-   * empty one.  N might be 15 in GCC 5.)
+   * empty one.  N might be 15 in gcc 5.)
    */
   std::string m_call_thread_nickname;
 
@@ -1430,7 +1430,7 @@ public:
    * done for every single log call site, if the nickname is indeed set.  However, most `string` implementations
    * provide an optimization that uses a `union` (or equivalent) technique to store short strings in the same place
    * as the data members (pointer, size, capacity) required for long strings; meaning such short `string`s cost no
-   * more to copy than an *empty* one does.  In GCC 5, this is 15 bytes or `char`s, but implementations vary.
+   * more to copy than an *empty* one does.  In gcc 5, this is 15 bytes or `char`s, but implementations vary.
    *
    * Therefore, it is *actively encouraged* that you keep the length of `thread_nickname` low.  "Low" depends on the
    * compiler, but keeping it somewhere at or under 15 characters is likely good.  If you do so, the effective cost

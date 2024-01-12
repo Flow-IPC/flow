@@ -256,7 +256,7 @@ private:
    * implemented, in practice, as a set of arrays and a master array with pointers to those arrays.
    * `list` is a doubly-linked list.  `deque` is therefore probably more compact and local in memory.
    * `list` may perform less reallocating/copying, depending on how the `deque` implementation works.
-   * Using `deque` on a hunch, however.  Note, also, that at least GCC 4+ defaults `queue<T>` to
+   * Using `deque` on a hunch, however.  Note, also, that at least gcc 4+ defaults `queue<T>` to
    * `queue<T, deque>`, so I guess they also find it better on average.
    *
    * Using container instead of adapter `queue` due to need to iterate over the whole thing in some
