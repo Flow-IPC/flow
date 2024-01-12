@@ -7,7 +7,7 @@ whether to add to STL/Boost/etc. or in some cases do something better, perhaps i
 Flow is such a library (provided as both headers and an actual library).  It's written in modern C++ (C++ 17
 as of this writing) and is meant to be generally usable as opposed to particularly specialized.
 (One exception to this is the included, but wholly optional, NetFlow protocol, contained in `flow::net_flow`
-namespace.  While still reusable in a general way, interest in this functionality may be somewhat niche.)
+namespace.  While still reusable in a general way, interest in this functionality is likely niche.)
 
 We refrain from delving into any particulars as to what's in Flow, aside from the following brief list of
 its top-level modules.  The documentation (see Documentation below) covers all of its contents in great detail.
@@ -26,7 +26,6 @@ So, that said, Flow includes (alphabetically ordered):
     optional sharing and mem-pools), `Linked_hash_{map|set}` (hashed-lookup containers that maintain MRU-LRU iterator
     ordering as opposed to being unordered as in `unordered_{map|set}`), `String_ostream` (a sped-up `ostringstream`
     replacement leveraging boost.iostreams internally) plus `ostream_op_string()` function.
-
 
 ## Installation
 
@@ -90,8 +89,6 @@ To build Flow:
      4. Build using the build system generated in the preceding step:  In `$BUILD` run `make`.  
         - (To generate documentation run `make flow_doc_public flow_doc_full`.)
      5. Install (export):  In `$BUILD` run `make install`.  
-        - (To "install" the regenerated documentation in its proper location please follow the simple steps in
-          Documentation below.)
 
 To use Flow:
 
@@ -113,31 +110,27 @@ To use Flow:
 
 The documentation consists of:
   - (minor) this README;
-  - (minor) comments, about the build, in `CMakeLists.txt` (in various directories including this one, the top-level build
-    script);
+  - (minor) comments, about the build, in `CMakeLists.txt`, `*.cmake`, `conanfile.py` (in various directories
+    including this one where the top-level `CMakeLists.txt` lives);
   - (major/main) documentation directly in the comments throughout the source code; these have been,
-    and can be again, conviently generated into a clickable Reference (a/k/a generated HTML documentation) using
-    certain tools (namely Doxygen and friends), via the above-shown `make flow_doc_public flow_doc_full` command.
+    and can be again, conviently generated using certain tools (namely Doxygen and friends), via the
+    above-shown `make flow_doc_public flow_doc_full` command.
     - Seeing the doc comments in the various .hpp files works.
     - Browsing the clickable generated documentation is probably quite a bit nicer.
 
 To read the latter -- the Reference -- consider the following.
-  - The latest generated Reference from the source code in `./src/flow` has been included nearby;
-    unpack them via `cp doc/flow_doc.tgz <some-place> && cd <some-place> && tar xzf flow_doc.tgz`; use a browser to
-    open `<some-place>/flow_doc/index.html`.  If you're perusing docs only, that's all.  If you have changed the
-    source code:
-  - Upon changing the source code, the documentation can and should be regenerated and saved nearby again (by you).
-    First, follow the aforementioned `cd $BUILD && make flow_doc_public flow_doc_full` procedure in Installation.
-    You may encounter Doxygen warnings; you should fix your code accordingly.
-    Next `cd $SRC/doc/flow_doc` (`$SRC` being the directory with this README) and lastly:
-    `$SRC/tools/doc/stage_generated_docs.sh $BUILD`.  This will place the `make`-generated docs under
-    `$SRC/doc/flow_doc` in the proper relative location; plus a nearby tarball with everything packaged up.
-    - It would now be prudent to open the result in the browser (open `$SRC/doc/flow_doc/index.html`)
-      to ensure things you've changed look good; rinse/repeat if not.  (Don't forget to `make` to ensure no compile
-      errors have accidentally appeared as a result of tinkering with comments.  It happens.)
-    - If you now `git add $SRC`, you can commit both the source and refreshed docs (in the form of a single .tgz)
-      to source control.  (A `.gitignore` will ensure the individual generated files are ignored; only the .tgz will be
-      tracked by Git.)
+  - The latest generated docs from the source code in `*/src/*` has been included nearby:
+    Use a browser to open `doc/flow_doc/index.html`.
+  - Or see the online documentation at the [project web site](https://flow-ipc.github.io).  This will just mirror what
+    the above from the corresponding source code: the tip of the master branch; and for each released version of
+    the project.
+  - If you're perusing docs only, that's all.  You're done!
 
-Or see the online documentation at the GitHub repository (details TBD).  This will just mirror what someone did
-in the above steps.
+In contrast, if you have changed the source code (for Flow-IPC proper, Flow, or both): See Contributing below.
+It includes instructions on how docs are generated and updated.  Spoiler alert: Most things are automatic;
+the only manual part is that you should peruse any changed docs for your visual satisfaction before
+submitting your code.
+
+## Contributing
+
+See Flow-IPC meta-project's `README.md` Contributing section.
