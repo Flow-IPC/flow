@@ -285,7 +285,7 @@ Friends</h2></td></tr>
 
 <p>FIFO of byte sequences, together comprising an overall byte sequence. </p>
 <p >Why not just use a <code>deque&lt;uint8_t&gt;</code>? We easily could, and it would make the code far simpler. Answer: this enables us to reduce or eliminate copying of data in certain likely use cases, chief among them when using <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html" title="Internal net_flow class that implements a socket buffer, as used by Peer_socket for Send and Receive ...">Socket_buffer</a> as the Send buffer. See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#ab9d0faeeb2a8d1058b24319e8a14e52a" title="The data in the buffer.">m_q</a>.</p>
-<p >Why <code>deque</code> instead of <code>list</code>? Both offer ~O(1) <code>push_back()</code> and <code>pop_front()</code>. <code>deque</code> is implemented, in practice, as a set of arrays and a master array with pointers to those arrays. <code>list</code> is a doubly-linked list. <code>deque</code> is therefore probably more compact and local in memory. <code>list</code> may perform less reallocating/copying, depending on how the <code>deque</code> implementation works. Using <code>deque</code> on a hunch, however. Note, also, that at least GCC 4+ defaults <code>queue&lt;T&gt;</code> to <code>queue&lt;T, deque&gt;</code>, so I guess they also find it better on average.</p>
+<p >Why <code>deque</code> instead of <code>list</code>? Both offer ~O(1) <code>push_back()</code> and <code>pop_front()</code>. <code>deque</code> is implemented, in practice, as a set of arrays and a master array with pointers to those arrays. <code>list</code> is a doubly-linked list. <code>deque</code> is therefore probably more compact and local in memory. <code>list</code> may perform less reallocating/copying, depending on how the <code>deque</code> implementation works. Using <code>deque</code> on a hunch, however. Note, also, that at least gcc 4+ defaults <code>queue&lt;T&gt;</code> to <code>queue&lt;T, deque&gt;</code>, so I guess they also find it better on average.</p>
 <p >Using container instead of adapter <code>queue</code> due to need to iterate over the whole thing in some situations.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000073">Todo:</a></b></dt><dd>Investigate pros and cons of deque vs. list empirically. </dd></dl>
 
@@ -956,7 +956,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 11 2024 02:23:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 12 2024 23:17:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

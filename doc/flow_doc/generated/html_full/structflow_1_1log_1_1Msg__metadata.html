@@ -183,7 +183,7 @@ Public Attributes</h2></td></tr>
 <p>Thread nickname, as for <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a>, of the thread from which the log call was invoked; or an empty string if the thread had no such nickname set at the time. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91" title="Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) suc...">m_call_thread_id</a></dd></dl>
 <h3>Perf note</h3>
-<p >Setting this involves an <code>std::string</code> copy; the cost of this is worth considering given that this is done for every single log call site, if the nickname is indeed set. See performance note in doc header of <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a> for the recommendation and details. (Long story short, if you keep it at N <code>char</code>s or fewer, the cost of a non-empty <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> becomes equal to that of an empty one. N might be 15 in GCC 5.) </p>
+<p >Setting this involves an <code>std::string</code> copy; the cost of this is worth considering given that this is done for every single log call site, if the nickname is indeed set. See performance note in doc header of <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a> for the recommendation and details. (Long story short, if you keep it at N <code>char</code>s or fewer, the cost of a non-empty <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> becomes equal to that of an empty one. N might be 15 in gcc 5.) </p>
 
 <p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01143">1143</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
@@ -326,7 +326,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 11 2024 02:23:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 12 2024 23:17:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

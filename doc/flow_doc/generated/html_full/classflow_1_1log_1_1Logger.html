@@ -645,7 +645,7 @@ Here is the caller graph for this function:</div>
 </li>
 </ul>
 <h3>Performance</h3>
-<p >Subsequently obtaining the nickname involves a linear string copy; the cost of this is worth considering given that this is potentially done for every single log call site, if the nickname is indeed set. However, most <code>string</code> implementations provide an optimization that uses a <code>union</code> (or equivalent) technique to store short strings in the same place as the data members (pointer, size, capacity) required for long strings; meaning such short <code>string</code>s cost no more to copy than an <em>empty</em> one does. In GCC 5, this is 15 bytes or <code>char</code>s, but implementations vary.</p>
+<p >Subsequently obtaining the nickname involves a linear string copy; the cost of this is worth considering given that this is potentially done for every single log call site, if the nickname is indeed set. However, most <code>string</code> implementations provide an optimization that uses a <code>union</code> (or equivalent) technique to store short strings in the same place as the data members (pointer, size, capacity) required for long strings; meaning such short <code>string</code>s cost no more to copy than an <em>empty</em> one does. In gcc 5, this is 15 bytes or <code>char</code>s, but implementations vary.</p>
 <p >Therefore, it is <em>actively encouraged</em> that you keep the length of <code>thread_nickname</code> low. "Low" depends on the compiler, but keeping it somewhere at or under 15 characters is likely good. If you do so, the effective cost (at a log call site) will be the same as if <code>thread_nickname.empty()</code>, so one could not do better. Note, also, that the OS-name (in Linux) max length happens to also be 15 (see N discussion above), so there is convenient synergy there.</p>
 <h3>Thready safety</h3>
 <p >This call is safe w/r/t concurrent execution with itself and <a class="el" href="classflow_1_1log_1_1Logger.html#a93541a6407b8705a76c7a161c5289b10" title="ostream manipulator function that, if output via operator&lt;&lt; to an ostream, will cause the current thr...">this_thread_logged_name_os_manip()</a> in other thread(s) for a given <code>*this</code>. It is thread-local in nature.</p>
@@ -709,7 +709,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 11 2024 02:23:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 12 2024 23:17:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

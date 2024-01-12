@@ -179,7 +179,7 @@ Private Attributes</h2></td></tr>
 <li>It is just that it was too slow given the frequency of the accessor operations (and, to a lesser but still potentially significant degree &ndash; as with <a class="el" href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95" title="For the rest of the block within which this macro is instantiated, causes all FLOW_LOG_....">FLOW_LOG_SET_CONTEXT()</a> &ndash; for construction/copying).</li>
 <li>Therefore it was replaced by a less-pithy hand-optimized solution that doesn't use Python-style dynamic typing but instead encodes the 2 bits of info directly by using the fact it's always an <code>enum</code>.</li>
 <li>This does not mean <code>boost::any</code> is just too slow, because most operations are not done as frequently as should-log checks. It <em>does</em> mean it may be too slow in production in this <em>particular</em> context.<ul>
-<li>It has been alleged that <code>std::any</code> (appearing first in C++17) in some or all GCC versions optimized-away these perf problems by storing certain values directly inside it, when those values were small enough to "fit." (Our <code>enum</code>s presumably would fit that bill, being glorified <code>int</code>s.) This is believable: Many <code>std::string</code> impls will directly store strings of sufficiently small length; e.g., &lt;=15 bytes would fit into the same area as the pointers and length data members required for arbitrarily-long string that do require heap allocation. Probably the same can be done for <code>any</code>. So keep that in mind if using <code>any</code> functionality in other contexts. </li>
+<li>It has been alleged that <code>std::any</code> (appearing first in C++17) in some or all gcc versions optimized-away these perf problems by storing certain values directly inside it, when those values were small enough to "fit." (Our <code>enum</code>s presumably would fit that bill, being glorified <code>int</code>s.) This is believable: Many <code>std::string</code> impls will directly store strings of sufficiently small length; e.g., &lt;=15 bytes would fit into the same area as the pointers and length data members required for arbitrarily-long string that do require heap allocation. Probably the same can be done for <code>any</code>. So keep that in mind if using <code>any</code> functionality in other contexts. </li>
 </ul>
 </li>
 </ul>
@@ -723,7 +723,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 11 2024 02:23:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 12 2024 23:17:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
