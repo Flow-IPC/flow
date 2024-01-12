@@ -1,5 +1,9 @@
 # Flow  -- Modern C++ toolkit for async loops, logs, config, benchmarking, and more
 
+We immediately point you to this
+[documentation](https://flow-ipc.github.io/doc/flow/versions/main/generated/html_public/namespaceflow.html)
+for the project.  Perhaps you were looking for that?  Otherwise please read on.
+
 C++ power users, these days, are likely to use the standard library (a/k/a STL), Boost, and/or any number of
 third-party libraries.  Nevertheless every large project or organization tends to need more reusable goodies,
 whether to add to STL/Boost/etc. or in some cases do something better, perhaps in a specialized way.
