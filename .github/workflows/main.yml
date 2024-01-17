@@ -6,10 +6,10 @@ name: Flow pipeline
 on:
   push:
     branches:
-      - main
+      - kinokrt
   pull_request:
     branches:
-      - main
+      - kinokrt
   # To create the button that runs a workflow manually (has to be in `main` at least):
   workflow_dispatch:
 
