@@ -4,12 +4,19 @@ name: Flow pipeline
 # The copy/pasting and "see comment in other file" types of comments are a bit unseemly.
 
 on:
-  push:
-    branches:
-      - main
+  # Want to merge to development tip?  Should probably pass these builds/tests/doc generation first.
   pull_request:
     branches:
       - main
+  push:
+    # Was able to merge to development tip?  Should ensure these builds/tests/doc generation pass after the fact;
+    # plus auto-check-in generated docs into development tip branch as well (and signal web site to update accordingly).
+    branches:
+      - main
+    # Created release tag?  Just in case, should ensure these builds/tests/doc generation pass after the fact still;
+    # plus signal web site to update accordingly (new release/docs for it).
+    tags:
+      - v*
   # To create the button that runs a workflow manually (has to be in `main` at least):
   workflow_dispatch:
 
@@ -511,3 +518,14 @@ jobs:
          -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
          'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
          -d '{"event_type": "flow-sync-doc-event"}'
+
+    # See comments in Flow-IPC workflow counterpart.  We use same techniques.
+    - name: Signal Pages if this is running due to release creation (then web site should update)
+      if: success() && startsWith(github.ref, 'refs/tags/v')
+      run: |
+        # Signal Pages if this is running due to release creation (then web site should update).
+        curl -X POST \
+         -H 'Accept: application/vnd.github.v3+json' \
+         -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
+         'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
+         -d '{"event_type": "flow-sync-doc-event", "client_payload": {"version": "${{ github.ref_name }}"}}'
