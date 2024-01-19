@@ -37,7 +37,7 @@ jobs:
     needs: set-vars
     runs-on: ubuntu-latest
     steps:
-      - id: compute-proceed-else-not
+      - id: compute_proceed_else_not
         name: Compute whether for main jobs to proceed or not
         # See comments in Flow-IPC workflow counterpart.  We use same techniques.
         run: |
@@ -56,7 +56,7 @@ jobs:
             echo 'That is not a source change and requires no actual pipeline to execute.'
           fi
     outputs:
-      proceed-else-not: ${{ steps.compute-proceed-else-not.outputs.proceed-else-not }}
+      proceed-else-not: ${{ steps.compute_proceed_else_not.outputs.proceed-else-not }}
 
   build:
     needs: [setup, set-vars]
@@ -494,7 +494,7 @@ jobs:
     # See comments in Flow-IPC workflow counterpart.  We use same techniques.
     - name: (`main` branch only) Check-in generated documentation directly into source control
       id: doc_check_in
-      if: success() && (github.ref == 'refs/heads/main')
+      if: success() && (!cancelled()) && (github.ref == 'refs/heads/main')
       run: |
         # (`main` branch only) Check-in generated documentation directly into source control.
         echo 'generated/ docs have been added or replaced locally; mirroring this into checked-in tree.'
@@ -509,22 +509,22 @@ jobs:
         git push origin main
 
     # See comments in Flow-IPC workflow counterpart.  We use same techniques.
-    - name: Signal Pages if we have updated the generated documentation in source control (then web site should update)
-      if: success() && (steps.doc_check_in.outcome != 'skipped')
+    - name: (`main` branch only) Signal Pages that we have updated the generated docs (web site should update)
+      if: success() && (!cancelled()) && (steps.doc_check_in.outcome != 'skipped')
       run: |
-        # Signal Pages that we have updated the generated documentation in source control (web site should update).
-        curl -X POST \
+        # Signal Pages that we have updated the generated docs (web site should update).
+        curl --fail-with-body -X POST \
          -H 'Accept: application/vnd.github.v3+json' \
          -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
          'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
          -d '{"event_type": "flow-sync-doc-event"}'
 
     # See comments in Flow-IPC workflow counterpart.  We use same techniques.
-    - name: Signal Pages if this is running due to release creation (then web site should update)
-      if: success() && startsWith(github.ref, 'refs/tags/v')
+    - name: (On release creation only) Signal Pages about release (web site should update)
+      if: success() && (!cancelled()) && startsWith(github.ref, 'refs/tags/v')
       run: |
-        # Signal Pages if this is running due to release creation (then web site should update).
-        curl -X POST \
+        # Signal Pages about release (web site should update).
+        curl --fail-with-body -X POST \
          -H 'Accept: application/vnd.github.v3+json' \
          -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
          'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
