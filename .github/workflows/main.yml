@@ -241,9 +241,6 @@ jobs:
         fi
 
     steps:
-    - name: Checkout `flow` repository
-      uses: actions/checkout@v4
-
     - name: Update available software list for apt-get
       run: sudo apt-get update
 
@@ -271,6 +268,9 @@ jobs:
     # at ~the same time).
     - name: Install the latest version of Conan which is less than 2
       run: pip install 'conan<2'
+
+    - name: Checkout `flow` repository
+      uses: actions/checkout@v4
 
     - name: Add custom settings for Conan packages
       if: |
@@ -437,14 +437,25 @@ jobs:
     - name: Update available software list for apt-get
       run: sudo apt-get update
 
-    - name: Checkout `flow` repository
-      uses: actions/checkout@v4
-
     - name: Install Flow dependencies (like Graphviz) with apt-get
       run: sudo apt-get install -y graphviz
 
     - name: Install the latest version of Conan which is less than 2
       run: pip install 'conan<2'
+
+    - name: Checkout `flow` repository
+      uses: actions/checkout@v4
+
+    # See comments in Flow-IPC workflow counterpart.  We use same techniques.
+    - name: (On release creation only) Signal Pages about release (web site should update)
+      if: success() && (!cancelled()) && startsWith(github.ref, 'refs/tags/v')
+      run: |
+        # Signal Pages about release (web site should update).
+        curl --fail-with-body -X POST \
+         -H 'Accept: application/vnd.github.v3+json' \
+         -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
+         'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
+         -d '{"event_type": "flow-sync-doc-event", "client_payload": {"version": "${{ github.ref_name }}"}}'
 
     - name: Create Conan profile
       run: |
@@ -518,14 +529,3 @@ jobs:
          -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
          'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
          -d '{"event_type": "flow-sync-doc-event"}'
-
-    # See comments in Flow-IPC workflow counterpart.  We use same techniques.
-    - name: (On release creation only) Signal Pages about release (web site should update)
-      if: success() && (!cancelled()) && startsWith(github.ref, 'refs/tags/v')
-      run: |
-        # Signal Pages about release (web site should update).
-        curl --fail-with-body -X POST \
-         -H 'Accept: application/vnd.github.v3+json' \
-         -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
-         'https://api.github.com/repos/Flow-IPC/flow-ipc.github.io/dispatches' \
-         -d '{"event_type": "flow-sync-doc-event", "client_payload": {"version": "${{ github.ref_name }}"}}'
