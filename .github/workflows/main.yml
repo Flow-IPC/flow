@@ -48,13 +48,13 @@ jobs:
             echo 'proceed-else-not=true' >> $GITHUB_OUTPUT
           else
             echo 'proceed-else-not=false' >> $GITHUB_OUTPUT
-            echo 'The real jobs will not run: earlier `doc_and_release` job checked-in generated docs to `main`.'
+            echo 'The real jobs will not run: earlier `doc-and-release` job checked-in generated docs to `main`.'
             echo 'That is not a source change and requires no actual pipeline to execute.'
           fi
     outputs:
       proceed-else-not: ${{ steps.compute_proceed_else_not.outputs.proceed-else-not }}
 
-  build_and_test:
+  build-and-test:
     needs: [setup, set-vars]
     if: |
       needs.setup.outputs.proceed-else-not == 'true'
@@ -405,7 +405,7 @@ jobs:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
         path: ${{ env.install-dir }}/bin/logs.tgz
 
-  doc_and_release:
+  doc-and-release:
     needs: [setup, set-vars]
     if: |
       needs.setup.outputs.proceed-else-not == 'true'
