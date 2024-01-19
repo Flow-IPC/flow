@@ -520,10 +520,10 @@ jobs:
          -d '{"event_type": "flow-sync-doc-event"}'
 
     # See comments in Flow-IPC workflow counterpart.  We use same techniques.
-    - name: Signal Pages if this is running due to release creation (then web site should update)
+    - name: (On release creation only) Signal Pages about release (web site should update)
       if: success() && (!cancelled()) && startsWith(github.ref, 'refs/tags/v')
       run: |
-        # Signal Pages if this is running due to release creation (then web site should update).
+        # Signal Pages about release (web site should update).
         curl --fail-with-body -X POST \
          -H 'Accept: application/vnd.github.v3+json' \
          -H 'Authorization: token ${{ secrets.GIT_BOT_PAT }}' \
