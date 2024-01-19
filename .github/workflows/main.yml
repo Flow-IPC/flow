@@ -44,7 +44,7 @@ jobs:
           FLOW_PIPELINE_HEAD_CMD_MSG_EOF
           if [ '${{ github.ref }}' != 'refs/heads/main' ] || \
              [ '${{ github.event_name }}' != 'push' ] || \
-             ! { head --lines=1 $TMP_MSG | grep -Fxq '${{ needs.set-vars.outputs.doc-commit-message }}'; }; then
+             ! { head --lines=1 $TMP_MSG | fgrep -xq '${{ needs.set-vars.outputs.doc-commit-message }}'; }; then
             echo 'proceed-else-not=true' >> $GITHUB_OUTPUT
           else
             echo 'proceed-else-not=false' >> $GITHUB_OUTPUT
