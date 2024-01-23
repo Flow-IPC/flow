@@ -18,8 +18,59 @@
 /// @file
 #include "flow/log/async_file_logger.hpp"
 #include "flow/log/detail/serial_file_logger.hpp"
-#include "flow/util/blob.hpp"
 #include "flow/error/error.hpp"
+
+#include <algorithm>
+#include <memory>
+#include <utility>
+
+namespace 
+{
+
+class Tight_blob final 
+{
+public:
+  explicit Tight_blob(flow::util::String_view msg) : 
+    m_data(std::make_unique<char[]>(msg.size())), 
+    m_size(msg.size())
+  {
+    std::copy(msg.data(), msg.data() + m_size, m_data.get());
+  }
+
+  Tight_blob(const Tight_blob& other) : 
+    m_data(std::make_unique<char[]>(other.m_size)), 
+    m_size(other.m_size) 
+  {
+    std::copy(other.data(), other.data() + other.size(), m_data.get());
+  }
+
+  Tight_blob(Tight_blob&& other) noexcept : 
+    m_data(std::move(other.m_data)), 
+    m_size(other.m_size) 
+  {
+    other.m_size = 0;
+  }
+
+  Tight_blob& operator=(const Tight_blob&) = delete;
+  Tight_blob& operator=(Tight_blob&&) = delete;
+  ~Tight_blob() = default;
+
+  size_t size() const noexcept 
+  {
+    return m_size;
+  }
+
+  const char* data() const 
+  {
+    return m_data.get();
+  }
+
+private:
+  std::unique_ptr<char[]> m_data;
+  size_t m_size;
+}; 
+
+}
 
 namespace flow::log
 {
@@ -151,7 +202,6 @@ void Async_file_logger::on_rotate_signal(const Error_code& sys_err_code, int sig
 
 void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) // Virtual.
 {
-  using util::Blob;
   using util::String_view;
   using boost::asio::const_buffer;
 
@@ -169,22 +219,15 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *     know or care about that reality in here; only the *result* wherein we cannot use `msg` after do_log()
    *     synchronously returns.) */
 
-  /* Use our binary Blob utility container to have tight control over copying/allocation.  Namely:
-   *   Allocate (and do not even zero-initialize!) the exact # of bytes needed in the new Blob.
-   *   Copy (memcpy() likely) those exact bytes including the NUL into that area.
-   *   Copy-less-ly (via std::move()) transfer this Blob into the lambda executed in the worker thread. */
-  Blob msg_copy_blob_to_move(0);
-  msg_copy_blob_to_move.assign_copy(const_buffer(msg.data(), msg.size()));
-
-  m_async_worker.post([this, metadata,
-                       msg_copy_blob = std::move(msg_copy_blob_to_move)]()
+  // NOTE: Tight_blob has a copy constructor solely because std::function expects it.
+  // However, in reality, no actual copy construction takes place.
+  m_async_worker.post([this, metadata, tight_blob = Tight_blob{msg}]()
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
-     * *metadata and msg_copy_blob are to be freed when done. */
-    m_serial_logger->do_log(metadata, String_view(reinterpret_cast<const char*>(msg_copy_blob.const_data()),
-                                                  msg_copy_blob.size()));
+     * *metadata and tight_blob are to be freed when done. */
+    m_serial_logger->do_log(metadata, String_view(tight_blob.data(), tight_blob.size()));
 
-    // As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.
+    // As promised, delete this (which was never copied at all); and tight_blob is freed once this {} exits soon.
     delete metadata;
   }); // m_async_worker.post()
 } // Async_file_logger::do_log()
