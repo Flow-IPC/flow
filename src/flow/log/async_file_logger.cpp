@@ -19,58 +19,9 @@
 #include "flow/log/async_file_logger.hpp"
 #include "flow/log/detail/serial_file_logger.hpp"
 #include "flow/error/error.hpp"
-
 #include <algorithm>
 #include <memory>
 #include <utility>
-
-namespace 
-{
-
-class Tight_blob final 
-{
-public:
-  explicit Tight_blob(flow::util::String_view msg) : 
-    m_data(std::make_unique<char[]>(msg.size())), 
-    m_size(msg.size())
-  {
-    std::copy(msg.data(), msg.data() + m_size, m_data.get());
-  }
-
-  Tight_blob(const Tight_blob& other) : 
-    m_data(std::make_unique<char[]>(other.m_size)), 
-    m_size(other.m_size) 
-  {
-    std::copy(other.data(), other.data() + other.size(), m_data.get());
-  }
-
-  Tight_blob(Tight_blob&& other) noexcept : 
-    m_data(std::move(other.m_data)), 
-    m_size(other.m_size) 
-  {
-    other.m_size = 0;
-  }
-
-  Tight_blob& operator=(const Tight_blob&) = delete;
-  Tight_blob& operator=(Tight_blob&&) = delete;
-  ~Tight_blob() = default;
-
-  size_t size() const noexcept 
-  {
-    return m_size;
-  }
-
-  const char* data() const 
-  {
-    return m_data.get();
-  }
-
-private:
-  std::unique_ptr<char[]> m_data;
-  size_t m_size;
-}; 
-
-}
 
 namespace flow::log
 {
@@ -219,15 +170,66 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *     know or care about that reality in here; only the *result* wherein we cannot use `msg` after do_log()
    *     synchronously returns.) */
 
-  // NOTE: Tight_blob has a copy constructor solely because std::function expects it.
-  // However, in reality, no actual copy construction takes place.
-  m_async_worker.post([this, metadata, tight_blob = Tight_blob{msg}]()
+  /* The other thing going on here: We need to capture a copy of `msg` in some form in the lambda post()ed below.
+   * The native way would be to perhaps create a `string`, or `vector<char>`, or util::Basic_blob, but this
+   * code is executed quite frequently -- so we'd like to minimize processor use -- and perhaps more importantly
+   * in very heavy logging conditions we want to minimize the memory used by this copy.  This means:
+   *   - guarantee allocating exactly msg.size() bytes -- no overhead (there's no formal guarantee string
+   *     or vector ctor will do that, though Basic_blob does);
+   *   - do not store extra members.  string and vector store an m_capacity but also m_size; but for our purposes
+   *     (since the copy is never modified in any way; it is just logged and destroyed) m_size is extra.
+   *     Basic_blob similarly does that, plus it has an extra feature for which it stores an extra size_t m_start.
+   * So we use a custom little thing called Tight_blob.
+   * (@todo Take those parts of Basic_blob and make a util::Tight_blob; then write Basic_blob in terms of Tight_blob.
+   * Then it'll be reusable.)
+   * Tight_blob is straightforward, and really we'd like to just capture simply a unique_ptr and m_size, in which
+   * case Tight_blob wouldn't even be needed; but a peculiarity of std::function prevents this:
+   *   - Any captured type must be *copyable*, even though this ability is never exercised.  So capturing unique_ptr
+   *     would not compile: it has no copy ctor.
+   *   - So we do write this little Tight_blob and outfit it with a functioning copy ctor -- but remember, it won't
+   *     really be called. */
+
+  class Tight_blob final
+  {
+  public:
+    explicit Tight_blob(const char* src, size_t sz) :
+      m_size(msg.size()),
+      m_data(boost::movelib::make_unique_definit<char[]>(m_size)) // Save a few cycles by not zero-initializing.
+    {
+      std::memcpy(data(), src, size());
+    }
+    Tight_blob(const Tight_blob& other) :
+      Tight_blob(other.size())
+    {
+      std::memcpy(data(), other.data(), size());
+    }
+    Tight_blob(Tight_blob&& other) noexcept = default;
+
+    Tight_blob& operator=(const Tight_blob&) = delete;
+    Tight_blob& operator=(Tight_blob&&) = delete;
+
+    size_t size() const noexcept
+    {
+      return m_size;
+    }
+
+    char* data()
+    {
+      return m_data.get();
+    }
+
+  private:
+    size_t m_size;
+    boost::movelib::unique_ptr<char[]> m_data;
+  }; // class Tight_blob
+
+  m_async_worker.post([this, metadata, msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
-     * *metadata and tight_blob are to be freed when done. */
-    m_serial_logger->do_log(metadata, String_view(tight_blob.data(), tight_blob.size()));
+     * *metadata and msg_copy are to be freed when done. */
+    m_serial_logger->do_log(metadata, String_view(msg_copy_blob.data(), msg_copy_blob.size()));
 
-    // As promised, delete this (which was never copied at all); and tight_blob is freed once this {} exits soon.
+    // As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.
     delete metadata;
   }); // m_async_worker.post()
 } // Async_file_logger::do_log()
