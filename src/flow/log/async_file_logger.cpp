@@ -196,7 +196,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       m_size(sz),
       m_data(boost::movelib::make_unique_definit<char[]>(m_size)) // Save a few cycles by not zero-initializing.
     {
-      std::memcpy(data(), src, size());
+      std::memcpy(m_data.get(), src, size());
     }
     Tight_blob(const Tight_blob& other) :
       Tight_blob(other.data(), other.size())
