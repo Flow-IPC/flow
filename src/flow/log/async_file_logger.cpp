@@ -18,8 +18,10 @@
 /// @file
 #include "flow/log/async_file_logger.hpp"
 #include "flow/log/detail/serial_file_logger.hpp"
-#include "flow/util/blob.hpp"
 #include "flow/error/error.hpp"
+#include <algorithm>
+#include <memory>
+#include <utility>
 
 namespace flow::log
 {
@@ -151,7 +153,6 @@ void Async_file_logger::on_rotate_signal(const Error_code& sys_err_code, int sig
 
 void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) // Virtual.
 {
-  using util::Blob;
   using util::String_view;
   using boost::asio::const_buffer;
 
@@ -169,20 +170,64 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *     know or care about that reality in here; only the *result* wherein we cannot use `msg` after do_log()
    *     synchronously returns.) */
 
-  /* Use our binary Blob utility container to have tight control over copying/allocation.  Namely:
-   *   Allocate (and do not even zero-initialize!) the exact # of bytes needed in the new Blob.
-   *   Copy (memcpy() likely) those exact bytes including the NUL into that area.
-   *   Copy-less-ly (via std::move()) transfer this Blob into the lambda executed in the worker thread. */
-  Blob msg_copy_blob_to_move(0);
-  msg_copy_blob_to_move.assign_copy(const_buffer(msg.data(), msg.size()));
+  /* The other thing going on here: We need to capture a copy of `msg` in some form in the lambda post()ed below.
+   * The native way would be to perhaps create a `string`, or `vector<char>`, or util::Basic_blob, but this
+   * code is executed quite frequently -- so we'd like to minimize processor use -- and perhaps more importantly
+   * in very heavy logging conditions we want to minimize the memory used by this copy.  This means:
+   *   - guarantee allocating exactly msg.size() bytes -- no overhead (there's no formal guarantee string
+   *     or vector ctor will do that, though Basic_blob does);
+   *   - do not store extra members.  string and vector store an m_capacity but also m_size; but for our purposes
+   *     (since the copy is never modified in any way; it is just logged and destroyed) m_size is extra.
+   *     Basic_blob similarly does that, plus it has an extra feature for which it stores an extra size_t m_start.
+   * So we use a custom little thing called Tight_blob.
+   * (@todo Take those parts of Basic_blob and make a util::Tight_blob; then write Basic_blob in terms of Tight_blob.
+   * Then it'll be reusable.)
+   * Tight_blob is straightforward, and really we'd like to just capture simply a unique_ptr and m_size, in which
+   * case Tight_blob wouldn't even be needed; but a peculiarity of std::function prevents this:
+   *   - Any captured type must be *copyable*, even though this ability is never exercised.  So capturing unique_ptr
+   *     would not compile: it has no copy ctor.
+   *   - So we do write this little Tight_blob and outfit it with a functioning copy ctor -- but remember, it won't
+   *     really be called. */
 
-  m_async_worker.post([this, metadata,
-                       msg_copy_blob = std::move(msg_copy_blob_to_move)]()
+  class Tight_blob final
+  {
+  public:
+    explicit Tight_blob(const char* src, size_t sz) :
+      m_size(sz),
+      m_data(boost::movelib::make_unique_definit<char[]>(m_size)) // Save a few cycles by not zero-initializing.
+    {
+      std::memcpy(m_data.get(), src, size());
+    }
+    Tight_blob(const Tight_blob& other) :
+      Tight_blob(other.data(), other.size())
+    {
+      // Done.
+    }
+    Tight_blob(Tight_blob&& other) noexcept = default;
+
+    Tight_blob& operator=(const Tight_blob&) = delete;
+    Tight_blob& operator=(Tight_blob&&) = delete;
+
+    size_t size() const noexcept
+    {
+      return m_size;
+    }
+
+    const char* data() const
+    {
+      return m_data.get();
+    }
+
+  private:
+    size_t m_size;
+    boost::movelib::unique_ptr<char[]> m_data;
+  }; // class Tight_blob
+
+  m_async_worker.post([this, metadata, msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
-     * *metadata and msg_copy_blob are to be freed when done. */
-    m_serial_logger->do_log(metadata, String_view(reinterpret_cast<const char*>(msg_copy_blob.const_data()),
-                                                  msg_copy_blob.size()));
+     * *metadata and msg_copy are to be freed when done. */
+    m_serial_logger->do_log(metadata, String_view(msg_copy_blob.data(), msg_copy_blob.size()));
 
     // As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.
     delete metadata;
