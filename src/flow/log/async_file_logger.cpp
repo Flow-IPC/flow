@@ -213,7 +213,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       return m_size;
     }
 
-    char* data()
+    const char* data() const
     {
       return m_data.get();
     }
