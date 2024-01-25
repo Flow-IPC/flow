@@ -226,7 +226,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   m_async_worker.post([this, metadata, msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
-     * *metadata and msg_copy are to be freed when done. */
+     * *metadata and msg_copy_blob are to be freed when done. */
     m_serial_logger->do_log(metadata, String_view(msg_copy_blob.data(), msg_copy_blob.size()));
 
     // As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.
