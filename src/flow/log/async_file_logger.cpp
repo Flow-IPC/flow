@@ -179,6 +179,9 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *   - do not store extra members.  string and vector store an m_capacity but also m_size; but for our purposes
    *     (since the copy is never modified in any way; it is just logged and destroyed) m_size is extra.
    *     Basic_blob similarly does that, plus it has an extra feature for which it stores an extra size_t m_start.
+   *   - The object needs to have RAII semantics, meaning if it is destroyed, then the allocated buffer is
+   *     deallocated.  (So we can't just store a raw `char*`; need smart pointer ultimately to ensure deletion even
+   *     if lambda is never executed but is instead destroyed first.)
    * So we use a custom little thing called Tight_blob.
    * (@todo Take those parts of Basic_blob and make a util::Tight_blob; then write Basic_blob in terms of Tight_blob.
    * Then it'll be reusable.)
@@ -223,14 +226,52 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     boost::movelib::unique_ptr<char[]> m_data;
   }; // class Tight_blob
 
-  m_async_worker.post([this, metadata, msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
+  // Same deal with *metadata.
+  class Mdt_wrapper final
+  {
+    explicit Mdt_wrapper(Msg_metadata* metadata) :
+      m_data(metadata)
+    {
+      // Done.
+    }
+    /* Reminder: this will not be called but is required for std::function<> + lambda capture to compile.
+     * Thogh it's not criminal even if it were called: it merely copies a Msg_metadata. */
+    Mdt_wrapper(const Mdt_wrapper& other) :
+      Mdt_wrapper(new Msg_metadata(*(other.data())))
+    {
+      // Done.
+    }
+    Mdt_wrapper(Mdt_wrapper&& other) noexcept = default;
+
+    Mdt_wrapper& operator=(const Mdt_wrapper&) = delete;
+    Mdt_wrapper& operator=(Mdt_wrapper&&) = delete;
+
+    const Msg_metadata* data() const
+    {
+      return m_data.get();
+    }
+    Msg_metadata* data()
+    {
+      return m_data.get();
+    }
+
+  private:
+    boost::movelib::unique_ptr<Msg_metadata> m_data;
+  }; // class Mdt_wrapper
+
+  m_async_worker.post([this,
+                       /* We could just capture `metadata` and `delete metadata` in the lambda {body};
+                        * in fact we could do similarly with a raw `char* msg_copy` too.  However then they can leak
+                        * if *this is destroyed before the lambda body has a chance to execute.  Whereas
+                        * by wrapping them in unique_ptr<>s we get RAII deletion with ~no memory cost (just a pointer
+                        * copy from `metadata` into m_data; sizeof(m_data) == sizeof(Msg_metadata*)). */
+                       mdt_wrapper = Mdt_wrapper{metadata},
+                       msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
-     * *metadata and msg_copy_blob are to be freed when done. */
-    m_serial_logger->do_log(metadata, String_view(msg_copy_blob.data(), msg_copy_blob.size()));
-
-    // As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.
-    delete metadata;
+     * mdt_wrapper (effectively `*metadata`) and msg_copy_blob (copy of `msg`) are to be freed when done. */
+    m_serial_logger->do_log(mdt_wrapper.data(),
+                            String_view(msg_copy_blob.data(), msg_copy_blob.size()));
   }); // m_async_worker.post()
 } // Async_file_logger::do_log()
 
