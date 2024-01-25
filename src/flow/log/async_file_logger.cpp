@@ -267,7 +267,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                         * by wrapping them in unique_ptr<>s we get RAII deletion with ~no memory cost (just a pointer
                         * copy from `metadata` into m_data; sizeof(m_data) == sizeof(Msg_metadata*)). */
                        mdt_wrapper = Mdt_wrapper{metadata},
-                       msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()
+                       msg_copy_blob = Tight_blob{msg.data(), msg.size()}]() mutable
   {
     /* We are in m_async_worker thread, as m_serial_logger requires.
      * mdt_wrapper (effectively `*metadata`) and msg_copy_blob (copy of `msg`) are to be freed when done. */
