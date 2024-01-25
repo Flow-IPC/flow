@@ -229,6 +229,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   // Same deal with *metadata.
   class Mdt_wrapper final
   {
+  public:
     explicit Mdt_wrapper(Msg_metadata* metadata) :
       m_data(metadata)
     {
