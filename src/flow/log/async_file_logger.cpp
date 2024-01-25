@@ -188,7 +188,8 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * Tight_blob is straightforward, and really we'd like to just capture simply a unique_ptr and m_size, in which
    * case Tight_blob wouldn't even be needed; but a peculiarity of std::function prevents this:
    *   - Any captured type must be *copyable*, even though this ability is never exercised.  So capturing unique_ptr
-   *     would not compile: it has no copy ctor.
+   *     would not compile: it has no copy ctor.  shared_ptr works great, but it does store a control block; we're
+   *     going for absolute minimum memory overhead.
    *   - So we do write this little Tight_blob and outfit it with a functioning copy ctor -- but remember, it won't
    *     really be called. */
 
