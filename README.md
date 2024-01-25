@@ -1,4 +1,4 @@
-# Flow  -- Modern C++ toolkit for async loops, logs, config, benchmarking, and more
+# Flow -- Modern C++ toolkit for async loops, logs, config, benchmarking, and more
 
 We immediately point you to this
 [documentation](https://flow-ipc.github.io/doc/flow/versions/main/generated/html_public/namespaceflow.html)
