@@ -298,7 +298,7 @@ $(function() {
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>  <a class="code hl_variable" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb">m_async_worker</a>.<a class="code hl_function" href="classflow_1_1async_1_1Single__thread__task__loop.html#adaf7dbd5fbd6ee7c886daabc7a6ad0ae">post</a>([<span class="keyword">this</span>, metadata, msg_copy_blob = Tight_blob{msg.data(), msg.size()}]()</div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>  {</div>
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="comment">/* We are in m_async_worker thread, as m_serial_logger requires.</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">     * *metadata and msg_copy are to be freed when done. */</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">     * *metadata and msg_copy_blob are to be freed when done. */</span></div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <a class="code hl_variable" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da">m_serial_logger</a>-&gt;do_log(metadata, <a class="code hl_typedef" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">String_view</a>(msg_copy_blob.data(), msg_copy_blob.size()));</div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">// As promised, delete this (which was never copied at all); and msg_copy_blob is freed once this {} exits soon.</span></div>
@@ -365,7 +365,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 23 2024 06:34:00 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 25 2024 02:17:30 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
