@@ -1147,7 +1147,7 @@ struct Msg_metadata
    * thread ID if the thread has a nickname, meaning `!m_call_thread_nickname.empty()`.  The working assumption is
    * that (1) both members are met for direct log output only and no other logic; and (2) the nickname is preferable
    * when set, the thread ID being the fallback.  (If this sounds meh, consider that it's entirely reasonable to make
-   * the nickname contain some nice info *and* the original thread ID as well in string form.  However, might
+   * the nickname contain some nice info *and* the original thread ID as well in string form.  However, mind
    * the length -- the Performance Note in #m_call_thread_nickname doc header.)
    */
   util::Thread_id m_call_thread_id;
