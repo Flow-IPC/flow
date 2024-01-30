@@ -123,13 +123,16 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    *
    * Note that these values -- 2GB, 1GB -- are not meant to be some kind of universally correct choice.  Users
    * can and should change them, but if they're not using the feature then they won't care anyway. */
+  m_throttling_states(1), // Finish this guy just below.  For the moment put an empty (null) unique_ptr there.
   m_throttling(new Throttling
                      {
                        // @todo Make some magic number `constexpr`s?
-                       { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 },
+                       { 
+                         2ull * 1024 * 1024 * 1024,
+                         1ull * 1024 * 1024 * 1024
+                       },
                        0, 0 // No memory used yet; no throttling yet.
                      }),
-  m_throttling_states(1), // Initializer lists don't (always?) play well with move-semantics.  Finish below.
   m_throttling_active(false),
 
   // Any I/O operations done here are the only ones not done from m_async_worker thread (until maybe dtor).
