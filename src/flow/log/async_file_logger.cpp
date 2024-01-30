@@ -129,7 +129,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
                        { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 },
                        0, 0 // No memory used yet; no throttling yet.
                      }),
-  m_throttling_states({ boost::movelib::unique_ptr<Throttling>(m_throttling.load()) }),
+  m_throttling_states(1), // Initializer lists don't (always?) play well with move-semantics.  Finish below.
   m_throttling_active(false),
 
   // Any I/O operations done here are the only ones not done from m_async_worker thread (until maybe dtor).
@@ -151,6 +151,10 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    * vaguely similar code in flow::net_flow; but the 2 modules are barely related if at all, so....) */
   m_signal_set(*(m_async_worker.task_engine()))
 {
+  /* As noted above, finish up the setup of m_throttling_states (initializer-list ctor wants copyability
+   * at least with LLVM-10 libc++... so work around it).  @todo Revisit. */
+  m_throttling_states.emplace_back(boost::movelib::unique_ptr<Throttling>(m_throttling));
+
   m_async_worker.start();
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
