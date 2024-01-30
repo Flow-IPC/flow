@@ -376,7 +376,9 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
   bool throttling_begins; // Will be true if and only if m_pending_logs_sz increment passed m_cfg.m_hi_limit.
   const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
-  using logs_sz_t = decltype(throttling.m_pending_logs_sz)::value_type;
+  /* @todo This should work according to standard/cppreference.com, but at least some STLs lack it.  Revisit.
+   * using logs_sz_t = decltype(throttling.m_pending_logs_sz)::value_type; */
+  using log_sz_t = int64_t;
   const auto limit = static_cast<logs_sz_t>(throttling.m_cfg.m_hi_limit);
   const auto log_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
   const auto prev_pending_logs_sz
