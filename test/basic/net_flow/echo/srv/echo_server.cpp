@@ -123,8 +123,9 @@ int Main::main(int argc, const char** argv)
     std::atomic<uint64_t> counter = 0;
     std::function<void (flow::async::Single_thread_task_loop*)> do_log = [&](auto&& loop)
     {
+      auto cntr = ++counter;
       FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
-      FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890 / ctr = [" << ++counter << "].");
+      FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890 / ctr = [" << cntr << "].");
 
       loop->post([&, loop2 = loop]() { do_log(loop2); });
     };
