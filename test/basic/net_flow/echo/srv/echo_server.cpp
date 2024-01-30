@@ -119,7 +119,7 @@ int Main::main(int argc, const char** argv)
   log_logger.throttling_cfg(true, log_logger.throttling_cfg());
   log_logger.throttling_cfg(true, { 1024 * 1024, 800 * 1024 });
 
-  auto do_log = [&](auto&& loop)
+  std::function<void (flow::log::Single_thread_task_loop*)> do_log = [&](auto&& loop)
   {
     FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
     FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890");
