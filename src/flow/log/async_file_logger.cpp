@@ -375,7 +375,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * compared to should_log()). */
 
   bool throttling_begins; // Will be true if and only if m_pending_logs_sz increment passed m_cfg.m_hi_limit.
-  const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
+  auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
   /* @todo This should work according to standard/cppreference.com, but at least some STLs lack it.  Revisit.
    * using logs_sz_t = decltype(throttling.m_pending_logs_sz)::value_type; */
   using logs_sz_t = int64_t;
@@ -448,7 +448,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
     const auto& cfg = throttling.m_cfg;
-    const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
+    auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
     const auto limit = static_cast<logs_sz_t>(cfg.m_lo_limit);
     const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
