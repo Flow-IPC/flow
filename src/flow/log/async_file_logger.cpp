@@ -378,12 +378,12 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
   /* @todo This should work according to standard/cppreference.com, but at least some STLs lack it.  Revisit.
    * using logs_sz_t = decltype(throttling.m_pending_logs_sz)::value_type; */
-  using log_sz_t = int64_t;
+  using logs_sz_t = int64_t;
   const auto limit = static_cast<logs_sz_t>(throttling.m_cfg.m_hi_limit);
-  const auto log_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
+  const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
   const auto prev_pending_logs_sz
-    = throttling.m_pending_logs_sz.fetch_add(log_sz, std::memory_order_relaxed);
-  const auto pending_logs_sz = prev_pending_logs_sz + log_sz;
+    = throttling.m_pending_logs_sz.fetch_add(logs_sz, std::memory_order_relaxed);
+  const auto pending_logs_sz = prev_pending_logs_sz + logs_sz;
   if ((throttling_begins = ((pending_logs_sz >= limit) && (prev_pending_logs_sz < limit))))
   {
     /* Flip m_throttling_now.  Do not assign `true`, to avoid formal reordering danger -- explain in aforementioned
@@ -450,11 +450,11 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     const auto& cfg = throttling.m_cfg;
     const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
     const auto limit = static_cast<logs_sz_t>(cfg.m_lo_limit);
-    const auto log_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
+    const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
     const auto prev_pending_logs_sz
-      = throttling.m_pending_logs_sz.fetch_sub(log_sz, std::memory_order_relaxed);
-    const auto pending_logs_sz = prev_pending_logs_sz - log_sz;
+      = throttling.m_pending_logs_sz.fetch_sub(logs_sz, std::memory_order_relaxed);
+    const auto pending_logs_sz = prev_pending_logs_sz - logs_sz;
     if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
     {
       /* Flip m_throttling_now.  Do not assign `false`, to avoid formal reordering danger -- explained in aforementioned
