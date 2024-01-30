@@ -153,7 +153,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
 {
   /* As noted above, finish up the setup of m_throttling_states (initializer-list ctor wants copyability
    * at least with LLVM-10 libc++... so work around it).  @todo Revisit. */
-  m_throttling_states.emplace_back(boost::movelib::unique_ptr<Throttling>(m_throttling.load()));
+  m_throttling_states.back().reset(m_throttling);
 
   m_async_worker.start();
 
