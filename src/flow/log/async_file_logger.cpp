@@ -262,12 +262,13 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
   const auto prev_pending_logs_sz = prev_throttling.m_pending_logs_sz.load(std::memory_order_relaxed);
 
   auto new_throttling = std::make_unique<Throttling>
-                          ({
-                             cfg, // Copy-in the new config which is different.
-                             prev_pending_logs_sz,
-                             // Most importantly cleanly initialize m_throttling_now.
-                             prev_pending_logs_sz >= cfg.m_hi_limit
-                           });
+                          (Throttling
+                             {
+                               cfg, // Copy-in the new config which is different.
+                               prev_pending_logs_sz,
+                               // Most importantly cleanly initialize m_throttling_now.
+                               prev_pending_logs_sz >= cfg.m_hi_limit
+                             });
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "Config set: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
@@ -375,10 +376,10 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   bool throttling_begins; // Will be true if and only if m_pending_logs_sz increment passed m_cfg.m_hi_limit.
   const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
   const auto limit = throttling.m_cfg.m_hi_limit;
-  const auto log_sz = mem_cost(metadata, msg);
+  const auto log_sz = static_cast<decltype(throttling.m_pending_logs_sz)::value_type>(mem_cost(metadata, msg));
   const auto prev_pending_logs_sz
     = throttling.m_pending_logs_sz.fetch_add(log_sz, std::memory_order_relaxed);
-  const auto pending_logs_sz = prev_pending_logs_sz + mem_use;
+  const auto pending_logs_sz = prev_pending_logs_sz + log_sz;
   if ((throttling_begins = ((pending_logs_sz >= limit) && (prev_pending_logs_sz < limit))))
   {
     /* Flip m_throttling_now.  Do not assign `true`, to avoid formal reordering danger -- explain in aforementioned
@@ -442,12 +443,14 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request.
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
+    const auto& cfg = throttling.m_cfg;
     const auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
-    const auto limit = throttling.m_cfg.m_lo_limit;
-    const auto log_sz = mem_cost(metadata, msg); // @todo Maybe instead save+capture this in do_log()?  RAM vs cycles.
+    const auto limit = cfg.m_lo_limit;
+    const auto log_sz = static_cast<decltype(throttling.m_pending_logs_sz)::value_type>(mem_cost(metadata, msg));
+    // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
     const auto prev_pending_logs_sz
       = throttling.m_pending_logs_sz.fetch_sub(log_sz, std::memory_order_relaxed);
-    const auto pending_logs_sz = prev_pending_logs_sz - mem_use;
+    const auto pending_logs_sz = prev_pending_logs_sz -  log_sz;
     if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
     {
       /* Flip m_throttling_now.  Do not assign `false`, to avoid formal reordering danger -- explained in aforementioned
