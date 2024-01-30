@@ -28,7 +28,6 @@ namespace flow::log
 
 namespace
 {
-
   // Locally used utility types.  Leaving out doc boiler-plate to remain concise.  See do_log() for key context.
 
   /// @cond
@@ -121,18 +120,15 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    * Reminder that its output will be ignored, until/unless user calls throttling_cfg(true, ...).  They can then
    * set their own config values as well (or reuse this default which they can access via throttling_cfg() accessor).
    *
-   * Note that these values -- 2GB, 1GB -- are not meant to be some kind of universally correct choice.  Users
-   * can and should change them, but if they're not using the feature then they won't care anyway. */
+   * Note that this value -- 1GB -- is not meant to be some kind of universally correct choice.  Users
+   * can and should change it, but if they're not using the feature, then they won't care anyway. */
   m_throttling_states(1), // Finish this guy just below.  For the moment put an empty (null) unique_ptr there.
   m_throttling(new Throttling
                      {
-                       // @todo Make some magic number `constexpr`s?
-                       { 
-                         2ull * 1024 * 1024 * 1024,
-                         1ull * 1024 * 1024 * 1024
-                       },
-                       0, 0 // No memory used yet; no throttling yet.
+                       {  1ull * 1024 * 1024 * 1024 }, // @todo Make some magic number `constexpr`?
+                       0, 0 // No memory used yet by pending messages; no throttling yet.
                      }),
+  m_pending_logs_n(0), // No messages pending yet.
   m_throttling_active(false),
 
   // Any I/O operations done here are the only ones not done from m_async_worker thread (until maybe dtor).
@@ -222,8 +218,7 @@ bool Async_file_logger::throttling_active() const
 
 void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
 {
-  assert((cfg.m_hi_limit > cfg.m_lo_limit) && "Per contract, hi_limit must exceed lo_limit.");
-  assert((cfg.m_lo_limit > 0) && "Per contract, hi_limit and lo_limit must be positive.");
+  assert((cfg.m_hi_limit > 0) && "Per contract, hi_limit must be positive.");
 
   /* Please see Impl section of class doc header for detailed discussion; also Throttling and m_throttling_states doc
    * headers.  Then come back here.  We rely on the background in that discussion frequently.
@@ -254,8 +249,7 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
   assert(prev_throttling_ptr && "It was supposed to be constructed to be non-null.");
 
   const auto& prev_throttling = *(m_throttling.load(std::memory_order_seq_cst));
-  const auto& prev_cfg = prev_throttling.m_cfg;
-  if ((prev_cfg.m_hi_limit == cfg.m_hi_limit) && (prev_cfg.m_lo_limit == cfg.m_lo_limit))
+  if (prev_throttling.m_cfg.m_hi_limit == cfg.m_hi_limit)
   {
     /* As discussed in class doc header: no-op, unless they actually changed something; no state reset.
      * E.g., perhaps they changed `active` while passing-in `cfg = throttling_cfg()` unchanged. */
@@ -281,9 +275,8 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
                                                   });
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                "Config set: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                "New throttling-algorithm initial state: "
-                "mem-use = [" << prev_pending_logs_sz << "]; "
+                "Config set: hi_limit [" << cfg.m_hi_limit << "].  "
+                "New throttling-algorithm initial state: mem-use = [" << prev_pending_logs_sz << "]; "
                 "throttling? = [" << new_throttling->m_throttling_now << "].  "
                 "Throttling feature active? = [" << active << "].  "
                 "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
@@ -308,10 +301,16 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
    *
    * Such "drift" can also occur in the other direction, so that we "lose" a really_log()'s contribution to the
    * total, which means m_pending_logs_sz cannot get back down to 0 ever.  Again we don't mind this slight
-   * inaccuracy.  That said there's technically a formal possibility that enough drifting like this can
-   * eventually approach the limit m_hi_limit.  In practice it would take a huge number of config updates --
-   * with very unlucky concurrent drift events that don't balance each other out at that -- for this to become
-   * a factor.  @todo Still, it's a bit unpleasant from a purist's point of view.  Revisit to look into a perfect
+   * inaccuracy, with two caveats:
+   *   - Caveat 1 (important): This is the reason why m_pending_logs_n is tracked and compared to 0 at all --
+   *     as opposed to simply comparing m_pending_logs_sz to 0.
+   *   - Caveat 2 (not important): There's technically a formal possibility that enough drifting like this can
+   *     eventually approach the limit m_hi_limit.  In practice it would take a huge number of config updates --
+   *     with very unlucky concurrent drift events that don't balance each other out at that -- for this to become
+   *     a factor.
+   *
+   * @todo We dealt with caveat 1, but caveat 2 remains and is a bit unpleasant
+   * from a purist's point of view.  Revisit to look into a perfect
    * fix.  Be very careful though: the current algorithm works because of the strict ordering achieved even
    * with mere `relaxed` access, due to atomic += and -= operations that depend on each other.  Any attempt to,
    * say, assign a "fixed" value to m_pending_logs_sz based on some kind of `if` will likely break this paradigm. */
@@ -380,7 +379,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * Please see Impl section of class doc header for detailed discussion.  Then come back here.
    * We rely on the background in that discussion frequently.
    *
-   * Reminder: We should be careful to minimize computation in this section (but nowhere near as important to do
+   * Reminder: We should be careful to minimize computation in this section (but nowhere near as important to do so
    * compared to should_log()). */
 
   bool throttling_begins; // Will be true if and only if m_pending_logs_sz increment passed m_cfg.m_hi_limit.
@@ -394,28 +393,35 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   const auto prev_pending_logs_sz
     = throttling.m_pending_logs_sz.fetch_add(logs_sz, std::memory_order_relaxed);
   const auto pending_logs_sz = prev_pending_logs_sz + logs_sz;
+  const auto prev_pending_logs_n = m_pending_logs_n.fetch_add(1, std::memory_order_relaxed);
   if ((throttling_begins = ((pending_logs_sz >= limit) && (prev_pending_logs_sz < limit))))
   {
     /* Flip m_throttling_now.  Do not assign `true`, to avoid formal reordering danger -- explain in aforementioned
      * doc header Impl section. */
     throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
 
-// XXX to-do leave in?  add similar in really_log?
-#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
-  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                "do_log() throttling algorithm situation (reminder: beware concurrency): "
-                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
-#endif
+    // Log about it in the backup Logger (Logger-about-logging).
+    FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
+                     "do_log() throttling algorithm: a message reached hi_limit; next message-to-be => likely dropped, "
+                     "if feature active.  Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                     "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                     "messages-pending = [" << prev_pending_logs_n << "] => [" << (prev_pending_logs_n + 1) << "]; "
+                     "throttling? = 1 (see above); "
+                     "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                     "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
+                     "Limit-triggering message's contents follow: [" << msg << "].");
   }
-
-#if 0 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
-  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                "do_log() throttling algorithm situation (reminder: beware concurrency): "
-                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+  else
+  {
+    FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                  "do_log() throttling algorithm: a message was processed; situation (reminder: beware concurrency): "
+                  "Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                  "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                  "messages-pending = [" << prev_pending_logs_n << "] => [" << (prev_pending_logs_n + 1) << "]; "
+                  "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                  "Message's contents follow: [" << msg << "].");
+  }
 #endif
 
   /* Done! State updated, and throttling_begins determined for really_log().
@@ -474,56 +480,60 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     const auto metadata = mdt_wrapper.data();
     const String_view msg{msg_copy_blob.data(), msg_copy_blob.size()};
 
-    /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request.
+    /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request, except
+     * that the comparison (instead of `logs_sz` versus `limit`) is of `logs_n` (queue size) versus 0.
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
     auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
     const auto& cfg = throttling.m_cfg;
-    const auto limit = static_cast<logs_sz_t>(cfg.m_lo_limit);
     const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
     const auto prev_pending_logs_sz
       = throttling.m_pending_logs_sz.fetch_sub(logs_sz, std::memory_order_relaxed);
     const auto pending_logs_sz = prev_pending_logs_sz - logs_sz;
+    const auto prev_pending_logs_n = m_pending_logs_n.fetch_sub(1, std::memory_order_relaxed);
 
-#if 0 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
-    FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                  "really_log() throttling algorithm situation (reminder: beware concurrency): "
-                  "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                  "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                  "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
-#endif
-
-    if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
+    if (prev_pending_logs_n == 1) // Hence m_pending_logs_n became 0.
     {
-// XXX to-do leave in?  add similar in really_log?
-#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
-  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                "really_log() throttling algorithm situation (reminder: beware concurrency): "
-                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
-#endif
+      // Log about it in the backup Logger (Logger-about-logging).
+      FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                    "really_log() throttling algorithm: last pending message was logged; "
+                    "next message-to-be => likely first one to *not* be dropped, if throttling feature active.  "
+                    "Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                    "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                    "messages-pending = 1 => 0; throttling? = 1 (see above); "
+                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                    "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
+                    "Queue-clearing message's contents follow: [" << msg << "].");
 
       /* Flip m_throttling_now.  Do not assign `false`, to avoid formal reordering danger -- explained in aforementioned
        * doc header Impl section. */
       throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
 
-      // Performance in this block is not of huge import; this is a fairly rare event.
+      // Log about it in file itself.  (Performance in this block is not of huge import; this is a fairly rare event.)
       FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
 
       FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                    "The following message, when its log-request was dequeued (now), caused pending-logs RAM usage "
-                    "to go below configured lo_limit.  If throttling feature was active, preceding messages were "
-                    "likely dropped starting at the point in time where the system had reached hi_limit.  "
-                    "A message should have appeared earlier to indicate that point in the log-request queue.  "
-                    "Current state follows (but beware concurrency; this is an informational snapshot only): "
-                    "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                    "Mem-use = [" << pending_logs_sz << "]; "
-                    "throttling? = 0 (see above).  "
-                    "Throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                    "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
+                    "really_log() throttling algorithm: last pending message was logged; "
+                    "next message-to-be => likely first one to *not* be dropped, if throttling feature active.  "
+                    "Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                    "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                    "messages-pending = 1 => 0; throttling? = 1 (see above); "
+                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                    "Queue-clearing message is the one immediately following the current one you're reading in file.");
+    } // if (prev_pending_logs_n == 1)
+#if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+    else
+    {
+      FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                    "really_log() throttling algorithm: a message is about to be written to file; "
+                    "situation (reminder: beware concurrency): Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                    "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                    "messages-pending = [" << prev_pending_logs_n << "] => [" << (prev_pending_logs_n - 1) << "]; "
+                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                    "Logged message is the one immediately following the current one you're reading in file.");
     }
+#endif
 
     /* We are in m_async_worker thread, as m_serial_logger requires.
      * mdt_wrapper (effectively `*metadata`) and msg_copy_blob (copy of `msg`) are to be freed when done. */
@@ -536,16 +546,16 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
 
       FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
-                       "The preceding message, when its log-request was enqueued, caused pending-logs RAM usage "
-                       "to exceed configured hi_limit.  If throttling feature was active, subsequent messages-to-be "
-                       "were likely dropped (never enqueued), until the system processed the backlog to get back to "
-                       "lo_limit.  A message should appear later to indicate that point in the log-request queue.  "
-                       "Current state follows (but beware concurrency; this is an informational snapshot only): "
-                       "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                       "Mem-use = [" << pending_logs_sz << "]; "
-                       "throttling? = 1 (see above).  "
-                       "Throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                       "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
+                       "really_log() throttling algorithm: The preceding message, when its log-request was "
+                       "earlier enqueued, caused pending-logs RAM usage to exceed configured hi_limit.  "
+                       "If throttling feature was active, subsequent messages-to-be (log-requests) were dropped.  "
+                       "We only just got around to being able to log it (satisfy log-request) after all the "
+                       "preceding ones FIFO-style.  Config: hi_limit [" << cfg.m_hi_limit << "].  "
+                       "Nowadays: Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                       "messages-pending = [" << prev_pending_logs_n << "] => [" << prev_pending_logs_n << "]; "
+                       "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                       "Limit-crossing (in the past) message is the one immediately preceding the current one "
+                       "you're reading in file.");
     } // if (throttling_begins)
   }; // really_log() =
 

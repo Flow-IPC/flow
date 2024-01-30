@@ -45,6 +45,13 @@ namespace flow::log
  * rotation -- are now or in the future going to be in Async_file_logger, as its purpose is heavy-duty file logging
  * specifically.
  *
+ * @todo Lacking feature: Compress-as-you-log in Async_file_logger.  So, optionally, when characters are actually
+ * written out to file-system, gzip/zip/whatever them instead of writing plain text.  (This is possible at least
+ * for gzip.)  Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation
+ * time: F.log.1.gz -> F.log.2.gz, F.log -> F.log.1 -> F.log.1.gz). It is more space-efficient (at least), however,
+ * to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.:
+ * F.log.1.gz -> F.log.2.gz, F.log.gz [already gzipped from the start] -> F.log.1.gz).
+ *
  * ### Throttling ###
  * By default this feature is disabled, but one can enable/disable/configure it at will via throttling_cfg() mutator.
  * For example a viable tactic is to call it once right after construction, before any logging via `*this`; then
@@ -60,24 +67,41 @@ namespace flow::log
  * Internally each do_log() call pushes this *log request* into a central (per `*this`) queue of log requests;
  * a single (per `*this`) background thread is always popping this queue ASAP, writing the message to the file,
  * etc., until the queue is emptied; then it sleeps until it becomes non-empty; and so on.  If many threads are
- * pushing messages faster than this thread can get through them (congestive collapse), then more and more RAM
+ * pushing messages faster than this thread can get through them, then more and more RAM
  * is used to store the enqueued messages.  If the throughput doesn't decrease in time, letting this central thread
- * catch up, then the RAM use might cause swapping or out-of-memory.
+ * catch up, then the RAM use might cause swapping and eventually out-of-memory (congestive collapse).
+ * To be clear, unless congestive collapse is in fact reached, the system is self-correcting, in that given
+ * a respite from the log-requests (do_log() calls), the queue size *will* get down to zero, as will the corresponding
+ * memory use.  However, if this does not occur early enough, congestive collapse occurs.
  *
- * Throttling is a safeguard against this.  It works as follows.  There's a limit H
- * in bytes; a limit L (strictly smaller than H) in bytes.  We start at Not-Throttling state.  If the memory use M
- * grows beyond H, we enter Throttling state.  In this state, if M goes below L, we re-enter Not-Throttling state.
- * In other words beyond a certain total memory use, we throttle; then to exit this state total memory use has
- * to go down by quite a big amount before we un-throttle.  The idea is to encourage a sawtooth `/\/\/\` pattern
- * as opposed to more like `/^^^^^^`.
+ * Throttling is a safeguard against this.  It works as follows.  There's a limit H in bytes.  We start at
+ * Not-Throttling state.  If the memory use M grows beyond H, we enter Throttling state.  In this state, we
+ * reject incoming log requests -- thus letting the system deal with just logging-to-file what it has queued up
+ * (in FIFO fashion, naturally) -- until no more such queued-up requests remain.  Once the queue is empty,
+ * we re-enter Not-Throttling state.  In other words beyond a certain total memory use, we throttle; then to exit
+ * this state total memory use has to go down to 0, before we un-throttle.  The idea is to encourage a sawtooth
+ * `/\/\/\` pattern.
  *
- * If throttling is enabled during a particular call to should_log(), and if and only if should_log() would return
- * `true` based on considerations excluding the throttling feature, then:
+ * @note An earlier functional design contemplated having a limit L (smaller than H; e.g., picture L = 50% of H),
+ *       so that mem-use would need to merely get down to L to re-enter Not-Throttling state.  However, upon
+ *       prototyping this, it became clear this hardly improved the experience, instead making it rather confusing
+ *       to understand in action.  E.g., if there's a firehose going at full-blast, and you're fighting it by turning
+ *       off the fire-hose and letting it drain, but then turn it on again once the container is 50% full, then the
+ *       draining will "fight" the filling again, potentially losing quite decisively.  Trying to then read resulting
+ *       logs is messy and strange, depending on the 2 rates relative to each other.  By comparison, the
+ *       fill-drain-fill-drain `/\/\/\` pattern is straightforward to understand; and one can cleanly point out
+ *       the minima and maxima with log messages.  Plus, less configuration/tuning with little to no functional
+ *       loss = a good thing.
+ *
+ * The particular mechanic of throttling is as follows.  If throttling is enabled during a particular call to
+ * should_log(), and if and only if should_log() would return `true` based on considerations excluding the
+ * throttling feature, then:
  *
  *   - should_log() returns `true` in Not-Throttling state;
  *   - should_log() returns `false` in Throttling state;
  *
- * Since standard `FLOW_LOG_*` macros avoid do_log() (or even the evaluation of the message) if should_log()
+ * Since standard `FLOW_LOG_*` macros avoid do_log() (or even the evaluation of the message -- which is itself
+ * quite expensive, possibly quite a bit more expensive than the do_log()) if should_log()
  * returns `false` for a given log call site, during Throttling state enqueuing of messages is blocked (letting
  * the logging-to-file thread catch up).
  *
@@ -93,18 +117,18 @@ namespace flow::log
  * is enqueued.  Therefore one can enable throttling at any time and count on its having immediate
  * effect based on actual memory use at that time.
  *
- * The limits H and L can also be reconfigured at any time.  Essentially throttling_cfg() mutator takes
+ * The limit H can also be reconfigured at any time.  Essentially throttling_cfg() mutator takes
  * 2 orthogonal sets of info: 1, whether throttling is to be possible at all (whether Throttling versus Not-Throttling
- * affects should_log() from now on); and 2, the limits H and L which control the policy about setting
+ * affects should_log() from now on); and 2, the limit H which controls the policy about setting
  * the state (Throttling versus Not-Throttling).  (2) affects the algorithm that computes that binary state; whereas
  * (1) affects whether that binary state actually controls whether to prevent logging to save memory or not.
  *
- * If H and/or L are modified, the binary state is reinitialized: it is set to Throttling if and only if
+ * If H is modified, the binary state is reinitialized: it is set to Throttling if and only if
  * memory use M at that time exceeds H; else to Not-Throttling.  The state prior to the throttling_cfg() mutator call
  * does not matter in this situation; it is overwritten.  This avoids various annoying corner cases and ambiguities
  * around config updates.
  *
- * Lastly: Initially throttling is disabled, while certain default values of H and L are assumed.  Hence the above
+ * Lastly: Initially throttling is disabled, while a certain default value of H is assumed.  Hence the above
  * algorithm is active but has no effect, unless you call throttling_cfg() mutator to make it have effect.
  * You may use throttling_cfg() accessor and throttling_active() to get a copy of the current config values.
  *
@@ -120,13 +144,6 @@ namespace flow::log
  * notably should_log() and do_log().
  *
  * There are no other mutable data (state), so that's that.
- *
- * @todo Lacking feature: Compress-as-you-log in Async_file_logger.  So, optionally, when characters are actually
- * written out to file-system, gzip/zip/whatever them instead of writing plain text.  (This is possible at least
- * for gzip.)  Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation
- * time: F.log.1.gz -> F.log.2.gz, F.log -> F.log.1 -> F.log.1.gz). It is more space-efficient (at least), however,
- * to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.:
- * F.log.1.gz -> F.log.2.gz, F.log.gz [already gzipped from the start] -> F.log.1.gz).
  *
  * @internal
  * Implementation
@@ -155,6 +172,7 @@ namespace flow::log
  *       - Increment `m_pending_logs_sz` by `C`.  `m_pending_logs_sz` is called M in the earlier discussion: the
  *         memory use estimate of things do_log() has enqueued but `really_log()` (see just below) has not
  *         yet dequeued and logged to file.
+ *       - Increment #m_pending_logs_n by 1.
  *       - If and only if `m_throttling_now` is `false`, and we just made `m_pending_logs_sz` go from
  *         `< m_throttling_cfg.m_hi_limit` (a/k/a H) to `>= m_throttling_cfg.m_hi_limit`, then
  *         set `m_throttling_now` to `true`; and set `throttling_begins = true`.
@@ -169,15 +187,17 @@ namespace flow::log
  *     - Let local `bool throttling_ends = false`.
  *     - Lock mutex.
  *       - Decrement `m_pending_logs_sz` (a/k/a M) by `C`.
- *       - If and only if `m_throttling_now` is `true`, and we just made `m_pending_logs_sz` go from
- *         `>= m_throttling_cfg.m_lo_limit` (a/k/a L) to `< m_throttling_cfg.m_lo_limit`, then
+ *       - Decrement #m_pending_logs_n by 1.
+ *       - If and only that made `m_pending_logs == 0`, then
  *         set `m_throttling_now` to `false`; and set `throttling_ends = true`.
  *     - If `throttling_ends == true`: via `m_serial_logger->do_log()` write-out a special message
- *         indicating that state has changed from Throttling to Not-Throttling due to mem-use passing floor L.
+ *       indicating that state has changed from Throttling to Not-Throttling due to mem-use reaching 0.
+ *       (Note: The counter #m_pending_logs_n is used, instead of simply checking for #m_pending_logs_sz reaching 0,
+ *       due to a certain corner case discussed elsewhere.  For now, please accept that M is compared only against H.)
  *   - `throttling_cfg(active, cfg)` mutator:
  *     - Lock mutex.
  *       - Save args into #m_throttling_active and `m_throttling_cfg` respectively.
- *       - If the latter's values (H and/or L) changed:
+ *       - If the latter's contained value (H) changed:
  *         - Assign `m_throttling_now = (m_pending_logs_sz >= m_throttling_cfg.m_hi_limit)`.
  *           This reinitializes the state machine cleanly as promised in the class doc header.
  *
@@ -212,14 +232,14 @@ namespace flow::log
  * The next fairly easy subject is `m_throttling_now`.  There is exactly one consumer: should_log().  Again
  * let's replace `bool m_throttling_now` with `atomic<bool> m_throttling_now`; and load it with `releaxed` ordering
  * in should_log(), outside any mutex-lock section.  There are exactly 3 assigners: do_log() and `really_log()`;
- * they assign this when M goes up past H (assign `true`) or down past L (assign `false`);
+ * they assign this when M goes up past H (assign `true`) or down to 0 (assign `false`);
  * and throttling_cfg() mutator (assign depending on where M is compared to the new H).  So let's assume -- and
  * we'll discuss the bejesus out of it below -- we ensure the assigning algorithm is made to work properly, meaning
  * `m_throttling_now` (Throttling versus Not-Throttling state) is made to work correctly within itself.
  * Then should_log() merely needs to read `m_throttling_now`, in case it is `true`, so it should return
  * `should_log() == false`.  Once again, if `relaxed` ordering causes some threads to "see" a new value
  * a little later than others, it is perfectly fine.  (Recall also that the 3 assignment events are hardly frequent:
- * only when passing H going up, passing L going down, and possibly in throttling_cfg() mutator call.)
+ * only when passing H going up, reaching 0, and possibly in throttling_cfg() mutator call.)
  *
  * We've now reduced the algorithm to:
  *
@@ -242,7 +262,7 @@ namespace flow::log
  * practice (if do_log() is called so much as to make this matter, then processor usage due to verbosity is already
  * far too high to be "saved")... but let's not.  Our goal is to make it all lock-free, so let's continue.
  *
- * First, though, let's assume temporarily that throttling_cfg() mutator is never called, once H and L have been
+ * First, though, let's assume temporarily that throttling_cfg() mutator is never called, once H has been
  * initially set.  We'll first make an algorithm that'll work given that simplification; then we'll modify
  * it further to account for it.  That leaves:
  *
@@ -251,12 +271,13 @@ namespace flow::log
  *     - Let local `bool throttling_begins = false`.
  *     - Lock mutex.
  *       - `m_pending_logs_sz += C`.
+ *       - `++m_pending_logs_n`.
  *       - If and only if `m_throttling_now` is `false`, and we just made `m_pending_logs_sz` go from
  *         `< m_throttling_cfg.m_hi_limit` to `>= m_throttling_cfg.m_hi_limit`, then
  *         set `m_throttling_now` to `true`; and set `throttling_begins = true`.
  *     - Enqueue the log-request:
  *       - Capture `metadata`; a copy of `msg`; and `throttling_begins`.
- *       - `m_async_worker.post()` the lambda which invokes `really_log()` with those 3 items as args.
+ *       - `m_async_worker.post()` the lambda which invokes `really_log()` with those 3 items as inputs.
  *   - `really_log(metadata, msg, throttling_begins)`:
  *     - `m_serial_logger->do_log(metadata, msg)`.
  *     - If `throttling_begins == true`: via `m_serial_logger->do_log()` write-out:
@@ -265,15 +286,15 @@ namespace flow::log
  *     - Let local `bool throttling_ends = false`.
  *     - Lock mutex.
  *       - `m_pending_logs_sz -= C`.
- *       - If and only if `m_throttling_now` is `true`, and we just made `m_pending_logs_sz` go from
- *         `>= m_throttling_cfg.m_lo_limit` to `< m_throttling_cfg.m_lo_limit`, then
- *         set `m_throttling_now` to `false`; and set `throttling_ends = true`.
+ *       - `--m_pending_logs_n`.
+ *       - If and only if `m_throttling_now` is `true`, and we just made `m_pending_logs_n == 0`,
+ *         then set `m_throttling_now` to `false`; and set `throttling_ends = true`.
  *     - If `throttling_ends == true`: via `m_serial_logger->do_log()` write-out:
- *       state has changed from Throttling to Not-Throttling due to mem-use passing floor L.
+ *       state has changed from Throttling to Not-Throttling due to mem-use use reaching 0.
  *
  * So how to get rid of the mutex?  Answer:  Just do it.  Do not have any mutex, and do not lock it.
- * Everything else stays the same; except that `m_pending_logs_sz` and `m_throttling_now` become
- * `atomic<uint64_t>` and `atomic<bool>` respectively; and:
+ * Everything else stays the same; except that `m_pending_logs_sz`, `m_pending_logs_n`, and `m_throttling_now` become
+ * `atomic<uint64_t>`, `atomic<size_t>`, and `atomic<bool>` respectively; and:
  *
  *   - `auto new_val = X += Y; auto prev_val = new_val - Y;` becomes:
  *     `auto prev_val = X.fetch_add(Y, relaxed); auto new_val = prev_val + Y;`.
@@ -288,60 +309,59 @@ namespace flow::log
  *
  *   - mem_cost().  This adds `msg.size()` (a `size_t` memory value) to a compile-time constant, more or less.
  *   - Increment M by that number (atomic relaxed `+=` with saving a `prev_val` and resulting `new_val`).
+ *   - Increment #m_pending_logs_n.
  *   - Compare `prev_val < H` and `new_val >= H`.
  *   - Set `bool throttling_begins` to `true` or `false` accordingly.
  *   - Capture `bool throttling_begins` in addition to the existing payload (2 pointers + 1 `size_t`) of the lambda.
  *
- * So it's 3-ish increments, 2-ish integer comparisons, copying a ~handful of scalars ~1x each.  Compare this overhead
- * to the "Enqueue the log-request" step alone: creating lambda object, `function<>` object, enqueue it to boost.asio
+ * So it's 5-ish increments, 2-ish integer comparisons, copying a ~handful of scalars ~1x each, and change.  Compare
+ * to the "Enqueue the log-request" step alone: create lambda object, `function<>` object, enqueue it to boost.asio
  * task queue -- copying `msg` in the process.  Now throw in the `ostream<<` manipulation needed to assemble `msg`;
  * the time spent heap-allocating and populating Msg_metadata.  And lastly remember that the should_log() mechanism
  * (without any throttling) is normally supposed to make do_log() calls so infrequent that the processor cycle cost
  * is small in the first place.  Conclusion: Yes, this overhead is acceptable.
  *
  * What about overhead in `really_log()`?  Firstly it doesn't matter even as much as it does in do_log(); but secondly
- * it is essentially equal to the overhead in do_log(); so if the latter is OK, then so is the former.
+ * it is essentially equal to the overhead in do_log() (a bit less perhaps); so if the latter is OK, then so is the
+ * former.
  *
  * So the perf is good.  But is the algorithm still *correct*?  Answer: ...Almost; here is how we know this.
- * This is probably the hardest part mentally.  The part that is absolutely correct is the movement of
- * `m_pending_logs_sz`: since `fetch_add/sub()` is atomic and involves both a read of the existing value and write
- * of the incremented/decremented result, we've ensured that:
+ * This is probably the hardest part mentally.  A key part that is absolutely correct is the movement of
+ * `m_pending_logs_sz` and `m_pending_logs_n`: since `fetch_add/sub()` is atomic and involves both a read of the
+ * existing value and write of the incremented/decremented result, we've ensured that:
  *
- *   - the integer goes through a total ordering of increment and decrement operations (no operations are "lost" or
- *     "duplicated"); and therefore
- *   - the integer goes through a total ordering of "crossed H going up" and "crossed L going down" events,
- *     exactly alternating: "crossed H up", "crossed L down", "crossed H up", "crossed L down", ....
- *
- * So, in particular, there will be a clean sequence of log lines showing those events.  (Even if some kind of
- * freaky reordering occurs in terms of which one is printed when, it does not matter.)  Most importantly this is
- * achieved at ~zero computational cost, since we are using `relaxed` ordering for all operations: the least strict
- * one.
+ *   - `log_sz` goes through a total ordering of increment and decrement operations (no operations are "lost" or
+ *     "duplicated"), and there is a total ordering -- chronologicaly -- of the instances where `logs_sz`
+ *     "crossed H going up"; and
+ *   - `logs_n` does similarly, with a total ordering -- chronologically -- of the instances where `logs_n`
+ *     reaches 0 (from 1).
  *
  * What does *not* work though?  It's this: In do_log() and `really_log()` respectively there's the part that says,
- * "if we crossed threshold, then set the throttling state Boolean accordingly."  Due to the distance between H and L,
- * at least, this will work fine in practice.  However, formally, it is possible that a crossed-H-up and crossed-L-down
- * events happen very close to each other in time.  Since there is no synchronization combining the inc/dec statement
- * and the following if-crossed-threshold-then-set-Boolean into one atomic statement, it is possible formally that
+ * "if we crossed threshold/reached empty-queue, then set the throttling state Boolean accordingly to true/false."
+ * Due to the distance between H and 0, at least, this will work fine in practice.  However, formally, it is possible
+ * that a crossed-H-up and reached-empty-queue events happen very close to each other in time.  Since there is no
+ * synchronization combining the inc/dec statement and the following
+ * if-crossed-threshold-(or-reached-0)-then-set-Boolean into one atomic statement, it is possible formally that
  * this would happen:
  *
  *   -# do_log() increments M past H.
- *   -# `really_log()` decrements M past L.
+ *   -# `really_log()` decrements M to reach 0.
  *   -# `really_log()` sets state to Not-Throttling.
  *   -# do_log() sets state to Throttling.
  *
- * This would be bad; `really_log()` should "win in the end" and end up in Not-Throttling.  should_log() would then
- * malfunction for potentially a long time.
+ * This would be bad; `really_log()` should "win in the end" and end up in Not-Throttling, but in this pathological
+ * scenario it wouldn't.  should_log() would then malfunction for potentially a long time.
  *
  * There is however a quite small modification to the algorithm which would solve this.  It's based on the same
  * principle that allowed us to make a clean ordering of how M changes values.  Instead of `bool`, make
  * `m_throttling_now` an `unsigned int` (interpreted by should_log() as a Boolean still, so no change there);
- * when do_log() crosses H going up, perform a `fetch_xor(true, relaxed)` instead of assigning `true`;
- * when `really_log()` crosses L going down, perform a `fetch_xor(true, relaxed)` instead of assigning `false`.
+ * when do_log() crosses H going up, perform a `fetch_xor(1, relaxed)` instead of assigning `true`;
+ * when `really_log()` reaches empty-queue, perform a `fetch_xor(1, relaxed)` instead of assigning `false`.
  * Or, in English, *flip the Boolean* in both cases.  So even in the pathological reordering situation above:
  *
  *   -# (`m_throttling_now == 0` init state.)
  *   -# do_log() increments M past H.
- *   -# `really_log()` decrements M past L.
+ *   -# `really_log()` decrements M to 0.
  *   -# `really_log()` flips `m_throttling_now` to `1`.
  *   -# do_log() flips `m_throttling_now` to `0`.
  *
@@ -349,39 +369,43 @@ namespace flow::log
  *
  *   -# (`m_throttling_now == 0` init state.)
  *   -# do_log() increments M past H.
- *   -# `really_log()` decrements M past L.
+ *   -# `really_log()` decrements M to 0.
  *   -# do_log() flips `m_throttling_now` to `1`.
  *   -# `really_log()` flips `m_throttling_now` to `0`.
  *
- * Result is correct either way.  One way to think about it is that we're counting threshold crossings in either
- * direction; when the *counter* of such crossings is odd, throttling is on; when it is even throttling is off.
+ * Result is correct either way.  One way to think about it is that we're counting H-reached and 0-reached events;
+ * when the *counter* of such events is odd, throttling is on; when it is even, throttling is off.
  * In the rare pathological case where the "wrong" thread goes first, it is corrected based on this inductive
- * algorithm by the other thread momentarily.  And if during this time should_log() lets through a message or two
+ * algorithm by the other thread shortly.  And if during this time should_log() lets through a message or two
  * that it shouldn't, or vice versa, then it hardly matters.  During the steady state when the system is nowhere
- * near the thresholds H or L, should_log() behaves as it should.  (This is no different from accepting the possible
+ * near the thresholds H or 0, should_log() behaves as it should.  (This is no different from accepting the possible
  * slight lag due to `relaxed` stores and loads of `m_throttling_now`.  It is an infrequent situation that does not
  * matter for our application, where we're trying to control bulky logging en masse, without absolute scalpel-like
  * surgical precision.)
  *
- * ### Throttling impl: Dealing with changes in H and L via configuration setter ###
+ * ### Throttling impl: Dealing with changes in H via configuration setter ###
  *
- * That leaves one thing to deal with, which we intentionally mentioned we've been ignoring.  What if H and/or L
- * are changed via throttling_cfg() mutator?  The above discussiona assumes they simply cannot change.  If they can:
+ * That leaves one thing to deal with, which we intentionally mentioned we've been ignoring.  What if H is
+ * changed via throttling_cfg() mutator?  The above discussion assumes it simply cannot change.  If it can:
  * A potential approach is trying to deal with that directly by adding tricky reasoning to the algorithm so that
- * H or L changing is always a possibility at any time, and we try to account for it.  This, I (ygoldfel) think,
- * is a terrible idea.  Even if there's some nice functional result possible, reasoning about it and maintaining it
+ * H changing is always a possibility at any time, and we try to account for it.  This, I (ygoldfel) think,
+ * is a bad idea.  Even if there's some nice functional result possible, reasoning about it and maintaining it
  * is a nightmare.  Instead we can leave the algorithm essentially be as-described... but:
  *
- * Separate the state of the algorithm -- everything except #m_throttling_active which is orthogonal and accessed
- * only by should_log() -- into a `Throttling` state `struct` with fields `m_throttling_now`, `m_pending_logs_sz`,
- * and `Throttling_cfg m_cfg` (which contains `m_hi_limit` and `m_lo_limit`).  The contents of a given `m_cfg`
- * (which we've been calling `m_throttling_cfg` until now) *never change*.  Next, have an
- * `atomic<Throttling*> m_throttling` member.  In the algorithm (should_log(), do_log(), `really_log()`) relaxed-load
- * this into a local `Throttling* const throttling` pointer; then from that point on access the bits of state
- * through `*throttling` dereference.  In a given `*throttling` the limits can never change.
+ * Separate most of the state of the algorithm -- everything except #m_throttling_active (which is orthogonal and
+ * accessed only by should_log()) and #m_pending_logs_n (which is only compared to 0) -- into a `Throttling` state
+ * `struct` with fields `m_throttling_now`, `m_pending_logs_sz`, and `Throttling_cfg m_cfg` (which contains
+ * `m_hi_limit` only).  The contents of a given `m_cfg` (which we've been calling `m_throttling_cfg` until now) *never
+ * change*.  Next, have an `atomic<Throttling*> m_throttling` member.  In the algorithm (should_log(), do_log(),
+ * `really_log()`) relaxed-load this into a local `Throttling* const throttling` pointer; then from that point on
+ * access the bits of state through `*throttling` dereference.  In a given `*throttling` the limit H can never change.
+ * 
+ * @note Yes, Throttling_cfg can be replaced by simply a single integer.  We've encapsulated it in an equally sized
+ *       `struct` for maintainability.  There was temporarily an `m_lo_limit`; and it *feels* like something along
+ *       those lines could be added in the future.  If not, no harm done really.
  *
  * So the last bit of the puzzle is what throttling_cfg() mutator must do.  And that is: Upon detecting that the
- * config (`m_hi_limit`, `m_lo_limit`, or both) has actually changed, create a new `Throttling`; initialize
+ * config (`m_hi_limit`) has actually changed, create a new `Throttling`; initialize
  * its state (including, as noted before, `m_throttling_now = (m_pending_logs_sz >= m_throttling_cfg.m_hi_limit)`);
  * and then atomically-replace the pointer `m_throttling` to point to this new state structure.  Whatever concurrent
  * operations might still be dealing with the previous `*m_throttling` will exit soon enough.  At worst a few
@@ -389,8 +413,8 @@ namespace flow::log
  * along with those last few changes to its `m_pending_logs_sz` -- but so what?  This only occurs (if ever) during
  * a config change which are not meant to be frequent events during which we must very-precisely count the stats.
  *
- * Of course we must be careful to not `delete` the old `Throttling` until it's safe.  You can see how this is handled
- * in the code itself; omitting here.
+ * Of course we must be careful to not `delete` the old `Throttling`, until it's safe.  You can see how this is handled
+ * in the code itself; omitting discussion here.
  *
  * Naturally nothing is free, so this adds a little more overhead, most importantly to should_log().  Namely that is:
  *
@@ -411,6 +435,11 @@ public:
    * As noted there, these values affect the algorithm for computing Throttling versus Not-Throttling state but
    * *not* whether should_log() actually allows that state to have any effect.  That is controlled by a peer
    * argument to throttling_cfg().
+   * 
+   * @internal
+   * ### Rationale ###
+   * Why the `struct` and not just expose `m_hi_limit` by itself?  Answer: there is a "note" about it in the
+   * Async_file_logger class doc header.  Short answer: maintainability/future-proofing.
    */
   struct Throttling_cfg
   {
@@ -420,13 +449,6 @@ public:
      * Async_file_logger doc header Throttling section calls this value H.  It must be positive.
      */
     uint64_t m_hi_limit;
-
-    /**
-     * The throttling algorithm will go from Throttling to Not-Throttling state if and only if the current memory
-     * usage changes from `>= m_lo_limit` to `< m_lo_limit`.
-     * Async_file_logger doc header Throttling section calls this value L.  It must be `< m_hi_limit` and positive.
-     */
-    uint64_t m_lo_limit;
   }; // struct Throttling_cfg
 
   // Constructors/destructor.
@@ -477,7 +499,11 @@ public:
 
   /**
    * Implements interface method by returning `true` if the severity and component (which is allowed to be null)
-   * indicate it should.  As of this writing not thread-safe against changes to `*m_config`.
+   * indicate it should; and if so potentially applies the throttling algorithm's result as well.
+   * As of this writing not thread-safe against changes to `*m_config` (but thread-safe agains throttling_cfg()
+   * mutator).  Regarding throttling: see Throttling section of class doc header; as noted there it comes into
+   * play if and only if: 1, `sev` and `component` indicate should_log() should return `true` in the first place;
+   * and 2, `throttling_active() == true`.
    *
    * @param sev
    *        Severity of the message.
@@ -612,10 +638,10 @@ private:
   struct Throttling
   {
     /**
-     * The immutable hi-limit and lo-limit configuration.
+     * The immutable hi-limit configuration.
      * As discussed in Impl section of class doc header: if the config needs to change, then a new Throttling
      * is created.  Hence the algorithm dealing with a given Throttling state set can remain simple, knowing
-     * that hi-limit and lo-limit are immutable.
+     * that hi-limit is immutable.
      */
     const Throttling_cfg m_cfg;
 
@@ -626,7 +652,7 @@ private:
      * Each log request's cost is computed via mem_cost(): do_log() increments this by mem_cost(); then
      * a corresponding `really_log()` decrements it by that same amount.
      *
-     * ### Rationale: Why signed type? ###
+     * ### Rationale: Why signed instead of unsigned type? ###
      * There is a corner case having to do with throttling_cfg() mutator.  See explanation therein.
      */
     std::atomic<int64_t> m_pending_logs_sz;
@@ -635,8 +661,8 @@ private:
      * Boolean-representing integer that represents the output of the always-on throttling algorithm; namely
      * 1 if currently should_log() shall return `false` due to too-much-RAM-being-used; 0 otherwise.
      * It starts at 0; then when `m_cfg.m_hi_limit` is crossed (by #m_pending_logs_sz) going up in do_log(),
-     * it becomes 1.  Next, when `m_cfg.m_lo_limit` is crossed (by #m_pending_logs_sz) going down in `really_log()`,
-     * it becomes 0 again.  Rinse/repeat.
+     * it becomes 1.  Next, when `m_pending_logs_n` (the number of queued-up log messages) reaches 0 from 1 in
+     * `really_log()`, it becomes 0 again.  Rinse/repeat.
      *
      * The Impl section of class doc header discusses subtleties about setting this properly, avoiding
      * evil reordering.
@@ -698,11 +724,29 @@ private:
   std::vector<boost::movelib::unique_ptr<Throttling>> m_throttling_states;
 
   /**
-   * The current state of throttling-based-on-pending-logs-memory-used always-on algorithm.
-   * See Throttling doc header (which would also point you to the long-form discussion in Impl section of class doc
-   * header).
+   * The current state of throttling-based-on-pending-logs-memory-used always-on algorithm, with the exception
+   * of #m_pending_logs_n which can simply be stored by itself.
+   *
+   * @see Throttling doc header (which would also point you to the long-form discussion in Impl section of class doc
+   *      header).
    */
   std::atomic<Throttling*> m_throttling;
+
+  /**
+   * As part of the throttling-based-on-pending-logs-memory-used always-on algorithm, this is how many message/metadata
+   * combos have been queued for logging by do_log() but not yet written out to file by `really_log()`
+   * in thread #m_async_worker.  do_log() increments it; `really_log()` decrements it.
+   *
+   * @see Throttling doc header (which would also point you to the long-form discussion in Impl section of class doc
+   *      header).
+   *
+   * ### Rationale: Why not just use Throttling::m_pending_logs_sz? ###
+   * Indeed, why?  Per aforementioned algorithm, we only use this to compare it to 0, so as to
+   * then flip `m_throttling_now` to indicate Not-Throttling state; couldn't we just compare `m_pending_logs_sz`
+   * to zero instead?  Answer: There is a corner case having to do with throttling_cfg() mutator -- the same one
+   * that explains why `m_pending_logs_sz` is of a signed type.  See explanation in that mutator.
+   */
+  std::atomic<size_t> m_pending_logs_n;
 
   /**
    * Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.
