@@ -545,13 +545,13 @@ bool Async_file_logger::should_log(Sev sev, const Component& component) const //
   }
   // else
 
-  const auto throttling_now = m_throttling_now.load(std::memory_order_relaxed);
+  const auto throttled = m_throttling_now.load(std::memory_order_relaxed);
 
 #if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value() << "]) "
                 "throttling algorithm situation (reminder: beware concurrency): "
-                "Throttling feature active? = 1; throttling? = [" << throttling_now << "].");
+                "Throttling feature active? = 1; throttling? = [" << throttled << "].");
 #endif
 
   return !throttled;
