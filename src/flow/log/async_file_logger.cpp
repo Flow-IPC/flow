@@ -283,7 +283,7 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
                 "Config set: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
                 "New throttling-algorithm initial state: "
                 "mem-use = [" << prev_pending_logs_sz << "]; "
-                "thottling? = [" << new_throttling->m_throttling_now << "].  "
+                "throttling? = [" << new_throttling->m_throttling_now << "].  "
                 "Throttling feature active? = [" << active << "].  "
                 "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
 
@@ -498,7 +498,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                     "Current state follows (but beware concurrency; this is an informational snapshot only): "
                     "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
                     "Mem-use = [" << pending_logs_sz << "]; "
-                    "thottling? = 1 (see above).  "
+                    "throttling? = 0 (see above).  "
                     "Throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                     "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
     }
@@ -521,7 +521,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "Current state follows (but beware concurrency; this is an informational snapshot only): "
                        "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
                        "Mem-use = [" << pending_logs_sz << "]; "
-                       "thottling? = 0 (see above).  "
+                       "throttling? = 1 (see above).  "
                        "Throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                        "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
     } // if (throttling_begins)

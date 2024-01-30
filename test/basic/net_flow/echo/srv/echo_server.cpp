@@ -119,15 +119,16 @@ int Main::main(int argc, const char** argv)
   log_logger.throttling_cfg(true, log_logger.throttling_cfg());
   log_logger.throttling_cfg(true, { 1024 * 1024, 800 * 1024 });
 
-  std::function<void (flow::async::Single_thread_task_loop*)> do_log = [&](auto&& loop)
   {
-    FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
-    FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890");
+    uint64_t counter = 0;
+    std::function<void (flow::async::Single_thread_task_loop*)> do_log = [&](auto&& loop)
+    {
+      FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
+      FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890 / ctr = [" << ++counter << "].");
 
-    loop->post([&, loop2 = loop]() { do_log(loop2); });
-  };
+      loop->post([&, loop2 = loop]() { do_log(loop2); });
+    };
 
-  {
     constexpr size_t N = 10;
     std::vector<boost::movelib::unique_ptr<flow::async::Single_thread_task_loop>> loops(N);
     size_t idx = 0;
