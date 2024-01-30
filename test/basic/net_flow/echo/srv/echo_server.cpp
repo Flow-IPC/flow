@@ -117,7 +117,7 @@ int Main::main(int argc, const char** argv)
   // XXX
 #if 1
   log_logger.throttling_cfg(true, log_logger.throttling_cfg());
-  log_logger.throttling_cfg(true, { 1024 * 1024, 800 * 1024 });
+  log_logger.throttling_cfg(true, { 1000 * 1000 });
 
   {
     std::atomic<uint64_t> counter = 0;
