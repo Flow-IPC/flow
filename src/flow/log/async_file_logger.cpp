@@ -384,10 +384,11 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
   bool throttling_begins; // Will be true if and only if m_pending_logs_sz increment passed m_cfg.m_hi_limit.
   auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
+  const auto& cfg = throttling.m_cfg;
   /* @todo This should work according to standard/cppreference.com, but at least some STLs lack it.  Revisit.
    * using logs_sz_t = decltype(throttling.m_pending_logs_sz)::value_type; */
   using logs_sz_t = int64_t;
-  const auto limit = static_cast<logs_sz_t>(throttling.m_cfg.m_hi_limit);
+  const auto limit = static_cast<logs_sz_t>(cfg.m_hi_limit);
   const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
   const auto prev_pending_logs_sz
     = throttling.m_pending_logs_sz.fetch_add(logs_sz, std::memory_order_relaxed);
@@ -398,6 +399,14 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
      * doc header Impl section. */
     throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
   }
+
+#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
+  FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
+                 "do_log() throttling algorithm situation (reminder: beware concurrency): "
+                 "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                 "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                 "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#endif
 
   /* Done! State updated, and throttling_begins determined for really_log().
    *
@@ -463,6 +472,15 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     const auto prev_pending_logs_sz
       = throttling.m_pending_logs_sz.fetch_sub(logs_sz, std::memory_order_relaxed);
     const auto pending_logs_sz = prev_pending_logs_sz - logs_sz;
+
+#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
+    FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
+                   "really_log() throttling algorithm situation (reminder: beware concurrency): "
+                   "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                   "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                   "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#endif
+
     if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
     {
       /* Flip m_throttling_now.  Do not assign `false`, to avoid formal reordering danger -- explained in aforementioned
@@ -555,16 +573,34 @@ void Async_file_logger::log_flush_and_reopen(bool async)
 
 bool Async_file_logger::should_log(Sev sev, const Component& component) const // Virtual.
 {
-  return m_serial_logger->should_log(sev, component) // In normal conditions this is likeliest to return false.
-         &&
-         /* As explained in doc header (please see there for discussion), throttling -- if on -- can prevent logging.
-          * It is important that the following code is as fast as possible, though by placing it below the above
-          * forwarded should_log() check we've performed a key optimization already, as in a properly configured
-          * system verbosity knobs should throw out most messages-to-be. */
-         ((!m_throttling_active.load(std::memory_order_relaxed)) // Whether to even consult throttling algo.
-          || // Whether throttling algo is currently saying we should drop incoming messages-to-be.
-          (!m_throttling.load(std::memory_order_relaxed)->m_throttling_now.load(std::memory_order_relaxed)));
-}
+  if (!m_serial_logger->should_log(sev, component)) // In normal conditions this is likeliest to return false.
+  {
+    return false;
+  }
+  // else
+
+  /* As explained in doc header (please see there for discussion), throttling -- if on -- can prevent logging.
+   * It is important that the following code is as fast as possible, though by placing it below the above
+   * forwarded should_log() check we've performed a key optimization already, as in a properly configured
+   * system verbosity knobs should throw out most messages-to-be. */
+
+  if (!m_throttling_active.load(std::memory_order_relaxed))
+  {
+    return true;
+  }
+  // else
+
+  const auto throttled = m_throttling.load(std::memory_order_relaxed)->m_throttling_now.load(std::memory_order_relaxed);
+
+#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
+  FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
+                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value << "]) "
+                 "throttling algorithm situation (reminder: beware concurrency): "
+                 "Throttling feature active? = 1; throttling? = [" << throttled << "].");
+#endif
+
+  return !throttled;
+} // Async_file_logger::should_log()
 
 bool Async_file_logger::logs_asynchronously() const // Virtual.
 {
