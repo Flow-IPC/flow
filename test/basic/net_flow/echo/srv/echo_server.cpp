@@ -109,8 +109,6 @@ int Main::main(int argc, const char** argv)
   FLOW_LOG_INFO("Opening log file [" << LOG_FILE << "] for Flow logs only.");
   Config log_config = m_std_log_config;
   log_config.configure_default_verbosity(Sev::S_DATA, true);
-  // XXX:
-  m_std_log_config.configure_default_verbosity(Sev::S_TRACE, true);
   /* First arg: could use &m_logger to log-about-logging to console; but it's a bit heavy for such a console-dependent
    * little program.  Just just send it to /dev/null metaphorically speaking. */
   Async_file_logger log_logger(&m_logger, // XXX 0,
