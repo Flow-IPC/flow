@@ -677,6 +677,13 @@ private:
   // Data.
 
   /**
+   * The current state of throttling-based-on-pending-logs-memory-used always-on algorithm.
+   * See Throttling doc header (which would also point you to the long-form discussion in Impl section of class doc
+   * header).
+   */
+  std::atomic<Throttling*> m_throttling;
+
+  /**
    * The objects to which has #m_throttling has pointed;
    * in steady state `m_throttling == m_throttling_states.back().get()`.
    *
@@ -696,13 +703,6 @@ private:
    * performance or loading-to-dereference it.  It's arguable; going with this at this time though.
    */
   std::vector<boost::movelib::unique_ptr<Throttling>> m_throttling_states;
-
-  /**
-   * The current state of throttling-based-on-pending-logs-memory-used always-on algorithm.
-   * See Throttling doc header (which would also point you to the long-form discussion in Impl section of class doc
-   * header).
-   */
-  std::atomic<Throttling*> m_throttling;
 
   /**
    * Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.
