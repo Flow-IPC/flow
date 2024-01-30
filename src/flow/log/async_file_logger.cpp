@@ -222,6 +222,9 @@ bool Async_file_logger::throttling_active() const
 
 void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
 {
+  assert((cfg.m_hi_limit > cfg.m_lo_limit) && "Per contract, hi_limit must exceed lo_limit.");
+  assert((cfg.m_lo_limit > 0) && "Per contract, hi_limit and lo_limit must be positive.");
+
   /* Please see Impl section of class doc header for detailed discussion; also Throttling and m_throttling_states doc
    * headers.  Then come back here.  We rely on the background in that discussion frequently.
    *
