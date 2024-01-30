@@ -485,7 +485,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     if (throttling_begins)
     {
       // Performance in this block is not of huge import; this is a fairly rare event.
-      FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), get_log_component());
+      FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
 
       FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
                        "The preceding message, when its log-request was enqueued, caused pending-logs RAM usage "
