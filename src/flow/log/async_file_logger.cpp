@@ -275,8 +275,9 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
                                                     cfg, // Copy-in the new config which is different.
                                                     prev_pending_logs_sz,
                                                     // Most importantly cleanly initialize m_throttling_now.
-                                                    prev_pending_logs_sz
-                                                      >= static_cast<decltype(prev_pending_logs_sz)>(cfg.m_hi_limit)
+                                                    (prev_pending_logs_sz
+                                                       >= static_cast<decltype(prev_pending_logs_sz)>(cfg.m_hi_limit))
+                                                      ? 1 : 0
                                                   });
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
@@ -398,6 +399,15 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     /* Flip m_throttling_now.  Do not assign `true`, to avoid formal reordering danger -- explain in aforementioned
      * doc header Impl section. */
     throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
+
+// XXX to-do leave in?  add similar in really_log?
+#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                "do_log() throttling algorithm situation (reminder: beware concurrency): "
+                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#endif
   }
 
 #if 0 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
@@ -450,10 +460,13 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   auto really_log
     = [this,
        /* We could just capture `metadata` and `delete metadata` in the lambda {body};
-        * in fact we could do similarly with a raw `char* msg_copy` too.  However then they can leak
-        * if *this is destroyed before the lambda body has a chance to execute.  Whereas
-        * by wrapping them in unique_ptr<>s we get RAII deletion with ~no memory cost (just a pointer
-        * copy from `metadata` into m_data; sizeof(m_data) == sizeof(Msg_metadata*)). */
+        * in fact we could do similarly with a raw `char* msg_copy` too.  However then they can leak*
+        * if *this is destroyed before the lambda body has a chance to execute.  
+        * Whereas by wrapping them in unique_ptr<>s we get RAII deletion with ~no memory cost (just a pointer
+        * copy from `metadata` into m_data; sizeof(m_data) == sizeof(Msg_metadata*)).
+        * (*Update: Correction: No leak would occur: Our destructor flushes all output before returning.
+        * However it is still more maintainable to avoid a leaky lambda by using unique_ptr.  More code though.
+        * That said the util::Tight_blob to-do will cut down on that.) */
        mdt_wrapper = Mdt_wrapper{metadata},
        msg_copy_blob = Tight_blob{msg.data(), msg.size()},
        throttling_begins]() mutable
@@ -483,6 +496,15 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
     if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
     {
+// XXX to-do leave in?  add similar in really_log?
+#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                "really_log() throttling algorithm situation (reminder: beware concurrency): "
+                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#endif
+
       /* Flip m_throttling_now.  Do not assign `false`, to avoid formal reordering danger -- explained in aforementioned
        * doc header Impl section. */
       throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);

@@ -120,7 +120,7 @@ int Main::main(int argc, const char** argv)
   log_logger.throttling_cfg(true, { 1024 * 1024, 800 * 1024 });
 
   {
-    uint64_t counter = 0;
+    std::atomic<uint64_t> counter = 0;
     std::function<void (flow::async::Single_thread_task_loop*)> do_log = [&](auto&& loop)
     {
       FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
