@@ -77,6 +77,10 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   Async_file_logger log_logger(0, &log_config, LOG_FILE, false /* No rotation; we're no serious business. */);
   unsigned int n_times;
 
+  // XXX
+  log_logger.throttling_cfg(true, log_logger.throttling_cfg());
+  log_logger.throttling_cfg(true, { 10, 5 });
+
   if (((argc - 1) != 4) || string(argv[4]).empty() ||
       (!try_lexical_convert(argv[1], n_times)) || (n_times == 0))
   {
