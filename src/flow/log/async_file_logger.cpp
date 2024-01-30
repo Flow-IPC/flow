@@ -400,12 +400,12 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
   }
 
-#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
-  FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
-                 "do_log() throttling algorithm situation (reminder: beware concurrency): "
-                 "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                 "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                 "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                "do_log() throttling algorithm situation (reminder: beware concurrency): "
+                "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
 #endif
 
   /* Done! State updated, and throttling_begins determined for really_log().
@@ -473,12 +473,12 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       = throttling.m_pending_logs_sz.fetch_sub(logs_sz, std::memory_order_relaxed);
     const auto pending_logs_sz = prev_pending_logs_sz - logs_sz;
 
-#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
-    FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
-                   "really_log() throttling algorithm situation (reminder: beware concurrency): "
-                   "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                   "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                   "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+    FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                  "really_log() throttling algorithm situation (reminder: beware concurrency): "
+                  "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                  "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                  "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
 #endif
 
     if ((pending_logs_sz <= limit) && (prev_pending_logs_sz > limit))
@@ -592,11 +592,11 @@ bool Async_file_logger::should_log(Sev sev, const Component& component) const //
 
   const auto throttled = m_throttling.load(std::memory_order_relaxed)->m_throttling_now.load(std::memory_order_relaxed);
 
-#if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
-  FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
-                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value() << "]) "
-                 "throttling algorithm situation (reminder: beware concurrency): "
-                 "Throttling feature active? = 1; throttling? = [" << throttled << "].");
+#if 1 //XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value() << "]) "
+                "throttling algorithm situation (reminder: beware concurrency): "
+                "Throttling feature active? = 1; throttling? = [" << throttled << "].");
 #endif
 
   return !throttled;
