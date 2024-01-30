@@ -435,6 +435,17 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                     "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                     "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
                     "Queue-clearing message's contents follow: [" << msg << "].");
+
+      // Log about it in file itself.  (Performance in this block is not of huge import; this is a fairly rare event.)
+      FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
+
+      FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                    "really_log() throttling algorithm: last pending message was logged; "
+                    "next message-to-be => likely first one to *not* be dropped, if throttling feature active.  "
+                    "Config: hi_limit [" << limit << "].  "
+                    "Mem-use = [" << prev_pending_logs_sz << "] => 0; "
+                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                    "Queue-clearing message is the one immediately following the current one you're reading in file.");
     }
 #if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
     else
@@ -443,8 +454,8 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                     "really_log() throttling algorithm: a message is about to be written to file; "
                     "situation (reminder: beware concurrency): Config: hi_limit [" << limit << "].  "
                     "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                    "Logged message is the one immediately following the current one you're reading in file.");
+                    "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  ");
+                    "Message's contents follow: [" << msg << "].");
     }
 #endif
 
@@ -534,13 +545,13 @@ bool Async_file_logger::should_log(Sev sev, const Component& component) const //
   }
   // else
 
-  const auto throttled = m_throttling_now.load(std::memory_order_relaxed);
+  const auto throttling_now = m_throttling_now.load(std::memory_order_relaxed);
 
 #if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value() << "]) "
                 "throttling algorithm situation (reminder: beware concurrency): "
-                "Throttling feature active? = 1; throttling? = [" << throttled << "].");
+                "Throttling feature active? = 1; throttling? = [" << throttling_now << "].");
 #endif
 
   return !throttled;
