@@ -464,7 +464,13 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "The following message, when its log-request was dequeued (now), caused pending-logs RAM usage "
                        "to go below configured lo_limit.  If throttling feature was active, preceding messages were "
                        "likely dropped starting at the point in time where the system had reached hi_limit.  "
-                       "A message should have appeared earlier to indicate that point in the log-request queue.");
+                       "A message should have appeared earlier to indicate that point in the log-request queue.  "
+                       "Current state follows (but beware concurrency; this is an informational snapshot only): "
+                       "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                       "mem-use = [" << pending_logs_sz << "]; "
+                       "thottling? = 1 (see above).  "
+                       "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                       "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
     }
 
     /* We are in m_async_worker thread, as m_serial_logger requires.
@@ -481,7 +487,13 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "The preceding message, when its log-request was enqueued, caused pending-logs RAM usage "
                        "to exceed configured hi_limit.  If throttling feature was active, subsequent messages-to-be "
                        "were likely dropped (never enqueued), until the system processed the backlog to get back to "
-                       "lo_limit.  A message should appear later to indicate that point in the log-request queue.");
+                       "lo_limit.  A message should appear later to indicate that point in the log-request queue.  "
+                       "Current state follows (but beware concurrency; this is an informational snapshot only): "
+                       "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
+                       "mem-use = [" << pending_logs_sz << "]; "
+                       "thottling? = 0 (see above).  "
+                       "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
+                       "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
     } // if (throttling_begins)
   }; // really_log() =
 
