@@ -113,6 +113,10 @@ int Main::main(int argc, const char** argv)
    * little program.  Just just send it to /dev/null metaphorically speaking. */
   Async_file_logger log_logger(0, &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
 
+  // XXX
+  log_logger.throttling_cfg(true, log_logger.throttling_cfg());
+  log_logger.throttling_cfg(true, { 10, 5 });
+
   if ((argc == 1) || ((argc - 1) > 2) || (((argc - 1) == 2) && (argv[2] != LOCALHOST_TOKEN)))
   {
     FLOW_LOG_WARNING("Usage: " << argv[0] << " <port> [" << LOCALHOST_TOKEN << "]");
