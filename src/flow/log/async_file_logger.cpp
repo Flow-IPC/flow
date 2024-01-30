@@ -462,7 +462,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       throttling.m_throttling_now.fetch_xor(1, std::memory_order_relaxed);
 
       // Performance in this block is not of huge import; this is a fairly rare event.
-      FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), get_log_component());
+      FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
 
       FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                     "The following message, when its log-request was dequeued (now), caused pending-logs RAM usage "
