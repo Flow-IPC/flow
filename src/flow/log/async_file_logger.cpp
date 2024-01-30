@@ -447,8 +447,8 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request.
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
-    const auto& cfg = throttling.m_cfg;
     auto& throttling = *(m_throttling.load(std::memory_order_relaxed));
+    const auto& cfg = throttling.m_cfg;
     const auto limit = static_cast<logs_sz_t>(cfg.m_lo_limit);
     const auto logs_sz = static_cast<logs_sz_t>(mem_cost(metadata, msg));
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
