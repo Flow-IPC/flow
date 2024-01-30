@@ -124,7 +124,7 @@ int Main::main(int argc, const char** argv)
     FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
     FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890");
 
-    loop->post([&, loop2]() { do_log(loop2); });
+    loop->post([&, loop2 = loop]() { do_log(loop2); });
   };
 
   {
