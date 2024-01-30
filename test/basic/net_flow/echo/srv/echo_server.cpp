@@ -111,7 +111,8 @@ int Main::main(int argc, const char** argv)
   log_config.configure_default_verbosity(Sev::S_DATA, true);
   /* First arg: could use &m_logger to log-about-logging to console; but it's a bit heavy for such a console-dependent
    * little program.  Just just send it to /dev/null metaphorically speaking. */
-  Async_file_logger log_logger(0, &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
+  Async_file_logger log_logger(&m_logger, // XXX 0,
+                               &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
 
   // XXX
   log_logger.throttling_cfg(true, log_logger.throttling_cfg());

@@ -479,7 +479,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                     "A message should have appeared earlier to indicate that point in the log-request queue.  "
                     "Current state follows (but beware concurrency; this is an informational snapshot only): "
                     "Config: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
-                    "mem-use = [" << pending_logs_sz << "]; "
+                    "Mem-use = [" << pending_logs_sz << "]; "
                     "thottling? = 1 (see above).  "
                     "Throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                     "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
