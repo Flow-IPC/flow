@@ -237,14 +237,14 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
    * We set it -- might as well use the strictest ordering setting, since we are rarely called -- and should_log()
    * might read it (with `relaxed` order): whether there's a tiny lag in some thread's should_log()'s load
    * versus our store = unimportant in practice. */
-  const auto prev_active = m_throttling_active.store(active, std::memory_order_seq_cst);
+  const auto prev_active = m_throttling_active.exchange(active, std::memory_order_seq_cst);
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "Config set: throttling feature active => [" << active << "] (was [" << prev_active << "]).");
 
   // Deal with `cfg`.  Note m_throttling (the atomic ptr) and m_throttling_states cannot change, until we change them.
 
   const auto prev_throttling_ptr = m_throttling.load(std::memory_order_seq_cst);
-  assert(prev_throttling_ptr && "It was supposed to be constructed to be non-null.")
+  assert(prev_throttling_ptr && "It was supposed to be constructed to be non-null.");
 
   const auto& prev_throttling = *(m_throttling.load(std::memory_order_seq_cst));
   const auto& prev_cfg = prev_throttling.m_cfg;
