@@ -115,8 +115,37 @@ int Main::main(int argc, const char** argv)
                                &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
 
   // XXX
+#if 1
   log_logger.throttling_cfg(true, log_logger.throttling_cfg());
-  log_logger.throttling_cfg(true, { 10, 5 });
+  log_logger.throttling_cfg(true, { 1024 * 1024, 800 * 1024 });
+
+  auto do_log = [&](auto&& loop)
+  {
+    FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
+    FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890");
+
+    loop->post([loop, &]() { do_log(loop); });
+  };
+
+  {
+    constexpr size_t N = 10;
+    std::vector<boost::movelib::unique_ptr<flow::async::Single_thread_task_loop>> loops(10);
+    size_t idx = 0;
+    for (auto& loop : loops)
+    {
+      loop.reset(new flow::async::Single_thread_task_loop(nullptr, flow::util::ostream_op_string("loop", idx)));
+      loop->post([&]()
+      {
+        do_log(loop.get());
+      });
+      loop->start();
+
+      ++idx;
+    }
+
+    boost::this_thread::sleep_for(boost::chrono::seconds(5));
+  }
+#endif
 
   if ((argc == 1) || ((argc - 1) > 2) || (((argc - 1) == 2) && (argv[2] != LOCALHOST_TOKEN)))
   {
