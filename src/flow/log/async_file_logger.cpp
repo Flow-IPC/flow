@@ -125,12 +125,14 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    * can and should change them, but if they're not using the feature then they won't care anyway. */
   m_throttling_states
     ({
-        boost::movelib::make_unique<Throttling>
-          (Throttling
-             {
-               { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 }, // @todo Make some magic number `constexpr`s?
-               0, 0 // No memory used yet; no throttling yet.
-             })
+        // (@todo make_unique() was complaining of lacking copy ctor; not sure why it is needed.  Not very important.)
+        boost::movelib::unique_ptr<Throttling>
+          (new Throttling
+                 {
+                   // @todo Make some magic number `constexpr`s?
+                   { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 },
+                   0, 0 // No memory used yet; no throttling yet.
+                 })
      }),
   m_throttling(m_throttling_states.back().get()),
   m_throttling_active(false),
@@ -261,15 +263,16 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
    * we might lose a few messages' worth of memory stats; no problem. */
   const auto prev_pending_logs_sz = prev_throttling.m_pending_logs_sz.load(std::memory_order_relaxed);
 
-  auto new_throttling = std::make_unique<Throttling>
-                          (Throttling
-                             {
-                               cfg, // Copy-in the new config which is different.
-                               prev_pending_logs_sz,
-                               // Most importantly cleanly initialize m_throttling_now.
-                               prev_pending_logs_sz
-                                 >= static_cast<decltype(prev_pending_logs_sz)>(cfg.m_hi_limit)
-                             });
+  // (@todo make_unique() was complaining of lacking copy ctor; not sure why it is needed.  Not very important.)
+  boost::movelib::unique_ptr<Throttling> new_throttling
+                                           (new Throttling
+                                                  {
+                                                    cfg, // Copy-in the new config which is different.
+                                                    prev_pending_logs_sz,
+                                                    // Most importantly cleanly initialize m_throttling_now.
+                                                    prev_pending_logs_sz
+                                                      >= static_cast<decltype(prev_pending_logs_sz)>(cfg.m_hi_limit)
+                                                  });
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "Config set: hi_limit [" << cfg.m_hi_limit << "]; lo_limit [" << cfg.m_lo_limit << "].  "
