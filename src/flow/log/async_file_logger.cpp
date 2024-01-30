@@ -594,7 +594,7 @@ bool Async_file_logger::should_log(Sev sev, const Component& component) const //
 
 #if 1 //XXX Let's not even slow things down with should_log().  Obv change to `if 1` if debugging and want to see it.
   FLOW_LOG_TRACE("Async_file_logger [" << this << "]: "
-                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value << "]) "
+                 "should_log(sev=[" << sev << "]; component=[" << component.payload_enum_raw_value() << "]) "
                  "throttling algorithm situation (reminder: beware concurrency): "
                  "Throttling feature active? = 1; throttling? = [" << throttled << "].");
 #endif
