@@ -126,10 +126,11 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
   m_throttling_states
     ({
         boost::movelib::make_unique<Throttling>
-          ({
-             { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 }, // @todo Make some magic number `constexpr`s?
-             0, 0 // No memory used yet; no throttling yet.
-           })
+          (Throttling
+             {
+               { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 }, // @todo Make some magic number `constexpr`s?
+               0, 0 // No memory used yet; no throttling yet.
+             })
      }),
   m_throttling(m_throttling_states.back().get()),
   m_throttling_active(false),
