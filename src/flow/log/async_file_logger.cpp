@@ -123,9 +123,9 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    *
    * Note that these values -- 2GB, 1GB -- are not meant to be some kind of universally correct choice.  Users
    * can and should change them, but if they're not using the feature then they won't care anyway. */
-#if 0
+#if 1
   m_throttling_states
-    ({
+    {
         // (@todo make_unique() was complaining of lacking copy ctor; not sure why it is needed.  Not very important.)
         boost::movelib::unique_ptr<Throttling>
           (new Throttling
@@ -134,7 +134,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
                    { 2ull * 1024 * 1024 * 1024, 2ull * 1024 * 1024 * 1024 },
                    0, 0 // No memory used yet; no throttling yet.
                  })
-     }),
+    },
 #endif
   m_throttling(m_throttling_states.back().get()),
   m_throttling_active(false),
