@@ -528,6 +528,12 @@ size_t Async_file_logger::mem_cost(const Msg_metadata* metadata, util::String_vi
    * Instead we've established experimentally that with default STL and clangs 4-17 and gccs 5-13
    * SSO is active for .size() <= 15.  @todo Check LLVM libc++ too.  Probably same thing... SSO is well established. */
   return (call_thread_nickname_sz <= 15) ? ret : (ret + call_thread_nickname_sz);
+
+  /* @todo For style/reusability/maintainability this can be improved by adding deep_size() overloads or
+   * templates or specializations for various types above.  It is just a matter of coding effort.  Just make it
+   * equally-fast... things should constexpr when possible, inline (not explicitly, per our coding guide as of
+   * this writing, but inlinable) otherwise, and so on.  The above is OK for our purposes but can be improved
+   * for other places' use. */
 } // Async_file_logger::mem_cost()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
