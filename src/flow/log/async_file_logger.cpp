@@ -458,7 +458,8 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                     "Config: hi_limit [" << limit << "].  "
                     "Mem-use = [" << prev_pending_logs_sz << "] => 0; "
                     "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                    "Queue-clearing message is the one immediately following the current one you're reading in file.");
+                    "Queue-clearing message is the one immediately following me in file.  "
+                    "Compare its time stamp to mine to see time lag due to queueing.");
     }
 #if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
     else
@@ -491,9 +492,10 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "Nowadays: Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
                        "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                        "Limit-crossing (in the past) message is the one immediately preceding the current one "
-                       "you're reading in file.");
+                       "you're reading in file.  "
+                       "Compare its time stamp to mine to see time lag due to queueing.");
     } // if (throttling_begins)
-  }; // really_log() =
+  }; // really_log =
 
   // Enqueue it, after whatever others are already pending (hopefully not too many; ideally none).
   m_async_worker.post(std::move(really_log));
