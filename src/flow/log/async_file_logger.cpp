@@ -214,8 +214,11 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
   // Deal with `active`.
 
   const auto prev_active = m_throttling_active.exchange(active, std::memory_order_relaxed);
-  FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
-                "Config set: throttling feature active? [" << prev_active << "] => [" << active << "].");
+  if (prev_active != active)
+  {
+    FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
+                  "Config set: throttling feature active? [" << prev_active << "] => [" << active << "].");
+  }
 
   // Deal with `cfg`.
 
@@ -230,8 +233,18 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
     }
     // else
 
+    const auto prev_throttling_now
+      = m_throttling_now.exchange(m_pending_logs_sz >= static_cast<decltype(m_pending_logs_sz)>(cfg.m_hi_limit),
+                                  std::memory_order_relaxed);
+
+    FLOW_LOG_INFO("Async_file_logger [" << this << "]: Config set: "
+                  "hi_limit [" << m_throttling_cfg.m_hi_limit << "] => [" << cfg.m_hi_limit << "].  "
+                  "Mem-use = [" << m_pending_logs_sz << "]; "
+                  "throttling? = [" << prev_throttling_now << "] => [" << m_throttling_now << "]; "
+                  "throttling feature active? = [" << active << "].  "
+                  "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
+
     m_throttling_cfg.m_hi_limit = cfg.m_hi_limit;
-    m_throttling_now = (m_pending_logs_sz >= static_cast<decltype(m_pending_logs_sz)>(cfg.m_hi_limit));
   } // Lock_guard lock(m_throttling_mutex);
 } // Async_file_logger::throttling_cfg()
 
