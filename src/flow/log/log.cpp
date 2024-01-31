@@ -287,6 +287,8 @@ void beautify_chrono_logger_this_thread(Logger* logger_ptr)
 
 size_t deep_size(const Msg_metadata& val)
 {
+  using util::deep_size;
+
   /* Reminder: exclude sizeof(val); include only non-shallow memory used on val's behalf; so
    * sum of deep_size(X), for each X that is (1) a member of Msg_metadata; and (2) has a deep_size(X) free function.
    * As of this writing there is just one: */

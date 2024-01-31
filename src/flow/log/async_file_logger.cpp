@@ -254,7 +254,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * Here's the Log_request encapsulating that stuff.  See Log_request doc header for some nitty-gritty details. */
   const auto msg_copy_ptr = new char[msg.size()];
   memcpy(msg_copy_ptr, msg.data(), msg.size());
-  Log_request log_request{ msg_copy, msg.size(), metadata }; // We can't know m_throttling_begins yet.
+  Log_request log_request{ msg_copy_ptr, msg.size(), metadata }; // We can't know m_throttling_begins yet.
 
   /* Before enqueuing that stuff, though, let's tally up the stats and otherwise proceed with the throttling algorithm.
    * Please see Impl section of class doc header for detailed discussion.  Then come back here.
@@ -380,7 +380,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     m_serial_logger->do_log(metadata, msg);
 
     // Oh and obey throttling_begins for this log-request, if it was computed to be true in do_log().
-    if (throttling_begins)
+    if (log_request.throttling_begins)
     {
       // Performance in this block is not of huge import; this is a fairly rare event.
       FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
@@ -396,7 +396,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "Limit-crossing (in the past) message is the one immediately preceding the current one "
                        "you're reading in file.  "
                        "Compare its time stamp to mine to see time lag due to queueing.");
-    } // if (throttling_begins)
+    } // if (log_request.throttling_begins)
 
     /* Last but not least, as discussed in Log_request doc header, we must do this explicitly.
      * To reiterate: as of this writing, if this lambda body is not actually executed, then these will leak.
@@ -411,7 +411,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
 size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
 {
-  using util::deep_size;
+  using log::deep_size;
 
   /* We should strive to be quick here (also almost certainly we will be inlined, with full optimization anyway).
    * This is called in every do_log(), which can be not-infrequent; and really_log() in the background thread --
@@ -425,7 +425,7 @@ size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
          + sizeof(Log_request) // The main capture is this.  Firstly its shallow size.
          // Then account for every member's deep size (size beyond its sizeof).  @todo Make a deep_size() per pattern?
          + log_request.m_msg_size // m_msg_copy in heap.
-         + deep_size(log_request.m_metadata);
+         + deep_size(*log_request.m_metadata);
 } // Async_file_logger::mem_cost()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
