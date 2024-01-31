@@ -178,8 +178,18 @@ Async_file_logger::~Async_file_logger() // Virtual.
 
   /* Could do this from current thread (in fact if we simply deleted the following statement, that is what would
    * happen); that's still non-concurrent with other calls, as Serial_file_logger requires.
-   * I (ygoldfel) have a soft spot for being able to say only 1 thread touches the file after ctor; maybe that's
-   * silly.  Not a to-do to change it IMO. */
+   * However there is a subtle and important reason why the following is currently actively desired:
+   * By post()ing it -- meaning enqueuing it -- after any log-requests (function objects with a Log_request
+   * capture in each), and then awaiting the completion, we ensure those log requests are first serviced,
+   * or more in English: any pending log messages are actually written to file.
+   *
+   * Were we to not do so, some aspects of Log_request would be leaked here; as of this writing the message and
+   * the metadata.  (They are not RAII for reasons explained in Log_request doc header.)
+   *
+   * Note: If we wanted to avoid this behavior -- e.g., if huge amounts of log-requests have been queued, this
+   * statement can very much take quite a while, and maybe we want that, or maybe we don't -- and wanted to
+   * avoid a leak, we'd need to come up with some new trick.  For the time being though by doing this flush
+   * we both get desired functional behavior and avoid the leak. */
   m_async_worker.post([this]() { m_serial_logger.reset(); },
                       Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION);
 

@@ -223,6 +223,11 @@ namespace flow::util
  * simply represent the same area of memory; and resize() and co. can turn a non-overlapping range into an overlapping
  * one (encroaching on someone else's "territory" within the pool).
  *
+ * @todo Write a class template, perhaps `Tight_blob<Allocator, bool>`, which would be identical to Basic_blob
+ * but forego the framing features, namely size() and start(), thus storing only the RAII array pointer data()
+ * and capacity(); rewrite Basic_blob in terms of this `Tight_blob`.  This simple container type has had some demand
+ * in practice, and Basic_blob can and should be cleanly built on top of it (perhaps even as an IS-A subclass).
+ *
  * @tparam Allocator
  *         An allocator, with `value_type` equal to our #value_type, per the standard C++1x `Allocator` concept.
  *         In most uses this shall be left at the default `std::allocator<value_type>` which allocates in
