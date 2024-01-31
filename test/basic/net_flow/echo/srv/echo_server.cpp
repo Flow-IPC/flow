@@ -145,17 +145,17 @@ int Main::main(int argc, const char** argv)
       ++idx;
     }
 
-    boost::this_thread::sleep_for(boost::chrono::millseconds(200));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
     log_logger.throttling_cfg(false, { 1000 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::millseconds(200));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
     log_logger.throttling_cfg(false, { 800 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::millseconds(200));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
     log_logger.throttling_cfg(true, { 800 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::millseconds(200));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
     log_logger.throttling_cfg(true, { 10 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::millseconds(200));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
     log_logger.throttling_cfg(false, { 1000 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::millseconds(500));
+    boost::this_thread::sleep_for(boost::chrono::milliseconds(500));
   }
 #endif
 
