@@ -504,27 +504,30 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 size_t Async_file_logger::mem_cost(const Msg_metadata* metadata, util::String_view msg) // Static.
 {
   /* We should strive to be quick here (also almost certainly we will be inlined, with full optimization anyway).
-   * This is called in every do_log(), which can be non-infrequent; and really_log() in the background thread --
+   * This is called in every do_log(), which can be not-infrequent; and really_log() in the background thread --
    * though extreme efficiency there is less important.
    *
-   * This is an estimate; it need not be exact, as we use it as merely a heuristic when to throttle.  That said
-   * it should be roughly proportional to the memory used. */
+   * This is an estimate; it need not be exact, as we use it as merely a heuristic when to throttle.  For example
+   * it ignores whatever padding might be involved.  That said it should be roughly proportional to the memory used. */
 
 #if (!defined(__GNUC__)) || (!defined(__x86_64__))
 #  error "An estimation trick below has only been checked with x64 gcc and clang.  Revisit code for other envs."
 #endif
 
   const auto call_thread_nickname_sz = metadata->m_call_thread_nickname.size();
-  return msg.size() // Presumably the biggest/most important.
-         // The lambda captures.
-         + sizeof(Mdt_wrapper) + sizeof(Tight_blob) + sizeof(bool) + sizeof(Async_file_logger*)
-         /* Mdt_wrapper = Msg_metadata contains `std::string m_call_thread_nickname`.
-          * If the thread nickname exists and is long enough to not fit inside the std::string object itself
-          * (common optimization in STL: Small String Optimization), then it'll allocate a buffer in heap.
-          * We could even determine whether it actually happened here at runtime, but that wastes cycles.
-          * Instead we've established experimentally that with default STL and clangs 4-17 and gccs 5-13
-          * SSO is active for .size() <= 15.  @todo Check LLVM libc++ too.  Probably similar. */
-         + ((call_thread_nickname_sz <= 15) ? 0 : call_thread_nickname_sz);
+  auto ret = sizeof(async::Task) // Function object sans captures.
+             // The lambda captures: msg handle, metadata handle, an informational bool, `this`.
+             + sizeof(Mdt_wrapper) + sizeof(Tight_blob) + sizeof(bool) + sizeof(Async_file_logger*)
+             // Heap buffers: *metadata, msg payload.  Only the latter is not-compile-time-known in this formula.
+             + sizeof(Msg_metadata) + msg.size();
+
+  /* *(Mdt_wrapper.data()) = Msg_metadata contains `std::string m_call_thread_nickname`.
+   * If the thread nickname exists and is long enough to not fit inside the std::string object itself
+   * (common optimization in STL: Small String Optimization), then it'll allocate a buffer in heap.
+   * We could even determine whether it actually happened here at runtime, but that wastes cycles.
+   * Instead we've established experimentally that with default STL and clangs 4-17 and gccs 5-13
+   * SSO is active for .size() <= 15.  @todo Check LLVM libc++ too.  Probably same thing... SSO is well established. */
+  return (call_thread_nickname_sz <= 15) ? ret : (ret + call_thread_nickname_sz);
 } // Async_file_logger::mem_cost()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
