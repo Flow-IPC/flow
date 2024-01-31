@@ -213,7 +213,7 @@ namespace flow::log
  * throttle or not-throttle a tiny bit of time after another: it's absolutely not a problem.  Moreover there is
  * zero penalty to a `relaxed` load of `atomic<bool>` compared to simply accessing a `bool`.  Adding a `bool` check
  * to should_log() is not nothing, but it's very close.
- * 
+ *
  * The only remaining thing in the mutex-lock section of should_log() (see pseudocode above) is the
  * Boolean check of #m_throttling_now.  There is exactly one consumer of this Boolean: should_log().  Again
  * let's replace `bool m_throttling_now` with `atomic<bool> m_throttling_now`; and load it with `relaxed` ordering
@@ -284,7 +284,7 @@ namespace flow::log
  * Let's reassert the overhead and potential lock contention added on account of the throttling logic
  * in do_log() are minor.  (If so, then `really_log()` and throttling_cfg() mutator need not be scrutinized, as they
  * matter less and much less respectively.)  We've already noted this, but let's make sure.
- * 
+ *
  *   - Added cycles (assuming no lock contention): To enumerate this overhead:
  *     - mem_cost().  This adds `msg.size()` (a `size_t` memory value) to a compile-time constant, more or less.
  *     - Increment M by that number (`+=` with saving a `prev_val` and resulting `new_val`).
@@ -336,7 +336,7 @@ public:
    * As noted there, value(s) therein affect the algorithm for computing Throttling versus Not-Throttling state but
    * *not* whether should_log() actually allows that state to have any effect.  That is controlled by a peer
    * argument to throttling_cfg().
-   * 
+   *
    * @internal
    * ### Rationale ###
    * Why the `struct` and not just expose `m_hi_limit` by itself?  Answer: there is a "note" about it in the
@@ -521,6 +521,62 @@ private:
   /// Short-hand for a signal set.
   using Signal_set = boost::asio::signal_set;
 
+  /**
+   * In addition to the task object (function) itself, these are the data placed onto the queue of `m_async_worker`
+   * tasks for a particular `do_log()` call, to be used by that task and then freed.
+   *
+   * @see mem_cost().
+   *
+   * ### Rationale/details ###
+   * The object is movable which is important.  It is also copyable but only because as of this writing C++17
+   * requires captures by value to be copyable (in order to compile), even though this is *not executed at runtime*,
+   * unless one actually needs to make a copy of the function object (which we avoid like the plague).
+   *
+   * We try hard -- harder than in most situations -- to keep the memory footprint of this thing as small as possible,
+   * right down to even avoiding a `shared_ptr`, when a raw or `unique_ptr` is enough; and not storing the result
+   * of mem_cost() (but rather recomputing it inside the `m_async_worker` task).  That is because of the same memory
+   * use potential problem with which the throttling feature (see Async_file_logger class doc header) grapples.
+   *
+   * Ideally each item stored here has RAII semantics, meaning once the object is destroyed, the stuff referred-to
+   * therein is destroyed.  However you'll notice this is not the case at least for #m_metadata and
+   * for #m_msg_copy.  Therefore the function body (the `m_async_worker` task for this Log_request) must manually
+   * `delete` these objects from the heap.  Moreover, if the lambda were to never run (e.g., if we destroyed or
+   * stopped `m_async_worker` while tasks are still enqueued), they'd get leaked.  (As of this writing we always
+   * flush the queue in Async_file_logger dtor for this and another reason.)
+   *
+   * So why not just use `unique_ptr` then?  The reason is above: they're not copyable, and we need it to be,
+   * as otherwise C++17 won't let Log_request be value-captured in lambda.  One can use `shared_ptr`; this is elegant,
+   * but at this point we're specifically trying to reduce the RAM use to the bare minimum, so we avoid even
+   * the control block size of `shared_ptr`.  For #m_msg_copy one could have used `std::string` or util::Basic_blob
+   * or `std::vector`, but they all have some extra members we do not need (size on top of capacity; `Basic_blob`
+   * also has `m_start`).  (util::Basic_blob doc header as of this writing has a to-do to implement a
+   * `Tight_blob` class with just the pointer and capacity, no extras; so that would have been useful.)  Even
+   * with those options that would've still left #m_metadata.  One could write little wrapper classes for both
+   * the string blob #m_msg_copy and Msg_metadata #m_metadata, and that did work.  Simply put, however, storing the
+   * rare raw pointers and then explicitly `delete`ing them in one spot is just much less boiler-plate.
+   *
+   * @warning Just be careful with maintenance.  Tests should indeed try to force the above leak and use sanitizers
+   * (etc.) to ensure it is avoided.
+   */
+  struct Log_request
+  {
+    /// Pointer to array of characters comprising a copy of `msg` passed to `do_log()`.  We must `delete[]` it.
+    char* m_msg_copy;
+
+    /// Number of characters in #m_msg_copy pointee string.
+    size_t m_msg_size;
+
+    /// Pointer to array of characters comprising a copy of `msg` passed to `do_log()`.  We must `delete` it.
+    Msg_metadata* m_metadata;
+
+    /**
+     * Whether this log request was such that its memory footprint (`mem_cost()`) pushed `m_pending_logs_sz` from
+     * `< m_throttling_cfg.m_hi_limit` to `>= m_throttling_cfg.m_hi_limit` for the first time since it was last
+     * equal to zero.
+     */
+    bool m_throttling_begins;
+  }; // struct Log_request
+
   // Methods.
 
   /**
@@ -536,17 +592,17 @@ private:
   void on_rotate_signal(const Error_code& sys_err_code, int sig_number);
 
   /**
-   * How much do_log() with the same args shall contribute to Trottling::m_pending_logs_sz.
+   * How much do_log() issuing the supplied Log_request shall contribute to #m_pending_logs_sz.
    * See discussion of throttling algorithm in Impl section of class doc header.  This always returns the same value
-   * if given (informally speaking) the same args.
+   * if given (informally speaking) the same arg.
    *
-   * @param metadata
-   *        See do_log().
-   * @param msg
-   *        See do_log().
+   * @param log_request
+   *        See do_log(): essentially filled-out with `msg`- and `metadata`-derived info.
+   *        The value of Log_request::m_throttling_begins is ignored in the computation (it would not affect it
+   *        anyway), but the other fields must be set.
    * @return Positive value.
    */
-  static size_t mem_cost(const Msg_metadata* metadata, util::String_view msg);
+  static size_t mem_cost(const Log_request& log_request);
 
   // Data.
 

@@ -26,85 +26,6 @@
 namespace flow::log
 {
 
-namespace
-{
-  // Locally used utility types.  Leaving out doc boiler-plate to remain concise.  See do_log() for key context.
-
-  /// @cond
-  // -^- Doxygen, please ignore the following.  We don't need this appearing as undocumented classes or something.
-
-  class Tight_blob final
-  {
-  public:
-    explicit Tight_blob(const char* src, size_t sz) :
-      m_size(sz),
-      m_data(boost::movelib::make_unique_definit<char[]>(m_size)) // Save a few cycles by not zero-initializing.
-    {
-      std::memcpy(m_data.get(), src, size());
-    }
-    Tight_blob(const Tight_blob& other) :
-      Tight_blob(other.data(), other.size())
-    {
-      // Done.
-    }
-    Tight_blob(Tight_blob&& other) noexcept = default;
-
-    Tight_blob& operator=(const Tight_blob&) = delete;
-    Tight_blob& operator=(Tight_blob&&) = delete;
-
-    size_t size() const noexcept
-    {
-      return m_size;
-    }
-
-    const char* data() const
-    {
-      return m_data.get();
-    }
-
-  private:
-    size_t m_size;
-    boost::movelib::unique_ptr<char[]> m_data;
-  }; // class Tight_blob
-
-  // Same deal with *metadata.
-  class Mdt_wrapper final
-  {
-  public:
-    explicit Mdt_wrapper(Msg_metadata* metadata) :
-      m_data(metadata)
-    {
-      // Done.
-    }
-    /* Reminder: this will not be called but is required for std::function<> + lambda capture to compile.
-     * Thogh it's not criminal even if it were called: it merely copies a Msg_metadata. */
-    Mdt_wrapper(const Mdt_wrapper& other) :
-      Mdt_wrapper(new Msg_metadata(*(other.data())))
-    {
-      // Done.
-    }
-    Mdt_wrapper(Mdt_wrapper&& other) noexcept = default;
-
-    Mdt_wrapper& operator=(const Mdt_wrapper&) = delete;
-    Mdt_wrapper& operator=(Mdt_wrapper&&) = delete;
-
-    const Msg_metadata* data() const
-    {
-      return m_data.get();
-    }
-    Msg_metadata* data()
-    {
-      return m_data.get();
-    }
-
-  private:
-    boost::movelib::unique_ptr<Msg_metadata> m_data;
-  }; // class Mdt_wrapper
-} // namespace (anon)
-
-// -v- Doxygen, please stop ignoring.
-/// @endcond
-
 // Implementations.
 
 Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
@@ -301,13 +222,31 @@ void Async_file_logger::on_rotate_signal(const Error_code& sys_err_code, int sig
 void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) // Virtual.
 {
   using util::String_view;
+  using std::memcpy;
 
   assert(metadata);
 
   /* Our essential task is to push the log-request onto the m_async_worker queue; the code for processing
    * that log-request, once the queue gets to it in that worker thread, is called really_log() and is in here too.
    *
-   * First, though, let's tally up the stats and otherwise proceed with the throttling algorithm.
+   * Key points about how the asynchronicity/logging/queueing works: We aim to return synchronously ASAP and leave the
+   * potentially blocking (like if hard drive has to turn on from sleep) I/O ops to the worker thread asynchronously.
+   * There are 2 pieces of data, *metadata and `msg`, to deal with, both of which essentially must be available when
+   * we in fact write to file via m_serial_logger.  By contract of do_log() and logs_asynchronously()==true:
+   *   - We are to NOT copy *metadata; and therefore we are to `delete metadata` when done with it; i.e., after
+   *     m_serial_logger->do_log() returns having written to file-system.
+   *   - We MUST copy `msg` so we can use it asynchronously; we are to therefore free the copy ourselves once
+   *     m_serial_logger->do_log() returns.  (In reality this is all because `msg` is a shared thread-lcl thing that is
+   *     reused in every subsequent and preceding FLOW_LOG_WARNING/etc. invocation in this thread.  We technically don't
+   *     know or care about that reality in here; only the *result* wherein we cannot use `msg` after do_log()
+   *     synchronously returns.)
+   *
+   * Here's the Log_request encapsulating that stuff.  See Log_request doc header for some nitty-gritty details. */
+  const auto msg_copy_ptr = new char[msg.size()];
+  memcpy(msg_copy_ptr, msg.data(), msg.size());
+  Log_request log_request{ msg_copy, msg.size(), metadata }; // We can't know m_throttling_begins yet.
+
+  /* Before enqueuing that stuff, though, let's tally up the stats and otherwise proceed with the throttling algorithm.
    * Please see Impl section of class doc header for detailed discussion.  Then come back here.
    * We rely on the background in that discussion frequently.
    *
@@ -315,8 +254,8 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * compared to should_log()).  Similarly keep the locked section as small as possible. */
 
   using logs_sz_t = decltype(m_pending_logs_sz);
-  const auto logs_sz = mem_cost(metadata, msg);
-  bool throttling_begins = false;
+  const auto logs_sz = mem_cost(log_request);
+  auto& throttling_begins = log_request.m_throttling_begins;
   logs_sz_t limit;
   logs_sz_t pending_logs_sz;
   logs_sz_t prev_pending_logs_sz;
@@ -364,62 +303,15 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *
    * Now for the enqueueing of the log-request. */
 
-  /* Key points about how the asynchronicity/logging/queueing works: We aim to return synchronously ASAP and leave the
-   * potentially blocking (like if hard drive has to turn on from sleep) I/O ops to the worker thread asynchronously.
-   * There are 2 pieces of data, *metadata and `msg`, to deal with, both of which essentially must be available when
-   * we in fact write to file via m_serial_logger.  By contract of do_log() and logs_asynchronously()==true:
-   *   - We are to NOT copy *metadata; and therefore we are to `delete metadata` when done with it; i.e., after
-   *     m_serial_logger->do_log() returns having written to file-system.
-   *   - We MUST copy `msg` so we can use it asynchronously; we are to therefore free the copy ourselves once
-   *     m_serial_logger->do_log() returns.  (In reality this is all because `msg` is a shared thread-lcl thing that is
-   *     reused in every subsequent and preceding FLOW_LOG_WARNING/etc. invocation in this thread.  We technically don't
-   *     know or care about that reality in here; only the *result* wherein we cannot use `msg` after do_log()
-   *     synchronously returns.) */
-
-  /* The other thing going on here: We need to capture a copy of `msg` in some form in the lambda post()ed below.
-   * The native way would be to perhaps create a `string`, or `vector<char>`, or util::Basic_blob, but this
-   * code is executed quite frequently -- so we'd like to minimize processor use -- and perhaps more importantly
-   * in very heavy logging conditions we want to minimize the memory used by this copy.  This means:
-   *   - guarantee allocating exactly msg.size() bytes -- no overhead (there's no formal guarantee string
-   *     or vector ctor will do that, though Basic_blob does);
-   *   - do not store extra members.  string and vector store an m_capacity but also m_size; but for our purposes
-   *     (since the copy is never modified in any way; it is just logged and destroyed) m_size is extra.
-   *     Basic_blob similarly does that, plus it has an extra feature for which it stores an extra size_t m_start.
-   *   - The object needs to have RAII semantics, meaning if it is destroyed, then the allocated buffer is
-   *     deallocated.  (So we can't just store a raw `char*`; need smart pointer ultimately to ensure deletion even
-   *     if lambda is never executed but is instead destroyed first.)
-   * So we use a custom little thing called Tight_blob.
-   * (@todo Take those parts of Basic_blob and make a util::Tight_blob; then write Basic_blob in terms of Tight_blob.
-   * Then it'll be reusable.)
-   * Tight_blob is straightforward, and really we'd like to just capture simply a unique_ptr and m_size, in which
-   * case Tight_blob wouldn't even be needed; but a peculiarity of std::function prevents this:
-   *   - Any captured type must be *copyable*, even though this ability is never exercised.  So capturing unique_ptr
-   *     would not compile: it has no copy ctor.  shared_ptr works great, but it does store a control block; we're
-   *     going for absolute minimum memory overhead.
-   *   - So we do write this little Tight_blob and outfit it with a functioning copy ctor -- but remember, it won't
-   *     really be called. */
-
-  auto really_log
-    = [this,
-       /* We could just capture `metadata` and `delete metadata` in the lambda {body};
-        * in fact we could do similarly with a raw `char* msg_copy` too.  However then they can leak*
-        * if *this is destroyed before the lambda body has a chance to execute.  
-        * Whereas by wrapping them in unique_ptr<>s we get RAII deletion with ~no memory cost (just a pointer
-        * copy from `metadata` into m_data; sizeof(m_data) == sizeof(Msg_metadata*)).
-        * (*Update: Correction: No leak would occur: Our destructor flushes all output before returning.
-        * However it is still more maintainable to avoid a leaky lambda by using unique_ptr.  More code though.
-        * That said the util::Tight_blob to-do will cut down on that.) */
-       mdt_wrapper = Mdt_wrapper{metadata},
-       msg_copy_blob = Tight_blob{msg.data(), msg.size()},
-       throttling_begins]() mutable
+  auto really_log = [this, log_request = std::move(log_request)]() mutable
   {
-    const auto metadata = mdt_wrapper.data();
-    const String_view msg{msg_copy_blob.data(), msg_copy_blob.size()};
+    const auto metadata = log_request.m_metadata;
+    const String_view msg{log_request.m_msg_copy, log_request.m_msg_size};
 
     /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request.
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
-    const auto logs_sz = mem_cost(metadata, msg);
+    const auto logs_sz = mem_cost(log_request);
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
     bool throttling_ends = false;
     logs_sz_t pending_logs_sz;
@@ -495,14 +387,22 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                        "you're reading in file.  "
                        "Compare its time stamp to mine to see time lag due to queueing.");
     } // if (throttling_begins)
+
+    /* Last but not least, as discussed in Log_request doc header, we must do this explicitly.
+     * To reiterate: as of this writing, if this lambda body is not actually executed, then these will leak.
+     * As of this writing we ensure it *is* executed, in the Async_file_logger dtor at the latest. */
+    delete[] log_request.m_msg_copy;
+    delete metadata;
   }; // really_log =
 
   // Enqueue it, after whatever others are already pending (hopefully not too many; ideally none).
   m_async_worker.post(std::move(really_log));
 } // Async_file_logger::do_log()
 
-size_t Async_file_logger::mem_cost(const Msg_metadata* metadata, util::String_view msg) // Static.
+size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
 {
+  using util::deep_size;
+
   /* We should strive to be quick here (also almost certainly we will be inlined, with full optimization anyway).
    * This is called in every do_log(), which can be not-infrequent; and really_log() in the background thread --
    * though extreme efficiency there is less important.
@@ -510,30 +410,12 @@ size_t Async_file_logger::mem_cost(const Msg_metadata* metadata, util::String_vi
    * This is an estimate; it need not be exact, as we use it as merely a heuristic when to throttle.  For example
    * it ignores whatever padding might be involved.  That said it should be roughly proportional to the memory used. */
 
-#if (!defined(__GNUC__)) || (!defined(__x86_64__))
-#  error "An estimation trick below has only been checked with x64 gcc and clang.  Revisit code for other envs."
-#endif
-
-  const auto call_thread_nickname_sz = metadata->m_call_thread_nickname.size();
-  auto ret = sizeof(async::Task) // Function object sans captures.
-             // The lambda captures: msg handle, metadata handle, an informational bool, `this`.
-             + sizeof(Mdt_wrapper) + sizeof(Tight_blob) + sizeof(bool) + sizeof(Async_file_logger*)
-             // Heap buffers: *metadata, msg payload.  Only the latter is not-compile-time-known in this formula.
-             + sizeof(Msg_metadata) + msg.size();
-
-  /* *(Mdt_wrapper.data()) = Msg_metadata contains `std::string m_call_thread_nickname`.
-   * If the thread nickname exists and is long enough to not fit inside the std::string object itself
-   * (common optimization in STL: Small String Optimization), then it'll allocate a buffer in heap.
-   * We could even determine whether it actually happened here at runtime, but that wastes cycles.
-   * Instead we've established experimentally that with default STL and clangs 4-17 and gccs 5-13
-   * SSO is active for .size() <= 15.  @todo Check LLVM libc++ too.  Probably same thing... SSO is well established. */
-  return (call_thread_nickname_sz <= 15) ? ret : (ret + call_thread_nickname_sz);
-
-  /* @todo For style/reusability/maintainability this can be improved by adding deep_size() overloads or
-   * templates or specializations for various types above.  It is just a matter of coding effort.  Just make it
-   * equally-fast... things should constexpr when possible, inline (not explicitly, per our coding guide as of
-   * this writing, but inlinable) otherwise, and so on.  The above is OK for our purposes but can be improved
-   * for other places' use. */
+  return sizeof(async::Task) // Don't forget the function object itself.  Then the captures:
+         + sizeof(Async_file_logger*) // `this`.
+         + sizeof(Log_request) // The main capture is this.  Firstly its shallow size.
+         // Then account for every member's deep size (size beyond its sizeof).  @todo Make a deep_size() per pattern?
+         + log_request.m_msg_size // m_msg_copy in heap.
+         + deep_size(log_request.m_metadata);
 } // Async_file_logger::mem_cost()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
