@@ -302,9 +302,9 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    * compared to should_log()).  Similarly keep the locked section as small as possible. */
 
   using logs_sz_t = decltype(m_pending_logs_sz);
-  logs_sz_t limit;
   const auto logs_sz = mem_cost(metadata, msg);
   bool throttling_begins = false;
+  logs_sz_t limit;
   logs_sz_t pending_logs_sz;
   logs_sz_t prev_pending_logs_sz;
   {
@@ -341,7 +341,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                   "do_log() throttling algorithm: a message was processed; situation (reminder: beware concurrency): "
                   "Config: hi_limit [" << limit << "].  "
-                  "Mem-use = [" << prev_pending_logs_sz << "] => [" << m_pending_logs_sz << "]; "
+                  "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
                   "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                   "Message's contents follow: [" << msg << "].");
   }
@@ -406,12 +406,12 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     /* Throttling: do, essentially, the opposite of what do_log() did when issuing the log-request.
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
-    decltype(m_throttling_cfg.m_hi_limit) limit;
     const auto logs_sz = mem_cost(metadata, msg);
     // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
     bool throttling_ends = false;
     logs_sz_t pending_logs_sz;
     logs_sz_t prev_pending_logs_sz;
+    logs_sz_t limit;
     {
       Lock_guard lock(m_throttling_mutex);
       limit = m_throttling_cfg.m_hi_limit; // Just for logging in this case.

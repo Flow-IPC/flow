@@ -162,7 +162,7 @@ namespace flow::log
  *     whether throttling should make us return `false` after all.  So:
  *     - Lock mutex.
  *       - If #m_throttling_active is `false` (feature disabled) then return `true`.  Else:
- *       - If `m_throttling_now` is `false` (state is Not-Throttling) then return `true`.  Else:
+ *       - If #m_throttling_now is `false` (state is Not-Throttling) then return `true`.  Else:
  *       - Return `false`.  (Throttling feature enabled, and state is currently Not-Throttling.)
  *   - `do_log(metadata, msg)`:
  *     - Compute `C = mem_cost(msg)` which inlines to essentially `msg.size()` + some compile-time constant.
@@ -171,9 +171,9 @@ namespace flow::log
  *       - Increment `m_pending_logs_sz` by `C`.  `m_pending_logs_sz` is called M in the earlier discussion: the
  *         memory use estimate of things do_log() has enqueued but `really_log()` (see just below) has not
  *         yet dequeued and logged to file.
- *       - If and only if `m_throttling_now` is `false`, and we just made `m_pending_logs_sz` go from
+ *       - If and only if #m_throttling_now is `false`, and we just made `m_pending_logs_sz` go from
  *         `< m_throttling_cfg.m_hi_limit` (a/k/a H) to `>= m_throttling_cfg.m_hi_limit`, then
- *         set `m_throttling_now` to `true`; and set `throttling_begins = true`.
+ *         set #m_throttling_now to `true`; and set `throttling_begins = true`.
  *     - Enqueue the log-request:
  *       - Capture `metadata`; a copy of `msg`; and `throttling_begins`.
  *       - `m_async_worker.post()` the lambda which invokes `really_log()` with those 3 items as args.
@@ -186,8 +186,8 @@ namespace flow::log
  *     - Let local `bool throttling_ends = false`.
  *     - Lock mutex.
  *       - Decrement `m_pending_logs_sz` (a/k/a M) by `C`.
- *       - If and only if `m_throttling_now` is `true`, and we just made `m_pending_logs_sz` go down to 0, then
- *         set `m_throttling_now` to `true`; and set `throttling_begins = true`.
+ *       - If and only if #m_throttling_now is `true`, and we just made `m_pending_logs_sz` go down to 0, then
+ *         set #m_throttling_now to `true`; and set `throttling_begins = true`.
  *     - If `throttling_ends == true`: via `m_serial_logger->do_log()` write-out a special message
  *       indicating that state has changed from Throttling to Not-Throttling due to mem-use reaching 0.
  *   - `throttling_cfg(active, cfg)` mutator:
@@ -215,14 +215,14 @@ namespace flow::log
  * to should_log() is not nothing, but it's very close.
  * 
  * The only remaining thing in the mutex-lock section of should_log() (see pseudocode above) is the
- * Boolean check of `m_throttling_now`.  There is exactly one consumer of this Boolean: should_log().  Again
+ * Boolean check of #m_throttling_now.  There is exactly one consumer of this Boolean: should_log().  Again
  * let's replace `bool m_throttling_now` with `atomic<bool> m_throttling_now`; and load it with `relaxed` ordering
  * in should_log(), outside any shared mutex-lock section.  There are exactly 3 assigners: do_log() and `really_log()`;
  * they assign this when M 1st goes up past H (assign `true`) or 1st down to 0 (assign `false`) respectively;
  * and throttling_cfg() mutator (assign depending on where M is compared to the new H).  So let's assume -- and
  * we'll discuss the bejesus out of it below -- we ensure the assigning algorithm among those
- * 3 places is made to work properly, meaning `m_throttling_now` (Throttling versus Not-Throttling state)
- * algorithm is made to work correctly in and of itself.  Then should_log() merely needs to read `m_throttling_now`
+ * 3 places is made to work properly, meaning #m_throttling_now (Throttling versus Not-Throttling state)
+ * algorithm is made to work correctly in and of itself.  Then should_log() merely needs to read #m_throttling_now
  * and check it against `true` to return `should_log() == false` iff so.  Once again, if `relaxed` ordering
  * causes some threads to "see" a new value a little later than others, that is perfectly fine.
  * (We re-emphasize that the 3 mutating assignment events are hardly frequent: only when passing H going up for the
@@ -252,9 +252,9 @@ namespace flow::log
  *     - Let local `bool throttling_begins = false`.
  *     - Lock mutex.
  *       - `m_pending_logs_sz += C`.
- *       - If and only if `m_throttling_now` is `false`, and we just made `m_pending_logs_sz` go from
+ *       - If and only if #m_throttling_now is `false`, and we just made `m_pending_logs_sz` go from
  *         `< m_throttling_cfg.m_hi_limit` to `>= m_throttling_cfg.m_hi_limit`, then
- *         set `m_throttling_now` to `true`; and set `throttling_begins = true`.
+ *         set #m_throttling_now to `true`; and set `throttling_begins = true`.
  *     - Enqueue the log-request:
  *       - Capture `metadata`; a copy of `msg`; and `throttling_begins`.
  *       - `m_async_worker.post()` the lambda which invokes `really_log()` with those 3 items as inputs.
@@ -267,8 +267,8 @@ namespace flow::log
  *     - Let local `bool throttling_ends = false`.
  *     - Lock mutex.
  *       - `m_pending_logs_sz -= C`.
- *       - If and only if `m_throttling_now` is `true`, and we just made `m_pending_logs_n == 0`,
- *         then set `m_throttling_now` to `false`; and set `throttling_ends = true`.
+ *       - If and only if #m_throttling_now is `true`, and we just made `m_pending_logs_sz == 0`,
+ *         then set #m_throttling_now to `false`; and set `throttling_ends = true`.
  *     - If `throttling_ends == true`: via `m_serial_logger->do_log()` write-out:
  *       state has changed from Throttling to Not-Throttling due to mem-use use reaching 0.
  *   - `throttling_cfg(active, cfg)` mutator:
@@ -595,7 +595,7 @@ private:
    * As explained in detail in Throttling section in class doc header, this is queried only in should_log()
    * and only as a gate to access the results of the always-on throttling algorithm.  That algorithm, whose
    * data reside in other `m_throttling_*` and #m_pending_logs_sz, is always active; but this
-   * `m_throttling_active` flag determines whether that algorithm's output #m_throttling_on is used or ignored
+   * `m_throttling_active` flag determines whether that algorithm's output #m_throttling_now is used or ignored
    * by should_log().
    *
    * It is atomic, and accessed with `relaxed` order only, due to being potentially frequently accessed in
