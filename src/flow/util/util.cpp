@@ -183,4 +183,20 @@ void beautify_chrono_ostream(std::ostream* os_ptr)
   os << symbol_format;
 }
 
+size_t deep_size(const std::string& val)
+{
+#if (!defined(__GNUC__)) || (!defined(__x86_64__))
+#  error "An estimation trick below has only been checked with x64 gcc and clang.  Revisit code for other envs."
+#endif
+
+  /* If it is long enough to not fit inside the std::string object itself
+   * (common optimization in STL: Small String Optimization), then it'll allocate a buffer in heap.
+   * We could even determine whether it actually happened here at runtime, but that wastes cycles
+   * (original use case is in log::Async_file_logger specifically where every cycle counts).
+   * Instead we've established experimentally that with default STL and clangs 4-17 and gccs 5-13
+   * SSO is active for .capacity() <= 15.  @todo Check LLVM libc++ too.  Prob same thing... SSO is well established. */
+  const auto sz = val.capacity();
+  return (sz <= 15) ? 0 : sz;
+}
+
 } // namespace flow::util

@@ -918,6 +918,16 @@ Enum istream_to_enum(std::istream* is_ptr, Enum enum_default, Enum enum_sentinel
  */
 void beautify_chrono_ostream(std::ostream* os);
 
+/**
+ * Estimate of memory footprint of the given value, including memory allocated on its behalf -- but
+ * excluding its shallow `sizeof`! -- in bytes.
+ *
+ * @param val
+ *        Value.
+ * @return See above.
+ */
+size_t deep_size(const std::string& val);
+
 // Macros.
 
 /**

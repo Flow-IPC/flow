@@ -18,6 +18,7 @@
 /// @file
 #include "flow/log/log.hpp"
 #include "flow/error/error.hpp"
+#include "flow/util/util_fwd.hpp"
 
 namespace flow::log
 {
@@ -282,6 +283,14 @@ void beautify_chrono_logger_this_thread(Logger* logger_ptr)
   {
     beautify_chrono_ostream(logger_ptr->this_thread_ostream());
   }
+}
+
+size_t deep_size(const Msg_metadata& val)
+{
+  /* Reminder: exclude sizeof(val); include only non-shallow memory used on val's behalf; so
+   * sum of deep_size(X), for each X that is (1) a member of Msg_metadata; and (2) has a deep_size(X) free function.
+   * As of this writing there is just one: */
+  return deep_size(val.m_call_thread_nickname);
 }
 
 } // namespace flow::log
