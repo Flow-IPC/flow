@@ -190,7 +190,7 @@ namespace flow::log
  *     - Lock mutex.
  *       - Decrement `m_pending_logs_sz` (a/k/a M) by `C`.
  *       - If #m_throttling_now is `true`, and we just made `m_pending_logs_sz` go down to 0, then
- *         set #m_throttling_now to `true`; and set `throttling_begins = true`.
+ *         set #m_throttling_now to `false`; and set `throttling_ends = true`.
  *     - If `throttling_ends == true`: via `m_serial_logger->do_log()` write-out a special message
  *       indicating that state has changed from Throttling to Not-Throttling due to mem-use reaching 0.
  *   - `throttling_cfg(active, cfg)` mutator:
