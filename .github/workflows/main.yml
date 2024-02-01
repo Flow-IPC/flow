@@ -8,10 +8,10 @@ name: Flow pipeline
 on:
   pull_request:
     branches:
-      - main
+      - b
   push:
     branches:
-      - main
+      - b
     tags:
       - v*
   workflow_dispatch:
