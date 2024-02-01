@@ -111,53 +111,8 @@ int Main::main(int argc, const char** argv)
   log_config.configure_default_verbosity(Sev::S_DATA, true);
   /* First arg: could use &m_logger to log-about-logging to console; but it's a bit heavy for such a console-dependent
    * little program.  Just just send it to /dev/null metaphorically speaking. */
-  Async_file_logger log_logger(&m_logger, // XXX 0,
+  Async_file_logger log_logger(0,
                                &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
-
-  // XXX
-#if 1
-  log_logger.throttling_cfg(true, log_logger.throttling_cfg());
-  log_logger.throttling_cfg(true, { 1000 * 1000 });
-
-  {
-    std::atomic<uint64_t> counter = 0;
-    std::function<void (flow::async::Single_thread_task_loop*)> do_log = [&](auto&& loop)
-    {
-      auto cntr = ++counter;
-      FLOW_LOG_SET_CONTEXT(&log_logger, flow::Flow_log_component::S_UNCAT);
-      FLOW_LOG_INFO("12345678901234567890123456789012345678901234567890 / ctr = [" << cntr << "].");
-
-      loop->post([&, loop2 = loop]() { do_log(loop2); });
-    };
-
-    constexpr size_t N = 10;
-    std::vector<boost::movelib::unique_ptr<flow::async::Single_thread_task_loop>> loops(N);
-    size_t idx = 0;
-    for (auto& loop : loops)
-    {
-      loop.reset(new flow::async::Single_thread_task_loop(nullptr, flow::util::ostream_op_string("loop", idx)));
-      loop->post([&]()
-      {
-        do_log(loop.get());
-      });
-      loop->start();
-
-      ++idx;
-    }
-
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
-    log_logger.throttling_cfg(false, { 1000 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
-    log_logger.throttling_cfg(false, { 800 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
-    log_logger.throttling_cfg(true, { 800 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
-    log_logger.throttling_cfg(true, { 10 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(200));
-    log_logger.throttling_cfg(false, { 1000 * 1000 });
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(500));
-  }
-#endif
 
   if ((argc == 1) || ((argc - 1) > 2) || (((argc - 1) == 2) && (argv[2] != LOCALHOST_TOKEN)))
   {
