@@ -299,7 +299,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
                      "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
                      "Limit-triggering message's contents follow: [" << msg << "].");
   }
-#if 1 // XXX Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
+#if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
   else
   {
     FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
