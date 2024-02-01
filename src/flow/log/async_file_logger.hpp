@@ -516,7 +516,8 @@ public:
    * @param active
    *        Whether the feature shall be in effect (if should_log() will
    *        potentially consider Throttling versus Not-Throttling state; else it will ignore it).
-   * @param The new values for knobs controlling the behavior of the algorithm that determines
+   * @param cfg
+   *        The new values for knobs controlling the behavior of the algorithm that determines
    *        Throttling versus Not-Throttling state.
    */
   void throttling_cfg(bool active, const Throttling_cfg& cfg);
