@@ -631,6 +631,16 @@ private:
    */
   static size_t mem_cost(const Log_request& log_request);
 
+  /**
+   * Estimate of memory footprint of the given value, including memory allocated on its behalf -- but
+   * excluding its shallow `sizeof`! -- in bytes.
+   *
+   * @param val
+   *        Value.
+   * @return See above.
+   */
+  static size_t deep_size(const Log_request& val);
+
   // Data.
 
   /**

@@ -287,6 +287,8 @@ void beautify_chrono_logger_this_thread(Logger* logger_ptr)
 
 size_t deep_size(const Msg_metadata& val)
 {
+  // We're following the loose pattern explained at the end of Async_file_logger::mem_cost().
+
   using util::deep_size;
 
   /* Reminder: exclude sizeof(val); include only non-shallow memory used on val's behalf; so
