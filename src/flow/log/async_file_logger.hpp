@@ -425,7 +425,7 @@ public:
    * As of this writing not thread-safe against changes to `*m_config` (but thread-safe agains throttling_cfg()
    * mutator).
    *
-   * Trottling comes into play if and only if: 1, `sev` and `component` indicate
+   * Throttling comes into play if and only if: 1, `sev` and `component` indicate
    * should_log() should return `true` in the first place; and 2, `throttling_active() == true`.  In that case
    * the throttling alogorithm's current output (Throttling versus Not-Throttling state) is consulted to determine
    * whether to return `true` or `false`.  (See Throttling section of class doc header.)
