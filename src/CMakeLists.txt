@@ -20,6 +20,7 @@ set(LIB_CMAKE_SCRIPT "../tools/cmake/FlowLikeLib.cmake")
 
 find_package(fmt REQUIRED)
 list(APPEND DEP_LIBS fmt::fmt)
+list(APPEND DEP_LIBS_PKG_ARG_LISTS fmt::fmt)
 
 # Flow needs these Boost libs.
 # (Our dependents should do similar for any additional such dependencies; or omit this if none.)
