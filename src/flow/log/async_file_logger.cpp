@@ -436,7 +436,9 @@ size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
    *   - It might have no non-shallow mem-use (e.g., a `float`).  0 then.
    *   - It may itself be an aggregate object or pointer to one in which case:
    *     - If there is no deep_size() function that takes `const Y&` (or similar), it has no non-shallow mem-use.  0.
-   *     - If there is, call it for the result.  Then that deep_size() should itself follow the present pattern.
+   *     - If there is, call it for the result, on the member or member's pointee.
+   *       Then that deep_size() should itself follow the present pattern.
+   *     - *Either way*: If it's a pointer, you probably must also add sizeof(pointee type).  Do not forget!
    *   - Its mem-use might be stored in a nearby data member; e.g., `Y* m_y; size_t m_y_size; `.  That's the result.
    *
    * So in our case you see, when we got to Log_request, we took its sizeof() and then added its deep_size()
@@ -453,7 +455,7 @@ size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
    * non-zero non-shallow mem-use; and only need to mention such members (and no others) in mem-use formulas.
    *
    * @todo We could probably get fancier with it, like having a deep_size<T>(const T* t) specialization that would
-   * forward to deep_size(*t) if it exists... and so on.  For now seems like overkill. */
+   * forward to `sizeof T + deep_size(*t)` if it exists... or something like that.  For now seems like overkill. */
 } // Async_file_logger::mem_cost()
 
 size_t Async_file_logger::deep_size(const Log_request& val) // Static.
@@ -463,7 +465,9 @@ size_t Async_file_logger::deep_size(const Log_request& val) // Static.
   using log::deep_size;
 
   return val.m_msg_size // m_msg_copy = char*; we saved its pointee raw array's mem-use here.
-         + deep_size(*val.m_metadata); // Msg_metadata shall recursively implement deep_size() pattern.
+         // m_metadata is Msg_metadata*:
+         + sizeof(Msg_metadata) // Msg_metadata shallow (to it) parts are non-shallow to *us* (it's in heap).
+         + deep_size(*val.m_metadata); // Msg_metadata's non-shallow mem-use (recursively implement deep_size() ptrn).
 }
 
 void Async_file_logger::log_flush_and_reopen(bool async)
