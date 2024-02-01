@@ -18,6 +18,10 @@
 /// @file
 #include "flow/log/ostream_log_msg_writer.hpp"
 #include "flow/log/config.hpp"
+#include <array>
+#include <chrono>
+#include <fmt/chrono.h>
+#include <iterator>
 
 namespace flow::log
 {
@@ -41,8 +45,6 @@ Ostream_log_msg_writer::Ostream_log_msg_writer(const Config& config, std::ostrea
   m_clean_os_state(m_os) // Memorize this before any messing with formatting.
 {
   using std::setfill;
-  using boost::chrono::time_fmt;
-  using timezone = boost::chrono::timezone;
 
   /* Note: The ostream here is totally unrelated to ostream used elsewhere to create msg in the first place.
    * (In fact, this class shouldn't have to know anything about that;
@@ -55,11 +57,7 @@ Ostream_log_msg_writer::Ostream_log_msg_writer(const Config& config, std::ostrea
    * uses m_os until we're done with it; so we only restore the original formatting in our destructor. */
 
   // Set some global formatting.  Since we've been promised no cross-use of m_os by outside code, this is enough.
-  if (m_config.m_use_human_friendly_time_stamps)
-  {
-    m_os << time_fmt(timezone::local); // When printing a system_clock::time_point, use local (not UTC) time zone.
-  }
-  else
+  if (!m_config.m_use_human_friendly_time_stamps)
   {
     m_os << setfill('0');
   }
@@ -77,22 +75,12 @@ void Ostream_log_msg_writer::log(const Msg_metadata& metadata, util::String_view
 void Ostream_log_msg_writer::do_log_with_epoch_time_stamp(const Msg_metadata& metadata, util::String_view msg)
 {
   using std::setw;
-  using boost::chrono::microseconds;
-  using boost::chrono::round;
-  using boost::chrono::system_clock;
 
-  /* Get POSIX time stamp, a ubiquitous (if not 100% unambiguous, due to leap seconds) way to time-stamp a log
-   * line.  Show it as seconds.microseconds with appropriate padding.  POSIX/UTC time is relative to 1/1/1970 00:00.
-   *
-   * Note: On at least some systems, we can get even better precision than microseconds; at least empirically in some
-   * Linuxes one can see (1) system_clock::duration is nanoseconds; and (2) the last 3 digits are not 000.  However
-   * how accurate this is is dubious; it seems safer to round up to microseconds.  Sub-microsecond-precision timing
-   * should use Fine_clock (and/or flow::perf::Checkpointing_timer). */
-  const auto since_epoch = round<microseconds>(metadata.m_called_when - S_POSIX_EPOCH);
+  const auto since_epoch = std::chrono::duration_cast<std::chrono::microseconds>(metadata.m_called_when.time_since_epoch());
 
-  const microseconds::rep usec_since_epoch = since_epoch.count();
-  const microseconds::rep sec = usec_since_epoch / 1000000;
-  const microseconds::rep usec = usec_since_epoch % 1000000;
+  const auto usec_since_epoch = since_epoch.count();
+  const std::chrono::microseconds::rep sec = usec_since_epoch / 1000000;
+  const std::chrono::microseconds::rep usec = usec_since_epoch % 1000000;
 
   // sec.usec, padded with zeroes up to 6 digits.  We've already set 0 as fill character.  setw(6) affects only one <<.
   m_os << sec << '.'
@@ -104,27 +92,32 @@ void Ostream_log_msg_writer::do_log_with_epoch_time_stamp(const Msg_metadata& me
 
 void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_metadata& metadata, util::String_view msg)
 {
-  /* In practice either: YYYY-MM-DD HH:MM:SS.UUUUUU zZZZZ
-   *                 or: YYYY-MM-DD HH:MM:SS.NNNNNNNNN zZZZZ
-   * Example:
-   * 2017-03-23 19:02:55.023337 -0800
-   *
-   * where: the choice of UUUUUU or NNNNNNNNN appears to be based on the capabilities of the hardware/system, and cannot
-   * be specified (without unsightly, and unnecessary, hacking -- and even that only in the "lop off digits" direction);
-   * `z` is `+` or `-`; and ZZZZ is a time-zone offset from UTC in minutes.  The time zone is the local time zone.
-   *
-   * Notes:
-   *   - The reason we are able to do this is that boost.chrono I/O v2, thank god, `ostream<<`s a
-   *     system_clock::time_point in this form.  (v1 wouldn't; prints nanoseconds since 1/1/1970.  So make sure to
-   *     #include <boost/chrono/io/time_point_io.hpp> and not chrono/chrono_io.hpp.)  It is a very nice, helpful,
-   *     and predictable form.
-   *     - Before that, I (ygoldfel) jumped through unspeakable hoops, including boost.locale haxoring, to get
-   *       some kind of decent human-friendly output which included microsecond+ precision.  So this is so much easier.
-   *       It also gives us predictable zZZZZ output, whereas the best I was able to come up with with boost.locale was
-   *       %Z which made unpredictable (though usually nice -- but sometimes super long) results.
-   *   - As mentioned, this is in the local time zone.  It is also possible, via boost.chrono time_fmt(timezone::utc),
-   *     to select UTC.  (It is not possible to choose any other time zone.) */
-  m_os << metadata.m_called_when << ' ';
+  static std::array<char, 40> cached_humanreadable_timestamp;
+  static size_t cached_humanreadable_timestamp_size = 0;
+  static std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds> cached_rounded_timestamp{};
+  
+  const auto rounded_timestamp = std::chrono::time_point_cast<std::chrono::seconds>(metadata.m_called_when);
+  if (cached_rounded_timestamp != rounded_timestamp)
+  {
+    auto end = fmt::format_to(
+      std::begin(cached_humanreadable_timestamp), 
+      "{0:%Y-%m-%d %H:%M:}{1:%S} {0:%z} ", 
+          fmt::localtime(std::chrono::system_clock::to_time_t(metadata.m_called_when)), 
+          metadata.m_called_when
+    );
+    *end = '\0';
+
+    cached_rounded_timestamp = rounded_timestamp;
+    cached_humanreadable_timestamp_size = std::distance(std::begin(cached_humanreadable_timestamp), end);
+  }
+
+  constexpr size_t seconds_start = 17;
+  fmt::format_to(
+    std::next(std::begin(cached_humanreadable_timestamp), seconds_start), 
+    "{:%S}", metadata.m_called_when
+  );
+
+  m_os << std::string_view(cached_humanreadable_timestamp.data(), cached_humanreadable_timestamp_size);
 
   log_past_time_stamp(metadata, msg);
 } // Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp()
