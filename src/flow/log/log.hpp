@@ -537,7 +537,7 @@
     using ::flow::log::Component; \
     using ::flow::util::String_view; \
     using ::flow::util::get_last_path_segment; \
-    using ::boost::chrono::system_clock; \
+    using std::chrono::system_clock; \
     using ::std::string; \
     Logger* const FLOW_LOG_WO_CHK_logger = get_logger(); \
     if (!FLOW_LOG_WO_CHK_logger) /* Usually a preceding filter/should_log() check would've eliminated this but.... */ \
@@ -1057,7 +1057,7 @@ struct Msg_metadata
    * `system_clock::time_point`-supporting `ostream<<` implementation; so we can drop all these complexities and just
    * store a damned `system_clock::time_point`.
    */
-  using Time_stamp = boost::chrono::system_clock::time_point;
+  using Time_stamp = std::chrono::system_clock::time_point;
 
   // Data.
 
