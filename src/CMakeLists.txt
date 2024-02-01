@@ -18,6 +18,9 @@
 # See this guy; it'll explain inside.  It mandates the following procedure and documents details.
 set(LIB_CMAKE_SCRIPT "../tools/cmake/FlowLikeLib.cmake")
 
+find_package(fmt REQUIRED)
+list(APPEND DEP_LIBS fmt::fmt)
+
 # Flow needs these Boost libs.
 # (Our dependents should do similar for any additional such dependencies; or omit this if none.)
 # (By the way no need to worry about find_package(Threads), as Boost::thread should take care of that.)
