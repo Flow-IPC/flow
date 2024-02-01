@@ -677,23 +677,23 @@ private:
    */
   size_t m_pending_logs_sz;
 
-    /**
-     * Contains the output of the always-on throttling algorithm; namely
-     * `true` if currently should_log() shall return `false` due to too-much-RAM-being-used; `false` otherwise.
-     * It starts at `false`; when `m_throttling_cfg.m_hi_limit` is crossed (by #m_pending_logs_sz) going up
-     * in do_log(), it is made equal to `true`; when reaching 0 it is made equal to `false`.
-     *
-     * Protected by #m_throttling_mutex.  *Additionally* it is `atomic`, so that should_log() can read it
-     * without locking.  should_log() does not care about the other items protected by the mutex, and it for
-     * functional purposes does not care about inter-thread volatility due to `relaxed`-order access to this
-     * flag around the rare occasions when its value actually changes.
-     *
-     * @see Class doc header Impl section for discussion of the throttling algorithm and locking in particular.
-     *
-     * At least for logging purposes we do want to detect when it *changes* from `false` to `true` and vice versa;
-     * this occurs only the 1st time it reaches `hi_limit` since it was last 0; and similarly the 1st time it reaches
-     * 0 since it was last `>= hi_limit`.
-     */
+  /**
+   * Contains the output of the always-on throttling algorithm; namely
+   * `true` if currently should_log() shall return `false` due to too-much-RAM-being-used; `false` otherwise.
+   * It starts at `false`; when `m_throttling_cfg.m_hi_limit` is crossed (by #m_pending_logs_sz) going up
+   * in do_log(), it is made equal to `true`; when reaching 0 it is made equal to `false`.
+   *
+   * Protected by #m_throttling_mutex.  *Additionally* it is `atomic`, so that should_log() can read it
+   * without locking.  should_log() does not care about the other items protected by the mutex, and it for
+   * functional purposes does not care about inter-thread volatility due to `relaxed`-order access to this
+   * flag around the rare occasions when its value actually changes.
+   *
+   * @see Class doc header Impl section for discussion of the throttling algorithm and locking in particular.
+   *
+   * At least for logging purposes we do want to detect when it *changes* from `false` to `true` and vice versa;
+   * this occurs only the 1st time it reaches `hi_limit` since it was last 0; and similarly the 1st time it reaches
+   * 0 since it was last `>= hi_limit`.
+   */
   std::atomic<bool> m_throttling_now;
 
   /**
