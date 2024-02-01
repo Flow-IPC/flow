@@ -510,8 +510,7 @@ public:
 
   /**
    * Mutator that sets the throttling knobs.  Please see Async_file_logger doc header
-   * Throttling section for description of their meanings in the algorithm including about corner cases as to
-   * what happens when these values change.
+   * Throttling section for description of their meanings in the algorithm.
    *
    * @param active
    *        Whether the feature shall be in effect (if should_log() will
