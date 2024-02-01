@@ -37,18 +37,15 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
   Log_context(backup_logger_ptr, Flow_log_component::S_LOG),
   m_config(config), // Save pointer, not copy, of the config given to us.  Hence thread safety is a thing.
 
-  /* Set up throttling algorithm, which is always-on (see class doc header discussion), initial config/state.
+  /* Set up throttling algorithm, which is always-on (see class doc header discussion).
    * Reminder that its output will be ignored, until/unless user calls throttling_cfg(true, ...).  They can then
-   * set their own config values as well (or reuse this default which they can access via throttling_cfg() accessor).
-   *
-   * Note that this value -- 1GB -- is not meant to be some kind of universally correct choice.  Users
-   * can and should change it, but if they're not using the feature, then they won't care anyway. */
-  m_throttling_cfg({ 1ull * 1024 * 1024 * 1024 }), // @todo Make some magic number `constexpr`?
+   * set their own config values as well (or reuse this default which they can access via throttling_cfg() accessor). */
+  m_throttling_cfg({ Throttling_cfg::S_HI_LIMIT_DEFAULT }),
   m_pending_logs_sz(0), // No memory used yet by pending messages.
   m_throttling_now(false), // No throttling yet.
   m_throttling_active(false),
 
-  // Any I/O operations done here are the only ones not done from m_async_worker thread (until maybe dtor).
+  // Any I/O operations done here are the only ones not done from m_async_worker thread.
   m_serial_logger(boost::movelib::make_unique<Serial_file_logger>(get_logger(), m_config, log_path)),
   /* ...Speaking of which: start the worker thread right now; synchronously; return from this ctor once it has
    * certified it is up.  It will log (to *backup_logger_ptr if not null) about starting up right here, too, which
@@ -146,26 +143,24 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
   { // All this->m_ touched in { here } can concurrently change, unless we lock.
     Lock_guard lock(m_throttling_mutex);
 
-    if (m_throttling_cfg.m_hi_limit == cfg.m_hi_limit)
+    if (m_throttling_cfg.m_hi_limit != cfg.m_hi_limit)
     {
-      /* As discussed in class doc header: no-op, unless they actually changed something; no state reset.
-       * E.g., perhaps they changed `active` while passing-in `cfg = throttling_cfg()` unchanged. */
-      return;
+      const auto prev_throttling_now
+        = m_throttling_now.exchange(m_pending_logs_sz >= static_cast<decltype(m_pending_logs_sz)>(cfg.m_hi_limit),
+                                    std::memory_order_relaxed);
+      // (m_throttling_now cannot change during lock; using .exchange() purely for convenience to grab prev value.)
+
+      FLOW_LOG_INFO("Async_file_logger [" << this << "]: Config set: "
+                    "hi_limit [" << m_throttling_cfg.m_hi_limit << "] => [" << cfg.m_hi_limit << "].  "
+                    "Mem-use = [" << m_pending_logs_sz << "]; "
+                    "throttling? = [" << prev_throttling_now << "] => [" << m_throttling_now << "]; "
+                    "throttling feature active? = [" << active << "].  "
+                    "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
+
+      m_throttling_cfg.m_hi_limit = cfg.m_hi_limit;
     }
-    // else
-
-    const auto prev_throttling_now
-      = m_throttling_now.exchange(m_pending_logs_sz >= static_cast<decltype(m_pending_logs_sz)>(cfg.m_hi_limit),
-                                  std::memory_order_relaxed);
-
-    FLOW_LOG_INFO("Async_file_logger [" << this << "]: Config set: "
-                  "hi_limit [" << m_throttling_cfg.m_hi_limit << "] => [" << cfg.m_hi_limit << "].  "
-                  "Mem-use = [" << m_pending_logs_sz << "]; "
-                  "throttling? = [" << prev_throttling_now << "] => [" << m_throttling_now << "]; "
-                  "throttling feature active? = [" << active << "].  "
-                  "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.");
-
-    m_throttling_cfg.m_hi_limit = cfg.m_hi_limit;
+    /* else: As discussed in class doc header: no-op, unless they actually changed something; no state reset.
+     * E.g., perhaps they changed `active` while passing-in `cfg = throttling_cfg()` unchanged. */
   } // Lock_guard lock(m_throttling_mutex);
 } // Async_file_logger::throttling_cfg()
 
@@ -173,8 +168,13 @@ Async_file_logger::~Async_file_logger() // Virtual.
 {
   using async::Synchronicity;
 
-  FLOW_LOG_INFO("Async_file_logger [" << this << "]: Deleting.  Worker thread will flush "
-                "output if possible; then we will proceed to shut down.");
+  {
+    Lock_guard lock(m_throttling_mutex); // Careful: really_log()s may well be happening right now via m_async_worker.
+
+    FLOW_LOG_INFO("Async_file_logger [" << this << "]: Deleting.  Worker thread will flush "
+                  "output if possible; then we will proceed to shut down.  Current mem-use of queued "
+                  "log-requests is [" << m_pending_logs_sz << "]; if it is large, this might take some time.");
+  }
 
   /* Could do this from current thread (in fact if we simply deleted the following statement, that is what would
    * happen); that's still non-concurrent with other calls, as Serial_file_logger requires.
@@ -252,10 +252,10 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
    *     synchronously returns.)
    *
    * Here's the Log_request encapsulating that stuff.  See Log_request doc header for some nitty-gritty details. */
-  const auto msg_copy_ptr = new char[msg.size()];
-  memcpy(msg_copy_ptr, msg.data(), msg.size());
-  Log_request log_request{ msg_copy_ptr, msg.size(), metadata,
+  const auto msg_sz = msg.size();
+  Log_request log_request{ new char[msg_sz], msg_sz, metadata,
                            false }; // We can't know m_throttling_begins yet.
+  memcpy(log_request.m_msg_copy, msg.data(), msg_sz);
 
   /* Before enqueuing that stuff, though, let's tally up the stats and otherwise proceed with the throttling algorithm.
    * Please see Impl section of class doc header for detailed discussion.  Then come back here.
@@ -268,22 +268,23 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   const auto logs_sz = mem_cost(log_request);
   auto& throttling_begins = log_request.m_throttling_begins;
   logs_sz_t limit;
-  logs_sz_t pending_logs_sz;
+  logs_sz_t pending_logs_sz; // For logging.
   logs_sz_t prev_pending_logs_sz;
   {
     Lock_guard lock(m_throttling_mutex);
     limit = static_cast<logs_sz_t>(m_throttling_cfg.m_hi_limit);
     prev_pending_logs_sz = m_pending_logs_sz;
     pending_logs_sz = (m_pending_logs_sz += logs_sz);
-    if ((pending_logs_sz >= limit) && (prev_pending_logs_sz < limit))
+    /* Minor/subtlety: We could also remove the m_throttling_now check here and instead use
+     * `throttling_begins = (m_throttling_now.exchange() == false)` in { body }.  However we already had to lock
+     * mutex for ~unrelated reasons, and therefore m_throttling_now cannot change at the moment; so we
+     * might as well gate the integer comparisons on its value -- which rarely changes -- and only assign
+     * it, if its value would in fact change. */
+    if ((!m_throttling_now.load(std::memory_order_relaxed))
+        && (pending_logs_sz >= limit) && (prev_pending_logs_sz < limit))
     {
-      /* m_throttling_now should be true; but detect whether this is the change-over from false as opposed to no-op.
-       * Subtlety: m_throttling_now is atomic<>, so we can use .exchange() for the convenience of getting its
-       * previous value, to detect said change-over; but that's really the only reason we're using that instead
-       * of .store(); and we'd be using .store() not to synchronize against really_log() and throttling_cfg() mutator
-       * but rather to synchronize against should_now()'s similar atomic access -- which is lock-free.
-       * To synchronize against really_log() and throttling_cfg() mutator we locked m_throttling_mutex. */
-      throttling_begins = (m_throttling_now.exchange(true, std::memory_order_relaxed) == false);
+      m_throttling_now.store(true, std::memory_order_relaxed);
+      throttling_begins = true;
     }
   }
   if (throttling_begins)
@@ -312,7 +313,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
   /* Done! State updated, and throttling_begins determined for really_log().
    *
-   * Now for the enqueueing of the log-request. */
+   * Now for the enqueueing of the log-request.  This is what will execute in m_async_worker, when it's its turn. */
 
   auto really_log = [this, log_request = std::move(log_request)]() mutable
   {
@@ -323,17 +324,21 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
      * Again please refer to Impl section of class doc header for reasoning about this algorithm. */
 
     const auto logs_sz = mem_cost(log_request);
-    // @todo ^-- Maybe instead save+capture this in do_log()?  Trade-off is RAM (currently favoring it) vs cycles.
+    // @todo ^-- Maybe instead save this in Log_request?  Trade-off is RAM vs cycles (currently favoring RAM).
     bool throttling_ends = false;
-    logs_sz_t pending_logs_sz;
+    logs_sz_t limit; // For logging.
+    logs_sz_t pending_logs_sz; // For logging.
     logs_sz_t prev_pending_logs_sz;
-    logs_sz_t limit;
     {
       Lock_guard lock(m_throttling_mutex);
       limit = m_throttling_cfg.m_hi_limit; // Just for logging in this case.
       prev_pending_logs_sz = m_pending_logs_sz;
-      assert((m_pending_logs_sz >= logs_sz) && "Bug?  really_log() has no matching do_log()?");
-      if ((pending_logs_sz = (m_pending_logs_sz -= logs_sz)) == 0)
+      assert((prev_pending_logs_sz >= logs_sz) && "Bug?  really_log() has no matching do_log()?");
+      pending_logs_sz = (m_pending_logs_sz -= logs_sz);
+      /* Minor/subtlety: Versus the do_log() equivalent above, it looks more economical to check pending_logs_sz first,
+       * since it just compares one value to 0 in this case (as opposed to 2 values and < and >=), and then both set
+       * m_throttling_now and check its preceding value in one op. */
+      if (pending_logs_sz == 0)
       {
         // m_throttling_now should be false; but detect whether this is the change-over from true as opposed to no-op.
         throttling_ends = (m_throttling_now.exchange(false, std::memory_order_relaxed) == true);
@@ -376,8 +381,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     }
 #endif
 
-    /* We are in m_async_worker thread, as m_serial_logger requires.
-     * mdt_wrapper (effectively `*metadata`) and msg_copy_blob (copy of `msg`) are to be freed when done. */
+    // We are in m_async_worker thread, as m_serial_logger requires.  Go!
     m_serial_logger->do_log(metadata, msg);
 
     // Oh and obey throttling_begins for this log-request, if it was computed to be true in do_log().
@@ -388,11 +392,11 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
 
       FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
                        "really_log() throttling algorithm: The preceding message, when its log-request was "
-                       "earlier enqueued, caused pending-logs RAM usage to exceed configured hi_limit.  "
+                       "earlier enqueued, caused pending-logs RAM usage to exceed then-configured hi_limit.  "
                        "If throttling feature was active, subsequent messages-to-be (log-requests) were dropped.  "
                        "We only just got around to being able to log it (satisfy log-request) after all the "
-                       "preceding ones FIFO-style.  Config: hi_limit [" << limit << "].  "
-                       "Nowadays: Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+                       "preceding ones in FIFO order.  Nowadays: Config: hi_limit [" << limit << "].  "
+                       "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
                        "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
                        "Limit-crossing (in the past) message is the one immediately preceding the current one "
                        "you're reading in file.  "
@@ -427,6 +431,12 @@ size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
          // Then account for every member's deep size (size beyond its sizeof).  @todo Make a deep_size() per pattern?
          + log_request.m_msg_size // m_msg_copy in heap.
          + deep_size(*log_request.m_metadata);
+
+  /* Style/maintanability notes: Log_request is defined in this class, so this computation is in this class.
+   * Any part of it defined elsewhere, that has mem-use beyond `sizeof`, shall declare deep_size(const T&).  As
+   * of this writing that's only m_metadata.  (But it may itself have mem-using items beyond `sizeof`; then it
+   * should similarly use their deep_size()s; and so on.  E.g., as of this writing there is a
+   * util::deep_size(std::string).) */
 } // Async_file_logger::mem_cost()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
