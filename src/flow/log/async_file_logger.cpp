@@ -427,48 +427,50 @@ size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.
   return sizeof(async::Task) // Don't forget the function object itself.  Then the captures:
          + sizeof(Async_file_logger*) // `this`.
          + sizeof(Log_request) // The main capture is this.  Firstly its shallow size.
-         + deep_size(log_request); // And its size beyond sizeof(its members combined).
+         + deep_size(log_request); // And its size beyond sizeof (its members combined).
 
-  /* Style/maintanability notes: At the risk of being overly formal: There's a pattern in play here:
-   * The total-size of aggregate object `X x` is sizeof(X) + D, where D is its mem-use beyond the shallow object.
-   * To compute D, take each member `Y m_y` of X; obtain its mem-use beyond sizeof(Y); sum these values to get D.
-   * Namely for each m_y:
-   *   - It might have no non-shallow mem-use (e.g., a `float`).  0 then.
-   *   - It may itself be an aggregate object or pointer to one in which case:
-   *     - If there is no deep_size() function that takes `const Y&` (or similar), it has no non-shallow mem-use.  0.
-   *     - If there is, call it for the result, on the member or member's pointee.
-   *       Then that deep_size() should itself follow the present pattern.
-   *     - *Either way*: If it's a pointer, you probably must also add sizeof(pointee type).  Do not forget!
-   *   - Its mem-use might be stored in a nearby data member; e.g., `Y* m_y; size_t m_y_size; `.  That's the result.
-   *
-   * So in our case you see, when we got to Log_request, we took its sizeof() and then added its deep_size()
-   * which does exist, because Log_request does have at least 1 member that has non-shallow mem-use.
-   *
-   * Rationale: Keep things organized; provide reusable deep_size() APIs where applicable.
-   *
-   * Why not include sizeof() in deep_size()?  Answer: Consider
-   *   struct X { struct { int m_a; float m_b; } m_c; bool m_d; };  X x{ ... };
-   * Its mem-use is simply sizeof(X).  So we get the sizeof() part, which is mandatory, for "free," without having
-   * to error-pronely enumerate members at various levels, plus the boiler-plate of needing deep_size() at each level;
-   * and so on.  So it makes sense to separate the sizeof() part -- executed once at the top level -- and the
-   * deep_size() part which is potentially recursive but only needs to explicitly define deep_size() for those with
-   * non-zero non-shallow mem-use; and only need to mention such members (and no others) in mem-use formulas.
-   *
-   * @todo We could probably get fancier with it, like having a deep_size<T>(const T* t) specialization that would
-   * forward to `sizeof T + deep_size(*t)` if it exists... or something like that.  For now seems like overkill. */
+  // See end of deep_cost() for style/pattern notes.
 } // Async_file_logger::mem_cost()
 
 size_t Async_file_logger::deep_size(const Log_request& val) // Static.
 {
-  // We're following the loose pattern explained at the end of Async_file_logger::mem_cost().
-
   using log::deep_size;
 
   return val.m_msg_size // m_msg_copy = char*; we saved its pointee raw array's mem-use here.
          // m_metadata is Msg_metadata*:
          + sizeof(Msg_metadata) // Msg_metadata shallow (to it) parts are non-shallow to *us* (it's in heap).
          + deep_size(*val.m_metadata); // Msg_metadata's non-shallow mem-use (recursively implement deep_size() ptrn).
-}
+
+  /* Style/maintanability notes: At the risk of being overly formal: There's a pattern in play here + in mem_cost():
+   * The total-size of aggregate object `X x` is sizeof(X) + D, where D is its mem-use beyond the shallow object.
+   * To compute D, take each member `Y m_y` (or ptr or ref variant) of X; obtain its mem-use beyond sizeof(Y);
+   * sum these values to get D.  Namely for each m_y:
+   *   - It might have no non-shallow mem-use (e.g., a `float`).  0.
+   *   - Its mem-use might be stored in a nearby data member; e.g., `char* m_str; size_t m_str_len`.
+   *     Use that result.
+   *   - It may itself be an aggregate object or pointer to one in which case:
+   *     - If there is no deep_size(const Y&), it has no non-shallow mem-use.  0.
+   *     - If there is deep_size(const Y&), its returned value = the result.  (If m_y is a ptr, pass *m_y as arg.)
+   *       - deep_size() should itself follow this pattern, recursively.
+   *     - *Either way*: If m_y is a ptr or ref (to heap), also add sizeof(Y).
+   *
+   * So in our case you see, when we got to Log_request, we took its sizeof() and then added its deep_size() (below).
+   *
+   * Rationale for pattern: Keep things organized; provide reusable deep_size() APIs where applicable.  E.g.,
+   * deep_size(const string&) may be useful elsewhere.
+   *
+   * Rationale: Why not include sizeof() in deep_size()?  Answer: Consider
+   *   struct X { struct { int m_a; float m_b; } m_c; bool m_d; };  X x{ ... };
+   * Its mem-use is simply sizeof(X).  So we get the sizeof() part, which is mandatory, for "free," without having
+   * to error-pronely enumerate members at various levels, plus the boiler-plate of needing deep_size() at each level;
+   * and so on.  So it makes sense to separate the sizeof() part -- executed once at the top level -- and the
+   * deep_size() part which is potentially recursive but only needs to explicitly define deep_size() for those with
+   * non-zero non-shallow mem-use and/or ptrs/refs; and only need to mention such members (and no others) in
+   * mem-use formulas.
+   *
+   * @todo We could probably get fancier with it, like having a deep_size<T>(const T* t) specialization that would
+   * forward to `sizeof T + deep_size(*t)` if it exists... or something like that.  For now seems like overkill. */
+} // Async_file_logger::deep_size()
 
 void Async_file_logger::log_flush_and_reopen(bool async)
 {
