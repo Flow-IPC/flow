@@ -137,6 +137,14 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
     FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                   "Config set: throttling feature active? [" << prev_active << "] => [" << active << "].");
   }
+  /* Subtlety: The un-mutex-protected, relaxed-order-accessed (as opposed to with memory_order_seq_cst)
+   * read/modify/write operation above is the reason we formally forbid this mutator being called concurrently
+   * with itself.  Possibly oddness could occur if the above statement was invoked ~concurrently with itself.
+   * We could instead formally allow it and change the above to seq_cst.  However: (1) in actual reality it's
+   * very unlikely a reasonable user would want to call this concurrently to self anyway in a realistic dynamic-config
+   * scenario -- usually people use a config-update thread -- so it's not very important; (2) the existing way
+   * the entire set of config is updated in synchronized fashion, as opposed to separating m_throttling_cfg from
+   * m_throttling_active.  It's just less entropy, and it hardly matters anyway. */
 
   // Deal with `cfg`.
 

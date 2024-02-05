@@ -143,17 +143,38 @@ namespace flow::log
  * See thread safety notes and to-dos regarding #m_config in Simple_ostream_logger doc header.  These apply here also.
  *
  * throttling_cfg() mutator does not add any thread safety restrictions: it can be called concurrently with any
- * other method, including should_log(), do_log(), same-named accessor, and throttling_active().
+ * other method, including should_log(), do_log(), same-named accessor, and throttling_active().  There is one formal
+ * exception: it must not be called concurrently with itself.
  *
  * There are no other mutable data (state), so that's that.
  *
+ * ### Throttling: Functional design rationale notes ###
+ * The throttling feature could have been designed differently (in terms of how it should act, functionally speaking),
+ * and a couple of questions tend to come up, so let's answer here.
+ *   - Why have the throttling algorithm always-on, even when `!throttling_active()` -- which is default at that?
+ *     Could save cycles otherwise, no?  Answer: To begin with, the counting of the memory used (M) should be accurate
+ *     in case it is (e.g.) high, and one changes throttling_active() to `true`.  Still, couldn't some things be
+ *     skipped -- namely perhaps determining whether state is Throttling or Not-Throttling and logging about it -- when
+ *     `!throttling_active()`?  Answer: Yes, and that might be a decent change in the future, as internally it might
+ *     be possible to skip some mutex work in that situation which could be a small optimization.  It is basically
+ *     simpler to think about and implement the existing way.  (More notes on this in internal comments.)
+ *   - Why not get rid of throttling_active() knob entirely?  E.g., Async_file_logger::Throttling_cfg::m_hi_limit (H)
+ *     could just be set to a huge value to have an apparently similar effect to `!throttling_active()`.  (The knob
+ *     could still exist cosmetically speaking but just have the aforementioned effect.)  Answer: I (ygoldfel) first
+ *     thought similarly, while others specified otherwise; but I quickly came around to agreeing with them.  It is
+ *     nice to log about crossing the threshold H even without responding to it by throttling; it could be a signal
+ *     for a user to look into enabling the feature.  Granted, we could also log at every 500k increment, or
+ *     something like that; but the present setup seemed like a nice balance between power and simplicity.
+ *
+ * All in all, these choices are defensible but not necessarily the only good ones.
+ *
  * @internal
+ *
  * Implementation
  * --------------
  * The basic implementation is straightforward enough to be gleaned from reading the code and other comments.
  *
  * ### Throttling impl: The essential algorithm ###
- *
  * What bears discussion is the implementation of the throttling feature.  Read on if you have interest in that
  * specific topic.  If so please carefully read the public section above entitled Throttling; then come back here.
  *
@@ -206,7 +227,6 @@ namespace flow::log
  * if possible, especially to the extent it would affect should_log().  Onward:
  *
  * ### Throttling impl: The algorithm modified to become lock-free in should_log() ###
- *
  * The easiest way to reduce critical section in should_log() concerns access to #m_throttling_active.
  * Suppose we make it `atomic<bool>` instead of `bool` with mutex protection.  If we store with `relaxed` ordering
  * and load with `relaxed` ordering, and do both outside any shared mutex-lock section:
@@ -512,6 +532,10 @@ public:
    * Mutator that sets the throttling knobs.  Please see Async_file_logger doc header
    * Throttling section for description of their meanings in the algorithm.
    *
+   * ### Thread safety ###
+   * It is okay to call concurrently with any other method on the same `*this`, except it must not be called
+   * concurrently with itself.
+   *
    * @param active
    *        Whether the feature shall be in effect (if should_log() will
    *        potentially consider Throttling versus Not-Throttling state; else it will ignore it).
@@ -669,7 +693,7 @@ private:
    * If one made this `atomic<size_t>`, and one needed merely the correct updating of #m_pending_logs_sz,
    * the mutex #m_throttling_mutex would not be necessary: `.fetch_add(mem_cost(...), relaxed)`
    * and `.fetch_sub(mem_cost(...), relaxed)` would have worked perfectly with no corruption or unexpected
-   * reordering; each read/modify/load op is atomic, and that is sufficient.  Essentially the mutex was needed
+   * reordering; each read/modify/write op is atomic, and that is sufficient.  Essentially the mutex was needed
    * only to synchronize subsequent potential assignment of #m_throttling_now.
    *
    * @see Class doc header Impl section for discussion of the throttling algorithm and locking in particular.
