@@ -224,7 +224,7 @@ Additional Inherited Members</h2></td></tr>
 <h3>Thread safety</h3>
 <p >The file I/O-using APIs, notably <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#a2604031c07cbb4753bd3563d519a0872" title="Implements interface method by synchronously logging the message and some subset of the metadata in a...">do_log()</a> and <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#a7d38efd094d69b5ef38fc44ba153c9ed" title="Causes the log at the file-system path to be flushed/closed (if needed) and re-opened; this will occu...">log_flush_and_reopen()</a> but not <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#ad602948de59867b3a85c7f0dd6620497" title="See Async_file_logger::should_log().">should_log()</a>, are unsafe to call concurrently. The logging user &ndash; as of this writing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> but it's fully conceivable other uses exist &ndash; must therefore provide any anti-concurrency measures (use one thread; a strand; mutex; etc.).</p>
 <p >See thread safety notes and to-dos regarding <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#a8fdbad931fffaedf61c57a8caeb3f9cb" title="See Async_file_logger::m_config.">m_config</a> in <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a> doc header. These apply here also.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo:</a></b></dt><dd>Consider having <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> internally buffer any attempted log requests that it couldn't write to file due to I/O error. The logic already attempts re-open repeatedly but doesn't attempt to re-log failed lines. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>Consider having <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> internally buffer any attempted log requests that it couldn't write to file due to I/O error. The logic already attempts re-open repeatedly but doesn't attempt to re-log failed lines. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="serial__file__logger_8hpp_source.html#l00046">46</a> of file <a class="el" href="serial__file__logger_8hpp_source.html">serial_file_logger.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -633,7 +633,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

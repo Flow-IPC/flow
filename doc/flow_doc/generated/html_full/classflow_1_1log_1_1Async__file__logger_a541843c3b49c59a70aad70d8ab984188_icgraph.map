@@ -1,4 +1,3 @@
 <map id="flow::log::Async_file_logger::on_rotate_signal" name="flow::log::Async_file_logger::on_rotate_signal">
-<area shape="rect" id="node1" title="SIGHUP/equivalent handler for the optional feature capture_rotate_signals_internally in constructor." alt="" coords="217,29,377,65"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Async__file__logger.html#aec2b1796c81b020cacea493e21e19562" title="Constructs logger to subsequently log to the given file&#45;system path." alt="" coords="5,29,169,65"/>
+<area shape="rect" id="node1" title="SIGHUP/equivalent handler for the optional feature capture_rotate_signals_internally in constructor." alt="" coords="5,29,165,65"/>
 </map>

@@ -151,6 +151,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">beautify_chrono_logger_this_thread</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> *logger_ptr)</td></tr>
 <tr class="memdesc:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets certain <code>chrono</code>-related formatting on the given <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> in the current thread that results in a consistent, desirable output of <code>duration</code>s and certain types of <code>time_point</code>s.  <a href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">More...</a><br /></td></tr>
 <tr class="separator:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a267187e63c6355704f547d794c776747"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747">deep_size</a> (const <a class="el" href="structflow_1_1log_1_1Msg__metadata.html">Msg_metadata</a> &amp;val)</td></tr>
+<tr class="memdesc:a267187e63c6355704f547d794c776747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes.  <a href="namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747">More...</a><br /></td></tr>
+<tr class="separator:a267187e63c6355704f547d794c776747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7770a6970cce952c422c27f0bf57d8d"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#ab7770a6970cce952c422c27f0bf57d8d">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classflow_1_1log_1_1Verbosity__config.html">Verbosity_config</a> &amp;val)</td></tr>
 <tr class="memdesc:ab7770a6970cce952c422c27f0bf57d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes a <a class="el" href="classflow_1_1log_1_1Verbosity__config.html" title="Optional-use structure encapsulating a full set of verbosity config, such that one can parse it from ...">Verbosity_config</a> from a standard input stream by invoking <code>val.parse(is)</code>.  <a href="namespaceflow_1_1log.html#ab7770a6970cce952c422c27f0bf57d8d">More...</a><br /></td></tr>
 <tr class="separator:ab7770a6970cce952c422c27f0bf57d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,6 +320,33 @@ This severity <em>is</em> part of the <em>minimalistic</em> (in-use within Flow)
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a267187e63c6355704f547d794c776747" name="a267187e63c6355704f547d794c776747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a267187e63c6355704f547d794c776747">&#9670;&nbsp;</a></span>deep_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::log::deep_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structflow_1_1log_1_1Msg__metadata.html">Msg_metadata</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>Value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
 </div>
 </div>
@@ -596,7 +626,7 @@ This severity <em>is</em> part of the <em>minimalistic</em> (in-use within Flow)
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:07 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

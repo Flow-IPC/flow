@@ -165,7 +165,7 @@ static const <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d764274
 <div class="textblock"><p >Class used to configure the filtering and logging behavior of <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s; its use in your custom <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s is optional but encouraged; supports dynamically changing filter settings even while concurrent logging occurs. </p>
 <p >If you are reading this to know how to configure an existing <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, then you don't need further background; just see this API to know how to configure such <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s in a uniform way.</p>
 <p >If you are, instead, reading this when implementing a new custom <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, then please see implementation recommendations in <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> doc header before continuing here.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Class <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> doc header is wordy and might be hard to follow; rewrite for clarity/flow/size.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Class <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> doc header is wordy and might be hard to follow; rewrite for clarity/flow/size.</dd></dl>
 <h3>Synopsis: How do I use it to configure a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>? Just tell me!</h3>
 <p >Really it's pretty easy to use it, but it's much easier to see how it's done by example rather than a formal-ish description (which is nevertheless below, in the next section of this doc header). To use <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> with a <code><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a></code>-supporting <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> in your <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>-using module M:</p>
 <ul>
@@ -348,7 +348,7 @@ static const <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d764274
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for move-construction. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move constructor. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move constructor. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -624,7 +624,7 @@ template&lt;typename Component_payload &gt; </div>
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for move assignment. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move assignment. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000022">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move assignment. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -653,7 +653,7 @@ template&lt;typename Component_payload &gt; </div>
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for copy assignment. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> copy assignment. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> copy assignment. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -905,7 +905,7 @@ template&lt;typename Component_payload &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:08 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

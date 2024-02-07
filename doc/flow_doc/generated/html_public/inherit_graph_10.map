@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned..." alt="" coords="5,5,128,41"/>
+<area shape="rect" id="node1" href="$structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log..." alt="" coords="5,5,163,29"/>
 </map>

@@ -1,0 +1,16 @@
+<map id="flow::log::Async_file_logger::Log_request" name="flow::log::Async_file_logger::Log_request">
+<area shape="rect" id="node1" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async..." alt="" coords="949,186,1087,222"/>
+<area shape="rect" id="node2" title=" " alt="" coords="685,123,739,147"/>
+<area shape="rect" id="node3" title=" " alt="" coords="685,171,739,195"/>
+<area shape="rect" id="node4" href="$structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log..." alt="" coords="633,219,791,243"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="308,56,448,80"/>
+<area shape="rect" id="node6" title=" " alt="" coords="9,5,123,29"/>
+<area shape="rect" id="node7" title=" " alt="" coords="21,81,111,105"/>
+<area shape="rect" id="node8" title=" " alt="" coords="357,164,399,188"/>
+<area shape="rect" id="node9" title=" " alt="" coords="315,213,441,249"/>
+<area shape="rect" id="node10" title=" " alt="" coords="339,273,417,297"/>
+<area shape="rect" id="node11" title=" " alt="" coords="339,321,417,345"/>
+<area shape="rect" id="node12" title=" " alt="" coords="5,315,127,351"/>
+<area shape="rect" id="node13" title=" " alt="" coords="359,369,397,393"/>
+<area shape="rect" id="node14" href="$classbool.html" title=" " alt="" coords="689,267,735,291"/>
+</map>

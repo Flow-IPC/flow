@@ -1,4 +1,0 @@
-<map id="flow::log::Async_file_logger::log_flush_and_reopen" name="flow::log::Async_file_logger::log_flush_and_reopen">
-<area shape="rect" id="node1" title="Causes the log at the file&#45;system path to be flushed/closed (if needed) and re&#45;opened; this will happ..." alt="" coords="217,5,363,53"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Async__file__logger.html#aec2b1796c81b020cacea493e21e19562" title="Constructs logger to subsequently log to the given file&#45;system path." alt="" coords="5,11,169,47"/>
-</map>

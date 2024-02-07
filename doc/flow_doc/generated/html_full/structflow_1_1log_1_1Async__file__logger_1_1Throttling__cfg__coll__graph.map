@@ -1,0 +1,4 @@
+<map id="flow::log::Async_file_logger::Throttling_cfg" name="flow::log::Async_file_logger::Throttling_cfg">
+<area shape="rect" id="node1" title="Controls behavior of the throttling algorithm as described in Async_file_logger doc header Throttling..." alt="" coords="5,101,151,137"/>
+<area shape="rect" id="node2" title=" " alt="" coords="45,5,111,29"/>
+</map>

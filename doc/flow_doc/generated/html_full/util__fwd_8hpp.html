@@ -265,6 +265,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a0955a29930075ac1fe393896c089b911"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0955a29930075ac1fe393896c089b911">flow::util::beautify_chrono_ostream</a> (std::ostream *os)</td></tr>
 <tr class="memdesc:a0955a29930075ac1fe393896c089b911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets certain <code>chrono</code>-related formatting on the given <code>ostream</code> that results in a consistent, desirable output of <code>duration</code>s and certain types of <code>time_point</code>s.  <a href="namespaceflow_1_1util.html#a0955a29930075ac1fe393896c089b911">More...</a><br /></td></tr>
 <tr class="separator:a0955a29930075ac1fe393896c089b911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a418b56a178c07100eef78da5c9d6ee7a"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">flow::util::deep_size</a> (const std::string &amp;val)</td></tr>
+<tr class="memdesc:a418b56a178c07100eef78da5c9d6ee7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes.  <a href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">More...</a><br /></td></tr>
+<tr class="separator:a418b56a178c07100eef78da5c9d6ee7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a402a1fb61d3fe4ca6767729e38620d6d" name="a402a1fb61d3fe4ca6767729e38620d6d"></a>
@@ -342,7 +345,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Code to be used as the entire definition of a macro whose definition would have been <code>ARG_func_macro_definition</code> if not for the resulting compile error or unexpected flow control effects detailed above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01063">1063</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01073">1073</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -373,7 +376,7 @@ Functions</h2></td></tr>
 <h3>Performance</h3>
 <p >The items <code>&lt;&lt;</code>ed onto the target <code>ostream</code> are each evaluated at compile-time. This includes the expression involving <a class="el" href="namespaceflow_1_1util.html#a13c3363efdf0d04b04b12ca7487d368c" title="Helper for FLOW_UTIL_WHERE_AM_I() that, given a pointer/length of a string in memory containing a pat...">flow::util::get_last_path_segment()</a> which is <code>constexpr</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00935">935</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00945">945</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -400,16 +403,16 @@ Functions</h2></td></tr>
 <p>Same as <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> but evaluates to an <code>std::string</code>. </p>
 <p >It's probably a bit slower as well. Update: In fact, it's probably significantly slower as of this writing, as <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> evaluates the <code>&lt;&lt;</code>ed items at compile-time, while this cannot due to how it's implemented.</p>
 <p ><a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> is too clever to become a <code>constexpr</code> function, even if it were radically rewritten, so this macro evaluates to a partially runtime-computed expression. Hence the note just above about perf.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000169">Todo:</a></b></dt><dd>See if <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> can be coaxed into a compile-time expression after all. It is used in quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors. See notes inside <a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> on this as of this writing. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000171">Todo:</a></b></dt><dd>See if <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> can be coaxed into a compile-time expression after all. It is used in quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors. See notes inside <a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> on this as of this writing. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00955">955</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00965">965</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

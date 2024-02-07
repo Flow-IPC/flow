@@ -68,10 +68,12 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classflow_1_1log_1_1Async__file__logger-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::log::Async_file_logger Class Reference</div></div>
@@ -91,10 +93,19 @@ Inheritance diagram for flow::log::Async_file_logger:</div>
 <div class="dynheader">
 Collaboration diagram for flow::log::Async_file_logger:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger__coll__graph.svg" width="2488" height="1111"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger__coll__graph.svg" width="2706" height="1128"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">Log_request</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">In addition to the task object (function) itself, these are the data placed onto the queue of <code>m_async_worker</code> tasks for a particular <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> call, to be used by that task and then freed immediately upon logging of the message to file.  <a href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls behavior of the throttling algorithm as described in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> doc header Throttling section.  <a href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aec2b1796c81b020cacea493e21e19562"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aec2b1796c81b020cacea493e21e19562">Async_file_logger</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> *backup_logger_ptr, <a class="el" href="classflow_1_1log_1_1Config.html">Config</a> *config, const fs::path &amp;log_path, <a class="el" href="classbool.html">bool</a> capture_rotate_signals_internally)</td></tr>
@@ -104,7 +115,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae48ec685cc9951a37bb670dd92fe1f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes out anything buffered, returns resources/closes output file(s); then returns.  <a href="classflow_1_1log_1_1Async__file__logger.html#ae48ec685cc9951a37bb670dd92fe1f4e">More...</a><br /></td></tr>
 <tr class="separator:ae48ec685cc9951a37bb670dd92fe1f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad139ac22e5953e52e03648860a15e3fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd">should_log</a> (<a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04">Sev</a> sev, const <a class="el" href="classflow_1_1log_1_1Component.html">Component</a> &amp;component) const override</td></tr>
-<tr class="memdesc:ad139ac22e5953e52e03648860a15e3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements interface method by returning <code>true</code> if the severity and component (which is allowed to be null) indicate it should.  <a href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd">More...</a><br /></td></tr>
+<tr class="memdesc:ad139ac22e5953e52e03648860a15e3fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements interface method by returning <code>true</code> if the severity and component (which is allowed to be null) indicate it should; and if so potentially applies the throttling algorithm's result as well.  <a href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd">More...</a><br /></td></tr>
 <tr class="separator:ad139ac22e5953e52e03648860a15e3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd773546633aec017f2041feb3a75dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#afd773546633aec017f2041feb3a75dd3">logs_asynchronously</a> () const override</td></tr>
 <tr class="memdesc:afd773546633aec017f2041feb3a75dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements interface method by returning <code>true</code>, indicating that this <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> may need the contents of <code>*metadata</code> and <code>msg</code> passed to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> even after that method returns.  <a href="classflow_1_1log_1_1Async__file__logger.html#afd773546633aec017f2041feb3a75dd3">More...</a><br /></td></tr>
@@ -115,6 +126,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaaf956d63042cbc0800680996adabfa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aaaf956d63042cbc0800680996adabfa2">log_flush_and_reopen</a> (<a class="el" href="classbool.html">bool</a> async=true)</td></tr>
 <tr class="memdesc:aaaf956d63042cbc0800680996adabfa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Causes the log at the file-system path to be flushed/closed (if needed) and re-opened; this will happen as soon as possible but may occur asynchronously after this method exits, unless directed otherwise via <code>async</code> argument.  <a href="classflow_1_1log_1_1Async__file__logger.html#aaaf956d63042cbc0800680996adabfa2">More...</a><br /></td></tr>
 <tr class="separator:aaaf956d63042cbc0800680996adabfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2080e8abfc2cd9580c84626ae205010"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010">throttling_cfg</a> () const</td></tr>
+<tr class="memdesc:ac2080e8abfc2cd9580c84626ae205010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accessor returning a copy of the current set of throttling knobs.  <a href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010">More...</a><br /></td></tr>
+<tr class="separator:ac2080e8abfc2cd9580c84626ae205010"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83cff0d6857a8295e41f90d5e9cab711"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711">throttling_active</a> () const</td></tr>
+<tr class="memdesc:a83cff0d6857a8295e41f90d5e9cab711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the throttling feature is currently in effect.  <a href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711">More...</a><br /></td></tr>
+<tr class="separator:a83cff0d6857a8295e41f90d5e9cab711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41893a27e7d36c96c224b24420e26dca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a41893a27e7d36c96c224b24420e26dca">throttling_cfg</a> (<a class="el" href="classbool.html">bool</a> active, const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a> &amp;cfg)</td></tr>
+<tr class="memdesc:a41893a27e7d36c96c224b24420e26dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutator that sets the throttling knobs.  <a href="classflow_1_1log_1_1Async__file__logger.html#a41893a27e7d36c96c224b24420e26dca">More...</a><br /></td></tr>
+<tr class="separator:a41893a27e7d36c96c224b24420e26dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classflow_1_1log_1_1Logger"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classflow_1_1log_1_1Logger')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a></td></tr>
 <tr class="memitem:ac8a2e7a33fe3fbc0c29ead62ed98c022 inherit pub_methods_classflow_1_1log_1_1Logger"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">should_log</a> (<a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04">Sev</a> sev, const <a class="el" href="classflow_1_1log_1_1Component.html">Component</a> &amp;component) const =0</td></tr>
 <tr class="memdesc:ac8a2e7a33fe3fbc0c29ead62ed98c022 inherit pub_methods_classflow_1_1log_1_1Logger"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given attributes of a hypothetical message that would be logged, return <code>true</code> if that message should be logged and <code>false</code> otherwise (e.g., if the verbosity of the message is above the current configured verbosity threshold for the <a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a> specified).  <a href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">More...</a><br /></td></tr>
@@ -154,6 +174,12 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
+<tr class="memitem:a2f21285253ab0f9a81cf991f99ce6549"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">Mutex</a> = <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626">flow::util::Mutex_non_recursive</a></td></tr>
+<tr class="memdesc:a2f21285253ab0f9a81cf991f99ce6549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a> type.  <a href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">More...</a><br /></td></tr>
+<tr class="separator:a2f21285253ab0f9a81cf991f99ce6549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10757ede565842d0faebf50bc1424610"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a10757ede565842d0faebf50bc1424610">Lock_guard</a> = <a class="el" href="namespaceflow_1_1util.html#a5d2247b715da63e4b960909561b90ae7">flow::util::Lock_guard</a>&lt; <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">Mutex</a> &gt;</td></tr>
+<tr class="memdesc:a10757ede565842d0faebf50bc1424610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549" title="Short-hand for m_throttling_mutex type.">Mutex</a> lock.  <a href="classflow_1_1log_1_1Async__file__logger.html#a10757ede565842d0faebf50bc1424610">More...</a><br /></td></tr>
+<tr class="separator:a10757ede565842d0faebf50bc1424610"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa452be34d366b80024eaed98d47b987f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa452be34d366b80024eaed98d47b987f">Signal_set</a> = boost::asio::signal_set</td></tr>
 <tr class="memdesc:aa452be34d366b80024eaed98d47b987f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for a signal set.  <a href="classflow_1_1log_1_1Async__file__logger.html#aa452be34d366b80024eaed98d47b987f">More...</a><br /></td></tr>
 <tr class="separator:aa452be34d366b80024eaed98d47b987f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,8 +190,32 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a541843c3b49c59a70aad70d8ab984188"><td class="mdescLeft">&#160;</td><td class="mdescRight">SIGHUP/equivalent handler for the optional feature <code>capture_rotate_signals_internally</code> in constructor.  <a href="classflow_1_1log_1_1Async__file__logger.html#a541843c3b49c59a70aad70d8ab984188">More...</a><br /></td></tr>
 <tr class="separator:a541843c3b49c59a70aad70d8ab984188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a6d74d81cb726a30f33f4fc106e3be5b6"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6">mem_cost</a> (const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">Log_request</a> &amp;log_request)</td></tr>
+<tr class="memdesc:a6d74d81cb726a30f33f4fc106e3be5b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">How much <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> issuing the supplied <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async...">Log_request</a> shall contribute to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>.  <a href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6">More...</a><br /></td></tr>
+<tr class="separator:a6d74d81cb726a30f33f4fc106e3be5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eff13fef045d9dd58a34d207ff6521e"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a9eff13fef045d9dd58a34d207ff6521e">deep_size</a> (const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">Log_request</a> &amp;val)</td></tr>
+<tr class="memdesc:a9eff13fef045d9dd58a34d207ff6521e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes.  <a href="classflow_1_1log_1_1Async__file__logger.html#a9eff13fef045d9dd58a34d207ff6521e">More...</a><br /></td></tr>
+<tr class="separator:a9eff13fef045d9dd58a34d207ff6521e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a99cd4faff109ef35720fbed9837973dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">Mutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc">m_throttling_mutex</a></td></tr>
+<tr class="memdesc:a99cd4faff109ef35720fbed9837973dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Protects throttling algorithm data that require coherence among themselves: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e" title="See Throttling_cfg. Protected by m_throttling_mutex.">m_throttling_cfg</a>, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a>.  <a href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc">More...</a><br /></td></tr>
+<tr class="separator:a99cd4faff109ef35720fbed9837973dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3d544ab96299a8c2b53b7be485d1a6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e">m_throttling_cfg</a></td></tr>
+<tr class="memdesc:aa3d544ab96299a8c2b53b7be485d1a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html" title="Controls behavior of the throttling algorithm as described in Async_file_logger doc header Throttling...">Throttling_cfg</a>. Protected by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a>.  <a href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e">More...</a><br /></td></tr>
+<tr class="separator:aa3d544ab96299a8c2b53b7be485d1a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cce9184c2137aa4c2d09894e1aaa7c9"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9">m_pending_logs_sz</a></td></tr>
+<tr class="memdesc:a7cce9184c2137aa4c2d09894e1aaa7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of how much RAM is being used by storing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> requests' data (message itself, metadata) before they've been logged to file via <code>really_log()</code> (and therefore freed).  <a href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9">More...</a><br /></td></tr>
+<tr class="separator:a7cce9184c2137aa4c2d09894e1aaa7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13ef30bc2d66758c29c31dc76a130aa"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="classbool.html">bool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa">m_throttling_now</a></td></tr>
+<tr class="memdesc:aa13ef30bc2d66758c29c31dc76a130aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the output of the always-on throttling algorithm; namely <code>true</code> if currently <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> shall return <code>false</code> due to too-much-RAM-being-used; <code>false</code> otherwise.  <a href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa">More...</a><br /></td></tr>
+<tr class="separator:aa13ef30bc2d66758c29c31dc76a130aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bbad8cea27134844e73daff014cc82a"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="classbool.html">bool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a">m_throttling_active</a></td></tr>
+<tr class="memdesc:a5bbad8cea27134844e73daff014cc82a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.  <a href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a">More...</a><br /></td></tr>
+<tr class="separator:a5bbad8cea27134844e73daff014cc82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c06c592797c70077fc02c98ebf231da"><td class="memItemLeft" align="right" valign="top">boost::movelib::unique_ptr&lt; <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html">Serial_file_logger</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da">m_serial_logger</a></td></tr>
 <tr class="memdesc:a5c06c592797c70077fc02c98ebf231da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code> doing all the real log-writing work (the one stored in <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> is the logger-about-logging, <code>backup_logger_ptr</code> from ctor args).  <a href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da">More...</a><br /></td></tr>
 <tr class="separator:a5c06c592797c70077fc02c98ebf231da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -233,14 +283,219 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p >An implementation of <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> that logs messages to a given file-system path but never blocks any logging thread for file I/O; suitable for heavy-duty file logging. </p>
 <p >Protects against garbling due to simultaneous logging from multiple threads.</p>
 <p >For file logging, the two out-of-the-box <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s currently suitable are this <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> and <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a>. Vaguely speaking, <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a> is suitable for console (<code>cout</code>, <code>cerr</code>) output; and, in a pinch outside of a heavy-duty production/server environment, for file (<code>ofstream</code>) output. For heavy-duty file logging one should use this <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. The primary reason is performance; this is discussed in the <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> class doc header; note <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> logs asynchronously. A secondary reason is additional file-logging-specific utilities &ndash; such as rotation &ndash; are now or in the future going to be in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>, as its purpose is heavy-duty file logging specifically.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000034">Todo:</a></b></dt><dd>Lacking feature: Compress-as-you-log in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. So, optionally, when characters are actually written out to file-system, gzip/zip/whatever them instead of writing plain text. (This is possible at least for gzip.) Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation time: F.log.1.gz -&gt; F.log.2.gz, F.log -&gt; F.log.1 -&gt; F.log.1.gz). It is more space-efficient (at least), however, to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.: F.log.1.gz -&gt; F.log.2.gz, F.log.gz [already gzipped from the start] -&gt; F.log.1.gz).</dd></dl>
+<h3>Throttling</h3>
+<p >By default this feature is disabled, but one can enable/disable/configure it at will via <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator. For example a viable tactic is to call it once right after construction, before any logging via <code>*this</code>; then call it subsequently in case of dynamic config update.</p>
+<p >Throttling deals with the following potential problem which can occur under very heavy <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> throughput (lots of calls being made per unit time, probably from many threads); in practice this would typically only happen if one sets effective verbosity to <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b" title="Message indicates any condition that may occur with great frequency (thus verbose if logged).">Sev::S_TRACE</a> or more-verbose &ndash; as <code>S_INFO</code>-or-less-verbose means <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> should be preventing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> from being called frequently. For example one might enable TRACE logging temporarily in production to see some details, causing a heavy <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> execution rate. (That said, if your code does INFO-level logging too often, it could happen then too. The official <em>convention</em> is to log INFO-or-more-severe messages only if this would not meaningfully affect the overall perf and responsiveness of the system; but sometimes mistakes are made.)</p>
+<p >Internally each <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> call pushes this <em>log request</em> into a central (per <code>*this</code>) queue of log requests; a single (per <code>*this</code>) background thread is always popping this queue ASAP, writing the message to the file, etc., until the queue is emptied; then it sleeps until it becomes non-empty; and so on. If many threads are pushing messages faster than this thread can get through them, then more and more RAM is used to store the enqueued messages. If the throughput doesn't decrease in time, letting this central thread catch up, then the RAM use might cause swapping and eventually out-of-memory (congestive collapse). To be clear, unless congestive collapse is in fact reached, the system is self-correcting, in that given a respite from the log-requests (<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> calls), the queue size <em>will</em> get down to zero, as will the corresponding memory use. However, if this does not occur early enough, congestive collapse occurs.</p>
+<p >Throttling is a safeguard against this. It works as follows. There's a limit H in bytes. We start at Not-Throttling state. If the memory use M grows beyond H, we enter Throttling state. In this state, we reject incoming log requests &ndash; thus letting the system deal with just logging-to-file what it has queued up (in FIFO fashion, naturally) &ndash; until no more such queued-up requests remain. Once the queue is empty, we re-enter Not-Throttling state. In other words beyond a certain total memory use, we throttle; then to exit this state total memory use has to go down to 0, before we un-throttle. The idea is to encourage a sawtooth <code>/\/\/\</code> memory-use pattern when subjected to a firehose of log requests.</p>
+<dl class="section note"><dt>Note</dt><dd>An earlier functional design contemplated having a limit L (smaller than H; e.g., picture L = 50% of H), so that mem-use would need to merely get down to L to re-enter Not-Throttling state. However, upon prototyping this, it became clear this hardly improved the experience, instead making it rather confusing to understand in action. E.g., if there's a firehose going at full-blast, and you're fighting it by turning off the fire-hose and letting water drain, but then turn it on again once the container is 50% full, then the draining will "fight" the filling again, potentially losing quite decisively. Trying to then read resulting logs is messy and strange, depending on the 2 rates relative to each other. By comparison, the fill-drain-fill-drain <code>/\/\/\</code> pattern is straightforward to understand; and one can cleanly point out the minima and maxima with log messages. Plus, less configuration/tuning with little to no functional loss = a good thing.</dd></dl>
+<p>The particular mechanic of throttling is as follows. If throttling is enabled during a particular call to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>, and if and only if <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> would return <code>true</code> based on considerations excluding the throttling feature, then:</p>
+<ul>
+<li><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> returns <code>true</code> in Not-Throttling state;</li>
+<li><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> returns <code>false</code> in Throttling state;</li>
+</ul>
+<p >Since standard <code>FLOW_LOG_*</code> macros avoid <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> (or even the evaluation of the message &ndash; which is itself quite expensive, possibly quite a bit more expensive than the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>) if <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> returns <code>false</code> for a given log call site, during Throttling state enqueuing of messages is blocked (letting the logging-to-file thread catch up). <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> == false</code> is how we turn off the firehose.</p>
+<p >M starts at 0. Each <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> (queued-up log request) increments M based on the memory-use estimate of the message+metadata passed to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>; then it enqueues the log request. Each time the background thread actually writes out the queued-up message+metadata, it decrements M by the same value by which it was incremented in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>; accordingly the log-request's memory is freed.</p>
+<p >This algorithm (computing M via increments and decrements; setting state to Throttling or Not-Throttling) is carried out at all times. However, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> consults the state (Throttling versus Not-Throttling), if and only if the throttling feature is enabled at that time. If it is not, that state is simply ignored, and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> only makes the usual <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> verbosity check(s); if that results in <code>true</code> then the message is enqueued. Therefore one can enable throttling at any time and count on its having immediate effect based on actual memory use at that time.</p>
+<p >The limit H can also be reconfigured at any time. Essentially <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator takes 2 orthogonal sets of info: 1, whether throttling is to be possible at all (whether Throttling versus Not-Throttling affects <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> from now on); and 2, the limit H which controls the policy about setting the state (Throttling versus Not-Throttling). (2) affects the algorithm that computes that binary state; whereas (1) affects whether that binary state actually controls whether to prevent logging to save memory or not.</p>
+<p >If H is modified, the binary state is reinitialized: it is set to Throttling if and only if memory use M at that time exceeds H; else to Not-Throttling. The state prior to the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator call does not matter in this situation; it is overwritten. This avoids various annoying corner cases and ambiguities around config updates.</p>
+<p >Lastly: Initially throttling is disabled, while a certain default value of H is assumed. Hence the above algorithm is active but has no effect, unless you call <code>throttling_cfg(true, ...)</code> to make it have effect and/or change H. You may use <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> accessor and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> to get a copy of the current config values.</p>
 <h3>Thread safety</h3>
 <p >As noted above, simultaneous logging from multiple threads is safe from output corruption, in that simultaneous <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> calls for the same <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> targeting the same stream will log serially to each other. However, if some other code or process writes to the same file, then all bets are off &ndash; so don't.</p>
 <p >See thread safety notes and to-dos regarding <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a4b6dcf5c791e32c517c41c935fba29a4" title="Reference to the config object passed to constructor.">m_config</a> in <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a> doc header. These apply here also.</p>
+<p ><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator does not add any thread safety restrictions: it can be called concurrently with any other method, including <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>, same-named accessor, and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a>. There is one formal exception: it must not be called concurrently with itself.</p>
 <p >There are no other mutable data (state), so that's that.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000034">Todo:</a></b></dt><dd>Lacking feature: Compress-as-you-log in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. So, optionally, when characters are actually written out to file-system, gzip/zip/whatever them instead of writing plain text. (This is possible at least for gzip.) Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation time: F.log.1.gz -&gt; F.log.2.gz, F.log -&gt; F.log.1 -&gt; F.log.1.gz). It is more space-efficient (at least), however, to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.: F.log.1.gz -&gt; F.log.2.gz, F.log.gz [already gzipped from the start] -&gt; F.log.1.gz). </dd></dl>
+<h3>Throttling: Functional design rationale notes</h3>
+<p >The throttling feature could have been designed differently (in terms of how it should act, functionally speaking), and a couple of questions tend to come up, so let's answer here.</p><ul>
+<li>Why have the throttling algorithm always-on, even when <code>!throttling_active()</code> &ndash; which is default at that? Could save cycles otherwise, no? Answer: To begin with, the counting of the memory used (M) should be accurate in case it is (e.g.) high, and one changes <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> to <code>true</code>. Still, couldn't some things be skipped &ndash; namely perhaps determining whether state is Throttling or Not-Throttling and logging about it &ndash; when <code>!throttling_active()</code>? Answer: Yes, and that might be a decent change in the future, as internally it might be possible to skip some mutex work in that situation which could be a small optimization. It is basically simpler to think about and implement the existing way. (More notes on this in internal comments.)</li>
+<li>Why not get rid of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> knob entirely? E.g., <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html#a7a30343e388c65594d06baed25b1aaa9" title="The throttling algorithm will go from Not-Throttling to Throttling state if and only if the current m...">Async_file_logger::Throttling_cfg::m_hi_limit</a> (H) could just be set to a huge value to have an apparently similar effect to <code>!throttling_active()</code>. (The knob could still exist cosmetically speaking but just have the aforementioned effect.) Answer: I (ygoldfel) first thought similarly, while others specified otherwise; but I quickly came around to agreeing with them. It is nice to log about crossing the threshold H even without responding to it by throttling; it could be a signal for a user to look into enabling the feature. Granted, we could also log at every 500k increment, or something like that; but the present setup seemed like a nice balance between power and simplicity.</li>
+</ul>
+<p >All in all, these choices are defensible but not necessarily the only good ones.</p>
+<h2>Implementation </h2>
+<p >The basic implementation is straightforward enough to be gleaned from reading the code and other comments.</p>
+<h3>Throttling impl: The essential algorithm</h3>
+<p >What bears discussion is the implementation of the throttling feature. Read on if you have interest in that specific topic. If so please carefully read the public section above entitled Throttling; then come back here.</p>
+<p >The impl of throttling writes itself based on that description, if one is allowed to use a mutex. Then it's all pretty simple: There are 3-4 functions to worry about:</p>
+<ul>
+<li>should_log(sev, component): First compute <code>m_serial_logger-&gt;should_log(sev, component)</code>; usually that will return <code>false</code>, so we should too. If it returns <code>true</code>, though, then we should apply the added test of whether throttling should make us return <code>false</code> after all. So:<ul>
+<li>Lock mutex.<ul>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a" title="Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.">m_throttling_active</a> is <code>false</code> (feature disabled) then return <code>true</code>. Else:</li>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is <code>false</code> (state is Not-Throttling) then return <code>true</code>. Else:</li>
+<li>Return <code>false</code>. (Throttling feature enabled, and state is currently Throttling.)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>do_log(metadata, msg)</code>:<ul>
+<li>Compute <code>C = mem_cost(msg)</code> which inlines to essentially <code>msg.size()</code> + some compile-time constant.</li>
+<li>Let local <code>bool throttling_begins = false</code>.</li>
+<li>Lock mutex.<ul>
+<li>Increment <code>m_pending_logs_sz</code> by <code>C</code>. <code>m_pending_logs_sz</code> is called M in the earlier discussion: the memory use estimate of things <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> has enqueued but <code>really_log()</code> (see just below) has not yet dequeued and logged to file.</li>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is <code>false</code>, and we just made <code>m_pending_logs_sz</code> go from <code>&lt; m_throttling_cfg.m_hi_limit</code> (a/k/a H) to <code>&gt;= m_throttling_cfg.m_hi_limit</code>, then set <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> to <code>true</code>; and set <code>throttling_begins = true</code>.</li>
+</ul>
+</li>
+<li>Enqueue the log-request:<ul>
+<li>Capture <code>metadata</code>; a copy of <code>msg</code>; and <code>throttling_begins</code>.</li>
+<li><code>m_async_worker.post()</code> the lambda which invokes <code>really_log()</code> with those 3 items as args.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>really_log(metadata, msg, throttling_begins)</code>:<ul>
+<li><code>m_serial_logger-&gt;do_log(metadata, msg)</code>: write-out the actual message to the file.</li>
+<li>If <code>throttling_begins == true</code>: via <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> write-out a special message indicating that <code>msg</code> was the message causing state to earlier change from Not-Throttling to Throttling due to mem-use passing ceiling H at that time.</li>
+<li>Compute <code>C = mem_cost(msg)</code> (same as in <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> above).</li>
+<li>Let local <code>bool throttling_ends = false</code>.</li>
+<li>Lock mutex.<ul>
+<li>Decrement <code>m_pending_logs_sz</code> (a/k/a M) by <code>C</code>.</li>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is <code>true</code>, and we just made <code>m_pending_logs_sz</code> go down to 0, then set <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> to <code>false</code>; and set <code>throttling_ends = true</code>.</li>
+</ul>
+</li>
+<li>If <code>throttling_ends == true</code>: via <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> write-out a special message indicating that state has changed from Throttling to Not-Throttling due to mem-use reaching 0.</li>
+</ul>
+</li>
+<li><code>throttling_cfg(active, cfg)</code> mutator:<ul>
+<li>Lock mutex.<ul>
+<li>Save args into <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a" title="Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.">m_throttling_active</a> and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e" title="See Throttling_cfg. Protected by m_throttling_mutex.">m_throttling_cfg</a> respectively.</li>
+<li>If the latter's contained value (H) changed:<ul>
+<li>Assign <code>m_throttling_now = (m_pending_logs_sz &gt;= m_throttling_cfg.m_hi_limit)</code>. This reinitializes the state machine cleanly as promised in the class doc header public section.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p >The mutex makes everything easy. However the resulting perf is potentially unacceptable, at least because <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> is called <em>very</em> frequently from <em>many</em> threads and has a mutex lock now. We must strive to keep computational overhead in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> very low; and avoid extra lock contention if possible, especially to the extent it would affect <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>. Onward:</p>
+<h3>Throttling impl: The algorithm modified to become lock-free in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a></h3>
+<p >The easiest way to reduce critical section in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> concerns access to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a" title="Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not.">m_throttling_active</a>. Suppose we make it <code>atomic&lt;bool&gt;</code> instead of <code>bool</code> with mutex protection. If we store with <code>relaxed</code> ordering and load with <code>relaxed</code> ordering, and do both outside any shared mutex-lock section: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator does the quite-rare storing; <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> does the possibly-frequent (albeit gated by <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> == true</code> in the first place) loading. The <code>relaxed</code> order means at worst there's a bit of a delay for some threads noticing the config change; so this or that thread might throttle or not-throttle a tiny bit of time after another: it's absolutely not a problem. Moreover there is ~zero penalty to a <code>relaxed</code> load of <code>atomic&lt;bool&gt;</code> compared to simply accessing a <code>bool</code>. Adding a <code>bool</code> check to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> is not nothing, but it's very close.</p>
+<p >The only now-remaining thing in the mutex-lock section of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> (see pseudocode above) is the Boolean check of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a>. There is exactly one consumer of this Boolean: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>. Again let's replace <code>bool m_throttling_now</code> with <code>atomic&lt;bool&gt; m_throttling_now</code>; and load it with <code>relaxed</code> ordering in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>, outside any shared mutex-lock section. There are exactly 3 assigners: do_log () and <code>really_log()</code>; they assign this when M 1st goes up past H (assign <code>true</code>) or 1st down to 0 (assign <code>false</code>) respectively; and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator (assign depending on where M is compared to the new H). So let's assume &ndash; and we'll discuss the bejesus out of it below &ndash; we ensure the assigning algorithm among those 3 places is made to work properly, meaning <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> (Throttling versus Not-Throttling state) algorithm is made to correctly set the flag's value correctly in and of itself. Then <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> merely needs to read <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> and check it against <code>true</code> to return <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> == false</code> iff so. Once again, if <code>relaxed</code> ordering causes some threads to "see" a new value a little later than others, that is perfectly fine. (We re-emphasize that the 3 mutating assignment events are hardly frequent: only when passing H going up for the 1st time since being 0, reaching 0 for the 1st time since being &gt;= H, and possibly in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator call.)</p>
+<p >Now the critical section in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> has been emptied: so no more mutex locking or unlocking needed in it.</p>
+<dl class="section note"><dt>Note</dt><dd>Note well! The lock-free, low-overhead nature of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> as described in the preceding 3 paragraphs is <b>by far</b> the most important perf achievement of this algorithm. Having achieved that, we've solved what's almost certainly the only perf objective that really matters. The only other code area that could conceivably matter perf-wise is <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> &ndash; and it does conceivably matter but not very much in practice. Please remember: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> is already a heavy-weight operation; before it is even called, the <code>FLOW_LOG_*()</code> macro almost certainly invoking it must perform expensive <code>ostream</code> assembly of <code>msg</code>; then <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> itself needs to make a copy of <code>msg</code> and create an <code>std::function&lt;&gt;</code> with a number of captures, and enqueue all that into a boost.asio queue (which internally involves a mutex lock/unlock). That's why <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> is a separate call: by being very fast and usually returning <code>false</code>, most <em>potential</em> <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> calls &ndash; <em>and</em> the <code>msg</code> assembly (and more) <em>potentially</em> preceding each &ndash; never happen at all: <code>FLOW_LOG_...()</code> essentially has the form <code>if (should_log(...)) { ...prep msg and mdt...; do_log(mdt, msg); }</code>. So we <em>should</em> strive to keep added throttling-algorithm-driven overhead in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> low and minimize mutex-locked critical sections therein; but such striving is a nicety, whereas optimizing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> is a necessity.</dd></dl>
+<p>So: We've now reduced the algorithm to:</p>
+<ul>
+<li><code>do_log(metadata, msg)</code>:<ul>
+<li>Compute <code>C = mem_cost(msg)</code> (add a few things including <code>msg.size()</code>).</li>
+<li>Let local <code>bool throttling_begins = false</code>.</li>
+<li>Lock mutex.<ul>
+<li><code>m_pending_logs_sz += C</code>.</li>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is <code>false</code>, and we just made <code>m_pending_logs_sz</code> go from <code>&lt; m_throttling_cfg.m_hi_limit</code> to <code>&gt;= m_throttling_cfg.m_hi_limit</code>, then set <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> to <code>true</code>; and set <code>throttling_begins = true</code>.</li>
+</ul>
+</li>
+<li>Enqueue the log-request:<ul>
+<li>Capture <code>metadata</code>; a copy of <code>msg</code>; and <code>throttling_begins</code>.</li>
+<li><code>m_async_worker.post()</code> the lambda which invokes <code>really_log()</code> with those 3 items as inputs.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>really_log(metadata, msg, throttling_begins)</code>:<ul>
+<li><code>m_serial_logger-&gt;do_log(metadata, msg)</code>.</li>
+<li>If <code>throttling_begins == true</code>: via <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> write-out a special message indicating that <code>msg</code> was the message causing state to earlier change from Not-Throttling to Throttling due to mem-use passing ceiling H at that time.</li>
+<li>Compute <code>C = mem_cost(msg)</code>.</li>
+<li>Let local <code>bool throttling_ends = false</code>.</li>
+<li>Lock mutex.<ul>
+<li><code>m_pending_logs_sz -= C</code>.</li>
+<li>If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is <code>true</code>, and we just made <code>m_pending_logs_sz == 0</code>, then set <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> to <code>false</code>; and set <code>throttling_ends = true</code>.</li>
+</ul>
+</li>
+<li>If <code>throttling_ends == true</code>: via <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> write-out: state has changed from Throttling to Not-Throttling due to mem-use use reaching 0.</li>
+</ul>
+</li>
+<li><code>throttling_cfg(active, cfg)</code> mutator:<ul>
+<li>Save <code>m_throttling_active = active</code>.</li>
+<li>Lock mutex.<ul>
+<li>Save <code>m_throttling_cfg = cfg</code>.</li>
+<li>If the latter's contained value (H) changed:<ul>
+<li>Assign <code>m_throttling_now = (m_pending_logs_sz &gt;= m_throttling_cfg.m_hi_limit)</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p >That's acceptable, because the really important (for perf) place, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>, now is lock-free with the added overhead being 2 mere checks against zero; and even then only if the core <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a></code> yielded <code>true</code> &ndash; which usually it doesn't.</p>
+<p >Let's reassert that the overhead and potential lock contention added on account of the throttling logic in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> are minor. (If so, then <code>really_log()</code> and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator need not be scrutinized much, as they matter less and much less respectively.) We've already noted this, but let's make sure.</p>
+<ul>
+<li>Added cycles (assuming no lock contention): To enumerate this overhead:<ul>
+<li><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6" title="How much do_log() issuing the supplied Log_request shall contribute to m_pending_logs_sz.">mem_cost()</a>. This adds <code>msg.size()</code> (a <code>size_t</code> memory value) to a compile-time constant, more or less.</li>
+<li>Increment M by that number (<code>+=</code> with saving a <code>prev_val</code> and resulting <code>new_val</code>).</li>
+<li>Check a <code>bool</code>.<ul>
+<li>Possibly compare <code>prev_val &lt; H</code> and <code>new_val &gt;= H</code>.</li>
+</ul>
+</li>
+<li>Set <code>bool throttling_begins</code> to <code>true</code> or <code>false</code> accordingly.</li>
+<li>Add <code>throttling_begins</code> in addition to the existing payload into <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async...">Log_request</a> (which is 2 pointers + 1 <code>size_t</code>) which is packaged together with the task.</li>
+<li>Mutex lock/unlock. (We're assuming no lock contention; so this is cheap.)</li>
+<li>CONCLUSION: It's 5-ish increments, 2-ish integer comparisons, copying a ~handful of scalars ~1x each, and change. Compare to the "Enqueue the log-request" step alone: create <code>function&lt;&gt;</code> object, enqueue it to boost.asio task queue &ndash; copying <code>msg</code> and other parts of <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async...">Log_request</a> in the process. Now throw in the <code>ostream&lt;&lt;</code> manipulation needed to assemble <code>msg</code>; the time spent heap-allocating and populating <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a>, such as allocating and copying thread nickname, if it's long enough. And lastly remember that the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> mechanism (even <em>without</em> any throttling) is normally supposed to make <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> calls so infrequent that the processor cycle cost is small in the first place. Conclusion: Yes, this overhead is acceptable: it is small as a %; and in absolute terms, the latter only conceivably not being the case, if it would have been not the case anyway (and not in a well functioning system).</li>
+</ul>
+</li>
+<li>Lock contention: The critical section is similar in both potentially contending pieces of code (<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> and <code>really_log()</code>); so let's take the one in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>. It is <em>tiny</em>: Integer add and ~3 assignments; Boolean comparison; possibly 1-2 integer comparisons; and either a short jump or 2 more Boolean assignments.<ul>
+<li>It's tiny in absolute terms.</li>
+<li>It's tiny in % terms, as discussed earlier for <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>. (In <code>really_log()</code> it's even more so, as it is all in one thread <em>and</em> doing synchronous file I/O.)</li>
+<li><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> already has a boost.asio task queue push with mutex lock/unlock, contending against <code>really_log()</code> performing mutex lock/unlock + queue pop; plus condition-variable wait/notify. Even under very intense practical logging scenarios, lock contention from this critical section was never obserbed to be a factor.</li>
+<li>CONCLUSION: It would be very surprising if this added locking ever caused any observable contention.</li>
+</ul>
+</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>I (ygoldfel) heavily pursued a completely lock-free solution. I got tantalizingly close. It involved an added pointer indirection in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> (and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> and <code>really_log()</code>), with a pointer storing throttling state <code>struct</code>, atomically replaced by <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a></code> mutator; completely removing mutex; and turning <code>m_pending_logs_sz</code> into an <code>atomic</code>. Unfortunately there was a very unlikely corner case that was nevertheless formally possible. Ultimately it came down to the fact that <code>A(); if (...based-on-A()...) { B(); }</code> and <code>C(); if (...based-on-C()...) { D(); }</code> executing concurrently, with <code>A()</code> being reached before <code>C()</code>, execution order can be A-C-D-B instead of the desired A-C-B-D. In our case this could, formally speaking, cause <code>m_throttling_now =&gt; true =&gt; false</code> to incorrectly be switched to <code>m_throttling_now =&gt; false =&gt; true</code> (if, e.g., M=H is reached and then very quickly/near-concurrently M=0 is reached); or vice versa. Without synchronization of some kind I couldn't make it be bullet-proof. (There was also the slightly longer computation in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>: pointer indirection to account for config-setting no longer being mutex-protected; but in my view that addition was acceptable still. Unfortunately I couldn't make the algorithm formally correct.) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00063">63</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00358">358</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a10757ede565842d0faebf50bc1424610" name="a10757ede565842d0faebf50bc1424610"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10757ede565842d0faebf50bc1424610">&#9670;&nbsp;</a></span>Lock_guard</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a10757ede565842d0faebf50bc1424610">flow::log::Async_file_logger::Lock_guard</a> =  <a class="el" href="namespaceflow_1_1util.html#a5d2247b715da63e4b960909561b90ae7">flow::util::Lock_guard</a>&lt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">Mutex</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Short-hand for <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549" title="Short-hand for m_throttling_mutex type.">Mutex</a> lock. </p>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00567">567</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f21285253ab0f9a81cf991f99ce6549" name="a2f21285253ab0f9a81cf991f99ce6549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f21285253ab0f9a81cf991f99ce6549">&#9670;&nbsp;</a></span>Mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">flow::log::Async_file_logger::Mutex</a> =  <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626">flow::util::Mutex_non_recursive</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Short-hand for <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a> type. </p>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00564">564</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+</div>
+</div>
 <a id="aa452be34d366b80024eaed98d47b987f" name="aa452be34d366b80024eaed98d47b987f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa452be34d366b80024eaed98d47b987f">&#9670;&nbsp;</a></span>Signal_set</h2>
 
@@ -263,7 +518,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for a signal set. </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00186">186</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00570">570</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
 </div>
 </div>
@@ -329,13 +584,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00031">31</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00237">log_flush_and_reopen()</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00238">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00246">m_signal_set</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00121">on_rotate_signal()</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00041">flow::async::Single_thread_task_loop::start()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_aec2b1796c81b020cacea493e21e19562_cgraph.svg" width="976" height="303"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00393">flow::log::Async_file_logger::Throttling_cfg::S_HI_LIMIT_DEFAULT</a>.</p>
 
 </div>
 </div>
@@ -364,9 +613,9 @@ Here is the call graph for this function:</div>
 
 <p>Flushes out anything buffered, returns resources/closes output file(s); then returns. </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00104">104</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00175">175</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00238">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00231">m_serial_logger</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -377,6 +626,59 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9eff13fef045d9dd58a34d207ff6521e" name="a9eff13fef045d9dd58a34d207ff6521e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9eff13fef045d9dd58a34d207ff6521e">&#9670;&nbsp;</a></span>deep_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::log::Async_file_logger::deep_size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">Log_request</a> &amp;&#160;</td>
+          <td class="paramname"><em>val</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">val</td><td>Value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00443">443</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00443">deep_size()</a>, <a class="el" href="log_8cpp_source.html#l00288">flow::log::deep_size()</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00621">flow::log::Async_file_logger::Log_request::m_metadata</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00618">flow::log::Async_file_logger::Log_request::m_msg_size</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00443">deep_size()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00425">mem_cost()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a9eff13fef045d9dd58a34d207ff6521e_cgraph.svg" width="502" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a9eff13fef045d9dd58a34d207ff6521e_icgraph.svg" width="499" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
 <a id="aa557c0f55c1044161acc8fb54c115a3e" name="aa557c0f55c1044161acc8fb54c115a3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa557c0f55c1044161acc8fb54c115a3e">&#9670;&nbsp;</a></span>do_log()</h2>
 
@@ -422,13 +724,13 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#a934667f16dd6ca0841e521296ab3a6e2">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00154">154</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00240">240</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00238">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00231">m_serial_logger</a>, <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00385">flow::log::Async_file_logger::Throttling_cfg::m_hi_limit</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00720">m_throttling_now</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00425">mem_cost()</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_aa557c0f55c1044161acc8fb54c115a3e_cgraph.svg" width="732" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_aa557c0f55c1044161acc8fb54c115a3e_cgraph.svg" width="912" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -462,21 +764,13 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00237">237</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00483">483</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00238">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00231">m_serial_logger</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00031">Async_file_logger()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_aaaf956d63042cbc0800680996adabfa2_cgraph.svg" width="747" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_aaaf956d63042cbc0800680996adabfa2_icgraph.svg" width="368" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -510,7 +804,61 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#ae04868e2a384e60a349ecba8340cd731">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00256">256</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00528">528</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d74d81cb726a30f33f4fc106e3be5b6" name="a6d74d81cb726a30f33f4fc106e3be5b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d74d81cb726a30f33f4fc106e3be5b6">&#9670;&nbsp;</a></span>mem_cost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::log::Async_file_logger::mem_cost </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">Log_request</a> &amp;&#160;</td>
+          <td class="paramname"><em>log_request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How much <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> issuing the supplied <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async...">Log_request</a> shall contribute to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>. </p>
+<p ><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html" title="In addition to the task object (function) itself, these are the data placed onto the queue of m_async...">Log_request</a> in this case essentially just describes the <code>msg</code> and <code>metadata</code> args to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>. See discussion of throttling algorithm in Impl section of class doc header.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">log_request</td><td>See <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>: essentially filled-out with <code>msg</code>- and <code>metadata</code>-derived info. The value of <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#aee7f652b0e17e39d0afdb721bc956cf7" title="Whether this log request was such that its memory footprint (mem_cost()) pushed m_pending_logs_sz fro...">Log_request::m_throttling_begins</a> is ignored in the computation (it would not affect it anyway), but the other fields must be set. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Positive value. (Informally: we've observed roughly 200 plus message size as of this writing.) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00425">425</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00443">deep_size()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a6d74d81cb726a30f33f4fc106e3be5b6_cgraph.svg" width="680" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a6d74d81cb726a30f33f4fc106e3be5b6_icgraph.svg" width="320" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
@@ -558,11 +906,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00121">121</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00207">207</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00231">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00246">m_signal_set</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00121">on_rotate_signal()</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00782">m_signal_set</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00207">on_rotate_signal()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00031">Async_file_logger()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00121">on_rotate_signal()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00207">on_rotate_signal()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -572,7 +920,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a541843c3b49c59a70aad70d8ab984188_icgraph.svg" width="383" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Async__file__logger_a541843c3b49c59a70aad70d8ab984188_icgraph.svg" width="171" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -612,8 +960,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Implements interface method by returning <code>true</code> if the severity and component (which is allowed to be null) indicate it should. </p>
-<p >As of this writing not thread-safe against changes to <code>*m_config</code>.</p>
+<p>Implements interface method by returning <code>true</code> if the severity and component (which is allowed to be null) indicate it should; and if so potentially applies the throttling algorithm's result as well. </p>
+<p >As of this writing not thread-safe against changes to <code>*m_config</code> (but thread-safe agains <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator).</p>
+<p >Throttling comes into play if and only if: 1, <code>sev</code> and <code>component</code> indicate <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> should return <code>true</code> in the first place; and 2, <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> == true</code>. In that case the throttling alogorithm's current output (Throttling versus Not-Throttling state) is consulted to determine whether to return <code>true</code> or <code>false</code>. (See Throttling section of class doc header.)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sev</td><td>Severity of the message. </td></tr>
@@ -625,7 +974,106 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00251">251</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00497">497</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
+
+</div>
+</div>
+<a id="a83cff0d6857a8295e41f90d5e9cab711" name="a83cff0d6857a8295e41f90d5e9cab711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83cff0d6857a8295e41f90d5e9cab711">&#9670;&nbsp;</a></span>throttling_active()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classbool.html">bool</a> flow::log::Async_file_logger::throttling_active </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether the throttling feature is currently in effect. </p>
+<p >That is: can the throttling computations actually affect <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> output? (It is <em>not</em> about whether log lines are actually being rejected due to throttling right now.) Please see <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> doc header Throttling section for more info.</p>
+<p >If <code>true</code> <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> will potentially consider Throttling versus Not-Throttling state; else it will ignore it. If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator is never called, then this shall be <code>false</code> (feature inactive by default).</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> accessor also.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00119">119</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>.</p>
+
+</div>
+</div>
+<a id="ac2080e8abfc2cd9580c84626ae205010" name="ac2080e8abfc2cd9580c84626ae205010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2080e8abfc2cd9580c84626ae205010">&#9670;&nbsp;</a></span>throttling_cfg() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Async_file_logger::Throttling_cfg</a> flow::log::Async_file_logger::throttling_cfg </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Accessor returning a copy of the current set of throttling knobs. </p>
+<p >Please see <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> doc header Throttling section for description of their meanings in the algorithm.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> also.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The current knobs controlling the behavior of the algorithm that determines Throttling versus Not-Throttling state. If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator is never called, then the values therein will be some valid defaults. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00113">113</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>.</p>
+
+</div>
+</div>
+<a id="a41893a27e7d36c96c224b24420e26dca" name="a41893a27e7d36c96c224b24420e26dca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41893a27e7d36c96c224b24420e26dca">&#9670;&nbsp;</a></span>throttling_cfg() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flow::log::Async_file_logger::throttling_cfg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classbool.html">bool</a>&#160;</td>
+          <td class="paramname"><em>active</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a> &amp;&#160;</td>
+          <td class="paramname"><em>cfg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mutator that sets the throttling knobs. </p>
+<p >Please see <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> doc header Throttling section for description of their meanings in the algorithm.</p>
+<h3>Thread safety</h3>
+<p >It is okay to call concurrently with any other method on the same <code>*this</code>, except it must not be called concurrently with itself.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">active</td><td>Whether the feature shall be in effect (if <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> will potentially consider Throttling versus Not-Throttling state; else it will ignore it). </td></tr>
+    <tr><td class="paramname">cfg</td><td>The new values for knobs controlling the behavior of the algorithm that determines Throttling versus Not-Throttling state. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00124">124</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00385">flow::log::Async_file_logger::Throttling_cfg::m_hi_limit</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00720">m_throttling_now</a>.</p>
 
 </div>
 </div>
@@ -653,9 +1101,9 @@ Here is the caller graph for this function:</div>
 <p>The thread (1-thread pool, technically) in charge of all <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da" title="This is the Logger doing all the real log-writing work (the one stored in Log_context is the logger-a...">m_serial_logger</a> I/O operations including writes to file. </p>
 <p >Thread starts at construction of <code>*this</code>; ends (and is synchronously joined) at destruction of <code>*this</code> (by means of delegating to <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a> destructor). </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00238">238</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00774">774</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00031">Async_file_logger()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00154">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00237">log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00104">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00483">log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00175">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -674,9 +1122,42 @@ Here is the caller graph for this function:</div>
 <p>Reference to the config object passed to constructor. </p>
 <p >Note that object is mutable; see notes on thread safety.</p>
 <h3>Rationale</h3>
-<p >This can (and is but not exclusively) exclusively stored in <code>m_serial_logger-&gt;m_config</code>; it is stored here also for <code>public</code> access to the user. It's a pointer in any case. </p>
+<p >This can be (and is but not exclusively) exclusively stored in <code>m_serial_logger-&gt;m_config</code>; it is stored here also for <code>public</code> access to the user. It's a pointer in any case. </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00180">180</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00558">558</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7cce9184c2137aa4c2d09894e1aaa7c9" name="a7cce9184c2137aa4c2d09894e1aaa7c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cce9184c2137aa4c2d09894e1aaa7c9">&#9670;&nbsp;</a></span>m_pending_logs_sz</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::log::Async_file_logger::m_pending_logs_sz</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Estimate of how much RAM is being used by storing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> requests' data (message itself, metadata) before they've been logged to file via <code>really_log()</code> (and therefore freed). </p>
+<p >Protected by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a>.</p>
+<p >Each log request's cost is computed via <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6" title="How much do_log() issuing the supplied Log_request shall contribute to m_pending_logs_sz.">mem_cost()</a>: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> increments this by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6" title="How much do_log() issuing the supplied Log_request shall contribute to m_pending_logs_sz.">mem_cost()</a>; then a corresponding <code>really_log()</code> decrements it by that same amount.</p>
+<h3>Brief discussion</h3>
+<p >If one made this <code>atomic&lt;size_t&gt;</code>, and one needed merely the correct updating of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>, the mutex <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a> would not be necessary: <code>.fetch_add(mem_cost(...), relaxed)</code> and <code>.fetch_sub(mem_cost(...), relaxed)</code> would have worked perfectly with no corruption or unexpected reordering; each read/modify/write op is atomic, and that is sufficient. Essentially the mutex was needed only to synchronize subsequent potential assignment of <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a>.</p>
+<dl class="section see"><dt>See also</dt><dd>Class doc header Impl section for discussion of the throttling algorithm and locking in particular. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00701">701</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00124">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00175">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -704,11 +1185,12 @@ Here is the caller graph for this function:</div>
 <p >In itself it's a fully functional <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, but its main limitation is all calls between construction and destruction must be performed non-concurrently &ndash; for example from a single thread or boost.asio "strand." The way we leverage it is we simply only make log-file-related calls (especially <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#a2604031c07cbb4753bd3563d519a0872" title="Implements interface method by synchronously logging the message and some subset of the metadata in a...">Serial_file_logger::do_log()</a> but also <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#a7d38efd094d69b5ef38fc44ba153c9ed" title="Causes the log at the file-system path to be flushed/closed (if needed) and re-opened; this will occu...">Serial_file_logger::log_flush_and_reopen()</a>) from within <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a>-posted tasks (in other words from the thread <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a> starts at construction).</p>
 <h3>Design rationale</h3>
 <p >What's the point of <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a>? Why not just have all those data and logic (storing the <code>ofstream</code>, etc.) directly in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>? Answer: That's how it was originally. The cumulative amount of state and logic is the same; and there's no real usefulness for <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> as a stand-alone <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> for general users; so in and of itself splitting it out only adds a bit of coding overhead but is otherwise the same. So why do it? Answer:</p>
-<p >The reason we split it off was the following: We wanted to sometimes log to the real file from within the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a> thread; namely to mark with a pair of log messages that a file has been rotated. It was possible to do this via direct calls to a would-be <code>impl_do_log()</code> (which is <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> but already from the worker thread), but then one couldn't use the standard <code>FLOW_LOG_*()</code> statements to do it; this was both inconvenient and difficult to maintain over time (we predicted). At that point it made sense that really <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> <em>is</em> a would-be <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> (one that works from one thread) with the creation of the one thread &ndash; and other such goodies &ndash; added on top. With that, <code><a class="el" href="log_8hpp.html#ad4958fbd8673f48be76bf8e5e11d0522" title="Equivalent to FLOW_LOG_SET_CONTEXT() but sets the get_logger only.">FLOW_LOG_SET_LOGGER(m_serial_logger)</a></code> + <code><a class="el" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d" title="Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_INFO()</a></code> trivially logs to the file (as long as it's done from the worker thread), accomplishing that goal; and furthermore it makes logical sense in terms of overall design. The latter fact I (ygoldfel) would say is the best justification; and the desire for <code>*this</code> to log to the file, itself, was the triggering use case. </p>
+<p >The reason we split it off was the following: We wanted to sometimes log to the real file from within the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a> thread; namely to mark with a pair of log messages that a file has been rotated. It was possible to do this via direct calls to a would-be <code>impl_do_log()</code> (which is <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> but already from the worker thread), but then one couldn't use the standard <code>FLOW_LOG_*()</code> statements to do it; this was both inconvenient and difficult to maintain over time (we predicted). At that point it made sense that really <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> <em>is</em> a would-be <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> (one that works from one thread) with the creation of the one thread &ndash; and other such goodies &ndash; added on top. With that, <code><a class="el" href="log_8hpp.html#ad4958fbd8673f48be76bf8e5e11d0522" title="Equivalent to FLOW_LOG_SET_CONTEXT() but sets the get_logger only.">FLOW_LOG_SET_LOGGER(m_serial_logger)</a></code> + <code><a class="el" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d" title="Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_INFO()</a></code> trivially logs to the file (as long as it's done from the worker thread), accomplishing that goal; and furthermore it makes logical sense in terms of overall design. The latter fact I (ygoldfel) would say is the best justification; and the desire for <code>*this</code> to log to the file, itself, was the triggering use case.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da" title="This is the Logger doing all the real log-writing work (the one stored in Log_context is the logger-a...">Async_file_logger::m_serial_logger</a> (and likely a few other similar <code>unique_ptr</code> members of other classes) would be slightly nicer as an <code>std::optional&lt;&gt;</code> instead of <code>unique_ptr</code>. <code>optional</code> was not in STL back in the day and either did not exist or did not catch our attention back in the day. <code>unique_ptr</code> in situations like this is fine but uses the heap more. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00231">231</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00767">767</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00154">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00237">log_flush_and_reopen()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00121">on_rotate_signal()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00104">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00483">log_flush_and_reopen()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00207">on_rotate_signal()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00175">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -735,9 +1217,131 @@ Here is the caller graph for this function:</div>
 <p>Signal set which we may or may not be using to trap SIGHUP in order to auto-fire <code>m_serial_logger-&gt;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aaaf956d63042cbc0800680996adabfa2" title="Causes the log at the file-system path to be flushed/closed (if needed) and re-opened; this will happ...">log_flush_and_reopen()</a></code> in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a>. </p>
 <p ><code>add()</code> is called on it at init iff [sic] that feature is enabled by the user via ctor arg <code>capture_rotate_signals_internally</code>. Otherwise this object just does nothing <code>*this</code> lifetime. </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00246">246</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00782">782</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00031">Async_file_logger()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00121">on_rotate_signal()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00207">on_rotate_signal()</a>.</p>
+
+</div>
+</div>
+<a id="a5bbad8cea27134844e73daff014cc82a" name="a5bbad8cea27134844e73daff014cc82a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bbad8cea27134844e73daff014cc82a">&#9670;&nbsp;</a></span>m_throttling_active</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;<a class="el" href="classbool.html">bool</a>&gt; flow::log::Async_file_logger::m_throttling_active</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether the throttling-based-on-pending-logs-memory-used feature is currently active or not. </p>
+<p >As explained in detail in Throttling section in class doc header, this is queried only in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> and only as a gate to access the results of the always-on throttling algorithm: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a>. That algorithm, whose data reside in other <code>m_throttling_*</code> and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>, is always active; but this <code>m_throttling_active</code> flag determines whether that algorithm's output <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a> is used or ignored by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>.</p>
+<p >It is atomic, and accessed with <code>relaxed</code> order only, due to being potentially frequently accessed in the very-often-called <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a>. Since independent of the other state, it does not need mutex protection. </p>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00733">733</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00119">throttling_active()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00124">throttling_cfg()</a>.</p>
+
+</div>
+</div>
+<a id="aa3d544ab96299a8c2b53b7be485d1a6e" name="aa3d544ab96299a8c2b53b7be485d1a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3d544ab96299a8c2b53b7be485d1a6e">&#9670;&nbsp;</a></span>m_throttling_cfg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">Throttling_cfg</a> flow::log::Async_file_logger::m_throttling_cfg</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>See <a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html" title="Controls behavior of the throttling algorithm as described in Async_file_logger doc header Throttling...">Throttling_cfg</a>. Protected by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00683">683</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00113">throttling_cfg()</a>.</p>
+
+</div>
+</div>
+<a id="a99cd4faff109ef35720fbed9837973dc" name="a99cd4faff109ef35720fbed9837973dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99cd4faff109ef35720fbed9837973dc">&#9670;&nbsp;</a></span>m_throttling_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">Mutex</a> flow::log::Async_file_logger::m_throttling_mutex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Protects throttling algorithm data that require coherence among themselves: <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e" title="See Throttling_cfg. Protected by m_throttling_mutex.">m_throttling_cfg</a>, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>, <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa" title="Contains the output of the always-on throttling algorithm; namely true if currently should_log() shal...">m_throttling_now</a>. </p>
+<p >The latter is nevertheless <code>atomic&lt;&gt;</code>; see its doc header as to why.</p>
+<h3>Perf</h3>
+<p >The critical sections locked by this are extremely small, and <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> does not have one at all.</p>
+<dl class="section see"><dt>See also</dt><dd>Class doc header Impl section for discussion of the throttling algorithm and locking in particular. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00680">680</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00113">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00175">~Async_file_logger()</a>.</p>
+
+</div>
+</div>
+<a id="aa13ef30bc2d66758c29c31dc76a130aa" name="aa13ef30bc2d66758c29c31dc76a130aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa13ef30bc2d66758c29c31dc76a130aa">&#9670;&nbsp;</a></span>m_throttling_now</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;<a class="el" href="classbool.html">bool</a>&gt; flow::log::Async_file_logger::m_throttling_now</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contains the output of the always-on throttling algorithm; namely <code>true</code> if currently <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> shall return <code>false</code> due to too-much-RAM-being-used; <code>false</code> otherwise. </p>
+<p >It starts at <code>false</code>; when <code>m_throttling_cfg.m_hi_limit</code> is crossed (by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9" title="Estimate of how much RAM is being used by storing do_log() requests&#39; data (message itself,...">m_pending_logs_sz</a>) going up in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a>, it is made equal to <code>true</code>; when reaching 0 it is made equal to <code>false</code>.</p>
+<p >Protected by <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc" title="Protects throttling algorithm data that require coherence among themselves: m_throttling_cfg,...">m_throttling_mutex</a>. <em>Additionally</em> it is <code>atomic</code>, so that <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> can read it without locking. <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> does not care about the other items protected by the mutex, and it for functional purposes does not care about inter-thread volatility due to <code>relaxed</code>-order access to this flag around the rare occasions when its value actually changes.</p>
+<dl class="section see"><dt>See also</dt><dd>Class doc header Impl section for discussion of the throttling algorithm and locking in particular.</dd></dl>
+<p>At least for logging purposes we do want to detect when it <em>changes</em> from <code>false</code> to <code>true</code> and vice versa; this occurs only the 1st time it reaches <code>hi_limit</code> since it was last 0; and similarly the 1st time it reaches 0 since it was last <code>&gt;= hi_limit</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00720">720</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00240">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00124">throttling_cfg()</a>.</p>
 
 </div>
 </div>
@@ -748,7 +1352,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

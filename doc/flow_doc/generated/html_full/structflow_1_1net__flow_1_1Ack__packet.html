@@ -93,7 +93,7 @@ Inheritance diagram for flow::net_flow::Ack_packet:</div>
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Ack_packet:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Ack__packet__coll__graph.svg" width="1579" height="1064"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Ack__packet__coll__graph.svg" width="1723" height="898"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -304,7 +304,7 @@ Additional Inherited Members</h2></td></tr>
 <p >See <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> doc header for information common to all low-level packets including this one.</p>
 <p >Each ACK packet encapsulates 0 or more individual acknowledgments, each acknowledging receipt of a specific, distinct Data_packaet; and the current rcv_wnd (receive window state) on the ACK sender's side. The latter datum is always present. If individual acks are present, then the rcv_wnd advertising is merely opportunistic. If NO individual acks are present, then the rcv_wnd advertising is intentional for its own sake. The algorithm for the latter is discussed elsewhere.</p>
 <p >The mechanics of individual acks are further explored in the doc header for <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html" title="Specifies the incoming (post-deserialization) acknowledgment of a single received Data_packet.">Ack_packet::Individual_ack</a> nested <code>struct</code>.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000066">Todo:</a></b></dt><dd>Conceivably, since <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a> actually stores 1+ acknowledgments, it should become Acks_packet, of type ACKS (not ACK). Many comments and log messages would become clearer, as no one would assume an individual packet's acknowledgment when reading "an ACK" or similar phrase. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000067">Todo:</a></b></dt><dd>Conceivably, since <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a> actually stores 1+ acknowledgments, it should become Acks_packet, of type ACKS (not ACK). Many comments and log messages would become clearer, as no one would assume an individual packet's acknowledgment when reading "an ACK" or similar phrase. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01019">1019</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -323,7 +323,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Type used to store the ACK delay for a given individual acknowledged packet. </p>
 <p >The value specifies the number of multiples of <code>Ack_delay_time_unit(1)</code> comprising a packet's ACK delay.</p>
 <p >An earlier version of <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> used the unit milliseconds and the encoding type uint16_t. The reasoning was that this allowed a maximum ACK delay of ~65 sec which should be plenty; and that the 1-millisecond finegrainedness was acceptable. However when implementing queue delay-based congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK delay value) to be quite precise (microsecond level or so). Therefore, to be totally safe, we choose to use the same units as <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79" title="A high-res time duration as computed from two Fine_time_pts.">Fine_duration</a>, which is how we compute all time periods. As for the the encoding width, we use 64 bits just in case.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>Reconsider the encoding width. If <code>Ack_delay_time_unit(1)</code> is a nanosecond, then 32 bits would support a maximum delay of ~4.1 seconds which is likely fine for most real-world scenarios. This would reduce the size of ACK packets quite a bit. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000071">Todo:</a></b></dt><dd>Reconsider the encoding width. If <code>Ack_delay_time_unit(1)</code> is a nanosecond, then 32 bits would support a maximum delay of ~4.1 seconds which is likely fine for most real-world scenarios. This would reduce the size of ACK packets quite a bit. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01039">1039</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
@@ -699,7 +699,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

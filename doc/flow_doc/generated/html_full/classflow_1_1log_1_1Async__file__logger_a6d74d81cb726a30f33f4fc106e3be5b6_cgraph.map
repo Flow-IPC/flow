@@ -1,0 +1,6 @@
+<map id="flow::log::Async_file_logger::mem_cost" name="flow::log::Async_file_logger::mem_cost">
+<area shape="rect" id="node1" title="How much do_log() issuing the supplied Log_request shall contribute to m_pending_logs_sz." alt="" coords="5,29,136,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Async__file__logger.html#a9eff13fef045d9dd58a34d207ff6521e" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="184,29,315,65"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="363,35,495,59"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="543,35,675,59"/>
+</map>

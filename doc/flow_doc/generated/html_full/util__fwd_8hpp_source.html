@@ -989,157 +989,167 @@ $(function() {
 <div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span><span class="comment"> *        The stream to affect.</span></div>
 <div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span><span class="comment"> */</span></div>
 <div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1util.html#a0955a29930075ac1fe393896c089b911">beautify_chrono_ostream</a>(std::ostream* os);</div>
-<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span> </div>
-<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span><span class="comment">// Macros.</span></div>
-<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span><span class="comment"></span> </div>
-<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span><span class="comment"> * Expands to an `ostream` fragment `X` (suitable for, for example: `std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!&quot;`) containing</span></div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span><span class="comment"> * the file name, function name, and line number at the macro invocation&#39;s context.</span></div>
-<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span><span class="comment"> * It&#39;s a functional macro despite taking no arguments to convey that it mimics a free function sans args.</span></div>
-<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span><span class="comment"> * @internal</span></div>
-<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span><span class="comment"> * ### Performance ###</span></div>
-<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span><span class="comment"> * The items `&lt;&lt;`ed onto the target `ostream` are each evaluated at compile-time.</span></div>
-<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span><span class="comment"> * This includes the expression involving flow::util::get_last_path_segment() which is `constexpr`.</span></div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00935" name="l00935"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c">  935</a></span><span class="preprocessor">#define FLOW_UTIL_WHERE_AM_I() \</span></div>
-<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span><span class="preprocessor">  FLOW_UTIL_WHERE_AM_I_FROM_ARGS(::flow::util::get_last_path_segment \</span></div>
-<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span><span class="preprocessor">                                   (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \</span></div>
-<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span><span class="preprocessor">                                 ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \</span></div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span><span class="preprocessor">                                 __LINE__)</span></div>
-<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span><span class="comment"></span> </div>
-<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span><span class="comment"> * Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an `std::string`.  It&#39;s probably a bit slower as</span></div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span><span class="comment"> * well.  Update: In fact, it&#39;s probably significantly slower as of this writing, as</span></div>
-<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span><span class="comment"> * FLOW_UTIL_WHERE_AM_I() evaluates the `&lt;&lt;`ed items at compile-time, while this cannot due to how it&#39;s implemented.</span></div>
-<div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span><span class="comment"> * @internal</span></div>
-<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span><span class="comment"> * flow::util::get_where_am_i_str() is too clever to become a `constexpr` function, even if it were radically rewritten,</span></div>
-<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span><span class="comment"> * so this macro evaluates to a partially runtime-computed expression.  Hence the note just above about perf.</span></div>
-<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span><span class="comment"> * @todo See if FLOW_UTIL_WHERE_AM_I_STR() can be coaxed into a compile-time expression after all.  It is used in</span></div>
-<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span><span class="comment"> * quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors.</span></div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span><span class="comment"> * See notes inside flow::util::get_where_am_i_str() on this as of this writing.</span></div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00955" name="l00955"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df">  955</a></span><span class="preprocessor">#define FLOW_UTIL_WHERE_AM_I_STR() \</span></div>
-<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span><span class="preprocessor">  ::flow::util::get_where_am_i_str(::flow::util::get_last_path_segment \</span></div>
-<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span><span class="preprocessor">                                     (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \</span></div>
-<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span><span class="preprocessor">                                   ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \</span></div>
-<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span><span class="preprocessor">                                   __LINE__)</span></div>
-<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span><span class="comment"></span> </div>
-<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span><span class="comment"> * Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at least two</span></div>
-<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span><span class="comment"> * statements; or of one statement that would become two statements by appending a semicolon.</span></div>
-<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span><span class="comment"> * There may be other use cases where it might be useful, though none more has come to mind as of this writing.</span></div>
-<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span><span class="comment"> * Loosely speaking, IF your sub-statements are always blocks, and you have a &quot;void&quot; functional macro to be used in</span></div>
-<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span><span class="comment"> * the typical way (every use is a statement that looks like a function call), and the macro&#39;s definition is anything</span></div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span><span class="comment"> * *other* than an expression with an intentionally missing trailing semicolon, THEN you should probably wrap</span></div>
-<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span><span class="comment"> * that would-be macro definition in a FLOW_UTIL_SEMICOLON_SAFE().  However, read on if you want to know rationale</span></div>
-<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span><span class="comment"> * and/or formalities.</span></div>
-<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span><span class="comment"> * ### Formal use case requirements ###</span></div>
-<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span><span class="comment"> * The following is assumed about every *use* of this macro; behavior is undefined otherwise.</span></div>
+<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span><span class="comment"></span> </div>
+<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span><span class="comment"> * Estimate of memory footprint of the given value, including memory allocated on its behalf -- but</span></div>
+<div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span><span class="comment"> * excluding its shallow `sizeof`! -- in bytes.</span></div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span><span class="comment"> * @param val</span></div>
+<div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span><span class="comment"> *        Value.</span></div>
+<div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span><span class="comment"> * @return See above.</span></div>
+<div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00929" name="l00929"></a><span class="lineno">  929</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">deep_size</a>(<span class="keyword">const</span> std::string&amp; val);</div>
+<div class="line"><a id="l00930" name="l00930"></a><span class="lineno">  930</span> </div>
+<div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span><span class="comment">// Macros.</span></div>
+<div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span><span class="comment"></span> </div>
+<div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span><span class="comment"> * Expands to an `ostream` fragment `X` (suitable for, for example: `std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!&quot;`) containing</span></div>
+<div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span><span class="comment"> * the file name, function name, and line number at the macro invocation&#39;s context.</span></div>
+<div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span><span class="comment"> * It&#39;s a functional macro despite taking no arguments to convey that it mimics a free function sans args.</span></div>
+<div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span><span class="comment"> * ### Performance ###</span></div>
+<div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span><span class="comment"> * The items `&lt;&lt;`ed onto the target `ostream` are each evaluated at compile-time.</span></div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span><span class="comment"> * This includes the expression involving flow::util::get_last_path_segment() which is `constexpr`.</span></div>
+<div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00945" name="l00945"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c">  945</a></span><span class="preprocessor">#define FLOW_UTIL_WHERE_AM_I() \</span></div>
+<div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span><span class="preprocessor">  FLOW_UTIL_WHERE_AM_I_FROM_ARGS(::flow::util::get_last_path_segment \</span></div>
+<div class="line"><a id="l00947" name="l00947"></a><span class="lineno">  947</span><span class="preprocessor">                                   (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \</span></div>
+<div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span><span class="preprocessor">                                 ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \</span></div>
+<div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span><span class="preprocessor">                                 __LINE__)</span></div>
+<div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span><span class="comment"></span> </div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span><span class="comment"> * Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an `std::string`.  It&#39;s probably a bit slower as</span></div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span><span class="comment"> * well.  Update: In fact, it&#39;s probably significantly slower as of this writing, as</span></div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span><span class="comment"> * FLOW_UTIL_WHERE_AM_I() evaluates the `&lt;&lt;`ed items at compile-time, while this cannot due to how it&#39;s implemented.</span></div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span><span class="comment"> * @internal</span></div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span><span class="comment"> * flow::util::get_where_am_i_str() is too clever to become a `constexpr` function, even if it were radically rewritten,</span></div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span><span class="comment"> * so this macro evaluates to a partially runtime-computed expression.  Hence the note just above about perf.</span></div>
+<div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00961" name="l00961"></a><span class="lineno">  961</span><span class="comment"> * @todo See if FLOW_UTIL_WHERE_AM_I_STR() can be coaxed into a compile-time expression after all.  It is used in</span></div>
+<div class="line"><a id="l00962" name="l00962"></a><span class="lineno">  962</span><span class="comment"> * quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors.</span></div>
+<div class="line"><a id="l00963" name="l00963"></a><span class="lineno">  963</span><span class="comment"> * See notes inside flow::util::get_where_am_i_str() on this as of this writing.</span></div>
+<div class="line"><a id="l00964" name="l00964"></a><span class="lineno">  964</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00965" name="l00965"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df">  965</a></span><span class="preprocessor">#define FLOW_UTIL_WHERE_AM_I_STR() \</span></div>
+<div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span><span class="preprocessor">  ::flow::util::get_where_am_i_str(::flow::util::get_last_path_segment \</span></div>
+<div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span><span class="preprocessor">                                     (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \</span></div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span><span class="preprocessor">                                   ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \</span></div>
+<div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span><span class="preprocessor">                                   __LINE__)</span></div>
+<div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span><span class="comment"></span> </div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span><span class="comment"> * Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at least two</span></div>
+<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span><span class="comment"> * statements; or of one statement that would become two statements by appending a semicolon.</span></div>
 <div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span><span class="comment"> * - The macro&#39;s invocation is the *entire definition* of another macro, M.</span></div>
-<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span><span class="comment"> * - M is a functional macro taking 0 or more arguments (possibly variadic).</span></div>
-<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span><span class="comment"> * - The following is true about every *use* of the macro M:</span></div>
-<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span><span class="comment"> *   - The invocation is written as if M is a free function in the C language, and it is being &quot;called&quot;</span></div>
-<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span><span class="comment"> *     as the *entirety* of the statement containing that &quot;call.&quot;  That is, it must look like this:</span></div>
-<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span><span class="comment"> *   M(...arg 1 value..., ...arg 2 value..., ...more...); // (Or however many args M actually allows.)</span></div>
-<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span><span class="comment"> * There may be other use cases where it might be useful, though none more has come to mind as of this writing.</span></div>
+<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span><span class="comment"> * Loosely speaking, IF your sub-statements are always blocks, and you have a &quot;void&quot; functional macro to be used in</span></div>
+<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span><span class="comment"> * the typical way (every use is a statement that looks like a function call), and the macro&#39;s definition is anything</span></div>
+<div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span><span class="comment"> * *other* than an expression with an intentionally missing trailing semicolon, THEN you should probably wrap</span></div>
+<div class="line"><a id="l00979" name="l00979"></a><span class="lineno">  979</span><span class="comment"> * that would-be macro definition in a FLOW_UTIL_SEMICOLON_SAFE().  However, read on if you want to know rationale</span></div>
+<div class="line"><a id="l00980" name="l00980"></a><span class="lineno">  980</span><span class="comment"> * and/or formalities.</span></div>
+<div class="line"><a id="l00981" name="l00981"></a><span class="lineno">  981</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00982" name="l00982"></a><span class="lineno">  982</span><span class="comment"> * ### Formal use case requirements ###</span></div>
+<div class="line"><a id="l00983" name="l00983"></a><span class="lineno">  983</span><span class="comment"> * The following is assumed about every *use* of this macro; behavior is undefined otherwise.</span></div>
 <div class="line"><a id="l00984" name="l00984"></a><span class="lineno">  984</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span><span class="comment"> * ### Known use case 1: Macro definition is 2+ statements ###</span></div>
-<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span><span class="comment"> * Suppose your macro&#39;s value is a series of two or more statements executing in series without braces `{}`</span></div>
-<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span><span class="comment"> * around the whole thing.  Then, in some contexts, invoking that macro as intended might result in</span></div>
-<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span><span class="comment"> * unexpected runtime misbehavior that the compiler wouldn&#39;t detect.  A simple example with two</span></div>
-<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span><span class="comment"> * expressions as individual statements:</span></div>
+<div class="line"><a id="l00985" name="l00985"></a><span class="lineno">  985</span><span class="comment"> * - The macro&#39;s invocation is the *entire definition* of another macro, M.</span></div>
+<div class="line"><a id="l00986" name="l00986"></a><span class="lineno">  986</span><span class="comment"> * - M is a functional macro taking 0 or more arguments (possibly variadic).</span></div>
+<div class="line"><a id="l00987" name="l00987"></a><span class="lineno">  987</span><span class="comment"> * - The following is true about every *use* of the macro M:</span></div>
+<div class="line"><a id="l00988" name="l00988"></a><span class="lineno">  988</span><span class="comment"> *   - The invocation is written as if M is a free function in the C language, and it is being &quot;called&quot;</span></div>
+<div class="line"><a id="l00989" name="l00989"></a><span class="lineno">  989</span><span class="comment"> *     as the *entirety* of the statement containing that &quot;call.&quot;  That is, it must look like this:</span></div>
 <div class="line"><a id="l00990" name="l00990"></a><span class="lineno">  990</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span><span class="comment"> *   #define DOUBLE_AND_PRINT(arg) \</span></div>
-<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span><span class="comment"> *     arg *= 2;    // Statement 1. \</span></div>
-<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span><span class="comment"> *     cout &lt;&lt; arg  // Statement 2.  Note the lacking trailing semicolon (invoker must supply it after &quot;call&quot;). \</span></div>
-<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span><span class="comment"> *   DOUBLE_AND_PRINT(x); // No problem. Both statements execute.</span></div>
-<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span><span class="comment"> *   if (some_flag)</span></div>
-<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span><span class="comment"> *     DOUBLE_AND_PRINT(x); // UNINTENDED BEHAVIOR!  Statement 2 executes regardless of some_flag!</span></div>
-<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span><span class="comment"> * Granted, if the invoker used braces appropriately around the `if` statement body, there&#39;d be no issue, but one</span></div>
-<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span><span class="comment"> * cannot always rely on invoker&#39;s good style, especially if the macro is part of a public library API.</span></div>
-<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span><span class="comment"> * Solution:</span></div>
-<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span><span class="comment"> *   #define DOUBLE_AND_PRINT(arg) \</span></div>
-<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span><span class="comment"> *     FLOW_UTIL_SEMICOLON_SAFE \</span></div>
-<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span><span class="comment"> *     ( \</span></div>
-<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span><span class="comment"> *       arg *= 2;    // Statement 1. \</span></div>
-<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span><span class="comment"> *       cout &lt;&lt; arg; // Statement 2.  Note necessity for trailing semicolon. \</span></div>
-<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span><span class="comment"> *     )</span></div>
-<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span><span class="comment"> *   DOUBLE_AND_PRINT(x); // No problem.  Both statements execute.</span></div>
-<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span><span class="comment"> *   if (some_flag)</span></div>
-<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span><span class="comment"> *     DOUBLE_AND_PRINT(x); // No problem.  Both statements execute; or neither one does.</span></div>
+<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span><span class="comment"> *   M(...arg 1 value..., ...arg 2 value..., ...more...); // (Or however many args M actually allows.)</span></div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span><span class="comment"> * ### Known use case 1: Macro definition is 2+ statements ###</span></div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span><span class="comment"> * Suppose your macro&#39;s value is a series of two or more statements executing in series without braces `{}`</span></div>
+<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span><span class="comment"> * around the whole thing.  Then, in some contexts, invoking that macro as intended might result in</span></div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span><span class="comment"> * unexpected runtime misbehavior that the compiler wouldn&#39;t detect.  A simple example with two</span></div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span><span class="comment"> * expressions as individual statements:</span></div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span><span class="comment"> *   #define DOUBLE_AND_PRINT(arg) \</span></div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span><span class="comment"> *     arg *= 2;    // Statement 1. \</span></div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span><span class="comment"> *     cout &lt;&lt; arg  // Statement 2.  Note the lacking trailing semicolon (invoker must supply it after &quot;call&quot;). \</span></div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span><span class="comment"> *   DOUBLE_AND_PRINT(x); // No problem. Both statements execute.</span></div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span><span class="comment"> *   if (some_flag)</span></div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span><span class="comment"> *     DOUBLE_AND_PRINT(x); // UNINTENDED BEHAVIOR!  Statement 2 executes regardless of some_flag!</span></div>
+<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span><span class="comment"> * Granted, if the invoker used braces appropriately around the `if` statement body, there&#39;d be no issue, but one</span></div>
+<div class="line"><a id="l01011" name="l01011"></a><span class="lineno"> 1011</span><span class="comment"> * cannot always rely on invoker&#39;s good style, especially if the macro is part of a public library API.</span></div>
+<div class="line"><a id="l01012" name="l01012"></a><span class="lineno"> 1012</span><span class="comment"> * Solution:</span></div>
+<div class="line"><a id="l01013" name="l01013"></a><span class="lineno"> 1013</span><span class="comment"> *</span></div>
 <div class="line"><a id="l01014" name="l01014"></a><span class="lineno"> 1014</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span><span class="comment"> * One might ask: Why not simply surround the 2+ statements with braces `{}` to eliminate the problem more simply?</span></div>
-<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span><span class="comment"> * Answer: This actually would turn the use case into the following other problematic use case.</span></div>
-<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span><span class="comment"> * ### Known use case 2: Required semicolon `;` trailing macro invocation leads to syntax error ###</span></div>
-<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span><span class="comment"> * Recall that the premise *requires* invoker to call your macro M like `M();`, meaning they will *always* put</span></div>
-<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span><span class="comment"> * a semicolon after the invocation.  Now suppose that doing so will turn one statement (which is M&#39;s definition)</span></div>
-<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span><span class="comment"> * into two.  Another way of putting it: Suppose M&#39;s body is already a complete statement, even without the required</span></div>
-<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span><span class="comment"> * trailing `;` (and there is no way to make it otherwise; usually [always?] because it ends with a `}`).</span></div>
-<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span><span class="comment"> * Then in some contexts it&#39;ll cause a syntax error.  Example:</span></div>
+<div class="line"><a id="l01015" name="l01015"></a><span class="lineno"> 1015</span><span class="comment"> *   #define DOUBLE_AND_PRINT(arg) \</span></div>
+<div class="line"><a id="l01016" name="l01016"></a><span class="lineno"> 1016</span><span class="comment"> *     FLOW_UTIL_SEMICOLON_SAFE \</span></div>
+<div class="line"><a id="l01017" name="l01017"></a><span class="lineno"> 1017</span><span class="comment"> *     ( \</span></div>
+<div class="line"><a id="l01018" name="l01018"></a><span class="lineno"> 1018</span><span class="comment"> *       arg *= 2;    // Statement 1. \</span></div>
+<div class="line"><a id="l01019" name="l01019"></a><span class="lineno"> 1019</span><span class="comment"> *       cout &lt;&lt; arg; // Statement 2.  Note necessity for trailing semicolon. \</span></div>
+<div class="line"><a id="l01020" name="l01020"></a><span class="lineno"> 1020</span><span class="comment"> *     )</span></div>
+<div class="line"><a id="l01021" name="l01021"></a><span class="lineno"> 1021</span><span class="comment"> *   DOUBLE_AND_PRINT(x); // No problem.  Both statements execute.</span></div>
+<div class="line"><a id="l01022" name="l01022"></a><span class="lineno"> 1022</span><span class="comment"> *   if (some_flag)</span></div>
+<div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span><span class="comment"> *     DOUBLE_AND_PRINT(x); // No problem.  Both statements execute; or neither one does.</span></div>
+<div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span><span class="comment"> *   ~~~</span></div>
 <div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span><span class="comment"> *   #define CHECK_AND_LOG(msg) \</span></div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span><span class="comment"> *     if (filter()) \</span></div>
-<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span><span class="comment"> *     { \</span></div>
-<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span><span class="comment"> *       log(msg); \</span></div>
-<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span><span class="comment"> *     } // Semicolon will always be added right here.</span></div>
-<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span><span class="comment"> *   CHECK_AND_LOG(&quot;Hello.&quot;); // No problem.  The empty ; statement introduced is harmless.</span></div>
-<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span><span class="comment"> *   if (terminating)</span></div>
-<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span><span class="comment"> *     CHECK_AND_LOG(msg); // SYNTAX ERROR!  The empty ; will make the `else` illegal.</span></div>
-<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span><span class="comment"> *   else</span></div>
-<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span><span class="comment"> *     exit();</span></div>
-<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span><span class="comment"> * Removing the `;` from the invocation is no solution.  Firstly it&#39;ll confuse many editors that will think the</span></div>
-<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span><span class="comment"> * &quot;function call&quot; (really macro invocation) is missing the usual semicolon.  This might cause incorrect</span></div>
-<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span><span class="comment"> * auto-indentation in the file and who knows what else.  Code analyzer tools may also be affected.</span></div>
-<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span><span class="comment"> * Even ignoring issues where the code is fed into a non-compiler, there are possible flow control problems.</span></div>
-<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span><span class="comment"> * In this example it&#39;ll attach the `else` in the invoking code to the inner `if` (from the macro)</span></div>
-<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span><span class="comment"> * instead of the outer `if` (in the invoking code) as intended.  Wrapping the body of `CHECK_AND_LOG()` in</span></div>
-<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span><span class="comment"> * the proposed wrapper will resolve all stated problems.  (Solution code omitted for brevity and obviousness</span></div>
-<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span><span class="comment"> * at this point.)</span></div>
-<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span><span class="comment"> * @note Adding this wrapper would slightly adversely affect performance in the complete absence of compiler</span></div>
-<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span><span class="comment"> *       optimization, but even the most basic optimizer (one capable of eliminating `if (false)` and similar)</span></div>
-<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span><span class="comment"> *       should entirely eliminate any such performance degradation.</span></div>
-<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span><span class="comment"> * @param ARG_func_macro_definition</span></div>
-<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span><span class="comment"> *        The intended value of a functional macro, such that the &quot;function&quot; it approximates would have</span></div>
-<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span><span class="comment"> *        return type `void`.  Behavior is undefined if the value of this parameter ends in a semicolon, or</span></div>
-<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span><span class="comment"> *        if the value contains a statement that includes another statement within it that is not a block</span></div>
-<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span><span class="comment"> *        (`{ ... }`).  (The rules in the last [English] statement may or may not be strictly necessary,</span></div>
-<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span><span class="comment"> *        but requiring these allows me to generalize/reason more straightforwardly.  In any case, one rule is</span></div>
-<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span><span class="comment"> *        assumed good style anyway, while the other is simply practical in this context.)</span></div>
-<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span><span class="comment"> * @return Code to be used as the entire definition of a macro whose definition would have been</span></div>
-<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span><span class="comment"> *         `ARG_func_macro_definition` if not for the resulting compile error or unexpected flow control</span></div>
-<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span><span class="comment"> *         effects detailed above.</span></div>
-<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span><span class="comment"> */</span></div>
-<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d"> 1063</a></span><span class="preprocessor">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition) \</span></div>
-<div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span><span class="preprocessor">  do \</span></div>
-<div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span><span class="preprocessor">  { \</span></div>
-<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span><span class="preprocessor">    ARG_func_macro_definition \</span></div>
-<div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span><span class="preprocessor">  } \</span></div>
-<div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span><span class="preprocessor">  while (false)</span></div>
-<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span> </div>
-<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>} <span class="comment">// namespace flow::util</span></div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span><span class="comment"> * One might ask: Why not simply surround the 2+ statements with braces `{}` to eliminate the problem more simply?</span></div>
+<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span><span class="comment"> * Answer: This actually would turn the use case into the following other problematic use case.</span></div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span><span class="comment"> * ### Known use case 2: Required semicolon `;` trailing macro invocation leads to syntax error ###</span></div>
+<div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span><span class="comment"> * Recall that the premise *requires* invoker to call your macro M like `M();`, meaning they will *always* put</span></div>
+<div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span><span class="comment"> * a semicolon after the invocation.  Now suppose that doing so will turn one statement (which is M&#39;s definition)</span></div>
+<div class="line"><a id="l01032" name="l01032"></a><span class="lineno"> 1032</span><span class="comment"> * into two.  Another way of putting it: Suppose M&#39;s body is already a complete statement, even without the required</span></div>
+<div class="line"><a id="l01033" name="l01033"></a><span class="lineno"> 1033</span><span class="comment"> * trailing `;` (and there is no way to make it otherwise; usually [always?] because it ends with a `}`).</span></div>
+<div class="line"><a id="l01034" name="l01034"></a><span class="lineno"> 1034</span><span class="comment"> * Then in some contexts it&#39;ll cause a syntax error.  Example:</span></div>
+<div class="line"><a id="l01035" name="l01035"></a><span class="lineno"> 1035</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01036" name="l01036"></a><span class="lineno"> 1036</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l01037" name="l01037"></a><span class="lineno"> 1037</span><span class="comment"> *   #define CHECK_AND_LOG(msg) \</span></div>
+<div class="line"><a id="l01038" name="l01038"></a><span class="lineno"> 1038</span><span class="comment"> *     if (filter()) \</span></div>
+<div class="line"><a id="l01039" name="l01039"></a><span class="lineno"> 1039</span><span class="comment"> *     { \</span></div>
+<div class="line"><a id="l01040" name="l01040"></a><span class="lineno"> 1040</span><span class="comment"> *       log(msg); \</span></div>
+<div class="line"><a id="l01041" name="l01041"></a><span class="lineno"> 1041</span><span class="comment"> *     } // Semicolon will always be added right here.</span></div>
+<div class="line"><a id="l01042" name="l01042"></a><span class="lineno"> 1042</span><span class="comment"> *   CHECK_AND_LOG(&quot;Hello.&quot;); // No problem.  The empty ; statement introduced is harmless.</span></div>
+<div class="line"><a id="l01043" name="l01043"></a><span class="lineno"> 1043</span><span class="comment"> *   if (terminating)</span></div>
+<div class="line"><a id="l01044" name="l01044"></a><span class="lineno"> 1044</span><span class="comment"> *     CHECK_AND_LOG(msg); // SYNTAX ERROR!  The empty ; will make the `else` illegal.</span></div>
+<div class="line"><a id="l01045" name="l01045"></a><span class="lineno"> 1045</span><span class="comment"> *   else</span></div>
+<div class="line"><a id="l01046" name="l01046"></a><span class="lineno"> 1046</span><span class="comment"> *     exit();</span></div>
+<div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span><span class="comment"> *   ~~~</span></div>
+<div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span><span class="comment"> * Removing the `;` from the invocation is no solution.  Firstly it&#39;ll confuse many editors that will think the</span></div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span><span class="comment"> * &quot;function call&quot; (really macro invocation) is missing the usual semicolon.  This might cause incorrect</span></div>
+<div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span><span class="comment"> * auto-indentation in the file and who knows what else.  Code analyzer tools may also be affected.</span></div>
+<div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span><span class="comment"> * Even ignoring issues where the code is fed into a non-compiler, there are possible flow control problems.</span></div>
+<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span><span class="comment"> * In this example it&#39;ll attach the `else` in the invoking code to the inner `if` (from the macro)</span></div>
+<div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span><span class="comment"> * instead of the outer `if` (in the invoking code) as intended.  Wrapping the body of `CHECK_AND_LOG()` in</span></div>
+<div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span><span class="comment"> * the proposed wrapper will resolve all stated problems.  (Solution code omitted for brevity and obviousness</span></div>
+<div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span><span class="comment"> * at this point.)</span></div>
+<div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span><span class="comment"> * @note Adding this wrapper would slightly adversely affect performance in the complete absence of compiler</span></div>
+<div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span><span class="comment"> *       optimization, but even the most basic optimizer (one capable of eliminating `if (false)` and similar)</span></div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span><span class="comment"> *       should entirely eliminate any such performance degradation.</span></div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span><span class="comment"> * @param ARG_func_macro_definition</span></div>
+<div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span><span class="comment"> *        The intended value of a functional macro, such that the &quot;function&quot; it approximates would have</span></div>
+<div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span><span class="comment"> *        return type `void`.  Behavior is undefined if the value of this parameter ends in a semicolon, or</span></div>
+<div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span><span class="comment"> *        if the value contains a statement that includes another statement within it that is not a block</span></div>
+<div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span><span class="comment"> *        (`{ ... }`).  (The rules in the last [English] statement may or may not be strictly necessary,</span></div>
+<div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span><span class="comment"> *        but requiring these allows me to generalize/reason more straightforwardly.  In any case, one rule is</span></div>
+<div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span><span class="comment"> *        assumed good style anyway, while the other is simply practical in this context.)</span></div>
+<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span><span class="comment"> * @return Code to be used as the entire definition of a macro whose definition would have been</span></div>
+<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span><span class="comment"> *         `ARG_func_macro_definition` if not for the resulting compile error or unexpected flow control</span></div>
+<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span><span class="comment"> *         effects detailed above.</span></div>
+<div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span><span class="comment"> */</span></div>
+<div class="line"><a id="l01073" name="l01073"></a><span class="lineno"><a class="line" href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d"> 1073</a></span><span class="preprocessor">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition) \</span></div>
+<div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span><span class="preprocessor">  do \</span></div>
+<div class="line"><a id="l01075" name="l01075"></a><span class="lineno"> 1075</span><span class="preprocessor">  { \</span></div>
+<div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span><span class="preprocessor">    ARG_func_macro_definition \</span></div>
+<div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span><span class="preprocessor">  } \</span></div>
+<div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span><span class="preprocessor">  while (false)</span></div>
+<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span> </div>
+<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>} <span class="comment">// namespace flow::util</span></div>
 <div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00506">common.hpp:506</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Linked__hash__map_html"><div class="ttname"><a href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a></div><div class="ttdoc">An object of this class is a map that combines the lookup speed of a boost::unordered_map&lt;&gt; and order...</div><div class="ttdef"><b>Definition:</b> <a href="linked__hash__map_8hpp_source.html#l00075">linked_hash_map.hpp:76</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Linked__hash__set_html"><div class="ttname"><a href="classflow_1_1util_1_1Linked__hash__set.html">flow::util::Linked_hash_set</a></div><div class="ttdoc">An object of this class is a set that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...</div><div class="ttdef"><b>Definition:</b> <a href="linked__hash__set_8hpp_source.html#l00047">linked_hash_set.hpp:48</a></div></div>
@@ -1158,13 +1168,14 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1util_html_a2ed0f6ab85f5df463bb10913b0764540"><div class="ttname"><a href="namespaceflow_1_1util.html#a2ed0f6ab85f5df463bb10913b0764540">flow::util::Ip_address_v6</a></div><div class="ttdeci">boost::asio::ip::address_v6 Ip_address_v6</div><div class="ttdoc">Short-hand for the IPv6 address type.</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l00206">util_fwd.hpp:206</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a331b3b73d9d633101d6f0ebc1c829701"><div class="ttname"><a href="namespaceflow_1_1util.html#a331b3b73d9d633101d6f0ebc1c829701">flow::util::Ip_address_v4</a></div><div class="ttdeci">boost::asio::ip::address_v4 Ip_address_v4</div><div class="ttdoc">Short-hand for the IPv4 address type.</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l00204">util_fwd.hpp:204</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a34ed70fa4de81a4fdb9234bfb5a3a914"><div class="ttname"><a href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">flow::util::subtract_with_floor</a></div><div class="ttdeci">bool subtract_with_floor(Minuend *minuend, const Subtrahend &amp;subtrahend, const Minuend &amp;floor)</div><div class="ttdoc">Performs *minuend -= subtrahend, subject to a floor of floor.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00299">util.hpp:299</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a418b56a178c07100eef78da5c9d6ee7a"><div class="ttname"><a href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">flow::util::deep_size</a></div><div class="ttdeci">size_t deep_size(const std::string &amp;val)</div><div class="ttdoc">Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu...</div><div class="ttdef"><b>Definition:</b> <a href="util_8cpp_source.html#l00186">util.cpp:186</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a5d2247b715da63e4b960909561b90ae7"><div class="ttname"><a href="namespaceflow_1_1util.html#a5d2247b715da63e4b960909561b90ae7">flow::util::Lock_guard</a></div><div class="ttdeci">boost::unique_lock&lt; Mutex &gt; Lock_guard</div><div class="ttdoc">Short-hand for advanced-capability RAII lock guard for any mutex, ensuring exclusive ownership of tha...</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l00259">util_fwd.hpp:259</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a62b5ba6d6a549ac20e2c055e72bef421"><div class="ttname"><a href="namespaceflow_1_1util.html#a62b5ba6d6a549ac20e2c055e72bef421">flow::util::Mutex_shared_non_recursive</a></div><div class="ttdeci">boost::shared_mutex Mutex_shared_non_recursive</div><div class="ttdoc">Short-hand for non-reentrant, shared-or-exclusive mutex.</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l00237">util_fwd.hpp:237</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a67eecb5096dabfaff3d02c419b304540"><div class="ttname"><a href="namespaceflow_1_1util.html#a67eecb5096dabfaff3d02c419b304540">flow::util::size_unit_convert</a></div><div class="ttdeci">size_t size_unit_convert(From num_froms)</div><div class="ttdoc">Answers the question what's the smallest integer number of Tos sufficient to verbatim store the given...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00321">util.hpp:321</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a685b86585da2fa5186f51854e7ae1561"><div class="ttname"><a href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">flow::util::ostream_op_string</a></div><div class="ttdeci">std::string ostream_op_string(T const &amp;... ostream_args)</div><div class="ttdoc">Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00356">util.hpp:356</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a689388b6eb7e760933d99381d65cacca"><div class="ttname"><a href="namespaceflow_1_1util.html#a689388b6eb7e760933d99381d65cacca">flow::util::Lock_guard_shared_non_recursive_sh</a></div><div class="ttdeci">boost::shared_lock&lt; Mutex_shared_non_recursive &gt; Lock_guard_shared_non_recursive_sh</div><div class="ttdoc">(Deprecated given C++1x) Short-hand for shared mode advanced-capability RAII lock guard for Mutex_sha...</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l00294">util_fwd.hpp:294</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a6b7316b3ed6d89f54c91e17c2aab101e"><div class="ttname"><a href="namespaceflow_1_1util.html#a6b7316b3ed6d89f54c91e17c2aab101e">flow::util::ceil_div</a></div><div class="ttdeci">Integer ceil_div(Integer dividend, Integer divisor)</div><div class="ttdoc">Returns the result of the given non-negative integer divided by a positive integer,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00233">util.hpp:233</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a71eaa4ab6a2673ed34fa8989c47a7bc0"><div class="ttname"><a href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">flow::util::swap</a></div><div class="ttdeci">void swap(Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2, log::Logger *logger_ptr)</div><div class="ttdoc">Equivalent to blob1.swap(blob2).</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l01659">basic_blob.hpp:1659</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a71eaa4ab6a2673ed34fa8989c47a7bc0"><div class="ttname"><a href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">flow::util::swap</a></div><div class="ttdeci">void swap(Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2, log::Logger *logger_ptr)</div><div class="ttdoc">Equivalent to blob1.swap(blob2).</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l01664">basic_blob.hpp:1664</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a733448fee07c2a77e343a3f1590ff82e"><div class="ttname"><a href="namespaceflow_1_1util.html#a733448fee07c2a77e343a3f1590ff82e">flow::util::in_open_open_range</a></div><div class="ttdeci">bool in_open_open_range(T const &amp;min_val, T const &amp;val, T const &amp;max_val)</div><div class="ttdoc">Returns true if and only if the given value is within the given range, given as a (low,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00270">util.hpp:270</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a8ae762ea4f743a98a73953d7f9ec2164"><div class="ttname"><a href="namespaceflow_1_1util.html#a8ae762ea4f743a98a73953d7f9ec2164">flow::util::in_open_closed_range</a></div><div class="ttdeci">bool in_open_closed_range(T const &amp;min_val, T const &amp;val, T const &amp;max_val)</div><div class="ttdoc">Returns true if and only if the given value is within the given range, given as a (low,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00254">util.hpp:254</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a8afd30c50bcd670d45442df49d1da484"><div class="ttname"><a href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">flow::util::ostream_op_to_string</a></div><div class="ttdeci">void ostream_op_to_string(std::string *target_str, T const &amp;... ostream_args)</div><div class="ttdoc">Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00342">util.hpp:342</a></div></div>
@@ -1189,7 +1200,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

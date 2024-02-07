@@ -6,6 +6,7 @@ var searchData=
   ['linked_5fhash_5fset_3',['Linked_hash_set',['../classflow_1_1util_1_1Linked__hash__set.html',1,'flow::util']]],
   ['linked_5fhash_5fset_3c_20peer_5fsocket_5fptr_20_3e_4',['Linked_hash_set&lt; Peer_socket_ptr &gt;',['../classflow_1_1util_1_1Linked__hash__set.html',1,'flow::util']]],
   ['log_5fcontext_5',['Log_context',['../classflow_1_1log_1_1Log__context.html',1,'flow::log']]],
-  ['logger_6',['Logger',['../classflow_1_1log_1_1Logger.html',1,'flow::log']]],
-  ['low_5flvl_5fpacket_7',['Low_lvl_packet',['../structflow_1_1net__flow_1_1Low__lvl__packet.html',1,'flow::net_flow']]]
+  ['log_5frequest_6',['Log_request',['../structflow_1_1log_1_1Async__file__logger_1_1Log__request.html',1,'flow::log::Async_file_logger']]],
+  ['logger_7',['Logger',['../classflow_1_1log_1_1Logger.html',1,'flow::log']]],
+  ['low_5flvl_5fpacket_8',['Low_lvl_packet',['../structflow_1_1net__flow_1_1Low__lvl__packet.html',1,'flow::net_flow']]]
 ];

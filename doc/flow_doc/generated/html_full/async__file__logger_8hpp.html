@@ -79,6 +79,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="util__fwd_8hpp_source.html">flow/util/util_fwd.hpp</a>&quot;</code><br />
 <code>#include &lt;boost/asio.hpp&gt;</code><br />
 <code>#include &lt;boost/move/unique_ptr.hpp&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
 </div>
 <p><a href="async__file__logger_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -86,6 +87,12 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Async__file__logger.html">flow::log::Async_file_logger</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An implementation of <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> that logs messages to a given file-system path but never blocks any logging thread for file I/O; suitable for heavy-duty file logging.  <a href="classflow_1_1log_1_1Async__file__logger.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html">flow::log::Async_file_logger::Throttling_cfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls behavior of the throttling algorithm as described in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> doc header Throttling section.  <a href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html">flow::log::Async_file_logger::Log_request</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">In addition to the task object (function) itself, these are the data placed onto the queue of <code>m_async_worker</code> tasks for a particular <code><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a></code> call, to be used by that task and then freed immediately upon logging of the message to file.  <a href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -100,7 +107,7 @@ Namespaces</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

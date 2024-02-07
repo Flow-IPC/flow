@@ -1,5 +1,4 @@
 <map id="flow::async::Cross_thread_task_loop::start" name="flow::async::Cross_thread_task_loop::start">
-<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="419,5,572,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="217,5,371,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1log_1_1Async__file__logger.html#aec2b1796c81b020cacea493e21e19562" title="Constructs logger to subsequently log to the given file&#45;system path." alt="" coords="5,5,169,41"/>
+<area shape="rect" id="node1" title="Implements superclass API." alt="" coords="207,5,360,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,5,159,41"/>
 </map>

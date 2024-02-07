@@ -478,7 +478,7 @@ Related Functions</h2></td></tr>
 <li>This limits total outgoing throughput. The throughput B will be &lt;= CWND/RTT, where RTT is roughly the RTT of the connection, and CWND == max-cong-wnd-blocks * max-block-size. Therefore, choose B and RTT values and set max-cong-wnd-blocks = B * RTT / max-block-size (B in bytes/second, RTT in seconds).</li>
 <li>Until we implement Receive window, this value should be much (say, 4x) less than the size of the Receive buffer, to avoid situations where even a well-behaving user (i.e., user that <code>receive()</code>s all data ASAP) cannot keep up with reading data off Receive buffer, forcing <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> to drop large swaths of incoming traffic. If CWND is much smaller than Receive buffer size, then this avoids that problem.</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>Reconsider this value after Receive window feature is implemented. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo:</a></b></dt><dd>Reconsider this value after Receive window feature is implemented. </dd></dl>
 
 </div>
 </div>
@@ -565,7 +565,7 @@ Related Functions</h2></td></tr>
 <p>The size of block that we will strive to (and will, assuming at least that many bytes are available in Send buffer) pack into each outgoing DATA packet. </p>
 <p >It is assumed the other side is following the same policiy (any packets that do not &ndash; i.e., exceed this size &ndash; are dropped). This is an important control; the higher it is the better for performance AS LONG AS it's not so high it undergoes IP fragmentation (or does that even happen in UDP? if not, even worse &ndash; it'll just be dropped and not sent!). The performance impact is major; e.g., assuming no fragmentation/dropping, we've seen a ~1500 byte MBS result in 20-30% higher throughput than 1024 byte MBS.</p>
 <p >Additionally, if using <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> module with no reliability feature &ndash; i.e., if you want to perform FEC or something else outside the Flow protocol &ndash; then it is absolutely essential that EVERY <code>send*()</code> call provides a buffer whose size is a multiple of max-block-size. Otherwise packet boundaries will not be what you expect, and you will get what seems to be corrupted data at the application layer (since our stream-based API has no way of knowing where your message begins or ends). Alternatively you can encode message terminators or packet sizes, but since in unreliable mode integrity of a given block is guaranteed only if all blocks align with max-block-size boundaries, you'll still probably be screwed.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000044">Todo:</a></b></dt><dd>max-block-size should be dynamically determined (but overridable by this option). That is a complex topic, however, with considerations such as MTU discovery, ICMP errors, and who knows what else. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000045">Todo:</a></b></dt><dd>max-block-size should be dynamically determined (but overridable by this option). That is a complex topic, however, with considerations such as MTU discovery, ICMP errors, and who knows what else. </dd></dl>
 
 </div>
 </div>
@@ -784,7 +784,7 @@ Peer_socket::m_rcv_syn_rcvd_data_q. </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:08 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

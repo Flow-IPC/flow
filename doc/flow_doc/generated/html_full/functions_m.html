@@ -173,6 +173,7 @@ $(function() {
 <li>m_good_data_size&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a70f72081dd9ff7c2c47a938d2a6b041c">flow::net_flow::Peer_socket_receive_stats</a></li>
 <li>m_good_to_send_acks_count&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a5507bc7b5b9360f9b085452d85582530">flow::net_flow::Peer_socket_receive_stats</a></li>
 <li>m_good_to_send_acks_data_size&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a3aeb3e98e29538c66d045f7f2eac506e">flow::net_flow::Peer_socket_receive_stats</a></li>
+<li>m_hi_limit&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Throttling__cfg.html#a7a30343e388c65594d06baed25b1aaa9">flow::log::Async_file_logger::Throttling_cfg</a></li>
 <li>m_hw_threads_is_grouping_collated&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a8ffd812e4762af730708762911a52fd0">flow::async::Cross_thread_task_loop</a>, <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html#a7f7f91f11c9aafc386cd0882113795cd">flow::async::Segregated_thread_task_loop</a></li>
 <li>m_id&#160;:&#160;<a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af99c7b9c66dc509b5d4fd9ae27ecc22b">flow::util::Scheduled_task_handle_state</a>, <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#abfd221f9f9a3498c9f697ede78d99938">flow::util::Unique_id_holder</a></li>
 <li>m_idle_timeouts&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__send__stats.html#a6851332a773bdc55154fe7e4233db4fd">flow::net_flow::Peer_socket_send_stats</a></li>
@@ -216,8 +217,11 @@ $(function() {
 <li>m_low_lvl_packet_xfer_requested_count_by_type&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__send__stats.html#aaca7b45515144a6bb5e1b3c978251591">flow::net_flow::Peer_socket_send_stats</a></li>
 <li>m_low_lvl_sock&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Node.html#a9b9e0224c17190e99debdfd81640bf89">flow::net_flow::Node</a></li>
 <li>m_max_buf_data_size&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a79a4c8e18f52ec046b885d4d691febb8">flow::net_flow::Peer_socket_receive_stats</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket__send__stats.html#a54ab43fb396a87593fd194a3f7837699">flow::net_flow::Peer_socket_send_stats</a></li>
+<li>m_metadata&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#a7215d35008420d5c3357df1b06761d64">flow::log::Async_file_logger::Log_request</a></li>
 <li>m_msg_component&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a9d966ba8a227d1e7af587a8191ccf934">flow::log::Msg_metadata</a></li>
+<li>m_msg_copy&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#a82a13a6d045612578dad42a82de36202">flow::log::Async_file_logger::Log_request</a></li>
 <li>m_msg_sev&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a38ed0fc480839dd1c177fa5a8d59368a">flow::log::Msg_metadata</a></li>
+<li>m_msg_size&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#a43b7a817420a80d955e4acfd0ec10f45">flow::log::Async_file_logger::Log_request</a></li>
 <li>m_msg_src_file&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd">flow::log::Msg_metadata</a></li>
 <li>m_msg_src_function&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#af7704a632434e7b52c43ab6047cf023b">flow::log::Msg_metadata</a></li>
 <li>m_msg_src_line&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a2f17801fae328d1fdc070edc2578dd91">flow::log::Msg_metadata</a></li>
@@ -265,6 +269,7 @@ $(function() {
 <li>m_parsing&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac3f6c86292b4f6040c655f6bdcb05a3e">flow::cfg::Option_set&lt; Value_set &gt;</a></li>
 <li>m_payload_enum_raw_value&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Component.html#a5be216ad60f3e344a22151bdf4d8d8b6">flow::log::Component</a></li>
 <li>m_payload_type_or_null&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Component.html#a3c753f22e196c5f84718541ebb27dcac">flow::log::Component</a></li>
+<li>m_pending_logs_sz&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a7cce9184c2137aa4c2d09894e1aaa7c9">flow::log::Async_file_logger</a></li>
 <li>m_per_thread_ops&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html#a3e643b2f348746d57b1e2ddb81a1150a">flow::async::Segregated_thread_task_loop</a></li>
 <li>m_per_thread_strands&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#addbcc2e22d4a57b89b82130bb0f3e482">flow::async::Cross_thread_task_loop</a></li>
 <li>m_ports&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Node.html#afd6388a362531ada956a864fefff6011">flow::net_flow::Node</a></li>
@@ -439,6 +444,11 @@ $(function() {
 <li>m_task_engine&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a1f4a96efdc1820ddbb4a4bf49c0d38e6">flow::async::Task_qing_thread</a>, <a class="el" href="classflow_1_1net__flow_1_1Node.html#af5597a417d03e2bed87cd772ef5cef29">flow::net_flow::Node</a>, <a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af3eb85a490f1386423fe4a6a32979a93">flow::util::Scheduled_task_handle_state</a></li>
 <li>m_task_engines&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html#ad09c2d973e3794f36bf06bd001ca860e">flow::async::Segregated_thread_task_loop</a></li>
 <li>m_this_sample_start_time&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#ac627f8c9ae6c51c2ea14dd46af4f4150">flow::net_flow::Send_bandwidth_estimator</a></li>
+<li>m_throttling_active&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5bbad8cea27134844e73daff014cc82a">flow::log::Async_file_logger</a></li>
+<li>m_throttling_begins&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Async__file__logger_1_1Log__request.html#aee7f652b0e17e39d0afdb721bc956cf7">flow::log::Async_file_logger::Log_request</a></li>
+<li>m_throttling_cfg&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa3d544ab96299a8c2b53b7be485d1a6e">flow::log::Async_file_logger</a></li>
+<li>m_throttling_mutex&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a99cd4faff109ef35720fbed9837973dc">flow::log::Async_file_logger</a></li>
+<li>m_throttling_now&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa13ef30bc2d66758c29c31dc76a130aa">flow::log::Async_file_logger</a></li>
 <li>m_time_accumulator&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a55aa9c680221d64b44715256713a5bee">flow::async::Timed_concurrent_task_loop_impl&lt; Time_accumulator &gt;</a></li>
 <li>m_timed_loop&#160;:&#160;<a class="el" href="classflow_1_1async_1_1Timed__single__thread__task__loop.html#a3042959ca9c8f3d1bcd78ff71e3ecdd9">flow::async::Timed_single_thread_task_loop</a></li>
 <li>m_timer&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Drop__timer.html#ad5dfc3cd2f8e5e4d28c49e28ee5c221f">flow::net_flow::Drop_timer</a>, <a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#a5934d785b54bb71e739c262b6db8dda9">flow::util::Scheduled_task_handle_state</a></li>
@@ -479,16 +489,17 @@ $(function() {
 <li>max_block_size()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Node.html#a4bd7b471dd6cd3e3570930b48d30e577">flow::net_flow::Node</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa1f821dde38a7aa572651730744edbd8">flow::net_flow::Peer_socket</a></li>
 <li>max_block_size_multiple()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a102b78eaac9c8add512238ec5f26fcfc">flow::net_flow::Peer_socket</a></li>
 <li>max_size()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a2b07a93e11051e1cdb17ee9478b61321">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html#ac1bfed582b7ee057afe92be2bbabb422">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;</a></li>
+<li>mem_cost()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6">flow::log::Async_file_logger</a></li>
 <li>message()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1error_1_1Category.html#ae01ad7da6ba4d494a5455a82fc03481e">flow::net_flow::error::Category</a></li>
 <li>mutable_buffer()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2bd3cb0b6b3f304fb6fb771c1b76ec66">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</a></li>
 <li>mutable_values_copy()&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#a45eebf6c9d7384bcc95c10ff7c934e1f">flow::cfg::Option_set&lt; Value_set &gt;</a></li>
 <li>Mutable_values_ptr&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#a03ec172ee1f15c091ca78102faa55987">flow::cfg::Option_set&lt; Value_set &gt;</a></li>
-<li>Mutex&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a47e4e6d304a6a381e7469fe87c547738">flow::net_flow::Event_set</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad1e36619c78b15f46576a18678a4ee67">flow::net_flow::Peer_socket</a>, <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a15e9fa900dfa1a0a2d693bf8ffb5b07d">flow::net_flow::Server_socket</a></li>
+<li>Mutex&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2f21285253ab0f9a81cf991f99ce6549">flow::log::Async_file_logger</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a47e4e6d304a6a381e7469fe87c547738">flow::net_flow::Event_set</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad1e36619c78b15f46576a18678a4ee67">flow::net_flow::Peer_socket</a>, <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a15e9fa900dfa1a0a2d693bf8ffb5b07d">flow::net_flow::Server_socket</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:11 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

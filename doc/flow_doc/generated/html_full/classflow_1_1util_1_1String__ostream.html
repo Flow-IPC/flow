@@ -136,7 +136,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p >Similar to <code>ostringstream</code> but allows fast read-only access directly into the <code>std::string</code> being written; and some limited write access to that string. </p>
 <p >Also it can take over an existing <code>std::string</code>.</p>
 <p ><code>ostringstream</code> is fine, except for the giant flaw that is the fact that the essentially only way to read the string is to call <code>ostringstream::str()</code> which returns a copy, not a reference.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000156">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000158">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
 <h3>Thread safety</h3>
 <p >This provides the same level of thread safety as <code>ostringstream</code>. That is, you should use a mutex if planning concurrent read/write access to the same object. </p>
 
@@ -447,7 +447,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:11 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

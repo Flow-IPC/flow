@@ -1,7 +1,10 @@
 <map id="flow::log::Async_file_logger::do_log" name="flow::log::Async_file_logger::do_log">
-<area shape="rect" id="node1" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ..." alt="" coords="5,36,136,72"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e" title="Assignment operator that behaves similarly to the copy constructor." alt="" coords="189,5,331,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1async_1_1Single__thread__task__loop.html#adaf7dbd5fbd6ee7c886daabc7a6ad0ae" title="Cause the given Task (function) to execute within the worker thread as soon as the thread is free of ..." alt="" coords="184,65,336,101"/>
-<area shape="rect" id="node4" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API." alt="" coords="384,65,536,101"/>
-<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="584,65,727,101"/>
+<area shape="rect" id="node1" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ..." alt="" coords="5,60,136,96"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Async__file__logger.html#a6d74d81cb726a30f33f4fc106e3be5b6" title="How much do_log() issuing the supplied Log_request shall contribute to m_pending_logs_sz." alt="" coords="195,29,325,65"/>
+<area shape="rect" id="node6" href="$classflow_1_1async_1_1Single__thread__task__loop.html#adaf7dbd5fbd6ee7c886daabc7a6ad0ae" title="Cause the given Task (function) to execute within the worker thread as soon as the thread is free of ..." alt="" coords="184,89,336,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Async__file__logger.html#a9eff13fef045d9dd58a34d207ff6521e" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="395,29,525,65"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="589,35,721,59"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu..." alt="" coords="775,35,907,59"/>
+<area shape="rect" id="node7" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API." alt="" coords="384,89,536,125"/>
+<area shape="rect" id="node8" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="584,89,727,125"/>
 </map>

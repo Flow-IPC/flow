@@ -82,8 +82,8 @@
 <!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node3&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M375.41,-112.5C371.5,-114.43 367.66,-116.44 364,-118.5 346.81,-128.19 345.62,-135.61 328,-144.5 320.5,-148.28 312.25,-151.61 304.1,-154.48"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="377.07,-115.59 384.62,-108.16 374.08,-109.26 377.07,-115.59"/>
+<path fill="none" stroke="midnightblue" d="M373.49,-112.47C370.24,-114.09 367.05,-115.77 364,-117.5 346.6,-127.37 345.77,-135.33 328,-144.5 320.65,-148.29 312.56,-151.61 304.54,-154.46"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="375.24,-115.52 382.78,-108.08 372.25,-109.19 375.24,-115.52"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -150,22 +150,6 @@
 <title>Node8&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M362.83,-30.08C346.21,-27.5 328.56,-24.76 312.51,-22.27"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="362.61,-33.58 373.03,-31.66 363.68,-26.67 362.61,-33.58"/>
-</g>
-<!-- Node10 -->
-<g id="node10" class="node">
-<title>Node10</title>
-<g id="a_node10"><a xlink:href="classflow_1_1log_1_1Async__file__logger.html#aec2b1796c81b020cacea493e21e19562" target="_top" xlink:title="Constructs logger to subsequently log to the given file&#45;system path.">
-<polygon fill="white" stroke="black" points="11.5,-0.5 11.5,-26.5 134.5,-26.5 134.5,-0.5 11.5,-0.5"/>
-<text text-anchor="start" x="19.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Async_file</text>
-<text text-anchor="middle" x="73" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_logger::Async_file_logger</text>
-</a>
-</g>
-</g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge9" class="edge">
-<title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M186.6,-13.5C169.54,-13.5 151.33,-13.5 134.63,-13.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="187.05,-17 197.05,-13.5 187.05,-10 187.05,-17"/>
 </g>
 </g>
 </svg>

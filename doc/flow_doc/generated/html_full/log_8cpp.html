@@ -75,6 +75,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="log_8hpp_source.html">flow/log/log.hpp</a>&quot;</code><br />
 <code>#include &quot;flow/error/error.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="util__fwd_8hpp_source.html">flow/util/util_fwd.hpp</a>&quot;</code><br />
 </div>
 <p><a href="log_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -101,11 +102,14 @@ Functions</h2></td></tr>
 <tr class="memitem:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">flow::log::beautify_chrono_logger_this_thread</a> (Logger *logger_ptr)</td></tr>
 <tr class="memdesc:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets certain <code>chrono</code>-related formatting on the given <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> in the current thread that results in a consistent, desirable output of <code>duration</code>s and certain types of <code>time_point</code>s.  <a href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">More...</a><br /></td></tr>
 <tr class="separator:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a267187e63c6355704f547d794c776747"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747">flow::log::deep_size</a> (const Msg_metadata &amp;val)</td></tr>
+<tr class="memdesc:a267187e63c6355704f547d794c776747"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes.  <a href="namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747">More...</a><br /></td></tr>
+<tr class="separator:a267187e63c6355704f547d794c776747"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

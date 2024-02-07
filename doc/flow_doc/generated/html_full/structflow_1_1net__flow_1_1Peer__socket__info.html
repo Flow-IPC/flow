@@ -833,7 +833,7 @@ Here is the call graph for this function:</div>
 <p>The UDP receive buffer maximum size, as reported by an appropriate call to the appropriate <code>getsockopt()</code> immediately after the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> sets the UDP receive buffer size via <code>setsockopt()</code>. </p>
 <p >The set value is determined by a socket option, but the OS may or may not respect that value.</p>
 <p >This value remains constant and the same for all <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> objects for a given <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>. It is set at <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> creation.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000085">Todo:</a></b></dt><dd>This is really a <code><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a></code>-wide value; we should probably have a <code>Node_info</code> class for such things. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000086">Todo:</a></b></dt><dd>This is really a <code><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a></code>-wide value; we should probably have a <code>Node_info</code> class for such things. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="info_8hpp_source.html#l00526">526</a> of file <a class="el" href="info_8hpp_source.html">info.hpp</a>.</p>
 
@@ -1081,7 +1081,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>In congestion control, the current sent data bytes that have been neither acknowledged nor considered lost. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000086">Todo:</a></b></dt><dd>Does <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__info.html#a784bd75264e26acbccd966e48c07dab9" title="In congestion control, the current sent data bytes that have been neither acknowledged nor considered...">m_snd_cong_ctl_in_flight_bytes</a> count data queued in the pacing module or truly In-flight data only? </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000087">Todo:</a></b></dt><dd>Does <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__info.html#a784bd75264e26acbccd966e48c07dab9" title="In congestion control, the current sent data bytes that have been neither acknowledged nor considered...">m_snd_cong_ctl_in_flight_bytes</a> count data queued in the pacing module or truly In-flight data only? </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="info_8hpp_source.html#l00608">608</a> of file <a class="el" href="info_8hpp_source.html">info.hpp</a>.</p>
 
@@ -1358,7 +1358,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:11 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -439,6 +439,7 @@ class flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</div><p >A ha
 <p >Without <code>share*()</code> any two <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> objects refer to separate areas in memory; hence it is safe to access <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> A concurrently with accessing <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> B in any fashion (read, write).</p>
 <p >However: If 2 <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a></code>s A and B co-own a pool, via a <code>share*()</code> chain, then concurrent write and read/write to A and B respectively are thread-safe if and only if their [<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a9daa427a42c8a8c24b585f96c37d277a" title="Returns pointer to mutable first element; or end() if empty().">begin()</a>, <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a>) ranges don't overlap. Otherwise, naturally, one would be writing to an area while it is being read simultaneously &ndash; not safe.</p>
 <p >Tip: When working in <code>share*()</code> mode, exclusive use of <code>share_after_split*()</code> is a great way to guarantee no 2 <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a></code>s ever overlap. Meanwhile one must be careful when using <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a6d1f09551d36d058c16d505c76a1780a" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">share()</a> directly and/or subsequently sliding the range around via <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43" title="Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...">resize()</a>, <code>start_past_prefix*()</code>: <code>A.share()</code> and A not only (originally) overlap but simply represent the same area of memory; and <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43" title="Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...">resize()</a> and co. can turn a non-overlapping range into an overlapping one (encroaching on someone else's "territory" within the pool).</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000150">Todo:</a></b></dt><dd>Write a class template, perhaps <code>Tight_blob&lt;Allocator, bool&gt;</code>, which would be identical to <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> but forego the framing features, namely <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a> and <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">start()</a>, thus storing only the RAII array pointer <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a4581e779dace3d64fe4098eb0a7dbeb2" title="Equivalent to begin().">data()</a> and <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a719e5c04e4bdc65c31976fc385fd7f24" title="Returns the number of elements in the internally allocated buffer, which is 1 or more; or 0 if no buf...">capacity()</a>; rewrite <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> in terms of this <code>Tight_blob</code>. This simple container type has had some demand in practice, and <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> can and should be cleanly built on top of it (perhaps even as an IS-A subclass).</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Allocator</td><td>An allocator, with <code>value_type</code> equal to our <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aeb9b64885b78263048d406ec34907ecf" title="Short-hand for values, which in this case are unsigned bytes.">value_type</a>, per the standard C++1x <code>Allocator</code> concept. In most uses this shall be left at the default <code>std::allocator&lt;value_type&gt;</code> which allocates in standard heap (<code>new[]</code>, <code>delete[]</code>). A custom allocator may be used instead. SHM-storing allocators, and generally allocators for which <code>pointer</code> is not simply <code>value_type*</code> but rather a fancy-pointer (see cppreference.com) are correctly supported. (Note this may not be the case for your compiler's <code>std::vector</code>.) </td></tr>
@@ -447,7 +448,7 @@ class flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</div><p >A ha
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00240">240</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00245">245</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ae2089286c63766445b3bf40422eb17db" name="ae2089286c63766445b3bf40422eb17db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae2089286c63766445b3bf40422eb17db">&#9670;&nbsp;</a></span>Allocator_raw</h2>
@@ -465,7 +466,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Short-hand for the allocator type specified at compile-time. Its element type is our <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aeb9b64885b78263048d406ec34907ecf" title="Short-hand for values, which in this case are unsigned bytes.">value_type</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00261">261</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00266">266</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -529,7 +530,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01312">1312</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01317">1317</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -549,7 +550,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Type for iterator pointing into an immutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00258">258</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00263">263</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -569,7 +570,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a3e21c26d61b50e019987097f7779ed51" title="Type for iterator pointing into an immutable structure of this type.">Const_iterator</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00276">276</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00281">281</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -589,7 +590,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): pointer to <code>const</code> element. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00268">268</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00273">273</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -609,7 +610,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): reference to <code>const</code> element. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00272">272</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00277">277</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -629,7 +630,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Type for difference of <code>size_type</code>s. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00252">252</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00257">257</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -649,7 +650,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Type for iterator pointing into a mutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00255">255</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00260">260</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -669,7 +670,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a93b5764b185d0a1a1d143211e39b2de1" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00274">274</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00279">279</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -689,7 +690,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): pointer to element. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00266">266</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00271">271</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -709,7 +710,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For container compliance (hence the irregular capitalization): reference to element. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00270">270</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00275">275</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -729,7 +730,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Type for index into blob or length of blob or sub-blob. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00249">249</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00254">254</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -749,7 +750,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Short-hand for values, which in this case are unsigned bytes. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00246">246</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00251">251</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -781,7 +782,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01418">1418</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01423">1423</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -840,9 +841,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01425">1425</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01430">1430</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02044">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::resize()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01835">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::size()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02049">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::resize()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01840">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::size()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -890,9 +891,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01447">1447</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01452">1452</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -952,9 +953,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01434">1434</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01439">1439</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02132">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign_copy()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02445">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::const_buffer()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02137">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign_copy()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02450">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::const_buffer()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1037,7 +1038,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01547">1547</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01552">1552</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1093,9 +1094,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01461">1461</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01466">1466</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01819">flow::util::blobs_sharing()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02445">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::const_buffer()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01384">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01824">flow::util::blobs_sharing()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02450">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::const_buffer()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01389">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1145,9 +1146,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of elements copied, namely <code>src.size()</code>, or simply <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02132">2132</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02137">2137</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01434">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01439">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1175,7 +1176,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Behavior is undefined if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a797741a0a5c95b13b36f356ae8d397e8" title="Returns size() == 0.">empty()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02316">2316</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02321">2321</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1196,7 +1197,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a7c99b053ce77cd0573d882e194908e49" title="Returns reference to immutable last element.">const_back()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02331">2331</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02336">2336</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1218,9 +1219,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Null is a possible value in the latter case.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02345">2345</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02350">2350</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01819">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01824">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1247,7 +1248,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac511ddaa3fb453888524cedba39c36ef" title="Returns pointer to immutable first element; or end() if empty().">const_begin()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02383">2383</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02388">2388</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1270,9 +1271,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >See important notes on <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a719e5c04e4bdc65c31976fc385fd7f24" title="Returns the number of elements in the internally allocated buffer, which is 1 or more; or 0 if no buf...">capacity()</a> policy in the class doc header.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01853">1853</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01858">1858</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1300,7 +1301,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Exists as standard container method (hence the odd formatting).</p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac511ddaa3fb453888524cedba39c36ef" title="Returns pointer to immutable first element; or end() if empty().">const_begin()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02390">2390</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02395">2395</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1322,7 +1323,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Exists as standard container method (hence the odd formatting).</p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae4f1d8c42aea63ba4f127cb7ed5776d6" title="Returns pointer one past immutable last element; empty() is possible.">const_end()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02404">2404</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02409">2409</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1343,7 +1344,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <code>resize(0, start())</code>. </p>
 <p >Note that the value returned by <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">start()</a> will <em>not</em> change due to this call. Only <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a> (and the corresponding internally stored datum) may change. If one desires to reset <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">start()</a>, use <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43" title="Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...">resize()</a> directly (but if one plans to work on a sub-Basic_blob of a shared pool &ndash; see class doc header &ndash; please think twice first). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02096">2096</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02101">2101</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1365,7 +1366,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Behavior is undefined if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a797741a0a5c95b13b36f356ae8d397e8" title="Returns size() == 0.">empty()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02300">2300</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02305">2305</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1387,7 +1388,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Null is a possible value in the latter case.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02338">2338</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02343">2343</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1409,9 +1410,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Equivalent to <code>const_buffer(<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a75d4c0a1e530596982a3b5d3e0ff91e6" title="Equivalent to const_begin().">const_data()</a>, <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a>)</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02445">2445</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02450">2450</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01461">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01434">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01466">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01439">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1438,7 +1439,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac511ddaa3fb453888524cedba39c36ef" title="Returns pointer to immutable first element; or end() if empty().">const_begin()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02411">2411</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02416">2416</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1460,7 +1461,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Null is a possible value in the latter case.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02369">2369</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02374">2374</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1482,7 +1483,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Behavior is undefined if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a797741a0a5c95b13b36f356ae8d397e8" title="Returns size() == 0.">empty()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02292">2292</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02297">2297</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1503,7 +1504,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a9daa427a42c8a8c24b585f96c37d277a" title="Returns pointer to mutable first element; or end() if empty().">begin()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02418">2418</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02423">2423</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1535,7 +1536,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02431">2431</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02436">2436</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00262">flow::util::in_closed_open_range()</a>.</p>
 <div class="dynheader">
@@ -1594,7 +1595,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Location in this blob just past the last element copied; <code>dest</code> if none copied; in particular <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a> is a possible value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02152">2152</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02157">2157</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -1624,7 +1625,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >If <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>, this is <code>true</code>; but if this is <code>true</code>, then <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a> may or may not be <code>true</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01847">1847</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01852">1852</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1646,7 +1647,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Null is a possible value in the latter case.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02376">2376</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02381">2381</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1667,7 +1668,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae4f1d8c42aea63ba4f127cb7ed5776d6" title="Returns pointer one past immutable last element; empty() is possible.">const_end()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer, possibly null. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02397">2397</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02402">2402</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1710,7 +1711,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Iterator equal to <code>first</code>. (This matches standard expectation for container <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a49046a070b040ca17ca9062ac291a6dd" title="Performs the minimal number of operations to make range [begin(), end()) unchanged except for lacking...">erase()</a></code> return value: iterator to element past the last one erased. In this contiguous sequence that simply equals <code>first</code>, since everything starting with <code>past_last</code> slides left onto <code>first</code>. In particular: If <code>past_last()</code> equaled <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a></code> at entry, then the new <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a> is returned: everything starting with <code>first</code> was erased and thus <code>first == <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a></code> now. If nothing is erased <code>first</code> is still returned.) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02256">2256</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02261">2261</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1732,7 +1733,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Behavior is undefined if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a797741a0a5c95b13b36f356ae8d397e8" title="Returns size() == 0.">empty()</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02308">2308</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02313">2313</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1753,7 +1754,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Equivalent to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a90859b0e130bef705a2e556ccb27df53" title="Returns reference to immutable first element.">const_front()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02324">2324</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02329">2329</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1774,7 +1775,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Returns a copy of the internally cached <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> as set by a constructor or <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a3b07b9b83929cfb35f80f13ce416ec4b" title="Move assignment.">assign()</a> or assignment-operator, whichever happened last. </p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02460">2460</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02465">2465</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1813,7 +1814,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Iterator to same location as <code>it</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02439">2439</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02444">2444</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1848,7 +1849,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02104">2104</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02109">2109</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -1878,7 +1879,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Equivalent to <code>mutable_buffer(<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a4581e779dace3d64fe4098eb0a7dbeb2" title="Equivalent to begin().">data()</a>, <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a>)</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02452">2452</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02457">2457</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1909,7 +1910,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01592">1592</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01597">1597</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1940,7 +1941,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01540">1540</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01545">1545</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -1984,7 +1985,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01865">1865</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01870">1870</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -2044,9 +2045,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02044">2044</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02049">2049</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01426">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01431">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2087,9 +2088,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An identical <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> to <code>*this</code> that shares the underlying allocated buffer. See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01666">1666</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01671">1671</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="basic__blob_8hpp_source.html#l01400">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_buf_ptr</a>, <a class="el" href="basic__blob_8hpp_source.html#l01403">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_capacity</a>, <a class="el" href="basic__blob_8hpp_source.html#l01409">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_size</a>, <a class="el" href="basic__blob_8hpp_source.html#l01406">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_start</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="basic__blob_8hpp_source.html#l01405">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_buf_ptr</a>, <a class="el" href="basic__blob_8hpp_source.html#l01408">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_capacity</a>, <a class="el" href="basic__blob_8hpp_source.html#l01414">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_size</a>, <a class="el" href="basic__blob_8hpp_source.html#l01411">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_start</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2164,7 +2165,7 @@ template&lt;typename Emit_blob_func &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01773">1773</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01778">1778</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -2227,7 +2228,7 @@ template&lt;typename Blob_ptr_container &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01800">1800</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01805">1805</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -2290,7 +2291,7 @@ template&lt;typename Blob_container &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01786">1786</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01791">1791</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -2369,7 +2370,7 @@ template&lt;typename Emit_blob_func , typename Share_after_split_left_func &gt; 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01744">1744</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01749">1749</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -2426,7 +2427,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The split-off-on-the-left <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> that shares the underlying allocated buffer with <code>*this</code>. See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01695">1695</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01700">1700</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -2478,7 +2479,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The split-off-on-the-right <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> that shares the underlying allocated buffer with <code>*this</code>. See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01719">1719</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01724">1724</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -2508,9 +2509,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >If <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>, this is 0; but if this is 0, then <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a> may or may not be <code>true</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01835">1835</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01840">1840</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01426">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01431">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2538,9 +2539,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >If <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>, this is 0; but if this is 0, then <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a> may or may not be <code>true</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01841">1841</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01846">1846</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01819">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01824">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2581,9 +2582,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <div class="line">b.<a class="code hl_function" href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43">resize</a>(N);</div>
 <div class="line">b.<a class="code hl_function" href="classflow_1_1util_1_1Basic__blob.html#af98832169c8e46d84f6c06987a3670e3">start_past_prefix</a>(S);</div>
 <div class="line"><span class="comment">// Now, [b.begin(), b.end()) are the frame bytes, and no copying/allocation/deallocation has occurred.</span></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a></div><div class="ttdoc">A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l00240">basic_blob.hpp:241</a></div></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html_a2342b475fa8f2a67a9bb2cd1ba2c1b43"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43">flow::util::Basic_blob::resize</a></div><div class="ttdeci">void resize(size_type size, size_type start_or_unchanged=S_UNCHANGED, log::Logger *logger_ptr=0)</div><div class="ttdoc">Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l02044">basic_blob.hpp:2044</a></div></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html_af98832169c8e46d84f6c06987a3670e3"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html#af98832169c8e46d84f6c06987a3670e3">flow::util::Basic_blob::start_past_prefix</a></div><div class="ttdeci">void start_past_prefix(size_type prefix_size)</div><div class="ttdoc">Restructures blob to consist of an internally allocated buffer and a [begin(), end) range starting at...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l02079">basic_blob.hpp:2079</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a></div><div class="ttdoc">A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l00245">basic_blob.hpp:246</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html_a2342b475fa8f2a67a9bb2cd1ba2c1b43"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43">flow::util::Basic_blob::resize</a></div><div class="ttdeci">void resize(size_type size, size_type start_or_unchanged=S_UNCHANGED, log::Logger *logger_ptr=0)</div><div class="ttdoc">Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l02049">basic_blob.hpp:2049</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Basic__blob_html_af98832169c8e46d84f6c06987a3670e3"><div class="ttname"><a href="classflow_1_1util_1_1Basic__blob.html#af98832169c8e46d84f6c06987a3670e3">flow::util::Basic_blob::start_past_prefix</a></div><div class="ttdeci">void start_past_prefix(size_type prefix_size)</div><div class="ttdoc">Restructures blob to consist of an internally allocated buffer and a [begin(), end) range starting at...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l02084">basic_blob.hpp:2084</a></div></div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prefix_size</td><td>Desired prefix length. <code>prefix_size == 0</code> is allowed and is a degenerate case equivalent to: <code>resize(<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">start()</a> + <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a>, 0)</code>. </td></tr>
@@ -2591,7 +2592,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02079">2079</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02084">2084</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -2624,7 +2625,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02089">2089</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02094">2094</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -2674,7 +2675,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Location in this blob just past the last element copied; <code>src</code> if none copied; <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a61880291749335246f60fde4387f7ad6" title="Returns pointer one past mutable last element; empty() is possible.">end()</a> is a possible value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02214">2214</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02219">2219</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 <div class="dynheader">
@@ -2724,11 +2725,11 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01635">1635</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01640">1640</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01384">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01659">flow::util::swap()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01389">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01664">flow::util::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01659">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01664">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2790,11 +2791,11 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01598">1598</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01603">1603</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01853">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::capacity()</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="basic__blob_8hpp_source.html#l01400">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_buf_ptr</a>, <a class="el" href="basic__blob_8hpp_source.html#l01403">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_capacity</a>, <a class="el" href="basic__blob_8hpp_source.html#l01409">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_size</a>, <a class="el" href="basic__blob_8hpp_source.html#l01406">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_start</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01659">flow::util::swap()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01858">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::capacity()</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="basic__blob_8hpp_source.html#l01405">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_buf_ptr</a>, <a class="el" href="basic__blob_8hpp_source.html#l01408">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_capacity</a>, <a class="el" href="basic__blob_8hpp_source.html#l01414">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_size</a>, <a class="el" href="basic__blob_8hpp_source.html#l01411">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_start</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01664">flow::util::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01447">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01452">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Basic_blob()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2837,7 +2838,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02424">2424</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02429">2429</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00246">flow::util::in_closed_range()</a>.</p>
 <div class="dynheader">
@@ -2868,9 +2869,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Note that <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a> is <code>true</code> for any default-constructed <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01859">1859</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01864">1864</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01819">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01824">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::blobs_sharing()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2929,9 +2930,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether <code>blob1</code> and <code>blob2</code> both operate on the same underlying buffer. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01819">1819</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01824">1824</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02345">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::begin()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01841">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::start()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01859">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::zero()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l02350">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::begin()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01846">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::start()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01864">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::zero()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2993,9 +2994,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01659">1659</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01664">1664</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01635">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01640">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -3043,9 +3044,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <h3>Relationship between <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac7478166f4244b068a8793dc90b1f9e4" title="See get_allocator(): copy of the allocator supplied by the user (though, if Allocator_raw is stateles...">m_alloc_raw</a> and the allocator/deleter in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a45b5f98e106d0cd36956063cd859d3c6" title="Pointer to currently allocated buffer of size m_capacity; null if and only if zero() == true.">m_buf_ptr</a></h3>
 <p >(This is only applicable if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ab79d366c55643022eaf9e0d7378165d7" title="true if Allocator_raw underlying allocator template is simply std::allocator; false otherwise.">S_IS_VANILLA_ALLOC</a> is <code>false</code>.) <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a45b5f98e106d0cd36956063cd859d3c6" title="Pointer to currently allocated buffer of size m_capacity; null if and only if zero() == true.">m_buf_ptr</a> caches <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac7478166f4244b068a8793dc90b1f9e4" title="See get_allocator(): copy of the allocator supplied by the user (though, if Allocator_raw is stateles...">m_alloc_raw</a> internally in its centrally linked data. Ordinarily, then, they compare as equal. In the corner case where (1) move-assign or copy-assign or <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a835d127753a70d8c397a1a6153cab78d" title="Swaps the contents of this structure and other, or no-op if this == &amp;other.">swap()</a> was used on <code>*this</code>, <em>and</em> (2) <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> is stateful and <em>can</em> compare unequal (e.g., <code>boost::interprocess::allocator</code>): they may come to compare as unequal. It is, however, not (in our case) particularly important: <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac7478166f4244b068a8793dc90b1f9e4" title="See get_allocator(): copy of the allocator supplied by the user (though, if Allocator_raw is stateles...">m_alloc_raw</a> affects the <em>next</em> <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a328b40fe431698b38b48b66397664d1f" title="Ensures that an internal buffer of at least capacity elements is allocated and owned; disallows growi...">reserve()</a> (potentially); the thing stored in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a45b5f98e106d0cd36956063cd859d3c6" title="Pointer to currently allocated buffer of size m_capacity; null if and only if zero() == true.">m_buf_ptr</a> affects the logic when the underlying buffer is next deallocated. The two don't depend on each other. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01384">1384</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01389">1389</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01461">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02484">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::operator()()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01635">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01466">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02489">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::operator()()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01640">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>.</p>
 
 </div>
 </div>
@@ -3075,9 +3076,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >Buffer is auto-freed at destruction; or in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#af431f32bde5ed1ba255e3e1cbbcbd906" title="Guarantees post-condition zero() == true by dropping *this ownership of the allocated internal buffer...">make_zero()</a>; but only if by that point any <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a6d1f09551d36d058c16d505c76a1780a" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">share()</a>-generated other <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a></code>s have done the same. Otherwise the ref-count is merely decremented. In the case of <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a67db182946127383fb48d6a1afbdca90" title="Value of template parameter S_SHARING_ALLOWED (for generic programming).">S_SHARING</a> being <code>false</code>, one can think of this ref-count as being always at most 1; since <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a6d1f09551d36d058c16d505c76a1780a" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">share()</a> is not compiled, and as a corollary a <code>unique_ptr</code> is used to avoid perf costs. Thus <a class="el" href="classflow_1_1util_1_1Basic__blob.html#af431f32bde5ed1ba255e3e1cbbcbd906" title="Guarantees post-condition zero() == true by dropping *this ownership of the allocated internal buffer...">make_zero()</a> and dtor always dealloc in that case.</p>
 <p >For performance, we never initialize the values in the array to zeroes or otherwise. This contrasts with <code>vector</code> and most other standard or Boost containers which use an <code>allocator</code> to allocate any internal buffer, and most allocators default-construct (which means assign 0 in case of <code>uint8_t</code>) any elements within allocated buffers, immediately upon the actual allocation on heap. As noted in doc header, this behavior is surprisingly difficult to avoid (involving custom allocators and such). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01400">1400</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01405">1405</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01666">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01671">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 
 </div>
 </div>
@@ -3105,9 +3106,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a719e5c04e4bdc65c31976fc385fd7f24" title="Returns the number of elements in the internally allocated buffer, which is 1 or more; or 0 if no buf...">capacity()</a>; but <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1f2d99a5b487a454af627e8e33738abf" title="See capacity(); but m_capacity is meaningless (and containing unknown value) if !m_buf_ptr (i....">m_capacity</a> is meaningless (and containing unknown value) if <code>!m_buf_ptr</code> (i.e., <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01403">1403</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01408">1408</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01666">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01671">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 
 </div>
 </div>
@@ -3135,9 +3136,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">size()</a>; but <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ac008b60f7fe4253be9527436b0661dcc" title="See size(); but m_size is meaningless (and containing unknown value) if !m_buf_ptr (i....">m_size</a> is meaningless (and containing unknown value) if <code>!m_buf_ptr</code> (i.e., <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01409">1409</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01414">1414</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01666">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01671">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 
 </div>
 </div>
@@ -3165,9 +3166,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">start()</a>; but <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aae53d36a27090ef5da931bc17d4f2bcd" title="See start(); but m_start is meaningless (and containing unknown value) if !m_buf_ptr (i....">m_start</a> is meaningless (and containing unknown value) if <code>!m_buf_ptr</code> (i.e., <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise.">zero()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01406">1406</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01411">1411</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01666">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01598">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01671">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01603">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 
 </div>
 </div>
@@ -3221,7 +3222,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </ul>
 <p >See <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a30fe0a61f8b83e7588bdc4a88dbaabae" title="The smart-pointer type used for m_buf_ptr; a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> doc header regarding the latter two bullet points. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00324">324</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00329">329</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -3249,7 +3250,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Our <a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">flow::log::Component</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01104">1104</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01109">1109</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -3277,7 +3278,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Value of template parameter <code>S_SHARING_ALLOWED</code> (for generic programming). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00281">281</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00286">286</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -3305,7 +3306,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>Special value indicating an unchanged <code>size_type</code> value; such as in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2342b475fa8f2a67a9bb2cd1ba2c1b43" title="Guarantees post-condition size() == size and start() == start; no values in pre-call range [begin(),...">resize()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00284">284</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l00289">289</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -3316,7 +3317,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 25 2024 23:45:04 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 7 2024 00:49:11 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
