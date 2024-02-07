@@ -377,4 +377,14 @@ void swap(Log_context& val1, Log_context& val2);
  */
 void beautify_chrono_logger_this_thread(Logger* logger_ptr);
 
+/**
+ * Estimate of memory footprint of the given value, including memory allocated on its behalf -- but
+ * excluding its shallow `sizeof`! -- in bytes.
+ *
+ * @param val
+ *        Value.
+ * @return See above.
+ */
+size_t deep_size(const Msg_metadata& val);
+
 } // namespace flow::log

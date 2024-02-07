@@ -1036,6 +1036,9 @@ private:
  * User only need to worry about this when dealing with the internals of a Logger implementation.  Copying is to be
  * avoided, as there are some non-trivial data stored here; though it is not too bad.
  *
+ * @warning If changing the insides of Msg_metadata, ensure free function `deep_copy(const Msg_metadata&)`
+ *          remains accurate.
+ *
  * @todo Add support in Msg_metadata for a message ID which could more straightforwardly help the human log reader
  * to map a log line to the originating log call site in source code.  One approach, then, might be to output
  * that message ID when available; else output #m_msg_src_file, #m_msg_src_line, #m_msg_src_function; or maybe
@@ -1147,7 +1150,7 @@ struct Msg_metadata
    * thread ID if the thread has a nickname, meaning `!m_call_thread_nickname.empty()`.  The working assumption is
    * that (1) both members are met for direct log output only and no other logic; and (2) the nickname is preferable
    * when set, the thread ID being the fallback.  (If this sounds meh, consider that it's entirely reasonable to make
-   * the nickname contain some nice info *and* the original thread ID as well in string form.  However, might
+   * the nickname contain some nice info *and* the original thread ID as well in string form.  However, mind
    * the length -- the Performance Note in #m_call_thread_nickname doc header.)
    */
   util::Thread_id m_call_thread_id;
@@ -1731,8 +1734,6 @@ private:
 }; // class Log_context
 
 // Free functions: in *_fwd.hpp.
-
-// Template implementations.
 
 // Template implementations.
 
