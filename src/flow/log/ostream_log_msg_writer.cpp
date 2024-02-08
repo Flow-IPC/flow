@@ -19,22 +19,8 @@
 #include "flow/log/ostream_log_msg_writer.hpp"
 #include "flow/log/config.hpp"
 #include "flow/util/string_view.hpp"
+#include "flow/util/fmt.hpp"
 #include <chrono>
-
-#if defined(__GNUC__) && !defined(__clang__)
-#define GCC_COMPILER
-#endif
-    
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstringop-overflow"
-#endif
-
-#include <fmt/chrono.h>
-
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic pop
-#endif
 
 namespace flow::log
 {
@@ -166,7 +152,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
     fmt::format_to(m_last_human_friendly_time_stamp_str.begin() + SECONDS_START,
                    "{:%S}", metadata.m_called_when);
   }
-  
+
   m_os << String_view(m_last_human_friendly_time_stamp_str.data(), m_last_human_friendly_time_stamp_str_sz);
 
   log_past_time_stamp(metadata, msg);

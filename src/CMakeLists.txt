@@ -161,6 +161,7 @@ set(HDRS
     flow/util/detail/sched_task_handle_state.hpp
     flow/util/detail/util.hpp
     flow/util/detail/util_fwd.hpp
+    flow/util/fmt.hpp
     flow/util/linked_hash_map.hpp
     flow/util/linked_hash_set.hpp
     flow/util/random.hpp
