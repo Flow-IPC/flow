@@ -23,6 +23,10 @@ set(LIB_CMAKE_SCRIPT "../tools/cmake/FlowLikeLib.cmake")
 # (By the way no need to worry about find_package(Threads), as Boost::thread should take care of that.)
 set(BOOST_LIBS thread chrono timer program_options filesystem)
 
+find_package(fmt REQUIRED)
+list(APPEND DEP_LIBS fmt::fmt)
+list(APPEND DEP_LIBS_PKG_ARG_LISTS fmt::fmt)
+
 # (See above if wondering why we're not auto-searching for these.  There's a good reason.)
 # Ideally keep this in `find -s` order.
 set(SRCS

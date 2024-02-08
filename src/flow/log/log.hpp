@@ -24,7 +24,7 @@
 #include "flow/util/util.hpp"
 #include "flow/util/detail/util.hpp"
 #include "flow/util/uniq_id_holder.hpp"
-#include <boost/chrono/chrono.hpp>
+#include <chrono>
 #include <string>
 #include <typeinfo>
 
@@ -537,7 +537,7 @@
     using ::flow::log::Component; \
     using ::flow::util::String_view; \
     using ::flow::util::get_last_path_segment; \
-    using ::boost::chrono::system_clock; \
+    using ::std::chrono::system_clock; \
     using ::std::string; \
     Logger* const FLOW_LOG_WO_CHK_logger = get_logger(); \
     if (!FLOW_LOG_WO_CHK_logger) /* Usually a preceding filter/should_log() check would've eliminated this but.... */ \
@@ -1046,22 +1046,6 @@ private:
  */
 struct Msg_metadata
 {
-  // Types.
-
-  /**
-   * The time-stamp type with a precision exceeding (but ideally exactly equal to) the fine-grainedness of the
-   * time-of-day info obtainable from the system.
-   *
-   * @internal
-   * ### Rationale ###
-   * In the past this was a `duration` and in fact manually set to `microseconds`, because we were forced to deal
-   * with boost.date_time to get the required time components with enough precision in such a way as to be
-   * possible to output with microsecond precision.  Finally, though, boost.chrono gave it to us for free with its
-   * `system_clock::time_point`-supporting `ostream<<` implementation; so we can drop all these complexities and just
-   * store a damned `system_clock::time_point`.
-   */
-  using Time_stamp = boost::chrono::system_clock::time_point;
-
   // Data.
 
   /// Component of message, as of this writing coming from either Log_context constructor or FLOW_LOG_SET_CONTEXT().
@@ -1127,8 +1111,12 @@ struct Msg_metadata
   /// Analogous to #m_msg_src_file but coming from `__FUNCTION__`, not `__FILE__`.  See #m_msg_src_file perf notes.
   util::String_view m_msg_src_function;
 
-  /// Time stamp from as close as possible to entry into the log call site (usually `FLOW_LOG_WARNING()` or similar).
-  Time_stamp m_called_when;
+  /**
+   * Time stamp from as close as possible to entry into the log call site (usually `FLOW_LOG_WARNING()` or similar).
+   *
+   * `std::chrono` is used instead of boost.chrono for certain internal output reasons in Ostream_log_msg_writer.
+   */
+  std::chrono::system_clock::time_point m_called_when;
 
   /**
    * Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the
