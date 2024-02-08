@@ -19,22 +19,8 @@
 #include "flow/log/ostream_log_msg_writer.hpp"
 #include "flow/log/config.hpp"
 #include "flow/util/string_view.hpp"
+#include "flow/util/fmt.hpp"
 #include <chrono>
-
-#if defined(__GNUC__) && !defined(__clang__)
-#define GCC_COMPILER
-#endif
-    
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstringop-overflow"
-#endif
-
-#include <fmt/chrono.h>
-
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic pop
-#endif
 
 namespace flow::log
 {
