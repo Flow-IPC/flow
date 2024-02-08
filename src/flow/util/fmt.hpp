@@ -22,9 +22,9 @@
  * the below to avoid issues with such `gcc`s.
  *
  * @todo Eliminate when/if possible.  Some tickets about it:
- *   https:://github.com/fmtlib/fmt/issues/2708
- *   https:://github.com/fmtlib/fmt/issues/3334
- *   https:://github.com/gabime/spdlog/issues/2761
+ *   https://github.com/fmtlib/fmt/issues/2708
+ *   https://github.com/fmtlib/fmt/issues/3334
+ *   https://github.com/gabime/spdlog/issues/2761
  *
  * Also we had to deal with similar in our own code; as of this writing in util/basic_blob.hpp at least. */
 
