@@ -22,7 +22,7 @@
 #include <chrono>
 
 #if defined(__GNUC__) && !defined(__clang__)
-#define GCC_COMPILER (defined(__GNUC__) && !defined(__clang__))
+#define GCC_COMPILER
 #endif
     
 #ifdef GCC_COMPILER
