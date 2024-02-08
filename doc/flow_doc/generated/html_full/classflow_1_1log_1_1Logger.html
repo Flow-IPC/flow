@@ -222,7 +222,7 @@ Additional Inherited Members</h2></td></tr>
 <p >Note that this is only tangentially related to any time stamps one might see in the final output.</p>
 <p >See also notes on log output order in <a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a> doc header (which applies to all log call sites). The behavior described there is a function of the underlying <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> following the above formal requirements for thread-safe <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> implementations. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01299">1299</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01287">1287</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a934667f16dd6ca0841e521296ab3a6e2" name="a934667f16dd6ca0841e521296ab3a6e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a934667f16dd6ca0841e521296ab3a6e2">&#9670;&nbsp;</a></span>do_log()</h2>
@@ -363,7 +363,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00124">124</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01573">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l01561">s_this_thread_nickname_ptr</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00143">set_thread_info_in_msg_metadata()</a>.</p>
 <div class="dynheader">
@@ -411,7 +411,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00143">143</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01156">flow::log::Msg_metadata::m_call_thread_id</a>, <a class="el" href="log_8hpp_source.html#l01146">flow::log::Msg_metadata::m_call_thread_nickname</a>, and <a class="el" href="log_8cpp_source.html#l00124">set_thread_info()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l01144">flow::log::Msg_metadata::m_call_thread_id</a>, <a class="el" href="log_8hpp_source.html#l01134">flow::log::Msg_metadata::m_call_thread_nickname</a>, and <a class="el" href="log_8cpp_source.html#l00124">set_thread_info()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -518,7 +518,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00107">107</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01573">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l01561">s_this_thread_nickname_ptr</a>.</p>
 
 </div>
 </div>
@@ -663,7 +663,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00036">36</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00356">flow::util::ostream_op_string()</a>, and <a class="el" href="log_8hpp_source.html#l01573">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00356">flow::util::ostream_op_string()</a>, and <a class="el" href="log_8hpp_source.html#l01561">s_this_thread_nickname_ptr</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -696,7 +696,7 @@ Here is the call graph for this function:</div>
 
 <p>Thread-local storage for each thread's logged name (null pointer, which is default, means no nickname stored). </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01573">1573</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01561">1561</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00124">set_thread_info()</a>, <a class="el" href="log_8cpp_source.html#l00107">this_thread_logged_name_os_manip()</a>, and <a class="el" href="log_8cpp_source.html#l00036">this_thread_set_logged_nickname()</a>.</p>
 
@@ -709,7 +709,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 8 2024 11:50:38 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

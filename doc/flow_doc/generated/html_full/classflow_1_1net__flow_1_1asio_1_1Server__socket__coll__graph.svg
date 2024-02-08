@@ -638,8 +638,8 @@
 <g id="node24" class="node">
 <title>Node25</title>
 <g id="a_node24"><a xlink:title=" ">
-<polygon fill="white" stroke="#bfbfbf" points="1008,-613.64 1008,-630.64 1083,-630.64 1083,-613.64 1008,-613.64"/>
-<text text-anchor="middle" x="1045.5" y="-620.24" font-family="Helvetica,sans-Serif" font-size="8.00">unsigned char</text>
+<polygon fill="white" stroke="#bfbfbf" points="998.5,-613.64 998.5,-630.64 1092.5,-630.64 1092.5,-613.64 998.5,-613.64"/>
+<text text-anchor="middle" x="1045.5" y="-620.24" font-family="Helvetica,sans-Serif" font-size="8.00">static const uint8_t</text>
 </a>
 </g>
 </g>

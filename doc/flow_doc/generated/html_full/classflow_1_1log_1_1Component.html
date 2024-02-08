@@ -260,9 +260,9 @@ template&lt;typename Payload &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01741">1741</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01729">1729</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classflow_1_1log_1_1Component.html#a146ce02cc7422b3a3bca07533536450e">operator=()</a>, and <a class="el" href="log_8hpp_source.html#l01748">payload()</a>.</p>
+<p class="reference">References <a class="el" href="classflow_1_1log_1_1Component.html#a146ce02cc7422b3a3bca07533536450e">operator=()</a>, and <a class="el" href="log_8hpp_source.html#l01736">payload()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -443,7 +443,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01741">Component()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01729">Component()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -480,7 +480,7 @@ template&lt;typename Payload &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01755">1755</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01743">1743</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l01030">m_payload_enum_raw_value</a>, and <a class="el" href="log_8hpp_source.html#l01024">m_payload_type_or_null</a>.</p>
 
@@ -509,11 +509,11 @@ template&lt;typename Payload &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01748">1748</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01736">1736</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l01030">m_payload_enum_raw_value</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01741">Component()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01729">Component()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -589,7 +589,7 @@ Here is the caller graph for this function:</div>
 <div class="line">{</div>
 <div class="line">  Cool_class_about_widgets(...) :</div>
 <div class="line">    <a class="code hl_class" href="classflow_1_1log_1_1Log__context.html">Log_context</a>(..., Cool_log_component::S_WIDGETRY) <span class="comment">// Ditto for your own code.  Use your own enum.</span></div>
-<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01630">log.hpp:1631</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01618">log.hpp:1619</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Node_html"><div class="ttname"><a href="classflow_1_1net__flow_1_1Node.html">flow::net_flow::Node</a></div><div class="ttdoc">An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...</div><div class="ttdef"><b>Definition:</b> <a href="node_8hpp_source.html#l00933">node.hpp:937</a></div></div>
 <div class="ttc" id="anamespaceflow_html_a3938730ab4b89daf13d027a5f620e7ce"><div class="ttname"><a href="namespaceflow.html#a3938730ab4b89daf13d027a5f620e7ce">flow::Flow_log_component</a></div><div class="ttdeci">Flow_log_component</div><div class="ttdoc">The flow::log::Component payload enumeration comprising various log components used by Flow's own int...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00631">common.hpp:632</a></div></div>
 </div><!-- fragment --><p >Now, <code>this-&gt;get_log_component().<a class="el" href="classflow_1_1log_1_1Component.html#a3ff8ff4d75add447b3e10ded5430833d" title="Returns typeid(Payload), where Payload was the template param used when calling the originating one-a...">payload_type()</a></code> will equal that of <code>Flow_log_component</code> and <code>Cool_log_component</code>, respectively, within those 2 classes. In particular, a custom <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> implementation can use <code><a class="el" href="classflow_1_1log_1_1Component.html#a3ff8ff4d75add447b3e10ded5430833d" title="Returns typeid(Payload), where Payload was the template param used when calling the originating one-a...">payload_type()</a></code> &ndash; and in particular the derived <code><a class="el" href="classflow_1_1log_1_1Component.html#ab071f597ddeee9ad0fdb9e40bff8d988" title="Convenience accessor that returns std::type_index(payload_type()), which can be used most excellently...">payload_type_index()</a></code> &ndash; to interpret the <code><a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a></code>s of values from the 2 entirely disparate <code>enum</code>s in different ways. More in particular, the out-of-the-box <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s use <code><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a></code> to do all of that without your having to worry about it (but your own <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> would potentially have to worry about it particularly if not using <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">log::Config</a>... though we suggest that you should, barring excellent design counter-reasons).</p>
@@ -682,7 +682,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01030">1030</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01755">operator=()</a>, <a class="el" href="log_8hpp_source.html#l01748">payload()</a>, and <a class="el" href="log_8cpp_source.html#l00187">payload_enum_raw_value()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8hpp_source.html#l01743">operator=()</a>, <a class="el" href="log_8hpp_source.html#l01736">payload()</a>, and <a class="el" href="log_8cpp_source.html#l00187">payload_enum_raw_value()</a>.</p>
 
 </div>
 </div>
@@ -712,7 +712,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01024">1024</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00168">empty()</a>, <a class="el" href="log_8hpp_source.html#l01755">operator=()</a>, and <a class="el" href="log_8cpp_source.html#l00173">payload_type()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00168">empty()</a>, <a class="el" href="log_8hpp_source.html#l01743">operator=()</a>, and <a class="el" href="log_8cpp_source.html#l00173">payload_type()</a>.</p>
 
 </div>
 </div>
@@ -723,7 +723,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 7 2024 00:49:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 8 2024 11:50:38 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <map id="flow::log::Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp" name="flow::log::Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp">
-<area shape="rect" id="node1" title="log() implementation with time stamp = date/time with microsecond resolution/time zone,..." alt="" coords="5,81,167,141"/>
+<area shape="rect" id="node1" title="log() implementation with time stamp = date/time with microsecond+ resolution/time zone,..." alt="" coords="5,81,167,141"/>
 <area shape="rect" id="node2" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html#a7ac568ffa478c6fc64775c23b00d3fb3" title="Remainder of log() functionality after either do_log_with_epoch_time_stamp() or do_log_with_human_fri..." alt="" coords="215,87,348,135"/>
 <area shape="rect" id="node3" href="$classflow_1_1log_1_1Config.html#a6376bf2af57f655c1cdf00791e6a2f7f" title="An output of Config, this writes a string representation of the given component value to the given os..." alt="" coords="396,87,537,135"/>
 <area shape="rect" id="node4" href="$classflow_1_1log_1_1Config.html#af2d963a6e1e9e0fc5809764d5718e938" title="Given a component in the form user provides it at log call sites, returns its index in the flat compo..." alt="" coords="585,65,743,101"/>
