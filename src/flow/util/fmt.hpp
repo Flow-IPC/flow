@@ -38,6 +38,7 @@
 #endif
 
 #include <fmt/format.h>
+#include <fmt/chrono.h>
 
 #ifdef GCC_COMPILER
 #  pragma GCC diagnostic pop
