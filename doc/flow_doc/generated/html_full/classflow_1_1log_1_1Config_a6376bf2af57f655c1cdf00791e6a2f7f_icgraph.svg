@@ -57,7 +57,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1log_1_1Ostream__log__msg__writer.html#a53d47232844dc7060ee95b4d831bbe29" target="_top" xlink:title="log() implementation with time stamp = date/time with microsecond resolution/time zone,...">
+<g id="a_node4"><a xlink:href="classflow_1_1log_1_1Ostream__log__msg__writer.html#a53d47232844dc7060ee95b4d831bbe29" target="_top" xlink:title="log() implementation with time stamp = date/time with microsecond+ resolution/time zone,...">
 <polygon fill="white" stroke="black" points="6.5,-0.5 6.5,-44.5 127.5,-44.5 127.5,-0.5 6.5,-0.5"/>
 <text text-anchor="start" x="14.5" y="-34.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Ostream</text>
 <text text-anchor="start" x="14.5" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">_log_msg_writer::do</text>

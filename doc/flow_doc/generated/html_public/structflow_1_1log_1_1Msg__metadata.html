@@ -68,7 +68,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structflow_1_1log_1_1Msg__metadata-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::log::Msg_metadata Struct Reference</div></div>
@@ -86,13 +85,6 @@ Collaboration diagram for flow::log::Msg_metadata:</div>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab7dee33a785cbf71407cfaf1017ae74f"><td class="memItemLeft" align="right" valign="top"><a id="ab7dee33a785cbf71407cfaf1017ae74f" name="ab7dee33a785cbf71407cfaf1017ae74f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Time_stamp</b> = boost::chrono::system_clock::time_point</td></tr>
-<tr class="memdesc:ab7dee33a785cbf71407cfaf1017ae74f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The time-stamp type with a precision exceeding (but ideally exactly equal to) the fine-grainedness of the time-of-day info obtainable from the system. <br /></td></tr>
-<tr class="separator:ab7dee33a785cbf71407cfaf1017ae74f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a9d966ba8a227d1e7af587a8191ccf934"><td class="memItemLeft" align="right" valign="top"><a id="a9d966ba8a227d1e7af587a8191ccf934" name="a9d966ba8a227d1e7af587a8191ccf934"></a>
@@ -113,10 +105,9 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>m_msg_src_lin
 <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_msg_src_function</b></td></tr>
 <tr class="memdesc:af7704a632434e7b52c43ab6047cf023b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Analogous to <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a> but coming from <code>__FUNCTION__</code>, not <code>__FILE__</code>. See <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a> perf notes. <br /></td></tr>
 <tr class="separator:af7704a632434e7b52c43ab6047cf023b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13967d033279bd14ba592a23e50a2d7b"><td class="memItemLeft" align="right" valign="top"><a id="a13967d033279bd14ba592a23e50a2d7b" name="a13967d033279bd14ba592a23e50a2d7b"></a>
-<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#ab7dee33a785cbf71407cfaf1017ae74f">Time_stamp</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_called_when</b></td></tr>
-<tr class="memdesc:a13967d033279bd14ba592a23e50a2d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time stamp from as close as possible to entry into the log call site (usually <code><a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a></code> or similar). <br /></td></tr>
-<tr class="separator:a13967d033279bd14ba592a23e50a2d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e04fcee8409b76adb9aaa3108f90e1"><td class="memItemLeft" align="right" valign="top">std::chrono::system_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a11e04fcee8409b76adb9aaa3108f90e1">m_called_when</a></td></tr>
+<tr class="memdesc:a11e04fcee8409b76adb9aaa3108f90e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time stamp from as close as possible to entry into the log call site (usually <code><a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a></code> or similar).  <a href="structflow_1_1log_1_1Msg__metadata.html#a11e04fcee8409b76adb9aaa3108f90e1">More...</a><br /></td></tr>
+<tr class="separator:a11e04fcee8409b76adb9aaa3108f90e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4588cf8c827944e5379c6ad1fd11d6db"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db">m_call_thread_nickname</a></td></tr>
 <tr class="memdesc:a4588cf8c827944e5379c6ad1fd11d6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread nickname, as for <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a>, of the thread from which the log call was invoked; or an empty string if the thread had no such nickname set at the time.  <a href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db">More...</a><br /></td></tr>
 <tr class="separator:a4588cf8c827944e5379c6ad1fd11d6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +154,23 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>m_msg_src_lin
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91" title="Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) suc...">m_call_thread_id</a></dd></dl>
 <h3>Perf note</h3>
 <p >Setting this involves an <code>std::string</code> copy; the cost of this is worth considering given that this is done for every single log call site, if the nickname is indeed set. See performance note in doc header of <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a> for the recommendation and details. (Long story short, if you keep it at N <code>char</code>s or fewer, the cost of a non-empty <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> becomes equal to that of an empty one. N might be 15 in gcc 5.) </p>
+
+</div>
+</div>
+<a id="a11e04fcee8409b76adb9aaa3108f90e1" name="a11e04fcee8409b76adb9aaa3108f90e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e04fcee8409b76adb9aaa3108f90e1">&#9670;&nbsp;</a></span>m_called_when</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::chrono::system_clock::time_point flow::log::Msg_metadata::m_called_when</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Time stamp from as close as possible to entry into the log call site (usually <code><a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a></code> or similar). </p>
+<p ><code>std::chrono</code> is used instead of boost.chrono for certain internal output reasons in <a class="el" href="classflow_1_1log_1_1Ostream__log__msg__writer.html" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned...">Ostream_log_msg_writer</a>. </p>
 
 </div>
 </div>
@@ -213,7 +221,7 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>m_msg_src_lin
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 7 2024 00:49:08 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 8 2024 11:50:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

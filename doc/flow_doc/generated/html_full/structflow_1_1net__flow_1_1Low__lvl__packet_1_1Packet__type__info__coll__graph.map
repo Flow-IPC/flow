@@ -1,6 +1,6 @@
 <map id="flow::net_flow::Low_lvl_packet::Packet_type_info" name="flow::net_flow::Low_lvl_packet::Packet_type_info">
-<area shape="rect" id="node1" title="A simple, unmodifiable data store that contains the properties unique to each packet type a/k/a concr..." alt="" coords="48,175,175,223"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,91,105,115"/>
-<area shape="rect" id="node3" title=" " alt="" coords="129,91,208,115"/>
-<area shape="rect" id="node4" title=" " alt="" coords="108,5,229,41"/>
+<area shape="rect" id="node1" title="A simple, unmodifiable data store that contains the properties unique to each packet type a/k/a concr..." alt="" coords="44,175,171,223"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,91,97,115"/>
+<area shape="rect" id="node3" title=" " alt="" coords="125,91,204,115"/>
+<area shape="rect" id="node4" title=" " alt="" coords="104,5,225,41"/>
 </map>
