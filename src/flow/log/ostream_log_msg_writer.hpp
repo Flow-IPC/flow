@@ -29,9 +29,11 @@
  * avoid breaking some user code written before the _fwd.hpp pattern was applied to Flow.  However in my (ygoldfel)
  * opinion it would still be a decent argument even without that. */
 #include "flow/log/config.hpp"
+#include <array>
+// Normally we use boost.chrono in Flow; see explanation in class doc header below re. why std::chrono here.
+#include <chrono>
 #include <ostream>
 #include <boost/io/ios_state.hpp>
-#include <boost/chrono/chrono.hpp>
 #include <vector>
 
 namespace flow::log
@@ -45,7 +47,7 @@ namespace flow::log
  * pass this to the constructor.  The Config may come from the user as passed to the Logger (if any) using `*this`;
  * or that Logger (if any) can make its own from scratch.
  *
- * It is assumed that between the first and last calls to do_log() no other code whatsoever writes to the underlying
+ * It is assumed that between the first and last calls to log() no other code whatsoever writes to the underlying
  * stream (as passed to ctor) at any point -- including any formatters.  At `*this` destruction formatter state
  * is restored.
  *
@@ -67,6 +69,35 @@ namespace flow::log
  * guarantees.
  *
  * See thread safety notes and to-dos regarding config in Simple_ostream_logger doc header.  These apply here also.
+ *
+ * @internal
+ * Impl notes
+ * ----------
+ * ### Human-readable time stamps, caching ###
+ * At least optionally, log() adds a human-readable time stamp readout with the date, time (including seconds.usec
+ * or better), and time zone.  Just getting that in a decent, predictable form, without localized weirdness, and
+ * with sub-second precision can be non-trivial; `std::chrono` does not do it as of C++17; boost.chrono does but
+ * only as of a certain quietly added features called time-point I/O v2 (as opposed to v1).  That in itself was
+ * workable; however:
+ *
+ * When logging volume is very high, processor use by logging can be high, and as a percentage of cycles used,
+ * we noticed that a high proportion was used in formatting the `time_point` into the `ostream` by boost.chrono.
+ * Therefore we eventually moved to fmt, an output formatting library that is lightning-fast and whose API is
+ * now folded into C++20 standard lib (as of this writing we are on C++17); not unlike boost.chrono long ago became
+ * `std::chrono`.  fmt provides flexibly formattable `time_point` output as well, so we can get everything we want
+ * just how we want it (in contrast with boost.chrono where it was merely a stroke of luck that the output
+ * was acceptable).
+ *
+ * Moreover, we accomplish a slight additional speedup by *caching* the formatted output across log() calls;
+ * in each log() printing it up to but excluding seconds; then adding the seconds plus sub-seconds in a separate,
+ * less expensive fmt call.  The cached output needs to be updated once the previous cached value is no longer
+ * applicable even up to the precision that is actually used.
+ *
+ * ### Why standard library time-points instead of boost.chrono? ###
+ * In the rest of Flow we tend to prefer boost.chrono to `std::chrono`; they are extremely similar, but
+ * boost.chrono adds a few features including some extra clocks which are useful.  However fmt accepts `std::chrono`
+ * time points, so for this specific purpose we store an `std::chrono` time point in Msg_metadata.  At that point
+ * it was also reasonable to just use `std::chrono` for other time-related needs in this small class.
  */
 class Ostream_log_msg_writer :
   private boost::noncopyable
@@ -121,20 +152,20 @@ private:
    * log() implementation with time stamp = seconds.microseconds since Epoch.
    *
    * @param metadata
-   *        See do_log().
+   *        See log().
    * @param msg
-   *        See do_log().
+   *        See log().
    */
   void do_log_with_epoch_time_stamp(const Msg_metadata& metadata, util::String_view msg);
 
   /**
-   * log() implementation with time stamp = date/time with microsecond resolution/time zone, in
+   * log() implementation with time stamp = date/time with microsecond+ resolution/time zone, in
    * current OS time zone.
    *
    * @param metadata
-   *        See do_log().
+   *        See log().
    * @param msg
-   *        See do_log().
+   *        See log().
    */
   void do_log_with_human_friendly_time_stamp(const Msg_metadata& metadata, util::String_view msg);
 
@@ -143,9 +174,9 @@ private:
    * do_log_with_human_friendly_time_stamp(), once either has logged the time stamp.
    *
    * @param metadata
-   *        See do_log().
+   *        See log().
    * @param msg
-   *        See do_log().
+   *        See log().
    */
   void log_past_time_stamp(const Msg_metadata& metadata, util::String_view msg);
 
@@ -157,12 +188,30 @@ private:
   /// Jan 1, 1970, 00:00.
   static const boost::chrono::system_clock::time_point S_POSIX_EPOCH;
 
+  /// Example human-readable time stamp output, up to but excluding seconds, for compile-time size calculations.
+  static constexpr util::String_view S_HUMAN_FRIENDLY_TIME_STAMP_MIN_SZ_TEMPLATE{"2024-02-05 22:09:"};
+
+  /**
+   * Example human-readable time stamp output, starting with seconds, for compile-time size calculations.
+   *
+   * ### Subtlety ###
+   * fmt docs say `%S` will use the precision "available"; in practice in our tested Linuxes it is
+   * nanoseconds; in the past I (ygoldfel) have also seen microseconds printed in this situation; might be
+   * some artifact of an internal time-formatting system API; whatever.  However, it is unlikely it will in
+   * practice be better than nanoseconds; hence for our size-reserving purposes the template string with
+   * nanoseconds should suffice.
+   *
+   * (It also says that if there is no sub-second value, then it won't print the sub-second portion; but this
+   * appears to be poorly worded documentation: It prints `.000000000` just fine.)
+   */
+  static constexpr util::String_view S_HUMAN_FRIENDLY_TIME_STAMP_REST_SZ_TEMPLATE{"31.357246045 +0000 "};
+
   // Data.
 
   /// Reference to the config object passed to constructor.  See notes on thread safety.
   const Config& m_config;
 
-  /// Pointer to function that do_log() will forward to when invoked.
+  /// Pointer to function that log() will forward to when invoked.
   const Function<void (Ostream_log_msg_writer*, const Msg_metadata&, util::String_view)> m_do_log_func;
 
   /// Reference to stream to which to log messages.
@@ -170,6 +219,22 @@ private:
 
   /// Formatter state of #m_os at construction.  Used at least in destructor (as of this writing) to restore it.
   Ostream_state m_clean_os_state;
+
+  /// Buffer storing the last log() time stamp in human-friendly form, including a NUL at the end.
+  std::array<char, S_HUMAN_FRIENDLY_TIME_STAMP_MIN_SZ_TEMPLATE.size()
+                   + S_HUMAN_FRIENDLY_TIME_STAMP_REST_SZ_TEMPLATE.size() + 1>
+    m_last_human_friendly_time_stamp_str;
+
+  /// Length of string in #m_last_human_friendly_time_stamp_str (excluding any NUL).
+  size_t m_last_human_friendly_time_stamp_str_sz;
+
+  /**
+   * As used in the caching-for-perf algorithm in do_log_with_human_friendly_time_stamp(),
+   * this is the seconds-precision version of high-precision Msg_metadata::m_called_when, when
+   * do_log_with_human_friendly_time_stamp() last had to perform full formatted-output into
+   * #m_last_human_friendly_time_stamp_str.
+   */
+  std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds> m_cached_rounded_time_stamp;
 }; // class Ostream_log_msg_writer
 
 } // namespace flow::log
