@@ -100,9 +100,11 @@ void Ostream_log_msg_writer::do_log_with_epoch_time_stamp(const Msg_metadata& me
 
 void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_metadata& metadata, util::String_view msg)
 {
+#if defined(__GNUC__) && !defined(__clang__)
 #define GCC_COMPILER (defined(__GNUC__) && !defined(__clang__))
-  
-#if GCC_COMPILER
+#endif
+    
+#ifdef GCC_COMPILER
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstringop-overflow"
 #endif
@@ -160,7 +162,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
                    "{:%S}", metadata.m_called_when);
   }
   
-#if GCC_COMPILER
+#ifdef GCC_COMPILER
 #pragma GCC diagnostic pop
 #endif
   
