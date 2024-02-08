@@ -20,7 +20,21 @@
 #include "flow/log/config.hpp"
 #include "flow/util/string_view.hpp"
 #include <chrono>
+
+#if defined(__GNUC__) && !defined(__clang__)
+#define GCC_COMPILER (defined(__GNUC__) && !defined(__clang__))
+#endif
+    
+#ifdef GCC_COMPILER
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
+#endif
+
 #include <fmt/chrono.h>
+
+#ifdef GCC_COMPILER
+#pragma GCC diagnostic pop
+#endif
 
 namespace flow::log
 {
@@ -100,15 +114,6 @@ void Ostream_log_msg_writer::do_log_with_epoch_time_stamp(const Msg_metadata& me
 
 void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_metadata& metadata, util::String_view msg)
 {
-#if defined(__GNUC__) && !defined(__clang__)
-#define GCC_COMPILER (defined(__GNUC__) && !defined(__clang__))
-#endif
-    
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstringop-overflow"
-#endif
-
   using util::String_view;
   using std::chrono::time_point_cast;
   using std::chrono::seconds;
@@ -161,10 +166,6 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
     fmt::format_to(m_last_human_friendly_time_stamp_str.begin() + SECONDS_START,
                    "{:%S}", metadata.m_called_when);
   }
-  
-#ifdef GCC_COMPILER
-#pragma GCC diagnostic pop
-#endif
   
   m_os << String_view(m_last_human_friendly_time_stamp_str.data(), m_last_human_friendly_time_stamp_str_sz);
 
