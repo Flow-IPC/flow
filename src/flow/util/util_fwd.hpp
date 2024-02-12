@@ -77,7 +77,13 @@ class Unique_id_holder;
  */
 using Thread = boost::thread;
 
-/// Short-hand for standard this-thread namespace. Paired with util::Thread.
+/* (The @namespace and @brief thingies shouldn't be needed, but some Doxygen bug necessitated them.
+ * See flow::util::bind_ns for explanation... same thing here.) */
+
+/**
+ * @namespace flow::util::this_thread
+ * @brief Short-hand for standard this-thread namespace. Paired with util::Thread.
+ */
 namespace this_thread = boost::this_thread;
 
 /// Short-hand for an OS-provided ID of a util::Thread.
