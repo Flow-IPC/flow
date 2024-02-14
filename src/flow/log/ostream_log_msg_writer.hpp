@@ -122,8 +122,8 @@ public:
    */
   explicit Ostream_log_msg_writer(const Config& config, std::ostream& os);
 
-  /// Fairly boring destructor.  Restores formatting state of `os` to how it was before entry to constructor.
-  ~Ostream_log_msg_writer();
+  /// Restores formatting state of `os` to how it was before entry to constructor.
+  ~Ostream_log_msg_writer() noexcept;
 
   // Methods.
 

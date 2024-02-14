@@ -390,7 +390,7 @@ public:
      * Note that this value is not meant to be some kind of universally correct choice for #m_hi_limit.
      * Users can and should change `m_hi_limit`.
      */
-    static constexpr uint64_t S_HI_LIMIT_DEFAULT = 1ull * 1024 * 1024;
+    static constexpr uint64_t S_HI_LIMIT_DEFAULT = 1ull * 1024 * 1024 * 1024;
   }; // struct Throttling_cfg
 
   // Constructors/destructor.

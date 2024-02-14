@@ -18,6 +18,7 @@
 /// @file
 #include "flow/net_flow/info.hpp"
 #include "flow/net_flow/detail/low_lvl_packet.hpp"
+#include <boost/array.hpp>
 
 namespace flow::net_flow
 {

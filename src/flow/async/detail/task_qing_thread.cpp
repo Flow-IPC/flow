@@ -19,6 +19,7 @@
 #include "flow/async/detail/task_qing_thread.hpp"
 #include "flow/log/config.hpp"
 #include <boost/asio.hpp>
+#include <boost/move/make_unique.hpp>
 #include <string>
 #include <exception>
 #include <cstdlib>

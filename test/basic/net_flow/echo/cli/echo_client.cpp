@@ -18,6 +18,7 @@
 #include "flow/net_flow/node.hpp"
 #include "flow/log/simple_ostream_logger.hpp"
 #include "flow/log/async_file_logger.hpp"
+#include <boost/array.hpp>
 
 /* This simple program is a Flow-based echo client.
  *   <executable> <times to send a message and expect reply> <host> <UDP port> <message contents>
