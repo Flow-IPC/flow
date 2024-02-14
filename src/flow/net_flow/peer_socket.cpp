@@ -2435,7 +2435,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
     assert(!clean_acked_packet_events.empty());
 
     // Report individual (clean) acks to congestion control.
-    for (const auto [rtt, bytes, cwnd_bytes] : clean_acked_packet_events)
+    for (const auto& [rtt, bytes, cwnd_bytes] : clean_acked_packet_events)
     {
       FLOW_LOG_TRACE("cong_ctl [" << sock << "] update: clean individual acknowledgment: "
                      "[" << sock->bytes_blocks_str(bytes) << "] with RTT [" << round<milliseconds>(rtt) <<
