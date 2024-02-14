@@ -2063,8 +2063,6 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
   using std::min;
   using std::vector;
   using boost::tuple;
-  using boost::make_tuple;
-  using boost::tie;
   using boost::unordered_set;
   using boost::chrono::round;
   using boost::chrono::milliseconds;
@@ -2330,7 +2328,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
      * to save it.  (@todo Performance?) */
     const size_t bytes_acked = flying_pkt->m_size;
     const size_t cwnd_bytes = sent_when->m_sent_cwnd_bytes;
-    clean_acked_packet_events.push_back(make_tuple(round_trip_time, bytes_acked, cwnd_bytes));
+    clean_acked_packet_events.emplace_back(round_trip_time, bytes_acked, cwnd_bytes);
 
     // Maintain invariant.  Packet acknowledged, so remove from In-flight packet list and related structures.
     snd_flying_pkts_erase_one(sock, flying_pkt_it);
@@ -2437,12 +2435,8 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
     assert(!clean_acked_packet_events.empty());
 
     // Report individual (clean) acks to congestion control.
-    for (const auto& clean_acked_packet : clean_acked_packet_events)
+    for (const auto [rtt, bytes, cwnd_bytes] : clean_acked_packet_events)
     {
-      Fine_duration rtt;
-      size_t bytes, cwnd_bytes;
-      tie(rtt, bytes, cwnd_bytes) = clean_acked_packet;
-
       FLOW_LOG_TRACE("cong_ctl [" << sock << "] update: clean individual acknowledgment: "
                      "[" << sock->bytes_blocks_str(bytes) << "] with RTT [" << round<milliseconds>(rtt) <<
                      "] and sent_cwnd_bytes [" << cwnd_bytes << "].");

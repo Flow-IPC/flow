@@ -19,6 +19,7 @@
 #include "flow/log/async_file_logger.hpp"
 #include "flow/log/detail/serial_file_logger.hpp"
 #include "flow/error/error.hpp"
+#include <boost/move/make_unique.hpp>
 #include <algorithm>
 #include <memory>
 #include <utility>

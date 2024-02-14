@@ -23,6 +23,7 @@
 #include "flow/cfg/option_set.hpp"
 #include "flow/util/util.hpp"
 #include "flow/util/shared_ptr_alias_holder.hpp"
+#include <boost/array.hpp>
 
 namespace flow::cfg
 {
