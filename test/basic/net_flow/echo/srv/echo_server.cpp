@@ -19,6 +19,7 @@
 #include "flow/log/simple_ostream_logger.hpp"
 #include "flow/log/async_file_logger.hpp"
 
+#include <boost/array.hpp>
 #include <fstream>
 
 /* This simple program is a Flow-based echo server.
