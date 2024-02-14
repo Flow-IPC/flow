@@ -122,7 +122,7 @@ class flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw<
 <p >Note that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is used only to dealloc the buffer actually controlled by the <code>shared_ptr</code> group or <code>unique_ptr</code>. <code>shared_ptr</code> will use the <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> directly to dealloc aux data. (We guess <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is a separate argument to <code>shared_ptr</code> to support array deletion; <code>boost::interprocess:shared_ptr</code> does not provide built-in support for <code>U[]</code> as the pointee type; but the deleter can do whatever it wants/needs.)</p>
 <p >Note: this is not used except with custom <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a>. With <code>std::allocator</code> the usual default <code>delete[]</code> behavior is fine. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01163">1163</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01164">1164</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a0152dc5043d6375124456f71d961988c" name="a0152dc5043d6375124456f71d961988c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0152dc5043d6375124456f71d961988c">&#9670;&nbsp;</a></span>pointer</h2>
@@ -140,7 +140,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>For <code>boost::interprocess::shared_ptr</code> and <code>unique_ptr</code> compliance (hence the irregular capitalization). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01177">1177</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01178">1178</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -161,7 +161,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Short-hand for the allocator's pointer type, pointing to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aeb9b64885b78263048d406ec34907ecf" title="Short-hand for values, which in this case are unsigned bytes.">Basic_blob::value_type</a>. </p>
 <p >This may or may not simply be <code>value_type*</code>; in cases including SHM-storing allocators without a constant cross-process vaddr scheme it needs to be a fancy-pointer type instead (e.g., <code>boost::interprocess::offset_ptr&lt;value_type&gt;</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01174">1174</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01175">1175</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -183,7 +183,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p>Default ctor: Must never be invoked; suitable only for a null smart-pointer. </p>
 <p >Without this a <code>unique_ptr&lt;..., Deleter_Raw&gt;</code> cannot be default-cted. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02481">2481</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02482">2482</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -233,7 +233,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02471">2471</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02472">2472</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -264,9 +264,9 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02489">2489</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02490">2490</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01389">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01390">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>.</p>
 
 </div>
 </div>
@@ -299,7 +299,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 <p >...Okay, so actually this has size (whatever <code>optional</code> adds, probably a <code>bool</code>) + <code>sizeof(Allocator_raw)</code>, the latter being indeed zero for stateless allocators. Why use <code>optional&lt;&gt;</code> though? Well, we only do to support stateful allocators which cannot be default-cted; and our own default ctor requires that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2b946cc7c51563ef74d1d47ebfad53c2" title="See ctor: the allocator that operator()() shall use to deallocate.">m_alloc_raw</a> is initialized to <em>something</em>... even though it (by default ctor contract) will never be accessed.</p>
 <p >It is slightly annoying that we waste the extra space for <code>optional</code> internals even when <code>Allocator_raw</code> is stateless (and it is often stateless!). Plus, when <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a30fe0a61f8b83e7588bdc4a88dbaabae" title="The smart-pointer type used for m_buf_ptr; a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> is <code>shared_ptr</code> instead of <code>unique_ptr</code> our default ctor is not even needed. Probably some meta-programming thing could be done to avoid even this overhead, but in my (ygoldfel) opinion the overhead is so minor, it does not even rise to the level of a to-do. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01231">1231</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01232">1232</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -327,7 +327,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 
 <p>See ctor and <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a>: the size of the buffer to deallocate. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01234">1234</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01235">1235</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
@@ -337,7 +337,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 14 2024 20:51:27 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 14 2024 21:57:06 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

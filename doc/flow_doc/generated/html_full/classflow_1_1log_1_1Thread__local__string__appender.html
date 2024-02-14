@@ -175,7 +175,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line">    <span class="comment">// Additional feature: std::hex formatting will persist for further such snippets, for the current thread.</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassflow_1_1log_1_1Thread__local__string__appender_html_a4c67bd1c2f1ccc58288df86abda02d88"><div class="ttname"><a href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">flow::log::Thread_local_string_appender::get_this_thread_string_appender</a></div><div class="ttdeci">static Thread_local_string_appender * get_this_thread_string_appender(const util::Unique_id_holder &amp;source_obj_id)</div><div class="ttdoc">Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...</div><div class="ttdef"><b>Definition:</b> <a href="thread__lcl__str__appender_8cpp_source.html#l00032">thread_lcl_str_appender.cpp:32</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Thread__local__string__appender_html_a4c67bd1c2f1ccc58288df86abda02d88"><div class="ttname"><a href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">flow::log::Thread_local_string_appender::get_this_thread_string_appender</a></div><div class="ttdeci">static Thread_local_string_appender * get_this_thread_string_appender(const util::Unique_id_holder &amp;source_obj_id)</div><div class="ttdoc">Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...</div><div class="ttdef"><b>Definition:</b> <a href="thread__lcl__str__appender_8cpp_source.html#l00033">thread_lcl_str_appender.cpp:33</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html">flow::util::Unique_id_holder</a></div><div class="ttdoc">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8hpp_source.html#l00106">uniq_id_holder.hpp:107</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_a8afd30c50bcd670d45442df49d1da484"><div class="ttname"><a href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">flow::util::ostream_op_to_string</a></div><div class="ttdeci">void ostream_op_to_string(std::string *target_str, T const &amp;... ostream_args)</div><div class="ttdoc">Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00342">util.hpp:342</a></div></div>
 </div><!-- fragment --><p >Note, once again, that because <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">get_this_thread_string_appender()</a> returns a thread-local object, it is by definition impossible to corrupt anything inside it due to multiple threads writing to it. (That is unless, of course, you try passing that pointer to another thread and writing to it there, but that's basically malicious behavior; so don't do that.)</p>
@@ -245,7 +245,7 @@ Static Private Attributes</h2></td></tr>
 <p>Initializes object with an empty string and the streams machinery available to write to that string. </p>
 <p >Note this is not publicly accessible. </p>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00093">93</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00094">94</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 </div>
 </div>
@@ -268,11 +268,11 @@ Static Private Attributes</h2></td></tr>
 <p>Same as <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> but does not clear the result string, enabling piecemeal writing to that string between clearings of the latter. </p>
 <dl class="section return"><dt>Returns</dt><dd>Identical to <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a>'s return value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">106</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">107</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">fresh_appender_ostream()</a>, and <a class="el" href="log_8cpp_source.html#l00149">flow::log::Logger::this_thread_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">fresh_appender_ostream()</a>, and <a class="el" href="log_8cpp_source.html#l00149">flow::log::Logger::this_thread_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -311,9 +311,9 @@ Here is the caller graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a2ac7b443898adf1696d0f24f87481520" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t...">save_formatting_state_and_restore_prev()</a> is a valuable technique to enable usability in user-facing APIs that use <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> within the implementation (notably logging APIs). See its doc header before using this method.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to <code>ostream</code> writing to which (followed by flushing) will append to string that is accessible via <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read-only accessor for the contents of the string, as written to it since the last fresh_appender_ost...">target_contents()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">100</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">101</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00048">flow::util::String_ostream::str_clear()</a>.</p>
+<p class="reference">References <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00048">flow::util::String_ostream::str_clear()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -357,7 +357,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00032">32</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00033">33</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00295">s_this_thread_appender_ptrs</a>, and <a class="el" href="uniq__id__holder_8cpp_source.html#l00053">flow::util::Unique_id_holder::unique_id()</a>.</p>
 
@@ -413,7 +413,7 @@ Here is the caller graph for this function:</div>
 <dd>
 Detail: The formatting features affected are as described in documentation for <code>boost::io::basic_ios_all_saver</code>. This can be summarized as everything except user-defined formatters. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">112</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">113</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00311">m_target_appender_ostream_prev_os_state</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 <div class="dynheader">
@@ -447,7 +447,7 @@ Here is the call graph for this function:</div>
 <p >Why return <code>const string&amp;</code> instead of <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9" title="Commonly used char-based Basic_string_view. See its doc header.">util::String_view</a>? Answer: Same as in doc header of String_ostream::str().</p>
 <dl class="section return"><dt>Returns</dt><dd>Read-only reference to <code>string</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00128">128</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00129">129</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00043">flow::util::String_ostream::str()</a>.</p>
 <div class="dynheader">
@@ -484,7 +484,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">298</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">fresh_appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">save_formatting_state_and_restore_prev()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00128">target_contents()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">fresh_appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">save_formatting_state_and_restore_prev()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00129">target_contents()</a>.</p>
 
 </div>
 </div>
@@ -515,7 +515,7 @@ construction on existing object" API (not that I'm saying it should... less stat
 
 <p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00311">311</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">save_formatting_state_and_restore_prev()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">save_formatting_state_and_restore_prev()</a>.</p>
 
 </div>
 </div>
@@ -544,7 +544,7 @@ construction on existing object" API (not that I'm saying it should... less stat
 
 <p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00295">295</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00032">get_this_thread_string_appender()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00033">get_this_thread_string_appender()</a>.</p>
 
 </div>
 </div>
@@ -555,7 +555,7 @@ construction on existing object" API (not that I'm saying it should... less stat
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 14 2024 20:51:26 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 14 2024 21:57:05 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

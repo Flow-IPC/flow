@@ -8,7 +8,7 @@ var searchData=
   ['_7eevent_5fset_5',['~Event_set',['../classflow_1_1net__flow_1_1Event__set.html#accb662e50999e2d0800f59a7a131bffa',1,'flow::net_flow::Event_set']]],
   ['_7enode_6',['~Node',['../classflow_1_1net__flow_1_1Node.html#a16c53c4848ea976b075a0b56f33eb118',1,'flow::net_flow::Node']]],
   ['_7enull_5finterface_7',['~Null_interface',['../classflow_1_1util_1_1Null__interface.html#a5916282577627e424a09884347eddbba',1,'flow::util::Null_interface']]],
-  ['_7eostream_5flog_5fmsg_5fwriter_8',['~Ostream_log_msg_writer',['../classflow_1_1log_1_1Ostream__log__msg__writer.html#aeca387ae604746f92956aa4a3a8e2214',1,'flow::log::Ostream_log_msg_writer']]],
+  ['_7eostream_5flog_5fmsg_5fwriter_8',['~Ostream_log_msg_writer',['../classflow_1_1log_1_1Ostream__log__msg__writer.html#aa05b822916ceb37db219ec73563b146d',1,'flow::log::Ostream_log_msg_writer']]],
   ['_7epeer_5fsocket_9',['~Peer_socket',['../classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a0101eeb10a910cb7dfb5a4b8016b8138',1,'flow::net_flow::asio::Peer_socket::~Peer_socket()'],['../classflow_1_1net__flow_1_1Peer__socket.html#a729af2cb3465b67b811d8e9438b5af5d',1,'flow::net_flow::Peer_socket::~Peer_socket()']]],
   ['_7escoped_5fsetter_10',['~Scoped_setter',['../classflow_1_1util_1_1Scoped__setter.html#a12ca74f225f756458f872e6f0da60695',1,'flow::util::Scoped_setter']]],
   ['_7esegregated_5fthread_5ftask_5floop_11',['~Segregated_thread_task_loop',['../classflow_1_1async_1_1Segregated__thread__task__loop.html#acc7ece4467f83c910eeec9500ea2554b',1,'flow::async::Segregated_thread_task_loop']]],
