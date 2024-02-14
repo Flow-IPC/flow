@@ -74,7 +74,7 @@ class FlowRecipe(ConanFile):
 
     def requirements(self):
         if self.options.build:
-            self.requires("boost/1.83.0")
+            self.requires("boost/1.84.0")
             self.requires("fmt/10.0.0")
 
     def build_requirements(self):

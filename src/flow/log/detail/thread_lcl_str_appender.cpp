@@ -17,6 +17,7 @@
 
 /// @file
 #include "flow/log/detail/thread_lcl_str_appender.hpp"
+#include <boost/move/make_unique.hpp>
 
 namespace flow::log
 {

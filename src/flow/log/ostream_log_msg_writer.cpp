@@ -63,9 +63,13 @@ Ostream_log_msg_writer::Ostream_log_msg_writer(const Config& config, std::ostrea
   }
 } // Ostream_log_msg_writer::Ostream_log_msg_writer()
 
-/* This is here just so we could document this cleanly in .hpp.  As promised m_clean_os_state dtor will auto-restore
- * any formatting changes we'd made to m_os throughout. */
-Ostream_log_msg_writer::~Ostream_log_msg_writer() = default;
+/* As promised m_clean_os_state dtor will auto-restore any formatting changes we'd made to m_os throughout.
+ * This class uses boost::basic_ios_all_saver() (aka Ostream_state) which is explicitly marked as noexcept(false)
+ * in boost 1.84. The fix is to override the noexcept(false) specification to noexcept(true) in this class
+ * and let it call std::terminate in case it throws (IMO it shouldn't throw, but I didn't study it to the depth). */
+Ostream_log_msg_writer::~Ostream_log_msg_writer() noexcept
+{
+}
 
 void Ostream_log_msg_writer::log(const Msg_metadata& metadata, util::String_view msg)
 {

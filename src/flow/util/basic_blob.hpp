@@ -21,6 +21,7 @@
 #include "flow/util/blob_fwd.hpp"
 #include "flow/log/log.hpp"
 #include <boost/interprocess/smart_ptr/shared_ptr.hpp>
+#include <boost/move/make_unique.hpp>
 #include <optional>
 #include <limits>
 
