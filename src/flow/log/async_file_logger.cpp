@@ -297,15 +297,23 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   }
   if (throttling_begins)
   {
-    // Log about it in the backup Logger (Logger-about-logging).
-    FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
-                     "do_log() throttling algorithm: a message reached hi_limit; next message-to-be => likely dropped, "
-                     "if feature active.  Config: hi_limit [" << limit << "].  "
-                     "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                     "throttling? = 1 (see above); "
-                     "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                     "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
-                     "Limit-triggering message's contents follow: [" << msg << "].");
+    /* Log about it in the backup Logger (Logger-about-logging).
+     * When throttling feature is disabled: arguably it is still worthy of being a WARNING: it is in fact warning
+     * about a probably-bad situation (normal mem-use is roughly 0); and it is definitely useful information that
+     * might cause end user to enable throttling.  However, subjectively, if they haven't enabled throttling then
+     * being faced with a WARNING (error message) is arguably excessive.  Hence log it as INFO in that case.
+     * (If they don't want these messages at all, they can always set m_hi_limit to a terabyte or something.)
+     * Note: There's a similar statement inside really_log(). */
+    const bool active = m_throttling_active.load(std::memory_order_relaxed);
+    FLOW_LOG_WITH_CHECKING
+      (active ? Sev::S_WARNING : Sev::S_INFO,
+       "Async_file_logger [" << this << "]: "
+         "do_log() throttling algorithm: a message reached hi_limit; next message-to-be => likely dropped, "
+         "if feature active.  Config: hi_limit [" << limit << "].  "
+         "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+         "throttling? = 1 (see above); throttling feature active? = [" << active << "].  "
+         "Reminder: `throttling?` shall only be used if `throttling feature active?` is 1.  "
+         "Limit-triggering message's contents follow: [" << msg << "].");
   }
 #if 0 // Obv change to `if 1` if debugging + want to see it.  Could just use TRACE but avoiding should_log() cost.
   else
@@ -398,17 +406,21 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
       // Performance in this block is not of huge import; this is a fairly rare event.
       FLOW_LOG_SET_CONTEXT(m_serial_logger.get(), this->get_log_component());
 
-      FLOW_LOG_WARNING("Async_file_logger [" << this << "]: "
-                       "really_log() throttling algorithm: The preceding message, when its log-request was "
-                       "earlier enqueued, caused pending-logs RAM usage to exceed then-configured hi_limit.  "
-                       "If throttling feature was active, subsequent messages-to-be (log-requests) were dropped.  "
-                       "We only just got around to being able to log it (satisfy log-request) after all the "
-                       "preceding ones in FIFO order.  Nowadays: Config: hi_limit [" << limit << "].  "
-                       "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
-                       "throttling feature active? = [" << m_throttling_active.load(std::memory_order_relaxed) << "].  "
-                       "Limit-crossing (in the past) message is the one immediately preceding the current one "
-                       "you're reading in file.  "
-                       "Compare its time stamp to mine to see time lag due to queueing.");
+      // Rationale w/r/t the Sev choice here: see similar `if (throttling_begins)` block above.
+      const bool active = m_throttling_active.load(std::memory_order_relaxed);
+      FLOW_LOG_WITH_CHECKING
+        (active ? Sev::S_WARNING : Sev::S_INFO,
+         "Async_file_logger [" << this << "]: "
+           "really_log() throttling algorithm: The preceding message, when its log-request was "
+           "earlier enqueued, caused pending-logs RAM usage to exceed then-configured hi_limit.  "
+           "If throttling feature was active, subsequent messages-to-be (log-requests) were dropped.  "
+           "We only just got around to being able to log it (satisfy log-request) after all the "
+           "preceding ones in FIFO order.  Nowadays: Config: hi_limit [" << limit << "].  "
+           "Mem-use = [" << prev_pending_logs_sz << "] => [" << pending_logs_sz << "]; "
+           "throttling feature active? = [" << active << "].  "
+           "Limit-crossing (in the past) message is the one immediately preceding the current one "
+           "you're reading in file.  "
+           "Compare its time stamp to mine to see time lag due to queueing.");
     } // if (log_request.throttling_begins)
 
     /* Last but not least, as discussed in Log_request doc header, we must do this explicitly.
