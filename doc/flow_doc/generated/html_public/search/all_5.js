@@ -9,7 +9,7 @@ var searchData=
   ['final_5fvalidator_5foutcome_6',['Final_validator_outcome',['../namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3',1,'flow::cfg']]],
   ['find_7',['find',['../classflow_1_1util_1_1Linked__hash__set.html#a94baeef5c7506029339f81a77e7b8d37',1,'flow::util::Linked_hash_set::find()'],['../classflow_1_1util_1_1Linked__hash__map.html#abb8c1fd9a157d99d0a6417ad34f74e52',1,'flow::util::Linked_hash_map::find(Key const &amp;key) const'],['../classflow_1_1util_1_1Linked__hash__map.html#aa06ac5737a9189f29ce9355d33a81c8b',1,'flow::util::Linked_hash_map::find(Key const &amp;key)']]],
   ['fine_5fclock_8',['Fine_clock',['../namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00',1,'flow']]],
-  ['fine_5fduration_9',['Fine_duration',['../structflow_1_1net__flow_1_1Peer__socket__options.html#a78cbfb464f3251f63a06c753c986d277',1,'flow::net_flow::Peer_socket_options::Fine_duration()'],['../structflow_1_1net__flow_1_1Peer__socket__info.html#af165063dae6f488685c7d9c0a2f42eaf',1,'flow::net_flow::Peer_socket_info::Fine_duration()'],['../structflow_1_1net__flow_1_1Node__options.html#a6733e4efbec3ed97b2460bf50d7cc67c',1,'flow::net_flow::Node_options::Fine_duration()'],['../namespaceflow.html#a48799f1263cdeedec125be51a3db2b79',1,'flow::Fine_duration()']]],
+  ['fine_5fduration_9',['Fine_duration',['../structflow_1_1net__flow_1_1Peer__socket__info.html#af165063dae6f488685c7d9c0a2f42eaf',1,'flow::net_flow::Peer_socket_info::Fine_duration()'],['../namespaceflow.html#a48799f1263cdeedec125be51a3db2b79',1,'flow::Fine_duration()'],['../structflow_1_1net__flow_1_1Peer__socket__options.html#a78cbfb464f3251f63a06c753c986d277',1,'flow::net_flow::Peer_socket_options::Fine_duration()'],['../structflow_1_1net__flow_1_1Node__options.html#a6733e4efbec3ed97b2460bf50d7cc67c',1,'flow::net_flow::Node_options::Fine_duration()']]],
   ['fine_5ftime_5fpt_10',['Fine_time_pt',['../namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8',1,'flow::Fine_time_pt()'],['../structflow_1_1net__flow_1_1Peer__socket__info.html#a3b2cb2bd7bfd1be576d9f5ddf8ac0492',1,'flow::net_flow::Peer_socket_info::Fine_time_pt()']]],
   ['flow_11',['flow',['../namespaceflow.html',1,'']]],
   ['flow_12',['Flow',['../index.html',1,'']]],
@@ -66,5 +66,6 @@ var searchData=
   ['net_5fflow_63',['net_flow',['../namespaceflow_1_1net__flow.html',1,'flow']]],
   ['opts_64',['opts',['../namespaceflow_1_1cfg_1_1opts.html',1,'flow::cfg']]],
   ['perf_65',['perf',['../namespaceflow_1_1perf.html',1,'flow']]],
-  ['util_66',['util',['../namespaceflow_1_1util.html',1,'flow']]]
+  ['this_5fthread_66',['this_thread',['../namespaceflow_1_1util_1_1this__thread.html',1,'flow::util']]],
+  ['util_67',['util',['../namespaceflow_1_1util.html',1,'flow']]]
 ];

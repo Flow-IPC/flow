@@ -204,7 +204,7 @@ Related Functions</h2></td></tr>
 <div class="line"><span class="comment">//     the background action.  For example, both `tcp::socket::async_receive()` and</span></div>
 <div class="line"><span class="comment">//     `net_flow::Peer_socket::async_send()` will call `F(err_code, n)`, where `size_t n` is the # of bytes</span></div>
 <div class="line"><span class="comment">//     received or sent respectively.</span></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_adf23368210219716b6fd22d15b765cb6"><div class="ttname"><a href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">flow::util::Task_engine</a></div><div class="ttdeci">boost::asio::io_service Task_engine</div><div class="ttdoc">Short-hand for boost.asio event service, the central class of boost.asio.</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:129</div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_adf23368210219716b6fd22d15b765cb6"><div class="ttname"><a href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">flow::util::Task_engine</a></div><div class="ttdeci">boost::asio::io_service Task_engine</div><div class="ttdoc">Short-hand for boost.asio event service, the central class of boost.asio.</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:135</div></div>
 </div><!-- fragment --><p >That's the setup and should be familiar to boost.asio I/O object users. (Note that <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> is a (relatively simple) I/O object itself; it lacks <code>A_settings</code> (one makes a call like <code>expires_at()</code> separately before the actual async action) and <code>A_more_result_info</code> (as <code>err_code</code> is sufficient) in particular. It also lacks any <code>A_target</code>. It's clearly the degenerate example of an I/O object action.) So how to write the above when working with a <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> instead of <code>Task_engine</code>?</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classflow_1_1async_1_1Concurrent__task__loop.html">flow::async::Concurrent_task_loop</a> L; <span class="comment">// Work with generalized thread pool L, not a Task_engine E.</span></div>
 <div class="line">...</div>
@@ -229,7 +229,7 @@ Related Functions</h2></td></tr>
 <div class="line">Y.async_B(&amp;B_target, B_settings, boost::asio::bind_executor(S, G));</div>
 <div class="line"><span class="comment">// X.sync_A() and Y.sync_B() are executing in background; F() and G() will run on respective completion;</span></div>
 <div class="line"><span class="comment">// but F() and G() shall run non-concurrently by virtue of being wrapped by the same Strand: S.</span></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_aa59354ab408e978c8a7bda1a4706924e"><div class="ttname"><a href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e">flow::util::Strand</a></div><div class="ttdeci">Task_engine::strand Strand</div><div class="ttdoc">Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:132</div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_aa59354ab408e978c8a7bda1a4706924e"><div class="ttname"><a href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e">flow::util::Strand</a></div><div class="ttdeci">Task_engine::strand Strand</div><div class="ttdoc">Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:138</div></div>
 </div><!-- fragment --><p >To accomplish this with a <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> L</code>:</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classflow_1_1async_1_1Concurrent__task__loop.html">flow::async::Concurrent_task_loop</a> L;</div>
 <div class="line"><span class="keyword">auto</span> op J = L.<a class="code hl_function" href="classflow_1_1async_1_1Concurrent__task__loop.html#a4ee1c5f5785af0bcc6aed0757981ffe3">create_op</a>(); <span class="comment">// ATTN! The syntax is different from Strands but the idea is identical.</span></div>
@@ -905,7 +905,7 @@ template&lt;typename Exec_ctx_ptr &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 14 2024 22:54:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 15 2024 01:48:06 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

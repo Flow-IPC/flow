@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -78,6 +79,12 @@ $(function() {
 <p>Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module.  
 <a href="namespaceflow_1_1util.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceflow_1_1util_1_1this__thread"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util_1_1this__thread.html">this_thread</a></td></tr>
+<tr class="memdesc:namespaceflow_1_1util_1_1this__thread"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard this-thread namespace. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a></td></tr>
@@ -168,8 +175,9 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>String_view</b> = <a
 <tr class="memitem:af030c3119f060a9630afca31098a78a5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">Thread</a> = boost::thread</td></tr>
 <tr class="memdesc:af030c3119f060a9630afca31098a78a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard thread class.  <a href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">More...</a><br /></td></tr>
 <tr class="separator:af030c3119f060a9630afca31098a78a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">Thread_id</a> = Thread::id</td></tr>
-<tr class="memdesc:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard this-thread namespace. Paired with <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>.  <a href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">More...</a><br /></td></tr>
+<tr class="memitem:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memItemLeft" align="right" valign="top"><a id="a0a4e7b2d3107bd630e0dc0c0b8f2e4de" name="a0a4e7b2d3107bd630e0dc0c0b8f2e4de"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Thread_id</b> = Thread::id</td></tr>
+<tr class="memdesc:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for an OS-provided ID of a <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>. <br /></td></tr>
 <tr class="separator:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf23368210219716b6fd22d15b765cb6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> = boost::asio::io_service</td></tr>
 <tr class="memdesc:adf23368210219716b6fd22d15b765cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio event service, the central class of boost.asio.  <a href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">More...</a><br /></td></tr>
@@ -732,23 +740,6 @@ template&lt;typename Shared_mutex &gt; </div>
 
 <p>Short-hand for standard thread class. </p>
 <p >We use/encourage use of boost.thread threads (and other boost.thread facilities) over std.thread counterparts &ndash; simply because it tends to be more full-featured. However, reminder: boost.thread IS (API-wise at least) std.thread, plus more (advanced?) stuff. Generally, boost.thread-using code can be converted to std.thread with little pain, unless one of the "advanced?" features is used. </p>
-
-</div>
-</div>
-<a id="a0a4e7b2d3107bd630e0dc0c0b8f2e4de" name="a0a4e7b2d3107bd630e0dc0c0b8f2e4de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">&#9670;&nbsp;</a></span>Thread_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">flow::util::Thread_id</a> = typedef Thread::id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Short-hand for standard this-thread namespace. Paired with <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>. </p>
-<p >Short-hand for an OS-provided ID of a <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>. </p>
 
 </div>
 </div>
@@ -2510,7 +2501,7 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 14 2024 22:54:46 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 15 2024 01:48:07 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

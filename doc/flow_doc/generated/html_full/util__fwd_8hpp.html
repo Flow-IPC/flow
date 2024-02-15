@@ -92,6 +92,9 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceflow_1_1util"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html">flow::util</a></td></tr>
 <tr class="memdesc:namespaceflow_1_1util"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespaceflow_1_1util_1_1this__thread"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util_1_1this__thread.html">flow::util::this_thread</a></td></tr>
+<tr class="memdesc:namespaceflow_1_1util_1_1this__thread"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard this-thread namespace. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -111,7 +114,7 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:af030c3119f060a9630afca31098a78a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard thread class.  <a href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">More...</a><br /></td></tr>
 <tr class="separator:af030c3119f060a9630afca31098a78a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">flow::util::Thread_id</a> = Thread::id</td></tr>
-<tr class="memdesc:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for standard this-thread namespace. Paired with <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>.  <a href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">More...</a><br /></td></tr>
+<tr class="memdesc:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for an OS-provided ID of a <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>.  <a href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">More...</a><br /></td></tr>
 <tr class="separator:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf23368210219716b6fd22d15b765cb6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">flow::util::Task_engine</a> = boost::asio::io_service</td></tr>
 <tr class="memdesc:adf23368210219716b6fd22d15b765cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio event service, the central class of boost.asio.  <a href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">More...</a><br /></td></tr>
@@ -345,7 +348,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Code to be used as the entire definition of a macro whose definition would have been <code>ARG_func_macro_definition</code> if not for the resulting compile error or unexpected flow control effects detailed above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01073">1073</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01079">1079</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -376,7 +379,7 @@ Functions</h2></td></tr>
 <h3>Performance</h3>
 <p >The items <code>&lt;&lt;</code>ed onto the target <code>ostream</code> are each evaluated at compile-time. This includes the expression involving <a class="el" href="namespaceflow_1_1util.html#a13c3363efdf0d04b04b12ca7487d368c" title="Helper for FLOW_UTIL_WHERE_AM_I() that, given a pointer/length of a string in memory containing a pat...">flow::util::get_last_path_segment()</a> which is <code>constexpr</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00945">945</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00951">951</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,14 +408,14 @@ Functions</h2></td></tr>
 <p ><a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> is too clever to become a <code>constexpr</code> function, even if it were radically rewritten, so this macro evaluates to a partially runtime-computed expression. Hence the note just above about perf.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000171">Todo:</a></b></dt><dd>See if <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> can be coaxed into a compile-time expression after all. It is used in quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors. See notes inside <a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> on this as of this writing. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00965">965</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00971">971</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 14 2024 22:54:48 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Feb 15 2024 01:48:09 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
