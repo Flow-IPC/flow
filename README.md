@@ -44,12 +44,13 @@ The basic prerequisites for *building* the above:
   - Linux;
   - a C++ compiler with C++ 17 support;
   - Boost headers (plus certain libraries) install;
+  - {fmt} install;
   - CMake;
   - (optional, only if generating docs) Doxygen and Graphviz.
 
 The basic prerequisites for *using* the above:
 
-  - Linux, C++ compiler, Boost (but CMake is not required); plus:
+  - Linux, C++ compiler, Boost, {fmt} (but CMake is not required); plus:
   - your source code `#include`ing any exported Flow headers must be itself built in C++ 17 mode;
   - any executable using the Flow library must be linked with certain Boost and ubiquitous system libraries.
 
@@ -62,9 +63,10 @@ To build Flow:
      [boost.org](https://boost.org).  If you do have one, try using that one (our build will complain if insufficient).
      (From this point on, that's the recommended tactic to use when deciding on the version number for any given
      prerequisite.  E.g., same deal with CMake in step 2.)
-  2. Ensure a CMake install is available (available at [CMake web site](https://cmake.org/download/) if needed).
-  3. (Optional, only if generating docs) Have Doxygen and Graphviz installs available.
-  4. Use CMake `cmake` (command-line tool) or `ccmake` (interactive text-UI tool) to configure and generate
+  2. Ensure a {fmt} install is available (available at [{fmt} web site](https://fmt.dev/]) if needed).
+  3. Ensure a CMake install is available (available at [CMake web site](https://cmake.org/download/) if needed).
+  4. (Optional, only if generating docs) Have Doxygen and Graphviz installs available.
+  5. Use CMake `cmake` (command-line tool) or `ccmake` (interactive text-UI tool) to configure and generate
      a build system (namely a GNU-make `Makefile` and friends).  Details on using CMake are outside our scope here;
      but the basics are as follows.  CMake is very flexible and powerful; we've tried not to mess with that principle
      in our build script(s).
@@ -105,9 +107,10 @@ To use Flow:
          (This will include the Flow library itself and the dependency libraries it needs to avoid undefined-reference
          errors when linking.)
     - Otherwise specify it manually based on your build system of choice (if any).  To wit, in order:
-      - Link against libflow.a.
+      - Link against `libflow.a`.
       - Link against Boost libraries mentioned in a `CMakeLists.txt` line (search `$SRC` for it):
         `set(BOOST_LIBS ...)`.
+      - Link against the {fmt} library, `libfmt`.
       - Link against the system pthreads library.
   - Read the documentation to learn how to use Flow's various features.  (See Documentation below.)
 
