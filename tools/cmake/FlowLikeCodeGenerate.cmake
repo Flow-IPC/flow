@@ -33,6 +33,7 @@
 #   set(PROJ_HUMAN "(...see below...)")
 #   set(OS_SUPPORT_MSG "(...see below...)")
 #
+#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeProject.cmake")
 #   find_package(Flow CONFIG REQUIRED)
 #   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
 #   # That, before many other things, also:
@@ -56,7 +57,7 @@
 # Additionally:
 #   If and only if this is a part of a tree of Flow-like projects bundled into a meta-project, then the
 #   meta-project (top) CMakeLists.txt shall `set(FLOW_LIKE_META_ROOT ${CMAKE_CURRENT_SOURCE_DIR})` before
-#   the include() above, along with setting the other variables.  The others should not do so.
+#   the include(...FlowLikeProject.cmake) above, along with setting the other variables.  The others should not do so.
 #
 # Lastly note that if there is no src/CMakeLists.txt, then no lib${PROJ}.a shall be built.  However
 # the tests in test/*, if present, shall still be built.  This combination may be useful in the case of a
@@ -65,9 +66,6 @@
 # Without further ado... let's go.  Note: it is not allowed for us to do cmake_minimum_required() or project();
 # CMake requires that they literally do so themselves.  Hence they must copy/paste the CMake version we listed above;
 # and they must make the project() call manually too, code reuse be damned (we do our best).
-
-# We explicitly promised to do this.
-project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
 
 include(CheckIPOSupported)
 include(CheckCXXCompilerFlag)

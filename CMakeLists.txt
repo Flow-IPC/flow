@@ -38,8 +38,6 @@ set(OS_SUPPORT_MSG "Only Linux is supported for now.  For Flow: macOS/BSD suppor
 # to Flow (the present project), but we include it here for your convenience, as Flow and Flow-IPC are often
 # considered together as of this writing.  (Nevertheless Flow is absolutely usable and useful by itself.)
 
-project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} LANGUAGES CXX)
-
 include(${PROJECT_ROOT_CMAKE_SCRIPT})
 
 # Last but not least... export that same guy, so dependents can use it!  Natually dependents need *not* do the same;
