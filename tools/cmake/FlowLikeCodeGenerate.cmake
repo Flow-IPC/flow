@@ -21,7 +21,7 @@
 # use.  Update: That all remains true with one exception: This *is* our CMake script as far as *code generation*
 # targets go.  It does *not* do doc generation; for that see FlowLikeDocGenerate.cmake.
 #
-# Usage: Assuming you're a dependent project: In your root CMakeLists.txt, at the top:
+# Usage: Assuming you're a dependent project: In your root CMakeLists.txt, ~at the top:
 #
 #   # We've only tested with this.  Possibly (probably?) lots of earlier versions would work; but they're not tested,
 #   # so let's be conservative.
@@ -33,10 +33,11 @@
 #   set(PROJ_HUMAN "(...see below...)")
 #   set(OS_SUPPORT_MSG "(...see below...)")
 #
-#   project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
-#
 #   find_package(Flow CONFIG REQUIRED)
 #   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
+#   # That, before many other things, also:
+#   #   - Determined $PROJ_VERSION, based on nearby VERSION file.
+#   #   - Executed: project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
 #
 # The variables:
 #   PROJ: snake_case project name (e.g.: flow, ipc_core, ipc_transport_struct).  Various things will be keyed off
@@ -52,6 +53,11 @@
 #     (Same for compiler and other requirements.  In general, though, we intend to share as much policy DNA as
 #     possible between Flow and dependents (like Flow-IPC projects) that would use the present .cmake helper.)
 #
+# Additionally:
+#   If and only if this is a part of a tree of Flow-like projects bundled into a meta-project, then the
+#   meta-project (top) CMakeLists.txt shall `set(FLOW_LIKE_META_ROOT ${CMAKE_CURRENT_SOURCE_DIR})` before
+#   the include() above, along with setting the other variables.  The others should not do so.
+#
 # Lastly note that if there is no src/CMakeLists.txt, then no lib${PROJ}.a shall be built.  However
 # the tests in test/*, if present, shall still be built.  This combination may be useful in the case of a
 # meta-project of several sub-projects: No src/ of its own but has, e.g., test/suite/*.
@@ -59,6 +65,9 @@
 # Without further ado... let's go.  Note: it is not allowed for us to do cmake_minimum_required() or project();
 # CMake requires that they literally do so themselves.  Hence they must copy/paste the CMake version we listed above;
 # and they must make the project() call manually too, code reuse be damned (we do our best).
+
+# We explicitly promised to do this.
+project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
 
 include(CheckIPOSupported)
 include(CheckCXXCompilerFlag)
