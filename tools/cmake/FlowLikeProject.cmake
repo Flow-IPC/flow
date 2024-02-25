@@ -38,7 +38,7 @@ if(PROJ_VERSION STREQUAL "NOTFOUND")
     # "fake" version #.
     set(PROJ_VERSION "0.0.1")
     message(WARNING "There's no ${version_file}, and we are not part of a meta-project, so nowhere to find "
-                      "VERSION.  Assuming a default version number:"
+                      "VERSION.  Assuming a default version number:")
     message(STATUS "Version: [${PROJ_VERSION}] (default value; no VERSION file found).")
   else()
     set(version_file "${FLOW_LIKE_META_ROOT}/VERSION")
