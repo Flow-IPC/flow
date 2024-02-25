@@ -59,7 +59,7 @@ class FlowRecipe(ConanFile):
     def generate(self):
         cmake = CMakeDeps(self)
         if self.options.doc:
-            cmake.build_context_activated = ["doxygen/{self.DOXYGEN_VERSION}"]
+            cmake.build_context_activated = [f"doxygen/{self.DOXYGEN_VERSION}"]
         cmake.generate()
 
         toolchain = CMakeToolchain(self)
@@ -90,7 +90,7 @@ class FlowRecipe(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/3.26.3")
         if self.options.doc:
-            self.tool_requires("doxygen/{self.DOXYGEN_VERSION}")
+            self.tool_requires(f"doxygen/{self.DOXYGEN_VERSION}")
 
     def package(self):
         cmake = CMake(self)
