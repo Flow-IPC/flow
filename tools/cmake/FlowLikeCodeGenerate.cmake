@@ -111,7 +111,6 @@ option(CFG_ENABLE_DOC_GEN
 message(CHECK_START "(Project [${PROJ}]: creating code-gen/install targets.)")
 list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
-message(STATUS "Version: [${PROJ_VERSION}].")
 message(VERBOSE "Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
                   "[${PROJ_HUMAN}])].")
 
