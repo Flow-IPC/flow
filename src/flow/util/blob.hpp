@@ -171,7 +171,8 @@ public:
    * On top of the similar Basic_blob method, logs using the stored log context.
    *
    * @note We do not shadow Basic_blob::assign() (move overload), as it would've been identical to the present
-   *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional arg.
+   *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional
+   *       arg.
    *
    * @param moved_src
    *        See super-class API.
@@ -183,7 +184,8 @@ public:
    * On top of the similar Basic_blob method, logs using the stored log context.
    *
    * @note We do not shadow Basic_blob::assign() (copy overload), as it would've been identical to the present
-   *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional arg.
+   *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional
+   *       arg.
    *
    * @param src
    *        See super-class API.
@@ -451,7 +453,8 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally(size_ty
                                                                          Emit_blob_func&& emit_blob_func)
 {
   Base::share_after_split_equally_impl(size, headless_pool, std::move(emit_blob_func), get_logger(),
-                                       [this](size_type lt_size, [[maybe_unused]] log::Logger* logger_ptr) -> Blob_with_log_context
+                                       [this](size_type lt_size, [[maybe_unused]] log::Logger* logger_ptr)
+                                         -> Blob_with_log_context
   {
     assert(logger_ptr == get_logger());
     return share_after_split_left(lt_size);

@@ -122,7 +122,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
 
       // Pre-queue this before run().
       post(*m_task_engine, [this,
-                            &done_promise]() // done_promise is (by promise/future's nature) alive until we .set_value().
+                            &done_promise]() // done_promise is (by promise/future's nature) alive until .set_value().
       {
         if (m_own_task_engine)
         {
