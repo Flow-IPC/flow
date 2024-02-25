@@ -11,9 +11,9 @@ function(parse_version_file version_file_path result_var)
     file(READ "${version_file_path}" version_content)
     string(STRIP "${version_content}" version_content)
     if(version_content MATCHES ".*[ \t\r\n].*")
-      message(FATAL_ERROR "VERSION file contains invalid characters (required: exactly a single line with real "
-                          "content, and it should have no whitespace, after leading and trailing whitespace is "
-                          "thrown out).")
+      message(FATAL_ERROR "VERSION file [${version_file_path}] contains invalid characters (required: exactly a single "
+                          "line with real content, and it should have no whitespace, after leading and trailing "
+                          "whitespace is thrown out).")
     else()
       set(${result_var} "${version_content}" PARENT_SCOPE)
     endif()
