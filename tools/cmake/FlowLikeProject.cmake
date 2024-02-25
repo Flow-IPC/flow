@@ -10,7 +10,7 @@ function(parse_version_file version_file_path result_var)
     # is not multi-line (no newlines) nor has any other spaces inside for good measure.
     file(READ "${version_file_path}" version_content)
     string(STRIP "${version_content}" version_content)
-    if(version_content MATCHES ".*[[:space:]].*")
+    if(version_content MATCHES ".*[ \t\r\n\v\f].*")
       message(FATAL_ERROR "VERSION file contains invalid characters (required: exactly a single line with real "
                           "content, and it should have no whitespace, after leading and trailing whitespace is "
                           "thrown out).")
