@@ -1,9 +1,19 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout, CMakeDeps, CMakeToolchain
 
+def load_version_from_file():
+    version_path = './VERSION'
+    with open(version_path, 'r') as version_file:
+        # Read the entire file content and strip whitespace (matches what FlowLikeProject.cmake does).
+        version = version_file.read().strip()
+    return version
+
 class FlowRecipe(ConanFile):
     name = "flow"
+    version = load_version_from_file()
     settings = "os", "compiler", "build_type", "arch"
+
+    DOXYGEN_VERSION = "1.9.4"
 
     options = {
         "build": [True, False],
@@ -49,7 +59,7 @@ class FlowRecipe(ConanFile):
     def generate(self):
         cmake = CMakeDeps(self)
         if self.options.doc:
-            cmake.build_context_activated = ["doxygen/1.9.4"]
+            cmake.build_context_activated = ["doxygen/{self.DOXYGEN_VERSION}"]
         cmake.generate()
 
         toolchain = CMakeToolchain(self)
@@ -80,7 +90,7 @@ class FlowRecipe(ConanFile):
     def build_requirements(self):
         self.tool_requires("cmake/3.26.3")
         if self.options.doc:
-            self.tool_requires("doxygen/1.9.4")
+            self.tool_requires("doxygen/{self.DOXYGEN_VERSION}")
 
     def package(self):
         cmake = CMake(self)
