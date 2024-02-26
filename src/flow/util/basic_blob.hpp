@@ -1933,7 +1933,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
           }
           else // if (!should_log()): No logging deleter; just delete[] it.
           {
-            /* This executes: new value_type[new_capacity]; and ensures delete[] call when m_buf_ptr ref-count reaches 0.
+            /* This executes `new value_type[new_capacity]` and ensures delete[] when m_buf_ptr ref-count reaches 0.
              * As advertised, for performance, the memory is NOT initialized. */
             m_buf_ptr = make_shared_noinit<value_type[]>(new_capacity);
           }

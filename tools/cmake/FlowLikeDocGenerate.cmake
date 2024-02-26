@@ -565,8 +565,8 @@ function(doc_generate full_else_public)
   endif()
 
   # Check for a certain annoyance that'd halt is in our tracks.  For example say our include()r does:
-  #   set(DOC_INPUT ${IPC_META_ROOT_ipc_core}/src/ipc)
-  # but ${IPC_META_ROOT_ipc_core}, which is probably based on where the user's project source lives in their
+  #   set(DOC_INPUT ${FLOW_LIKE_META_ROOT_ipc_core}/src/ipc)
+  # but ${FLOW_LIKE_META_ROOT_ipc_core}, which is probably based on where the user's project source lives in their
   # particular file-system, happens to contain "/test/" somewhere.  We happen to always exclude */test/* (see above);
   # so now we've excluded all input files.  If ${DOC_INPUT} has only relative paths, then there's no issue;
   # but sometimes that is not sufficient, and then this niggling issue could occur.  So we just blow up.

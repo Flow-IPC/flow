@@ -18,7 +18,9 @@
 cmake_minimum_required(VERSION 3.26.3) # See FlowLikeCodeGenerate.cmake for details.
 
 # See this guy; it'll explain inside.  It mandates the following procedure and documents details.
-set(PROJECT_ROOT_CMAKE_SCRIPT "tools/cmake/FlowLikeCodeGenerate.cmake")
+set(CODE_GEN_CMAKE_SCRIPT "tools/cmake/FlowLikeCodeGenerate.cmake")
+# It also explains this guy.
+set(PROJECT_ROOT_CMAKE_SCRIPT "tools/cmake/FlowLikeProject.cmake")
 
 set(PROJ "flow")
 
@@ -26,8 +28,6 @@ message(CHECK_START "(Project [${PROJ}] root CMake script executing.)")
 list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
 set(PROJ_CAMEL "Flow")
-# TODO: Get it from nearest `VERSION` file perhaps.
-set(PROJ_VERSION "1.0.0")
 set(PROJ_HUMAN "Flow")
 
 set(OS_SUPPORT_MSG "Only Linux is supported for now.  For Flow: macOS/BSD support might not "
@@ -38,15 +38,19 @@ set(OS_SUPPORT_MSG "Only Linux is supported for now.  For Flow: macOS/BSD suppor
 # to Flow (the present project), but we include it here for your convenience, as Flow and Flow-IPC are often
 # considered together as of this writing.  (Nevertheless Flow is absolutely usable and useful by itself.)
 
+include(${PROJECT_ROOT_CMAKE_SCRIPT}) # Determine $PROJ_VERSION, at least.
 project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} LANGUAGES CXX)
+include(${CODE_GEN_CMAKE_SCRIPT})
 
-include(${PROJECT_ROOT_CMAKE_SCRIPT})
-
-# Last but not least... export that same guy, so dependents can use it!  Natually dependents need *not* do the same;
+# Last but not least... export those same guys, so dependents can use them!  Natually dependents need *not* do the same;
 # they should instead:
 #   find_package(Flow CONFIG REQUIRED)
+#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeProject.cmake")
+#   project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} LANGUAGES CXX)
 #   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
 message(STATUS "Install target: Exports FlowLikeCodeGenerate.cmake: utility for dependents' CMake scripts.")
+message(STATUS "Install target: Exports FlowLikeProject.cmake: utility for dependents' CMake scripts.")
+install(FILES ${CODE_GEN_CMAKE_SCRIPT} DESTINATION share/${PROJ}/cmake)
 install(FILES ${PROJECT_ROOT_CMAKE_SCRIPT} DESTINATION share/${PROJ}/cmake)
 
 # Tip: Most likely you are next interested in ./src/CMakeLists.txt and then perhaps ./test/{basic|suite}/CMakeLists.txt.

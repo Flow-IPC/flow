@@ -21,7 +21,7 @@
 # use.  Update: That all remains true with one exception: This *is* our CMake script as far as *code generation*
 # targets go.  It does *not* do doc generation; for that see FlowLikeDocGenerate.cmake.
 #
-# Usage: Assuming you're a dependent project: In your root CMakeLists.txt, at the top:
+# Usage: Assuming you're a dependent project: In your root CMakeLists.txt, ~at the top:
 #
 #   # We've only tested with this.  Possibly (probably?) lots of earlier versions would work; but they're not tested,
 #   # so let's be conservative.
@@ -29,13 +29,13 @@
 #
 #   set(PROJ "(...see below...)")
 #   set(PROJ_CAMEL "(...see below...)")
-#   set(PROJ_VERSION "(...see below...)")
 #   set(PROJ_HUMAN "(...see below...)")
 #   set(OS_SUPPORT_MSG "(...see below...)")
 #
-#   project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
-#
 #   find_package(Flow CONFIG REQUIRED)
+#   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeProject.cmake")
+#   # That, at least, determined $PROJ_VERSION, based on nearby VERSION file.  The following passes it to CMake.
+#   project(${PROJ_CAMEL} VERSION ${PROJ_VERSION} DESCRIPTION ${PROJ_HUMAN} LANGUAGES CXX)
 #   include("${Flow_DIR}/../../../share/flow/cmake/FlowLikeCodeGenerate.cmake")
 #
 # The variables:
@@ -44,13 +44,18 @@
 #   PROJ_CAMEL: CamelCase equivalent of ${PROJ} (e.g., IpcTransportStruct).  Generally we stay away from CamelCase
 #     in our projects; but this style is conventionally used for certain CMake names, so we make the exception there
 #     (nowhere inside the source code itself though, as of this writing).
-#   PROJ_VERSION: Version of $PROJ (at least 2 components, a.b).
 #   PROJ_HUMAN: Human-friendly brief name; e.g.: "Flow" or "Flow-IPC".  (It can have spaces too.)
 #   OS_SUPPORT_MSG: Message to print if the detected OS environment is fatally unsuitable for building this.
 #     If OS requirements between us and dependencies using this file diverge, we will need to be more configurable
 #     than this.  For now see the OS tests performed below for the common requirement policy.
 #     (Same for compiler and other requirements.  In general, though, we intend to share as much policy DNA as
 #     possible between Flow and dependents (like Flow-IPC projects) that would use the present .cmake helper.)
+#
+# Additionally:
+#   If and only if this is a part of a tree of Flow-like projects bundled into a meta-project, then the
+#   meta-project (top) CMakeLists.txt shall `set(FLOW_LIKE_META_ROOT ${CMAKE_CURRENT_SOURCE_DIR})` before
+#   the include(...FlowLikeProject.cmake) above, along with setting the other variables.  (The other projects
+#   aside from the top one should not do so, only the top one.)
 #
 # Lastly note that if there is no src/CMakeLists.txt, then no lib${PROJ}.a shall be built.  However
 # the tests in test/*, if present, shall still be built.  This combination may be useful in the case of a
@@ -106,7 +111,6 @@ option(CFG_ENABLE_DOC_GEN
 message(CHECK_START "(Project [${PROJ}]: creating code-gen/install targets.)")
 list(APPEND CMAKE_MESSAGE_INDENT "- ")
 
-message(STATUS "Version: [${PROJ_VERSION}].")
 message(VERBOSE "Project [${PROJ}] (CamelCase [${PROJ_CAMEL}], human-friendly "
                   "[${PROJ_HUMAN}])].")
 

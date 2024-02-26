@@ -322,7 +322,7 @@ namespace flow::log
  *     - CONCLUSION: It's 5-ish increments, 2-ish integer comparisons, copying a ~handful of scalars ~1x each, and
  *       change.  Compare to the "Enqueue the log-request" step alone: create `function<>`
  *       object, enqueue it to boost.asio task queue -- copying `msg` and other parts of Log_request in the process.
- *       Now throw in the `ostream<<` manipulation needed to assemble `msg`; the time spent heap-allocating and populating
+ *       Now throw in the `ostream<<` manipulation needed to assemble `msg`; the time spent heap-allocating + populating
  *       Msg_metadata, such as allocating and copying thread nickname, if it's long enough.  And lastly remember
  *       that the should_log() mechanism (even *without* any throttling) is
  *       normally supposed to make do_log() calls so infrequent that the processor cycle cost is small in the

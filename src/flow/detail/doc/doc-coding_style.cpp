@@ -132,7 +132,7 @@
  *       - Similarly, the user is explicitly disallowed to reference such symbols directly.  Again, this isn't enforced
  *         or (in many cases) enforceable.
  *       - At this time we do not require (or encourage) to segregate such non-public symbols in
- *         `detail` sub-`namespace`s.  (Boost/STL sometimes does this; sometimes does not.)  The reason is it's annoying to
+ *         `detail` sub-`namespace`s.  (Boost/STL sometimes does this; sometimes does not.)  Reason is it's annoying to
  *         move stuff between namespaces when making a non-public API public or vice versa; since user isn't meant
  *         to use such things regardless, it is sufficient to merely *indicate* what is public and what isn't; for this
  *         the choice of file/directory is sufficient and no actual `namespace` is required.  We may change this policy.
