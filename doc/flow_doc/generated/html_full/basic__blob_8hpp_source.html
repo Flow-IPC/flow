@@ -2005,7 +2005,7 @@ $(function() {
 <div class="line"><a id="l01933" name="l01933"></a><span class="lineno"> 1933</span>          }</div>
 <div class="line"><a id="l01934" name="l01934"></a><span class="lineno"> 1934</span>          <span class="keywordflow">else</span> <span class="comment">// if (!should_log()): No logging deleter; just delete[] it.</span></div>
 <div class="line"><a id="l01935" name="l01935"></a><span class="lineno"> 1935</span>          {</div>
-<div class="line"><a id="l01936" name="l01936"></a><span class="lineno"> 1936</span>            <span class="comment">/* This executes: new value_type[new_capacity]; and ensures delete[] call when m_buf_ptr ref-count reaches 0.</span></div>
+<div class="line"><a id="l01936" name="l01936"></a><span class="lineno"> 1936</span>            <span class="comment">/* This executes `new value_type[new_capacity]` and ensures delete[] when m_buf_ptr ref-count reaches 0.</span></div>
 <div class="line"><a id="l01937" name="l01937"></a><span class="lineno"> 1937</span><span class="comment">             * As advertised, for performance, the memory is NOT initialized. */</span></div>
 <div class="line"><a id="l01938" name="l01938"></a><span class="lineno"> 1938</span>            m_buf_ptr = make_shared_noinit&lt;value_type[]&gt;(new_capacity);</div>
 <div class="line"><a id="l01939" name="l01939"></a><span class="lineno"> 1939</span>          }</div>
@@ -2671,7 +2671,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Feb 23 2024 05:39:09 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Feb 26 2024 01:45:23 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
