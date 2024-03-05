@@ -38,7 +38,7 @@ The [project web site](https://flow-ipc.github.io) contains links to documentati
 
 - As a tarball/zip: The [project web site](https://flow-ipc.github.io) links to individual releases with notes, docs,
   download links.
-- For Git access: `git clone git@github.com:Flow-IPC/flow.git`
+- Via Git: `git clone git@github.com:Flow-IPC/flow.git`
 
 ## Installation
 
