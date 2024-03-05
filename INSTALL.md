@@ -62,9 +62,9 @@ To build Flow:
           location, or not in the `CMAKE_INSTALL_PREFIX` (export) location itself, then you can provide more
           search locations by adding a semicolon-separated list thereof via `-DCMAKE_PREFIX_PATH=...`.
         - Alternatively most things' locations can be individually specified via `..._DIR` settings.
-     4. Build using the build system generated in the preceding step:  In `$BUILD` run `make`.  
+     4. Build using the build system generated in the preceding step:  In `$BUILD` run `make`.
         - (To generate documentation run `make flow_doc_public flow_doc_full`.)
-     5. Install (export):  In `$BUILD` run `make install`.  
+     5. Install (export):  In `$BUILD` run `make install`.
 
 To use Flow:
 
