@@ -485,6 +485,22 @@ public:
    * Informally we discourage doing this; it is stylistically better to invoke reject_candidates()
    * explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.
    *
+   * ### Effect of a validator yielding SKIP ###
+   * Consider `Value_set`s in their order of declaration, V1, V2, ....  If any one of them fails individual
+   * option validation, or its `final_validator_func()` yields FAIL, then this method shall return `false`
+   * indicating this entire update has failed.  If all parsed fine, and `final_validator_func()` yielded ACCEPT for all,
+   * then it returns `true`, indicating this update is successful (so far at least, depending on `commit`).
+   *
+   * Now consider the situation where for `Value_set` Vi, `final_validator_func()` yielded SKIP, while all
+   * Vj before Vi yielded SUCCESS.
+   *
+   * Effect: The parsed values for that `Value_set` Vi shall be ignored, as-if they were equal to the cumulative
+   * values built in preceding files in this update (or to the baseline values, if this is the first or only
+   * file in this update).
+   *
+   * However, the subsequent `Value_set`s shall be scanned independently.  I.e., one SKIP does not affect other
+   * `Value_set`s in the same file.  Contrast with apply_dynamic().
+   *
    * @note Each `final_validator_func()` can be made quite brief by using convenience macro
    *       FLOW_CFG_OPT_CHECK_ASSERT().  This will take care of most logging in most cases.
    * @note For each Null_value_set: use `final_validator_func = null_final_validator_func()`.
@@ -589,6 +605,9 @@ public:
    * Informally we discourage doing this; it is stylistically better to invoke reject_candidates()
    * explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.
    *
+   * ### Effect of a validator yielding SKIP ###
+   * Identical to apply_static_and_dynamic().  Contrast with apply_dynamic().
+   *
    * @note By definition this will not compile unless `final_validator_func` count equals #S_N_VALUE_SETS.
    *       However, unlike apply_static() or apply_dynamic(), there are no template args to explicitly supply.
    *
@@ -667,6 +686,30 @@ public:
    * Informally we discourage doing this; it is stylistically better to invoke reject_candidates()
    * explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.
    *
+   * ### Effect of a validator yielding SKIP ###
+   * Consider `Value_set`s in their order of declaration, V1, V2, ....  If any one of them fails individual
+   * option validation, or its `final_validator_func()` yields FAIL, then we return `false`
+   * indicating this entire update has failed.  If all parsed fine, and `final_validator_func()` yielded ACCEPT for all,
+   * then we return `true`, indicating this update is successful (so far at least, depending on `commit`).
+   *
+   * Now consider the situation where for `Value_set` Vi, `final_validator_func()` yielded SKIP, while all
+   * Vj before Vi yielded SUCCESS.
+   *
+   * Effect 1: The parsed values for that `Value_set` Vi shall be ignored, as-if they were equal to the cumulative
+   * values built in preceding files in this update (or to the baseline values, if this is the first or only
+   * file in this update).
+   *
+   * Effect 2: The same shall hold for *each* `Value_set` Vj *after* Vi: They will not be parsed; they will not be
+   * validated; their `final_validator_func()` shall not be executed; and they shall ignored, as-if they were equal
+   * to the cumulative values built in preceding files in this update (or to the baseline values, if this is the
+   * first or only file in this update).  So, if (e.g.) V2 is the first `Value_set` to yield SKIP, then
+   * it's as-if V2, V3, ... also yielded SKIP (conceptually speaking) -- to the point where their values in
+   * the source are ignored entirely.
+   *
+   * The behavior in the preceding paragraph is different (added) compared to apply_static_and_dynamic() and
+   * apply_static().  For those guys, a SKIP affects only that specific `Value_set`, not the ones after it
+   * (they will be parsed, validated, etc. independently).
+   *
    * ### Performance ###
    * dynamic_values() + all_dynamic_values() locking performance is no worse than: lock mutex,
    * assign #S_N_D_VALUE_SETS `shared_ptr`s, unlock mutex.  The rest of the parse/validate/etc. code is outside any such
@@ -684,6 +727,9 @@ public:
    *        File to read.
    * @param final_validator_func
    *        See apply_static_and_dynamic().
+   *        Plus: if a `final_validatar_func()` for a particular `Value_set` returns `S_SKIP`, then
+   *        the subsequent ones will not run (nor will those subsequent `Value_set`s be parsed or individually
+   *        validated).
    * @param commit
    *        `true` means that this call being successful (returning `true`) shall cause the promotion of
    *        each candidate `Value_set` built-up so far (via this and all preceding successful calls with
@@ -1131,6 +1177,22 @@ private:
    * Recall that `final_validator_func() == S_SKIP`, even though it will cause us to not have changed that `Value_set`'s
    * Option_set::values_candidate(), is still considered success.
    *
+   * If `opt_set->null() == true`, this completely no-ops and returns `true`.
+   *
+   * ### Effect of `skip_parsing` ###
+   * It is a pointer.  If null (or if `opt_set->null() == true`), then the behavior is as written.
+   *
+   * If not null, then it has the following added effects -- used as of this writing by apply_dynamic():
+   *   - If and only if, at entry to method, `*skip_parsing == true`, then:
+   *     - The contents of the file shall be ignored, and `final_validator_func()` shall not be called;
+   *       instead we act *as-if* the contents were individually valid, but `final_validator_func()` yielded `S_SKIP`.
+   *   - On return from method: `*skip_parsing` shall be set to `true` if and only if:
+   *     - `*skip_parsing = true` at entry to method; or else if
+   *     - values in file were individually valid, but `final_validator_func()` yielded `S_SKIP`.
+   *
+   * More in English: To get the apply_dynamic() SKIP behavior, where a SKIPped `Value_set` also skips all subsequent
+   * (but not preceding) ones, start with `bool skip_parsing = false`, then pass `&skip_parsing` to each apply_impl().
+   *
    * @tparam Value_set
    *         See opt_set().
    * @param opt_set
@@ -1139,7 +1201,6 @@ private:
    *        If null then ignored; else -- just before attempting to parse and apply values from `cfg_path` -- we
    *        will set `*opt_set` to contain a copy of `Value_set *baseline_value_set_or_null`.  This is to ensure
    *        a consistent state after each dynamic config update as opposed to working incrementally.
-   *        Note, also, it is ignored if opt_set->null() (apply_impl() will no-op in any case).
    * @param cfg_path
    *        See apply_static_or_dynamic_impl().
    * @param all_opt_names_or_empty
@@ -1148,12 +1209,15 @@ private:
    *        (and may be helpful to the caller for simplicity).
    * @param final_validator_func
    *        See apply_static() or apply_dynamic() or apply_static_and_dynamic().
+   * @param skip_parsing
+   *        See above.  Recall it can be null.
    * @return `true` on success; `false` on failure.
    */
   template<typename Value_set>
   bool apply_impl(Option_set<Value_set>* opt_set, const Value_set* baseline_value_set_or_null, const fs::path& cfg_path,
                   const boost::unordered_set<std::string>& all_opt_names_or_empty,
-                  const typename Final_validator_func<Value_set>::Type& final_validator_func);
+                  const typename Final_validator_func<Value_set>::Type& final_validator_func,
+                  bool* skip_parsing = nullptr);
 
   /**
    * Helper for the top of `apply_*()` that guards against a call to `apply_Y()` following
@@ -1725,6 +1789,12 @@ bool Config_manager<S_d_value_set...>::apply_static_or_dynamic_impl
   size_t s_d_value_set_idx = 0;
   size_t value_set_idx = dyn_else_st ? 1 : 0;
 
+  /* Flag for the skipping of parsing and validation.  Becomes true and stays true once one of the
+   * final_validator_func()s yields S_SKIP.  Only applicable to dynamic Value_sets; otherwise each S_SKIP
+   * only affects that Value_set. */
+  bool skip_parsing = false;
+  bool* const skip_parsing_ptr = dyn_else_st ? &skip_parsing : nullptr;
+
   bool success;
   return
     (
@@ -1753,7 +1823,8 @@ bool Config_manager<S_d_value_set...>::apply_static_or_dynamic_impl
                                : static_cast<const Value_set*>(0), // (And here.)
 
                              cfg_path, all_opt_names_or_empty,
-                             final_validator_func), // (And here.)
+                             final_validator_func, // (And here.)
+                             skip_parsing_ptr),
         ++s_d_value_set_idx,
         value_set_idx += 2,
         success // Stop apply_impl()ing on first failure (the `&&` will evaluate to false early).
@@ -1768,7 +1839,8 @@ bool Config_manager<S_d_value_set...>::apply_impl
         const Value_set* baseline_value_set_or_null,
         const fs::path& cfg_path,
         const boost::unordered_set<std::string>& all_opt_names_or_empty,
-        const typename Final_validator_func<Value_set>::Type& final_validator_func)
+        const typename Final_validator_func<Value_set>::Type& final_validator_func,
+        bool* skip_parsing)
 {
   assert(opt_set);
   auto& opts = *opt_set;
@@ -1810,6 +1882,20 @@ bool Config_manager<S_d_value_set...>::apply_impl
    * impact is negligible. */
   const auto candidate_or_null = opt_set->values_candidate();
   const auto pre_parse_candidate = candidate_or_null ? *candidate_or_null : opt_set->values();
+
+  /* Ready to parse... but act as-if parse was fine but yielded SKIP, if told we're already in skipping mode
+   * (from previous `Value_set`s, probably, though formally by contract this method doesn't care why). */
+  if (skip_parsing && (*skip_parsing))
+  {
+    FLOW_LOG_INFO("Config_manager [" << *this << "]: "
+                  "Request to apply config file [" << cfg_path << "] for a particular value set:  "
+                  "But presumably due to preceding `Value_set` specifying that this file's values should not be "
+                  "applied, we skip the file w/r/t this `Value_set` as well.  "
+                  "Keeping the candidate value-set at pre-parse state.  This is not an error.");
+    opts.parse_direct_values(pre_parse_candidate);
+    return true;
+  }
+  // else
 
   /* We allow unknown (to this Option_set<Value_set> `opts`) options in the file during the initial parse -- but
    * only the ones that are themselves options but in other Option_sets we're also parsing (since non-hard-coded options
@@ -1856,6 +1942,11 @@ bool Config_manager<S_d_value_set...>::apply_impl
                     "that this file's values not be applied (to skip the file after all).  "
                     "Rewinding the candidate value-set to pre-parse state.  This is not an error.");
       opts.parse_direct_values(pre_parse_candidate);
+      if (skip_parsing)
+      {
+        assert((!*skip_parsing) && "We should have `return`ed already.");
+        *skip_parsing = true;
+      }
     } // switch (final_validator_outcome).  Compiler should warn if we failed to handle an enum value.
   } // if (ok) (but it may have become false inside)
 
