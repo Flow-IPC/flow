@@ -55,8 +55,8 @@ enum class Final_validator_outcome
    * unchanged from just-before that *current* `apply_*()`; if this is the final config-source (ex: file),
    * that unchanged candidate shall be canonicalized.  `apply_*()` shall return `true` (success).
    *
-   * As of this writing, with Config_manager::apply_dynamic() specifically, `S_SKIP` shall also have this
-   * effect on all subsequently scanned `Value_set`s in the same `apply_dynamic()` call; that is to say
+   * `S_SKIP` shall also have this effect on all subsequently scanned `Value_set`s in the same
+   * `apply_static()`, `apply_dynamic()`, or `apply_static_and_dynamic()` call; that is to say
    * one SKIPped `Value_set` causes all subsequent ones to behave as-if they too were SKIPped.
    */
   S_SKIP,
