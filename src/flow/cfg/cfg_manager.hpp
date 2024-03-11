@@ -505,22 +505,6 @@ public:
    * it's as-if V2, V3, ... also yielded SKIP (conceptually speaking) -- to the point where their values in
    * the source are ignored entirely.
    *
-   * ### Effect of a validator yielding SKIP ###
-   * Consider `Value_set`s in their order of declaration, V1, V2, ....  If any one of them fails individual
-   * option validation, or its `final_validator_func()` yields FAIL, then this method shall return `false`
-   * indicating this entire update has failed.  If all parsed fine, and `final_validator_func()` yielded ACCEPT for all,
-   * then it returns `true`, indicating this update is successful (so far at least, depending on `commit`).
-   *
-   * Now consider the situation where for `Value_set` Vi, `final_validator_func()` yielded SKIP, while all
-   * Vj before Vi yielded SUCCESS.
-   *
-   * Effect: The parsed values for that `Value_set` Vi shall be ignored, as-if they were equal to the cumulative
-   * values built in preceding files in this update (or to the baseline values, if this is the first or only
-   * file in this update).
-   *
-   * However, the subsequent `Value_set`s shall be scanned independently.  I.e., one SKIP does not affect other
-   * `Value_set`s in the same file.  Contrast with apply_dynamic().
-   *
    * @note Each `final_validator_func()` can be made quite brief by using convenience macro
    *       FLOW_CFG_OPT_CHECK_ASSERT().  This will take care of most logging in most cases.
    * @note For each Null_value_set: use `final_validator_func = null_final_validator_func()`.
@@ -547,6 +531,9 @@ public:
    *        Informally: Please place individual-option validation
    *        into FLOW_CFG_OPTION_SET_DECLARE_OPTION() invocations; only use `final_validator_func()` for
    *        internal consistency checks (if any) and skip conditions (if any).
+   *        Plus: if a `final_validatar_func()` for a particular `Value_set` returns `S_SKIP`, then
+   *        the subsequent ones will not run (nor will those subsequent `Value_set`s be parsed or individually
+   *        validated).
    * @param commit
    *        `true` means that this call being successful (returning `true`) shall cause the promotion of
    *        each candidate `Value_set` built-up so far (via this call and all preceding successful calls with
@@ -727,9 +714,6 @@ public:
    *        File to read.
    * @param final_validator_func
    *        See apply_static_and_dynamic().
-   *        Plus: if a `final_validatar_func()` for a particular `Value_set` returns `S_SKIP`, then
-   *        the subsequent ones will not run (nor will those subsequent `Value_set`s be parsed or individually
-   *        validated).
    * @param commit
    *        `true` means that this call being successful (returning `true`) shall cause the promotion of
    *        each candidate `Value_set` built-up so far (via this and all preceding successful calls with
@@ -1888,10 +1872,10 @@ bool Config_manager<S_d_value_set...>::apply_impl
   if (skip_parsing && (*skip_parsing))
   {
     FLOW_LOG_INFO("Config_manager [" << *this << "]: "
-                  "Request to apply config file [" << cfg_path << "] for a particular value set:  "
-                  "But presumably due to preceding `Value_set` specifying that this file's values should not be "
-                  "applied, we skip the file w/r/t this `Value_set` as well.  "
-                  "Keeping the candidate value-set at pre-parse state.  This is not an error.");
+                  "Parsing, individual-option validation, and final-validation are being skipped "
+                  "for this value set, as requested by the caller.  This file's values will not be applied.  "
+                  "This has happened because this value set is successive to a value set whose "
+                  "final-validation determined that it shall not be applied.  This is not an error.");
     opts.parse_direct_values(pre_parse_candidate);
     return true;
   }
