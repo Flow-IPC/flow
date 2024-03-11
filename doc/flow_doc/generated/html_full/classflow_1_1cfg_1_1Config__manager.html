@@ -282,10 +282,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aa7785bcdb7fae9ae7ef6f1919b1f8045"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#aa7785bcdb7fae9ae7ef6f1919b1f8045">apply_static_or_dynamic_impl</a> (<a class="el" href="classbool.html">bool</a> dyn_else_st, const fs::path &amp;cfg_path, const boost::unordered_set&lt; std::string &gt; &amp;all_opt_names_or_empty, const typename <a class="el" href="structflow_1_1cfg_1_1Final__validator__func.html">Final_validator_func</a>&lt; Value_set &gt;::Type &amp;... final_validator_func)</td></tr>
 <tr class="memdesc:aa7785bcdb7fae9ae7ef6f1919b1f8045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Work-horse helper that parses either <em>all</em> static value sets <em>or</em> <em>all</em> dynamic value sets from the specified file into <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a4e724d9d455ea31439c6832d0bc645bd" title="The static and dynamic value sets, in the same order as the S_N_VALUE_SETS S_d_value_set template arg...">m_s_d_opt_sets</a> and returns <code>true</code> if and only if all have succeeded.  <a href="classflow_1_1cfg_1_1Config__manager.html#aa7785bcdb7fae9ae7ef6f1919b1f8045">More...</a><br /></td></tr>
 <tr class="separator:aa7785bcdb7fae9ae7ef6f1919b1f8045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dae0dfcdde91dcbdd6db4b05fac0112"><td class="memTemplParams" colspan="2">template&lt;typename Value_set &gt; </td></tr>
-<tr class="memitem:a3dae0dfcdde91dcbdd6db4b05fac0112"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a3dae0dfcdde91dcbdd6db4b05fac0112">apply_impl</a> (<a class="el" href="classflow_1_1cfg_1_1Option__set.html">Option_set</a>&lt; Value_set &gt; *<a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f">opt_set</a>, const Value_set *baseline_value_set_or_null, const fs::path &amp;cfg_path, const boost::unordered_set&lt; std::string &gt; &amp;all_opt_names_or_empty, const typename <a class="el" href="structflow_1_1cfg_1_1Final__validator__func.html">Final_validator_func</a>&lt; Value_set &gt;::Type &amp;final_validator_func)</td></tr>
-<tr class="memdesc:a3dae0dfcdde91dcbdd6db4b05fac0112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Work-horse helper that parses into one given <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> in <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a4e724d9d455ea31439c6832d0bc645bd" title="The static and dynamic value sets, in the same order as the S_N_VALUE_SETS S_d_value_set template arg...">m_s_d_opt_sets</a> (from <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a>) from the specified file and returns <code>true</code> if and only if successful.  <a href="classflow_1_1cfg_1_1Config__manager.html#a3dae0dfcdde91dcbdd6db4b05fac0112">More...</a><br /></td></tr>
-<tr class="separator:a3dae0dfcdde91dcbdd6db4b05fac0112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac416a9ecc83d4209b5b9767d01984aa3"><td class="memTemplParams" colspan="2">template&lt;typename Value_set &gt; </td></tr>
+<tr class="memitem:ac416a9ecc83d4209b5b9767d01984aa3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac416a9ecc83d4209b5b9767d01984aa3">apply_impl</a> (<a class="el" href="classflow_1_1cfg_1_1Option__set.html">Option_set</a>&lt; Value_set &gt; *<a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f">opt_set</a>, const Value_set *baseline_value_set_or_null, const fs::path &amp;cfg_path, const boost::unordered_set&lt; std::string &gt; &amp;all_opt_names_or_empty, const typename <a class="el" href="structflow_1_1cfg_1_1Final__validator__func.html">Final_validator_func</a>&lt; Value_set &gt;::Type &amp;final_validator_func, <a class="el" href="classbool.html">bool</a> *skip_parsing)</td></tr>
+<tr class="memdesc:ac416a9ecc83d4209b5b9767d01984aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Work-horse helper that parses into one given <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> in <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a4e724d9d455ea31439c6832d0bc645bd" title="The static and dynamic value sets, in the same order as the S_N_VALUE_SETS S_d_value_set template arg...">m_s_d_opt_sets</a> (from <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a>) from the specified file and returns <code>true</code> if and only if successful.  <a href="classflow_1_1cfg_1_1Config__manager.html#ac416a9ecc83d4209b5b9767d01984aa3">More...</a><br /></td></tr>
+<tr class="separator:ac416a9ecc83d4209b5b9767d01984aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe9d2c5d3a9747a26a4e6233a0f1feed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#abe9d2c5d3a9747a26a4e6233a0f1feed">reject_candidates_if_update_type_changed</a> (<a class="el" href="classflow_1_1cfg_1_1Config__manager.html#aa0d03f4dcf7be2c21023c4073ac68b85">Update_type</a> this_update_type)</td></tr>
 <tr class="memdesc:abe9d2c5d3a9747a26a4e6233a0f1feed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for the top of <code>apply_*()</code> that guards against a call to <code>apply_Y()</code> following <code>apply_X(commit == false) == true</code> without a <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> between them.  <a href="classflow_1_1cfg_1_1Config__manager.html#abe9d2c5d3a9747a26a4e6233a0f1feed">More...</a><br /></td></tr>
 <tr class="separator:abe9d2c5d3a9747a26a4e6233a0f1feed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -355,7 +355,7 @@ class flow::cfg::Config_manager&lt; S_d_value_set &gt;</div><p >Manages a config
 <div class="line"><a class="code hl_class" href="classflow_1_1cfg_1_1Config__manager.html">flow::cfg::Config_manager&lt;Static_value_set, Null_value_set&gt;</a></div>
 <div class="line">  (<a class="code hl_function" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">get_logger</a>(), <span class="stringliteral">&quot;cfg&quot;</span>, &amp;static_cfg_declare_opts, <a class="code hl_function" href="namespaceflow_1_1cfg.html#adfe41c8484a878742976ddb84aa9e2d8">flow::cfg::null_declare_opts_func</a>())</div>
 <div class="line">  .<a class="code hl_function" href="classflow_1_1cfg_1_1Config__manager.html#a0192ddc2cc7302bdc8720ee56a395c02">log_help</a>();</div>
-<div class="ttc" id="aclassflow_1_1cfg_1_1Config__manager_html_a0192ddc2cc7302bdc8720ee56a395c02"><div class="ttname"><a href="classflow_1_1cfg_1_1Config__manager.html#a0192ddc2cc7302bdc8720ee56a395c02">flow::cfg::Config_manager::log_help</a></div><div class="ttdeci">void log_help(log::Sev sev=log::Sev::S_INFO) const</div><div class="ttdoc">Logs what help_to_ostream() would print.</div><div class="ttdef"><b>Definition:</b> <a href="cfg__manager_8hpp_source.html#l02620">cfg_manager.hpp:2620</a></div></div>
+<div class="ttc" id="aclassflow_1_1cfg_1_1Config__manager_html_a0192ddc2cc7302bdc8720ee56a395c02"><div class="ttname"><a href="classflow_1_1cfg_1_1Config__manager.html#a0192ddc2cc7302bdc8720ee56a395c02">flow::cfg::Config_manager::log_help</a></div><div class="ttdeci">void log_help(log::Sev sev=log::Sev::S_INFO) const</div><div class="ttdoc">Logs what help_to_ostream() would print.</div><div class="ttdef"><b>Definition:</b> <a href="cfg__manager_8hpp_source.html#l02700">cfg_manager.hpp:2700</a></div></div>
 <div class="ttc" id="aclassflow_1_1log_1_1Log__context_html_af4db395042b065b00398cd59845dcb4d"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">flow::log::Log_context::get_logger</a></div><div class="ttdeci">Logger * get_logger() const</div><div class="ttdoc">Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.</div><div class="ttdef"><b>Definition:</b> <a href="log_8cpp_source.html#l00224">log.cpp:224</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_adfe41c8484a878742976ddb84aa9e2d8"><div class="ttname"><a href="namespaceflow_1_1cfg.html#adfe41c8484a878742976ddb84aa9e2d8">flow::cfg::null_declare_opts_func</a></div><div class="ttdeci">Option_set&lt; Null_value_set &gt;::Declare_options_func null_declare_opts_func()</div><div class="ttdoc">Returns a value usable as declare_opts_func_moved Config_manager ctor arg for a Null_value_set value ...</div><div class="ttdef"><b>Definition:</b> <a href="cfg__manager_8cpp_source.html#l00026">cfg_manager.cpp:26</a></div></div>
 </div><!-- fragment --><p >Orthogonally, of course, you may want to use it to parse things. In which case:</p>
@@ -540,7 +540,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p>Short-hand for <code>shared_ptr</code>-to-<code>void</code> type used to store variable-type values in internal containers. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00964">964</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00994">994</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -604,7 +604,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00970">970</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01000">1000</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -668,9 +668,9 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01420">1420</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01470">1470</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00224">flow::log::Log_context::get_logger()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01296">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_d_baseline_value_sets</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01327">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_d_value_sets</a>, <a class="el" href="cfg__manager_8hpp_source.html#l00958">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_nickname</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01266">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_s_d_opt_sets</a>, <a class="el" href="util_2util_8hpp_source.html#l00356">flow::util::ostream_op_string()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l00413">flow::cfg::Config_manager&lt; S_d_value_set &gt;::S_N_S_VALUE_SETS</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l00408">flow::cfg::Config_manager&lt; S_d_value_set &gt;::S_N_VALUE_SETS</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00224">flow::log::Log_context::get_logger()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01346">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_d_baseline_value_sets</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01377">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_d_value_sets</a>, <a class="el" href="cfg__manager_8hpp_source.html#l00988">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_nickname</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01316">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_s_d_opt_sets</a>, <a class="el" href="util_2util_8hpp_source.html#l00356">flow::util::ostream_op_string()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l00413">flow::cfg::Config_manager&lt; S_d_value_set &gt;::S_N_S_VALUE_SETS</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l00408">flow::cfg::Config_manager&lt; S_d_value_set &gt;::S_N_VALUE_SETS</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -720,7 +720,7 @@ template&lt;typename... Value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02459">2459</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02539">2539</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -759,7 +759,7 @@ template&lt;typename... Value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02375">2375</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02455">2455</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -800,7 +800,7 @@ template&lt;typename... Value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02399">2399</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02479">2479</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -864,7 +864,7 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>. However &ndash; assuming <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a> was not used, and this is the initial <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> &ndash; the other <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> will return <code>false</code> if a default is invalid, even if file <code>dynamic_cfg_path</code> explicitly sets it to a valid value. This tagged overload will not and let parsing continue. If <code>apply_static_and_dynamic(commit = true) == true</code> was used, or if <code>apply_dynamic(commit = true) == true</code> has been called before, then the overloads behave identically: defaults are not checked; it must occur just before the initial dynamic load or never. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02085">2085</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02165">2165</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -911,6 +911,8 @@ template&lt;typename... Value_set&gt; </div>
 <p >On failure returns <code>false</code>; else returns <code>true</code>. In the former case the canonical state remains unchanged, and any candidate built-up via preceding <code>commit == false</code> calls (if any) is discarded. WARNING(s) logged given failure.</p>
 <p ><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> will be tolerant of unknown option names appearing in the config source, though it will log about them. The reasoning: Dynamic config must grapple with backward- and forward-compatibility.</p>
 <p >For context w/r/t <code>commit</code> arg: Please read the section of the class doc header regarding multi-source updates. Corner case note: Formally: invoking <code>apply_Y()</code> immediately after <code>apply_X(commit = false) == true</code>, without <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> between them, where Y and X differ =&gt; <code>apply_Y()</code> shall log an INFO message and invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> itself; then proceed. In this case <code>apply_Y()</code> is <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>. Informally we discourage doing this; it is stylistically better to invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.</p>
+<h3>Effect of a validator yielding SKIP</h3>
+<p >Identical to <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a>.</p>
 <h3>Performance</h3>
 <p ><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac2239443cf48bfdaa78c95af935e1d0f" title="Similar to all_dynamic_values() but obtains the dynamic config in one specified slot as opposed to al...">dynamic_values()</a> + <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a6afb8620600dcb54d41211ef68859f93" title="Obtain ref-counted pointers to each currently-canonical set of dynamic config; each pointed-at struct...">all_dynamic_values()</a> locking performance is no worse than: lock mutex, assign <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac26c2d6efe1670e940badccb3fdea609" title="The number of dynamic value sets (including any Null_value_sets).">S_N_D_VALUE_SETS</a> <code>shared_ptr</code>s, unlock mutex. The rest of the parse/validate/etc. code is outside any such critical section. See also Performance section of <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac2239443cf48bfdaa78c95af935e1d0f" title="Similar to all_dynamic_values() but obtains the dynamic config in one specified slot as opposed to al...">dynamic_values()</a> doc header.</p>
 <p >Outside that locking critical section, <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> may be expensive, in that it performs file input and some internal copying of option value sets and maps, plus detailed logging. It is, however, not typically called frequently. Just be aware it will block the calling thread, albeit still only for a split second in normal conditions.</p>
@@ -930,7 +932,7 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if successfully parsed config source(s) and validated all settings including <code>final_validator_func() != S_FAIL</code> for <em>all</em> (dynamic) config sets; and defaults were also all individually valid, in the case of initial <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>. However, if <code>true</code> but <code>commit == false</code>, then the canonical values (accessed via <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac2239443cf48bfdaa78c95af935e1d0f" title="Similar to all_dynamic_values() but obtains the dynamic config in one specified slot as opposed to al...">dynamic_values()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a6afb8620600dcb54d41211ef68859f93" title="Obtain ref-counted pointers to each currently-canonical set of dynamic config; each pointed-at struct...">all_dynamic_values()</a>) have not been updated. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02075">2075</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02155">2155</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1002,14 +1004,14 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02096">2096</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02176">2176</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, and <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>.</p>
 
 </div>
 </div>
-<a id="a3dae0dfcdde91dcbdd6db4b05fac0112" name="a3dae0dfcdde91dcbdd6db4b05fac0112"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dae0dfcdde91dcbdd6db4b05fac0112">&#9670;&nbsp;</a></span>apply_impl()</h2>
+<a id="ac416a9ecc83d4209b5b9767d01984aa3" name="ac416a9ecc83d4209b5b9767d01984aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac416a9ecc83d4209b5b9767d01984aa3">&#9670;&nbsp;</a></span>apply_impl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1049,7 +1051,13 @@ template&lt;typename Value_set &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const typename <a class="el" href="structflow_1_1cfg_1_1Final__validator__func.html">Final_validator_func</a>&lt; Value_set &gt;::Type &amp;&#160;</td>
-          <td class="paramname"><em>final_validator_func</em>&#160;</td>
+          <td class="paramname"><em>final_validator_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classbool.html">bool</a> *&#160;</td>
+          <td class="paramname"><em>skip_parsing</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1066,6 +1074,21 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Work-horse helper that parses into one given <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> in <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a4e724d9d455ea31439c6832d0bc645bd" title="The static and dynamic value sets, in the same order as the S_N_VALUE_SETS S_d_value_set template arg...">m_s_d_opt_sets</a> (from <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a>) from the specified file and returns <code>true</code> if and only if successful. </p>
 <p >The canonicalize/reject step is not performed: only parsing and (if that worked) <code>final_validator_func()</code>. Recall that <code>final_validator_func() == S_SKIP</code>, even though it will cause us to not have changed that <code>Value_set</code>'s <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adce212853383183bd1b60505157f7215" title="Returns null in CANONICAL state; or in PARSING state a pointer to the not-yet-canonical values after ...">Option_set::values_candidate()</a>, is still considered success.</p>
+<p >If <code>opt_set-&gt;null() == true</code>, this completely no-ops and returns <code>true</code>.</p>
+<h3>Effect of <code>skip_parsing</code></h3>
+<p >It is a pointer. If null (or if <code>opt_set-&gt;null() == true</code>), then the behavior is as written.</p>
+<p >If not null, then it has the following added effects &ndash; used as of this writing by <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>:</p><ul>
+<li>If and only if, at entry to method, <code>*skip_parsing == true</code>, then:<ul>
+<li>The contents of the file shall be ignored, and <code>final_validator_func()</code> shall not be called; instead we act <em>as-if</em> the contents were individually valid, but <code>final_validator_func()</code> yielded <code>S_SKIP</code>.</li>
+</ul>
+</li>
+<li>On return from method: <code>*skip_parsing</code> shall be set to <code>true</code> if and only if:<ul>
+<li><code>*skip_parsing = true</code> at entry to method; or else if</li>
+<li>values in file were individually valid, but <code>final_validator_func()</code> yielded <code>S_SKIP</code>.</li>
+</ul>
+</li>
+</ul>
+<p >More in English: To get the desired SKIP behavior, where a SKIPped <code>Value_set</code> also skips all subsequent (but not preceding) ones, start with <code>bool skip_parsing = false</code>, then pass <code>&amp;skip_parsing</code> to each <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac416a9ecc83d4209b5b9767d01984aa3" title="Work-horse helper that parses into one given Option_set in m_s_d_opt_sets (from opt_set()) from the s...">apply_impl()</a>. (The <code>skip_parsing == nullptr</code> mode is still provided, in case it's useful for something later; as of this writing all the public <code>apply_*()</code> APIs have <code>skip_parsing != nullptr</code>, but it could conceivably change.)</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Value_set</td><td>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a>. </td></tr>
@@ -1075,22 +1098,23 @@ template&lt;typename Value_set &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">opt_set</td><td>An <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a> result. </td></tr>
-    <tr><td class="paramname">baseline_value_set_or_null</td><td>If null then ignored; else &ndash; just before attempting to parse and apply values from <code>cfg_path</code> &ndash; we will set <code>*opt_set</code> to contain a copy of <code>Value_set *baseline_value_set_or_null</code>. This is to ensure a consistent state after each dynamic config update as opposed to working incrementally. Note, also, it is ignored if opt_set-&gt;null() (<a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a3dae0dfcdde91dcbdd6db4b05fac0112" title="Work-horse helper that parses into one given Option_set in m_s_d_opt_sets (from opt_set()) from the s...">apply_impl()</a> will no-op in any case). </td></tr>
+    <tr><td class="paramname">baseline_value_set_or_null</td><td>If null then ignored; else &ndash; just before attempting to parse and apply values from <code>cfg_path</code> &ndash; we will set <code>*opt_set</code> to contain a copy of <code>Value_set *baseline_value_set_or_null</code>. This is to ensure a consistent state after each dynamic config update as opposed to working incrementally. </td></tr>
     <tr><td class="paramname">cfg_path</td><td>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#aa7785bcdb7fae9ae7ef6f1919b1f8045" title="Work-horse helper that parses either all static value sets or all dynamic value sets from the specifi...">apply_static_or_dynamic_impl()</a>. </td></tr>
     <tr><td class="paramname">all_opt_names_or_empty</td><td>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#aa7785bcdb7fae9ae7ef6f1919b1f8045" title="Work-horse helper that parses either all static value sets or all dynamic value sets from the specifi...">apply_static_or_dynamic_impl()</a>. Technically this need not include the ones actually parsed by <code>*opt_set</code>; but including them is harmless (and may be helpful to the caller for simplicity). </td></tr>
     <tr><td class="paramname">final_validator_func</td><td>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a>. </td></tr>
+    <tr><td class="paramname">skip_parsing</td><td>See above. Recall it can be null. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> on success; <code>false</code> on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01766">1766</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01821">1821</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="option__set_8hpp_source.html#l01993">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3a655ec6aa779cb1c799c9ba80f24e9567">flow::cfg::S_ACCEPT</a>, <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316">flow::cfg::S_FAIL</a>, <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec">flow::cfg::S_SKIP</a>, <a class="el" href="option__set_8hpp_source.html#l01490">flow::cfg::Option_set&lt; Value_set &gt;::values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01502">flow::cfg::Option_set&lt; Value_set &gt;::values_candidate()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Config__manager_a3dae0dfcdde91dcbdd6db4b05fac0112_cgraph.svg" width="364" height="167"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Config__manager_ac416a9ecc83d4209b5b9767d01984aa3_cgraph.svg" width="364" height="167"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1156,7 +1180,7 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a>. The difference between the other <code><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a></code> and this overload is: The other overload will return <code>false</code> given an invalid default, even if file <code>static_cfg_path</code> explicitly sets it to a valid value. This tagged overload will not fail (return <code>false</code> for that reason) and will let parsing continue instead. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01582">1582</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01632">1632</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1211,6 +1235,11 @@ template&lt;typename... Value_set&gt; </div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_af1a4e0a153ec8216ead76450e900e386"><div class="ttname"><a href="namespaceflow_1_1cfg.html#af1a4e0a153ec8216ead76450e900e386">flow::cfg::null_final_validator_func</a></div><div class="ttdeci">Final_validator_func&lt; Null_value_set &gt;::Type null_final_validator_func()</div><div class="ttdoc">Returns a value usable as final_validator_func arg to Config_manager::apply_static() and others – for...</div><div class="ttdef"><b>Definition:</b> <a href="cfg__manager_8cpp_source.html#l00031">cfg_manager.cpp:31</a></div></div>
 <div class="ttc" id="astructflow_1_1cfg_1_1Null__value__set_html"><div class="ttname"><a href="structflow_1_1cfg_1_1Null__value__set.html">flow::cfg::Null_value_set</a></div><div class="ttdoc">Empty struct suitable as a *_value_set template arg for Config_manager, when a slot requires a Value_...</div><div class="ttdef"><b>Definition:</b> <a href="cfg__manager_8hpp_source.html#l00071">cfg_manager.hpp:73</a></div></div>
 </div><!-- fragment --><p >For context w/r/t <code>commit</code> arg: Please read the section of the class doc header regarding multi-source updates. Corner case note: Formally: invoking <code>apply_Y()</code> immediately after <code>apply_X(commit = false) == true</code>, without <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> between them, where Y and X differ =&gt; <code>apply_Y()</code> shall log an INFO message and invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> itself; then proceed. In this case <code>apply_Y()</code> is <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a>. Informally we discourage doing this; it is stylistically better to invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.</p>
+<h3>Effect of a validator yielding SKIP</h3>
+<p >Consider <code>Value_set</code>s in their order of declaration, V1, V2, .... If any one of them fails individual option validation, or its <code>final_validator_func()</code> yields FAIL, then we return <code>false</code> indicating this entire update has failed. If all parsed fine, and <code>final_validator_func()</code> yielded ACCEPT for all, then we return <code>true</code>, indicating this update is successful (so far at least, depending on <code>commit</code>).</p>
+<p >Now consider the situation where for <code>Value_set</code> Vi, <code>final_validator_func()</code> yielded SKIP, while all Vj before Vi yielded SUCCESS.</p>
+<p >Effect 1: The parsed values for that <code>Value_set</code> Vi shall be ignored, as-if they were equal to the cumulative values built in preceding files in this update (or to the baseline values, if this is the first or only file in this update).</p>
+<p >Effect 2: The same shall hold for <em>each</em> <code>Value_set</code> Vj <em>after</em> Vi: They will not be parsed; they will not be validated; their <code>final_validator_func()</code> shall not be executed; and they shall ignored, as-if they were equal to the cumulative values built in preceding files in this update (or to the baseline values, if this is the first or only file in this update). So, if (e.g.) V2 is the first <code>Value_set</code> to yield SKIP, then it's as-if V2, V3, ... also yielded SKIP (conceptually speaking) &ndash; to the point where their values in the source are ignored entirely.</p>
 <dl class="section note"><dt>Note</dt><dd>Each <code>final_validator_func()</code> can be made quite brief by using convenience macro <a class="el" href="cfg__manager__fwd_8hpp.html#a1e8c66781034dd50ad8e2de9c0c47e0e" title="Convenience macro particularly useful in the final_validator_func() callback taken by various Config_...">FLOW_CFG_OPT_CHECK_ASSERT()</a>. This will take care of most logging in most cases. </dd>
 <dd>
 For each <a class="el" href="structflow_1_1cfg_1_1Null__value__set.html" title="Empty struct suitable as a *_value_set template arg for Config_manager, when a slot requires a Value_...">Null_value_set</a>: use <code>final_validator_func = <a class="el" href="namespaceflow_1_1cfg.html#af1a4e0a153ec8216ead76450e900e386" title="Returns a value usable as final_validator_func arg to Config_manager::apply_static() and others – for...">null_final_validator_func()</a></code>. </dd>
@@ -1228,14 +1257,14 @@ A validator function may rely on <a class="el" href="classflow_1_1cfg_1_1Config_
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">static_cfg_path</td><td>File to read. </td></tr>
-    <tr><td class="paramname">final_validator_func</td><td>For each arg: If parsing and individual-option-validation succeed, the method shall return success if <code>final_validator_func(V)</code> returns <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3a655ec6aa779cb1c799c9ba80f24e9567" title="The holistically-checked cumulative Value_set has no problems and shall be accepted into the candidat...">Final_validator_outcome::S_ACCEPT</a> or <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec" title="The holistically-checked cumulative Value_set has contents such that the validator function decided t...">Final_validator_outcome::S_SKIP</a>, where V is the parsed <code>Value_set</code>. (If <code>apply_static(commit = false) == true</code> call(s) preceded this one, V is the cumulative candidate from such call(s) so far, plus values parsed from <code>static_cfg_path</code> on top of that.) Informally: Please place individual-option validation into <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> invocations; only use <code>final_validator_func()</code> for internal consistency checks (if any) and skip conditions (if any). </td></tr>
+    <tr><td class="paramname">final_validator_func</td><td>For each arg: If parsing and individual-option-validation succeed, the method shall return success if <code>final_validator_func(V)</code> returns <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3a655ec6aa779cb1c799c9ba80f24e9567" title="The holistically-checked cumulative Value_set has no problems and shall be accepted into the candidat...">Final_validator_outcome::S_ACCEPT</a> or <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec" title="The holistically-checked cumulative Value_set has contents such that the validator function decided t...">Final_validator_outcome::S_SKIP</a>, where V is the parsed <code>Value_set</code>. (If <code>apply_static(commit = false) == true</code> call(s) preceded this one, V is the cumulative candidate from such call(s) so far, plus values parsed from <code>static_cfg_path</code> on top of that.) Informally: Please place individual-option validation into <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> invocations; only use <code>final_validator_func()</code> for internal consistency checks (if any) and skip conditions (if any). Plus: if a <code>final_validatar_func()</code> for a particular <code>Value_set</code> returns <code>S_SKIP</code>, then the subsequent ones will not run (nor will those subsequent <code>Value_set</code>s be parsed or individually validated). </td></tr>
     <tr><td class="paramname">commit</td><td><code>true</code> means that this call being successful (returning <code>true</code>) shall cause the promotion of each candidate <code>Value_set</code> built-up so far (via this call and all preceding successful calls with <code>commit == false</code>) to canonical state (accessed via <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a8431806f82bed676f5fedb3b64f67245" title="Similar to all_static_values(), but obtains the static config in one specified slot as opposed to all...">static_values()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a76c7224711ef8a51c7005629e4eae6e7" title="Emit a pointer to each permanently set static config value set; the same pointers are emitted through...">all_static_values()</a>). <code>false</code> means that this call being successful shall merely create-and-set (if first such call) or incrementally update (if 2nd, 3rd, ... such call) each candidate <code>Value_set</code>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if successfully parsed config source and validated all settings including <code>final_validator_func() != S_FAIL</code> for <em>all</em> (static) config sets; and defaults were also all individually valid. However, if <code>true</code> but <code>commit == false</code>, then the canonical values (accessed via <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a8431806f82bed676f5fedb3b64f67245" title="Similar to all_static_values(), but obtains the static config in one specified slot as opposed to all...">static_values()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a76c7224711ef8a51c7005629e4eae6e7" title="Emit a pointer to each permanently set static config value set; the same pointers are emitted through...">all_static_values()</a>) have not been updated. If <code>false</code> with <code>commit == false</code>, you should not call <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a> for the planned subsequent config sources: this update has failed, and any built-up candidate <code>Value_set</code>s are discarded. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01572">1572</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01622">1622</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1291,7 +1320,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a>. The difference between the other <code><a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a></code> and this overload is: The other overload will return <code>false</code> given an invalid default, even if file <code>cfg_path</code> explicitly sets it to a valid value. This tagged overload will not fail (return <code>false</code> for that reason) and will let parsing continue instead. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01875">1875</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01950">1950</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1353,6 +1382,8 @@ template&lt;typename... S_d_value_set&gt; </div>
 </ul>
 <p >On failure returns <code>false</code>; else returns <code>true</code>. In the former case the canonical state remains unchanged, and any candidate built-up via preceding <code>commit == false</code> calls (if any) is discarded. WARNING(s) logged given failure.</p>
 <p >For context w/r/t <code>commit</code> arg: Please read the section of the class doc header regarding multi-source updates. Corner case note: Formally: invoking <code>apply_Y()</code> immediately after <code>apply_X(commit = false) == true</code>, without <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> between them, where Y and X differ =&gt; <code>apply_Y()</code> shall log an INFO message and invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> itself; then proceed. In this case <code>apply_Y()</code> is <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a>. Informally we discourage doing this; it is stylistically better to invoke <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> explicitly in that scenario which cancels an in-progress update which is unusual though conceivably useful.</p>
+<h3>Effect of a validator yielding SKIP</h3>
+<p >Identical to <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a> but across both static and dynamic <code>Value_set</code>s, in static/dynamic/static/dynamic/... order.</p>
 <dl class="section note"><dt>Note</dt><dd>By definition this will not compile unless <code>final_validator_func</code> count equals <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ad49d54a2ae34b14c276cf3de05c3c4f8" title="The number of template params in this Config_manager instantiation. It must be even and positive.">S_N_VALUE_SETS</a>. However, unlike <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>, there are no template args to explicitly supply.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1364,7 +1395,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if successfully parsed config source(s) and validated all settings including <code>final_validator_func() != S_FAIL</code> for <em>all</em> (static and dynamic) config sets; and defaults were also all individually valid. However, if <code>true</code> but <code>commit == false</code>, then the canonical values (accessed via <code>*ic_values()</code> or <code>*ic_values()</code>) have not been updated. If <code>false</code> with <code>commit == false</code>, you should not call <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a> for the planned subsequent config sources: this update has failed, and any built-up candidate <code>Value_set</code>s are discarded. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01866">1866</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01941">1941</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1428,7 +1459,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01885">1885</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01960">1960</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, and <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>.</p>
 
@@ -1502,7 +1533,7 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01593">1593</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01643">1643</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, and <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>.</p>
 
@@ -1577,7 +1608,7 @@ template&lt;typename... Value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a22bfec8082d0c7b5dff9ee7e98865707" title="Invoke this after construction to load the permanent set of static config from config sources includi...">apply_static()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> depending on <code>dyn_else_st</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01721">1721</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01771">1771</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1624,7 +1655,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the <code>Value_set</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01500">1500</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01550">1550</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1663,7 +1694,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Ref-counted pointer to the immutable dynamic config set currently canonical in that slot. Remember: if <code>p</code> returned, then <code>*p</code> is immutable; but another <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac2239443cf48bfdaa78c95af935e1d0f" title="Similar to all_dynamic_values() but obtains the dynamic config in one specified slot as opposed to al...">dynamic_values()</a> call may return a different <code>p2</code> not equal to <code>p</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02492">2492</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02572">2572</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1694,7 +1725,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02590">2590</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02670">2670</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1745,7 +1776,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02603">2603</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02683">2683</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1794,7 +1825,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02353">2353</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02433">2433</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
 
@@ -1826,7 +1857,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02620">2620</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02700">2700</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>.</p>
 
@@ -1859,7 +1890,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02578">2578</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02658">2658</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>.</p>
 
@@ -1908,7 +1939,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01488">1488</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01538">1538</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1955,7 +1986,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a318e125f78cb7e471cae35e2651ab01f" title="Helper that obtains the Option_set in the slot m_s_d_opt_sets[value_set_idx], which stores an Option_...">opt_set()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01512">1512</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01562">1562</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2020,7 +2051,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01519">1519</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01569">1569</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="option__set_8hpp_source.html#l02042">flow::cfg::Option_set&lt; Value_set &gt;::canonicalize_candidate()</a>, <a class="el" href="option__set_8hpp_source.html#l01484">flow::cfg::Option_set&lt; Value_set &gt;::null()</a>, and <a class="el" href="option__set_8hpp_source.html#l02075">flow::cfg::Option_set&lt; Value_set &gt;::reject_candidate()</a>.</p>
 <div class="dynheader">
@@ -2081,7 +2112,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A handle which can be used to unregister the callback. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01538">1538</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01588">1588</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
 
@@ -2110,7 +2141,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 <p >That is, if there are pending <em>candidate</em> <code>Value_set</code>s that have not yet been upgraded to canonical status via a <code>commit == true</code> <code>apply_*()</code> call, this call discards them, making it as-if no such call(s) were made in the first place.</p>
 <p >Informally we do not expect this to be commonly used; typically <code>apply_*()</code> will automatically do this upon encountering an error (in individual option validation or due to <a class="el" href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316" title="The holistically-checked cumulative Value_set has invalid contents; the candidate shall be rejected,...">Final_validator_outcome::S_FAIL</a>). However if there is some outside reason to abort an ongoing, so-far-successful multi-source update this method will similarly do it. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02286">2286</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02366">2366</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
 
@@ -2152,7 +2183,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02316">2316</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02396">2396</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
 
@@ -2211,7 +2242,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02338">2338</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02418">2418</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2242,7 +2273,7 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02505">2505</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02585">2585</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2293,7 +2324,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02518">2518</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02598">2598</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2332,7 +2363,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The immutable, permanently set static config value set in the <code>s_value_set_idx</code> slot. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02429">2429</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02509">2509</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2373,7 +2404,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above and <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a8431806f82bed676f5fedb3b64f67245" title="Similar to all_static_values(), but obtains the static config in one specified slot as opposed to all...">static_values()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02438">2438</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02518">2518</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2405,9 +2436,9 @@ template&lt;typename... S_d_value_set&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01559">1559</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01609">1609</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01387">flow::cfg::Config_manager&lt; S_d_value_set &gt;::On_dynamic_change_func_handle::m_d_value_set_idx</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l01394">flow::cfg::Config_manager&lt; S_d_value_set &gt;::On_dynamic_change_func_handle::m_pos</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01437">flow::cfg::Config_manager&lt; S_d_value_set &gt;::On_dynamic_change_func_handle::m_d_value_set_idx</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l01444">flow::cfg::Config_manager&lt; S_d_value_set &gt;::On_dynamic_change_func_handle::m_pos</a>.</p>
 
 </div>
 </div>
@@ -2464,9 +2495,9 @@ template&lt;typename... S_d_value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02638">2638</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02718">2718</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="cfg__manager_8hpp_source.html#l00958">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_nickname</a>.</p>
+<p class="reference">References <a class="el" href="cfg__manager_8hpp_source.html#l00988">flow::cfg::Config_manager&lt; S_d_value_set &gt;::m_nickname</a>.</p>
 
 </div>
 </div>
@@ -2501,9 +2532,9 @@ template&lt;typename... S_d_value_set&gt; </div>
 <p >This stores each dynamic slot's baseline <code>Value_set</code> state to load as just described.</p>
 <p >After construction this payload is just the default-cted <code>Value_set()</code>. If the user chooses to execute a one-time <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a>, then that payload is replaced by the state after having parsed that baseline state. Note, for context, that <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a> would be presumably loading <em>not</em> from file F (which can change repeatedly, as dynamic updates come in) but some other file B, typically storing both static value sets' contents as well as the baseline dynamic value sets'. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01296">1296</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01346">1346</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
 
 </div>
 </div>
@@ -2538,9 +2569,9 @@ template&lt;typename... S_d_value_set&gt; </div>
 <p >Why is this necessary? Why not just expose a pointer to immutable <code>S_d_value_set</code> directly inside <code>m_s_d_opt_sets[d_idx]</code> as we do (via <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a8431806f82bed676f5fedb3b64f67245" title="Similar to all_static_values(), but obtains the static config in one specified slot as opposed to all...">static_values()</a> and <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a76c7224711ef8a51c7005629e4eae6e7" title="Emit a pointer to each permanently set static config value set; the same pointers are emitted through...">all_static_values()</a>) for the static config? Answer: Because with dynamic config it is important that the user be able to retain (if even for a short time, perhaps to complete some operation &ndash; <em>during</em> which <code>*this</code> might process a dynamic update via <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>) an immutable <code>S_d_value_set</code>. Since by definition that's not possible with dynamic config updates, we must create a copy. At that point it becomes natural to wrap it in a <code>shared_ptr</code>, so that only <em>one</em> copy is necessary in the entire application &ndash; and it'll disappear once (1) the canonical config has been updated, replacing <code>m_d_value_sets[]</code>, and (2) all user code has dropped the remaining refs to it.</p>
 <p >The ref-counted-pointer-to-dynamic-config is a common pattern. The only thing we add that might not be obvious is having the canonical copy be separate from the one we expose via the pointer publicly. The latter is the natural consequence of the fact that the <code>Value_set</code> managed by <code><a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a>&lt;Value_set&gt;</code> lives inside the <code><a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a></code> and is not wrapped by any <code>shared_ptr</code>. However <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a45eebf6c9d7384bcc95c10ff7c934e1f" title="Convenience method that heap-allocates a copy of the internally stored values() and wraps in a ref-co...">Option_set::mutable_values_copy()</a> does provide easy access to a <code>shared_ptr</code>-wrapped copy thereof... so we use it. The perf cost is that of a value-set copy at <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a> time which is negligible in the grand scheme of things. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01327">1327</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01377">1377</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
 
 </div>
 </div>
@@ -2568,7 +2599,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p>Mutex protecting <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a447aa1d42bc9f40af92ce5968c0edc82" title="The dynamic config ref-counted handles returned by all_dynamic_values().">m_d_value_sets</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01330">1330</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01380">1380</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2596,7 +2627,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p>Starts <code>false</code>; set to <code>true</code> permanently on successful <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a9d9811d1b4aab2c4ea3e6813d4161304" title="If you use dynamic config, and you allow for initial values for dynamic options to be read from the s...">apply_static_and_dynamic()</a> or <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#a26712af2d38d3afbeb52d21b7012a03c" title="Load the first or subsequent set of dynamic config from config source including a dynamic config file...">apply_dynamic()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01346">1346</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01396">1396</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2634,7 +2665,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </ul>
 <p >It would have been enough for it to be a <code>bool</code> for those tests. It is an <code>enum</code> to be able to detect calling <code>apply_X()</code> after <code>apply_Y(commit = false) == true</code> without <a class="el" href="classflow_1_1cfg_1_1Config__manager.html#ac1ab5cefe86e6aaa0518d675f309907e" title="Cancel a not-yet-canonicalized (incomplete) multi-source update, if one is in progress.">reject_candidates()</a> in-between. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01374">1374</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01424">1424</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2654,9 +2685,9 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p>See <code>nickname</code> ctor arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00958">958</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00988">988</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l02638">flow::cfg::Config_manager&lt; S_d_value_set &gt;::operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l02718">flow::cfg::Config_manager&lt; S_d_value_set &gt;::operator&lt;&lt;()</a>.</p>
 
 </div>
 </div>
@@ -2687,7 +2718,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 <h3>Rationale</h3>
 <p >A <code>list&lt;&gt;</code> is used here so that iterators to callbacks can be stored in <code><a class="el" href="structflow_1_1cfg_1_1Config__manager_1_1On__dynamic__change__func__handle.html" title="Opaque handle for managing a dynamic config change callback.">On_dynamic_change_func_handle</a></code>s without the possibility of them being invalidated by insertions to or removals from the list (which would be the case if <code>vector&lt;&gt;</code> were used). </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01343">1343</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01393">1393</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -2731,9 +2762,9 @@ template&lt;typename... S_d_value_set&gt; </div>
 <p >Why <code>shared_ptr</code> &ndash; not <code>unique_ptr</code> (which is nominally faster in that there's no ref-counting)? Answer: <code>unique_ptr</code> is apparently deliberately simple and lacks aliasing and type-erasure constructors. <code>unique_ptr&lt;T&gt;</code> can only delete a <code>T</code> with the default deleter; and <code>T</code> being <code>void</code> therefore won't compile. It is probably possible to hack it with a custom deleter &ndash; but this seemed like overkill, as these handles are never used except inside an <code>array</code>, so reference counting shouldn't even happen and thus cost any perf cycles outside of <code>*this</code> ctor and dtor.</p>
 <p >An alternative, which is somewhat more type-safe in that it would have resulted in an RTTI exception if the wrong type-cast were used on the stored value, was <code>any</code>. However <code>any</code> is slower, involving <code>virtual</code> lookups (at least in a naive implementation of <code>any</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01266">1266</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l01316">1316</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
 
 </div>
 </div>
@@ -2791,7 +2822,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00413">413</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
 
 </div>
 </div>
@@ -2821,7 +2852,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l00408">408</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01421">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>.</p>
 
 </div>
 </div>
@@ -2832,7 +2863,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 10 2024 15:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Mar 11 2024 23:58:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

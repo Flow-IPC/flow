@@ -225,7 +225,8 @@ Functions</h2></td></tr>
 <p ><code>apply_*()</code> shall return <code>true</code> (success). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec" name="a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec"></a>S_SKIP&#160;</td><td class="fielddoc"><p >The holistically-checked cumulative <code>Value_set</code> has contents such that the validator function decided that the <em>current</em> <code>apply_*()</code> shall have no effect, meaning the <code>Value_set</code> candidate shall remain unchanged from just-before that <em>current</em> <code>apply_*()</code>; if this is the final config-source (ex: file), that unchanged candidate shall be canonicalized. </p>
-<p ><code>apply_*()</code> shall return <code>true</code> (success). </p>
+<p ><code>apply_*()</code> shall return <code>true</code> (success).</p>
+<p ><code>S_SKIP</code> shall also have this effect on all subsequently scanned <code>Value_set</code>s in the same <code>apply_static()</code>, <code>apply_dynamic()</code>, or <code>apply_static_and_dynamic()</code> call; that is to say one SKIPped <code>Value_set</code> causes all subsequent ones to behave as-if they too were SKIPped. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316" name="a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316"></a>S_FAIL&#160;</td><td class="fielddoc"><p >The holistically-checked cumulative <code>Value_set</code> has invalid contents; the candidate shall be rejected, and <code>apply_*()</code> shall return <code>false</code> (failure). </p>
 </td></tr>
@@ -633,7 +634,7 @@ template&lt;typename Value &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Mar 10 2024 15:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Mar 11 2024 23:57:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
