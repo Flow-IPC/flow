@@ -313,6 +313,14 @@ jobs:
           cat $SAN_SUPP_CFG
           echo '--file ]]]'
         fi
+      setup-run-env: |
+        if [ '${{ matrix.build-test-cfg.sanitizer-name }}' = asan ]; then
+          export BUILT_CMD_PREFIX='setarch -R'
+          echo 'Shall use `setarch -R` to disable ASLR to avoid ASAN-built binary misbehavior.'
+        elif [ '${{ matrix.build-test-cfg.sanitizer-name }}' = tsan ]; then
+          export BUILT_CMD_PREFIX='setarch -R'
+          echo 'Shall use `setarch -R` to disable ASLR to avoid TSAN-built binary misbehavior.'
+        fi
 
     steps:
     - name: Update available software list for apt-get
@@ -397,10 +405,37 @@ jobs:
         EOF
 
     - name: Install Flow dependencies with Conan using the profile
-      run: conan install . --profile:build conan_profile --profile:host conan_profile --build missing
+      run: |
+        # Install Flow dependencies with Conan using the profile.
+        ${{ env.setup-run-env }}
+        # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        $BUILT_CMD_PREFIX \
+          conan install . --profile:build conan_profile --profile:host conan_profile --build missing || FAILED=yep
+        # Dep build failure is easy to diagnose from stdout/err, unless it happens during a `configure`;
+        # then it'll often print something insane like "checking size of void *... 0" and suggest looking at
+        # config.log... which will usually reveal the true problem, like a seg-fault or TSAN-triggered problem
+        # running the configure-generated test program.  So let's get all the `config.log`s we can find
+        # and put them where later the log artifact tarball will be sourced; recreate the same dir structure as
+        # in the Conan dep build area, but include only the `config.log` files.  Note: This is probably only truly
+        # useful if indeed the above command fails; but can't hurt to include it regardless.
+        SRC=/home/runner/.conan/data
+        DST=${{ env.install-dir }}/bin/logs/dep_build/conan-data
+        find $SRC -name config.log | while read -r config_log; do
+          # Remove the $SRC part of the path to get a relative path.
+          REL_PATH="${config_log#$SRC/}"
+          # Determine the directory path within $DST where the config.log should be copied.
+          DST_DIR="$DST/${REL_PATH%/*}"
+          mkdir -p "$DST_DIR"
+          cp -v "$config_log" "$DST_DIR"
+        done
+        [ "$FAILED" != yep ]
 
     - name: Build library and demos/tests with Conan
-      run: conan build .
+      run: |
+        # Build libraries and demos/tests with Conan.
+        ${{ env.setup-run-env }}
+        # At least capnp compiler binary is built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        $BUILT_CMD_PREFIX conan build .
 
     - name: Install built targets with Makefile
       run: |
@@ -429,9 +464,10 @@ jobs:
         { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
             > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
         ${{ env.setup-tests-env }}
-        ./net_flow_echo_srv.exec 8888 localhost > $OUT_DIR/srv.console.log 2>&1 &
+        ${{ env.setup-run-env }}
+        $BUILT_CMD_PREFIX ./net_flow_echo_srv.exec 8888 localhost > $OUT_DIR/srv.console.log 2>&1 &
         sleep 1
-        if ./net_flow_echo_cli.exec 1 127.0.01 8888 'Hello world!' > $OUT_DIR/cli.console.log 2>&1; \
+        if $BUILT_CMD_PREFIX ./net_flow_echo_cli.exec 1 127.0.01 8888 'Hello world!' > $OUT_DIR/cli.console.log 2>&1; \
           then EC=0; else EC=$?; fi
         echo "Client finished with code [$EC]."
         echo 'Server may print exception due to SIGTERM interruption; that is fine.'
