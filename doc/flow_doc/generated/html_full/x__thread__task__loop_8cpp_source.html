@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -540,7 +540,7 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1async_html_a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f"><div class="ttname"><a href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::Synchronicity::S_ASYNC</a></div><div class="ttdeci">@ S_ASYNC</div><div class="ttdoc">Simply post the given task to execute asynchronously in some execution context – as soon as the conte...</div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25"><div class="ttname"><a href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25">flow::async::Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</a></div><div class="ttdeci">@ S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</div><div class="ttdoc">Same as Synchronicity::S_ASYNC but the posting routine then waits as long as necessary for the given ...</div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a2b92feccafa90bce16db57131c0fcd9e"><div class="ttname"><a href="namespaceflow_1_1async.html#a2b92feccafa90bce16db57131c0fcd9e">flow::async::Strand_ptr</a></div><div class="ttdeci">boost::shared_ptr&lt; util::Strand &gt; Strand_ptr</div><div class="ttdoc">Short-hand for ref-counted pointer to util::Strand.</div><div class="ttdef"><b>Definition:</b> <a href="async__fwd_8hpp_source.html#l00212">async_fwd.hpp:212</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1async_html_a4cce43f39672e80cba5512103c53ae60"><div class="ttname"><a href="namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60">flow::async::cpu_idx</a></div><div class="ttdeci">uint16_t cpu_idx()</div><div class="ttdoc">Returns the 0-based processor logical (not hardware) core index of the core executing the calling thr...</div><div class="ttdef"><b>Definition:</b> <a href="async_8cpp_source.html#l00033">async.cpp:33</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1async_html_a4cce43f39672e80cba5512103c53ae60"><div class="ttname"><a href="namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60">flow::async::cpu_idx</a></div><div class="ttdeci">uint16_t cpu_idx()</div><div class="ttdoc">Returns the 0-based processor logical (not hardware) core index of the core executing the calling thr...</div><div class="ttdef"><b>Definition:</b> <a href="async_8cpp_source.html#l00030">async.cpp:30</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a5dad6aeb3cf4219833e18343bec0b423"><div class="ttname"><a href="namespaceflow_1_1async.html#a5dad6aeb3cf4219833e18343bec0b423">flow::async::op_to_exec_ctx&lt; Strand_ptr &gt;</a></div><div class="ttdeci">Strand_ptr op_to_exec_ctx&lt; Strand_ptr &gt;(Concurrent_task_loop *loop, const Op &amp;op)</div><div class="ttdoc">Template specialization for operation that obtains the underlying execution context,...</div><div class="ttdef"><b>Definition:</b> <a href="x__thread__task__loop_8cpp_source.html#l00420">x_thread_task_loop.cpp:420</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a968806f54b14c697fd76b3339a2bdbbf"><div class="ttname"><a href="namespaceflow_1_1async.html#a968806f54b14c697fd76b3339a2bdbbf">flow::async::Task_engine_ptr</a></div><div class="ttdeci">boost::shared_ptr&lt; util::Task_engine &gt; Task_engine_ptr</div><div class="ttdoc">Short-hand for reference-counting pointer to a mutable util::Task_engine (a/k/a boost::asio::io_servi...</div><div class="ttdef"><b>Definition:</b> <a href="async__fwd_8hpp_source.html#l00198">async_fwd.hpp:198</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_ac2f32e9fc685e2e9013900b100321fff"><div class="ttname"><a href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff">flow::async::optimal_worker_thread_count_per_pool</a></div><div class="ttdeci">unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger *logger_ptr, bool est_hw_core_sharing_helps_algo)</div><div class="ttdoc">Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...</div><div class="ttdef"><b>Definition:</b> <a href="concurrent__task__loop_8cpp_source.html#l00035">concurrent_task_loop.cpp:35</a></div></div>
@@ -561,7 +561,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Mar 20 2024 04:45:33 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Mon Mar 25 2024 07:55:05 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
