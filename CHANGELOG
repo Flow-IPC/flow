@@ -1,2 +1,6 @@
 Version 1.0.0 (Mar 2024)
  * Initial open-source release.
+
+Version 1.0.1 (Mar 2024)
+ * Comment and/or doc changes.
+ * Removed certain minor internal dead code related to macOS.

@@ -210,11 +210,14 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
     if (code != 0)
     {
       /* I don't know/understand Mach error code system, and there are no `man` pages as such that I can find
-       * (including on Internet) -- though brief kernel code perusal suggests fiarly strongly it's not simply errno
+       * (including on Internet) -- though brief kernel code perusal suggests fairly strongly it's not simply errno
        * here -- so let's just save the numeric code in a general runtime error exception string; hence do not
        * use Error_code-taking Runtime_exception as we would normally for a nice message.  @todo If we wanted
        * to we could make a whole boost.system error category for these Mach errors, etc. etc.  Maybe someone has.
-       * Maybe Boost has!  Who knows?  We don't care about this corner case at the moment and doubtful if ever will. */
+       * Maybe Boost has!  Who knows?  We don't care about this corner case at the moment and doubtful if ever will.
+       * @todo For sure though should use error::Runtime_error here, the ctor that takes no Error_code.
+       * That ctor did not exist when the present code was written; as of this writing Flow is Linux-only.
+       * Would do it right now but lack the time to verify any changes for Mac at the moment. */
       throw runtime_error(ostream_op_string("[MACH_KERN_RETURN_T:", code,
                                             "] [thread_policy_set(THREAD_AFFINITY_POLICY) failed]"));
     }
