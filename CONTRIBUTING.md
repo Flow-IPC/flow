@@ -18,4 +18,4 @@ By contributing, you agree that your contributions will be licensed under its Ap
 ## Coding style
 
 Please ensure that your code changes or additions match the current coding style used by the project.
-This is formalized in the file doc-coding_style.cpp.
+This is formalized in the file `doc-coding_style.cpp`.
