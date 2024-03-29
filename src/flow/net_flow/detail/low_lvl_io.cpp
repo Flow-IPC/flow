@@ -372,7 +372,7 @@ void Node::async_low_lvl_packet_send_impl(const util::Udp_endpoint& low_lvl_remo
    * `packet`'s ref-count would drop to zero at method exit just below, and hence async_send_to() asynchronously
    * would crash a little later.)
    *
-   * Update: Through empirical evidence, I found that, at least with Boost 1.63 and Mac OS X, UDP async_send_to()
+   * Update: Through empirical evidence, I found that, at least with Boost 1.63 and macOS, UDP async_send_to()
    * below will silently truncate to the first 64 elements of raw_bufs.  I could find no evidence of this being
    * a common OS limitation (I've found other limits like 1024 in Linux for writev()), though I didn't dig very hard.
    * The silent truncation was quite alarming and something to look into if only for educational purposes.
