@@ -166,7 +166,7 @@ using Strand = Task_engine::strand;
  *     (Note: This Linux's `glibc` is too old to provide the `timerfd` API, therefore Boost falls back to
  *     using `epoll_wait()` directly; on a newer Linux this may get better results.)
  *   - Windows 7: 15 millisecond resolution, with little variance.
- *   - Mac OS X: untested.  @todo Test Mac OS X timer fidelity.
+ *   - macOS: untested.  @todo Test macOS timer fidelity.
  *
  * These results were observed for BOTH `deadline_timer` and `basic_waitable_timer<Fine_clock>`
  * in Boost 1.50.  Thus, there was no resolution advantage to using the latter -- only an interface advantage.

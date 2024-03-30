@@ -105,7 +105,7 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
   using ::thread_policy_set;
   // using ::THREAD_AFFINITY_POLICY; // Nope; it's a #define.
 #else
-#  error "We only know how to deal with thread-core affinities in Darwin/Mac and Linux."
+  static_assert(false, "We only know how to deal with thread-core affinities in Darwin/Mac and Linux.");
 #endif
   using boost::system::system_category;
   using std::runtime_error;
@@ -223,7 +223,7 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
     }
     // else OK!
 #else
-#  error "Compiler should not have reached this point; serious bug?"
+    static_assert(false, "Compiler should not have reached this point; serious bug?");
 #endif
   } // for (thread_idx in [0, n_pool_threads))
 } // optimize_pinning_in_thread_pool()

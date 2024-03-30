@@ -60,7 +60,8 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
   if (also_set_os_name)
   {
 #ifndef FLOW_OS_LINUX
-#  error "this_thread_set_logged_nickname() also_set_os_name implementation is for Linux only."
+    static_assert(false, "this_thread_set_logged_nickname() also_set_os_name implementation is for Linux only "
+                           "for now.");
     /* `man pthread_setname_np` works in Darwin/Mac but is very short, and there is no `man pthread_getname_np`.
      * It might work fine for Mac, but it's untested, and I (ygoldfel) didn't want to deal with it yet.
      * In particular it's unclear if the MAX_PTHREAD_NAME_SZ would apply (it's not in `man` for Mac)... etc.

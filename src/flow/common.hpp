@@ -72,6 +72,7 @@
  * of the headers.  So at least C++14 has been required for ages in actual practice.  Later, notched it up to C++17
  * by similar logic. */
 #if (!defined(__cplusplus)) || (__cplusplus < 201703L)
+// Would use static_assert(false), but... it's C++11 and later only.  So.
 #  error "To compile a translation unit that `#include`s any flow/ API headers, use C++17 compile mode or later."
 #endif
 

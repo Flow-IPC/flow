@@ -678,7 +678,7 @@ public:
 #    define FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX 1
 #    define FLOW_ASYNC_HW_THREAD_AFFINITY_MACH_VIA_POLICY_TAG 0
 #  else
-#    error "We only know how to deal with thread-core affinities in Darwin/Mac and Linux."
+static_assert(false, "We only know how to deal with thread-core affinities in Darwin/Mac and Linux.");
 #  endif
 
 #endif // elif !defined(FLOW_DOXYGEN_ONLY)
