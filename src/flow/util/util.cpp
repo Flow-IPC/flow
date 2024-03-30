@@ -188,7 +188,8 @@ size_t deep_size(const std::string& val)
   // We're following the loose pattern explained at the end of Async_file_logger::mem_cost().
 
 #if (!defined(__GNUC__)) || (!defined(__x86_64__))
-#  error "An estimation trick below has only been checked with x64 gcc and clang.  Revisit code for other envs."
+  static_assert(false, "An estimation trick below has only been checked with x64 gcc and clang.  "
+                         "Revisit code for other envs.");
 #endif
 
   /* If it is long enough to not fit inside the std::string object itself

@@ -1388,7 +1388,15 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
 // -- BEST PRACTICES: Error handling --
 
 // - Do: Use assert() for bad arg values as much as possible *unless* returning an error is worth it to user. -
-// - Do: Use static_assert() for compile-time checks. -
+// - Do: Use static_assert() for compile-time checks, or after failing an #if[def] (or other) compile-time check. -
+/* - Do not: Use `#error "<message>"` after failing an #if[def] (or other) compile-time check. -
+ *
+ * `static_assert(false, "<message>")` is quite a bit more convenient. */
+// - Do: Use `if constexpr()` for compile-time checks. -
+/* - Avoid: using SFINAE (look it up please) -- when possible. -
+ *
+ * SFINAE is tough to comprehend and code. `if constexpr()` often makes it unnecessary and is much easier
+ * to follow and code. */
 
 /* - Do: Use Flow's standard error reporting convention/boiler-plate when returning errors from a public lib API. -
  *
