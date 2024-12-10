@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.2</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -260,20 +260,21 @@ $(function() {
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>  <span class="comment">// We&#39;re following the loose pattern explained at the end of Async_file_logger::mem_cost().</span></div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="preprocessor">#if (!defined(__GNUC__)) || (!defined(__x86_64__))</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="preprocessor">#  error &quot;An estimation trick below has only been checked with x64 gcc and clang.  Revisit code for other envs.&quot;</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>  <span class="comment">/* If it is long enough to not fit inside the std::string object itself</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">   * (common optimization in STL: Small String Optimization), then it&#39;ll allocate a buffer in heap.</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">   * We could even determine whether it actually happened here at runtime, but that wastes cycles</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">   * (original use case is in log::Async_file_logger specifically where every cycle counts).</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">   * Instead we&#39;ve established experimentally that with default STL and clangs 4-17 and gccs 5-13</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">   * SSO is active for .capacity() &lt;= 15.  @todo Check LLVM libc++ too.  Prob same thing... SSO is well established. */</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keyword">const</span> <span class="keyword">auto</span> sz = val.capacity();</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordflow">return</span> (sz &lt;= 15) ? 0 : sz;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>} <span class="comment">// namespace flow::util</span></div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keyword">static_assert</span>(<span class="keyword">false</span>, <span class="stringliteral">&quot;An estimation trick below has only been checked with x64 gcc and clang.  &quot;</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                         <span class="stringliteral">&quot;Revisit code for other envs.&quot;</span>);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>  <span class="comment">/* If it is long enough to not fit inside the std::string object itself</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">   * (common optimization in STL: Small String Optimization), then it&#39;ll allocate a buffer in heap.</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">   * We could even determine whether it actually happened here at runtime, but that wastes cycles</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">   * (original use case is in log::Async_file_logger specifically where every cycle counts).</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment">   * Instead we&#39;ve established experimentally that with default STL and clangs 4-17 and gccs 5-13</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment">   * SSO is active for .capacity() &lt;= 15.  @todo Check LLVM libc++ too.  Prob same thing... SSO is well established. */</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keyword">const</span> <span class="keyword">auto</span> sz = val.capacity();</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>  <span class="keywordflow">return</span> (sz &lt;= 15) ? 0 : sz;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>} <span class="comment">// namespace flow::util</span></div>
 <div class="ttc" id="aclassboost_1_1chrono_1_1duration__units__default_html"><div class="ttname"><a href="classboost_1_1chrono_1_1duration__units__default.html">boost::chrono::duration_units_default</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Duration__units__beautified_html"><div class="ttname"><a href="classflow_1_1util_1_1Duration__units__beautified.html">flow::util::Duration_units_beautified</a></div><div class="ttdoc">Internally used class that enables some of the activities of beautify_chrono_ostream() API.</div><div class="ttdef"><b>Definition:</b> <a href="util_8cpp_source.html#l00041">util.cpp:42</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Duration__units__beautified_html_a1fe87e2f94792415055398097e6d494b"><div class="ttname"><a href="classflow_1_1util_1_1Duration__units__beautified.html#a1fe87e2f94792415055398097e6d494b">flow::util::Duration_units_beautified::Duration_units_beautified</a></div><div class="ttdeci">Duration_units_beautified()</div><div class="ttdoc">Constructs.</div><div class="ttdef"><b>Definition:</b> <a href="util_8cpp_source.html#l00110">util.cpp:110</a></div></div>
@@ -290,7 +291,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 25 2024 07:55:05 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sat Mar 30 2024 01:24:53 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

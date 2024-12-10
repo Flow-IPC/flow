@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.2</span>
    </div>
    <div id="projectbrief">Flow project: Public API.</div>
   </td>
@@ -142,7 +142,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">throw</span> <a class="code hl_class" href="classflow_1_1error_1_1Runtime__error.html">flow::error::Runtime_error</a>(code, <span class="stringliteral">&quot;Additional context info here!&quot;</span>);</div>
 <div class="ttc" id="aclassflow_1_1error_1_1Runtime__error_html"><div class="ttname"><a href="classflow_1_1error_1_1Runtime__error.html">flow::error::Runtime_error</a></div><div class="ttdoc">An std::runtime_error (which is an std::exception) that stores an Error_code.</div><div class="ttdef"><b>Definition:</b> error.hpp:49</div></div>
 <div class="ttc" id="anamespaceflow_1_1net__flow_1_1error_html_a18e13de77b119ea0f2be411490859482aa220d89e1d0e34bab02ed2fc7512be9b"><div class="ttname"><a href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482aa220d89e1d0e34bab02ed2fc7512be9b">flow::net_flow::error::Code::S_CONN_REFUSED</a></div><div class="ttdeci">@ S_CONN_REFUSED</div><div class="ttdoc">Other side refused connection.</div></div>
-<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> common.hpp:502</div></div>
+<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> common.hpp:503</div></div>
 </div><!-- fragment --><h3>Discussion</h3>
 <p >The contents of this <code>namespace</code> is one instance (and model example) for how one can easily create their own simple error code set <code>enum</code> (and corresponding string messages) and hook it into the flexible, yet maximally fast, <a class="el" href="namespaceboost_1_1system.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost.system</a> error facility. Another example (a peer of ours) would be boost.asio's error code set. See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> doc header for a top-down summary of the Flow-used-and-recommended error reporting system.</p>
 <p >For <a class="el" href="namespaceboost_1_1system.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost.system</a> experts wondering whether there is support for <code>error_condition</code> equivalence (i.e., the ability to compare a given <code>flow::error::error_code</code> to a more general <code>boost::system::error_condition</code>), currently the answer is no, there isn't. We may add <code>error_condition</code>s as <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> usage patterns emerge over time. </p>
@@ -264,7 +264,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 25 2024 07:55:03 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sat Mar 30 2024 01:24:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

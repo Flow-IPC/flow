@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.2</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -219,7 +219,7 @@ Variables</h2></td></tr>
 <h3>Basic error-emitting API semantics</h3>
 <p >All error-reporting Flow APIs follow the following pattern of error reporting semantics. Each API looks something like:</p>
 <div class="fragment"><div class="line">return_type Some_class::some_op(..., <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a>* err_code)</div>
-<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00502">common.hpp:502</a></div></div>
+<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00503">common.hpp:503</a></div></div>
 </div><!-- fragment --><p >Then, there are two possibilities. If you pass in non-null <code>err_code</code>, then after return <code>*err_code</code> is success (falsy) or a truthy <code>enum</code>-like value, representing a specific error. If, instead, you pass in null, then a <a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">flow::error::Runtime_error()</a> <code>exc</code> is thrown if and only if <code>*err_code</code> would have been set to truthy value <code>e_c</code> had a non-null <code>err_code</code> been passed in. If such an exception is thrown, <code>Error_code e_c</code> is encapsulated in exception object <code>exc</code>. If and only if no exception is thrown, there was no error (<code>*err_code</code> would have been falsy).</p>
 <p >Thus, you get the best of both worlds: you can get the simplicity and performance of an error code; or the various features of an exception (including access to the error code via <code>exc.code()</code> if desired), with the same API signature. (boost.asio follows a similar concept, though it requires two API signatures for each operation, one without an <code>Error_code</code> argument, and one with non-<code>const</code> <code>Error_code&amp;</code> out-arg. The above convention is more compact; plus we provide certain tools to reduce boiler-plate in connection with this.)</p>
 <h3>Intro to <code>Error_code</code>, a/k/a <a class="el" href="namespaceboost_1_1system.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost.system</a> <code>error_code</code></h3>
@@ -245,7 +245,7 @@ Variables</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd>The doc header (and code inside) <code>namespace</code> <a class="el" href="namespaceflow_1_1net__flow_1_1error.html" title="Namespace containing the net_flow module&#39;s extension of boost.system error conventions,...">flow::net_flow::error</a> is a good primer showing how to create an <code><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a></code>-compatible set of <a class="el" href="namespaceflow_1_1error.html" title="Flow module that facilitates working with error codes and exceptions; essentially comprised of niceti...">error</a> codes. This is easier to understand than boost.asio's counterpart for example.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd><a class="el" href="namespaceboost_1_1system.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost.system</a> at some point &ndash; I (ygoldfel) am fairly sure after I designed the above ages ago &ndash; introduced an alternate idiom for passing an <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> out-arg that is to be ignored in favor of throwing an exception if omitted. We use the idiom: <code>Error_code*</code> out-arg, throw if null. They, instead propose: <code>Error_code&amp;</code> out-arg, throw if it equals <code>boost::system::throws()</code>. That's great, too, but actually our idiom hews to another bit of the Flow coding style/guide, wherein out-args should be pointers, not non-<code>const</code> references &ndash; and is otherwise very similar. So it's fine. Note that their idiom vs. ours = orthogonal to the main difficulty which is the boiler-plate associated with actually throwing vs. non-throwing; this would be required regardless of the API idiom chosen. The above (involving <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a>, etc.) is really the main crux of it. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00502">502</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00503">503</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -269,7 +269,7 @@ Variables</h2></td></tr>
 </ul>
 <p >So basically it's a precise clock with no surprises (which is more than can be said for stuff people tend to be forced to use, like <code>gettimeofday()</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00404">404</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00405">405</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -287,7 +287,7 @@ Variables</h2></td></tr>
 
 <p>A high-res time duration as computed from two <code>Fine_time_pt</code>s. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00410">410</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00411">411</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -305,7 +305,7 @@ Variables</h2></td></tr>
 
 <p>A high-res time point as returned by <code>Fine_clock::now()</code> and suitable for precise time math in general. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00407">407</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00408">408</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -323,7 +323,7 @@ Variables</h2></td></tr>
 
 <p>Signed byte. Prefer to use <code>uint8_t</code> when representing binary data. This is 8 bits on all modern systems. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00387">387</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00388">388</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -341,7 +341,7 @@ Variables</h2></td></tr>
 
 <p>Byte. Best way to represent a byte of binary data. This is 8 bits on all modern systems. </p>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00385">385</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00386">386</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -396,7 +396,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00631">631</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="common_8hpp_source.html#l00632">632</a> of file <a class="el" href="common_8hpp_source.html">common.hpp</a>.</p>
 
 </div>
 </div>
@@ -431,7 +431,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 25 2024 07:55:06 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sat Mar 30 2024 01:24:53 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

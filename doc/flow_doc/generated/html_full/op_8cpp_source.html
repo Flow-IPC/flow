@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.2</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -145,7 +145,7 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace flow::async</span></div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00506">common.hpp:506</a></div></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00507">common.hpp:507</a></div></div>
 <div class="ttc" id="aclassflow_1_1async_1_1Op__list_html_a1aff00b9e7b67eb1bc4070533614dfc3"><div class="ttname"><a href="classflow_1_1async_1_1Op__list.html#a1aff00b9e7b67eb1bc4070533614dfc3">flow::async::Op_list::random_op</a></div><div class="ttdeci">const Op &amp; random_op(size_t *chosen_idx=0) const</div><div class="ttdoc">Returns (*this)[R], where we randomly select R as if by random_idx() and communicate it to the caller...</div><div class="ttdef"><b>Definition:</b> <a href="op_8cpp_source.html#l00051">op.cpp:51</a></div></div>
 <div class="ttc" id="aclassflow_1_1async_1_1Op__list_html_a3b9f96cfd38891bb254bf386c6e91df1"><div class="ttname"><a href="classflow_1_1async_1_1Op__list.html#a3b9f96cfd38891bb254bf386c6e91df1">flow::async::Op_list::Op_list</a></div><div class="ttdeci">Op_list(log::Logger *logger_ptr, size_t n_ops, const Create_op_func &amp;create_op_func)</div><div class="ttdoc">Populates the async::Op list, which is immutable after this returns.</div><div class="ttdef"><b>Definition:</b> <a href="op_8cpp_source.html#l00026">op.cpp:26</a></div></div>
 <div class="ttc" id="aclassflow_1_1async_1_1Op__list_html_a55134b36cc93325a85131a8efc0843c2"><div class="ttname"><a href="classflow_1_1async_1_1Op__list.html#a55134b36cc93325a85131a8efc0843c2">flow::async::Op_list::m_rnd_op_idx</a></div><div class="ttdeci">util::Rnd_gen_uniform_range_mt&lt; size_t &gt; m_rnd_op_idx</div><div class="ttdoc">Random number facility for generating random indices in [0, m_ops.size()).</div><div class="ttdef"><b>Definition:</b> <a href="op_8hpp_source.html#l00148">op.hpp:148</a></div></div>
@@ -160,12 +160,12 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1async_html"><div class="ttname"><a href="namespaceflow_1_1async.html">flow::async</a></div><div class="ttdoc">Flow module containing tools enabling multi-threaded event loops operating under the asynchronous-tas...</div><div class="ttdef"><b>Definition:</b> <a href="async__fwd_8hpp_source.html#l00074">async_fwd.hpp:75</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a024042c64b7dc544a7a5587afa4b1949"><div class="ttname"><a href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949">flow::async::Op</a></div><div class="ttdeci">boost::any Op</div><div class="ttdoc">An object of this opaque type represents a collection of 1 or more async::Task, past or future,...</div><div class="ttdef"><b>Definition:</b> <a href="async__fwd_8hpp_source.html#l00153">async_fwd.hpp:153</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1async_html_a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f"><div class="ttname"><a href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::Synchronicity::S_ASYNC</a></div><div class="ttdeci">@ S_ASYNC</div><div class="ttdoc">Simply post the given task to execute asynchronously in some execution context – as soon as the conte...</div></div>
-<div class="ttc" id="anamespaceflow_html_a3938730ab4b89daf13d027a5f620e7ce"><div class="ttname"><a href="namespaceflow.html#a3938730ab4b89daf13d027a5f620e7ce">flow::Flow_log_component</a></div><div class="ttdeci">Flow_log_component</div><div class="ttdoc">The flow::log::Component payload enumeration comprising various log components used by Flow's own int...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00631">common.hpp:632</a></div></div>
+<div class="ttc" id="anamespaceflow_html_a3938730ab4b89daf13d027a5f620e7ce"><div class="ttname"><a href="namespaceflow.html#a3938730ab4b89daf13d027a5f620e7ce">flow::Flow_log_component</a></div><div class="ttdeci">Flow_log_component</div><div class="ttdoc">The flow::log::Component payload enumeration comprising various log components used by Flow's own int...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00632">common.hpp:633</a></div></div>
 <div class="ttc" id="aop_8hpp_html"><div class="ttname"><a href="op_8hpp.html">op.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 25 2024 07:55:05 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sat Mar 30 2024 01:24:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

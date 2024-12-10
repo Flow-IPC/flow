@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.1</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;1.0.2</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -1460,208 +1460,216 @@ $(function() {
 <div class="line"><a id="l01388" name="l01388"></a><span class="lineno"> 1388</span><span class="comment">// -- BEST PRACTICES: Error handling --</span></div>
 <div class="line"><a id="l01389" name="l01389"></a><span class="lineno"> 1389</span> </div>
 <div class="line"><a id="l01390" name="l01390"></a><span class="lineno"> 1390</span><span class="comment">// - Do: Use assert() for bad arg values as much as possible *unless* returning an error is worth it to user. -</span></div>
-<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span><span class="comment">// - Do: Use static_assert() for compile-time checks. -</span></div>
-<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span> </div>
-<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span><span class="comment">/* - Do: Use Flow&#39;s standard error reporting convention/boiler-plate when returning errors from a public lib API. -</span></div>
-<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span><span class="comment"> * This allows for returning both error codes (boost.system ones) for high perf *and* optionally wrapping that in</span></div>
-<div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span><span class="comment"> * an exception if so desired.  Read more starting in flow::Error_error code doc header.  See also some notes on error</span></div>
-<div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span><span class="comment"> * reporting in common.hpp. */</span></div>
-<div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span> </div>
-<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span><span class="comment">/* - Do: ...follow the following thoughts when considering using exceptions or not. -</span></div>
-<div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span><span class="comment"> * Question 1 is whether to optionally throw an exception on error at the *top* level of a given *public* *libary* API.</span></div>
-<div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span><span class="comment"> * That&#39;s covered in the previous guideline.  Here we talk about whether to throw exceptions *throughout* the</span></div>
-<div class="line"><a id="l01403" name="l01403"></a><span class="lineno"> 1403</span><span class="comment"> * implementation, which is a different question.  So, suppose an error has been detected.  Then:</span></div>
-<div class="line"><a id="l01404" name="l01404"></a><span class="lineno"> 1404</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01405" name="l01405"></a><span class="lineno"> 1405</span><span class="comment"> * Basic fact: Fastest is to assert().  Sometimes that&#39;s not sufficient for obvious reasons.  If so:</span></div>
-<div class="line"><a id="l01406" name="l01406"></a><span class="lineno"> 1406</span><span class="comment"> * Basic fact: Next fastest is, on error, to return an Error_code (or just a `bool` or similar, if truly sufficient).</span></div>
-<div class="line"><a id="l01407" name="l01407"></a><span class="lineno"> 1407</span><span class="comment"> *   This is very fast; it&#39;s just like returning an `int` (it&#39;s a couple of `int`s really internally but close enough).</span></div>
-<div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span><span class="comment"> * Basic fact: Finally, you can throw an exception.  This should be considered slow, and I leave it at that for</span></div>
-<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span><span class="comment"> *   simplicity.</span></div>
-<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span><span class="comment"> * HUGELY KEY FACT: *Not* throwing an exception (meaning no error was detected) is *just* as fast as returning</span></div>
-<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span><span class="comment"> *   a success code / false / zero / etc.  A tiny-tiny bit faster even.  A *potential* exception -- or 500 potential</span></div>
-<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span><span class="comment"> *   exceptions in a given call tree -- has zero perf cost, period.</span></div>
-<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span><span class="comment"> * Therefore this somewhat vague guideline: Avoid exceptions in internal implementations, as then there&#39;s no perf</span></div>
-<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span><span class="comment"> * question.  However, it may be very convenient to throw an exception sometimes; the stack unwinds and can make</span></div>
-<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span><span class="comment"> * some code so much simpler.  Then, consider using an exception... and do so if you can very confidently state this</span></div>
-<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span><span class="comment"> * will *not* cause a high rate of exceptions thrown in reality.  If there&#39;s any question about that, lean to avoiding</span></div>
-<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span><span class="comment"> * exception code paths after all.  If there isn&#39;t, feel free.  For example, as of this writing there are only a</span></div>
-<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span><span class="comment"> * small handful of such places in Flow, but they do exist.</span></div>
-<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span><span class="comment"> * See also some notes on internally thrown exceptions in common.hpp. */</span></div>
-<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span> </div>
-<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span><span class="comment">// -- BEST PRACTICES: Logging --</span></div>
-<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span> </div>
-<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span><span class="comment">/* - Log as much as possible and practical.  If verbosity+perf is a concern, just use the appropriate log::Sev. -</span></div>
-<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span><span class="comment"> * Do have some concern for the visual experience of reading the logs (shouldn&#39;t be TOO redundant and wordy).</span></div>
-<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span><span class="comment"> * [Rationale: Debuggers are great... but not always available when you need them.  Logging is superior to</span></div>
-<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span><span class="comment"> * relying on debuggers in almost every way; in many cases it even avoids the need to reproduce problem/bug, as it</span></div>
-<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span><span class="comment"> * can often be solved by looking at the logs.  Even if not, it&#39;s much easier to turn up verbosity and reproduce than</span></div>
-<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span><span class="comment"> * to attach a debugger or examine a core file.  The famous K&amp;R C book makes this wonderful, correct point.] */</span></div>
+<div class="line"><a id="l01391" name="l01391"></a><span class="lineno"> 1391</span><span class="comment">// - Do: Use static_assert() for compile-time checks, or after failing an #if[def] (or other) compile-time check. -</span></div>
+<div class="line"><a id="l01392" name="l01392"></a><span class="lineno"> 1392</span><span class="comment">/* - Do not: Use `#error &quot;&lt;message&gt;&quot;` after failing an #if[def] (or other) compile-time check. -</span></div>
+<div class="line"><a id="l01393" name="l01393"></a><span class="lineno"> 1393</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01394" name="l01394"></a><span class="lineno"> 1394</span><span class="comment"> * `static_assert(false, &quot;&lt;message&gt;&quot;)` is quite a bit more convenient. */</span></div>
+<div class="line"><a id="l01395" name="l01395"></a><span class="lineno"> 1395</span><span class="comment">// - Do: Use `if constexpr()` for compile-time checks. -</span></div>
+<div class="line"><a id="l01396" name="l01396"></a><span class="lineno"> 1396</span><span class="comment">/* - Avoid: using SFINAE (look it up please) -- when possible. -</span></div>
+<div class="line"><a id="l01397" name="l01397"></a><span class="lineno"> 1397</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01398" name="l01398"></a><span class="lineno"> 1398</span><span class="comment"> * SFINAE is tough to comprehend and code. `if constexpr()` often makes it unnecessary and is much easier</span></div>
+<div class="line"><a id="l01399" name="l01399"></a><span class="lineno"> 1399</span><span class="comment"> * to follow and code. */</span></div>
+<div class="line"><a id="l01400" name="l01400"></a><span class="lineno"> 1400</span> </div>
+<div class="line"><a id="l01401" name="l01401"></a><span class="lineno"> 1401</span><span class="comment">/* - Do: Use Flow&#39;s standard error reporting convention/boiler-plate when returning errors from a public lib API. -</span></div>
+<div class="line"><a id="l01402" name="l01402"></a><span class="lineno"> 1402</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01403" name="l01403"></a><span class="lineno"> 1403</span><span class="comment"> * This allows for returning both error codes (boost.system ones) for high perf *and* optionally wrapping that in</span></div>
+<div class="line"><a id="l01404" name="l01404"></a><span class="lineno"> 1404</span><span class="comment"> * an exception if so desired.  Read more starting in flow::Error_error code doc header.  See also some notes on error</span></div>
+<div class="line"><a id="l01405" name="l01405"></a><span class="lineno"> 1405</span><span class="comment"> * reporting in common.hpp. */</span></div>
+<div class="line"><a id="l01406" name="l01406"></a><span class="lineno"> 1406</span> </div>
+<div class="line"><a id="l01407" name="l01407"></a><span class="lineno"> 1407</span><span class="comment">/* - Do: ...follow the following thoughts when considering using exceptions or not. -</span></div>
+<div class="line"><a id="l01408" name="l01408"></a><span class="lineno"> 1408</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01409" name="l01409"></a><span class="lineno"> 1409</span><span class="comment"> * Question 1 is whether to optionally throw an exception on error at the *top* level of a given *public* *libary* API.</span></div>
+<div class="line"><a id="l01410" name="l01410"></a><span class="lineno"> 1410</span><span class="comment"> * That&#39;s covered in the previous guideline.  Here we talk about whether to throw exceptions *throughout* the</span></div>
+<div class="line"><a id="l01411" name="l01411"></a><span class="lineno"> 1411</span><span class="comment"> * implementation, which is a different question.  So, suppose an error has been detected.  Then:</span></div>
+<div class="line"><a id="l01412" name="l01412"></a><span class="lineno"> 1412</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01413" name="l01413"></a><span class="lineno"> 1413</span><span class="comment"> * Basic fact: Fastest is to assert().  Sometimes that&#39;s not sufficient for obvious reasons.  If so:</span></div>
+<div class="line"><a id="l01414" name="l01414"></a><span class="lineno"> 1414</span><span class="comment"> * Basic fact: Next fastest is, on error, to return an Error_code (or just a `bool` or similar, if truly sufficient).</span></div>
+<div class="line"><a id="l01415" name="l01415"></a><span class="lineno"> 1415</span><span class="comment"> *   This is very fast; it&#39;s just like returning an `int` (it&#39;s a couple of `int`s really internally but close enough).</span></div>
+<div class="line"><a id="l01416" name="l01416"></a><span class="lineno"> 1416</span><span class="comment"> * Basic fact: Finally, you can throw an exception.  This should be considered slow, and I leave it at that for</span></div>
+<div class="line"><a id="l01417" name="l01417"></a><span class="lineno"> 1417</span><span class="comment"> *   simplicity.</span></div>
+<div class="line"><a id="l01418" name="l01418"></a><span class="lineno"> 1418</span><span class="comment"> * HUGELY KEY FACT: *Not* throwing an exception (meaning no error was detected) is *just* as fast as returning</span></div>
+<div class="line"><a id="l01419" name="l01419"></a><span class="lineno"> 1419</span><span class="comment"> *   a success code / false / zero / etc.  A tiny-tiny bit faster even.  A *potential* exception -- or 500 potential</span></div>
+<div class="line"><a id="l01420" name="l01420"></a><span class="lineno"> 1420</span><span class="comment"> *   exceptions in a given call tree -- has zero perf cost, period.</span></div>
+<div class="line"><a id="l01421" name="l01421"></a><span class="lineno"> 1421</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01422" name="l01422"></a><span class="lineno"> 1422</span><span class="comment"> * Therefore this somewhat vague guideline: Avoid exceptions in internal implementations, as then there&#39;s no perf</span></div>
+<div class="line"><a id="l01423" name="l01423"></a><span class="lineno"> 1423</span><span class="comment"> * question.  However, it may be very convenient to throw an exception sometimes; the stack unwinds and can make</span></div>
+<div class="line"><a id="l01424" name="l01424"></a><span class="lineno"> 1424</span><span class="comment"> * some code so much simpler.  Then, consider using an exception... and do so if you can very confidently state this</span></div>
+<div class="line"><a id="l01425" name="l01425"></a><span class="lineno"> 1425</span><span class="comment"> * will *not* cause a high rate of exceptions thrown in reality.  If there&#39;s any question about that, lean to avoiding</span></div>
+<div class="line"><a id="l01426" name="l01426"></a><span class="lineno"> 1426</span><span class="comment"> * exception code paths after all.  If there isn&#39;t, feel free.  For example, as of this writing there are only a</span></div>
+<div class="line"><a id="l01427" name="l01427"></a><span class="lineno"> 1427</span><span class="comment"> * small handful of such places in Flow, but they do exist.</span></div>
+<div class="line"><a id="l01428" name="l01428"></a><span class="lineno"> 1428</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01429" name="l01429"></a><span class="lineno"> 1429</span><span class="comment"> * See also some notes on internally thrown exceptions in common.hpp. */</span></div>
+<div class="line"><a id="l01430" name="l01430"></a><span class="lineno"> 1430</span> </div>
+<div class="line"><a id="l01431" name="l01431"></a><span class="lineno"> 1431</span><span class="comment">// -- BEST PRACTICES: Logging --</span></div>
 <div class="line"><a id="l01432" name="l01432"></a><span class="lineno"> 1432</span> </div>
-<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span><span class="comment">// -- BEST PRACTICES: Types and type safety --</span></div>
-<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span> </div>
-<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span><span class="comment">/* - Do: Always ensure total const-correctness. -</span></div>
-<div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span><span class="comment"> * [Rationale: Probably most/all coders are familiar with this and likely agree.  But this is a const-correct shop,</span></div>
-<div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span><span class="comment"> * no exceptions, outside of working with ill-behaved outside libraries which may not be const-correct.] */</span></div>
-<div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span> </div>
-<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span><span class="comment">/* - Corollary: Do not: use C-style casts; const|reinterpret_cast&lt;&gt; are to be rare and always justified w/ comment. -</span></div>
-<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span><span class="comment"> * [Rationale: C-style cast, like `(T)x`, is always bad, as it allows type-unsafety and const-discarding without</span></div>
-<div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span><span class="comment"> * even clearly doing so.  Instead, use `static|dynamic|reinterpret|const_cast`, with the latter 2 used rarely</span></div>
-<div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span><span class="comment"> * when it is required to be type-unsafe and const-incorrect respectively.  Hence explain why you&#39;re doing it in those</span></div>
-<div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span><span class="comment"> * cases.] */</span></div>
-<div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span> </div>
-<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span><span class="comment">/* - Do: Learn lambdas ASAP.  Use them extensively.  There should be NO reason to use bind() or a functor. -</span></div>
-<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span><span class="comment"> * [Rationale: Can wax poetic here, but it&#39;s best understood by experience.  One sees the advantages quickly.</span></div>
-<div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span><span class="comment"> * Basically, lambdas are pithy, fast, and flexible ways to create function objects which is a constant need in</span></div>
-<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span><span class="comment"> * modern C++.  bind() was SPECTACULAR in C++03, but with C++11 lambdas its use cases are mainly subsumed, adding</span></div>
-<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span><span class="comment"> * not only clarity but performance (compiler is much more likely to inline/optimize cleverly, as it&#39;s a built-in</span></div>
-<div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span><span class="comment"> * language feature and not a crazy feature built in the library via C++ generic trickery).] */</span></div>
-<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span><span class="comment">// - Corollary: Async code flows can be expressed readably, helping resolve the biggest prob with async code flows. -</span></div>
-<div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span> </div>
-<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span><span class="comment">// - Do not: Use #define macros for constants.  Use typed `const`s. - [Rationale: Better for debugging, type safety.]</span></div>
-<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span><span class="comment">// - Corollary: Non-functional macros (#define without `()`) must be very rare, such as for an efficient logging API. -</span></div>
-<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span> </div>
-<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span><span class="comment">/* - Avoid: functional macros, period. -</span></div>
-<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span><span class="comment"> * See if it can be done with a function with minimal loss of syntactic sugar.  [Rationale: Debugging, type safety.]</span></div>
-<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span><span class="comment"> * If there is syntactic sugar lost that is absolutely essential, write as much as possible in a function; then wrap</span></div>
-<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span><span class="comment"> * that in a functional #define to add the necessary syntactic sugar.  (Example: __FILE__, __LINE__, __FUNCTION__</span></div>
-<div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span><span class="comment"> * are often auto-logged in logging APIs; a macro is needed to add these automatically at log call sites without</span></div>
-<div class="line"><a id="l01465" name="l01465"></a><span class="lineno"> 1465</span><span class="comment"> * coder having to do so every time.) */</span></div>
+<div class="line"><a id="l01433" name="l01433"></a><span class="lineno"> 1433</span><span class="comment">/* - Log as much as possible and practical.  If verbosity+perf is a concern, just use the appropriate log::Sev. -</span></div>
+<div class="line"><a id="l01434" name="l01434"></a><span class="lineno"> 1434</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01435" name="l01435"></a><span class="lineno"> 1435</span><span class="comment"> * Do have some concern for the visual experience of reading the logs (shouldn&#39;t be TOO redundant and wordy).</span></div>
+<div class="line"><a id="l01436" name="l01436"></a><span class="lineno"> 1436</span><span class="comment"> * [Rationale: Debuggers are great... but not always available when you need them.  Logging is superior to</span></div>
+<div class="line"><a id="l01437" name="l01437"></a><span class="lineno"> 1437</span><span class="comment"> * relying on debuggers in almost every way; in many cases it even avoids the need to reproduce problem/bug, as it</span></div>
+<div class="line"><a id="l01438" name="l01438"></a><span class="lineno"> 1438</span><span class="comment"> * can often be solved by looking at the logs.  Even if not, it&#39;s much easier to turn up verbosity and reproduce than</span></div>
+<div class="line"><a id="l01439" name="l01439"></a><span class="lineno"> 1439</span><span class="comment"> * to attach a debugger or examine a core file.  The famous K&amp;R C book makes this wonderful, correct point.] */</span></div>
+<div class="line"><a id="l01440" name="l01440"></a><span class="lineno"> 1440</span> </div>
+<div class="line"><a id="l01441" name="l01441"></a><span class="lineno"> 1441</span><span class="comment">// -- BEST PRACTICES: Types and type safety --</span></div>
+<div class="line"><a id="l01442" name="l01442"></a><span class="lineno"> 1442</span> </div>
+<div class="line"><a id="l01443" name="l01443"></a><span class="lineno"> 1443</span><span class="comment">/* - Do: Always ensure total const-correctness. -</span></div>
+<div class="line"><a id="l01444" name="l01444"></a><span class="lineno"> 1444</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01445" name="l01445"></a><span class="lineno"> 1445</span><span class="comment"> * [Rationale: Probably most/all coders are familiar with this and likely agree.  But this is a const-correct shop,</span></div>
+<div class="line"><a id="l01446" name="l01446"></a><span class="lineno"> 1446</span><span class="comment"> * no exceptions, outside of working with ill-behaved outside libraries which may not be const-correct.] */</span></div>
+<div class="line"><a id="l01447" name="l01447"></a><span class="lineno"> 1447</span> </div>
+<div class="line"><a id="l01448" name="l01448"></a><span class="lineno"> 1448</span><span class="comment">/* - Corollary: Do not: use C-style casts; const|reinterpret_cast&lt;&gt; are to be rare and always justified w/ comment. -</span></div>
+<div class="line"><a id="l01449" name="l01449"></a><span class="lineno"> 1449</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01450" name="l01450"></a><span class="lineno"> 1450</span><span class="comment"> * [Rationale: C-style cast, like `(T)x`, is always bad, as it allows type-unsafety and const-discarding without</span></div>
+<div class="line"><a id="l01451" name="l01451"></a><span class="lineno"> 1451</span><span class="comment"> * even clearly doing so.  Instead, use `static|dynamic|reinterpret|const_cast`, with the latter 2 used rarely</span></div>
+<div class="line"><a id="l01452" name="l01452"></a><span class="lineno"> 1452</span><span class="comment"> * when it is required to be type-unsafe and const-incorrect respectively.  Hence explain why you&#39;re doing it in those</span></div>
+<div class="line"><a id="l01453" name="l01453"></a><span class="lineno"> 1453</span><span class="comment"> * cases.] */</span></div>
+<div class="line"><a id="l01454" name="l01454"></a><span class="lineno"> 1454</span> </div>
+<div class="line"><a id="l01455" name="l01455"></a><span class="lineno"> 1455</span><span class="comment">/* - Do: Learn lambdas ASAP.  Use them extensively.  There should be NO reason to use bind() or a functor. -</span></div>
+<div class="line"><a id="l01456" name="l01456"></a><span class="lineno"> 1456</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01457" name="l01457"></a><span class="lineno"> 1457</span><span class="comment"> * [Rationale: Can wax poetic here, but it&#39;s best understood by experience.  One sees the advantages quickly.</span></div>
+<div class="line"><a id="l01458" name="l01458"></a><span class="lineno"> 1458</span><span class="comment"> * Basically, lambdas are pithy, fast, and flexible ways to create function objects which is a constant need in</span></div>
+<div class="line"><a id="l01459" name="l01459"></a><span class="lineno"> 1459</span><span class="comment"> * modern C++.  bind() was SPECTACULAR in C++03, but with C++11 lambdas its use cases are mainly subsumed, adding</span></div>
+<div class="line"><a id="l01460" name="l01460"></a><span class="lineno"> 1460</span><span class="comment"> * not only clarity but performance (compiler is much more likely to inline/optimize cleverly, as it&#39;s a built-in</span></div>
+<div class="line"><a id="l01461" name="l01461"></a><span class="lineno"> 1461</span><span class="comment"> * language feature and not a crazy feature built in the library via C++ generic trickery).] */</span></div>
+<div class="line"><a id="l01462" name="l01462"></a><span class="lineno"> 1462</span><span class="comment">// - Corollary: Async code flows can be expressed readably, helping resolve the biggest prob with async code flows. -</span></div>
+<div class="line"><a id="l01463" name="l01463"></a><span class="lineno"> 1463</span> </div>
+<div class="line"><a id="l01464" name="l01464"></a><span class="lineno"> 1464</span><span class="comment">// - Do not: Use #define macros for constants.  Use typed `const`s. - [Rationale: Better for debugging, type safety.]</span></div>
+<div class="line"><a id="l01465" name="l01465"></a><span class="lineno"> 1465</span><span class="comment">// - Corollary: Non-functional macros (#define without `()`) must be very rare, such as for an efficient logging API. -</span></div>
 <div class="line"><a id="l01466" name="l01466"></a><span class="lineno"> 1466</span> </div>
-<div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span><span class="comment">// - Corollary: Functional macros used in a local chunk of one file should be #undef`ed. -</span></div>
-<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span> </div>
-<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span><span class="comment">// - Do: Use `const T&amp;` for performance (instead of `T`) when relevant. -</span></div>
-<div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span> </div>
-<div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span><span class="comment">/* - Avoid: Using non-const `T&amp;` function args (use T* instead). -</span></div>
-<div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span><span class="comment"> * Hence if you have an out-arg of type T, take a pointer to T, not a reference to T.  (You can easily alias it to</span></div>
-<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span><span class="comment"> * a reference T&amp; inside the function, if you like it for syntactic sugar.)  If it can be null, you can use that as</span></div>
-<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span><span class="comment"> * a semantic tidbit meaning &quot;turn off the feature to do with this arg&quot;; if there&#39;s no need then just assert() it&#39;s not</span></div>
-<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span><span class="comment"> * null and move on.</span></div>
-<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span><span class="comment"> * Hence, when calling a function and passing an out-arg, it&#39;ll commonly look like: cool_func(&amp;modified_obj);</span></div>
-<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span><span class="comment"> * That&#39;s instead of: cool_func(modified_obj);</span></div>
+<div class="line"><a id="l01467" name="l01467"></a><span class="lineno"> 1467</span><span class="comment">/* - Avoid: functional macros, period. -</span></div>
+<div class="line"><a id="l01468" name="l01468"></a><span class="lineno"> 1468</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01469" name="l01469"></a><span class="lineno"> 1469</span><span class="comment"> * See if it can be done with a function with minimal loss of syntactic sugar.  [Rationale: Debugging, type safety.]</span></div>
+<div class="line"><a id="l01470" name="l01470"></a><span class="lineno"> 1470</span><span class="comment"> * If there is syntactic sugar lost that is absolutely essential, write as much as possible in a function; then wrap</span></div>
+<div class="line"><a id="l01471" name="l01471"></a><span class="lineno"> 1471</span><span class="comment"> * that in a functional #define to add the necessary syntactic sugar.  (Example: __FILE__, __LINE__, __FUNCTION__</span></div>
+<div class="line"><a id="l01472" name="l01472"></a><span class="lineno"> 1472</span><span class="comment"> * are often auto-logged in logging APIs; a macro is needed to add these automatically at log call sites without</span></div>
+<div class="line"><a id="l01473" name="l01473"></a><span class="lineno"> 1473</span><span class="comment"> * coder having to do so every time.) */</span></div>
+<div class="line"><a id="l01474" name="l01474"></a><span class="lineno"> 1474</span> </div>
+<div class="line"><a id="l01475" name="l01475"></a><span class="lineno"> 1475</span><span class="comment">// - Corollary: Functional macros used in a local chunk of one file should be #undef`ed. -</span></div>
+<div class="line"><a id="l01476" name="l01476"></a><span class="lineno"> 1476</span> </div>
+<div class="line"><a id="l01477" name="l01477"></a><span class="lineno"> 1477</span><span class="comment">// - Do: Use `const T&amp;` for performance (instead of `T`) when relevant. -</span></div>
+<div class="line"><a id="l01478" name="l01478"></a><span class="lineno"> 1478</span> </div>
+<div class="line"><a id="l01479" name="l01479"></a><span class="lineno"> 1479</span><span class="comment">/* - Avoid: Using non-const `T&amp;` function args (use T* instead). -</span></div>
 <div class="line"><a id="l01480" name="l01480"></a><span class="lineno"> 1480</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span><span class="comment"> * [Rationale: This might be surprising, as vast majority of coders (including STL, Boost) use non-const ref out-args.</span></div>
-<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span><span class="comment"> * This guideline may seem controversial (and it is, after all, optional though strongly encouraged) but consider this:</span></div>
-<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span><span class="comment"> *   - Using a pointer is no slower.  assert() (if applicable) costs little to nothing.</span></div>
-<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span><span class="comment"> *   - Using a pointer makes the call site *much* more expressive: You can see a thing may be modified.</span></div>
-<div class="line"><a id="l01485" name="l01485"></a><span class="lineno"> 1485</span><span class="comment"> *     Makes algorithm easier to understand at a glance.</span></div>
-<div class="line"><a id="l01486" name="l01486"></a><span class="lineno"> 1486</span><span class="comment"> *   - Using a pointer provides an easy way to &quot;turn off&quot; the arg which is commonly needed though of course not</span></div>
-<div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span><span class="comment"> *     universal.  When so used, the API is usually pithier than the alternative (requiring another arg, or a special</span></div>
-<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span><span class="comment"> *     value, or something).  For example, see how Flow&#39;s lib-API-error-returning convention works:</span></div>
-<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span><span class="comment"> *     if you pass in `Error_code* ec = null`, it&#39;ll throw exception on error; else it&#39;ll return normally and set</span></div>
-<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span><span class="comment"> *     *ec accordingly (including setting it no-error on success).</span></div>
-<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span><span class="comment"> * Try it.  You might like it.]</span></div>
-<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span><span class="comment"> * Not a hard rule.  In particular, `ostream&amp; os` is a common arg form by convention from STL and Boost.  Use your</span></div>
-<div class="line"><a id="l01494" name="l01494"></a><span class="lineno"> 1494</span><span class="comment"> * judgment. */</span></div>
-<div class="line"><a id="l01495" name="l01495"></a><span class="lineno"> 1495</span> </div>
-<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span><span class="comment">// -- BEST PRACTICES: General design do&#39;s and don&#39;ts --</span></div>
-<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span> </div>
-<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span><span class="comment">/* - Do: Use inheritance for &quot;is-a&quot; interfaces, as in Java interfaces (no, or very little, non-pure-virtual content). -</span></div>
-<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span><span class="comment"> * Class A = interface; describes how to use it as *only* 1+ pure virtual methods.</span></div>
-<div class="line"><a id="l01501" name="l01501"></a><span class="lineno"> 1501</span><span class="comment"> * Classes B, C = concrete types: Each B or C &quot;is-an&quot; A, so they use public inheritance B-&gt;A&lt;-C. */</span></div>
-<div class="line"><a id="l01502" name="l01502"></a><span class="lineno"> 1502</span><span class="comment">/* - Corollary: With wide-spread use of such interfaces, multiple inheritance becomes wide-spread... yet simple, as</span></div>
-<div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span><span class="comment"> *   one inherits only pure virtual method signatures and nothing else. - */</span></div>
-<div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span> </div>
-<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span><span class="comment">/* - Do: Use inheritance when adding capabilities to an existing concrete class, a/k/a &quot;is-a&quot; inheritance. -</span></div>
-<div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01507" name="l01507"></a><span class="lineno"> 1507</span><span class="comment"> * Class A = concrete class with capabilies X.</span></div>
-<div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span><span class="comment"> * Class B `public`ly inherits B-&gt;A and adds capabilities Y.  Therefore, B &quot;is-an&quot; A, plus it adds more capabilities</span></div>
-<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span><span class="comment"> * on top.  (This can of course continue indefinitely.  C can subclass B and add more stuff; etc. */</span></div>
-<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span> </div>
-<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span><span class="comment">/* - Avoid: Using inheritance to provide common capabilities to 2+ subclasses. -</span></div>
-<div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span><span class="comment"> * - Instead: Use composition. -</span></div>
-<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span><span class="comment"> * Composition = put common capabilities into a separate class; then instantiate data member(s) and/or local</span></div>
-<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span><span class="comment"> * variable(s) of that type; no need to derive from that type usually.</span></div>
-<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span><span class="comment"></span> </div>
-<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span><span class="comment"> * Two techniques are pretty common but should be avoided.</span></div>
-<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span><span class="comment"> *   - Classes B and C need common, stateful capabilities in class A.  Therefore, use `private` inheritance B-&gt;A&lt;-C.</span></div>
-<div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span><span class="comment"> *     Instead: Instantiate A in B and C, as needed (composition).</span></div>
-<div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span><span class="comment"> *   - Classes B and C implement interface A.  Therefore, use `public` B-&gt;A&lt;-C... *but also* B and C need</span></div>
-<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span><span class="comment"> *     common, stateful capabilities.  Therefore, add those capabilities into A as well making it not a clean interface.</span></div>
-<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span><span class="comment"> *     Instead: Keep the interface class A clean; create separate class A&#39; with the common, stateful capabilities;</span></div>
-<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span><span class="comment"> *     then instantiate A&#39; in B and C, as needed (composition).</span></div>
-<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span><span class="comment"> * *Not* a hard rule, but considering it before going ahead with non-interface-y inheritance = good design instinct.</span></div>
-<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span><span class="comment"> * [Rationale: For me (ygoldfel), this lesson took 10+ years to learn.  It is much more pleasant and flexible.</span></div>
-<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span><span class="comment"> * Using inheritance for this tends to be the result of not cleanly separating the notion of &quot;common interface&quot; (primary</span></div>
-<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span><span class="comment"> * purpose of inheritance) from that of &quot;common concrete code&quot; (typically easily done with composition).</span></div>
-<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span><span class="comment"> * There&#39;s also a certain beauty to a B-&gt;A&lt;-C relationship that tightly helps B and C reuse complex code stored in A,</span></div>
-<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span><span class="comment"> * while B and C don&#39;t care about each other.  What I&#39;ve learned over a long time is that this satisfaction becomes</span></div>
-<div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span><span class="comment"> * fleeting, when one has to tweak something about B-&gt;A or C-&gt;A, and suddenly one has to rejigger the whole setup.</span></div>
-<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span><span class="comment"> * Composition (where A is instantiated by each of B and C) helps make that process much simpler.</span></div>
-<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span><span class="comment"> * Among other things, A can be constructed/destroyed anytime; instantiated 2+ times simultaneously; etc.] */</span></div>
-<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span> </div>
-<div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span><span class="comment">/* - Corollary: `protected` non-pure non-`static` methods and `const` data members are OK, but consider composition. -</span></div>
-<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span><span class="comment"></span> </div>
-<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span><span class="comment">/* - Do not: use `protected` non-`const` data members (member of A, with inheritance B-&gt;A)! -</span></div>
-<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span><span class="comment"> * This breaks encapsulation; A is best designed to be self-contained; giving direct mutable access to B allows it to</span></div>
-<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span><span class="comment"> * break invariants of A; so now basically A and B become inter-related and must be maintained together, tightly</span></div>
-<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span><span class="comment"> * coupled.</span></div>
-<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span><span class="comment"> * Can&#39;t you just &quot;cheat&quot; by wrapping the access into a non-`const`-reference-returning `protected` accessor or</span></div>
-<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span><span class="comment"> * something?  Well, yes, but then you&#39;re still breaking the spirit of the guideline.  The spirit is the point.</span></div>
-<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span><span class="comment"> * Still, a protected method or accessor (if you must) is still better. */</span></div>
-<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span> </div>
-<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span> </div>
-<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span><span class="comment">/* - Do: Use the `_base` inheritance pattern when a T-parameterized class template C contains non-T-parameterized</span></div>
-<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span><span class="comment"> *   aliases/constants/etc. that must be usable without actually instantiating the template C&lt;T&gt; for some concrete</span></div>
-<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span><span class="comment"> *   `T`. -</span></div>
-<div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span><span class="comment"> * For example, in STL, `std::ios_base::app` (&quot;append&quot; file mode constant) is used without having to mention a full-on</span></div>
-<div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span><span class="comment"> * `basic_ostream&lt;char, [...]&gt;` (a/k/a `ostream`) nor any other such basic_ostream&lt;&gt; type.  Note</span></div>
-<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span><span class="comment"> * basic_ostream&lt;[...]&gt; inherits from `ios_base`.</span></div>
-<div class="line"><a id="l01556" name="l01556"></a><span class="lineno"> 1556</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span><span class="comment"> * Composition can also be often used.  However, think of it like this: &quot;Really I want to put the stuff right into</span></div>
-<div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span><span class="comment"> * C&lt;T&gt;, where it belongs, but then people can&#39;t use it easily without instantiating the template, so I&#39;ll just split</span></div>
-<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span><span class="comment"> * it off into a _base class.  I could just put the stuff entirely outside C&lt;T&gt;, but _base is a nicer pattern.&quot; */</span></div>
-<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span> </div>
-<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span><span class="comment">/* - Avoid: Adding public `static` methods into a class just because &quot;everything should be in a class.&quot; -</span></div>
-<div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span><span class="comment"> * - Instead: Is it really firmly linked conceptually to class C?  No?  Make it a free function then. -</span></div>
-<div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span><span class="comment"> * This isn&#39;t a hard rule at all.  For example, factory `static` methods are very common, and that&#39;s fine.</span></div>
-<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span><span class="comment"> * But that&#39;s different, because in that case it&#39;s essentially a constructor and *is* firmly linked conceptually to</span></div>
-<div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span><span class="comment"> * class C.  Plus, then this method can access C&#39;s insides (data members even), and that can be very useful.</span></div>
-<div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span><span class="comment"> * [Rationale: This isn&#39;t a hard rule at all.  Public `static` methods are common.  However, people tend to use classes</span></div>
-<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span><span class="comment"> * as, basically, namespaces that organize groups of public `static` methods.  This seems to be a result of the</span></div>
-<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span><span class="comment"> * pre-`namespace` era.  Now, one can just make an actual `namespace` if such grouping is desired.  Use judgment.] */</span></div>
-<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span> </div>
-<div class="line"><a id="l01572" name="l01572"></a><span class="lineno"> 1572</span><span class="comment">/* - Avoid: Using `friend` to &quot;cheat&quot; an otherwise intentional encapsulation design. -</span></div>
-<div class="line"><a id="l01573" name="l01573"></a><span class="lineno"> 1573</span><span class="comment"> * - Instead: Reconsider your design. -</span></div>
-<div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span><span class="comment"> *</span></div>
-<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span><span class="comment"> * This is NOT saying `friend`s shouldn&#39;t be used just because.  There are a few perfectly reasonable `friend` uses;</span></div>
-<div class="line"><a id="l01576" name="l01576"></a><span class="lineno"> 1576</span><span class="comment"> * a common one is for binary operators written as free functions (`string operator+(string, string)` and such).</span></div>
-<div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span><span class="comment"> * I won&#39;t try to enumerate them here.  Just saying: If it feels like you&#39;re using `friend` as an &quot;exception&quot; to an</span></div>
-<div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span><span class="comment"> * otherwise solid relationship between 2 encapsulating entities, then you might be abusing the existing design which</span></div>
-<div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span><span class="comment"> * can easily lead to more abuse and a mess over time.  Then, ask yourself if maybe that design can be amended. */</span></div>
-<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span> </div>
-<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span><span class="preprocessor">#  endif</span></div>
-<div class="line"><a id="l01582" name="l01582"></a><span class="lineno"> 1582</span><span class="preprocessor">#endif </span><span class="comment">// !defined(FLOW_DOXYGEN_ONLY)</span></div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00506">common.hpp:506</a></div></div>
+<div class="line"><a id="l01481" name="l01481"></a><span class="lineno"> 1481</span><span class="comment"> * Hence if you have an out-arg of type T, take a pointer to T, not a reference to T.  (You can easily alias it to</span></div>
+<div class="line"><a id="l01482" name="l01482"></a><span class="lineno"> 1482</span><span class="comment"> * a reference T&amp; inside the function, if you like it for syntactic sugar.)  If it can be null, you can use that as</span></div>
+<div class="line"><a id="l01483" name="l01483"></a><span class="lineno"> 1483</span><span class="comment"> * a semantic tidbit meaning &quot;turn off the feature to do with this arg&quot;; if there&#39;s no need then just assert() it&#39;s not</span></div>
+<div class="line"><a id="l01484" name="l01484"></a><span class="lineno"> 1484</span><span class="comment"> * null and move on.</span></div>
+<div class="line"><a id="l01485" name="l01485"></a><span class="lineno"> 1485</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01486" name="l01486"></a><span class="lineno"> 1486</span><span class="comment"> * Hence, when calling a function and passing an out-arg, it&#39;ll commonly look like: cool_func(&amp;modified_obj);</span></div>
+<div class="line"><a id="l01487" name="l01487"></a><span class="lineno"> 1487</span><span class="comment"> * That&#39;s instead of: cool_func(modified_obj);</span></div>
+<div class="line"><a id="l01488" name="l01488"></a><span class="lineno"> 1488</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01489" name="l01489"></a><span class="lineno"> 1489</span><span class="comment"> * [Rationale: This might be surprising, as vast majority of coders (including STL, Boost) use non-const ref out-args.</span></div>
+<div class="line"><a id="l01490" name="l01490"></a><span class="lineno"> 1490</span><span class="comment"> * This guideline may seem controversial (and it is, after all, optional though strongly encouraged) but consider this:</span></div>
+<div class="line"><a id="l01491" name="l01491"></a><span class="lineno"> 1491</span><span class="comment"> *   - Using a pointer is no slower.  assert() (if applicable) costs little to nothing.</span></div>
+<div class="line"><a id="l01492" name="l01492"></a><span class="lineno"> 1492</span><span class="comment"> *   - Using a pointer makes the call site *much* more expressive: You can see a thing may be modified.</span></div>
+<div class="line"><a id="l01493" name="l01493"></a><span class="lineno"> 1493</span><span class="comment"> *     Makes algorithm easier to understand at a glance.</span></div>
+<div class="line"><a id="l01494" name="l01494"></a><span class="lineno"> 1494</span><span class="comment"> *   - Using a pointer provides an easy way to &quot;turn off&quot; the arg which is commonly needed though of course not</span></div>
+<div class="line"><a id="l01495" name="l01495"></a><span class="lineno"> 1495</span><span class="comment"> *     universal.  When so used, the API is usually pithier than the alternative (requiring another arg, or a special</span></div>
+<div class="line"><a id="l01496" name="l01496"></a><span class="lineno"> 1496</span><span class="comment"> *     value, or something).  For example, see how Flow&#39;s lib-API-error-returning convention works:</span></div>
+<div class="line"><a id="l01497" name="l01497"></a><span class="lineno"> 1497</span><span class="comment"> *     if you pass in `Error_code* ec = null`, it&#39;ll throw exception on error; else it&#39;ll return normally and set</span></div>
+<div class="line"><a id="l01498" name="l01498"></a><span class="lineno"> 1498</span><span class="comment"> *     *ec accordingly (including setting it no-error on success).</span></div>
+<div class="line"><a id="l01499" name="l01499"></a><span class="lineno"> 1499</span><span class="comment"> * Try it.  You might like it.]</span></div>
+<div class="line"><a id="l01500" name="l01500"></a><span class="lineno"> 1500</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01501" name="l01501"></a><span class="lineno"> 1501</span><span class="comment"> * Not a hard rule.  In particular, `ostream&amp; os` is a common arg form by convention from STL and Boost.  Use your</span></div>
+<div class="line"><a id="l01502" name="l01502"></a><span class="lineno"> 1502</span><span class="comment"> * judgment. */</span></div>
+<div class="line"><a id="l01503" name="l01503"></a><span class="lineno"> 1503</span> </div>
+<div class="line"><a id="l01504" name="l01504"></a><span class="lineno"> 1504</span><span class="comment">// -- BEST PRACTICES: General design do&#39;s and don&#39;ts --</span></div>
+<div class="line"><a id="l01505" name="l01505"></a><span class="lineno"> 1505</span> </div>
+<div class="line"><a id="l01506" name="l01506"></a><span class="lineno"> 1506</span><span class="comment">/* - Do: Use inheritance for &quot;is-a&quot; interfaces, as in Java interfaces (no, or very little, non-pure-virtual content). -</span></div>
+<div class="line"><a id="l01507" name="l01507"></a><span class="lineno"> 1507</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01508" name="l01508"></a><span class="lineno"> 1508</span><span class="comment"> * Class A = interface; describes how to use it as *only* 1+ pure virtual methods.</span></div>
+<div class="line"><a id="l01509" name="l01509"></a><span class="lineno"> 1509</span><span class="comment"> * Classes B, C = concrete types: Each B or C &quot;is-an&quot; A, so they use public inheritance B-&gt;A&lt;-C. */</span></div>
+<div class="line"><a id="l01510" name="l01510"></a><span class="lineno"> 1510</span><span class="comment">/* - Corollary: With wide-spread use of such interfaces, multiple inheritance becomes wide-spread... yet simple, as</span></div>
+<div class="line"><a id="l01511" name="l01511"></a><span class="lineno"> 1511</span><span class="comment"> *   one inherits only pure virtual method signatures and nothing else. - */</span></div>
+<div class="line"><a id="l01512" name="l01512"></a><span class="lineno"> 1512</span> </div>
+<div class="line"><a id="l01513" name="l01513"></a><span class="lineno"> 1513</span><span class="comment">/* - Do: Use inheritance when adding capabilities to an existing concrete class, a/k/a &quot;is-a&quot; inheritance. -</span></div>
+<div class="line"><a id="l01514" name="l01514"></a><span class="lineno"> 1514</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01515" name="l01515"></a><span class="lineno"> 1515</span><span class="comment"> * Class A = concrete class with capabilies X.</span></div>
+<div class="line"><a id="l01516" name="l01516"></a><span class="lineno"> 1516</span><span class="comment"> * Class B `public`ly inherits B-&gt;A and adds capabilities Y.  Therefore, B &quot;is-an&quot; A, plus it adds more capabilities</span></div>
+<div class="line"><a id="l01517" name="l01517"></a><span class="lineno"> 1517</span><span class="comment"> * on top.  (This can of course continue indefinitely.  C can subclass B and add more stuff; etc. */</span></div>
+<div class="line"><a id="l01518" name="l01518"></a><span class="lineno"> 1518</span> </div>
+<div class="line"><a id="l01519" name="l01519"></a><span class="lineno"> 1519</span><span class="comment">/* - Avoid: Using inheritance to provide common capabilities to 2+ subclasses. -</span></div>
+<div class="line"><a id="l01520" name="l01520"></a><span class="lineno"> 1520</span><span class="comment"> * - Instead: Use composition. -</span></div>
+<div class="line"><a id="l01521" name="l01521"></a><span class="lineno"> 1521</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01522" name="l01522"></a><span class="lineno"> 1522</span><span class="comment"> * Composition = put common capabilities into a separate class; then instantiate data member(s) and/or local</span></div>
+<div class="line"><a id="l01523" name="l01523"></a><span class="lineno"> 1523</span><span class="comment"> * variable(s) of that type; no need to derive from that type usually.</span></div>
+<div class="line"><a id="l01524" name="l01524"></a><span class="lineno"> 1524</span><span class="comment"></span> </div>
+<div class="line"><a id="l01525" name="l01525"></a><span class="lineno"> 1525</span><span class="comment"> * Two techniques are pretty common but should be avoided.</span></div>
+<div class="line"><a id="l01526" name="l01526"></a><span class="lineno"> 1526</span><span class="comment"> *   - Classes B and C need common, stateful capabilities in class A.  Therefore, use `private` inheritance B-&gt;A&lt;-C.</span></div>
+<div class="line"><a id="l01527" name="l01527"></a><span class="lineno"> 1527</span><span class="comment"> *     Instead: Instantiate A in B and C, as needed (composition).</span></div>
+<div class="line"><a id="l01528" name="l01528"></a><span class="lineno"> 1528</span><span class="comment"> *   - Classes B and C implement interface A.  Therefore, use `public` B-&gt;A&lt;-C... *but also* B and C need</span></div>
+<div class="line"><a id="l01529" name="l01529"></a><span class="lineno"> 1529</span><span class="comment"> *     common, stateful capabilities.  Therefore, add those capabilities into A as well making it not a clean interface.</span></div>
+<div class="line"><a id="l01530" name="l01530"></a><span class="lineno"> 1530</span><span class="comment"> *     Instead: Keep the interface class A clean; create separate class A&#39; with the common, stateful capabilities;</span></div>
+<div class="line"><a id="l01531" name="l01531"></a><span class="lineno"> 1531</span><span class="comment"> *     then instantiate A&#39; in B and C, as needed (composition).</span></div>
+<div class="line"><a id="l01532" name="l01532"></a><span class="lineno"> 1532</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01533" name="l01533"></a><span class="lineno"> 1533</span><span class="comment"> * *Not* a hard rule, but considering it before going ahead with non-interface-y inheritance = good design instinct.</span></div>
+<div class="line"><a id="l01534" name="l01534"></a><span class="lineno"> 1534</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01535" name="l01535"></a><span class="lineno"> 1535</span><span class="comment"> * [Rationale: For me (ygoldfel), this lesson took 10+ years to learn.  It is much more pleasant and flexible.</span></div>
+<div class="line"><a id="l01536" name="l01536"></a><span class="lineno"> 1536</span><span class="comment"> * Using inheritance for this tends to be the result of not cleanly separating the notion of &quot;common interface&quot; (primary</span></div>
+<div class="line"><a id="l01537" name="l01537"></a><span class="lineno"> 1537</span><span class="comment"> * purpose of inheritance) from that of &quot;common concrete code&quot; (typically easily done with composition).</span></div>
+<div class="line"><a id="l01538" name="l01538"></a><span class="lineno"> 1538</span><span class="comment"> * There&#39;s also a certain beauty to a B-&gt;A&lt;-C relationship that tightly helps B and C reuse complex code stored in A,</span></div>
+<div class="line"><a id="l01539" name="l01539"></a><span class="lineno"> 1539</span><span class="comment"> * while B and C don&#39;t care about each other.  What I&#39;ve learned over a long time is that this satisfaction becomes</span></div>
+<div class="line"><a id="l01540" name="l01540"></a><span class="lineno"> 1540</span><span class="comment"> * fleeting, when one has to tweak something about B-&gt;A or C-&gt;A, and suddenly one has to rejigger the whole setup.</span></div>
+<div class="line"><a id="l01541" name="l01541"></a><span class="lineno"> 1541</span><span class="comment"> * Composition (where A is instantiated by each of B and C) helps make that process much simpler.</span></div>
+<div class="line"><a id="l01542" name="l01542"></a><span class="lineno"> 1542</span><span class="comment"> * Among other things, A can be constructed/destroyed anytime; instantiated 2+ times simultaneously; etc.] */</span></div>
+<div class="line"><a id="l01543" name="l01543"></a><span class="lineno"> 1543</span> </div>
+<div class="line"><a id="l01544" name="l01544"></a><span class="lineno"> 1544</span><span class="comment">/* - Corollary: `protected` non-pure non-`static` methods and `const` data members are OK, but consider composition. -</span></div>
+<div class="line"><a id="l01545" name="l01545"></a><span class="lineno"> 1545</span><span class="comment"></span> </div>
+<div class="line"><a id="l01546" name="l01546"></a><span class="lineno"> 1546</span><span class="comment">/* - Do not: use `protected` non-`const` data members (member of A, with inheritance B-&gt;A)! -</span></div>
+<div class="line"><a id="l01547" name="l01547"></a><span class="lineno"> 1547</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01548" name="l01548"></a><span class="lineno"> 1548</span><span class="comment"> * This breaks encapsulation; A is best designed to be self-contained; giving direct mutable access to B allows it to</span></div>
+<div class="line"><a id="l01549" name="l01549"></a><span class="lineno"> 1549</span><span class="comment"> * break invariants of A; so now basically A and B become inter-related and must be maintained together, tightly</span></div>
+<div class="line"><a id="l01550" name="l01550"></a><span class="lineno"> 1550</span><span class="comment"> * coupled.</span></div>
+<div class="line"><a id="l01551" name="l01551"></a><span class="lineno"> 1551</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01552" name="l01552"></a><span class="lineno"> 1552</span><span class="comment"> * Can&#39;t you just &quot;cheat&quot; by wrapping the access into a non-`const`-reference-returning `protected` accessor or</span></div>
+<div class="line"><a id="l01553" name="l01553"></a><span class="lineno"> 1553</span><span class="comment"> * something?  Well, yes, but then you&#39;re still breaking the spirit of the guideline.  The spirit is the point.</span></div>
+<div class="line"><a id="l01554" name="l01554"></a><span class="lineno"> 1554</span><span class="comment"> * Still, a protected method or accessor (if you must) is still better. */</span></div>
+<div class="line"><a id="l01555" name="l01555"></a><span class="lineno"> 1555</span> </div>
+<div class="line"><a id="l01556" name="l01556"></a><span class="lineno"> 1556</span> </div>
+<div class="line"><a id="l01557" name="l01557"></a><span class="lineno"> 1557</span><span class="comment">/* - Do: Use the `_base` inheritance pattern when a T-parameterized class template C contains non-T-parameterized</span></div>
+<div class="line"><a id="l01558" name="l01558"></a><span class="lineno"> 1558</span><span class="comment"> *   aliases/constants/etc. that must be usable without actually instantiating the template C&lt;T&gt; for some concrete</span></div>
+<div class="line"><a id="l01559" name="l01559"></a><span class="lineno"> 1559</span><span class="comment"> *   `T`. -</span></div>
+<div class="line"><a id="l01560" name="l01560"></a><span class="lineno"> 1560</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01561" name="l01561"></a><span class="lineno"> 1561</span><span class="comment"> * For example, in STL, `std::ios_base::app` (&quot;append&quot; file mode constant) is used without having to mention a full-on</span></div>
+<div class="line"><a id="l01562" name="l01562"></a><span class="lineno"> 1562</span><span class="comment"> * `basic_ostream&lt;char, [...]&gt;` (a/k/a `ostream`) nor any other such basic_ostream&lt;&gt; type.  Note</span></div>
+<div class="line"><a id="l01563" name="l01563"></a><span class="lineno"> 1563</span><span class="comment"> * basic_ostream&lt;[...]&gt; inherits from `ios_base`.</span></div>
+<div class="line"><a id="l01564" name="l01564"></a><span class="lineno"> 1564</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01565" name="l01565"></a><span class="lineno"> 1565</span><span class="comment"> * Composition can also be often used.  However, think of it like this: &quot;Really I want to put the stuff right into</span></div>
+<div class="line"><a id="l01566" name="l01566"></a><span class="lineno"> 1566</span><span class="comment"> * C&lt;T&gt;, where it belongs, but then people can&#39;t use it easily without instantiating the template, so I&#39;ll just split</span></div>
+<div class="line"><a id="l01567" name="l01567"></a><span class="lineno"> 1567</span><span class="comment"> * it off into a _base class.  I could just put the stuff entirely outside C&lt;T&gt;, but _base is a nicer pattern.&quot; */</span></div>
+<div class="line"><a id="l01568" name="l01568"></a><span class="lineno"> 1568</span> </div>
+<div class="line"><a id="l01569" name="l01569"></a><span class="lineno"> 1569</span><span class="comment">/* - Avoid: Adding public `static` methods into a class just because &quot;everything should be in a class.&quot; -</span></div>
+<div class="line"><a id="l01570" name="l01570"></a><span class="lineno"> 1570</span><span class="comment"> * - Instead: Is it really firmly linked conceptually to class C?  No?  Make it a free function then. -</span></div>
+<div class="line"><a id="l01571" name="l01571"></a><span class="lineno"> 1571</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01572" name="l01572"></a><span class="lineno"> 1572</span><span class="comment"> * This isn&#39;t a hard rule at all.  For example, factory `static` methods are very common, and that&#39;s fine.</span></div>
+<div class="line"><a id="l01573" name="l01573"></a><span class="lineno"> 1573</span><span class="comment"> * But that&#39;s different, because in that case it&#39;s essentially a constructor and *is* firmly linked conceptually to</span></div>
+<div class="line"><a id="l01574" name="l01574"></a><span class="lineno"> 1574</span><span class="comment"> * class C.  Plus, then this method can access C&#39;s insides (data members even), and that can be very useful.</span></div>
+<div class="line"><a id="l01575" name="l01575"></a><span class="lineno"> 1575</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01576" name="l01576"></a><span class="lineno"> 1576</span><span class="comment"> * [Rationale: This isn&#39;t a hard rule at all.  Public `static` methods are common.  However, people tend to use classes</span></div>
+<div class="line"><a id="l01577" name="l01577"></a><span class="lineno"> 1577</span><span class="comment"> * as, basically, namespaces that organize groups of public `static` methods.  This seems to be a result of the</span></div>
+<div class="line"><a id="l01578" name="l01578"></a><span class="lineno"> 1578</span><span class="comment"> * pre-`namespace` era.  Now, one can just make an actual `namespace` if such grouping is desired.  Use judgment.] */</span></div>
+<div class="line"><a id="l01579" name="l01579"></a><span class="lineno"> 1579</span> </div>
+<div class="line"><a id="l01580" name="l01580"></a><span class="lineno"> 1580</span><span class="comment">/* - Avoid: Using `friend` to &quot;cheat&quot; an otherwise intentional encapsulation design. -</span></div>
+<div class="line"><a id="l01581" name="l01581"></a><span class="lineno"> 1581</span><span class="comment"> * - Instead: Reconsider your design. -</span></div>
+<div class="line"><a id="l01582" name="l01582"></a><span class="lineno"> 1582</span><span class="comment"> *</span></div>
+<div class="line"><a id="l01583" name="l01583"></a><span class="lineno"> 1583</span><span class="comment"> * This is NOT saying `friend`s shouldn&#39;t be used just because.  There are a few perfectly reasonable `friend` uses;</span></div>
+<div class="line"><a id="l01584" name="l01584"></a><span class="lineno"> 1584</span><span class="comment"> * a common one is for binary operators written as free functions (`string operator+(string, string)` and such).</span></div>
+<div class="line"><a id="l01585" name="l01585"></a><span class="lineno"> 1585</span><span class="comment"> * I won&#39;t try to enumerate them here.  Just saying: If it feels like you&#39;re using `friend` as an &quot;exception&quot; to an</span></div>
+<div class="line"><a id="l01586" name="l01586"></a><span class="lineno"> 1586</span><span class="comment"> * otherwise solid relationship between 2 encapsulating entities, then you might be abusing the existing design which</span></div>
+<div class="line"><a id="l01587" name="l01587"></a><span class="lineno"> 1587</span><span class="comment"> * can easily lead to more abuse and a mess over time.  Then, ask yourself if maybe that design can be amended. */</span></div>
+<div class="line"><a id="l01588" name="l01588"></a><span class="lineno"> 1588</span> </div>
+<div class="line"><a id="l01589" name="l01589"></a><span class="lineno"> 1589</span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a id="l01590" name="l01590"></a><span class="lineno"> 1590</span><span class="preprocessor">#endif </span><span class="comment">// !defined(FLOW_DOXYGEN_ONLY)</span></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00507">common.hpp:507</a></div></div>
 <div class="ttc" id="aclassflow_1_1cfg_1_1Option__set_html_acd1ce6e7c258d7486388915d59019880"><div class="ttname"><a href="classflow_1_1cfg_1_1Option__set.html#acd1ce6e7c258d7486388915d59019880">flow::cfg::Option_set::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Option_set&lt; Value_set &gt; &amp;val)</div><div class="ttdoc">Serializes (briefly) an Option_set to a standard output stream.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02154">option_set.hpp:2154</a></div></div>
 <div class="ttc" id="alog_8hpp_html_a5daa2b6d16edea74bb8bddc75f7fb801"><div class="ttname"><a href="log_8hpp.html#a5daa2b6d16edea74bb8bddc75f7fb801">FLOW_LOG_WITHOUT_CHECKING</a></div><div class="ttdeci">#define FLOW_LOG_WITHOUT_CHECKING(ARG_sev, ARG_stream_fragment)</div><div class="ttdoc">Identical to FLOW_LOG_WITH_CHECKING() but foregoes the filter (Logger::should_log()) check.</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00532">log.hpp:532</a></div></div>
 <div class="ttc" id="alog_8hpp_html_a626c7dc4d3b4dc0b32a8aac8624d66bc"><div class="ttname"><a href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc">FLOW_LOG_WARNING</a></div><div class="ttdeci">#define FLOW_LOG_WARNING(ARG_stream_fragment)</div><div class="ttdoc">Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00152">log.hpp:152</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_aad8c8f7335eb892350dc386cb4be397e"><div class="ttname"><a href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">flow::util::schedule_task_at</a></div><div class="ttdeci">Scheduled_task_handle schedule_task_at(log::Logger *logger_ptr, const Fine_time_pt &amp;at, bool single_threaded, Task_engine *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</div><div class="ttdoc">Identical to schedule_task_from_now() except the time is specified in absolute terms.</div><div class="ttdef"><b>Definition:</b> <a href="sched__task_8hpp_source.html#l00245">sched_task.hpp:245</a></div></div>
-<div class="ttc" id="anamespaceflow_html_ae02da22c4a101eaab447511c905e4f32"><div class="ttname"><a href="namespaceflow.html#ae02da22c4a101eaab447511c905e4f32">flow::uint8_t</a></div><div class="ttdeci">unsigned char uint8_t</div><div class="ttdoc">Byte. Best way to represent a byte of binary data. This is 8 bits on all modern systems.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00385">common.hpp:385</a></div></div>
+<div class="ttc" id="anamespaceflow_html_ae02da22c4a101eaab447511c905e4f32"><div class="ttname"><a href="namespaceflow.html#ae02da22c4a101eaab447511c905e4f32">flow::uint8_t</a></div><div class="ttdeci">unsigned char uint8_t</div><div class="ttdoc">Byte. Best way to represent a byte of binary data. This is 8 bits on all modern systems.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00386">common.hpp:386</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 25 2024 07:55:05 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Sat Mar 30 2024 01:24:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
