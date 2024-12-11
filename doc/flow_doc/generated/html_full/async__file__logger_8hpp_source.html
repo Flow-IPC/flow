@@ -312,8 +312,8 @@ $(function() {
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment"> * The only now-remaining thing in the mutex-lock section of should_log() (see pseudocode above) is the</span></div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment"> * Boolean check of #m_throttling_now.  There is exactly one consumer of this Boolean: should_log().  Again</span></div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment"> * let&#39;s replace `bool m_throttling_now` with `atomic&lt;bool&gt; m_throttling_now`; and load it with `relaxed`</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment"> * ordering in should_log(), outside any shared mutex-lock section.  There are exactly 3 assigners: do_log</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment"> * () and `really_log()`; they assign this when M 1st goes up past H (assign `true`) or 1st down to 0</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment"> * ordering in should_log(), outside any shared mutex-lock section.  There are exactly 3 assigners: do_log()</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment"> * and `really_log()`; they assign this when M 1st goes up past H (assign `true`) or 1st down to 0</span></div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment"> * (assign `false`) respectively; and throttling_cfg() mutator (assign depending on where M is compared to</span></div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment"> * the new H).  So let&#39;s assume -- and we&#39;ll discuss the bejesus out of it below -- we ensure the assigning</span></div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment"> * algorithm among those 3 places is made to work properly, meaning #m_throttling_now (Throttling versus</span></div>
@@ -410,7 +410,7 @@ $(function() {
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="comment"> *       all in one thread *and* doing synchronous file I/O.)</span></div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="comment"> *     - do_log() already has a boost.asio task queue push with mutex lock/unlock, contending against `really_log()`</span></div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span><span class="comment"> *       performing mutex lock/unlock + queue pop; plus condition-variable wait/notify.  Even under very intense</span></div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="comment"> *       practical logging scenarios, lock contention from this critical section was never obserbed to be a factor.</span></div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="comment"> *       practical logging scenarios, lock contention from this critical section was never observed to be a factor.</span></div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="comment"> *     - CONCLUSION: It would be very surprising if this added locking ever caused any observable contention.</span></div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="comment"> * @note I (ygoldfel) heavily pursued a completely lock-free solution.  I got tantalizingly close.  It involved</span></div>
@@ -906,7 +906,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Mar 30 2024 01:24:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:15 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
