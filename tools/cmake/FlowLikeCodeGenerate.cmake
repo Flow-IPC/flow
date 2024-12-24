@@ -201,14 +201,14 @@ else()
   #   - meta_project/CMakeLists.txt include()s us.
   #     - Our variable scope = meta_project.  Our parent variable scope = N/A.
   # Therefore the algorithm:
-  #   - Check whether FLOW_LIKE_LTO_ON is DEFINED.  (If not DEFINED then: either it's not a meta-project, or
+  #   - Check whether FLOW_LIKE_LTO_ON is DEFINED.  If not DEFINED then: either it's not a meta-project, or
   #     we are P1.  In that case compute FLOW_LIKE_LTO_ON and set it both in our scope *and* the parent scope;
   #     unless there is no parent scope (then it's not a meta-project, and there's no need to worry about it).
   #     If it is defined though:
   #   - We are either P2, P3, ...; or we are the meta_project.  In the latter case, the previous bullet-point
   #     (for P1) would have set(FLOW_LIKE_LTO_ON) in our scope (its parent-scope); and DEFINED would have picked it up.
   #     In the former case (e.g., P2), the previous bullet-point (for P1) would have set(FLOW_LIKE_LTO_ON) in the parent
-  #     scope -- which is also our parent scope -- and the DEFINED check would have picked that up).
+  #     scope -- which is also our parent scope -- and the DEFINED check would have picked that up.
   #     - In any case, FLOW_LIKE_LTO_ON's value can be used and not recomputed.
   # So the code is quite simple, but the reason it works is somewhat subtle.
 
