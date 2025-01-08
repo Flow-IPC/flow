@@ -162,7 +162,7 @@ jobs:
         # Just one value for this C++-version axis of the basic 3D matrix: C++17.  I.e., the basic matrix is 2D really.
         # For simplicity the Conan-profile-configuring script step simply keys off the `id` instead of our defining
         # other properties as for the other 2 more complex axes below (compiler, build config).
-        cxx-std: { id: cxx17 },
+        cxx-std: { id: cxx17 }
         compiler:
           - id: gcc-9
             name: gcc
