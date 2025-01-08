@@ -162,7 +162,8 @@ jobs:
         # Just one value for this C++-version axis of the basic 3D matrix: C++17.  I.e., the basic matrix is 2D really.
         # For simplicity the Conan-profile-configuring script step simply keys off the `id` instead of our defining
         # other properties as for the other 2 more complex axes below (compiler, build config).
-        cxx-std: { id: cxx17 }
+        cxx-std:
+          - id: cxx17
         compiler:
           - id: gcc-9
             name: gcc
@@ -271,35 +272,35 @@ jobs:
         # Remove certain values from the 2D matrix so far.
         # Again, these exclusions are explained in Flow-IPC workflow counterpart.
         exclude:
-          - compiler:  { id: gcc-9 }
+          - compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - compiler:  { id: gcc-10 }
+          - compiler: { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - compiler:  { id: gcc-11 }
+          - compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - compiler:  { id: gcc-13 }
+          - compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - compiler:  { id: clang-13 }
+          - compiler: { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - compiler:  { id: gcc-9 }
+          - compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - compiler:  { id: gcc-10 }
+          - compiler: { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - compiler:  { id: gcc-11 }
+          - compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - compiler:  { id: gcc-13 }
+          - compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - compiler:  { id: clang-13 }
+          - compiler: { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - compiler:  { id: gcc-9 }
+          - compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - compiler:  { id: gcc-10 }
+          - compiler: { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - compiler:  { id: gcc-11 }
+          - compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - compiler:  { id: gcc-13 }
+          - compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - compiler:  { id: clang-13 }
+          - compiler: { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
 
         # Lastly add certain specific values on top of the result so far.  Namely we want to also add some C++20 x AxB
