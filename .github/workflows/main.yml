@@ -328,7 +328,7 @@ jobs:
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
 
-    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
+    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
 
     env:
       build-dir: ${{ github.workspace }}/build/${{ matrix.build-test-cfg.conan-profile-build-type }}
@@ -568,7 +568,7 @@ jobs:
         always()
       uses: actions/upload-artifact@v4
       with:
-        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
+        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc-and-release:
