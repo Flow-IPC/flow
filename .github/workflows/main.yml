@@ -139,7 +139,30 @@ jobs:
 
     strategy:
       fail-fast: false
+
+      # Our basic matrix is compiler-version x build-test-config.  The latter is the usual possibilities namely
+      # Debug, Release, ..., plus a few runtime-sanitizer-oriented variations.  Generally we want to run the entire
+      # cross-product AxB of possibilities; but for various reasons we exclude some specific combinations from the
+      # matrix. So far, then: specify full matrix, specify certain combos to remove from it.
+      #
+      # There is however another variable: the C++ standard to specify.  In actual practice -- as explained in
+      # FlowLikeCodeGenerate.cmake, but we *very* briefly recap -- the min required standard is 17, and it is indeed
+      # *the* standard we use, never taking advantage (via conditional compilation, etc.) of 20-or-higher.  So,
+      # the main matrix shall built with std=17.  In addition, though, we *allow* C++20 or higher.  In practice, 99.999%
+      # C++17 code shall build equivalently with C++20 (as for C++23, we haven't looked into it as of this writing);
+      # but not 100%, and indeed for business reasons we found it is worthwhile to *test* with C++20 as well, so
+      # as to ensure code will (at least) build (and thus not mess-over C++20 users; it is now 2025 as of this writing).
+      # However, loosely speaking, we need only hit a few basic setups likeliest to trigger problems (usually warnings)
+      # which we'd then fix in the code.  Long story short then: in addition to the aforementioned matrix (w/ 17),
+      # minus exclusions, we would *add* a few specific configs with std=20.
+      #
+      # Delightfully that's just how GitHub Actions matrix specs work: The matrix, then remove `exclude`s, then
+      # add `include`s.
       matrix:
+        # Just one value for this C++-version axis of the basic 3D matrix: C++17.  I.e., the basic matrix is 2D really.
+        # For simplicity the Conan-profile-configuring script step simply keys off the `id` instead of our defining
+        # other properties as for the other 2 more complex axes below (compiler, build config).
+        cxx-std: { id: cxx17 },
         compiler:
           - id: gcc-9
             name: gcc
@@ -245,7 +268,8 @@ jobs:
             sanitizer-name: tsan
             no-lto: True
 
-        # Again, these exclusions are explained in FLow-IPC workflow counterpart.
+        # Remove certain values from the 2D matrix so far.
+        # Again, these exclusions are explained in Flow-IPC workflow counterpart.
         exclude:
           - compiler:  { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-asan }
@@ -277,6 +301,28 @@ jobs:
             build-test-cfg: { id: relwithdebinfo-tsan }
           - compiler:  { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
+
+        # Lastly add certain specific values on top of the result so far.  Namely we want to also add some C++20 x AxB
+        # combos.  The basic strategy is noted above; but specifically release-oriented builds tend to go down different
+        # paths/produce different warnings vs debug-oriented builds -- so we want to try both; and as for which
+        # compilers to use, on one hand we'll definitely want at least 1 of gcc and clang, but beyond that we suspect
+        # just the highest version of which is sufficient.  TODO: Revisit, especially if users report C++20 problems
+        # in other environments, and therefore we had to fix them; test coverage should increase.
+        include:
+          # gcc-<highest> x (2 build-configs).
+          - cxx-std: { id: cxx20 }
+            compiler: { id: gcc-13 }
+            build-test-cfg: { id: debug }
+          - cxx-std: { id: cxx20 }
+            compiler: { id: gcc-13 }
+            build-test-cfg: { id: relwithdebinfo }
+          # clang-<highest> x (2 build-configs).
+          - cxx-std: { id: cxx20 }
+            compiler: { id: clang-17 }
+            build-test-cfg: { id: debug }
+          - cxx-std: { id: cxx20 }
+            compiler: { id: clang-17 }
+            build-test-cfg: { id: relwithdebinfo }
 
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
@@ -383,7 +429,7 @@ jobs:
         [settings]
         compiler = ${{ matrix.compiler.name }}
         compiler.version = ${{ matrix.compiler.version }}
-        compiler.cppstd = 17
+        compiler.cppstd = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '17' }}
         # TODO: Consider testing with LLVM-libc++ also (with clang anyway).
         compiler.libcxx = libstdc++11
         arch = x86_64
@@ -403,6 +449,10 @@ jobs:
         [options]
         flow:build = True
         flow:doc = False
+        # `0` here as of this writing would effectively mean `17` too.  Specifying `17` explicitly has the same
+        # effect in the end but goes down a slightly different code-path in FlowLikeCodeGenerate.cmake.  It's not
+        # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
+        flow:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
     - name: Install Flow dependencies with Conan using the profile
