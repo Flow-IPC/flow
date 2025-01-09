@@ -36,6 +36,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/move/unique_ptr.hpp>
+#include <type_traits>
 
 namespace flow::net_flow
 {
@@ -2408,16 +2409,15 @@ struct Peer_socket::Individual_ack
   /// Number of bytes in the packet's user data.
   const size_t m_data_size;
 
-  // Constructors/destructor.
-
-  /// Force direct member initialization even if no member is `const`.
-  Individual_ack(const Individual_ack&) = delete;
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  Individual_ack& operator=(const Individual_ack&) = delete;
+  /// Make us noncopyable without breaking aggregateness (direct-init).
+  [[no_unique_address]] util::Noncopyable m_nc;
 }; // struct Peer_socket::Individual_ack
+
+static_assert(std::is_aggregate_v<Peer_socket::Individual_ack>,
+              "We want it to be direct-initializable.");
+static_assert((!std::is_copy_constructible_v<Peer_socket::Individual_ack>)
+                && (!std::is_copy_assignable_v<Peer_socket::Individual_ack>),
+              "We want it to be noncopyable but rather passed-around via its ::Ptr.");
 
 // Free functions: in *_fwd.hpp.
 

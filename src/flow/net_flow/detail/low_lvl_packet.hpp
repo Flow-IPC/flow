@@ -27,6 +27,7 @@
 #include "flow/util/blob.hpp"
 #include <boost/endian.hpp>
 #include <limits>
+#include <type_traits>
 
 namespace flow::net_flow
 {
@@ -1220,19 +1221,15 @@ struct Ack_packet::Individual_ack
    */
   const unsigned int m_rexmit_id;
 
-  // Constructors/destructor.
+  /// Make us noncopyable without breaking aggregateness (direct-init).
+  [[no_unique_address]] util::Noncopyable m_nc;
+}; // struct Ack_packet::Individual_ack
 
-  /// Force direct member initialization even if no member is `const`.
-  Individual_ack() = delete;
-
-  /// Forbid copy construction.
-  Individual_ack(const Individual_ack&) = delete;
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  void operator=(const Individual_ack&) = delete;
-};
+static_assert(std::is_aggregate_v<Ack_packet::Individual_ack>,
+              "We want it to be direct-initializable.");
+static_assert((!std::is_copy_constructible_v<Ack_packet::Individual_ack>)
+                && (!std::is_copy_assignable_v<Ack_packet::Individual_ack>),
+              "We want it to be noncopyable but rather passed-around via its ::Ptr.");
 
 #pragma pack(push, 1)
 
