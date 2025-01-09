@@ -39,6 +39,7 @@ class FlowRecipe(ConanFile):
         # 0 => default (let build script decide, as of this writing 17 meaning C++17) or a #, probably `20` as of
         # this writing.
         "build_cxx_std": ["ANY"],
+
         "doc": [True, False]
     }
 

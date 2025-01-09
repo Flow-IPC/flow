@@ -180,7 +180,8 @@ jobs:
             version: 11
             c-path: /usr/bin/gcc-11
             cpp-path: /usr/bin/g++-11
-          - id: gcc-13
+          - &gcc-highest
+            id: gcc-13
             name: gcc
             version: 13
             c-path: /usr/bin/gcc-13
@@ -202,18 +203,21 @@ jobs:
             c-path: /usr/bin/clang-16
             cpp-path: /usr/bin/clang++-16
             install: True
-          - id: clang-17
+          - &clang-highest
+            id: clang-17
             name: clang
             version: 17
             c-path: /usr/bin/clang-17
             cpp-path: /usr/bin/clang++-17
             install: True
         build-test-cfg:
-          - id: debug
+          - &debug
+            id: debug
             conan-profile-build-type: Debug
           - id: release
             conan-profile-build-type: Release
-          - id: relwithdebinfo
+          - &relwithdebinfo
+            id: relwithdebinfo
             conan-profile-build-type: RelWithDebInfo
           - id: minsizerel
             conan-profile-build-type: MinSizeRel
@@ -312,18 +316,18 @@ jobs:
         include:
           # gcc-<highest> x (2 build-configs).
           - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-13 }
-            build-test-cfg: { id: debug }
+            compiler: *gcc-highest
+            build-test-cfg: *debug
           - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-13 }
-            build-test-cfg: { id: relwithdebinfo }
+            compiler: *gcc-highest
+            build-test-cfg: *relwithdebinfo
           # clang-<highest> x (2 build-configs).
           - cxx-std: { id: cxx20 }
-            compiler: { id: clang-17 }
-            build-test-cfg: { id: debug }
+            compiler: *clang-highest
+            build-test-cfg: *debug
           - cxx-std: { id: cxx20 }
-            compiler: { id: clang-17 }
-            build-test-cfg: { id: relwithdebinfo }
+            compiler: *clang-highest
+            build-test-cfg: *relwithdebinfo
 
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
