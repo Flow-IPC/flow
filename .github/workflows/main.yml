@@ -333,7 +333,6 @@ jobs:
           - cxx-std: { id: cxx17 }
             compiler: { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 } # XXX TEMPORARY TEST CODE, DO NOT CHECK-IN!            
           # Now the exclusions from the C++20 sub-matrix.
           # The basic strategy is noted above; but specifically release-oriented builds tend to go down different
           # paths/produce different warnings vs debug-oriented builds -- so we want to try both; and as for which
