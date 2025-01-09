@@ -2411,12 +2411,8 @@ struct Peer_socket::Individual_ack
 
   /// Make us noncopyable without breaking aggregateness (direct-init).
   [[no_unique_address]] util::Noncopyable m_nc;
-
-  static_assert(std::is_aggregate_v<Individual_ack>,
-                "We want it to be direct-initializable.");
-  static_assert((!std::is_copy_constructible_v<Individual_ack>) && (!std::is_copy_assignable_v<Individual_ack>),
-                "We want it to be noncopyable but rather passed-around via its ::Ptr.");
 }; // struct Peer_socket::Individual_ack
+// Note: Some static_assert()s about it currently in peer_socket.cpp in a function {} (for boring reasons).
 
 // Free functions: in *_fwd.hpp.
 
