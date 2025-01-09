@@ -64,7 +64,7 @@ public:
  * Useful as a no-unique-address private member to make a type noncopyable while keeping that type an aggregate
  * (can be direct-initialized).
  *
- * So you can do: `[[no_unique_address]] flow::util::Noncopyable m_nc;`.
+ * So you can do: `[[no_unique_address]] flow::util::Noncopyable m_nc{};`.
  *
  * ### Rationale ###
  * The usual technique of deriving from `boost::noncopyable` disables aggregateness.  In C++20 declaring

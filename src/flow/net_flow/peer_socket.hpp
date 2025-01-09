@@ -2410,7 +2410,7 @@ struct Peer_socket::Individual_ack
   const size_t m_data_size;
 
   /// Make us noncopyable without breaking aggregateness (direct-init).
-  [[no_unique_address]] util::Noncopyable m_nc;
+  [[no_unique_address]] util::Noncopyable m_nc{};
 }; // struct Peer_socket::Individual_ack
 // Note: Some static_assert()s about it currently in peer_socket.cpp in a function {} (for boring reasons).
 

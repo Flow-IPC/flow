@@ -1222,7 +1222,7 @@ struct Ack_packet::Individual_ack
   const unsigned int m_rexmit_id;
 
   /// Make us noncopyable without breaking aggregateness (direct-init).
-  [[no_unique_address]] util::Noncopyable m_nc;
+  [[no_unique_address]] util::Noncopyable m_nc{};
 }; // struct Ack_packet::Individual_ack
 
 static_assert(std::is_aggregate_v<Ack_packet::Individual_ack>,
