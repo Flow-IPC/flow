@@ -267,13 +267,23 @@ message(VERBOSE "Environment checks passed.  Configuring build environment.")
 
 # Set CMake global stuff.
 
-# Compile our own source files in C++17 mode; and refuse to proceed, if the compiler does not support it.
-# Note that any `#include`r will also need to follow this, as our headers are not shy about using C++17 features;
-# but that's enforced by a check in common.hpp (at least); not by us here somehow.
-set(CXX_STD 17)
-set(CMAKE_CXX_STANDARD ${CXX_STD})
+# CMAKE_CXX_STANDARD controls the C++ standard version with which items are compiled.
+# We require C++17 at the lowest for compilation (and for any `#include`r -- but that is enforced via compile-time
+# check in universally-included common.hpp, not by us here somehow).
+# So if CMAKE_CXX_STANDARD is not specified by CMake invoker, we in fact build in C++17 mode.
+# If it *is* specified, then we don't override it. In practice, as of this writing, that means it should be 17
+# or 20. (If a lower one is attempted, we don't fight it here -- but common.hpp check will defeat it anyway.)
+
+# Won't decay to lower standard if compiler does not support CMAKE_CXX_STANDARD (will fail instead).
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-message(STATUS "C++${CXX_STD} language and STL required.")
+
+if(NOT DEFINED CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+  message(STATUS "C++${CMAKE_CXX_STANDARD} language and STL required: set by this build script.")
+else()
+  message(STATUS "C++${CMAKE_CXX_STANDARD} language and STL requirement "
+                   "inherited from externally set CMAKE_CXX_STANDARD.")
+endif()
 
 # When we do find_package(Threads) to link threading library this will cause it to
 # prefer -pthread flag where applicable (as of this writing, just Linux, but perhaps any *nix ultimately).
