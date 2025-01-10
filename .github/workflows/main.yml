@@ -336,9 +336,10 @@ jobs:
           # Now the exclusions from the C++20 sub-matrix.
           # The basic strategy is noted above; but specifically release-oriented builds tend to go down different
           # paths/produce different warnings vs debug-oriented builds -- so we want to try both; and as for which
-          # compilers to use, on one hand we'll definitely want at least 1 of gcc and clang, but beyond that we suspect
-          # just the highest version of which is sufficient.  TODO: Revisit, especially if users report C++20 problems
-          # in other environments, and therefore we had to fix them; test coverage should increase.
+          # compilers to use, on one hand we'll definitely want at least 1 of gcc and clang each, but beyond that
+          # just the highest version of each is sufficient.  TODO: Revisit, especially if users report C++20 problems
+          # in other environments, and therefore we will have had to fix them; hence test coverage should increase.
+          #
           # So, we essentially want something like:
           #   include:
           #   # gcc-<highest> x (2 build-configs).
