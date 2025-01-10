@@ -152,7 +152,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p >Metadata (and data, if retransmission is on) for a packet that has been sent one (if retransmission is off) or possibly more (if on) times. </p>
 <p >This is purely a data store, not a class. It is not copyable, and moving them around by smart <a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc" title="Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).">Sent_packet::Ptr</a> is encouraged. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02177">2177</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02178">2178</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a7913f73b4e2f164ca51ebb505b63c1f2" name="a7913f73b4e2f164ca51ebb505b63c1f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7913f73b4e2f164ca51ebb505b63c1f2">&#9670;&nbsp;</a></span>ack_count_t</h2>
@@ -169,7 +169,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Type used for <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#affeb974bc03966744adfcda0366a50aa" title="The number of times any packet with m_sent_when.back().m_order_num &gt; this-&gt;m_sent_when....">m_acks_after_me</a>. </p>
 <p >Use a small type to save memory; this is easily large enough, given that that we drop a packet after <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#affeb974bc03966744adfcda0366a50aa" title="The number of times any packet with m_sent_when.back().m_order_num &gt; this-&gt;m_sent_when....">m_acks_after_me</a> exceeds a very small value (&lt; 10), and a given ACK can <em>conceivably</em> hold a few thousand individual acknowledgments (most likely many fewer). In fact <code>uint8_t</code> is probably enough, but it seemed easier to not worry about overflows when doing arithmetic with these. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02193">2193</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02194">2194</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -247,9 +247,9 @@ Additional Inherited Members</h2></td></tr>
 <p >This is used to determine when <code>*this</code> packet should be considered Dropped, as in TCP's Fast Retransmit heuristic (but better, since time-when-sent &ndash; not sequence number, which has retransmission ambiguities &ndash; is used to order packets).</p>
 <p >Note, again, that "after" has little to do with <em>sequence</em> number but rather with send time, as ordered via the <em>order</em> number. E.g., due to retransmission, <code>*this</code> may have sequence number greater than another packet yet have the lesser order number. (This dichotomy is mentioned a lot, everywhere, and if I'm overdoing it, it's only because sometimes TCP cumulative-ack habits die hard, so I have to keep reminding myself.) (If retransmission is disabled, however, then sequence number order = order number order.) </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02239">2239</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02240">2240</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02936">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02942">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>.</p>
 
 </div>
 </div>
@@ -270,9 +270,9 @@ Additional Inherited Members</h2></td></tr>
 <p >Why store the entire packet and not just its <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">Data_packet::m_data</a>? There's a small bit of memory overhead, but we get <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac149f87b8915213857c707b0f3562ef0" title="Retransmit counter of the DATA packet being sent.">Data_packet::m_rexmit_id</a> for free and don't have to spend time re-creating the packet to retransmit. So it's just convenient.</p>
 <p >If retransmission is off, there is no need to store this, as it will not be re-sent. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02254">2254</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02255">2255</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02545">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03921">flow::net_flow::Node::ok_to_rexmit_or_close()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03781">flow::net_flow::Node::snd_flying_pkts_erase_one()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02551">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03927">flow::net_flow::Node::ok_to_rexmit_or_close()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03787">flow::net_flow::Node::snd_flying_pkts_erase_one()</a>.</p>
 
 </div>
 </div>
@@ -295,9 +295,9 @@ Additional Inherited Members</h2></td></tr>
 to boost.asio UDP net-stack" IS the same as "time stamp when boost.asio UDP net-stack actually performs the
 `sendto()` call" in practice &ndash; a good thing for accurate RTT measurements. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02220">2220</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02221">2221</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02545">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02936">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00422">flow::net_flow::Node::mark_data_packet_sent()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03781">flow::net_flow::Node::snd_flying_pkts_erase_one()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02551">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02942">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00422">flow::net_flow::Node::mark_data_packet_sent()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03787">flow::net_flow::Node::snd_flying_pkts_erase_one()</a>.</p>
 
 </div>
 </div>
@@ -315,9 +315,9 @@ to boost.asio UDP net-stack" IS the same as "time stamp when boost.asio UDP net-
 
 <p>Number of bytes in the <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">Data_packet::m_data</a> field of the sent packet. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02198">2198</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02199">2199</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02545">flow::net_flow::Node::categorize_individual_ack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02551">flow::net_flow::Node::categorize_individual_ack()</a>.</p>
 
 </div>
 </div>
@@ -328,7 +328,7 @@ to boost.asio UDP net-stack" IS the same as "time stamp when boost.asio UDP net-
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

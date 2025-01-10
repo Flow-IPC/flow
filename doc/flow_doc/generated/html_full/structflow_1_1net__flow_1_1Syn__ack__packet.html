@@ -280,7 +280,7 @@ Additional Inherited Members</h2></td></tr>
 <p >See <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> doc header for information common to all low-level packets including this one.</p>
 <p >A SYN_ACK packet is sent by the passively listening server socket in response to a valid received SYN. Thus a SYN_ACK arises from the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> that performs <a class="el" href="classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a> and receives SYN. In response, a <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level SYN_ACK_ACK packet.">Syn_ack_ack_packet</a> is expected to complete the 3-way handshake and establish a <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> connection. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00677">677</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00678">678</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a439f09a3ae4d1a5125781e220e29c39e" name="a439f09a3ae4d1a5125781e220e29c39e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a439f09a3ae4d1a5125781e220e29c39e">&#9670;&nbsp;</a></span>Syn_ack_packet()</h2>
@@ -375,7 +375,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00565">565</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00685">m_init_seq_num</a>, <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__packet.html#aaf2fa9221da49c413441aa8fec93ce91">m_packed</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00245">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00686">m_init_seq_num</a>, <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__packet.html#aaf2fa9221da49c413441aa8fec93ce91">m_packed</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00246">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -499,7 +499,7 @@ Here is the call graph for this function:</div>
 
 <p>Same meaning as <a class="el" href="structflow_1_1net__flow_1_1Syn__packet.html#af235e53d05d025b0808b2ee677c0cba4" title="The Initial Sequence Number (ISN) of the sequence number line that the sender of this SYN will be usi...">Syn_packet::m_init_seq_num</a> but applied to the essentially independent opposite traffic direction of the full-duplex connection being established. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00685">685</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00686">686</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00565">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -521,7 +521,7 @@ Here is the call graph for this function:</div>
 <p >This information is piggybacked into ACK (and SYN_ACK/SYN_ACK_ACK) packets.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>We could be similar to TCP by opportunistically sending rcv_wnd in other packet types, namely <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>. However this would only help in connections with heavy 2-way traffic. Personally I would then prefer to create a new packet type instead, Rcv_wnd_packet, and also implement some generalized "packet combo" scheme which would allow to piggy-back arbitrary packet types together into a single packet; and then we'd dissociate ACK/SYN_ACK/SYN_ACK_ACK from rcv_wnd. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00710">710</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00711">711</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -540,7 +540,7 @@ Here is the call graph for this function:</div>
 <p>Random security token used during SYN_ACK-SYN_ACK_ACK. </p>
 <p >For a given connection handshake, the SYN_ACK_ACK receiver ensures that <code><a class="el" href="structflow_1_1net__flow_1_1Syn__ack__ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level SYN_ACK_ACK packet.">Syn_ack_ack_packet</a></code> <code>m_security_token</code> it receives is equal to the original one it had sent (this <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__packet.html#a46bb776a13c77d7109469c0c29565a30" title="Random security token used during SYN_ACK-SYN_ACK_ACK.">m_security_token</a> here). </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00696">696</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00697">697</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -566,7 +566,7 @@ Here is the call graph for this function:</div>
 
 <p>In serialized packet, the type ID byte identifying this as a SYN_ACK. Must not equal any other packet type's. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00726">726</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00727">727</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -577,7 +577,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

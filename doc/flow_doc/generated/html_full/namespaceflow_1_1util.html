@@ -126,6 +126,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of this class is a set that combines the lookup speed of an <code>unordered_set&lt;&gt;</code> and ordering and iterator stability capabilities of an <code>std::list&lt;&gt;</code>.  <a href="classflow_1_1util_1_1Linked__hash__set.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Noncopyable.html">Noncopyable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Useful as a no-unique-address private member to make a type noncopyable while keeping that type an aggregate (can be direct-initialized).  <a href="structflow_1_1util_1_1Noncopyable.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Null__interface.html">Null_interface</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty interface, consisting of nothing but a default <code>virtual</code> destructor, intended as a boiler-plate-reducing base for any other (presumably <code>virtual</code>-method-having) class that would otherwise require a default <code>virtual</code> destructor.  <a href="classflow_1_1util_1_1Null__interface.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1146,9 +1149,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00481">481</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00506">506</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00388">buffers_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00413">buffers_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00103">flow::net_flow::Socket_buffer::consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00543">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">flow::net_flow::Socket_buffer::feed_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00391">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00560">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00130">flow::net_flow::Low_lvl_packet::serialize_to_raw_data_and_log()</a>.</p>
 <div class="dynheader">
@@ -1221,7 +1224,7 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 <div class="line">                   boost::asio::buffer(bytes), <span class="comment">// Turn a single memory array into a buffer sequence.</span></div>
 <div class="line">                   <span class="stringliteral">&quot;  &quot;</span>);</div>
 <div class="line">  &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>; <span class="comment">// This will be on its own line at the end.</span></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_aa132928b364caefca5c3821e019924bf"><div class="ttname"><a href="namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf">flow::util::buffers_to_ostream</a></div><div class="ttdeci">std::ostream &amp; buffers_to_ostream(std::ostream &amp;os, const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Writes a multi- or single-line string representation of the provided binary data to an output stream,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00388">util.hpp:388</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_aa132928b364caefca5c3821e019924bf"><div class="ttname"><a href="namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf">flow::util::buffers_to_ostream</a></div><div class="ttdeci">std::ostream &amp; buffers_to_ostream(std::ostream &amp;os, const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Writes a multi- or single-line string representation of the provided binary data to an output stream,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00413">util.hpp:413</a></div></div>
 </div><!-- fragment --><p >See also <a class="el" href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream.">buffers_dump_string()</a> which returns a string and can thus be more easily used directly inside <a class="el" href="log_8hpp.html#a07561c1c3f16b6c2c7335a09e25298c9" title="Logs a DATA message into flow::log::Logger *get_logger() with flow::log::Component get_log_component(...">FLOW_LOG_DATA()</a> and similar log macros.</p>
 <h3>Performance</h3>
 <p >This thing is slow... it's not trying to be fast and can't be all that fast anyway. As usual, though, if used in <a class="el" href="log_8hpp.html#a07561c1c3f16b6c2c7335a09e25298c9" title="Logs a DATA message into flow::log::Logger *get_logger() with flow::log::Component get_log_component(...">FLOW_LOG_DATA()</a> (etc.) its slowness will only come into play if the log filter passes which (esp. for log::Severity::S_DATA) it usually won't.</p>
@@ -1241,9 +1244,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 <div class="line">              &lt;&lt; <a class="code hl_function" href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">buffers_dump_string</a>(boost::asio::buffer(bytes), <span class="stringliteral">&quot;  &quot;</span>) <span class="comment">// Intermediate+copy, slow....</span></div>
 <div class="line">              &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>);</div>
 <div class="line"><span class="comment">// flow::util::ostream_op_string() is a bit of an improvement but still. :-)</span></div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00507">common.hpp:507</a></div></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00512">common.hpp:512</a></div></div>
 <div class="ttc" id="alog_8hpp_html_a325fdd4b5cf0be49b37d3b7b7c29070d"><div class="ttname"><a href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d">FLOW_LOG_INFO</a></div><div class="ttdeci">#define FLOW_LOG_INFO(ARG_stream_fragment)</div><div class="ttdoc">Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00197">log.hpp:197</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a16357344c21456b86b7de3085e2661a2"><div class="ttname"><a href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">flow::util::buffers_dump_string</a></div><div class="ttdeci">std::string buffers_dump_string(const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00481">util.hpp:481</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a16357344c21456b86b7de3085e2661a2"><div class="ttname"><a href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">flow::util::buffers_dump_string</a></div><div class="ttdeci">std::string buffers_dump_string(const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00506">util.hpp:506</a></div></div>
 </div><!-- fragment --><h3>Rationale</h3>
 <p >The reason it returns <code>os</code> and takes a reference-to-mutable instead of the customary (for this project's style, to indicate modification potential at call sites) pointer-to-mutable is in order to be <code>bind()</code>able in such a way as to make an <code>ostream</code> manipulator. In the example above we use a lambda instead of <code>bind()</code> however.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -1263,9 +1266,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00388">388</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00413">413</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00481">buffers_dump_string()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00925">flow::net_flow::Syn_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00968">flow::net_flow::Data_packet::to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00506">buffers_dump_string()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00925">flow::net_flow::Syn_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00968">flow::net_flow::Data_packet::to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1320,7 +1323,7 @@ template&lt;typename Integer &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Ceiling of <code>(dividend / divisor)</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00233">233</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00258">258</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00357">flow::net_flow::Peer_socket::max_block_size_multiple()</a>.</p>
 <div class="dynheader">
@@ -1369,7 +1372,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">42</a> of file <a class="el" href="util_2detail_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="asio_2server__socket_8hpp_source.html#l00260">flow::net_flow::asio::Server_socket::async_accept()</a>, <a class="el" href="asio_2peer__socket_8hpp_source.html#l00411">flow::net_flow::asio::Peer_socket::async_receive()</a>, <a class="el" href="asio_2peer__socket_8hpp_source.html#l00446">flow::net_flow::asio::Peer_socket::async_send()</a>, <a class="el" href="server__socket_8hpp_source.html#l00434">flow::net_flow::Server_socket::sync_accept()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02591">flow::net_flow::Peer_socket::sync_receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02497">flow::net_flow::Peer_socket::sync_send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="asio_2server__socket_8hpp_source.html#l00260">flow::net_flow::asio::Server_socket::async_accept()</a>, <a class="el" href="asio_2peer__socket_8hpp_source.html#l00411">flow::net_flow::asio::Peer_socket::async_receive()</a>, <a class="el" href="asio_2peer__socket_8hpp_source.html#l00446">flow::net_flow::asio::Peer_socket::async_send()</a>, <a class="el" href="server__socket_8hpp_source.html#l00434">flow::net_flow::Server_socket::sync_accept()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02586">flow::net_flow::Peer_socket::sync_receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02492">flow::net_flow::Peer_socket::sync_send()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1506,7 +1509,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00335">335</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00360">360</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 </div>
 </div>
@@ -1571,11 +1574,11 @@ template&lt;typename T1 , typename ... T_rest&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00327">327</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00352">352</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00327">feed_args_to_ostream()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00327">feed_args_to_ostream()</a>, and <a class="el" href="util_2util_8hpp_source.html#l00342">ostream_op_to_string()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>, and <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1680,7 +1683,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="detail_2util_8cpp_source.html#l00027">27</a> of file <a class="el" href="detail_2util_8cpp_source.html">util.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00131">FLOW_UTIL_WHERE_AM_I_FROM_ARGS_TO_ARGS</a>, and <a class="el" href="util_2util_8hpp_source.html#l00342">ostream_op_to_string()</a>.</p>
+<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00131">FLOW_UTIL_WHERE_AM_I_FROM_ARGS_TO_ARGS</a>, and <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1741,7 +1744,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in [<code>min_val</code>, <code>max_val</code>), i.e., <code>min_val</code> &lt;= <code>val</code> &lt; <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00262">262</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00287">287</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02437">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::derefable_iterator()</a>, <a class="el" href="port__space_8cpp_source.html#l00067">flow::net_flow::Port_space::is_service_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">flow::net_flow::Port_space::return_port()</a>.</p>
 <div class="dynheader">
@@ -1804,9 +1807,9 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in [<code>min_val</code>, <code>max_val</code>]. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00246">246</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00271">271</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l06239">flow::net_flow::Node::sock_validate_options()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02430">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::valid_iterator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l06245">flow::net_flow::Node::sock_validate_options()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02430">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::valid_iterator()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1867,9 +1870,9 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in (<code>min_val</code>, <code>max_val</code>], i.e., <code>min_val</code> &lt; <code>val</code> &lt;= <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00254">254</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00279">279</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06239">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06245">flow::net_flow::Node::sock_validate_options()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1930,9 +1933,9 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in (<code>min_val</code>, <code>max_val</code>), i.e., <code>min_val</code> &lt; <code>val</code> &lt; <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00270">270</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00295">295</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02545">flow::net_flow::Node::categorize_individual_ack()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02551">flow::net_flow::Node::categorize_individual_ack()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2021,7 +2024,7 @@ template&lt;typename Enum &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00498">498</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00523">523</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00270">flow::log::operator&gt;&gt;()</a>.</p>
 <div class="dynheader">
@@ -2077,9 +2080,9 @@ template&lt;typename Container &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00276">276</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00301">301</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02042">flow::cfg::Option_set&lt; Value_set &gt;::canonicalize_candidate()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04005">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00118">flow::net_flow::Drop_timer::end_contemporaneous_events()</a>, <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="server__socket_8cpp_source.html#l00433">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="config_8hpp_source.html#l00971">flow::log::Config::init_component_names()</a>, <a class="el" href="config_8hpp_source.html#l00929">flow::log::Config::init_component_to_union_idx_mapping()</a>, <a class="el" href="server__socket_8cpp_source.html#l00218">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00072">flow::net_flow::Drop_timer::on_ack()</a>, and <a class="el" href="option__set_8hpp_source.html#l01784">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02042">flow::cfg::Option_set&lt; Value_set &gt;::canonicalize_candidate()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04011">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00118">flow::net_flow::Drop_timer::end_contemporaneous_events()</a>, <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="server__socket_8cpp_source.html#l00433">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="config_8hpp_source.html#l00971">flow::log::Config::init_component_names()</a>, <a class="el" href="config_8hpp_source.html#l00929">flow::log::Config::init_component_to_union_idx_mapping()</a>, <a class="el" href="server__socket_8cpp_source.html#l00218">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00072">flow::net_flow::Drop_timer::on_ack()</a>, and <a class="el" href="option__set_8hpp_source.html#l01784">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2124,9 +2127,9 @@ template&lt;typename ... T&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Resulting <code>std::string</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00356">356</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00381">381</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00342">ostream_op_to_string()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="verbosity__config_8cpp_source.html#l00157">flow::log::Verbosity_config::apply_to_config()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>, <a class="el" href="concurrent__task__loop_8cpp_source.html#l00078">flow::async::optimize_pinning_in_thread_pool()</a>, <a class="el" href="verbosity__config_8cpp_source.html#l00044">flow::log::Verbosity_config::parse()</a>, <a class="el" href="option__set_8hpp_source.html#l01784">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="segregated__thread__task__loop_8cpp_source.html#l00098">flow::async::Segregated_thread_task_loop::start()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">flow::async::Cross_thread_task_loop::start()</a>, <a class="el" href="log_8cpp_source.html#l00036">flow::log::Logger::this_thread_set_logged_nickname()</a>, <a class="el" href="option__set_8cpp_source.html#l00106">boost::filesystem::validate()</a>, <a class="el" href="option__set_8hpp_source.html#l02237">flow::cfg::value_set_member_id_to_opt_name_keyed()</a>, and <a class="el" href="option__set_8hpp_source.html#l02166">flow::cfg::value_to_ostream()</a>.</p>
 <div class="dynheader">
@@ -2189,11 +2192,11 @@ template&lt;typename ... T&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00342">342</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00367">367</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00327">feed_args_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00761">flow::net_flow::Event_set::ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="detail_2util_8cpp_source.html#l00027">get_where_am_i_str()</a>, <a class="el" href="peer__socket_8cpp_source.html#l01904">flow::net_flow::Node::log_rcv_window()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03635">flow::net_flow::Node::log_snd_window()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, <a class="el" href="clock__type_8cpp_source.html#l00093">flow::perf::Duration_set::operator&lt;&lt;()</a>, <a class="el" href="util_2util_8hpp_source.html#l00356">ostream_op_string()</a>, <a class="el" href="event__set_8cpp_source.html#l00777">flow::net_flow::Event_set::sock_as_any_to_str()</a>, and <a class="el" href="node_8cpp_source.html#l00113">flow::net_flow::Node::this_thread_init_logger_setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00761">flow::net_flow::Event_set::ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="detail_2util_8cpp_source.html#l00027">get_where_am_i_str()</a>, <a class="el" href="peer__socket_8cpp_source.html#l01910">flow::net_flow::Node::log_rcv_window()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03641">flow::net_flow::Node::log_snd_window()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, <a class="el" href="clock__type_8cpp_source.html#l00093">flow::perf::Duration_set::operator&lt;&lt;()</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">ostream_op_string()</a>, <a class="el" href="event__set_8cpp_source.html#l00777">flow::net_flow::Event_set::sock_as_any_to_str()</a>, and <a class="el" href="node_8cpp_source.html#l00113">flow::net_flow::Node::this_thread_init_logger_setup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2406,7 +2409,7 @@ template&lt;typename Scheduled_task_handler &gt; </div>
 
 <p class="reference">References <a class="el" href="uniq__id__holder_8cpp_source.html#l00058">flow::util::Unique_id_holder::create_unique_id()</a>, <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05397">flow::net_flow::Node::async_rcv_wnd_recovery()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00255">flow::net_flow::Node::async_wait_latency_then_handle_incoming()</a>, <a class="el" href="node_8cpp_source.html#l01117">flow::net_flow::Node::perform_regular_infrequent_tasks()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">flow::async::Cross_thread_task_loop::schedule_from_now()</a>, <a class="el" href="segregated__thread__task__loop_8cpp_source.html#l00374">flow::async::Segregated_thread_task_loop::schedule_from_now_impl()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04323">flow::net_flow::Node::setup_connection_timers()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05403">flow::net_flow::Node::async_rcv_wnd_recovery()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00255">flow::net_flow::Node::async_wait_latency_then_handle_incoming()</a>, <a class="el" href="node_8cpp_source.html#l01117">flow::net_flow::Node::perform_regular_infrequent_tasks()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">flow::async::Cross_thread_task_loop::schedule_from_now()</a>, <a class="el" href="segregated__thread__task__loop_8cpp_source.html#l00374">flow::async::Segregated_thread_task_loop::schedule_from_now_impl()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04329">flow::net_flow::Node::setup_connection_timers()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2463,7 +2466,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, and <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="asio_2node_8hpp_source.html#l00581">flow::net_flow::asio::Node::async_op()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04447">flow::net_flow::Node::cancel_timers()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l05485">flow::net_flow::Node::receive_wnd_recovery_data_received()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="asio_2node_8hpp_source.html#l00581">flow::net_flow::asio::Node::async_op()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04453">flow::net_flow::Node::cancel_timers()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l05491">flow::net_flow::Node::receive_wnd_recovery_data_received()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2559,7 +2562,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, and <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04323">flow::net_flow::Node::setup_connection_timers()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04329">flow::net_flow::Node::setup_connection_timers()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2610,7 +2613,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, and <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04323">flow::net_flow::Node::setup_connection_timers()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04329">flow::net_flow::Node::setup_connection_timers()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2709,9 +2712,9 @@ template&lt;typename Map , typename Sequence &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00379">379</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00404">404</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00367">sequence_to_inverted_lookup_map()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00392">sequence_to_inverted_lookup_map()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2773,9 +2776,9 @@ template&lt;typename Map , typename Sequence &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00366">366</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00391">391</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00379">sequence_to_inverted_lookup_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00404">sequence_to_inverted_lookup_map()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2811,7 +2814,7 @@ template&lt;typename Cleanup_func &gt; </div>
 <div class="line">  <span class="comment">// Now delete_x(x) will be called no matter how the current { block } exits.</span></div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">}</div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a09a032f8e1e77a3afc0b7df115a773e1"><div class="ttname"><a href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">flow::util::setup_auto_cleanup</a></div><div class="ttdeci">Auto_cleanup setup_auto_cleanup(const Cleanup_func &amp;func)</div><div class="ttdoc">Provides a way to execute arbitrary (cleanup) code at the exit of the current block.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00282">util.hpp:282</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a09a032f8e1e77a3afc0b7df115a773e1"><div class="ttname"><a href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">flow::util::setup_auto_cleanup</a></div><div class="ttdeci">Auto_cleanup setup_auto_cleanup(const Cleanup_func &amp;func)</div><div class="ttdoc">Provides a way to execute arbitrary (cleanup) code at the exit of the current block.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00307">util.hpp:307</a></div></div>
 </div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000170">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">setup_auto_cleanup()</a> should take a function via move semantics.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
@@ -2827,9 +2830,9 @@ template&lt;typename Cleanup_func &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A light-weight object that, when it goes out of scope, will cause <code>func()</code> to be called. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00282">282</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00307">307</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02061">flow::net_flow::Node::handle_accumulated_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04206">flow::net_flow::Node::sync_connect_impl()</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02067">flow::net_flow::Node::handle_accumulated_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04212">flow::net_flow::Node::sync_connect_impl()</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2875,7 +2878,7 @@ template&lt;typename From , typename To &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>How many <code>To</code>s are sufficient to encode <code>num_from</code> <code>From</code>s verbatim? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00321">321</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00346">346</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 </div>
 </div>
@@ -2921,7 +2924,7 @@ template&lt;typename Minuend , typename Subtrahend &gt; </div>
 <div class="line"><a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, x) &amp;&amp;</div>
 <div class="line">  <a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, long_computation()) &amp;&amp;</div>
 <div class="line">  <a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, another_long_computation());</div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a34ed70fa4de81a4fdb9234bfb5a3a914"><div class="ttname"><a href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">flow::util::subtract_with_floor</a></div><div class="ttdeci">bool subtract_with_floor(Minuend *minuend, const Subtrahend &amp;subtrahend, const Minuend &amp;floor)</div><div class="ttdoc">Performs *minuend -= subtrahend, subject to a floor of floor.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00299">util.hpp:299</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a34ed70fa4de81a4fdb9234bfb5a3a914"><div class="ttname"><a href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">flow::util::subtract_with_floor</a></div><div class="ttdeci">bool subtract_with_floor(Minuend *minuend, const Subtrahend &amp;subtrahend, const Minuend &amp;floor)</div><div class="ttdoc">Performs *minuend -= subtrahend, subject to a floor of floor.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00324">util.hpp:324</a></div></div>
 </div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Minuend</td><td>Numeric type. </td></tr>
@@ -2939,7 +2942,7 @@ template&lt;typename Minuend , typename Subtrahend &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>*minuend == floor</code> at function exit; <code>false</code> if <code>*minuend &gt; floor</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00299">299</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00324">324</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01320">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
 <div class="dynheader">
@@ -3256,14 +3259,14 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00212">212</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00237">237</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
