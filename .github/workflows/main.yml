@@ -139,44 +139,7 @@ jobs:
 
     strategy:
       fail-fast: false
-
-      # Our basic matrix is compiler-version x build-test-config.  The latter is the usual possibilities namely
-      # Debug, Release, ..., plus a few runtime-sanitizer-oriented variations.  Generally we want to run the entire
-      # cross-product AxB of possibilities; but for various reasons we exclude some specific combinations from the
-      # matrix. So far, then: specify full matrix, specify certain combos to remove from it.
-      #
-      # There is however another variable: the C++ standard to specify.  In actual practice -- as explained in
-      # FlowLikeCodeGenerate.cmake, but we *very* briefly recap -- the min required standard is 17, and it is indeed
-      # *the* standard we use, never taking advantage (via conditional compilation, etc.) of 20-or-higher.  So,
-      # the main matrix shall built with std=17.  In addition, though, we *allow* C++20 or higher.  In practice, 99.999%
-      # C++17 code shall build equivalently with C++20 (as for C++23, we haven't looked into it as of this writing);
-      # but not 100%, and indeed for business reasons we found it is worthwhile to *test* with C++20 as well, so
-      # as to ensure code will (at least) build (and thus not mess-over C++20 users; it is now 2025 as of this writing).
-      # However, loosely speaking, we need only hit a few basic setups likeliest to trigger problems (usually warnings)
-      # which we'd then fix in the code.  Long story short then: in addition to the aforementioned matrix (w/ 17),
-      # minus exclusions, we would *add* a few specific configs with std=20.
-      #
-      # Delightfully that's just how GitHub Actions matrix specs work: The matrix, then remove `exclude`s, then
-      # add `include`s.  ...Unfortunately, nope, the `include`s cannot simply refer to earlier-defined things in
-      # the matrix, so for example all the properties of a given compiler (e.g. gcc-13: name, version, c-path, cpp-path,
-      # install) would need to be copy/pasted (stylistically awful/error-prone).  (TODO: Perhaps there's some way
-      # to predefine each compiler's "stuff" in some earlier variable type thing and then just refer to it -- maybe
-      # something with outputs and fromJSON()... I (ygoldfel) was unable to find clean solid docs/example(s) thereof,
-      # but a real Actions+YAML badass could probably figure it out.  Maybe.  OH!  And YAML anchors/aliases would be
-      # *perfect* for this... but Actions guys have somehow not implemented them; it is a long-standing
-      # request [https://github.com/actions/runner/issues/1182#issuecomment-2317953582].)  Hence, for now, we are
-      # forced to express these post-exclude-includes as simply more excludes.  E.g., instead of saying "for C++20
-      # do just gcc-13" say "do the full matrix but exclude C++20 + gcc-9,10,11."
-      #
-      # So now do all that.
       matrix:
-        # First axis in basic 3D matrix is the 2 possible C++ standards.
-        # For simplicity the Conan-profile-configuring script step simply keys off the `id` instead of our defining
-        # other properties as for the other 2 more complex axes below (compiler, build config).
-        cxx-std:
-          - id: cxx17
-          - id: cxx20
-        # Second axis = the many compilers (gcc multiple versions, clang multiple versions).
         compiler:
           - id: gcc-9
             name: gcc
@@ -198,7 +161,6 @@ jobs:
             version: 13
             c-path: /usr/bin/gcc-13
             cpp-path: /usr/bin/g++-13
-            install: True
           - id: clang-13
             name: clang
             version: 13
@@ -221,7 +183,6 @@ jobs:
             c-path: /usr/bin/clang-17
             cpp-path: /usr/bin/clang++-17
             install: True
-        # Last axis are the many build/test configs.
         build-test-cfg:
           - id: debug
             conan-profile-build-type: Debug
@@ -283,111 +244,43 @@ jobs:
             sanitizer-name: tsan
             no-lto: True
 
-        # Remove certain values from the 3D matrix so far.
-        # The overall strategy is outlined in a large-ish comment above.
+        # Again, these exclusions are explained in FLow-IPC workflow counterpart.
         exclude:
-          # Firstly the exclusions from the C++17 sub-matrix (the other being the C++20 sub-matrix).
-          # Again, these exclusions are explained in Flow-IPC workflow counterpart.
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-9 }
+          - compiler:  { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
+          - compiler:  { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-11 }
+          - compiler:  { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-13 }
+          - compiler:  { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: clang-13 }
+          - compiler:  { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-9 }
+          - compiler:  { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
+          - compiler:  { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-11 }
+          - compiler:  { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-13 }
+          - compiler:  { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: clang-13 }
+          - compiler:  { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-9 }
+          - compiler:  { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
+          - compiler:  { id: gcc-10 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-11 }
+          - compiler:  { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-13 }
+          - compiler:  { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 }
-            compiler: { id: clang-13 }
-            build-test-cfg: { id: relwithdebinfo-tsan }
-          # Now the exclusions from the C++20 sub-matrix.
-          # The basic strategy is noted above; but specifically release-oriented builds tend to go down different
-          # paths/produce different warnings vs debug-oriented builds -- so we want to try both; and as for which
-          # compilers to use, on one hand we'll definitely want at least 1 of gcc and clang each, but beyond that
-          # just the highest version of each is sufficient.  TODO: Revisit, especially if users report C++20 problems
-          # in other environments, and therefore we will have had to fix them; hence test coverage should increase.
-          #
-          # So, we essentially want something like:
-          #   include:
-          #   # gcc-<highest> x (2 build-configs).
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: gcc-13 }
-          #     build-test-cfg: { id: debug }
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: gcc-13 }
-          #     build-test-cfg: { id: relwithdebinfo }
-          #   # clang-<highest> x (2 build-configs).
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: clang-17 }
-          #     build-test-cfg: { id: debug }
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: clang-17 }
-          #     build-test-cfg: { id: relwithdebinfo }
-          # Sadly, as mentioned in the large-ish comment nearer the top, `include` does not let us refer to
-          # earlier-defined things simply by their `id`s.  So we choose to express the inclusions as exclusions
-          # instead:
-          #   - First, simply exclude all gccs but gcc-13 and all clangs but clang-17.
-          - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-9 }
-          - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-10 }
-          - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-11 }
-          - cxx-std: { id: cxx20 }
-            compiler: { id: clang-13 }
-          - cxx-std: { id: cxx20 }
-            compiler: { id: clang-15 }
-          - cxx-std: { id: cxx20 }
-            compiler: { id: clang-16 }
-          #   - Second, among the remaining C++20 configs eliminate all but debug and relwithdebinfo ones.
-          - cxx-std: { id: cxx20 }
-            build-test-cfg: { id: release }
-          - cxx-std: { id: cxx20 }
-            build-test-cfg: { id: minsizerel }
-          - cxx-std: { id: cxx20 }
-            build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx20 }
-            build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx20 }
+          - compiler:  { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
 
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
 
-    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
+    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
 
     env:
       build-dir: ${{ github.workspace }}/build/${{ matrix.build-test-cfg.conan-profile-build-type }}
@@ -489,7 +382,7 @@ jobs:
         [settings]
         compiler = ${{ matrix.compiler.name }}
         compiler.version = ${{ matrix.compiler.version }}
-        compiler.cppstd = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '17' }}
+        compiler.cppstd = 17
         # TODO: Consider testing with LLVM-libc++ also (with clang anyway).
         compiler.libcxx = libstdc++11
         arch = x86_64
@@ -509,10 +402,6 @@ jobs:
         [options]
         flow:build = True
         flow:doc = False
-        # `0` here as of this writing would effectively mean `17` too.  Specifying `17` explicitly has the same
-        # effect in the end but goes down a slightly different code-path in FlowLikeCodeGenerate.cmake.  It's not
-        # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
-        flow:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
     - name: Install Flow dependencies with Conan using the profile
@@ -627,7 +516,7 @@ jobs:
         always()
       uses: actions/upload-artifact@v4
       with:
-        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
+        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}
         path: ${{ env.install-dir }}/bin/logs.tgz
 
   doc-and-release:

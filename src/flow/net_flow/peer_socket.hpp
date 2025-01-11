@@ -36,7 +36,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/move/unique_ptr.hpp>
-#include <type_traits>
 
 namespace flow::net_flow
 {
@@ -2409,10 +2408,21 @@ struct Peer_socket::Individual_ack
   /// Number of bytes in the packet's user data.
   const size_t m_data_size;
 
-  /// Make us noncopyable without breaking aggregateness (direct-init).
-  [[no_unique_address]] util::Noncopyable m_nc{};
+// Don't apply these restrictions in c++20 and newer standards as they break the aggregable types,
+// so the direct initialization is not possible anymore. More explanation at
+// https://stackoverflow.com/questions/57271400/why-does-aggregate-initialization-not-work-anymore-since-c20-if-a-constructor
+#if __cplusplus < 202002L
+  // Constructors/destructor.
+
+  /// Force direct member initialization even if no member is `const`.
+  Individual_ack(const Individual_ack&) = delete;
+
+  // Methods.
+
+  /// Forbid copy assignment.
+  Individual_ack& operator=(const Individual_ack&) = delete;
+#endif
 }; // struct Peer_socket::Individual_ack
-// Note: Some static_assert()s about it currently in peer_socket.cpp in a function {} (for boring reasons).
 
 // Free functions: in *_fwd.hpp.
 
