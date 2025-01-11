@@ -948,7 +948,7 @@ void Config::init_component_to_union_idx_mapping(component_union_idx_t enum_to_n
   m_component_cfgs_by_payload_type[idx] = { enum_to_num_offset };
 
   /* Finally make the per-component verbosities table able to hold all keys component_to_union_idx(C) could ever
-   * return when C.payload_type() == typeid(Component_payload).  See doc header for
+   * return when C.payload_type() == typeid(Component_payload). See doc header for
    * m_verbosities_by_component then come back here. */
   if (component_union_idx_max >= m_verbosities_by_component.size())
   {
@@ -983,7 +983,7 @@ void Config::init_component_names
    * it's a poor man's namespace. */
   const string payload_type_prefix_normalized(normalized_component_name(payload_type_prefix_or_empty));
 
-  /* This looks straigtforward, but there's a surprisingly weird subtlety.  The doc header talks about it:
+  /* This looks straigtforward, but there's a surprisingly weird sublety.  The doc header talks about it:
    * component_names is a multi-map (meaning this iteration might yield the same enum_val 2+ times in a row).
    * This is best explained by example.  This is an explicitly legal component enum fragment:
    *   S_COOL_ENGINE = 5,

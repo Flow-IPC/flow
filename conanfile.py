@@ -35,18 +35,12 @@ class FlowRecipe(ConanFile):
     options = {
         "build": [True, False],
         "build_no_lto": [True, False],
-
-        # 0 => default (let build script decide, as of this writing 17 meaning C++17) or a #, probably `20` as of
-        # this writing.
-        "build_cxx_std": ["ANY"],
-
         "doc": [True, False]
     }
 
     default_options = {
         "build": True,
         "build_no_lto": False,
-        "build_cxx_std": 0,
         "doc": False
     }
 
@@ -89,8 +83,6 @@ class FlowRecipe(ConanFile):
         if self.options.build:
             if self.options.build_no_lto:
                 toolchain.variables["CFG_NO_LTO"] = "ON"
-            if self.options.build_cxx_std != 0:
-                toolchain.variables["CMAKE_CXX_STANDARD"] = self.options.build_cxx_std
         else:
             toolchain.variables["CFG_SKIP_CODE_GEN"] = "ON"
         if self.options.doc:

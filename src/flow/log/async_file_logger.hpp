@@ -240,8 +240,8 @@ namespace flow::log
  * The only now-remaining thing in the mutex-lock section of should_log() (see pseudocode above) is the
  * Boolean check of #m_throttling_now.  There is exactly one consumer of this Boolean: should_log().  Again
  * let's replace `bool m_throttling_now` with `atomic<bool> m_throttling_now`; and load it with `relaxed`
- * ordering in should_log(), outside any shared mutex-lock section.  There are exactly 3 assigners: do_log()
- * and `really_log()`; they assign this when M 1st goes up past H (assign `true`) or 1st down to 0
+ * ordering in should_log(), outside any shared mutex-lock section.  There are exactly 3 assigners: do_log
+ * () and `really_log()`; they assign this when M 1st goes up past H (assign `true`) or 1st down to 0
  * (assign `false`) respectively; and throttling_cfg() mutator (assign depending on where M is compared to
  * the new H).  So let's assume -- and we'll discuss the bejesus out of it below -- we ensure the assigning
  * algorithm among those 3 places is made to work properly, meaning #m_throttling_now (Throttling versus
@@ -338,7 +338,7 @@ namespace flow::log
  *       all in one thread *and* doing synchronous file I/O.)
  *     - do_log() already has a boost.asio task queue push with mutex lock/unlock, contending against `really_log()`
  *       performing mutex lock/unlock + queue pop; plus condition-variable wait/notify.  Even under very intense
- *       practical logging scenarios, lock contention from this critical section was never observed to be a factor.
+ *       practical logging scenarios, lock contention from this critical section was never obserbed to be a factor.
  *     - CONCLUSION: It would be very surprising if this added locking ever caused any observable contention.
  *
  * @note I (ygoldfel) heavily pursued a completely lock-free solution.  I got tantalizingly close.  It involved
