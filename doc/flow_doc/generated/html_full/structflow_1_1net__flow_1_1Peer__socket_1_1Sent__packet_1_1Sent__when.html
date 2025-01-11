@@ -99,7 +99,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p >Data store to keep timing related info when a packet is sent out. </p>
 <p >Construct via direct member initialization. It is copy-constructible (for initially copying into containers and such) but not assignable to discourage unneeded copying (though it is not a heavy structure). Update: A later version of clang does not like this technique and warns about it; to avoid any such trouble just forget the non-assignability stuff; it's internal code; we should be fine. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02283">2283</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02282">2282</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a5265c3824ad25d1de4f888fa811dd4e6" name="a5265c3824ad25d1de4f888fa811dd4e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5265c3824ad25d1de4f888fa811dd4e6">&#9670;&nbsp;</a></span>m_order_num</h2>
@@ -118,9 +118,9 @@ Public Attributes</h2></td></tr>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#a3acccd2fcd0f4a0c5f7f0c2d6ad31c2e" title="Time stamps, order numbers, and other info at the times when the different attempts (including origin...">Peer_socket::Sent_packet::m_sent_when</a> for more discussion.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000136">Todo:</a></b></dt><dd>Can we make <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html#a5265c3824ad25d1de4f888fa811dd4e6" title="Order number of the packet.">Sent_when::m_order_num</a> and some of its peers const? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02298">2298</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02297">2297</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02942">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02876">flow::net_flow::Node::compute_rtt_on_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03108">flow::net_flow::Node::drop_pkts_on_acks()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l02067">flow::net_flow::Node::handle_accumulated_acks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02936">flow::net_flow::Node::categorize_pkts_as_dropped_on_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02870">flow::net_flow::Node::compute_rtt_on_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03102">flow::net_flow::Node::drop_pkts_on_acks()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l02061">flow::net_flow::Node::handle_accumulated_acks()</a>.</p>
 
 </div>
 </div>
@@ -141,9 +141,9 @@ Public Attributes</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000137">Todo:</a></b></dt><dd>Why is <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html#abc5bf2e627dad5d2dcfb0324853b37f7" title="The congestion window size (in bytes) that is used when the packet is sent out.">m_sent_cwnd_bytes</a> in <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html" title="Data store to keep timing related info when a packet is sent out.">Sent_when</a> <code>struct</code> and not directly in <code><a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html" title="Metadata (and data, if retransmission is on) for a packet that has been sent one (if retransmission i...">Sent_packet</a></code>? Or maybe it should stay here, but <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html" title="Data store to keep timing related info when a packet is sent out.">Sent_when</a> should be renamed <code>Send_attempt</code> (or <code>Send_try</code> for brevity)? Yeah, I think that's it. Then <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#a3acccd2fcd0f4a0c5f7f0c2d6ad31c2e" title="Time stamps, order numbers, and other info at the times when the different attempts (including origin...">Sent_packet::m_sent_when</a> &ndash; a container of <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html" title="Data store to keep timing related info when a packet is sent out.">Sent_when</a> objects &ndash; would become <code>m_send_tries</code>, a container of <code>Send_try</code> objects. That makes more sense (sentce?!) than the status quo which involves the singular-means-plural strangeness.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000138">Todo:</a></b></dt><dd>Can we make <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet_1_1Sent__when.html#abc5bf2e627dad5d2dcfb0324853b37f7" title="The congestion window size (in bytes) that is used when the packet is sent out.">m_sent_cwnd_bytes</a> and some of its peers <code>const</code>? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02328">2328</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02327">2327</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02067">flow::net_flow::Node::handle_accumulated_acks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02061">flow::net_flow::Node::handle_accumulated_acks()</a>.</p>
 
 </div>
 </div>
@@ -165,9 +165,9 @@ Public Attributes</h2></td></tr>
 <dd>
 <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#a3acccd2fcd0f4a0c5f7f0c2d6ad31c2e" title="Time stamps, order numbers, and other info at the times when the different attempts (including origin...">Peer_socket::Sent_packet::m_sent_when</a> for more discussion. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02310">2310</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02309">2309</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l03108">flow::net_flow::Node::drop_pkts_on_acks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l03102">flow::net_flow::Node::drop_pkts_on_acks()</a>.</p>
 
 </div>
 </div>
@@ -177,7 +177,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -471,7 +471,7 @@ Here is the caller graph for this function:</div>
 <div class="line">Some_class some_instance;</div>
 <div class="line"><a class="code hl_class" href="classflow_1_1Function.html">flow::Function</a>&lt;ostream&amp; (ostream&amp;)&gt; print_something_to_stream</div>
 <div class="line">  = [some_instance](ostream&amp; os) -&gt; ostream&amp; { <span class="keywordflow">return</span> some_instance-&gt;func(os, <span class="keyword">false</span>); };</div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00512">common.hpp:512</a></div></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00507">common.hpp:507</a></div></div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>It is important for this to be in namespace <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">flow::net_flow</a></code>, not higher (such as <code>flow</code>) or lower. Otherwise the places needing this overload to be used won't, and it will either not compile; or compile but invoke some other, useless overload. Unfortunately placing it into a containing namespace makes it not work from within a contained namespace.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You may note the above technique is not used for argument-bearing <code>std</code> stream manipulators; for example <code>std::setw()</code>. The technique used to make that work is that <code>setw()</code> would return some internal <code>struct</code> (of unknown-to-user type <code>T</code>), in which it has stored the argument to <code>setw()</code>; and an <code>operator&lt;&lt;(ostream, T)</code> overload is defined; this overload would actually set the field width (or whatever <code>setw()</code> is supposed to do) on the <code>ostream</code> &ndash; using the arg value stored in the <code>T</code>. That works, and it may be somewhat more performant than our solution; but our solution is <em>much</em> more elegant and concise; it lets one build stream manipulators out of any function at all, the only requirements on it being that it returns an <code>ostream&amp;</code> and takes same as <em>an</em> argument. The <code>std</code> technique allows the same, but we can do it with a single and expressive <code>bind()</code> call instead of a hidden internal <code>struct type</code>, explicitly storing arguments, documenting that stuff, etc. (We can change individual cases to use the <code>std</code>-style solution, if performance needs call for it, but so far there has been no such needs.) To be fair, the <code>std</code> solution is ALSO easier/more expressive at the actual call site. That is, in the above examples, one could just do: <code>cout &lt;&lt; func(false) &lt;&lt; ":" &lt;&lt; xyz;</code> or <code>cout &lt;&lt; some_instance.func(false) &lt;&lt; ":" &lt;&lt; xyz;</code>, respectively. That's easier to read than the <code>bind()</code> constructs above; but the code elsewhere that makes those <code>func()</code>s work is a huge mess that our solution completely avoids. For us, all that is needed behind the scenes is the present <code>operator&lt;&lt;</code> overload.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -565,7 +565,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06514">6514</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06508">6508</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -1053,7 +1053,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06537">6537</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06531">6531</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -1237,14 +1237,14 @@ port," depending on the context. </p>
 
 <p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00033">33</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04011">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="node_8cpp_source.html#l00426">flow::net_flow::Node::handle_incoming()</a>, <a class="el" href="server__socket_8cpp_source.html#l00218">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="port__space_8cpp_source.html#l00045">flow::net_flow::Port_space::Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">flow::net_flow::Port_space::reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00075">flow::net_flow::Port_space::reserve_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04005">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="node_8cpp_source.html#l00426">flow::net_flow::Node::handle_incoming()</a>, <a class="el" href="server__socket_8cpp_source.html#l00218">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="port__space_8cpp_source.html#l00045">flow::net_flow::Port_space::Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">flow::net_flow::Port_space::reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00075">flow::net_flow::Port_space::reserve_port()</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

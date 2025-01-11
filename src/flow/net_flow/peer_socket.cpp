@@ -1591,6 +1591,12 @@ void Node::async_acknowledge_packet(Peer_socket::Ptr sock, const Sequence_number
 
   const size_t acks_pending_before_this = sock->m_rcv_pending_acks.size();
 
+  static_assert(std::is_aggregate_v<Peer_socket::Individual_ack>,
+                "We want it to be direct-initializable.");
+  static_assert((!std::is_copy_constructible_v<Peer_socket::Individual_ack>)
+                  && (!std::is_copy_assignable_v<Peer_socket::Individual_ack>),
+                "We want it to be noncopyable but rather passed-around via its ::Ptr.");
+
   /* Just the starting sequence number sufficient to identify a single packet.  The time point saved
    * here is subtracted from time_now() at ACK send time, to compute the artificial delay introduced
    * by ACK delaying (explained just below).  This helps other side calculate a more accurate RTT by

@@ -285,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
 <p >See <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> doc header for information common to all low-level packets including this one.</p>
 <p >Each DATA packet contains actual data payload packetized from the application-provided stream of bytes. It is identified by the sequence number (encoded in this object) of the first byte of that payload. An individual acknowledgment inside an <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a> refers to the <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a> by that first sequence number. If <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#acc2a10d19e8e54c88518ad2e02a08b68" title="Option indicating whether this connection is using retransmission or not.">Low_lvl_packet::m_opt_rexmit_on</a> is <code>true</code>, then <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac149f87b8915213857c707b0f3562ef0" title="Retransmit counter of the DATA packet being sent.">m_rexmit_id</a> identifies which attempt at sending the payload with this sequence number and payload this packet represents: 0 is 1st attempt, 1 is 1st retry, 2 is 2nd retry, etc. If that option is off, then a lost packet is never retransmitted; and therefore <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac149f87b8915213857c707b0f3562ef0" title="Retransmit counter of the DATA packet being sent.">m_rexmit_id</a> is always 0. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00893">893</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00892">892</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="abba220658ada68bae04c9c2ebd06f72c" name="abba220658ada68bae04c9c2ebd06f72c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abba220658ada68bae04c9c2ebd06f72c">&#9670;&nbsp;</a></span>rexmit_id_t</h2>
@@ -302,7 +302,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Type used to store the retransmission count in DATA and ACK packets. </p>
 <p >Why 8 bits? This handles up 255 retransmissions, which is long after we'd kill the connection anyway. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00903">903</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00902">902</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +400,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">655</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00934">m_data</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00926">m_data_size_raw</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00223">flow::net_flow::Low_lvl_packet::m_opt_rexmit_on</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00917">m_rexmit_id</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00911">m_seq_num</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00246">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00933">m_data</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00925">m_data_size_raw</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00222">flow::net_flow::Low_lvl_packet::m_opt_rexmit_on</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00916">m_rexmit_id</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00910">m_seq_num</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00245">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -499,7 +499,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00968">968</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00413">flow::util::buffers_to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00912">flow::net_flow::Low_lvl_packet::to_ostream()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00388">flow::util::buffers_to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00912">flow::net_flow::Low_lvl_packet::to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -526,7 +526,7 @@ Here is the call graph for this function:</div>
 <p >Cannot be <code>empty()</code>.</p>
 <p >As of this writing there is an important (for performance) subtlety about how this is originally filled in when deserializing a wire-arrived packet. See <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac2a390c4cb7abfeec7c658c866dbfc06" title="Implements Low_lvl_packet API.">Data_packet::deserialize_type_specific_data_from_raw_data_packet()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00934">934</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00933">933</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -555,7 +555,7 @@ Here is the call graph for this function:</div>
 <p>This is the serialized version of <code>m_data.size()</code> (see <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">m_data</a>). </p>
 <p >We send this value, even though it could be figured out from the overall serialized size, to ensure integrity (see the deserialization logic for details). This here is set to <code>m_data.size()</code>, when <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">Low_lvl_packet::serialize_to_raw_data()</a> needs to serialize that value. Outside serialization <code>m_data.size()</code> is used directly, and this value is meaningless. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00926">926</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00925">925</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -576,7 +576,7 @@ Here is the call graph for this function:</div>
 <p>Retransmit counter of the DATA packet being sent. </p>
 <p >Identifies which attempt we are acknowledging (0 = initial, 1 = first retransmit, 2 = second retransmit, ...). Always 0 if <code>!m_opt_rexmit_on</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00917">917</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00916">916</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -597,7 +597,7 @@ Here is the call graph for this function:</div>
 <p>The sequence number of the first byte in the payload; i.e., of <code>m_data.front()</code>, a/k/a <code>m_data[0]</code>. </p>
 <p >Note that <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">m_data</a> cannot be empty, so <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#a94d817529e94ac88ee2cea6f3dd1badb" title="The sequence number of the first byte in the payload; i.e., of m_data.front(), a/k/a m_data[0].">m_seq_num</a> is always meaningful. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00911">911</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00910">910</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -625,7 +625,7 @@ Here is the call graph for this function:</div>
 
 <p>In serialized packet, the type ID byte identifying this as a DATA packet. Must not equal any other packet type's. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00945">945</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00944">944</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -636,7 +636,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

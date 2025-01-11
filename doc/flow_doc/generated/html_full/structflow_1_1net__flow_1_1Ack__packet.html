@@ -306,7 +306,7 @@ Additional Inherited Members</h2></td></tr>
 <p >The mechanics of individual acks are further explored in the doc header for <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html" title="Specifies the incoming (post-deserialization) acknowledgment of a single received Data_packet.">Ack_packet::Individual_ack</a> nested <code>struct</code>.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000067">Todo:</a></b></dt><dd>Conceivably, since <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a> actually stores 1+ acknowledgments, it should become Acks_packet, of type ACKS (not ACK). Many comments and log messages would become clearer, as no one would assume an individual packet's acknowledgment when reading "an ACK" or similar phrase. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01020">1020</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01019">1019</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a374da5eef60c7d8a4085b41cf7b2adfe" name="a374da5eef60c7d8a4085b41cf7b2adfe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a374da5eef60c7d8a4085b41cf7b2adfe">&#9670;&nbsp;</a></span>ack_delay_t</h2>
@@ -325,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
 <p >An earlier version of <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> used the unit milliseconds and the encoding type uint16_t. The reasoning was that this allowed a maximum ACK delay of ~65 sec which should be plenty; and that the 1-millisecond finegrainedness was acceptable. However when implementing queue delay-based congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK delay value) to be quite precise (microsecond level or so). Therefore, to be totally safe, we choose to use the same units as <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79" title="A high-res time duration as computed from two Fine_time_pts.">Fine_duration</a>, which is how we compute all time periods. As for the the encoding width, we use 64 bits just in case.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000071">Todo:</a></b></dt><dd>Reconsider the encoding width. If <code>Ack_delay_time_unit(1)</code> is a nanosecond, then 32 bits would support a maximum delay of ~4.1 seconds which is likely fine for most real-world scenarios. This would reduce the size of ACK packets quite a bit. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01040">1040</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01039">1039</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -343,7 +343,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p><code>Ack_delay_time_unit(1)</code> is the duration corresponding to the <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html#a374da5eef60c7d8a4085b41cf7b2adfe" title="Type used to store the ACK delay for a given individual acknowledged packet.">ack_delay_t</a> value 1; and proportionally further. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01043">1043</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01042">1042</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -441,7 +441,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">785</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00223">flow::net_flow::Low_lvl_packet::m_opt_rexmit_on</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01116">m_rcv_acked_packets</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01063">m_rcv_acked_packets_rexmit_out_size</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01052">m_rcv_wnd</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00246">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00222">flow::net_flow::Low_lvl_packet::m_opt_rexmit_on</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01115">m_rcv_acked_packets</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01062">m_rcv_acked_packets_rexmit_out_size</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l01051">m_rcv_wnd</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00245">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>, <a class="el" href="seq__num_8cpp_source.html#l00268">flow::net_flow::Sequence_number::set_metadata()</a>, and <a class="el" href="seq__num_8cpp_source.html#l00263">flow::net_flow::Sequence_number::set_raw_num()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -573,7 +573,7 @@ Here is the call graph for this function:</div>
 <p >Any two packets represented by these <code><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html" title="Specifies the incoming (post-deserialization) acknowledgment of a single received Data_packet.">Individual_ack</a></code>s may be duplicates of each other (same <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html" title="An internal net_flow sequence number identifying a piece of data.">Sequence_number</a>, possibly different delay values). It's up to the sender (receiver of ACK) to sort it out. However, again, they MUST be ordered chronologicaly based on the time when they were received; from earliest to latest.</p>
 <p >Storing shared pointers to avoid copying of <code>struct</code>s (however small) during internal reshuffling; shared instead of raw pointers to not worry about <code>delete</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01116">1116</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01115">1115</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -595,7 +595,7 @@ Here is the call graph for this function:</div>
 <p >See notes in <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html" title="Specifies the outgoing (pre-serialization) acknowledgment of a single received Data_packet,...">Individual_ack_rexmit_off</a> doc header about how this is used for efficient serialization of <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a>.</p>
 <p >This is used if and only if <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level ACK packet.">Ack_packet</a> is outgoing, and retransmission is disabled. See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html#a232e22e04614ead19fa4531a89838015" title="List of incoming (post-deserialization of ACK) acknowledgments of DATA packets, each identified by it...">m_rcv_acked_packets</a> for the incoming scenario. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01126">1126</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01125">1125</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -613,7 +613,7 @@ Here is the call graph for this function:</div>
 
 <p>Equivalent of <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html#aebad844e9061da02db8f168374869f9e" title="Equivalent of m_rcv_acked_packets but used for outgoing (pre-serialization of ACK) acknowledgments an...">m_rcv_acked_packets_rexmit_off_out</a> but for retransmission enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01129">1129</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01128">1128</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -640,7 +640,7 @@ Here is the call graph for this function:</div>
 <p>This is the serialized version of <code>m_rcv_acked_packets_rexmit_{on|off}_out.size()</code> and <code>m_rcv_acked_packets.size()</code> (whichever is applicable in context). </p>
 <p >We send this value, even though it could be figured out from the overall serialized size, to ensure integrity (see the deserialization logic for details). This here is set to <code>size()</code>, when <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">Low_lvl_packet::serialize_to_raw_data()</a> needs to serialize that value. Outside serialization <code>size()</code> is used directly, and this value is meaningless. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01063">1063</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01062">1062</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -660,7 +660,7 @@ Here is the call graph for this function:</div>
 
 <p>Current receive window (remaining Receive buffer size) of the ACK sender. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01052">1052</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01051">1051</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">deserialize_type_specific_data_from_raw_data_packet()</a>.</p>
 
@@ -688,7 +688,7 @@ Here is the call graph for this function:</div>
 
 <p>In serialized packet, the type ID byte identifying this as an ACK packet. Must not equal any other packet type's. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01132">1132</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01131">1131</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -699,7 +699,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

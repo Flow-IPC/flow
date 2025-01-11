@@ -17,7 +17,7 @@
 <text text-anchor="start" x="8" y="-34.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Shared</text>
 <text text-anchor="start" x="8" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">_ptr_alias_holder&lt; boost</text>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">::shared_ptr&lt; Peer_socket</text>
-<text text-anchor="middle" x="62" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Received_packet &gt; &gt;</text>
+<text text-anchor="middle" x="62" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Sent_packet &gt; &gt;</text>
 </a>
 </g>
 </g>

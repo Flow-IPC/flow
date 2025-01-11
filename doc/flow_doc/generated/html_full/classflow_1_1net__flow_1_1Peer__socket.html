@@ -637,7 +637,7 @@ Additional Inherited Members</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000124">Todo:</a></b></dt><dd>Rename <code>State</code> and <code>Open_sub_state</code> to <code>Phase</code> and <code>Open_sub_phase</code> respectively; and <code>Int_state</code> to <code>State</code>. Explain difference between phases (application-layer, user-visible and used close to application layer) and states (transport layer, internal).</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000125">Todo:</a></b></dt><dd>Look into a way to defeat the need for boiler-plate trickery &ndash; with low but non-zero perf cost &ndash; involving <code>*_socket</code>-vs-<code><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a></code> circular references in method templates, such as the way <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">Peer_socket::send()</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">Peer_socket::receive()</a> internally make <code><a class="el" href="classflow_1_1Function.html">Function</a>&lt;&gt;</code>s before forwarding to the core in <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>. Can this be done with <code>.inl</code> files? Look into how Boost internally uses <code>.inl</code> files; this could inspire a solution... or not. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00216">216</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00215">215</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ae804be57cf09b9bf76eafa8ffff73de6" name="ae804be57cf09b9bf76eafa8ffff73de6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae804be57cf09b9bf76eafa8ffff73de6">&#9670;&nbsp;</a></span>Drop_timer_ptr</h2>
@@ -661,7 +661,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <code>shared_ptr</code> to immutable <a class="el" href="classflow_1_1net__flow_1_1Drop__timer.html" title="Internal net_flow class that maintains the Drop Timer for DATA packet(s) to have been sent out over a...">Drop_timer</a> (can't use <a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc" title="Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).">Drop_timer::Ptr</a> due to C++ and circular reference). </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00857">857</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00856">856</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -687,7 +687,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for RAII lock guard of <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad1e36619c78b15f46576a18678a4ee67" title="Short-hand for reentrant mutex type.">Mutex</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00900">900</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00899">899</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -715,7 +715,7 @@ Additional Inherited Members</h2></td></tr>
 <p >We explicitly rely on reentrant behavior, so this isn't "just in case."</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000131">Todo:</a></b></dt><dd>This doc header for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad1e36619c78b15f46576a18678a4ee67" title="Short-hand for reentrant mutex type.">Peer_socket::Mutex</a> should specify what specific behavior requires mutex reentrance, so that for example one could reevaluate whether there's a sleeker code pattern that would avoid it. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00897">897</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00896">896</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -741,7 +741,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for lock that acquires exclusive access to an <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a1e1379f9a0269d6990f26bf1da045657" title="Short-hand for high-performance, non-reentrant, exclusive mutex used to lock m_opts.">Options_mutex</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00889">889</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00888">888</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -769,7 +769,7 @@ Additional Inherited Members</h2></td></tr>
 <h3>Rationale</h3>
 <p >You might notice this seems tailor-made for shared/exclusive (a/k/a multiple-readers-single-writer) mutex. Why a 2-level mutex instead of a normal exclusive mutex? Because options can be accessed by thread W and various user threads, in the vast majority of the time to read option values. On the other hand, rarely, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad59c09f34003873a3c207cc590236773" title="This socket&#39;s per-socket set of options.">m_opts</a> may be modified via <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" title="Dynamically replaces the current options set (options()) with the given options set.">set_options()</a>. To avoid thread contention when no one is writing (which is usual), we could use that 2-level type of mutex and apply the appropriate (shared or unique) lock depending on the situation. So why not? Answer: While a shared/exclusive mutex sounds lovely in theory &ndash; and perhaps if its implementation were closer to the hardware it would be lovely indeed &ndash; in practice it seems its implementation just causes performance problems rather than solving them. Apparently that's why it was rejected by C++11 standards people w/r/t inclusion in that standard. The people involved explained their decision here: <a href="http://permalink.gmane.org/gmane.comp.lib.boost.devel/211180">http://permalink.gmane.org/gmane.comp.lib.boost.devel/211180</a>. So until that is improved, just do this. I'm not even adding a to-do for fixing this, as that seems unlikely anytime soon. Update: C++17 added <code>std::shared_mutex</code>, and C++14 added a similar thing named something else. Seems like a good time to revisit this &ndash; if not to materially improve <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a1e1379f9a0269d6990f26bf1da045657" title="Short-hand for high-performance, non-reentrant, exclusive mutex used to lock m_opts.">Options_mutex</a> performance then to gain up-to-date knowledge on the topic, specifically whether <code>shared_mutex</code> is fast now. Update: Apparently as of Boost-1.80 the Boost.thread impl of <code>shared_mutex</code> is lacking in perf, and there is a ticket filed for many years for this. Perhaps gcc <code>std::shared_mutex</code> is fine. However research suggests it's less about this nitty-gritty of various impls and more the following bottom line: A simple mutex is <em>very</em> fast to lock/unlock, and perf problems occur only if one must wait for a lock. Experts say that it is possible but quite rare that there is enough lock contention to make it "worth it": a shared mutex is <em>much</em> slower to lock/unlock sans contention. Only when the read critical sections are long and very frequently accessed does it become "worth it." </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00886">886</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00885">885</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -795,7 +795,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for order number type. 0 is reserved. Caution: Keep in sync with <a class="el" href="classflow_1_1net__flow_1_1Drop__timer.html#a0930c4da4484ffc1f8bcfbc496e5ecd0" title="Type to uniquely identify a packet sent over the wire in the socket to which this Drop_timer applies.">Drop_timer::packet_id_t</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00906">906</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00905">905</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -822,7 +822,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Type used for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a48320d96118a37626f1852626965e6ed" title="The queue of DATA packets received while in Int_state::S_SYN_RCVD state before the Syn_ack_ack_packet...">m_rcv_syn_rcvd_data_q</a>. </p>
 <p >Using <code>vector</code> because we only need <code>push_back()</code> and iteration at the moment. Using pointer to non-<code>const</code> instead of <code>const</code> because when we actually handle the packet as received we will need to be able to modify the packet for performance (see <a class="el" href="classflow_1_1net__flow_1_1Node.html#a06e4cea2eefa1b06975864f09740c96b" title="Handles a just-deserialized, just-demultiplexed, low-level DATA packet delivered to the given peer so...">Node::handle_data_to_established()</a>, when it transfers data to Receive buffer). </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00982">982</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00981">981</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -848,7 +848,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae82958ed6d71be46b96eceaca6214143" title="The sequence-number-ordered collection of all received-and-not-dropped-due-to-buffer-overflow packets...">m_rcv_packets_with_gaps</a> <code>const</code> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00969">969</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00968">968</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -874,7 +874,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae82958ed6d71be46b96eceaca6214143" title="The sequence-number-ordered collection of all received-and-not-dropped-due-to-buffer-overflow packets...">m_rcv_packets_with_gaps</a> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00972">972</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00971">971</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -901,7 +901,7 @@ Additional Inherited Members</h2></td></tr>
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae82958ed6d71be46b96eceaca6214143" title="The sequence-number-ordered collection of all received-and-not-dropped-due-to-buffer-overflow packets...">m_rcv_packets_with_gaps</a> type; see that data member. </p>
 <p ><code>struct</code>s are stored via shared pointers instead of as direct objects to minimize copying of potentially heavy-weight data. They are stored as shared pointers instead of as raw pointers to avoid having to worry about <code>delete</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00966">966</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00965">965</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -927,7 +927,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Type used for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a33a90b123612cc2e6a119cfa95ba4f6d" title="Random security token used during SYN_ACK-SYN_ACK_ACK.">m_security_token</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00903">903</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00902">902</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -953,7 +953,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> type; see that data member. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00941">941</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00940">940</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -979,7 +979,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a> type; see that data member. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00950">950</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00949">949</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1005,7 +1005,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a> <code>const</code> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00953">953</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00952">952</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +1031,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00956">956</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00955">955</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1057,7 +1057,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> <code>const</code> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00944">944</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00943">943</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1083,7 +1083,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> iterator type. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00947">947</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00946">946</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1121,7 +1121,7 @@ Additional Inherited Members</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00914">914</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00913">913</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1159,7 +1159,7 @@ Additional Inherited Members</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00238">238</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00237">237</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1191,7 +1191,7 @@ Additional Inherited Members</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00229">229</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00228">228</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1376,7 +1376,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00269">269</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>, <a class="el" href="peer__socket_8cpp_source.html#l05621">flow::net_flow::Node::close_abruptly()</a>, <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00168">flow::error::exec_void_and_throw_on_error()</a>, <a class="el" href="util__fwd_8hpp_source.html#l00971">FLOW_UTIL_WHERE_AM_I_STR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>, <a class="el" href="peer__socket_8cpp_source.html#l05615">flow::net_flow::Node::close_abruptly()</a>, <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00168">flow::error::exec_void_and_throw_on_error()</a>, <a class="el" href="util__fwd_8hpp_source.html#l00971">FLOW_UTIL_WHERE_AM_I_STR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>.</p>
 <div class="dynheader">
@@ -1415,7 +1415,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00101">101</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01313">m_disconnect_cause</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01312">m_disconnect_cause</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="asio_2peer__socket_8cpp_source.html#l00132">flow::net_flow::asio::Peer_socket::node_or_post_error()</a>.</p>
 <div class="dynheader">
@@ -1523,7 +1523,7 @@ If a connect() variant without <code>_with_metadata</code> in the name was used,
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00390">390</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8cpp_source.html#l00419">ensure_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01329">m_serialized_metadata</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8cpp_source.html#l00419">ensure_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01328">m_serialized_metadata</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>.</p>
 <div class="dynheader">
@@ -1563,7 +1563,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00323">323</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02167">m_info_on_close</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06344">flow::net_flow::Node::sock_info()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02166">m_info_on_close</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06338">flow::net_flow::Node::sock_info()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1594,9 +1594,9 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00384">384</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01348">m_local_port</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01347">m_local_port</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06514">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06508">operator&lt;&lt;()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1627,9 +1627,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00352">352</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01179">m_opts</a>, <a class="el" href="options_8hpp_source.html#l00114">flow::net_flow::Peer_socket_options::m_st_max_block_size</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02639">opt()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01178">m_opts</a>, <a class="el" href="options_8hpp_source.html#l00114">flow::net_flow::Peer_socket_options::m_st_max_block_size</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02644">opt()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00424">bytes_blocks_str()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03957">flow::net_flow::Node::connect_with_metadata()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00424">bytes_blocks_str()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03951">flow::net_flow::Node::connect_with_metadata()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1692,7 +1692,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00357">357</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00258">flow::util::ceil_div()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01179">m_opts</a>, <a class="el" href="peer__socket_8hpp_source.html#l01182">m_opts_mutex</a>, <a class="el" href="options_8hpp_source.html#l00114">flow::net_flow::Peer_socket_options::m_st_max_block_size</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00352">max_block_size()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00233">flow::util::ceil_div()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01178">m_opts</a>, <a class="el" href="peer__socket_8hpp_source.html#l01181">m_opts_mutex</a>, <a class="el" href="options_8hpp_source.html#l00114">flow::net_flow::Peer_socket_options::m_st_max_block_size</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00352">max_block_size()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1722,7 +1722,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00095">95</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, and <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="asio_2peer__socket_8cpp_source.html#l00132">flow::net_flow::asio::Peer_socket::node_or_post_error()</a>.</p>
 <div class="dynheader">
@@ -1781,9 +1781,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00219">219</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l05089">flow::net_flow::Node::receive()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l05083">flow::net_flow::Node::receive()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02547">receive()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02552">receive()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1846,9 +1846,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00134">134</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l04526">flow::net_flow::Node::send()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, and <a class="el" href="peer__socket_8cpp_source.html#l04520">flow::net_flow::Node::send()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02443">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02448">send()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1917,9 +1917,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00234">234</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00037">Peer_socket()</a>, <a class="el" href="peer__socket_8cpp_source.html#l05089">flow::net_flow::Node::receive()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a7cedcbdde2b86daeb1268c63c6cb6b88">flow::net_flow::Event_set::S_PEER_SOCKET_READABLE</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00037">Peer_socket()</a>, <a class="el" href="peer__socket_8cpp_source.html#l05083">flow::net_flow::Node::receive()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a7cedcbdde2b86daeb1268c63c6cb6b88">flow::net_flow::Event_set::S_PEER_SOCKET_READABLE</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02605">sync_receive_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02610">sync_receive_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1988,9 +1988,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00149">149</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00037">Peer_socket()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a5efb94617bcb00507a087224ce7a7d02">flow::net_flow::Event_set::S_PEER_SOCKET_WRITABLE</a>, <a class="el" href="peer__socket_8cpp_source.html#l04526">flow::net_flow::Node::send()</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00037">Peer_socket()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a5efb94617bcb00507a087224ce7a7d02">flow::net_flow::Event_set::S_PEER_SOCKET_WRITABLE</a>, <a class="el" href="peer__socket_8cpp_source.html#l04520">flow::net_flow::Node::send()</a>, and <a class="el" href="node_8hpp_source.html#l03977">flow::net_flow::Node::sync_op()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02513">sync_send_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02518">sync_send_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2049,9 +2049,9 @@ template&lt;typename Opt_type &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A copy of the value at the given reference. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02639">2639</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02644">2644</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01182">m_opts_mutex</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01181">m_opts_mutex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00352">max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00318">options()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00373">rexmit_on()</a>.</p>
 <div class="dynheader">
@@ -2085,7 +2085,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00318">318</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01179">m_opts</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02639">opt()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01178">m_opts</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02644">opt()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00037">Peer_socket()</a>.</p>
 <div class="dynheader">
@@ -2160,9 +2160,9 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The number of bytes consumed (placed into <code>target</code>). Always 0 if <code>bool(*err_code) == true</code> when <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a> returns. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02547">2547</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02552">2552</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00543">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01261">m_rcv_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00219">node_receive()</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00543">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01260">m_rcv_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00219">node_receive()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2193,9 +2193,9 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00378">378</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01345">m_remote_endpoint</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01344">m_remote_endpoint</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06514">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06508">operator&lt;&lt;()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2234,9 +2234,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00373">373</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01179">m_opts</a>, <a class="el" href="options_8hpp_source.html#l00214">flow::net_flow::Peer_socket_options::m_st_rexmit_on</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02639">opt()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01178">m_opts</a>, <a class="el" href="options_8hpp_source.html#l00214">flow::net_flow::Peer_socket_options::m_st_rexmit_on</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02644">opt()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02551">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03108">flow::net_flow::Node::drop_pkts_on_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03323">flow::net_flow::Node::drop_timer_action()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02067">flow::net_flow::Node::handle_accumulated_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00560">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03641">flow::net_flow::Node::log_snd_window()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02545">flow::net_flow::Node::categorize_individual_ack()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03102">flow::net_flow::Node::drop_pkts_on_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03317">flow::net_flow::Node::drop_timer_action()</a>, <a class="el" href="peer__socket_8cpp_source.html#l02061">flow::net_flow::Node::handle_accumulated_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00560">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l03635">flow::net_flow::Node::log_snd_window()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2312,9 +2312,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes (possibly zero) added to buffer. Always 0 if <code>bool(*err_code) == true</code> when <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">send()</a> returns. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02443">2443</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02448">2448</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00391">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01279">m_snd_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00134">node_send()</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00391">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01278">m_snd_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00134">node_send()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2364,7 +2364,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00297">297</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01218">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06197">flow::net_flow::Node::sock_set_options()</a>.</p>
+<p class="reference">References <a class="el" href="node_8hpp_source.html#l04141">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01217">m_node</a>, <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06191">flow::net_flow::Node::sock_set_options()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>.</p>
 <div class="dynheader">
@@ -2409,7 +2409,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00085">85</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01202">m_open_sub_state</a>, <a class="el" href="peer__socket_8hpp_source.html#l01193">m_state</a>, and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a6a9bb727c8982f24bcf978c10c2c7345a02dcbe46a8dfde95b9776744dacae189">S_OPEN</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01201">m_open_sub_state</a>, <a class="el" href="peer__socket_8hpp_source.html#l01192">m_state</a>, and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a6a9bb727c8982f24bcf978c10c2c7345a02dcbe46a8dfde95b9776744dacae189">S_OPEN</a>.</p>
 
 </div>
 </div>
@@ -2473,7 +2473,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if there are 1+ bytes ready to read; <code>false</code> if either a timeout has occurred (no bytes ready), or another error has occurred. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02596">2596</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02601">2601</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
@@ -2523,7 +2523,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00192">192</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02586">sync_receive()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02591">sync_receive()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2597,9 +2597,9 @@ template&lt;typename Rep , typename Period , typename Mutable_buffer_sequence &g
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes (possibly zero) added to target. Always 0 if <code>bool(*err_code) == true</code> when <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a> returns. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02586">2586</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02591">2591</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02605">sync_receive_impl()</a>.</p>
+<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02610">sync_receive_impl()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00192">sync_receive()</a>.</p>
 <div class="dynheader">
@@ -2661,9 +2661,9 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02580">2580</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02585">2585</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02605">sync_receive_impl()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02610">sync_receive_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2732,11 +2732,11 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02605">2605</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02610">2610</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00543">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01261">m_rcv_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00543">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01260">m_rcv_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02580">sync_receive()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02585">sync_receive()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2798,9 +2798,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00197">197</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02596">sync_receive()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02601">sync_receive()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2876,7 +2876,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if 1+ bytes are possible to add to Send buffer; <code>false</code> if either a timeout has occurred (bytes not writable), or another error has occurred. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02503">2503</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02508">2508</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
@@ -2926,7 +2926,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00107">107</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02492">sync_send()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02497">sync_send()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -3000,9 +3000,9 @@ template&lt;typename Rep , typename Period , typename Const_buffer_sequence &gt;
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes (possibly zero) added to Send buffer. Always 0 if <code>bool(*err_code) == true</code> when <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a> returns. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02492">2492</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02497">2497</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02513">sync_send_impl()</a>.</p>
+<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02518">sync_send_impl()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00107">sync_send()</a>.</p>
 <div class="dynheader">
@@ -3064,9 +3064,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02486">2486</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02491">2491</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02513">sync_send_impl()</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02518">sync_send_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -3135,11 +3135,11 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02513">2513</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02518">2518</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00391">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01279">m_snd_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00391">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8hpp_source.html#l01278">m_snd_buf</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02486">sync_send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02491">sync_send()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -3201,9 +3201,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00112">112</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01342">m_mutex</a>, <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="peer__socket_8hpp_source.html#l01341">m_mutex</a>, <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02503">sync_send()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02508">sync_send()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -3243,7 +3243,7 @@ Here is the caller graph for this function:</div>
 <p>Congestion control modules have const access to all socket internals. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Congestion__control__classic.html" title="Classic congestion control, based on Reno (TCP RFC 5681), with congestion avoidance,...">Congestion_control_classic</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00847">847</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00846">846</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3270,7 +3270,7 @@ Here is the caller graph for this function:</div>
 <p>Congestion control modules have const access to all socket internals. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Congestion__control__classic__data.html" title="Utility class for use by Congestion_control_strategy implementations that implements congestion windo...">Congestion_control_classic_data</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00842">842</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00841">841</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3297,7 +3297,7 @@ Here is the caller graph for this function:</div>
 <p>Congestion control modules have const access to all socket internals. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Congestion__control__classic__with__bandwidth__est.html" title="Classic congestion control but with backoff to bandwidth estimate-based pipe size.">Congestion_control_classic_with_bandwidth_est</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00852">852</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00851">851</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3324,7 +3324,7 @@ Here is the caller graph for this function:</div>
 <p>For access to <code>Sent_pkt_by_sent_when_map</code> and <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html" title="Metadata (and data, if retransmission is on) for a packet that has been sent one (if retransmission i...">Sent_packet</a> types, at least. </p>
 <p >(<a class="el" href="classflow_1_1net__flow_1_1Drop__timer.html" title="Internal net_flow class that maintains the Drop Timer for DATA packet(s) to have been sent out over a...">Drop_timer</a> has no actual <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> instance to mess with.) </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00832">832</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00831">831</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3351,7 +3351,7 @@ Here is the caller graph for this function:</div>
 <p>See rationale for <code>friend</code>ing <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> in class <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> documentation header. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00822">822</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00821">821</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3401,7 +3401,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06514">6514</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06508">6508</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="peer__socket_8cpp_source.html#l00384">local_port()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00378">remote_endpoint()</a>.</p>
 <div class="dynheader">
@@ -3457,7 +3457,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06537">6537</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l06531">6531</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -3484,9 +3484,9 @@ Here is the call graph for this function:</div>
 <p>Stats modules have const access to all socket internals. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Send__bandwidth__estimator.html" title="A per-Peer_socket module that tries to estimate the bandwidth available to the outgoing flow.">Send_bandwidth_estimator</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00837">837</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00836">836</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04011">flow::net_flow::Node::connect_worker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04005">flow::net_flow::Node::connect_worker()</a>.</p>
 
 </div>
 </div>
@@ -3513,7 +3513,7 @@ Here is the call graph for this function:</div>
 <p>See rationale for <code>friend</code>ing <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a> in class <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> documentation header. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00827">827</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l00826">826</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3540,7 +3540,7 @@ Here is the call graph for this function:</div>
 
 <p><code>true</code> if we connect() to server; <code>false</code> if we are to be/are <code>accept()</code>ed. Should be set once and not modified. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01185">1185</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01184">1184</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3569,7 +3569,7 @@ Here is the call graph for this function:</div>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a85b3d271527dbaa04b1d9f751631fd71" title="Connection attempt scheduled task; fires if an individual connection request packet is not answered w...">m_init_rexmit_scheduled_task</a> which keeps track of <em>individual</em> attempts timing out, as opposed to the entire process. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02159">2159</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02158">2158</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3603,7 +3603,7 @@ Here is the call graph for this function:</div>
 <h3>Thread safety</h3>
 <p >Since user threads will access this at least via <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">send()</a>, while thread W may set it having detected disconnection, this must be protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01313">1313</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01312">1312</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00101">disconnect_cause()</a>.</p>
 
@@ -3632,7 +3632,7 @@ Here is the call graph for this function:</div>
 <p>This is the final set of stats collected at the time the socket was moved to S_CLOSED <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a05a765055fd54412c63e57e43697f1bc" title="See state().">m_state</a>. </p>
 <p >If it has not yet moved to that state, this is not applicable (but equals Peer_socket_info()). It's used by <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aad81cc16fc6f0d353fdc1379e1dd4712" title="Returns a structure containing the most up-to-date stats about this connection.">info()</a> to get at the final set of stats, before the source info is purged by the resource cleanup in sock_free_memory(). </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02167">2167</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02166">2166</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00323">info()</a>.</p>
 
@@ -3662,7 +3662,7 @@ Here is the call graph for this function:</div>
 <p >So when the timer is readied the first time it's zero; if it fires and is thus readied again it's one; again =&gt; two; etc., until timer is canceled or connection is aborted due to too many retries.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02145">2145</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02144">2144</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3692,7 +3692,7 @@ Here is the call graph for this function:</div>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad772e56de286567c4b7a681907b5f285" title="Connection timeout scheduled task; fires if the entire initial connection process does not complete w...">m_connection_timeout_scheduled_task</a> which keeps track of the entire process timing out, as opposed to the individual attempts. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02134">2134</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02133">2133</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3720,7 +3720,7 @@ Here is the call graph for this function:</div>
 <p >Note this is a very central piece of information and is analogous to TCP's "state" (ESTABLISHED, etc. etc.).</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01357">1357</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01356">1356</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3746,7 +3746,7 @@ Here is the call graph for this function:</div>
 
 <p>See <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a7af387476aa0bdc6b3906c153d824acb" title="The local Flow-protocol port chosen by the Node (if active or passive open) or user (if passive open)...">local_port()</a>. Should be set before user gets access to <code>*this</code> and not changed afterwards. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01348">1348</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01347">1347</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00384">local_port()</a>.</p>
 
@@ -3776,9 +3776,9 @@ Here is the call graph for this function:</div>
 <p >The protected items are <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a05a765055fd54412c63e57e43697f1bc" title="See state().">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae5d47460784cc20c9e44237edffaac95" title="See state().">m_open_sub_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a4fb8e8df98efa023e8bd4bd825475a18" title="The Error_code causing disconnection (if one has occurred or is occurring) on this socket; otherwise ...">m_disconnect_cause</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a36ab27af6886c7699f9965a5eb296cd6" title="See node().">m_node</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aae9cb8f2dbd50ddaa0265d940b149ef3" title="The Receive buffer; Node feeds data at the back; user consumes data at the front.">m_rcv_buf</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a993edf95f6bce2e57e7111e42533dc74" title="The Send buffer; user feeds data at the back; Node consumes data at the front.">m_snd_buf</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a322dddf34a06bb199dab02c993bad686" title="If !m_active_connect, this contains the serialized metadata that the user supplied on the other side ...">m_serialized_metadata</a>.</p>
 <p >Generally speaking, if 2 or more of the protected variables must be changed in the same non-blocking "operation" (for some reasonable definition of "operation"), they should probably be changed within the same <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ab41b19ed4e62cb14fcd7dac81e4a8f41" title="This object&#39;s mutex.">m_mutex</a>-locking critical section. For example, if closing the socket in thread W due to an incoming RST, one should lock <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ab41b19ed4e62cb14fcd7dac81e4a8f41" title="This object&#39;s mutex.">m_mutex</a>, clear both buffers, set <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a4fb8e8df98efa023e8bd4bd825475a18" title="The Error_code causing disconnection (if one has occurred or is occurring) on this socket; otherwise ...">m_disconnect_cause</a>, change <code>m_state = <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a6a9bb727c8982f24bcf978c10c2c7345a6abcbd1be8478aa03e76aec9c540e14f" title="Neither future reads nor writes are possible, AND Node has disowned the Peer_socket.">State::S_CLOSED</a></code>, and then unlock <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ab41b19ed4e62cb14fcd7dac81e4a8f41" title="This object&#39;s mutex.">m_mutex</a>. Then thread U != W will observe all this state changed at the "same time," which is desirable. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01342">1342</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01341">1341</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00101">disconnect_cause()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00323">info()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00095">node()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02547">receive()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02443">send()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00085">state()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02605">sync_receive_impl()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02513">sync_send_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00101">disconnect_cause()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00323">info()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00095">node()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02552">receive()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02448">send()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00085">state()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02610">sync_receive_impl()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00197">sync_receive_reactor_pattern_impl()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02518">sync_send_impl()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00112">sync_send_reactor_pattern_impl()</a>.</p>
 
 </div>
 </div>
@@ -3808,7 +3808,7 @@ Here is the call graph for this function:</div>
 <p >Accessed from thread W and user threads U != W (in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa9e7e1be830c901bc7348742e79ba2e7" title="Node that produced this Peer_socket.">node()</a> and others). Must be protected by mutex.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000133">Todo:</a></b></dt><dd><code>boost::weak_ptr&lt;<a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>&gt;</code> would be ideal for this, but of course then <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> would have to (only?) be available via shared_ptr&lt;&gt;. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01218">1218</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01217">1217</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00269">close_abruptly()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00323">info()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00095">node()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00219">node_receive()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00134">node_send()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00234">node_sync_receive()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00149">node_sync_send()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00297">set_options()</a>.</p>
 
@@ -3838,7 +3838,7 @@ Here is the call graph for this function:</div>
 <p >Should be set before user gets access to <code>*this</code>. Must not be modified by non-W threads after that.</p>
 <p >Accessed from thread W and user threads U != W (in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af982953b5136c1df488066eacc293a78" title="Current State of the socket.">state()</a> and others). Must be protected by mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01202">1202</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01201">1201</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00085">state()</a>.</p>
 
@@ -3868,9 +3868,9 @@ Here is the call graph for this function:</div>
 <p >Initialized at construction; can be subsequently modified by <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" title="Dynamically replaces the current options set (options()) with the given options set.">set_options()</a>, although only the dynamic members of this may be modified.</p>
 <p >Accessed from thread W and user thread U != W. Protected by <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#addfbe1487c621d4a9c464aec61bc108a" title="The mutex protecting m_opts.">m_opts_mutex</a>. When reading, do NOT access without locking (which is encapsulated in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per-socket options.">opt()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01179">1179</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01178">1178</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04011">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00352">max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00318">options()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00373">rexmit_on()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04005">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00352">max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00318">options()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00373">rexmit_on()</a>.</p>
 
 </div>
 </div>
@@ -3896,9 +3896,9 @@ Here is the call graph for this function:</div>
 
 <p>The mutex protecting <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad59c09f34003873a3c207cc590236773" title="This socket&#39;s per-socket set of options.">m_opts</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01182">1182</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01181">1181</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04011">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02639">opt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04005">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00357">max_block_size_multiple()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02644">opt()</a>.</p>
 
 </div>
 </div>
@@ -3928,7 +3928,7 @@ Here is the call graph for this function:</div>
 <p >This can be write-accessed simultaneously by thread W (e.g., when closing a socket before it is accepted) and a user thread U != W (in <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#aeea8554e23c8d743ca4956c772adbf24" title="Non-blocking accept: obtain socket for the least recently established not-yet-obtained peer connectio...">Server_socket::accept()</a>). It is thus protected by a mutex &ndash; but it's <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a40967c1981ffde4f7b75c6bb5e5b279b" title="This object&#39;s mutex.">Server_socket::m_mutex</a>, not <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ab41b19ed4e62cb14fcd7dac81e4a8f41" title="This object&#39;s mutex.">Peer_socket::m_mutex</a>. I know it's weird, but it makes sense. Basically <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5" title="Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have n...">Server_socket::m_unaccepted_socks</a> and Server_socket::m_originating_serv &ndash; for each element of <code>m_unaccepted_socks</code> &ndash; are modified together in a synchronized way.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a16bcbf9951c24d13d5b84d9aa163288e" title="Set of passively opening sockets in pre-ESTABLISHED (so SYN_RCVD?) internal state (and thus are not y...">Server_socket::m_connecting_socks</a> and <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5" title="Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have n...">Server_socket::m_unaccepted_socks</a> for the closely related inverse. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01242">1242</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01241">1241</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3958,7 +3958,7 @@ Here is the call graph for this function:</div>
 <p >Storing shared pointers to avoid copying of structs (however small) during internal reshuffling; shared instead of raw pointers to not worry about delete.</p>
 <p >This gains meaning only in thread W and only within <a class="el" href="classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre-condition that m_low_lvl_sock has a UDP packet available for reading,...">Node::low_lvl_recv_and_handle()</a>/etc. and loses meaning after either method exits. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01605">1605</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01604">1604</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -3989,9 +3989,9 @@ Here is the call graph for this function:</div>
 <h3>Thread safety</h3>
 <p >This can be write-accessed simultaneously by thread W (when receiving by <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>) and a user thread U != W (in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a>, etc.). It is thus protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01261">1261</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01260">1260</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02547">receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02605">sync_receive_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02552">receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02610">sync_receive_impl()</a>.</p>
 
 </div>
 </div>
@@ -4021,7 +4021,7 @@ Here is the call graph for this function:</div>
 <h3>Implementation notes</h3>
 <p >In other places we have tended to replace a <code>Timer</code> with the far simpler <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">util::schedule_task_from_now()</a> (etc.) facility (which internally uses a <code>Timer</code> but hides its various annoyances and caveats). Why not here? Answer: This timer is scheduled and fires often (could be on the order of every 1-500 milliseconds) and throughout a given socket's existence; hence the potential performance effects aren't worth the risk (or at least mental energy spent on evaluating that risk, originally and over time). The conservative thing to do is reuse a single <code>Timer</code> repeatedly, as we do here. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01675">1675</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01674">1674</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4048,7 +4048,7 @@ Here is the call graph for this function:</div>
 <p><code>true</code> indicates we are in a state where we've decided other side needs to be informed that our receive window has increased substantially, so that it can resume sending data (probably after a zero window being advertised). </p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01637">1637</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01636">1636</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4075,7 +4075,7 @@ Here is the call graph for this function:</div>
 <p>The Initial Sequence Number (ISN) contained in the original <a class="el" href="structflow_1_1net__flow_1_1Syn__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level SYN packet.">Syn_packet</a> or <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level SYN_ACK packet.">Syn_ack_packet</a> we received. </p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. Useful at least in verifying the validity of duplicate SYNs and SYN_ACKs. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01387">1387</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01386">1386</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00825">flow::net_flow::Node::sock_categorize_data_to_established()</a>.</p>
 
@@ -4105,7 +4105,7 @@ Here is the call graph for this function:</div>
 <p >This is used to gauge how much the true rcv_wnd has increased since the value that the sender probably (assuming ACK was not lost) knows.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01627">1627</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01626">1626</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4134,7 +4134,7 @@ Here is the call graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae82958ed6d71be46b96eceaca6214143" title="The sequence-number-ordered collection of all received-and-not-dropped-due-to-buffer-overflow packets...">m_rcv_packets_with_gaps</a>.</dd></dl>
 <p>This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01402">1402</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01401">1401</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4201,7 +4201,7 @@ Here is the call graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa7398394052c8e634365fb979c294644" title="With retransmission enabled, the sum of Received_packet::m_size over all packets stored in the reasse...">m_rcv_reassembly_q_data_size</a>.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000134">Todo:</a></b></dt><dd>The memory use of this structure could be greatly optimized if, instead of storing each individual received packet's metadata separately, we always merged contiguous sequence number ranges. So for example if packet P1, P2, P3 (contiguous) all arrived in sequence, after missing packet P0, then we'd store P1's first sequence number and the total data size of P1+P2+P3, in a single <code>struct</code> instance. Since a typical pattern might include 1 lost packet followed by 100 received packets, we'd be able to cut down memory use by a factor of about 100 in that case (and thus worry much less about the limit). Of course the code would get more complex and potentially slower (but not necessarily significantly). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01537">1537</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01536">1536</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4231,7 +4231,7 @@ Here is the call graph for this function:</div>
 <p >Storing shared pointers to avoid copying of structs (however small) during internal reshuffling; shared instead of raw pointers to not worry about delete.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01567">1567</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01566">1566</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4259,7 +4259,7 @@ Here is the call graph for this function:</div>
 <p >Because, for efficiency, individual acknowledgements are accumulated over the course of those two methods, and an ACK with those acknowledgments is sent at the end of that method (in perform_accumulated_on_recv_tasks()) at the earliest, this member is used to determine whether we should start a delayed ACK timer at that point.</p>
 <p >This gains meaning only in thread W and only within <a class="el" href="classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre-condition that m_low_lvl_sock has a UDP packet available for reading,...">Node::low_lvl_recv_and_handle()</a>/etc. and loses meaning after either method exits. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01581">1581</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01580">1580</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4287,7 +4287,7 @@ Here is the call graph for this function:</div>
 <p >Stored for performance.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01546">1546</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01545">1545</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4313,7 +4313,7 @@ Here is the call graph for this function:</div>
 
 <p>Stats regarding incoming traffic (and resulting outgoing ACKs) for this connection so far. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01678">1678</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01677">1677</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4340,7 +4340,7 @@ Here is the call graph for this function:</div>
 <p>The running total count of bytes in the <code>m_data</code> fields of <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a48320d96118a37626f1852626965e6ed" title="The queue of DATA packets received while in Int_state::S_SYN_RCVD state before the Syn_ack_ack_packet...">m_rcv_syn_rcvd_data_q</a>. </p>
 <p >Undefined when the latter is empty. Used to limit its size. This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01377">1377</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01376">1376</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4368,7 +4368,7 @@ Here is the call graph for this function:</div>
 <p >Such DATA packets would not normally exist, but they can exist if the SYN_ACK_ACK is lost or DATA packets are re-ordered to go ahead of it. See <a class="el" href="classflow_1_1net__flow_1_1Node.html#abf80b7de1398e93d1d4289ef5bf2ae2c" title="Handles a just-deserialized, just-demultiplexed, low-level DATA packet delivered to the given peer so...">Node::handle_data_to_syn_rcvd()</a> for more detail.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01370">1370</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01369">1369</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4395,7 +4395,7 @@ Here is the call graph for this function:</div>
 <p>When <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad7414dfca4b869dd3a4e0de39195c69e" title="true indicates we are in a state where we&#39;ve decided other side needs to be informed that our receive...">m_rcv_in_rcv_wnd_recovery</a> is <code>true</code>, this is the scheduled task to possibly send another unsolicited rcv_wnd-advertising ACK to the other side. </p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01655">1655</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01654">1654</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4423,7 +4423,7 @@ Here is the call graph for this function:</div>
 <p >It is only used when the latter is indeed true.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01646">1646</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01645">1645</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4449,7 +4449,7 @@ Here is the call graph for this function:</div>
 
 <p>See <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5e423a9fd18a45cc7cc5fc34af29161e" title="Intended other side of the connection (regardless of success, failure, or current State).">remote_endpoint()</a>. Should be set before user gets access to <code>*this</code> and not changed afterwards. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01345">1345</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01344">1344</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00378">remote_endpoint()</a>.</p>
 
@@ -4478,7 +4478,7 @@ Here is the call graph for this function:</div>
 <p>RTTVAR used for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad08b53052e7eedfa7a925258f5ef1cba" title="Estimated current round trip time of packets, computed as a smooth value over the past individual RTT...">m_snd_smoothed_round_trip_time</a> calculation. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad08b53052e7eedfa7a925258f5ef1cba" title="Estimated current round trip time of packets, computed as a smooth value over the past individual RTT...">m_snd_smoothed_round_trip_time</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02042">2042</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02041">2041</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4506,7 +4506,7 @@ Here is the call graph for this function:</div>
 <p >For a given connection handshake, the SYN_ACK_ACK receiver ensures that <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a33a90b123612cc2e6a119cfa95ba4f6d" title="Random security token used during SYN_ACK-SYN_ACK_ACK.">m_security_token</a> it received is equal to the original one it had sent in SYN_ACK. This first gains meaning upong sending SYN_ACK and it does not change afterwards. It is not used unless <code>!m_active_connect</code>. See <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a288ccfc742d6982c4059d82500397874" title="true if we connect() to server; false if we are to be/are accept()ed. Should be set once and not modi...">m_active_connect</a>.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02118">2118</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02117">2117</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4535,7 +4535,7 @@ Here is the call graph for this function:</div>
 <h3>Thread safety</h3>
 <p >Same as <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a993edf95f6bce2e57e7111e42533dc74" title="The Send buffer; user feeds data at the back; Node consumes data at the front.">m_snd_buf</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aae9cb8f2dbd50ddaa0265d940b149ef3" title="The Receive buffer; Node feeds data at the back; user consumes data at the front.">m_rcv_buf</a> (protected by <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ab41b19ed4e62cb14fcd7dac81e4a8f41" title="This object&#39;s mutex.">m_mutex</a>). This would not be necessary, since this value is immutable once user gets access to <code>*this</code>, and threads other than W can access it, but sock_free_memory() does clear it while the user may be accessing it. Due to that caveat, we have to lock it. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01329">1329</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01328">1328</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00390">get_connect_metadata()</a>.</p>
 
@@ -4569,7 +4569,7 @@ Here is the call graph for this function:</div>
 <p >The former gets read-only (<code>const</code>!) but otherwise complete private access (via <code>friend</code>) to the contents of <code>*this</code> <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>. For example, it can read <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad08b53052e7eedfa7a925258f5ef1cba" title="Estimated current round trip time of packets, computed as a smooth value over the past individual RTT...">m_snd_smoothed_round_trip_time</a> (the SRTT) and use it for computations if needed. <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> get only strict public API access to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2dd08c5fed4d179e4fde3a632c084751" title="The outgoing available bandwidth estimator for this connection on this side.">m_snd_bandwidth_estimator</a>, which is a black box to it.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02023">2023</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02022">2022</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4599,9 +4599,9 @@ Here is the call graph for this function:</div>
 <p >Note that this is a high-level structure, near the application layer. This does not store any metadata, like sequence numbers, or data not ready to be consumed by the user (such as out-of-order packets, if we implement that). Such packets and data should be stored elsewhere.</p>
 <p >Thread safety: Analogous to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aae9cb8f2dbd50ddaa0265d940b149ef3" title="The Receive buffer; Node feeds data at the back; user consumes data at the front.">m_rcv_buf</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01279">1279</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01278">1278</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02443">send()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02513">sync_send_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8hpp_source.html#l02448">send()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02518">sync_send_impl()</a>.</p>
 
 </div>
 </div>
@@ -4633,7 +4633,7 @@ Here is the call graph for this function:</div>
 <p ><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a35eb43f2b5d7dd46a941def4523f673c" title="The congestion control strategy in use for this connection on this side.">m_snd_cong_ctl</a> gets read-only (<code>const</code>!) but otherwise complete private access (via <code>friend</code>) to the contents of <code>*this</code> <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>. For example, it can read <code>this-&gt;m_snd_smoothed_round_trip_time</code> (the SRTT) and use it for computations if needed. <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> get only strict public API access to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a35eb43f2b5d7dd46a941def4523f673c" title="The congestion control strategy in use for this connection on this side.">m_snd_cong_ctl</a>, which is a black box to it.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01978">1978</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01977">1977</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4661,7 +4661,7 @@ Here is the call graph for this function:</div>
 <p >This is updated each time <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ad08b53052e7eedfa7a925258f5ef1cba" title="Estimated current round trip time of packets, computed as a smooth value over the past individual RTT...">m_snd_smoothed_round_trip_time</a> is updated, and the <a class="el" href="classflow_1_1net__flow_1_1Drop__timer.html" title="Internal net_flow class that maintains the Drop Timer for DATA packet(s) to have been sent out over a...">Drop_timer</a> itself may change it under certain circumstances.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02062">2062</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02061">2061</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4689,7 +4689,7 @@ Here is the call graph for this function:</div>
 <p >Used while <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2c5de5df50268168cbbad82eaf90fa93" title="Current internal state of the socket.">m_int_state</a> is <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a9537860c2c2a7380a45a525e5121880fa16fdfce85d7bca9386378acd29eb7202" title="Public state is OPEN+CONNECTED; in our opinion the connection is established.">Int_state::S_ESTABLISHED</a>.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02052">2052</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02051">2051</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4719,7 +4719,7 @@ Here is the call graph for this function:</div>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a>, which must always be updated to be accurate w/r/t <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ae870847f024fca7109c15557bb165480" title="The number of bytes contained in all In-flight packets, used at least for comparison against the cong...">m_snd_flying_bytes</a>. Use <a class="el" href="classflow_1_1net__flow_1_1Node.html#a00124a034c8fdac6f300900bdfcc8cfe" title="Updates Peer_socket::m_snd_flying_bytes according to an operation (add packets, remove packets) calle...">Node::snd_flying_pkts_updated()</a> whenever <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> is changed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01899">1899</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01898">1898</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4765,7 +4765,7 @@ Here is the call graph for this function:</div>
 <dd>
 <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a>, which provides an ordering of the elements of <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> by sequence number. Whereas the present structure is used to determine <code>m_acks_after_me</code> (since logically "after" means "sent after"), <code>..._by_seq_num</code> is akin to the more classic TCP scoreboard, which is used to subdivide the sequence number space (closely related to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a1f8bebf649551131e6ed6e75c6f98d54" title="The sequence number for the start of the data in the next new DATA packet to be sent out.">m_snd_next_seq_num</a> and such). With retransmission off, "after" would simply mean "having higher sequence number," so <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a> would already provide this ordering, but with retransmission on a retransmitted packet with a lower number could be sent after one with a higher number. To make the code simpler, we therefore rely on a separate structure in either situation. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01806">1806</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01805">1805</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4832,7 +4832,7 @@ Here is the call graph for this function:</div>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a>. There's a "see also" comment there that contrasts these two important structures. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01880">1880</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01879">1879</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4861,7 +4861,7 @@ Here is the call graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a>.</dd></dl>
 <p>This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01689">1689</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01688">1688</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4892,7 +4892,7 @@ Here is the call graph for this function:</div>
 <h3>Pacing</h3>
 <p >See Send_packet_pacing <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a55b44104a2c305b9679434ba623a7357" title="The state of outgoing packet pacing for this socket; segregated into a simple struct to keep Peer_soc...">m_snd_pacing_data</a>. See pacing-relevant note on <a class="el" href="structflow_1_1net__flow_1_1Peer__socket_1_1Sent__packet.html#a3acccd2fcd0f4a0c5f7f0c2d6ad31c2e" title="Time stamps, order numbers, and other info at the times when the different attempts (including origin...">Sent_packet::m_sent_when</a> which applies equally to this data member. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02104">2104</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02103">2103</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4921,7 +4921,7 @@ Here is the call graph for this function:</div>
 <p >Before any loss events, this is set to its default value (zero time since epoch).</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02088">2088</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02087">2087</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4950,7 +4950,7 @@ Here is the call graph for this function:</div>
 <p >This is only used for book-keeping locally and never transmitted over network.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01930">1930</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01929">1929</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -4980,7 +4980,7 @@ Here is the call graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2db7d11ece920d4adcacd00eaa2253fd" title="The collection of all In-flight packets (including those queued up to send in pacing module),...">m_snd_flying_pkts_by_seq_num</a> and <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5ea56c54a98289211fef4a672432a2ad" title="The collection of all In-flight packets, indexed by sequence number and ordered from most to least re...">m_snd_flying_pkts_by_sent_when</a>.</dd></dl>
 <p>This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01703">1703</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01702">1702</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5008,7 +5008,7 @@ Here is the call graph for this function:</div>
 <p >Packet pacing tries to combat the burstiness of outgoing low-level packet stream.</p>
 <dl class="section see"><dt>See also</dt><dd><code>struct <a class="el" href="structflow_1_1net__flow_1_1Send__pacing__data.html" title="The current outgoing packet pacing state, including queue of low-level packets to be sent,...">Send_pacing_data</a></code> doc header for much detail. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02071">2071</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02070">2070</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5036,7 +5036,7 @@ Here is the call graph for this function:</div>
 <p >The reasoning is similar to <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a8229396adfd306d15e8a05dac3fe8c29" title="While Node::low_lvl_recv_and_handle() or async part of Node::async_wait_latency_then_handle_incoming(...">m_rcv_acked_packets</a>. See <a class="el" href="classflow_1_1net__flow_1_1Node.html#ab515b28350c43635728d6de0e37ccb94" title="Handles a just-deserialized, just-demultiplexed, low-level ACK packet delivered to the given peer soc...">Node::handle_ack_to_established()</a> for details.</p>
 <p >This gains meaning only in thread W and only within <a class="el" href="classflow_1_1net__flow_1_1Node.html#a9909cd2b2a77c57da9e35fcef0f8a4e5" title="Handles the pre-condition that m_low_lvl_sock has a UDP packet available for reading,...">Node::low_lvl_recv_and_handle()</a>/etc. and loses meaning after either method exits. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01617">1617</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01616">1616</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5065,7 +5065,7 @@ Here is the call graph for this function:</div>
 <p ><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a35eb43f2b5d7dd46a941def4523f673c" title="The congestion control strategy in use for this connection on this side.">m_snd_cong_ctl</a> provides congestion control; this value provides flow control. The socket's state machine must be extremely careful whenever either this value or <code>m_snd_cong_ctl-&gt;congestion_window_bytes()</code> may increase, as when that occurs it should call <a class="el" href="classflow_1_1net__flow_1_1Node.html#a10a92f11a2c9f218cdd9a55f282e79b1" title="Thread W implemention of send(): synchronously or asynchronously send the contents of sock-&gt;m_snd_buf...">Node::send_worker()</a> in order to possibly send data over the network.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01995">1995</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01994">1994</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5095,7 +5095,7 @@ Here is the call graph for this function:</div>
 <p >Why use <code>list&lt;&gt;</code> and not <code>queue&lt;&gt;</code> or <code>deque&lt;&gt;</code>? Answer: I'd like to use <code>list::splice()</code>.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01947">1947</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01946">1946</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5121,7 +5121,7 @@ Here is the call graph for this function:</div>
 
 <p>Equals <code>m_snd_rexmit_q.size().</code> Kept since <code>m_snd_rexmit_q.size()</code> may be <em>O(n)</em> depending on implementation. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01950">1950</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01949">1949</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5150,7 +5150,7 @@ Here is the call graph for this function:</div>
 <p >We use <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79" title="A high-res time duration as computed from two Fine_time_pts.">Fine_duration</a> (the high fine-grainedness and large bit width corresponding to <a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00" title="Clock used for delicate time measurements, such that the now() method gets the current time relative ...">Fine_clock</a>) to store this, and the algorithm we use to compute it avoids losing digits via unnecessary conversions between units (e.g., nanoseconds -&gt; milliseconds).</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02039">2039</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02038">2038</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5176,7 +5176,7 @@ Here is the call graph for this function:</div>
 
 <p>Stats regarding outgoing traffic (and resulting incoming ACKs) for this connection so far. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02107">2107</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02106">2106</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5204,7 +5204,7 @@ Here is the call graph for this function:</div>
 <p >The pattern is to simply <code>clear()</code> it just before use, then load it up with stuff in that same round of ACK handling; and the same thing each time we need to handle accumulated ACKs. Normally one would just create one of these locally within the code <code>{</code> block <code>}</code> each time instead. Not doing so avoids unnecessary various internal-to-<code>vector</code> buffer allocations. Instead the internal buffer will grow as large as it needs to and not go down from there, so that it can be reused in subsequent operations. (Even <code>clear()</code> does not internally shrink the buffer.) Of course some memory is held unnecessarily, but it's a small amount; on the other hand the performance gain may be non-trivial due to the frequency of the ACK-handling code being invoked.</p>
 <p >This gains meaning only in thread W. This should NOT be accessed outside of thread W and is not protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01916">1916</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01915">1915</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -5232,7 +5232,7 @@ Here is the call graph for this function:</div>
 <p >Should be set before user gets access to <code>*this</code>. Must not be modified by non-W threads after that.</p>
 <p >Accessed from thread W and user threads U != W (in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af982953b5136c1df488066eacc293a78" title="Current State of the socket.">state()</a> and others). Must be protected by mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01193">1193</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l01192">1192</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00085">state()</a>.</p>
 
@@ -5246,7 +5246,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
