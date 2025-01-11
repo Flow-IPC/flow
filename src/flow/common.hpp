@@ -70,7 +70,12 @@
  *
  * Note this isn't academic; as of this writing there's at least a C++14-requiring constexpr feature in use in one
  * of the headers.  So at least C++14 has been required for ages in actual practice.  Later, notched it up to C++17
- * by similar logic. */
+ * by similar logic.
+ *
+ * Update: We continue to target C++17 (by default) in our build -- but now also support (and, outside
+ * the source code proper, test) C++20 mode build, albeit without using any C++20-only language or STL features.  It is
+ * conceivable that at some point in the future we'll target C++20 by default (and drop support for C++17 and older).
+ * Naturally at that point we'd begin using C++20 language/STL features when convenient. */
 #if (!defined(__cplusplus)) || (__cplusplus < 201703L)
 // Would use static_assert(false), but... it's C++11 and later only.  So.
 #  error "To compile a translation unit that `#include`s any flow/ API headers, use C++17 compile mode or later."

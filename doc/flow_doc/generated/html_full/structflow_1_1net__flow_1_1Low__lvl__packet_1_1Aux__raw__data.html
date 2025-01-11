@@ -109,7 +109,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p >Helper data store type for storing binary data needed by <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">serialize_to_raw_data()</a>, when certains bits are not already represented by the public data members present in <code>struct</code> <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a>. </p>
 <p >The need for this is somewhat subtle and is explained fully inside <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">Low_lvl_packet::serialize_to_raw_data()</a>, so I won't go into it here. Also see each data member's doc header. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00439">439</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00438">438</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7ae37084e00d375a749c3730f77e6072" name="a7ae37084e00d375a749c3730f77e6072"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ae37084e00d375a749c3730f77e6072">&#9670;&nbsp;</a></span>Aux_raw_data()</h2>
@@ -156,7 +156,7 @@ Public Attributes</h2></td></tr>
 <p>This is the serialized version of the multi-byte <code>bool</code> <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#acc2a10d19e8e54c88518ad2e02a08b68" title="Option indicating whether this connection is using retransmission or not.">Low_lvl_packet::m_opt_rexmit_on</a>. </p>
 <p >Since the latter is of a more civilized <code>bool</code> type, and we need a single byte version, this here is set to the obvious encoding of the <code>bool</code>, when <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">Low_lvl_packet::serialize_to_raw_data()</a> needs to serialize said <code>bool</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00448">448</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00447">447</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">flow::net_flow::Low_lvl_packet::serialize_common_header_to_raw_data()</a>.</p>
 
@@ -177,7 +177,7 @@ Public Attributes</h2></td></tr>
 <p>Unused space reserved for future use, ensuring correct alignment of other fields and headers. </p>
 <p >Currently it must be always set to zero. Since <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> has no need of a public data member like this, we keep it in here, as needed for <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">Low_lvl_packet::serialize_to_raw_data()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00455">455</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00454">454</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">flow::net_flow::Low_lvl_packet::serialize_common_header_to_raw_data()</a>.</p>
 
@@ -190,7 +190,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

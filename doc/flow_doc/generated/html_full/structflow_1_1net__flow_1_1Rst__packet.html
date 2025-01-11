@@ -261,7 +261,7 @@ struct {</td></tr>
 <h2>Implemementation notes </h2>
 <p >The one peculiar thing about <a class="el" href="structflow_1_1net__flow_1_1Rst__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level RST packet.">Rst_packet</a> is it contains no data beyond the super-<code>struct</code> <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a>, other than the fact it <em>is</em> an <a class="el" href="structflow_1_1net__flow_1_1Rst__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level RST packet.">Rst_packet</a> (i.e., its <code>typeid()</code> identifies it as such). Thus its various <code>virtual</code> methods are typically either simple or even don't exist and defer to the <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> implementation. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01329">1329</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01332">1332</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a171bf247cad883b73b4b76957dfe4994" name="a171bf247cad883b73b4b76957dfe4994"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a171bf247cad883b73b4b76957dfe4994">&#9670;&nbsp;</a></span>Rst_packet()</h2>
@@ -356,7 +356,7 @@ struct {</td></tr>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00893">893</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, and <a class="el" href="low__lvl__packet_8hpp_source.html#l00246">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, and <a class="el" href="low__lvl__packet_8hpp_source.html#l00245">flow::net_flow::Low_lvl_packet::m_type_ostream_manip</a>.</p>
 
 </div>
 </div>
@@ -423,7 +423,7 @@ struct {</td></tr>
 
 <p>In serialized packet, the type ID byte identifying this as an RST packet. Must not equal any other packet type's. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01346">1346</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01349">1349</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -434,7 +434,7 @@ struct {</td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

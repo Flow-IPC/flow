@@ -1,10 +1,9 @@
 <map id="flow::net_flow::Ack_packet::Individual_ack" name="flow::net_flow::Ack_packet::Individual_ack">
-<area shape="rect" id="node1" title="Specifies the incoming (post&#45;deserialization) acknowledgment of a single received Data_packet." alt="" coords="497,127,647,163"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Sequence__number.html" title="An internal net_flow sequence number identifying a piece of data." alt="" coords="221,49,381,85"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,7,72,31"/>
-<area shape="rect" id="node4" title=" " alt="" coords="15,55,62,79"/>
-<area shape="rect" id="node5" title=" " alt="" coords="9,103,68,127"/>
-<area shape="rect" id="node6" title=" " alt="" coords="237,109,365,133"/>
-<area shape="rect" id="node7" title=" " alt="" coords="240,157,363,181"/>
-<area shape="rect" id="node8" href="$structflow_1_1util_1_1Noncopyable.html" title="Useful as a no&#45;unique&#45;address private member to make a type noncopyable while keeping that type an ag..." alt="" coords="227,205,376,229"/>
+<area shape="rect" id="node1" title="Specifies the incoming (post&#45;deserialization) acknowledgment of a single received Data_packet." alt="" coords="264,197,413,233"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Sequence__number.html" title="An internal net_flow sequence number identifying a piece of data." alt="" coords="91,101,251,137"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,5,72,29"/>
+<area shape="rect" id="node4" title=" " alt="" coords="147,5,194,29"/>
+<area shape="rect" id="node5" title=" " alt="" coords="255,5,313,29"/>
+<area shape="rect" id="node6" title=" " alt="" coords="275,107,403,131"/>
+<area shape="rect" id="node7" title=" " alt="" coords="427,107,549,131"/>
 </map>

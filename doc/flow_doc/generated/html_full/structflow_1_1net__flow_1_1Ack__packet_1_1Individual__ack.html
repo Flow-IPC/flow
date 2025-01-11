@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::net_flow::Ack_packet::Individual_ack Struct Reference</div></div>
@@ -82,7 +83,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Ack_packet::Individual_ack:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__coll__graph.svg" width="652" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__coll__graph.svg" width="555" height="239"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -95,6 +96,21 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a55bebcb04b4cc192e38023e58bfd761c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for ref-counted pointer to immutable objects of this class.  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a55bebcb04b4cc192e38023e58bfd761c">More...</a><br /></td></tr>
 <tr class="separator:a55bebcb04b4cc192e38023e58bfd761c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1cfc30a36e8b572f3cedaf045b05f448"><td class="memItemLeft" align="right" valign="top"><a id="a1cfc30a36e8b572f3cedaf045b05f448" name="a1cfc30a36e8b572f3cedaf045b05f448"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Individual_ack</b> ()=delete</td></tr>
+<tr class="memdesc:a1cfc30a36e8b572f3cedaf045b05f448"><td class="mdescLeft">&#160;</td><td class="mdescRight">Force direct member initialization even if no member is <code>const</code>. <br /></td></tr>
+<tr class="separator:a1cfc30a36e8b572f3cedaf045b05f448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae557559e4c611fafc3d43a19fb161316"><td class="memItemLeft" align="right" valign="top"><a id="ae557559e4c611fafc3d43a19fb161316" name="ae557559e4c611fafc3d43a19fb161316"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Individual_ack</b> (const <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html">Individual_ack</a> &amp;)=delete</td></tr>
+<tr class="memdesc:ae557559e4c611fafc3d43a19fb161316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forbid copy construction. <br /></td></tr>
+<tr class="separator:ae557559e4c611fafc3d43a19fb161316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc4ecbc56e28b299a4bd70325d313a0"><td class="memItemLeft" align="right" valign="top"><a id="a3fc4ecbc56e28b299a4bd70325d313a0" name="a3fc4ecbc56e28b299a4bd70325d313a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html">Individual_ack</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a3fc4ecbc56e28b299a4bd70325d313a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forbid copy assignment. <br /></td></tr>
+<tr class="separator:a3fc4ecbc56e28b299a4bd70325d313a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a1d027f817b86cc377d76bc38434229a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html">Sequence_number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a1d027f817b86cc377d76bc38434229a4">m_seq_num</a></td></tr>
@@ -106,15 +122,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae17b658ee88e60bdb6606af607b00de2"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#ae17b658ee88e60bdb6606af607b00de2">m_rexmit_id</a></td></tr>
 <tr class="memdesc:ae17b658ee88e60bdb6606af607b00de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retransmit counter of the acknowledged <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>.  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#ae17b658ee88e60bdb6606af607b00de2">More...</a><br /></td></tr>
 <tr class="separator:ae17b658ee88e60bdb6606af607b00de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a589654d5b07e021e82fa80455863f548"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow_1_1util_1_1Noncopyable.html">util::Noncopyable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a589654d5b07e021e82fa80455863f548">m_nc</a> {}</td></tr>
-<tr class="memdesc:a589654d5b07e021e82fa80455863f548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make us noncopyable without breaking aggregateness (direct-init).  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a589654d5b07e021e82fa80455863f548">More...</a><br /></td></tr>
-<tr class="separator:a589654d5b07e021e82fa80455863f548"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Specifies the <em>incoming</em> (post-deserialization) acknowledgment of a single received <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>. </p>
 <p >It is not copyable, and moving them around by smart <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#abbd41e30089125f67667b39f5756c275" title="Short-hand for ref-counted pointer to mutable objects of this class.">Individual_ack::Ptr</a> is encouraged. Construct this by direct member initialization. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01195">1195</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01194">1194</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a55bebcb04b4cc192e38023e58bfd761c" name="a55bebcb04b4cc192e38023e58bfd761c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55bebcb04b4cc192e38023e58bfd761c">&#9670;&nbsp;</a></span>Const_ptr</h2>
@@ -130,7 +143,7 @@ Public Attributes</h2></td></tr>
 
 <p>Short-hand for ref-counted pointer to immutable objects of this class. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01204">1204</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01203">1203</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -148,7 +161,7 @@ Public Attributes</h2></td></tr>
 
 <p>Short-hand for ref-counted pointer to mutable objects of this class. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01201">1201</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01200">1200</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -167,25 +180,7 @@ Public Attributes</h2></td></tr>
 
 <p>The delay between when we received the acknowledged packet and when decided to send this ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01215">1215</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a589654d5b07e021e82fa80455863f548" name="a589654d5b07e021e82fa80455863f548"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a589654d5b07e021e82fa80455863f548">&#9670;&nbsp;</a></span>m_nc</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structflow_1_1util_1_1Noncopyable.html">util::Noncopyable</a> flow::net_flow::Ack_packet::Individual_ack::m_nc {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Make us noncopyable without breaking aggregateness (direct-init). </p>
-
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01225">1225</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01214">1214</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -204,7 +199,7 @@ Public Attributes</h2></td></tr>
 <p>Retransmit counter of the acknowledged <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>. </p>
 <p >Identifies which attempt we are acknowledging (0 = initial, 1 = first retransmit, 2 = second retransmit, ...). Literally this equals the acked <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac149f87b8915213857c707b0f3562ef0" title="Retransmit counter of the DATA packet being sent.">Data_packet::m_rexmit_id</a>. Always 0 if retransmission is disabled for the given socket. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01222">1222</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01221">1221</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -223,7 +218,7 @@ Public Attributes</h2></td></tr>
 <p>Sequence number of first datum in packet that we acknowledge. </p>
 <p >This is non-<code>const</code> for a technical reason: one must be able to use <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#a77ce8cf348e93caa8bb03f22f7b7d120" title="Updates the full set of metadata (used at least for convenient convention-based logging but not actua...">Sequence_number::set_metadata()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01212">1212</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01211">1211</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -233,7 +228,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Dec 11 2024 04:03:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

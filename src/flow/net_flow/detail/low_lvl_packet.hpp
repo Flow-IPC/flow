@@ -1221,27 +1221,15 @@ struct Ack_packet::Individual_ack
    */
   const unsigned int m_rexmit_id;
 
-// Don't apply these restrictions in c++20 and newer standards as they break the aggregable types,
-// so the direct initialization is not possible anymore. More explanation at
-// https://stackoverflow.com/questions/57271400/why-does-aggregate-initialization-not-work-anymore-since-c20-if-a-constructor
-#if __cplusplus < 202002L
-  // Constructors/destructor.
+  /// Make us noncopyable without breaking aggregateness (direct-init).
+  [[no_unique_address]] util::Noncopyable m_nc{};
+}; // struct Ack_packet::Individual_ack
 
-  /// Force direct member initialization even if no member is `const`.
-  Individual_ack() = delete;
-
-  /// Forbid copy construction.
-  Individual_ack(const Individual_ack&) = delete;
-
-  // Methods.
-
-  /// Forbid copy assignment.
-  void operator=(const Individual_ack&) = delete;
-#endif
-};
-
-// Verify that Ack_packet::Individual_ack is an aggregate type. It fails, if previous ifdef for c++20 is removed.
-static_assert(std::is_aggregate_v<Ack_packet::Individual_ack>);
+static_assert(std::is_aggregate_v<Ack_packet::Individual_ack>,
+              "We want it to be direct-initializable.");
+static_assert((!std::is_copy_constructible_v<Ack_packet::Individual_ack>)
+                && (!std::is_copy_assignable_v<Ack_packet::Individual_ack>),
+              "We want it to be noncopyable but rather passed-around via its ::Ptr.");
 
 #pragma pack(push, 1)
 

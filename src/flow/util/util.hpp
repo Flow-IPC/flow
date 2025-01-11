@@ -61,6 +61,31 @@ public:
 };
 
 /**
+ * Useful as a no-unique-address private member to make a type noncopyable while keeping that type an aggregate
+ * (can be direct-initialized).
+ *
+ * So you can do: `[[no_unique_address]] flow::util::Noncopyable m_nc{};`.
+ *
+ * ### Rationale ###
+ * The usual technique of deriving from `boost::noncopyable` disables aggregateness.  In C++20 declaring
+ * a `= delete` copy ctor also disables it.  This trick still works though.
+ */
+struct Noncopyable
+{
+  // Constructors/destructor.
+
+  /// Makes it possible to instantiate.
+  Noncopyable() = default;
+  /// Forbid copying.
+  Noncopyable(const Noncopyable&) = delete;
+
+  // Methods.
+
+  /// Forbid copying.
+  void operator=(const Noncopyable&) = delete;
+};
+
+/**
  * A simple RAII-pattern class template that, at construction, sets the specified location in memory to a specified
  * value, memorizing the previous contents; and at destruction restores the value.  E.g.:
  *
