@@ -123,7 +123,7 @@ class FlowRecipe(ConanFile):
 
     def requirements(self):
         if self.options.build:
-            self.requires("boost/1.87.0", local=True)
+            self.requires(f"boost/1.87.0@local/source")
             self.requires("fmt/10.0.0")
 
     def build_requirements(self):
