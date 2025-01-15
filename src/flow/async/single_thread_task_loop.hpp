@@ -241,7 +241,7 @@ public:
   virtual util::Scheduled_task_handle schedule_at(const Fine_time_pt& at, Scheduled_task&& task);
 
   /**
-   * Returns a pointer to *the* internal util::Task_engine (a/k/a boost.asio `io_service`) for the purpose of
+   * Returns a pointer to *the* internal util::Task_engine (a/k/a boost.asio `io_context`) for the purpose of
    * performing a boost.asio `async_*()` action on some boost.asio I/O object in the immediate near future.
    *
    * @return A mutable util::Task_engine to use soon.  It is *allowed* to use it as long as

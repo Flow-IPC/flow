@@ -128,11 +128,11 @@ using Thread_id = Thread::id;
  *     - Manager: generic but not bad; clashes with "Windows task manager" and such.
  *     - Execution engine: good but long.
  *     - Queue: early candidate, but at the very least it's not a *single* queue; if there are multiple threads
- *       `io_service::run()`ning then to the extent there are any queues there might be multiple.
+ *       `io_context::run()`ning then to the extent there are any queues there might be multiple.
  *     - Queues, qs: better... but having a thing called `Task_qs` -- of which there could be multiple (plural) --
  *       was clumsy.  (An early proof-of-concept used `Task_qs`; people were not fans.)
  */
-using Task_engine = boost::asio::io_service;
+using Task_engine = boost::asio::io_context;
 
 /// Short-hand for boost.asio strand, an ancillary class that works with #Task_engine for advanced task scheduling.
 using Strand = Task_engine::strand;

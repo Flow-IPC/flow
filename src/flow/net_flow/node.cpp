@@ -250,7 +250,7 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
 
     /* this->interrupt_all_waits_internal_sig_handler(err_code, signal_number) will be called on signal (or error).
      * Note that that function's contract (from its doc comment) is it must execute in thread W.
-     * Indeed boost::asio::io_service semantics guarantee it'll run in thread W (not some
+     * Indeed boost::asio::io_context semantics guarantee it'll run in thread W (not some
      * no-man's-land signal handler thread of execution, as one might fear could be the case) for the same reason
      * the various socket I/O handlers and timer handlers above will run in thread W: because we'll run
      * m_task_engine.run() below from thread W, and all such functions are guaranteed to run "as if"

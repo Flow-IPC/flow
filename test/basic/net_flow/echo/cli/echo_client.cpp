@@ -44,7 +44,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   using flow::net_flow::Remote_endpoint;
   using flow::error::Runtime_error;
   using boost::conversion::try_lexical_convert;
-  using boost::asio::io_service;
+  using boost::asio::io_context;
   using resolver = boost::asio::ip::udp::resolver;
   using query = boost::asio::ip::udp::resolver::query;
   using boost::chrono::seconds;
@@ -105,7 +105,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
     // Resolve the host/port strings (e.g., port can be a number or service string) to a UDP endpoint.
     Udp_endpoint remote_udp_endpoint;
     {
-      io_service io;
+      io_context io;
       resolver res(io);
       Error_code ec;
       resolver::iterator result_it = res.resolve(query(host_str, port_str), ec);

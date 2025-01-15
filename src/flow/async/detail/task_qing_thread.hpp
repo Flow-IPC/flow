@@ -30,7 +30,7 @@ namespace flow::async
 
 /**
  * Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates a thread
- * that spawns at construction time and a dedicated-or-shared util::Task_engine (a/k/a boost.asio `io_service`)
+ * that spawns at construction time and a dedicated-or-shared util::Task_engine (a/k/a boost.asio `io_context`)
  * `run()`ning in that new thread.
  *
  * This class:

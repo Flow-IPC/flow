@@ -2167,7 +2167,7 @@ private:
    * Causes an acknowledgment of the given received packet to be included in a future Ack_packet
    * sent to the other side.  That ACK low-level UDP packet is not sent in this handler, even if
    * the low-level UDP socket is currently writable.  The sending of this packet is performed
-   * asynchronously in the manner of `boost::asio::io_service::post()`.
+   * asynchronously in the manner of `boost::asio::io_context::post()`.
    *
    * Note that the Ack_packet may include other packets being acknowledged; and that ACK may be
    * artificially delayed for reasons like the desire to accumulate more acknowledgments before

@@ -297,7 +297,7 @@ private:
   /// N task-execution-capable worker threads whose lifetimes equal those of `*this`, all sharing #m_shared_task_engine.
   std::vector<Task_qing_thread_ptr> m_qing_threads;
 
-  /// boost.asio `Task_engine` (a/k/a `io_service`) co-used by all #m_qing_threads.
+  /// boost.asio `Task_engine` (a/k/a `io_context`) co-used by all #m_qing_threads.
   Task_engine_ptr m_shared_task_engine;
 
   /// See per_thread_ops().  The `boost::any` payload is always of the type async::Strand_ptr.

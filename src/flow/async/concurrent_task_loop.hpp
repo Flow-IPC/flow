@@ -622,7 +622,7 @@ public:
                                                   const Fine_time_pt& at, Scheduled_task&& task) = 0;
 
   /**
-   * Returns a pointer to *an* internal util::Task_engine (a/k/a boost.asio `io_service`) for the purpose of
+   * Returns a pointer to *an* internal util::Task_engine (a/k/a boost.asio `io_context`) for the purpose of
    * performing a boost.asio `async_*()` action on some boost.asio I/O object in the immediate near future.
    *
    * The mechanics of using this are explained in Concurrent_task_loop doc header.  Using this in any other

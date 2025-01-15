@@ -293,7 +293,7 @@ private:
   std::vector<Task_qing_thread_ptr> m_qing_threads;
 
   /**
-   * boost.asio `Task_engine`s (a/k/a `io_service`s) used by each respective element in #m_qing_threads.
+   * boost.asio `Task_engine`s (a/k/a `io_context`s) used by each respective element in #m_qing_threads.
    * It is critical that this not be modified after constructor returns, for the same thread safety reason mentioned
    * in the warning in #m_qing_threads doc header.
    */

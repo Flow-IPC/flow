@@ -92,7 +92,7 @@ int Main::main(int argc, const char** argv)
   using flow::net_flow::Peer_socket;
   using flow::net_flow::Remote_endpoint;
   using flow::error::Runtime_error;
-  using boost::asio::io_service;
+  using boost::asio::io_context;
   using resolver = boost::asio::ip::udp::resolver;
   using query = boost::asio::ip::udp::resolver::query;
   using boost::thread;
@@ -134,7 +134,7 @@ int Main::main(int argc, const char** argv)
     {
       const string host_str = bind_to_localhost ? "127.0.0.1" : "0.0.0.0";
 
-      io_service io;
+      io_context io;
       resolver res(io);
       Error_code ec;
       resolver::iterator result_it = res.resolve(query(host_str, port_str), ec);

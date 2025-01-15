@@ -326,7 +326,7 @@ Peer_socket_info Peer_socket::info() const
 
   /* There are two cases.  If the socket is open (not S_CLOSED), then an m_node owns it and may
    * change the stats we want to copy in its thread W at any time.  In this case we must copy it in
-   * thread W (which we do using a future and io_service::post(), as in listen() and other places in
+   * thread W (which we do using a future and io_context::post(), as in listen() and other places in
    * Node).  In the socket is closed (S_CLOSED), then no m_node owns it, so there is no thread W
    * applicable to this socket anymore, and we can just copy the data in thread U != W. */
 

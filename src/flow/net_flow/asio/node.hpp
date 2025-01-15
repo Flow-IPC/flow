@@ -35,7 +35,7 @@ namespace flow::net_flow::asio
  * directly in a boost.asio event loop (see reference below for background).  It is possible to use the
  * vanilla net_flow::Node, etc., with *any* asynchronous event loop (boost.asio or native `epoll` or `select()`...) --
  * notably by using a glue socket, as explained in Event_set doc header.  However, for those using the boost.asio
- * `io_service` as the app's core main loop, this is not as easy as what one might desire.  (Side note:
+ * `io_context` as the app's core main loop, this is not as easy as what one might desire.  (Side note:
  * I personally strongly recommend using boost.asio event loops instead of rolling one's own or the many alternatives
  * I have seen.  It is also on its way to ending up in the C++ standard library.  Lastly, such a loop is used
  * internally to implement `net_flow`, so you know I like it, for what that's worth.)
@@ -46,7 +46,7 @@ namespace flow::net_flow::asio
  *
  * The usage pattern is simple, assuming you understand tha basics of net_flow::Node, net_flow::Server_socket, and
  * net_flow::Peer_socket -- and especially if you are familiar with boost.asio's built-in `tcp::acceptor` and
- * `tcp::socket` (and, of course, `boost::asio::io_service` that ties them and many more I/O objects together).
+ * `tcp::socket` (and, of course, `boost::asio::io_context` that ties them and many more I/O objects together).
  *
  *   - First, simply create an asio::Node using the same form of constructor as you would with net_flow::Node, plus
  *     an arg that's a pointer to the subsequently used target boost.asio flow::util::Task_engine, which is memorized.
@@ -72,7 +72,7 @@ namespace flow::net_flow::asio
  *       - For each op inside an "arrow," I mean to include all forms of it
  *         (`F` includes: `F()`, `sync_F()`, `async_F()`).
  *       - This pattern is more practical/reasonable for us than the boost.asio pattern of each object memorizing its
- *         `io_service` reference in its explicit constructor.  That is because we fully embrace the
+ *         `io_context` reference in its explicit constructor.  That is because we fully embrace the
  *         factory-of-shared-pointers pattern, and boost.asio doesn't use that pattern.  We also provide an explicit
  *         mutator however.
  *       - We also allow for a null `Task_engine*` -- except when `async_*()` is actually performed.
@@ -82,7 +82,7 @@ namespace flow::net_flow::asio
  *         boost.asio built-in I/O objects.)
  *
  * Having thus obtained asio::Server_socket and asio::Peer_socket objects (and assigned each their desired
- * boost.asio `io_service` loop(s) -- essentially as one does with, e.g., `tcp::acceptor` and `tcp::socket`
+ * boost.asio `io_context` loop(s) -- essentially as one does with, e.g., `tcp::acceptor` and `tcp::socket`
  * respectively) -- you many now use the full range of I/O operations.  Here is a bird's eye view of all operations
  * available in the entire hierarchy.  Note that conceptually this is essentially identical to boost.asio `tcp`
  * I/O objects, but nomenclature and API decisions are in some cases somewhat different (I contend: with good reason).
@@ -130,25 +130,25 @@ namespace flow::net_flow::asio
  *   - Asynchronous operations (`asio::*` classes provide these):
  *     - asio::Server_socket::async_accept() -> asio::Peer_socket: Obtain a fully connected peer socket object,
  *       waiting as necessary in background for a connection to come in and fully establish,
- *       then invoking user-provided callback as if by `io_service::post()`.
+ *       then invoking user-provided callback as if by `io_context::post()`.
  *       - Equivalent: `tcp::acceptor::async_accept()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `reactor_pattern` mode, where the `accept()` call itself is left to user handler.
  *     - asio::Node::async_connect() -> net_flow::Peer_socket: Return a fully connected peer socket object,
  *       waiting as necessary in background to reach the remote server and fully establish connection,
- *       then invoking user-provided callback as if by `io_service::post()`.
+ *       then invoking user-provided callback as if by `io_context::post()`.
  *       - Equivalent: `tcp::socket::async_connect()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: see also `*_with_metadata()` as above.
  *     - asio::Peer_socket::async_send(): Queue up at least 1 of the N given bytes to send to peer ASAP,
  *       waiting as necessary in background for this to become possible (as explained above),
- *       then invoking user-provided callback as if by `io_service::post()`.
+ *       then invoking user-provided callback as if by `io_context::post()`.
  *       - Equivalent: `tcp::socket::async_send()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `null_buffers` mode, where the `send()` call itself is left to user handler.
  *     - asio::Peer_socket::async_receive(): Dequeue at least 1 of the desired N bytes from peer,
  *       waiting as necessary in background for this to arrive from said remote peer,
- *       then invoking user-provided callback as if by `io_service::post()`.
+ *       then invoking user-provided callback as if by `io_context::post()`.
  *       - Equivalent: `tcp::socket::async_receive()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `null_buffers` mode, where the `receive()` call itself is left to user handler.
@@ -169,7 +169,7 @@ namespace flow::net_flow::asio
  *       - Equivalent: `poll()` with 0 timeout.
  *     - Event_set::async_wait(): Asynchronous I/O multiplixing, like sync_wait() but waits in background and
  *       executes user-provided callback from an unspecified thread.  (A typical callback might set a `future`
- *       result; `io_service::post()` a task to some boost.asio event loop; perhaps set a flag that is
+ *       result; `io_context::post()` a task to some boost.asio event loop; perhaps set a flag that is
  *       periodically checked by some user thread; or send a byte over some quick IPC mechanism like a POSIX
  *       domain socket or loopback UDP socket -- or even a condition variable.)
  *       - Equivalents: none in POSIX, that I know of.  Windows "overlapped" async I/O sounds vaguely like a distant
