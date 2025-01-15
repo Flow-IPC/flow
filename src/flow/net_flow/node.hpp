@@ -2824,16 +2824,13 @@ private:
    * @param sock
    *        Socket the remote side of which will get the RST.  Method is basically a NOOP unless
    *        state is Peer_socket::Int_state::S_ESTABLISHED.
-   * @param defer_delta_check
-   *        Same meaning as in event_set_all_check_delta().
    * @param sys_err_code
    *        If invoked via timer trigger, this is boost.asio's error code.  If invoked directly,
    *        this should be set to the default (success).  Value is handled as follows: assuming
    *        ESTABLISHED state: `operation_aborted` => NOOP; success or any other error => attempt to
    *        send ACK(s).
    */
-  void async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
-                              const Error_code& sys_err_code = Error_code());
+  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code());
 
   /**
    * Return `true` if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of `sock` (if

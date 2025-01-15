@@ -1820,9 +1820,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
     // If still forcing immediate ACK, finally do it.
     if (force_ack)
     {
-      async_low_lvl_ack_send(sock, true);
-      // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-
+      async_low_lvl_ack_send(sock);
       assert(pending_acks.empty());
     }
   } // if (force_ack)
@@ -1855,10 +1853,10 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
                      "scheduled delayed [ACK] timer to fire "
                      "in [" << round<milliseconds>(delayed_ack_timer_period) << "].");
 
-      // When triggered or canceled, call this->async_low_lvl_ack_send(sock, false, <error code>).
+      // When triggered or canceled, call this->async_low_lvl_ack_send(sock, <error code>).
       sock->m_rcv_delayed_ack_timer.async_wait([this, socket_id, sock](const Error_code& sys_err_code)
       {
-        async_low_lvl_ack_send(sock, false, sys_err_code);
+        async_low_lvl_ack_send(sock, sys_err_code);
       });
       // ^-- defer_delta_check == false: for similar reason as in send_worker_check_state() calling send_worker().
     }
@@ -5788,7 +5786,7 @@ void Node::async_low_lvl_syn_ack_ack_send(const Peer_socket::Ptr& sock,
   async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn_ack_ack));
 }
 
-void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check, const Error_code& sys_err_code)
+void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::duration_cast;
