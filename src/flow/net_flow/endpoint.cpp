@@ -44,7 +44,7 @@ size_t Remote_endpoint::hash() const
   if (addr.is_v4())
   {
     // Host byte order, but that's cool, as the hash value is computed and used only on this machine.
-    hash_combine(val, addr.to_v4().to_ulong());
+    hash_combine(val, addr.to_v4().to_uint());
   }
   else if (addr.is_v6())
   {
