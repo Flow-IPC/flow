@@ -498,7 +498,7 @@ Peer_socket::Handler_func Peer_socket::handler_func(Handler&& on_result)
    *       will simply cause F() to be post()ed onto E (to execute ASAP on a threads doing E.run()).
    *       (We've also tested this empirically.)
    *     - If on_result is bound to a strand S, via bind_executor(S, F), get_associated_executor(on_result) will
-   *       return the boost::asio::strand (flow::util::Strand) S.  boost.asio doc web page about strands
+   *       return the boost::asio::io_context::strand (flow::util::Strand) S.  boost.asio doc web page about strands
    *       explains post(E, bind_executor(S, F)) will post() F onto E, with the added constraint to not execute it
    *       concurrently with any other handler also associated with S.
    *     - Other executors (not only strands) are possible, though that's more obscure.
