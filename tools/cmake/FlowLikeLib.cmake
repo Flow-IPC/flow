@@ -136,7 +136,7 @@ list(APPEND CMAKE_MESSAGE_INDENT "- ")
 #   - defined BOOST_LIBS but blank => do ensure Boost of the proper version is available/configured for headers;
 #   - defined BOOST_LIBS and not blank => additionally ensure those Boost libs are available/configured for use.
 if(DEFINED BOOST_LIBS)
-  set(BOOST_VER 1.84) # Current as of Jan 2025.XXX
+  set(BOOST_VER 1.87) # Current as of Jan 2025.
 
   message(CHECK_START "(Finding dep: Boost-${BOOST_VER}: headers plus libs [${BOOST_LIBS}].)")
   list(APPEND CMAKE_MESSAGE_INDENT "- ")
