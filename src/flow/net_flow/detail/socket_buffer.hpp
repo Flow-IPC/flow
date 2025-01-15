@@ -313,7 +313,7 @@ private:
    *        Pointer to the location where bytes will be copied.
    */
   template<typename Const_buffer_sequence>
-  static void copy_bytes_from_buf_seq(typename Const_buffer_sequence::const_iterator* cur_buf_it, size_t* pos_in_buf,
+  static void copy_bytes_from_buf_seq(boost::asio::const_buffer const ** cur_buf_it, size_t* pos_in_buf,
                                       size_t to_copy,
                                       util::Blob* dest_buf, util::Blob::Iterator dest);
 
@@ -337,7 +337,7 @@ private:
    *        Pointer to the location from where bytes will be copied.
    */
   template<typename Mutable_buffer_sequence>
-  static void copy_bytes_to_buf_seq(typename Mutable_buffer_sequence::const_iterator* cur_buf_it, size_t* pos_in_buf,
+  static void copy_bytes_to_buf_seq(boost::asio::mutable_buffer const ** cur_buf_it, size_t* pos_in_buf,
                                     size_t to_copy,
                                     const util::Blob& src_buf, util::Blob::Const_iterator src);
   // Data.
@@ -622,7 +622,7 @@ size_t Socket_buffer::consume_bufs_copy(const Mutable_buffer_sequence& target_bu
 } // Socket_buffer::consume_bufs_copy()
 
 template<typename Const_buffer_sequence>
-void Socket_buffer::copy_bytes_from_buf_seq(typename Const_buffer_sequence::const_iterator* cur_buf_it,
+void Socket_buffer::copy_bytes_from_buf_seq(boost::asio::const_buffer const ** cur_buf_it,
                                             size_t* pos_in_buf, size_t to_copy,
                                             util::Blob* dest_buf,
                                             util::Blob::Iterator dest) // Static.
@@ -666,7 +666,7 @@ void Socket_buffer::copy_bytes_from_buf_seq(typename Const_buffer_sequence::cons
 } // Socket_buffer::copy_bytes_from_buf_seq()
 
 template<typename Mutable_buffer_sequence>
-void Socket_buffer::copy_bytes_to_buf_seq(typename Mutable_buffer_sequence::const_iterator* cur_buf_it,
+void Socket_buffer::copy_bytes_to_buf_seq(boost::asio::mutable_buffer const ** cur_buf_it,
                                           size_t* pos_in_buf, size_t to_copy,
                                           const util::Blob& src_buf,
                                           util::Blob::Const_iterator src) // Static.
