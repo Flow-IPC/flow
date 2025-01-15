@@ -459,7 +459,7 @@ public:
                    const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
-   * `sync_send()` operating in `null_buffers` mode, wherein -- if Writable state is reached -- the actual data
+   * `sync_send()` operating in `nullptr_t` mode, wherein -- if Writable state is reached -- the actual data
    * are not moved out of any buffer, leaving that to the caller to do if desired.  Hence, this is a way of waiting
    * for Writable state that could be more concise in some situations than Event_set::sync_wait().
    *
@@ -494,7 +494,7 @@ public:
    *         not writable), or another error has occurred.
    */
   template<typename Rep, typename Period>
-  bool sync_send(const boost::asio::null_buffers&,
+  bool sync_send(nullptr_t,
                  const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
@@ -512,7 +512,7 @@ public:
   size_t sync_send(const Const_buffer_sequence& data, Error_code* err_code = 0);
 
   /**
-   * Equivalent to `sync_send(null_buffers(), duration::max(), err_code)`; i.e., `sync_send(null_buffers)`
+   * Equivalent to `sync_send(nullptr, duration::max(), err_code)`; i.e., `sync_send(nullptr_t)`
    * with no timeout.
    *
    * @param err_code
@@ -521,7 +521,7 @@ public:
    *        Tag argument.
    * @return See other sync_receive().
    */
-  bool sync_send(const boost::asio::null_buffers&, Error_code* err_code = 0);
+  bool sync_send(nullptr_t, Error_code* err_code = 0);
 
   /**
    * Receives (consumes from the Receive buffer) bytes of data, up to a given maximum
@@ -628,7 +628,7 @@ public:
                       const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
-   * `sync_receive()` operating in `null_buffers` mode, wherein -- if Readable state is reached -- the actual data
+   * `sync_receive()` operating in `nullptr_t` mode, wherein -- if Readable state is reached -- the actual data
    * are not moved into any buffer, leaving that to the caller to do if desired.  Hence, this is a way of waiting
    * for Readable state that could be more concise in some situations than Event_set::sync_wait().
    *
@@ -663,7 +663,7 @@ public:
    *         another error has occurred.
    */
   template<typename Rep, typename Period>
-  bool sync_receive(const boost::asio::null_buffers&,
+  bool sync_receive(nullptr_t,
                     const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
@@ -682,7 +682,7 @@ public:
   size_t sync_receive(const Mutable_buffer_sequence& target, Error_code* err_code = 0);
 
   /**
-   * Equivalent to `sync_receive(null_buffers(), duration::max(), err_code)`; i.e., `sync_receive(null_buffers)`
+   * Equivalent to `sync_receive(nullptr, duration::max(), err_code)`; i.e., `sync_receive(nullptr_t)`
    * with no timeout.
    *
    * @param err_code
@@ -691,7 +691,7 @@ public:
    *        Tag argument.
    * @return See other sync_receive().
    */
-  bool sync_receive(const boost::asio::null_buffers&, Error_code* err_code = 0);
+  bool sync_receive(nullptr_t, Error_code* err_code = 0);
 
   /**
    * Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the
@@ -1019,13 +1019,13 @@ private:
                         Error_code* err_code);
 
   /**
-   * Helper similar to sync_send_impl() but for the `null_buffers` versions of `sync_send()`.
+   * Helper similar to sync_send_impl() but for the `nullptr_t` versions of `sync_send()`.
    *
    * @param wait_until
    *        See sync_send_impl().
    * @param err_code
    *        See sync_send_impl().
-   * @return See `sync_send(null_buffers)`.  `true` if and only if Writable status successfuly reached in time.
+   * @return See `sync_send(nullptr_t)`.  `true` if and only if Writable status successfuly reached in time.
    */
   bool sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code);
 
@@ -1033,7 +1033,7 @@ private:
    * This is to sync_send() as node_send() is to send().
    *
    * @param snd_buf_feed_func_or_empty
-   *        See node_send().  Additionally, if this is `.empty()` then `null_buffers` a/k/a "reactor pattern" mode is
+   *        See node_send().  Additionally, if this is `.empty()` then `nullptr_t` a/k/a "reactor pattern" mode is
    *        engaged.
    * @param wait_until
    *        See sync_send_impl().
@@ -1079,13 +1079,13 @@ private:
                            const Fine_time_pt& wait_until, Error_code* err_code);
 
   /**
-   * Helper similar to sync_receive_impl() but for the `null_buffers` versions of `sync_receive()`.
+   * Helper similar to sync_receive_impl() but for the `nullptr_t` versions of `sync_receive()`.
    *
    * @param wait_until
    *        See sync_receive_impl().
    * @param err_code
    *        See sync_receive_impl().
-   * @return See `sync_receive(null_buffers)`.  `true` if and only if Readable status successfuly reached in time.
+   * @return See `sync_receive(nullptr_t)`.  `true` if and only if Readable status successfuly reached in time.
    */
   bool sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code);
 
@@ -1093,7 +1093,7 @@ private:
    * This is to sync_receive() as node_receive() is to receive().
    *
    * @param rcv_buf_consume_func_or_empty
-   *        See node_receive().  Additionally, if this is `.empty()` then `null_buffers` a/k/a "reactor pattern" mode is
+   *        See node_receive().  Additionally, if this is `.empty()` then `nullptr_t` a/k/a "reactor pattern" mode is
    *        engaged.
    * @param wait_until
    *        See sync_receive_impl().
@@ -2500,7 +2500,7 @@ size_t Peer_socket::sync_send(const Const_buffer_sequence& data,
 }
 
 template<typename Rep, typename Period>
-bool Peer_socket::sync_send(const boost::asio::null_buffers&,
+bool Peer_socket::sync_send(nullptr_t,
                             const boost::chrono::duration<Rep, Period>& max_wait,
                             Error_code* err_code)
 {
@@ -2593,7 +2593,7 @@ size_t Peer_socket::sync_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Rep, typename Period>
-bool Peer_socket::sync_receive(const boost::asio::null_buffers&,
+bool Peer_socket::sync_receive(nullptr_t,
                                const boost::chrono::duration<Rep, Period>& max_wait,
                                Error_code* err_code)
 {

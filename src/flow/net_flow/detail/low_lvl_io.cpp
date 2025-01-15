@@ -30,14 +30,8 @@ namespace flow::net_flow
 
 void Node::async_low_lvl_recv()
 {
-  using boost::asio::null_buffers;
-
   // We are in thread W.
-
-  /* null_buffers() => don't actually read into any buffer.  Invoked handler will read.
-   * Invoke this->low_lvl_recv_and_handle(<error code>) when data/error ready. */
-  m_low_lvl_sock.async_receive(null_buffers(),
-                               [this](const Error_code& sys_err_code, size_t)
+  m_low_lvl_sock.async_wait(Udp_socket::wait_read, [this](const Error_code& sys_err_code)
   {
     low_lvl_recv_and_handle(sys_err_code);
   });
@@ -139,7 +133,7 @@ void Node::low_lvl_recv_and_handle(Error_code sys_err_code)
          * error codes which often demand special handling?  Well, firstly, we are likely mostly not hitting that
          * situation, as async_receive() (the call for which this is the handler function) specifically attempts
          * to avoid those error codes by only executing the handler once the socket is Readable.
-         * Still, it's probably not impossible: we used null_buffers as of this writing, which means the actual
+         * Still, it's probably not impossible: we used async_wait() as of this writing, which means the actual
          * receiving is done in this handler, not by boost.asio (and even if it was, we would still try more receives
          * until no more are available).  Between detection of Readable by boost.asio and the actual receive call,
          * the situation may have changed.  Well, fine.  What's there to do?  would_block/try_again means
@@ -539,7 +533,7 @@ void Node::low_lvl_packet_sent(Peer_socket::Ptr sock, Low_lvl_packet::Const_ptr 
      * that those two errors are _specifically_ avoided.  However, that's probably not a 100% safe assumption.
      * Even if the OS reports "Writable" at time T, a few microseconds later some resource might get used up
      * (unrelated to our activities); and by the time the actual send executes, we might get would_block/try_again.
-     * Now, it's possible that since we do NOT use null_buffers in our async_send() call -- meaning we let
+     * Now, it's possible that since we do NOT use async_wait() instead of async_send() call -- meaning we let
      * boost.asio both wait for Writable *and* itself execute the write -- that it would hide any such
      * corner-case EAGAIN/etc. from us and just not call this handler in that case and retry later by itself.
      * However, I don't know if it does that.  @todo Therefore it would be safer to treat those error codes,

@@ -90,7 +90,7 @@ public:
   void set_async_task_engine(util::Task_engine* target_async_task_engine);
 
   /**
-   * boost.asio-style asynchronous version that essentially performs non-`null_buffers`
+   * boost.asio-style asynchronous version that essentially performs non-`nullptr_t`
    * net_flow::Peer_socket::sync_receive() in the background and invokes the given handler via the saved
    * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
@@ -112,7 +112,7 @@ public:
    *        Handler to be executed asynchronously within the saved `Task_engine`.
    *        The error code and bytes-transmitted values passed to it, in that order, are identical
    *        to those out-arg/returned values in net_flow::Peer_socket::sync_receive().
-   *        Note: This overload corresponds to the non-`null_buffers` `sync_receive()` overload.
+   *        Note: This overload corresponds to the non-`nullptr_t` `sync_receive()` overload.
    *        Note: Use `bind_executor(S, F)` to bind your handler to the util::Strand `S`.
    * @param max_wait
    *        See net_flow::Peer_socket::sync_receive().
@@ -123,7 +123,7 @@ public:
                      Handler&& on_result);
 
   /**
-   * boost.asio-style asynchronous version that essentially performs a `null_buffers`
+   * boost.asio-style asynchronous version that essentially performs a `nullptr_t`
    * net_flow::Peer_socket::sync_receive() in the background and invokes the given handler via the saved
    * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
@@ -141,14 +141,14 @@ public:
    *        Handler to be executed asynchronously within the saved `Task_engine`.
    *        The error code and bytes-transmitted values passed to it, in that order, are identical
    *        to those out-arg/returned values in net_flow::Peer_socket::sync_receive().
-   *        Note: This overload corresponds to the `null_buffers` `sync_receive()` overload.
+   *        Note: This overload corresponds to the `nullptr_t` `sync_receive()` overload.
    *        Therefore, the bytes-transmitted value passed to the handler is always 0.
    *        Note: Use `bind_executor(S, F)` to bind your handler to the util::Strand `S`.
    * @param max_wait
    *        See net_flow::Peer_socket::sync_receive().
    */
   template<typename Rep, typename Period, typename Handler>
-  void async_receive(const boost::asio::null_buffers&,
+  void async_receive(nullptr_t,
                      const boost::chrono::duration<Rep, Period>& max_wait,
                      Handler&& on_result);
 
@@ -169,7 +169,7 @@ public:
   void async_receive(const Mutable_buffer_sequence& target, Handler&& on_result);
 
   /**
-   * Equivalent to `async_receive(null_buffers(), duration::max(), on_result)`; i.e., `async_receive(null_buffers)`
+   * Equivalent to `async_receive(nullptr, duration::max(), on_result)`; i.e., `async_receive(nullptr)`
    * with no timeout.
    *
    * @tparam Handler
@@ -178,10 +178,10 @@ public:
    *        See other async_receive().
    */
   template<typename Handler>
-  void async_receive(const boost::asio::null_buffers&, Handler&& on_result);
+  void async_receive(nullptr_t, Handler&& on_result);
 
   /**
-   * boost.asio-style asynchronous version that essentially performs non-`null_buffers`
+   * boost.asio-style asynchronous version that essentially performs non-`nullptr_t`
    * net_flow::Peer_socket::sync_send() in the background and invokes the given handler via the saved
    * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
@@ -203,7 +203,7 @@ public:
    *        Handler to be executed asynchronously within the saved `Task_engine`.
    *        The error code and bytes-transmitted values passed to it, in that order, are identical
    *        to those out-arg/returned values in net_flow::Peer_socket::sync_send().
-   *        Note: This overload corresponds to the non-`null_buffers` `sync_send()` overload.
+   *        Note: This overload corresponds to the non-`nullptr_t` `sync_send()` overload.
    *        Note: Use `bind_executor(S, F)` to bind your handler to the util::Strand `S`.
    * @param max_wait
    *        See net_flow::Peer_socket::sync_send().
@@ -214,7 +214,7 @@ public:
                   Handler&& on_result);
 
   /**
-   * boost.asio-style asynchronous version that essentially performs a `null_buffers`
+   * boost.asio-style asynchronous version that essentially performs a `nullptr_t`
    * net_flow::Peer_socket::sync_send() in the background and invokes the given handler via the saved
    * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
@@ -232,14 +232,14 @@ public:
    *        Handler to be executed asynchronously within the saved `Task_engine`.
    *        The error code and bytes-transmitted values passed to it, in that order, are identical
    *        to those out-arg/returned values in net_flow::Peer_socket::sync_send().
-   *        Note: This overload corresponds to the `null_buffers` `sync_send()` overload.
+   *        Note: This overload corresponds to the `nullptr_t` `sync_send()` overload.
    *        Therefore, the bytes-transmitted value passed to the handler is always 0.
    *        Note: Use `bind_executor(S, F)` to bind your handler to the util::Strand `S`.
    * @param max_wait
    *        See net_flow::Peer_socket::sync_send().
    */
   template<typename Rep, typename Period, typename Handler>
-  void async_send(const boost::asio::null_buffers&,
+  void async_send(nullptr_t,
                   const boost::chrono::duration<Rep, Period>& max_wait,
                   Handler&& on_result);
 
@@ -260,7 +260,7 @@ public:
   void async_send(const Const_buffer_sequence& source, Handler&& on_result);
 
   /**
-   * Equivalent to `async_send(null_buffers(), duration::max(), on_result)`; i.e., `async_send(null_buffers)`
+   * Equivalent to `async_send(nullptr, duration::max(), on_result)`; i.e., `async_send(nullptr)`
    * with no timeout.
    *
    * @tparam Handler
@@ -269,7 +269,7 @@ public:
    *        See other async_send().
    */
   template<typename Handler>
-  void async_send(const boost::asio::null_buffers&, Handler&& on_result);
+  void async_send(nullptr_t, Handler&& on_result);
 
   /**
    * Convenience method that polymorphically casts from `net_flow::Peer_socket::Ptr` to
@@ -330,8 +330,8 @@ private:
    * De-templated implementation of all `async_receive()` methods.
    *
    * @param target
-   *        Ref-counted pointer to copy of `target` arg for non-`null_buffers` `async_receive()` methods;
-   *        or null in the case of `async_receive(null_buffers)` methods.
+   *        Ref-counted pointer to copy of `target` arg for non-`nullptr_t` `async_receive()` methods;
+   *        or null in the case of `async_receive(nullptr_t)` methods.
    * @param on_result
    *        `handler_func(on_result)`, where `on_result` is the user's `async_*()` method arg.
    * @param wait_until
@@ -345,8 +345,8 @@ private:
    * De-templated implementation of all `async_send()` methods.
    *
    * @param source
-   *        Ref-counted pointer to copy of `source` arg for non-`null_buffers` `async_send()` methods;
-   *        or an empty sequence in the case of `async_send(null_buffers)` methods.
+   *        Ref-counted pointer to copy of `source` arg for non-`nullptr_t` `async_send()` methods;
+   *        or an empty sequence in the case of `async_send(nullptr_t)` methods.
    * @param on_result
    *        `handler_func(on_result)`, where `on_result` is the user's `async_*()` method arg.
    * @param wait_until
@@ -419,7 +419,7 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Rep, typename Period, typename Handler>
-void Peer_socket::async_receive(const boost::asio::null_buffers&,
+void Peer_socket::async_receive(nullptr_t,
                                 const boost::chrono::duration<Rep, Period>& max_wait,
                                 Handler&& on_result)
 {
@@ -437,7 +437,7 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Handler>
-void Peer_socket::async_receive(const boost::asio::null_buffers&, Handler&& on_result)
+void Peer_socket::async_receive(nullptr_t, Handler&& on_result)
 {
   async_receive_impl(Target_bufs_ptr(), handler_func(on_result), Fine_time_pt());
 }
@@ -454,7 +454,7 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
 }
 
 template<typename Rep, typename Period, typename Handler>
-void Peer_socket::async_send(const boost::asio::null_buffers&,
+void Peer_socket::async_send(nullptr_t,
                              const boost::chrono::duration<Rep, Period>& max_wait,
                              Handler&& on_result)
 {
@@ -473,8 +473,7 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
 
 template<typename Handler>
 void Peer_socket::async_send
-                    (const boost::asio::null_buffers&,
-                     Handler&& on_result)
+                    (nullptr_t, Handler&& on_result)
 {
   async_send_impl(Source_bufs_ptr(), handler_func(on_result), Fine_time_pt());
 }

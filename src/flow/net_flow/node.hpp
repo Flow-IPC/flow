@@ -454,11 +454,11 @@ namespace flow::net_flow
  * original problem (internal kernel buffer overflowing and dropping datagrams).
  *
  * @todo Receive UDP datagrams as soon as possible (avoid internal buffer overflow): APPROACH 1 (CO-WINNER!):
- * One approach is to note that, as of this writing, we call `m_low_lvl_sock.async_receive(null_buffers)`;
- * the `null_buffers` value for the buffers arg means that the handler is called without any actual UDP
- * receive is performed by boost.asio; our handler is called once there is at least 1 message TO read;
+ * One approach is to note that, as of this writing, we call `m_low_lvl_sock.async_wait(wait_read)`;
+ * our handler is called once there is at least 1 message TO read;
  * and then indeed our handler does read it (and any more messages that may also have arrived).
- * Well, if we pass in an actual buffer instead, then boost.asio will read 1 (and no more, even if there are more)
+ * Well, if we use actual `async_receive()` and an actual buffer instead,
+ * then boost.asio will read 1 (and no more, even if there are more)
  * message into that buffer and have it ready in the handler.  Assuming the mainstream case involves only 1
  * message being ready, and/or assuming that reading at least 1 message each time ASAP would help significantly,
  * this may be a good step toward relieving the problem, when it exists.  The code becomes a tiny bit less
@@ -772,9 +772,6 @@ namespace flow::net_flow
  * group's method(s) are meant to be called by outside code vs. being helpers thereof: Introduce `static`-method-only
  * inner classes (and, conceivably, even classes within those classes) to enforce this grouping (`public` methods
  * and `private` methods enforcing what is a "public" helper vs. a helper's helper).
- *
- * @todo We are now on Boost 1.75; the use of asio's `null_buffers` semantics is deprecated and should be changed to
- * the replacement mechanism suggested in Boost docs -- the `async_wait()` method.
  *
  * @todo Make use of flow::async::Concurrent_task_loop or flow::async::Single_thread_task_loop, instead of manually
  * setting up a thread and util::Task_engine, for #m_worker.  I, Yuri, wrote the constructor, worker_run(), destructor,
@@ -3476,7 +3473,7 @@ private:
    *        If `non_blocking_func.empty()`, do not call `non_blocking_func()` --
    *        return indicating no error so far, and let them do actual operation, if they want; we just tell them it
    *        should be ready for them.  This is known
-   *        as `null_buffers` mode or reactor pattern mode.  Otherwise, do the successful operation and then
+   *        as reactor pattern mode.  Otherwise, do the successful operation and then
    *        return.  This is arguably more typical.
    * @param would_block_ret_val
    *        The value that `non_blocking_func()` returns to indicate it was unable to perform the
@@ -4081,7 +4078,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
      * plus it's a pre-condition of the non-blocking operation (e.g., Node::send()).  In the
      * meantime sock may have gotten closed. Ensure that's not so (another pre-condition).
      *
-     * Alternatively, in null_buffers mode, they want us to basically do a glorified sync_wait() for
+     * Alternatively, in reactor-pattern mode, they want us to basically do a glorified sync_wait() for
      * one of the 3 events, depending on ev_type, and just return without performing any non_blocking_func();
      * in fact this mode is indicated by non_blocking_func.empty(). */
 

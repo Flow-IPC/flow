@@ -104,9 +104,9 @@ Error_code Peer_socket::disconnect_cause() const
   return m_disconnect_cause;
 }
 
-bool Peer_socket::sync_send(const boost::asio::null_buffers& tag, Error_code* err_code)
+bool Peer_socket::sync_send(nullptr_t, Error_code* err_code)
 {
-  return sync_send(tag, Fine_duration::max(), err_code);
+  return sync_send(nullptr, Fine_duration::max(), err_code);
 }
 
 bool Peer_socket::sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code)
@@ -189,9 +189,9 @@ size_t Peer_socket::node_sync_send(const Function<size_t (size_t max_data_size)>
                 wait_until, err_code);
 } // Peer_socket::node_sync_send()
 
-bool Peer_socket::sync_receive(const boost::asio::null_buffers& tag, Error_code* err_code)
+bool Peer_socket::sync_receive(nullptr_t, Error_code* err_code)
 {
-  return sync_receive(tag, Fine_duration::max(), err_code);
+  return sync_receive(nullptr, Fine_duration::max(), err_code);
 }
 
 bool Peer_socket::sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code)
