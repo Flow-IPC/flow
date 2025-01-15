@@ -92,7 +92,7 @@ public:
   /**
    * boost.asio-style asynchronous version that essentially performs non-`null_buffers`
    * net_flow::Peer_socket::sync_receive() in the background and invokes the given handler via the saved
-   * `Task_engine *(async_task_engine())`, as if by `Task_engine::post()`.
+   * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
    * The semantics are identical to the similar `sync_receive()`, except that the operation does not block the
    * calling thread; and the results are delivered to the supplied handler `on_result` instead of to the caller.
@@ -125,7 +125,7 @@ public:
   /**
    * boost.asio-style asynchronous version that essentially performs a `null_buffers`
    * net_flow::Peer_socket::sync_receive() in the background and invokes the given handler via the saved
-   * `Task_engine *(async_task_engine())`, as if by `Task_engine::post()`.
+   * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
    * The semantics are identical to the similar `sync_receive()`, except that the operation does not block the
    * calling thread; and the results are delivered to the supplied handler `on_result` instead of to the caller.
@@ -183,7 +183,7 @@ public:
   /**
    * boost.asio-style asynchronous version that essentially performs non-`null_buffers`
    * net_flow::Peer_socket::sync_send() in the background and invokes the given handler via the saved
-   * `Task_engine *(async_task_engine())`, as if by `Task_engine::post()`.
+   * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
    * The semantics are identical to the similar `sync_send()`, except that the operation does not block the
    * calling thread; and the results are delivered to the supplied handler `on_result` instead of to the caller.
@@ -216,7 +216,7 @@ public:
   /**
    * boost.asio-style asynchronous version that essentially performs a `null_buffers`
    * net_flow::Peer_socket::sync_send() in the background and invokes the given handler via the saved
-   * `Task_engine *(async_task_engine())`, as if by `Task_engine::post()`.
+   * `Task_engine *(async_task_engine())`, as if by `post(Task_engine&)`.
    *
    * The semantics are identical to the similar `sync_send()`, except that the operation does not block the
    * calling thread; and the results are delivered to the supplied handler `on_result` instead of to the caller.

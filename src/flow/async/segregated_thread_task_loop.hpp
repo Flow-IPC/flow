@@ -240,7 +240,7 @@ private:
   // Methods.
 
   /**
-   * Helper performing the core `Task_engine::post()` (or similar) call on behalf of the various `post()` overloads.
+   * Helper performing the core `post(Task_engine&)` (or similar) call on behalf of the various `post()` overloads.
    *
    * @param chosen_task_engine
    *        The value `m_qing_threads[idx].task_engine().` for some valid `idx`: the engine for the thread selected

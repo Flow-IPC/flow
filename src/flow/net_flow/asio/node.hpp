@@ -130,25 +130,25 @@ namespace flow::net_flow::asio
  *   - Asynchronous operations (`asio::*` classes provide these):
  *     - asio::Server_socket::async_accept() -> asio::Peer_socket: Obtain a fully connected peer socket object,
  *       waiting as necessary in background for a connection to come in and fully establish,
- *       then invoking user-provided callback as if by `io_context::post()`.
+ *       then invoking user-provided callback as if by `post(io_context&)`.
  *       - Equivalent: `tcp::acceptor::async_accept()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `reactor_pattern` mode, where the `accept()` call itself is left to user handler.
  *     - asio::Node::async_connect() -> net_flow::Peer_socket: Return a fully connected peer socket object,
  *       waiting as necessary in background to reach the remote server and fully establish connection,
- *       then invoking user-provided callback as if by `io_context::post()`.
+ *       then invoking user-provided callback as if by `post(io_context&)`.
  *       - Equivalent: `tcp::socket::async_connect()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: see also `*_with_metadata()` as above.
  *     - asio::Peer_socket::async_send(): Queue up at least 1 of the N given bytes to send to peer ASAP,
  *       waiting as necessary in background for this to become possible (as explained above),
- *       then invoking user-provided callback as if by `io_context::post()`.
+ *       then invoking user-provided callback as if by `post(io_context&)`.
  *       - Equivalent: `tcp::socket::async_send()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `null_buffers` mode, where the `send()` call itself is left to user handler.
  *     - asio::Peer_socket::async_receive(): Dequeue at least 1 of the desired N bytes from peer,
  *       waiting as necessary in background for this to arrive from said remote peer,
- *       then invoking user-provided callback as if by `io_context::post()`.
+ *       then invoking user-provided callback as if by `post(io_context&)`.
  *       - Equivalent: `tcp::socket::async_receive()`.
  *       - Variations: optional timeout can be specified.
  *       - Variations: `null_buffers` mode, where the `receive()` call itself is left to user handler.
@@ -169,7 +169,7 @@ namespace flow::net_flow::asio
  *       - Equivalent: `poll()` with 0 timeout.
  *     - Event_set::async_wait(): Asynchronous I/O multiplixing, like sync_wait() but waits in background and
  *       executes user-provided callback from an unspecified thread.  (A typical callback might set a `future`
- *       result; `io_context::post()` a task to some boost.asio event loop; perhaps set a flag that is
+ *       result; `post(io_context&)` a task to some boost.asio event loop; perhaps set a flag that is
  *       periodically checked by some user thread; or send a byte over some quick IPC mechanism like a POSIX
  *       domain socket or loopback UDP socket -- or even a condition variable.)
  *       - Equivalents: none in POSIX, that I know of.  Windows "overlapped" async I/O sounds vaguely like a distant
@@ -316,7 +316,7 @@ public:
    * background, and queueing the user-provided callback on the given boost.asio flow::util::Task_engine.
    * Acts just like connect() but instead of returning a connecting socket immediately, it returns and asycnhronously
    * waits until the initial handshake either succeeds or fails, and then invokes the given callback (in manner
-   * equivalent to boost.asio `Task_engine::post()`), passing to it the connected socket or null, respectively,
+   * equivalent to boost.asio `post(Task_engine&)`), passing to it the connected socket or null, respectively,
    * along with a success #Error_code or otherwise, respectively.  Additionally, you can specify a timeout; not
    * completing the connection by that time is a specific #Error_code.
    *

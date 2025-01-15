@@ -171,7 +171,7 @@ public:
   /**
    * Constructs Drop_timer and returns a ref-counted pointer wrapping it.  Saves the "action
    * callbacks" to call when various events fire in this Drop_timer.  The callbacks may be placed
-   * onto `*node_task_engine` in the manner of `Task_engine::post()`, at any future time until done()
+   * onto `*node_task_engine` in the manner of `post(Task_engine&)`, at any future time until done()
    * is called.  At construction, the timer is guaranteed not to fire until the first `on_...()` call.
    *
    * After construction, call `on_...()` as events occur.  If an event described by the doc comment of

@@ -35,7 +35,7 @@ namespace flow::async
  * ### Thread safety ###
  * All methods are thread-safe for read-write on a shared Single_thread_task_loop, after its ctor returns, unless
  * otherwise specified (but read on).  This is highly significant, just as it is highly significant that boost.asio's
- * `Task_engine::post()` is similarly thread-safe.  However, it is *not* safe to call either stop() or start()
+ * `post(Task_engine&)` is similarly thread-safe.  However, it is *not* safe to call either stop() or start()
  * concurrently with itself or the other of the two, on the same Single_thread_task_loop.
  *
  * ### Rationale ###
@@ -176,7 +176,7 @@ public:
    * `Task`.
    *
    * `synchronicity` controls the precise behavior of the "post" operation.  Read #Synchronicity `enum` docs carefully.
-   * That said: if left defaulted, `post()` works in the `Task_engine::post()` manner: return immediately; then
+   * That said: if left defaulted, `post()` works in the `post(Task_engine&)` manner: return immediately; then
    * execute either concurrently in another thread (if called *not* from within another in-thread task) or later in the
    * same thread (otherwise).
    *
