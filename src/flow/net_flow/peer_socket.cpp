@@ -1805,23 +1805,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
                      "in [" << round<milliseconds>(sock->m_rcv_delayed_ack_timer.expiry() - Fine_clock::now()) << "] "
                      "from now.");
 
-      Error_code sys_err_code;
-      const size_t num_canceled = sock->m_rcv_delayed_ack_timer.cancel(sys_err_code);
-      if (sys_err_code)
-      {
-        FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-        // Pretty unlikely, but let's send RST and abort connection, since something crazy is going on.
-
-        // As above....
-        rst_and_close_connection_immediately(socket_id, sock,
-                                             error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER, true);
-        // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-        return;
-      }
-      // else
-
-      if (num_canceled == 0)
+      if (sock->m_rcv_delayed_ack_timer.cancel() == 0)
       {
         /* Unlikely but legitimate; timer was queued to trigger very soon, so we could not
          * cancel it.  No problem -- just let the ACKing happen per timer.  Log INFO due to
@@ -1865,24 +1849,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
     {
       // First individual acknowledgment accumulated: start countdown to send the next batch of acknowledgments.
 
-      Error_code sys_err_code;
-      sock->m_rcv_delayed_ack_timer.expires_after(delayed_ack_timer_period, sys_err_code);
-      if (sys_err_code)
-      {
-        FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-        // Pretty unlikely, but let's send RST and abort connection, since something crazy is going on.
-
-        /* Close connection in our structures (inform user if necessary as well).  Pre-conditions
-         * assumed by call: sock in m_socks and sock->state() == S_OPEN (yes, since m_int_state ==
-         * S_ESTABLISHED); 3rd arg contains the reason for the close (yes).  This will empty the Send
-         * and Receive buffers.  That is OK, because this is the abrupt type of close (error). */
-        rst_and_close_connection_immediately(socket_id, sock,
-                                             error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER, true);
-        // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-        return;
-      }
-      // else
+      sock->m_rcv_delayed_ack_timer.expires_after(delayed_ack_timer_period);
 
       FLOW_LOG_TRACE("On [" << sock << "] "
                      "scheduled delayed [ACK] timer to fire "

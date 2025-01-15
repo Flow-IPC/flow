@@ -166,8 +166,6 @@ enum class Code
   S_CONN_RESET_BAD_PEER_BEHAVIOR,
   /// Other side refused connection.
   S_CONN_REFUSED,
-  /// Internal error:  System error:  Something went wrong with boost.asio timer subsystem.
-  S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER,
   /// Other side did not complete connection handshake within the allowed time; perhaps no one is listening.
   S_CONN_TIMEOUT,
   /// Other side reset an established connection.

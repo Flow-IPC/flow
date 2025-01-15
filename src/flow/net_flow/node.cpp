@@ -277,9 +277,9 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
 
   m_task_engine.run();
 
-  /* Destructor must have stop()ped m_task_engine.  reset() will allow the below poll()s to
+  /* Destructor must have stop()ped m_task_engine.  restart() will allow the below poll()s to
    * proceed. */
-  m_task_engine.reset();
+  m_task_engine.restart();
 
   // Log final state report before closing down.  Do not schedule to run again.
   perform_regular_infrequent_tasks(false);

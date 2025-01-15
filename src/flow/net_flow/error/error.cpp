@@ -144,8 +144,6 @@ std::string Category::message(int val) const // Virtual.
     return "Connection reset because of unexpected/illegal behavior by the other side.";
   case Code::S_CONN_REFUSED:
     return "Other side refused connection.";
-  case Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER:
-    return "Internal error:  System error:  Something went wrong with boost.asio timer subsystem.";
   case Code::S_CONN_TIMEOUT:
     return "Other side did not complete connection handshake within the allowed time; perhaps no one is listening.";
   case Code::S_CONN_RESET_BY_OTHER_SIDE:
