@@ -148,7 +148,7 @@ public:
    *        See net_flow::Peer_socket::sync_receive().
    */
   template<typename Rep, typename Period, typename Handler>
-  void async_receive(nullptr_t,
+  void async_receive(std::nullptr_t,
                      const boost::chrono::duration<Rep, Period>& max_wait,
                      Handler&& on_result);
 
@@ -178,7 +178,7 @@ public:
    *        See other async_receive().
    */
   template<typename Handler>
-  void async_receive(nullptr_t, Handler&& on_result);
+  void async_receive(std::nullptr_t, Handler&& on_result);
 
   /**
    * boost.asio-style asynchronous version that essentially performs non-`nullptr_t`
@@ -239,7 +239,7 @@ public:
    *        See net_flow::Peer_socket::sync_send().
    */
   template<typename Rep, typename Period, typename Handler>
-  void async_send(nullptr_t,
+  void async_send(std::nullptr_t,
                   const boost::chrono::duration<Rep, Period>& max_wait,
                   Handler&& on_result);
 
@@ -269,7 +269,7 @@ public:
    *        See other async_send().
    */
   template<typename Handler>
-  void async_send(nullptr_t, Handler&& on_result);
+  void async_send(std::nullptr_t, Handler&& on_result);
 
   /**
    * Convenience method that polymorphically casts from `net_flow::Peer_socket::Ptr` to
@@ -419,7 +419,7 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Rep, typename Period, typename Handler>
-void Peer_socket::async_receive(nullptr_t,
+void Peer_socket::async_receive(std::nullptr_t,
                                 const boost::chrono::duration<Rep, Period>& max_wait,
                                 Handler&& on_result)
 {
@@ -437,7 +437,7 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Handler>
-void Peer_socket::async_receive(nullptr_t, Handler&& on_result)
+void Peer_socket::async_receive(std::nullptr_t, Handler&& on_result)
 {
   async_receive_impl(Target_bufs_ptr(), handler_func(on_result), Fine_time_pt());
 }
@@ -454,7 +454,7 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
 }
 
 template<typename Rep, typename Period, typename Handler>
-void Peer_socket::async_send(nullptr_t,
+void Peer_socket::async_send(std::nullptr_t,
                              const boost::chrono::duration<Rep, Period>& max_wait,
                              Handler&& on_result)
 {
@@ -473,7 +473,7 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
 
 template<typename Handler>
 void Peer_socket::async_send
-                    (nullptr_t, Handler&& on_result)
+                    (std::nullptr_t, Handler&& on_result)
 {
   async_send_impl(Source_bufs_ptr(), handler_func(on_result), Fine_time_pt());
 }
