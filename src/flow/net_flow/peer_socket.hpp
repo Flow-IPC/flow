@@ -517,8 +517,6 @@ public:
    *
    * @param err_code
    *        See other sync_receive().
-   * @param tag
-   *        Tag argument.
    * @return See other sync_receive().
    */
   bool sync_send(std::nullptr_t, Error_code* err_code = 0);
@@ -687,8 +685,6 @@ public:
    *
    * @param err_code
    *        See other sync_receive().
-   * @param tag
-   *        Tag argument.
    * @return See other sync_receive().
    */
   bool sync_receive(std::nullptr_t, Error_code* err_code = 0);
