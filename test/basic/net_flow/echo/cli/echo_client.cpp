@@ -18,6 +18,7 @@
 #include "flow/net_flow/node.hpp"
 #include "flow/log/simple_ostream_logger.hpp"
 #include "flow/log/async_file_logger.hpp"
+#include "flow/util/string_view.hpp"
 #include <boost/array.hpp>
 
 /* This simple program is a Flow-based echo client.
@@ -43,21 +44,20 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   using flow::net_flow::Peer_socket;
   using flow::net_flow::Remote_endpoint;
   using flow::error::Runtime_error;
+  using String_view = flow::util::String_view;
   using boost::conversion::try_lexical_convert;
   using boost::asio::io_context;
   using resolver = boost::asio::ip::udp::resolver;
-  using query = boost::asio::ip::udp::resolver::query;
   using boost::chrono::seconds;
   using boost::asio::buffer;
   using boost::array;
-  using std::string;
   using std::ios_base;
   using std::exception;
 
   const int BAD_EXIT = 1;
   const size_t MAX_MSG_SIZE = 2000;
   const flow_port_t REMOTE_FLOW_PORT = 50;
-  const string LOG_FILE = "flow_echo_cli.log";
+  const boost::filesystem::path LOG_FILE = "flow_echo_cli.log";
 
   /* Set up logging within this function.  We could easily just use `cout` and `cerr` instead, but this
    * Flow stuff will give us time stamps and such for free, so why not?  Normally, one derives from
@@ -78,7 +78,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   Async_file_logger log_logger(0, &log_config, LOG_FILE, false /* No rotation; we're no serious business. */);
   unsigned int n_times;
 
-  if (((argc - 1) != 4) || string(argv[4]).empty() ||
+  if (((argc - 1) != 4) || String_view(argv[4]).empty() ||
       (!try_lexical_convert(argv[1], n_times)) || (n_times == 0))
   {
     FLOW_LOG_WARNING("Usage: " << argv[0] << " <times to send >= 1> <host> <port> <message to send>");
@@ -86,7 +86,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   }
   // else
 
-  const string message(argv[4]);
+  const String_view message(argv[4]);
   const size_t msg_size = message.size();
   if (msg_size >= MAX_MSG_SIZE)
   {
@@ -94,8 +94,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
     return BAD_EXIT;
   }
 
-  const string host_str(argv[2]);
-  const string port_str(argv[3]);
+  const String_view host_str(argv[2]);
+  const String_view port_str(argv[3]);
 
   // Arguments parsed. Go.
 
@@ -108,14 +108,14 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
       io_context io;
       resolver res(io);
       Error_code ec;
-      resolver::iterator result_it = res.resolve(query(host_str, port_str), ec);
+      const auto result_it = res.resolve(host_str, port_str, ec);
       if (ec)
       {
         throw Runtime_error(ec, FLOW_UTIL_WHERE_AM_I_STR());
       }
       // else
 
-      if (result_it == resolver::iterator())
+      if (result_it.empty())
       {
         FLOW_LOG_WARNING("Could not resolve [" + host_str + ":" + port_str + "].");
         return BAD_EXIT;
@@ -163,7 +163,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
       if (message.compare(0, message.size(), buf_reply.data(), rcvd) != 0)
       {
         FLOW_LOG_WARNING("Reply received, but it does not equal what we\'d sent; reply is "
-                         "[" << string(buf_reply.data(), rcvd) << "].");
+                         "[" << String_view(buf_reply.data(), rcvd) << "].");
         return BAD_EXIT;
       }
       // else
