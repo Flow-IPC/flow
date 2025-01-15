@@ -625,7 +625,7 @@ size_t Socket_buffer::consume_bufs_copy(const Mutable_buffer_sequence& target_bu
   return orig_data_size - m_data_size;
 } // Socket_buffer::consume_bufs_copy()
 
-template<typename Const_buffer_sequence, typename Const_it>>
+template<typename Const_buffer_sequence, typename Const_it>
 void Socket_buffer::copy_bytes_from_buf_seq(Const_it* cur_buf_it,
                                             size_t* pos_in_buf, size_t to_copy,
                                             util::Blob* dest_buf,
