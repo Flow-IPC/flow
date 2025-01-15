@@ -1780,9 +1780,6 @@ private:
    *        Pointer to packet structure with everything except the source, destination, and
    *        retransmission mode fields (essentially, the public members of Low_lvl_packet proper but
    *        not its derived types) filled out as desired.
-   * @return `true` on success so far; `false` on failure (and thus no send initiation).
-   *         Note that `true` in no way indicates the send succeeded (indeed, the send cannot possibly
-   *         *initiate* until this method exits).
    */
   void async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
                                             Low_lvl_packet::Ptr&& packet);
@@ -1805,7 +1802,6 @@ private:
    *        Socket under consideration.
    * @param packet
    *        Packet to send.
-   * @return See async_sock_low_lvl_packet_send_paced().
    */
   void sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet);
 
