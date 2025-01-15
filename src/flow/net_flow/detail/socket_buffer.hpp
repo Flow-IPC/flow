@@ -150,7 +150,7 @@ public:
    *         Type that models the boost.asio `ConstBufferSequence` concept (see Boost docs).
    *         Basically, it's any container with elements convertible to `boost::asio::const_buffer`;
    *         and bidirectional iterator support.  Examples: `vector<const_buffer>`, `list<const_buffer>`.
-   *         Why allow `const_buffer` instead of, say, Sequence of bytes?  Same reason as boost.asio's
+   *         Why allow `const_buffer` instead of, say, `Sequence` of bytes?  Same reason as boost.asio's
    *         send functions: it allows a great amount of flexibility without sacrificing performance,
    *         since `boost::asio::buffer()` function can adapt lots of different objects (arrays,
    *         vectors, strings, and more of bytes, integers, and more).
@@ -199,7 +199,7 @@ public:
    *         Type that models the boost.asio `MutableBufferSequence` concept (see Boost docs).
    *         Basically, it's any container with elements convertible to `boost::asio::mutable_buffer`;
    *         and bidirectional iterator support.  Examples: `vector<mutable_buffer>`,
-   *         l`ist<mutable_buffer>.` Why allow `mutable_buffer` instead of, say, Sequence of bytes?
+   *         `list<mutable_buffer>.` Why allow `mutable_buffer` instead of, say, `Sequence` of bytes?
    *         Same reason as boost.asio's receive functions: it allows a great amount of flexibility
    *         without sacrificing performance, since `boost::asio::buffer()` function can adapt lots of
    *         different objects (arrays, `vector`s, `string`s, and more of bytes, integers, and more).
