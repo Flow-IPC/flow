@@ -662,7 +662,7 @@ void Node::async_op(typename Socket::Ptr sock,
    * other, meaning execute serially before it -- for synchronization.  But post()ed handlers are only guaranteed
    * to execute serially if the Task_engine is run()ning in one thread: user is allowed by boost.asio to run it from 2+
    * (distributing tasks across threads).  We have 2 choices to deal make them serial anyway: use explicit
-   * synchronization, or use Task_engine::strand to have Task_engine guarantee they can only run serially (choosing
+   * synchronization, or use Strand to have Task_engine guarantee they can only run serially (choosing
    * thread accordingly if applicable -- probably internally by using a mutex anyway).  I use strand for a few reasons.
    * One, it's a bit easier to use-or-not-use a strand depending on a Boolean, as opposed to use-or-not-use a mutex;
    * in particular conditionally creating or not creating a strand seems a bit prettier than same with a mutex.

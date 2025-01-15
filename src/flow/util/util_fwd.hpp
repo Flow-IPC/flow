@@ -135,7 +135,7 @@ using Thread_id = Thread::id;
 using Task_engine = boost::asio::io_context;
 
 /// Short-hand for boost.asio strand, an ancillary class that works with #Task_engine for advanced task scheduling.
-using Strand = Task_engine::strand;
+using Strand = boost::asio::strand;
 
 /**
  * boost.asio timer.  Can schedule a function to get called within a set amount of time or at
