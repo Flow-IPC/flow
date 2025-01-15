@@ -1771,9 +1771,7 @@ private:
    * Takes ownership of packet; do not reference it in any way after this method returns.
    *
    * Note that an error may occur in asynchronous operations triggered by this method; if this
-   * happens the socket will be closed via close_connection_immediately().  However if the error
-   * happens IN this method (`false` is returned), it is up to the caller to handle the error as
-   * desired.
+   * happens the socket will be closed via close_connection_immediately().
    *
    * @param sock
    *        Socket whose `remote_endpoint()` specifies to what Node and what Flow port within that
@@ -1782,16 +1780,12 @@ private:
    *        Pointer to packet structure with everything except the source, destination, and
    *        retransmission mode fields (essentially, the public members of Low_lvl_packet proper but
    *        not its derived types) filled out as desired.
-   * @param err_code
-   *        After return, `*err_code` is success or:
-   *        error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER.
    * @return `true` on success so far; `false` on failure (and thus no send initiation).
    *         Note that `true` in no way indicates the send succeeded (indeed, the send cannot possibly
    *         *initiate* until this method exits).
    */
-  bool async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
-                                            Low_lvl_packet::Ptr&& packet,
-                                            Error_code* err_code);
+  void async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
+                                            Low_lvl_packet::Ptr&& packet);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just
@@ -1803,9 +1797,7 @@ private:
    * invariants described for `struct` Send_pacing_data hold.
    *
    * Note that an error may occur in asynchronous operations triggered by this method; if this
-   * happens the socket will be closed via close_connection_immediately().  However if the error
-   * happens IN this method (`false` is returned), it is up to the caller to handle the error as
-   * desired.
+   * happens the socket will be closed via close_connection_immediately().
    *
    * Takes ownership of packet; do not reference it in any way after this method returns.
    *
@@ -1886,23 +1878,6 @@ private:
    *        boost.asio error code.
    */
   void sock_pacing_time_slice_end(Peer_socket::Ptr sock, const Error_code& sys_err_code);
-
-  /**
-   * Similar to async_sock_low_lvl_packet_send_paced() except it also calls
-   * `close_connection_immediately(sock)` if the former fails.
-   *
-   * @param sock
-   *        See async_sock_low_lvl_packet_send_paced().  Additionally, `sock` must be suitable for
-   *        close_connection_immediately(); see that method's doc comment.
-   * @param packet
-   *        See async_sock_low_lvl_packet_send_paced() analogous parameter.
-   * @param defer_delta_check
-   *        Same meaning as in close_connection_immediately().
-   * @return See async_low_lvl_packet_send_paced().
-   */
-  bool async_sock_low_lvl_packet_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                           Low_lvl_packet::Ptr&& packet,
-                                                           bool defer_delta_check);
 
   /**
    * Sends an RST to the other side of the given socket asynchronously when possible.  An error is
@@ -2617,17 +2592,16 @@ private:
   Syn_ack_packet::Ptr create_syn_ack(Peer_socket::Const_ptr sock);
 
   /**
-   * Helper to create, fully fill out, and asynchronously send via async_sock_low_lvl_packet_send_or_close_immediately()
+   * Helper to create, fully fill out, and asynchronously send via async_sock_low_lvl_packet_send_paced()
    * a SYN_ACK_ACK packet.  Since rcv_wnd is advertised, Peer_socket::m_rcv_last_sent_rcv_wnd is updated for `sock`.
    *
    * @param sock
    *        See async_sock_low_lvl_packet_send().
    * @param syn_ack
    *        SYN_ACK to which the resulting SYN_ACK_ACK is the reply.
-   * @return See async_sock_low_lvl_packet_send().
    */
-  bool async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                           boost::shared_ptr<const Syn_ack_packet>& syn_ack);
+  void async_low_lvl_syn_ack_ack_send(const Peer_socket::Ptr& sock,
+                                      boost::shared_ptr<const Syn_ack_packet>& syn_ack);
 
   /**
    * Asynchronously send RST to the other side of the given socket and

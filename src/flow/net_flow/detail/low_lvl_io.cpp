@@ -596,9 +596,8 @@ void Node::async_no_sock_low_lvl_rst_send(Low_lvl_packet::Const_ptr causing_pack
   // If that returned false: It's an RST, so there's no one to inform of an error anymore.  Oh well.
 } // Node::async_no_sock_low_lvl_rst_send()
 
-bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
-                                                Low_lvl_packet::Ptr&& packet,
-                                                Error_code* err_code)
+void Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
+                                                Low_lvl_packet::Ptr&& packet)
 {
   // We are in thread W.
 
@@ -633,7 +632,7 @@ bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
      * jump the queue ahead of DATA/ACK packets already there, but since it is an error condition
      * causing RST, we consider that OK (those packets will not be sent). */
     async_sock_low_lvl_packet_send(sock, std::move(packet), false); // false => not queued in pacing module.
-    return true;
+    return;
   }
   // else pacing algorithm enabled and both can and must be used.
 
@@ -986,30 +985,13 @@ void Node::sock_pacing_time_slice_end(Peer_socket::Ptr sock, [[maybe_unused]] co
   sock_pacing_process_q(sock, true); // Process as many packets as the new budget allows.
 } // Node::sock_pacing_time_slice_end()
 
-bool Node::async_sock_low_lvl_packet_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                               Low_lvl_packet::Ptr&& packet,
-                                                               bool defer_delta_check)
-{
-  Error_code err_code;
-  if (!async_sock_low_lvl_packet_send_paced(sock, std::move(packet), &err_code))
-  {
-    close_connection_immediately(socket_id(sock), sock, err_code, defer_delta_check);
-    return false;
-  }
-  // else
-  return true;
-}
-
 void Node::async_sock_low_lvl_rst_send(Peer_socket::Ptr sock)
 {
   // We are in thread W.
 
   // Fill out common fields and asynchronously send packet.
   auto rst = Low_lvl_packet::create_uninit_packet_base<Rst_packet>(get_logger());
-  Error_code dummy;
-  async_sock_low_lvl_packet_send_paced(sock, std::move(rst), &dummy);
-
-  // If that returned false: It's an RST, so there's no one to inform of an error anymore.  Oh well.
+  async_sock_low_lvl_packet_send_paced(sock, std::move(rst));
 } // Node::async_sock_low_lvl_rst_send()
 
 void Node::sync_sock_low_lvl_rst_send(Peer_socket::Ptr sock)

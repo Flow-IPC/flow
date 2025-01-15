@@ -488,14 +488,9 @@ void Node::handle_syn_ack_to_syn_sent(const Socket_id& socket_id,
 
   // Send SYN_ACK_ACK to finish the handshake.
 
-  if (!async_low_lvl_syn_ack_ack_send_or_close_immediately(sock, syn_ack))
-  {
-    return;
-  }
+  async_low_lvl_syn_ack_ack_send(sock, syn_ack);
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
-
-  // No more errors.
 
   // Handle the logical SYN part of their SYN_ACK.
 
@@ -554,7 +549,7 @@ void Node::handle_syn_ack_to_established(Peer_socket::Ptr sock,
 
   // Everything has already been validated.
 
-  async_low_lvl_syn_ack_ack_send_or_close_immediately(sock, syn_ack);
+  async_low_lvl_syn_ack_ack_send(sock, syn_ack);
 } // Node::handle_syn_ack_to_established()
 
 void Node::handle_data_to_established(const Socket_id& socket_id,
@@ -4168,22 +4163,8 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
   auto syn = create_syn(sock);
 
   // Fill out common fields and asynchronously send packet.
-  if (!async_sock_low_lvl_packet_send_paced(sock,
-                                            Low_lvl_packet::ptr_cast(syn),
-                                            &sock->m_disconnect_cause))
-  {
-    // Error marked and logged already.
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn));
 
-    // Return port.
-    Error_code return_err_code;
-    m_ports.return_port(sock->m_local_port, &return_err_code);
-    assert(!return_err_code);
-
-    // Cancel any timers set up above.
-    cancel_timers(sock);
-
-    return;
-  }
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
 
@@ -4442,12 +4423,7 @@ void Node::handle_connection_rexmit_timer_event(const Socket_id& socket_id, Peer
   }
 
   // Fill out common fields and asynchronously send packet.
-  if (!async_sock_low_lvl_packet_send_or_close_immediately(sock, std::move(re_syn_base), false))
-  {
-    /* ^-- defer_delta_check == false: for similar reason as when calling send_worker() from
-     * send_worker_check_state(). */
-    return;
-  }
+  async_sock_low_lvl_packet_send_paced(sock, std::move(re_syn_base));
 } // Node::handle_connection_rexmit_timer_event()
 
 void Node::cancel_timers(Peer_socket::Ptr sock)
@@ -5002,12 +4978,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
        * affected the result of can_send().  We do check it at the end of the while () body, so OK. */
 
       // Fill out common fields and asynchronously send packet (packet pacing potentially performed inside).
-      if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(data),
-                                                               defer_delta_check))
-      {
-        return;
-      }
+      async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(data));
 
       sock->m_snd_stats.data_sent(data->m_data.size(), rexmit);
     }
@@ -5416,14 +5387,7 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
   // Record that it was advertised!
   sock->m_rcv_last_sent_rcv_wnd = rcv_wnd;
 
-  if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                           Low_lvl_packet::ptr_cast(ack),
-                                                           false))
-  // ^-- defer_delta_check == false: for similar reason as in send_worker_check_state() calling send_worker().
-  {
-    return;
-  }
-  // else
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
 
   // Register one ACK packet we will send ASAP (and that it acknowledged no individual packets).
   sock->m_rcv_stats.sent_low_lvl_ack_packet(true);
@@ -5842,8 +5806,8 @@ Syn_ack_packet::Ptr Node::create_syn_ack(Peer_socket::Const_ptr sock)
   return syn_ack;
 }
 
-bool Node::async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                               boost::shared_ptr<const Syn_ack_packet>& syn_ack)
+void Node::async_low_lvl_syn_ack_ack_send(const Peer_socket::Ptr& sock,
+                                          boost::shared_ptr<const Syn_ack_packet>& syn_ack)
 {
   // Make a packet.
   auto syn_ack_ack = Low_lvl_packet::create_uninit_packet<Syn_ack_ack_packet>(get_logger());
@@ -5854,10 +5818,7 @@ bool Node::async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket
   syn_ack_ack->m_packed.m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
 
   // Fill out common fields and asynchronously send packet.
-  return async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                             Low_lvl_packet::ptr_cast(syn_ack_ack),
-                                                             true); // Warns on error.
-  // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn_ack_ack));
 }
 
 void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check, const Error_code& sys_err_code)
@@ -5956,13 +5917,7 @@ void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
     if (size_est_so_far + size_est_inc > max_block_size)
     {
       // Too big.  Send off what we have.
-      if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(ack),
-                                                               defer_delta_check))
-      {
-        return;
-      }
-      // else
+      async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
 
       // Register one ACK packet we will send ASAP.
       sock->m_rcv_stats.sent_low_lvl_ack_packet(false);
@@ -6051,12 +6006,9 @@ void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
   } // for (ind_ack : pending_acks)
 
   // Don't forget the last non-full ACK, if any.
-  if ((size_est_so_far != 0)
-      && (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(ack),
-                                                               defer_delta_check)))
+  if (size_est_so_far != 0)
   {
-    return;
+    async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
   }
 
   // Register one ACK packet we will send ASAP.

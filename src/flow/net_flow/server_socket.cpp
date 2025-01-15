@@ -551,20 +551,8 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
 
   // Make a packet; fill out common fields in and asynchronously send it.
   auto syn_ack = create_syn_ack(sock);
-  Error_code dummy;
-  if (!async_sock_low_lvl_packet_send_paced(sock,
-                                            Low_lvl_packet::ptr_cast(syn_ack),
-                                            &dummy)) // Warns on error.
-  {
-    /* Serialization error.  Very unlikely.  We'd inform the user here, but they didn't open the
-     * connection (it's a passive open, and they haven't yet called accept()).  We'd send RST to the
-     * other side, but we couldn't even serialize a SYN_ACK, so nothing to do except give up
-     * silently.  We didn't place sock into m_socks, so just let it disappear via shared_ptr<>
-     * magic. */
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn_ack));
 
-    cancel_timers(sock); // Cancel timers set up above.
-    return Peer_socket::Ptr();
-  }
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
 
