@@ -17,8 +17,6 @@
 
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout, CMakeDeps, CMakeToolchain
-from conan.tools.files import get, copy
-import os
 
 def load_version_from_file():
     version_path = './VERSION'
@@ -109,21 +107,10 @@ class FlowRecipe(ConanFile):
         if self.options.doc:
             self.run("cmake --build . -- flow_doc_public flow_doc_full --keep-going VERBOSE=1")
 
-    # TODO: Remove the next 2 `def`s and local=True once the desired Boost version is in conan-center.
-
-    def source(self):
-        # Download Boost 1.87.0 source: unfortunately as of this writing (1/14/2025) 1.86 is the latest
-        # version in conan-center, with 1.87 PR (https://github.com/conan-io/conan-center-index/pull/26079)
-        # since 1.87's release ~1 month earlier. We try to get it manually for now.
-        get(self, f"https://boostorg.jfrog.io/artifactory/main/release/1.87.0/source/boost_1_87_0.tar.gz")
-
-    def package(self):
-        # Copy Boost headers to the package directory.
-        copy(self, "*", src="boost_1_87_0", dst="include/boost")
-
     def requirements(self):
         if self.options.build:
-            self.requires(f"boost/1.87.0@local/source")
+            print("Using Boost from local recipe.")
+            self.requires("boost/1.84.0@")
             self.requires("fmt/10.0.0")
 
     def build_requirements(self):
@@ -141,3 +128,9 @@ class FlowRecipe(ConanFile):
 
     def layout(self):
         cmake_layout(self)
+
+
+        # XXX
+        # Download Boost 1.87.0 source: unfortunately as of this writing (1/14/2025) 1.86 is the latest
+        # version in conan-center, with 1.87 PR (https://github.com/conan-io/conan-center-index/pull/26079)
+        # since 1.87's release ~1 month earlier. We try to get it manually for now.

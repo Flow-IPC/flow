@@ -519,6 +519,10 @@ jobs:
       run: |
         # Install Flow dependencies with Conan using the profile.
         ${{ env.setup-run-env }}
+        # XXX
+        NON_REMOTE_BOOST_VER_SHORT=1.84
+        NON_REMOTE_BOOST_VER=1.84.0
+        conan export ./conan/boost/$NON_REMOTE_BOOST_VER_SHORT boost/$NON_REMOTE_BOOST_VER@
         # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
         $BUILT_CMD_PREFIX \
           conan install . --profile:build conan_profile --profile:host conan_profile --build missing || FAILED=yep
