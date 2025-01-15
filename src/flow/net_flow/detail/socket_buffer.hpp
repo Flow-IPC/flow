@@ -391,8 +391,9 @@ template<typename Const_buffer_sequence>
 size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t max_data_size)
 {
   using util::Blob;
+  using bost::asio::buffer_sequence_begin;
+  using bost::asio::buffer_sequence_end;
   using boost::asio::const_buffer;
-  using boost::asio::buffers_iterator;
   using boost::asio::buffer_size;
   using std::min;
 
@@ -405,19 +406,19 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
      * direct copy.  They're not even likely to use this method in this mode (probably they'll use
      * feed_buf_move() with a Receive buffer instead), but we provide this for completeness.  For
      * more info on the use of this mode, see class doc header or feed_buf_move(). */
-    for (const auto& buf_data : data)
+    for (auto buf_data_ptr = buffer_sequence_begin(data),
+              but_data_end_ptr = buffer_sequence_end(data);
+         buf_data_ptr != buf_data_end_ptr; ++buf_data_ptr)
     {
+      const auto& buf_data = *buf_data_ptr;
       if (m_data_size >= max_data_size)
       {
         return m_data_size - orig_data_size;
       }
       // else there is space in our buffer.
 
-      // Does NOT copy actual buffer data -- just the memory location/size.  (Convertible_to_const_buffer requirement.)
-      const const_buffer buf(buf_data);
-
       // Copy entire buffer if possible, but don't exceed max_data_size bytes in total.
-      const size_t to_copy = min(buf.size(), // Could be zero.  This is in BYTES.
+      const size_t to_copy = min(buf_data.size(), // Could be zero.  This is in BYTES.
                                  max_data_size - m_data_size); // Definitely >= 1 (checked above).
       if (to_copy == 0)
       {
@@ -426,7 +427,7 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
       // else source buffer has data to copy.
 
       // Get the raw data pointer.
-      const auto buf_start = static_cast<Blob::value_type const *>(buf.data());
+      const auto buf_start = static_cast<Blob::value_type const *>(buf_data.data());
 
       const Blob_ptr buf_copy(new Blob(get_logger()));
       // Make a byte blob copy from that raw memory.  Performance is highest possible (allocate, copy).
@@ -438,7 +439,7 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
 
       FLOW_LOG_TRACE("Socket_buffer/rcv [" << this << "]: data_size [" << m_data_size << "]; "
                      "buf_count [" << m_q.size() << "]; fed buffer "
-                     "original/truncated size = [" << buf.size() << "/" << to_copy << "].");
+                     "original/truncated size = [" << buf_data.size() << "/" << to_copy << "].");
       // Very verbose and CPU-intensive!
       FLOW_LOG_DATA("Buffer data [" << util::buffers_dump_string(buf_copy->const_buffer(), "", size_t(-1)) << "].");
     } // for (buf_data in data)
@@ -544,7 +545,6 @@ size_t Socket_buffer::consume_bufs_copy(const Mutable_buffer_sequence& target_bu
 {
   using util::Blob;
   using boost::asio::buffer_size;
-  using boost::asio::buffers_iterator;
   using boost::asio::const_buffer;
   using std::min;
 
