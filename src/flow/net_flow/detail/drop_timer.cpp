@@ -436,7 +436,6 @@ void Drop_timer::start_timer()
 
 void Drop_timer::disable_timer()
 {
-  using util::Fine_clock;
   using boost::chrono::milliseconds;
   using boost::chrono::round;
 

@@ -1643,7 +1643,6 @@ void Node::async_acknowledge_packet(Peer_socket::Ptr sock, const Sequence_number
 
 void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_socket::Ptr sock)
 {
-  using util::Fine_clock;
   using boost::chrono::milliseconds;
   using boost::chrono::microseconds;
   using boost::chrono::duration_cast;
