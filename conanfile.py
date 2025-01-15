@@ -62,6 +62,8 @@ class FlowRecipe(ConanFile):
             # Unclear what's up exactly; maybe some module we *do* need now required `context` to itself build.
             # Whatever... this gets rid of the problem.  Look into it sometime though.
             # self.options["boost"].without_context = True
+            self.options["boost"].without_charconv = True
+            self.options["boost"].without_cobalt = True
             self.options["boost"].without_contract = True
             self.options["boost"].without_coroutine = True
             self.options["boost"].without_fiber = True
