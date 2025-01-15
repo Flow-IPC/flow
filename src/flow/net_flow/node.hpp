@@ -1813,12 +1813,9 @@ private:
    *        Socket under consideration.
    * @param packet
    *        Packet to send.
-   * @param err_code
-   *        See async_sock_low_lvl_packet_send_paced().
    * @return See async_sock_low_lvl_packet_send_paced().
    */
-  bool sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet,
-                                    Error_code* err_code);
+  void sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: Resets the socket's Send_pacing_data structure
@@ -1857,14 +1854,11 @@ private:
    *
    * @param sock
    *        Socket under consideration.
-   * @param err_code
-   *        See async_sock_low_lvl_packet_send_paced().
    * @param executing_after_delay
    *        `true` if executing from a pacing-related timer handler; `false` otherwise (i.e.,
    *        if sock_pacing_new_packet_ready() is in the call stack).
-   * @return See async_sock_low_lvl_packet_send_paced().
    */
-  bool sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bool executing_after_delay);
+  void sock_pacing_process_q(Peer_socket::Ptr sock, bool executing_after_delay);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: If sock_pacing_process_q() ran out of the last

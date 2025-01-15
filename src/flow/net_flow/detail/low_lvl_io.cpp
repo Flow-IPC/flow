@@ -637,11 +637,10 @@ bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
   }
   // else pacing algorithm enabled and both can and must be used.
 
-  return sock_pacing_new_packet_ready(sock, std::move(packet), err_code);
+  sock_pacing_new_packet_ready(sock, std::move(packet));
 } // Node::async_sock_low_lvl_packet_send_paced()
 
-bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet,
-                                        Error_code* err_code)
+void Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet)
 {
   using boost::chrono::duration_cast;
   using boost::chrono::microseconds;
@@ -753,7 +752,7 @@ bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
    * max_block_size(), so certainly the following statement will immediately send the just-queued
    * packet. If the time slice was in progress, then it depends. */
 
-  return sock_pacing_process_q(sock, err_code, false);
+  sock_pacing_process_q(sock, false);
 } // Node::sock_pacing_new_packet_ready()
 
 void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt& now)
@@ -840,7 +839,7 @@ void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt&
                  "[" << pacing.m_bytes_allowed_this_slice << "].");
 } // Node::sock_pacing_new_time_slice()
 
-bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bool executing_after_delay)
+void Node::sock_pacing_process_q(Peer_socket::Ptr sock, bool executing_after_delay)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::round;
@@ -914,7 +913,7 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
     FLOW_LOG_TRACE("Pacing: Queue emptied.");
 
     // Successfully sent off entire queue.  Pacing done for now -- until the next sock_pacing_new_packet_ready().
-    return true;
+    return;
   }
   // else
 
@@ -924,22 +923,12 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
    * m_slice_start + m_slice_period. */
   const Fine_time_pt slice_end = pacing.m_slice_start + pacing.m_slice_period;
 
-  Error_code sys_err_code;
-  pacing.m_slice_timer.expires_at(slice_end, sys_err_code);
+  pacing.m_slice_timer.expires_at(slice_end);
   // (Even if slice_end is slightly in the past, that'll just mean it'll fire ASAP.)
 
   FLOW_LOG_TRACE("Pacing: Exhausted budget; queue size [" << pacing.m_packet_q.size() << "]; "
                  "scheduling next processing at end of time slice "
                  "in [" << round<milliseconds>(slice_end - Fine_clock::now()) << "].");
-
-  if (sys_err_code) // If that failed, it's probably the death of the socket....
-  {
-    FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-    FLOW_ERROR_EMIT_ERROR(error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER);
-
-    return false;
-  }
-  // else
 
   // When triggered or canceled, call this->sock_pacing_time_slice_end(sock, <error code>).
   pacing.m_slice_timer.async_wait([this, sock_observer = weak_ptr<Peer_socket>(sock)]
@@ -954,7 +943,6 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
   });
 
   // More work to do later, but for now we've been successful.
-  return true;
 
   /* That's it.  The only reason the timer would get canceled is if we go into CLOSED state, in
    * which case it can just do nothing. */
@@ -995,19 +983,7 @@ void Node::sock_pacing_time_slice_end(Peer_socket::Ptr sock, [[maybe_unused]] co
    * m_bytes_allowed_this_slice >= max_block_size(), and certainly the following statement will
    * immediately send at least one packet. */
 
-  Error_code err_code;
-  if (!sock_pacing_process_q(sock, &err_code, true)) // Process as many packets as the new budget allows.
-  {
-    /* Error sending.  Unlike in sock_pacing_process_q() or sock_pacing_new_packet_ready() --
-     * which are called by something else that would handle the error appropriately -- we are
-     * called by boost.asio on a timer event.  Therefore we must handle the error ourselves.  As is
-     * standard procedure elsewhere in the code, in this situation we close socket. */
-
-    // Pre-conditions: sock is in m_socks and S_OPEN, err_code contains reason for closing.
-    rst_and_close_connection_immediately(socket_id(sock), sock, err_code, false); // This will log err_code.
-    /* ^-- defer_delta_check == false: for similar reason as when calling send_worker() from
-     * send_worker_check_state(). */
-  }
+  sock_pacing_process_q(sock, true); // Process as many packets as the new budget allows.
 } // Node::sock_pacing_time_slice_end()
 
 bool Node::async_sock_low_lvl_packet_send_or_close_immediately(const Peer_socket::Ptr& sock,

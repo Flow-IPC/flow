@@ -419,24 +419,9 @@ void Drop_timer::start_timer()
   const auto this_ptr = shared_from_this();
 
   // Set the firing time decided above.
-  Error_code sys_err_code;
   use_time_pt_over_duration
-    ? m_timer.expires_at(fire_time_pt, sys_err_code)
-    : m_timer.expires_after(fire_duration_vs_now, sys_err_code);
-  if (sys_err_code)
-  {
-    FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-    // Pretty unlikely, but just leave timer disabled (!m_timer_running) and let the Node know.
-
-    // Call timer_failure() asynchronously.  this_ptr will prevent "this" from getting deleted until timer_failure().
-    post(m_node_task_engine, [this, this_ptr]()
-    {
-      timer_failure(this_ptr, error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER);
-    });
-    return;
-  }
-  // else can actually schedule it.
+    ? m_timer.expires_at(fire_time_pt)
+    : m_timer.expires_after(fire_duration_vs_now);
 
   /* Call handle_timer_firing() asynchronously.  this_wait_id will be used to identify which start_timer() caused
    * that callback to fire.  this_ptr used as above. */
