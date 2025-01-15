@@ -56,7 +56,12 @@ class FlowRecipe(ConanFile):
             # plus libs: chrono, filesystem, program_options, thread, timer (and all headers).
             # `filesystem` requires atomic.  `thread` requires container, date_time, exception.
             # (Boost provides the with_* way of specifying it also; the Conan Boost pkg only has without_*.)
-            self.options["boost"].without_context = True
+            # TODO: The next line is commented out with the upgrade from 1.84 to 1.87; otherwise this happened
+            # when building Boost: ConanException:
+            #                      These libraries were built, but were not used in any boost module: {'boost_context'}
+            # Unclear what's up exactly; maybe some module we *do* need now required `context` to itself build.
+            # Whatever... this gets rid of the problem.  Look into it sometime though.
+            # self.options["boost"].without_context = True
             self.options["boost"].without_contract = True
             self.options["boost"].without_coroutine = True
             self.options["boost"].without_fiber = True
