@@ -289,6 +289,8 @@ private:
    *
    * @tparam Const_buffer_sequence
    *         See user-facing APIs.
+   * @tparam Const_it
+   *         Iterator type suitable for traversing `Const_buffer_sequence`.
    * @param cur_buf_it
    *        Pointer to iterator to the buffer in the buffer sequence from where to begin copying.
    *        When function returns, `*cur_buf_it` will point to the buffer containing the last byte
@@ -312,8 +314,8 @@ private:
    * @param dest
    *        Pointer to the location where bytes will be copied.
    */
-  template<typename Const_buffer_sequence>
-  static void copy_bytes_from_buf_seq(boost::asio::const_buffer const ** cur_buf_it, size_t* pos_in_buf,
+  template<typename Const_buffer_sequence, typename Const_it>
+  static void copy_bytes_from_buf_seq(Const_it* cur_buf_it, size_t* pos_in_buf,
                                       size_t to_copy,
                                       util::Blob* dest_buf, util::Blob::Iterator dest);
 
@@ -325,6 +327,8 @@ private:
    *
    * @tparam Mutable_buffer_sequence
    *         See user-facing APIs.
+   * @tparam Const_it
+   *         Iterator type suitable for traversing `Mutable_buffer_sequence`.
    * @param cur_buf_it
    *        See copy_bytes_from_buf_seq().
    * @param pos_in_buf
@@ -336,8 +340,8 @@ private:
    * @param src
    *        Pointer to the location from where bytes will be copied.
    */
-  template<typename Mutable_buffer_sequence>
-  static void copy_bytes_to_buf_seq(boost::asio::mutable_buffer const ** cur_buf_it, size_t* pos_in_buf,
+  template<typename Mutable_buffer_sequence, typename Const_it>
+  static void copy_bytes_to_buf_seq(Const_it* cur_buf_it, size_t* pos_in_buf,
                                     size_t to_copy,
                                     const util::Blob& src_buf, util::Blob::Const_iterator src);
   // Data.
@@ -621,8 +625,8 @@ size_t Socket_buffer::consume_bufs_copy(const Mutable_buffer_sequence& target_bu
   return orig_data_size - m_data_size;
 } // Socket_buffer::consume_bufs_copy()
 
-template<typename Const_buffer_sequence>
-void Socket_buffer::copy_bytes_from_buf_seq(boost::asio::const_buffer const ** cur_buf_it,
+template<typename Const_buffer_sequence, typename Const_it>>
+void Socket_buffer::copy_bytes_from_buf_seq(Const_it* cur_buf_it,
                                             size_t* pos_in_buf, size_t to_copy,
                                             util::Blob* dest_buf,
                                             util::Blob::Iterator dest) // Static.
@@ -665,8 +669,8 @@ void Socket_buffer::copy_bytes_from_buf_seq(boost::asio::const_buffer const ** c
   }
 } // Socket_buffer::copy_bytes_from_buf_seq()
 
-template<typename Mutable_buffer_sequence>
-void Socket_buffer::copy_bytes_to_buf_seq(boost::asio::mutable_buffer const ** cur_buf_it,
+template<typename Mutable_buffer_sequence, typename Const_it>
+void Socket_buffer::copy_bytes_to_buf_seq(Const_it* cur_buf_it,
                                           size_t* pos_in_buf, size_t to_copy,
                                           const util::Blob& src_buf,
                                           util::Blob::Const_iterator src) // Static.
