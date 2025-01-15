@@ -108,22 +108,23 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
       io_context io;
       resolver res(io);
       Error_code ec;
-      const auto result_it = res.resolve(host_str, port_str, ec);
+      const auto results = res.resolve(host_str, port_str, ec);
       if (ec)
       {
         throw Runtime_error(ec, FLOW_UTIL_WHERE_AM_I_STR());
       }
       // else
 
-      if (result_it.empty())
+      if (results.empty())
       {
         FLOW_LOG_WARNING("Could not resolve [" << host_str << ':' << port_str << "].");
         return BAD_EXIT;
       }
 
       // Essentially, this is just a resolved IP address and port number. Note this has nothing to do with Flow per se.
-      remote_udp_endpoint = *result_it;
-      FLOW_LOG_INFO("Resolved successfully: [" << host_str << ':' << port_str << "] => [" << local_udp_endpoint << "].");
+      remote_udp_endpoint = *(results.begin());
+      FLOW_LOG_INFO("Resolved successfully: [" << host_str << ':' << port_str << "] "
+                    "=> [" << remote_udp_endpoint << "].");
     }
 
     // Now put our transport endpoint on the IPADDR_ANY address (all interfaces), random ephemeral UDP port.
