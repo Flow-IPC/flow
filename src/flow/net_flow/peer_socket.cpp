@@ -104,7 +104,7 @@ Error_code Peer_socket::disconnect_cause() const
   return m_disconnect_cause;
 }
 
-bool Peer_socket::sync_send(nullptr_t, Error_code* err_code)
+bool Peer_socket::sync_send(std::nullptr_t, Error_code* err_code)
 {
   return sync_send(nullptr, Fine_duration::max(), err_code);
 }
@@ -189,7 +189,7 @@ size_t Peer_socket::node_sync_send(const Function<size_t (size_t max_data_size)>
                 wait_until, err_code);
 } // Peer_socket::node_sync_send()
 
-bool Peer_socket::sync_receive(nullptr_t, Error_code* err_code)
+bool Peer_socket::sync_receive(std::nullptr_t, Error_code* err_code)
 {
   return sync_receive(nullptr, Fine_duration::max(), err_code);
 }

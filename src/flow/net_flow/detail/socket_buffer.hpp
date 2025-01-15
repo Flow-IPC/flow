@@ -391,8 +391,8 @@ template<typename Const_buffer_sequence>
 size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t max_data_size)
 {
   using util::Blob;
-  using bost::asio::buffer_sequence_begin;
-  using bost::asio::buffer_sequence_end;
+  using boost::asio::buffer_sequence_begin;
+  using boost::asio::buffer_sequence_end;
   using boost::asio::const_buffer;
   using boost::asio::buffer_size;
   using std::min;
@@ -407,7 +407,7 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
      * feed_buf_move() with a Receive buffer instead), but we provide this for completeness.  For
      * more info on the use of this mode, see class doc header or feed_buf_move(). */
     for (auto buf_data_ptr = buffer_sequence_begin(data),
-              but_data_end_ptr = buffer_sequence_end(data);
+              buf_data_end_ptr = buffer_sequence_end(data);
          buf_data_ptr != buf_data_end_ptr; ++buf_data_ptr)
     {
       const auto& buf_data = *buf_data_ptr;

@@ -494,7 +494,7 @@ public:
    *         not writable), or another error has occurred.
    */
   template<typename Rep, typename Period>
-  bool sync_send(nullptr_t,
+  bool sync_send(std::nullptr_t,
                  const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
@@ -521,7 +521,7 @@ public:
    *        Tag argument.
    * @return See other sync_receive().
    */
-  bool sync_send(nullptr_t, Error_code* err_code = 0);
+  bool sync_send(std::nullptr_t, Error_code* err_code = 0);
 
   /**
    * Receives (consumes from the Receive buffer) bytes of data, up to a given maximum
@@ -663,7 +663,7 @@ public:
    *         another error has occurred.
    */
   template<typename Rep, typename Period>
-  bool sync_receive(nullptr_t,
+  bool sync_receive(std::nullptr_t,
                     const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
 
   /**
@@ -691,7 +691,7 @@ public:
    *        Tag argument.
    * @return See other sync_receive().
    */
-  bool sync_receive(nullptr_t, Error_code* err_code = 0);
+  bool sync_receive(std::nullptr_t, Error_code* err_code = 0);
 
   /**
    * Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the
@@ -2500,7 +2500,7 @@ size_t Peer_socket::sync_send(const Const_buffer_sequence& data,
 }
 
 template<typename Rep, typename Period>
-bool Peer_socket::sync_send(nullptr_t,
+bool Peer_socket::sync_send(std::nullptr_t,
                             const boost::chrono::duration<Rep, Period>& max_wait,
                             Error_code* err_code)
 {
@@ -2593,7 +2593,7 @@ size_t Peer_socket::sync_receive(const Mutable_buffer_sequence& target,
 }
 
 template<typename Rep, typename Period>
-bool Peer_socket::sync_receive(nullptr_t,
+bool Peer_socket::sync_receive(std::nullptr_t,
                                const boost::chrono::duration<Rep, Period>& max_wait,
                                Error_code* err_code)
 {
