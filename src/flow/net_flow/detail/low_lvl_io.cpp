@@ -697,7 +697,7 @@ void Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
      * the head packet now?  No; if the last sock_pacing_new_packet_ready() or
      * sock_pacing_time_slice_end() left a non-empty queue, then the timer has been set to fire when
      * the slice ends, and more packets can be sent.  Done. */
-    return true;
+    return;
   }
   // else if (q_was_empty)
 
@@ -718,7 +718,7 @@ void Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
      * sole element on the queue).  Since it doesn't count against m_bytes_allowed_this_slice, the
      * pacing timing is irrelevant to it, and based on the "send ASAP" rule, we send it now. */
     async_sock_low_lvl_packet_send(sock, std::move(packet), false); // false => not queued in pacing module.
-    return true;
+    return;
   }
   // else packet is DATA packet.
 
