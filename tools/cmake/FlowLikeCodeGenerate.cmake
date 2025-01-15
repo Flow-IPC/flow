@@ -310,7 +310,7 @@ function(common_set_target_properties name)
   # Show only a few errors per file before bailing out.
   # TODO: This is convenient when developing locally but can (IME rarely) be limiting in automated builds/CI/etc.;
   # consider making it configurable via knob.
-  set(MAX_ERRORS 10) # XXX 3 # TEMP - DO NOT CHECK INTO BASE BRANCH.
+  set(MAX_ERRORS 3)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(${name} PRIVATE "-fmax-errors=${MAX_ERRORS}")
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
