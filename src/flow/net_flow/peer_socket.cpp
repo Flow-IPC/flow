@@ -1643,6 +1643,7 @@ void Node::async_acknowledge_packet(Peer_socket::Ptr sock, const Sequence_number
 
 void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_socket::Ptr sock)
 {
+  using util::Fine_clock;
   using boost::chrono::milliseconds;
   using boost::chrono::microseconds;
   using boost::chrono::duration_cast;
@@ -1807,7 +1808,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
       FLOW_LOG_TRACE("On [" << sock << "] "
                      "canceling delayed [ACK] timer due to forcing "
                      "immediate [ACK]; would have fired "
-                     "in [" << round<milliseconds>(sock->m_rcv_delayed_ack_timer.expires_from_now()) << "] "
+                     "in [" << round<milliseconds>(sock->m_rcv_delayed_ack_timer.expiry() - Fine_clock::now()) << "] "
                      "from now.");
 
       Error_code sys_err_code;
@@ -1871,7 +1872,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
       // First individual acknowledgment accumulated: start countdown to send the next batch of acknowledgments.
 
       Error_code sys_err_code;
-      sock->m_rcv_delayed_ack_timer.expires_from_now(delayed_ack_timer_period, sys_err_code);
+      sock->m_rcv_delayed_ack_timer.expires_after(delayed_ack_timer_period, sys_err_code);
       if (sys_err_code)
       {
         FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
