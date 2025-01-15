@@ -117,13 +117,13 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
 
       if (result_it.empty())
       {
-        FLOW_LOG_WARNING("Could not resolve [" + host_str + ":" + port_str + "].");
+        FLOW_LOG_WARNING("Could not resolve [" << host_str << ':' << port_str << "].");
         return BAD_EXIT;
       }
 
       // Essentially, this is just a resolved IP address and port number. Note this has nothing to do with Flow per se.
       remote_udp_endpoint = *result_it;
-      FLOW_LOG_INFO("Resolved successfully: [" + host_str + ":" + port_str + "] => [" << remote_udp_endpoint << "].");
+      FLOW_LOG_INFO("Resolved successfully: [" << host_str << ':' << port_str << "] => [" << local_udp_endpoint << "].");
     }
 
     // Now put our transport endpoint on the IPADDR_ANY address (all interfaces), random ephemeral UDP port.
