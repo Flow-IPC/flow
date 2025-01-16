@@ -71,8 +71,7 @@ Node* Event_set::node() const
 
 bool Event_set::async_wait(const Event_handler& on_event, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::async_wait, bind_ns::cref(on_event), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, async_wait, on_event, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using boost::algorithm::all_of;
@@ -214,7 +213,7 @@ bool Event_set::async_wait(const Event_handler& on_event, Error_code* err_code)
 
 bool Event_set::async_wait_finish(Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::async_wait_finish, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, async_wait_finish, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -265,7 +264,7 @@ bool Event_set::async_wait_finish(Error_code* err_code)
 
 bool Event_set::poll(Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::poll, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, poll, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -492,8 +491,7 @@ void Event_set::close(Error_code* err_code)
 
 bool Event_set::swap_wanted_sockets(Sockets* target_set, Event_type ev_type, Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::swap_wanted_sockets,
-                               target_set, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, swap_wanted_sockets, target_set, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   /* @todo There are about 4 methods that have a pattern similar to below, differing mostly by log message
@@ -526,7 +524,7 @@ bool Event_set::swap_wanted_sockets(Sockets* target_set, Event_type ev_type, Err
 
 bool Event_set::clear_wanted_sockets(Event_type ev_type, Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::clear_wanted_sockets, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, clear_wanted_sockets, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -552,7 +550,7 @@ bool Event_set::clear_wanted_sockets(Event_type ev_type, Error_code* err_code)
 
 bool Event_set::events_wanted(Error_code* err_code) const
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::events_wanted, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, events_wanted, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using boost::algorithm::one_of;
@@ -575,7 +573,7 @@ bool Event_set::events_wanted(Error_code* err_code) const
 
 bool Event_set::events_detected(Error_code* err_code) const
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::events_detected, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, events_detected, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using boost::algorithm::one_of;
@@ -612,7 +610,7 @@ bool Event_set::events_detected(Error_code* err_code) const
 
 bool Event_set::emit_result_sockets(Sockets* target_set, Event_type ev_type, Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::emit_result_sockets, target_set, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, emit_result_sockets, target_set, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -648,7 +646,7 @@ bool Event_set::emit_result_sockets(Sockets* target_set, Event_type ev_type, Err
 
 bool Event_set::clear_result_sockets(Event_type ev_type, Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::clear_result_sockets, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, clear_result_sockets, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -708,7 +706,7 @@ bool Event_set::clear(Error_code* err_code)
    * was significant: repeated redundant state checks, recursive mutex locks, logging....  The following
    * is superior. */
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Event_set::clear, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, clear, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -880,7 +878,7 @@ bool Event_set::Socket_as_any_equals::operator()(const boost::any& sock_as_any1,
 
 Event_set::Ptr Node::event_set_create(Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Event_set::Ptr, Node::event_set_create, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Event_set::Ptr, event_set_create, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using async::asio_exec_ctx_post;

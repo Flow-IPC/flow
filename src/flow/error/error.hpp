@@ -302,6 +302,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 #define FLOW_ERROR_SYS_ERROR_LOG_FATAL() \
   FLOW_LOG_FATAL("System error occurred: [" << sys_err_code << "] [" << sys_err_code.message() << "].")
 
+// XXX
 /**
  * Narrow-use macro that implements the error code/exception semantics expected of most public-facing Flow (and
  * Flow-inspired) class method APIs.  The semantics it helps implement are explained in flow::Error_code doc header.
@@ -426,7 +427,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* arguments except for the Error_code* arg. */ \
   )
 
-#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROR2(ARG_context, ARG_ret_type, ARG_function_name, ...) \
+#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(ARG_ret_type, ARG_function_name, ...) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
     /* We need both the result of the operation (if applicable) and whether it actually ran. */ \
@@ -435,11 +436,12 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* require ARG_ret_type's entire range. */ \
     ARG_ret_type result; \
     /* We provide the function: f(Error_code*), where f(e_c) == ARG_method_name(..., e_c, ...). */ \
+    /* Also supply context info of this macro's invocation spot. */ \
     /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
     if (::flow::error::exec_and_throw_on_error \
-          ([&](::flow::Error_code* ARG_err_code) -> ARG_ret_type \
+          ([&](::flow::Error_code* _1) -> ARG_ret_type \
              { return ARG_function_name(__VA_ARGS__); }, \
-           &result, err_code, ARG_context)) \
+           &result, err_code, FLOW_UTIL_WHERE_AM_I_LITERAL(ARG_function_name))) \
     { \
       /* Aforementioned f() WAS executed; did NOT throw (no error); and return value was placed into `result`. */ \
       return result; \
@@ -447,7 +449,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* else: */ \
     /* f() did not run, because err_code is non-null.  So now macro invoker should do its thing assuming that fact. */ \
     /* Recall that the idea is that f() is just recursively calling the method invoking this macro with the same */ \
-    /* arguments except for the Error_code* arg, where they supply specifically `ARG_err_code` by our contract. */ \
+    /* arguments except for the Error_code* arg, where they supply specifically `_1` by our contract. */ \
   )
 
 /* Now that we're out of that macro's body with all the backslashes...
