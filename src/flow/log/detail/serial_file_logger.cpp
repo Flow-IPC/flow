@@ -110,8 +110,6 @@ void Serial_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) /
 
 void Serial_file_logger::log_flush_and_reopen()
 {
-  // We are in m_async_worker thread.  Hence we may access m_ofs (including through m_ofs_writer).
-
   // See notes in do_log() about the error handling cycle.
 
   /* Discussion of us logging through *this, meaning FLOW_LOG_*() to our own target file:
