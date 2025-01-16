@@ -391,7 +391,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
  *        `size_t` when wrapping a `receive()` (which returns # of bytes received or 0).
  * @param ARG_function_name
  *        Class-qualified (if applicable) name of the invoking method.  For example,
- *        `flow::Node::listen()`.  Don't forget template parameter values, if applicable; e.g., note the `<...>` part of
+ *        `flow::Node::listen`.  Don't forget template parameter values, if applicable; e.g., note the `<...>` part of
  *        `Peer_socket::sync_send<Const_buffer_sequence>`.
  * @param ...
  *        The remaining arguments, of which there must be at least 1, are to simply forward the arguments into
@@ -410,7 +410,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* the invoker's code).  We can't use a sentinel value to combine the two, since the operation's result may */ \
     /* require ARG_ret_type's entire range. */ \
     ARG_ret_type result; \
-    /* We provide the function: f(Error_code*), where f(e_c) == this->ARG_method_name(..., e_c, ...). */ \
+    /* We provide the function: f(Error_code*), where f(e_c) == this->ARG_function_name(..., e_c, ...). */ \
     /* Also supply context info of this macro's invocation spot. */ \
     /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
     if (::flow::error::exec_and_throw_on_error(::flow::util::bind_ns::bind(&ARG_function_name, __VA_ARGS__), \
@@ -424,6 +424,30 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* f() did not run, because err_code is non-null.  So no macro invoker should do its thing assuming that fact. */ \
     /* Recall that the idea is that f() is just recursively calling the method invoking this macro with the same */ \
     /* arguments except for the Error_code* arg. */ \
+  )
+
+#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROR2(ARG_context, ARG_ret_type, ARG_function_name, ...) \
+  FLOW_UTIL_SEMICOLON_SAFE \
+  ( \
+    /* We need both the result of the operation (if applicable) and whether it actually ran. */ \
+    /* So we must introduce this local variable (note it's within a { block } so should minimally interfere with */ \
+    /* the invoker's code).  We can't use a sentinel value to combine the two, since the operation's result may */ \
+    /* require ARG_ret_type's entire range. */ \
+    ARG_ret_type result; \
+    /* We provide the function: f(Error_code*), where f(e_c) == ARG_method_name(..., e_c, ...). */ \
+    /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
+    if (::flow::error::exec_and_throw_on_error \
+          ([&](::flow::Error_code* ARG_err_code) -> ARG_ret_type \
+             { return ARG_function_name(__VA_ARGS__); }, \
+           &result, err_code, ARG_context)) \
+    { \
+      /* Aforementioned f() WAS executed; did NOT throw (no error); and return value was placed into `result`. */ \
+      return result; \
+    } \
+    /* else: */ \
+    /* f() did not run, because err_code is non-null.  So now macro invoker should do its thing assuming that fact. */ \
+    /* Recall that the idea is that f() is just recursively calling the method invoking this macro with the same */ \
+    /* arguments except for the Error_code* arg, where they supply specifically `ARG_err_code` by our contract. */ \
   )
 
 /* Now that we're out of that macro's body with all the backslashes...
