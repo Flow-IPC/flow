@@ -130,7 +130,7 @@ class FlowRecipe(ConanFile):
             #   - Remove the "@" here.
             #   - Remove the `conan expert` + related command(s) from the relevant `.yml`s.
             self.requires("boost/1.87.0@")
-            #XXXself.requires("boost/1.86.0")
+            #self.requires("boost/1.84.0")
 
             self.requires("fmt/10.0.0")
 
