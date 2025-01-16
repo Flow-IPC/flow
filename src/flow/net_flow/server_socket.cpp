@@ -74,7 +74,7 @@ flow_port_t Server_socket::local_port() const
 
 Peer_socket::Ptr Server_socket::accept(Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Server_socket::accept, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Peer_socket::Ptr, accept, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -100,12 +100,9 @@ Peer_socket::Ptr Server_socket::sync_accept(bool reactor_pattern, Error_code* er
 Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until, bool reactor_pattern,
                                                  Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
   using boost::adopt_lock;
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Server_socket::sync_accept_impl,
-                                     bind_ns::cref(wait_until), reactor_pattern, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Peer_socket::Ptr, sync_accept_impl, wait_until, reactor_pattern, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -144,7 +141,7 @@ Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until,
 Server_socket::Ptr Node::listen(flow_port_t local_port, Error_code* err_code,
                                 const Peer_socket_options* child_sock_opts)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Server_socket::Ptr, Node::listen, local_port, _1, child_sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Server_socket::Ptr, listen, local_port, _1, child_sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using async::asio_exec_ctx_post;

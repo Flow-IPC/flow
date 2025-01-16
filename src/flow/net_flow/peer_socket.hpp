@@ -2438,10 +2438,7 @@ std::ostream& operator<<(std::ostream& os, Peer_socket::Int_state state);
 template<typename Const_buffer_sequence>
 size_t Peer_socket::send(const Const_buffer_sequence& data, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::send<Const_buffer_sequence>, bind_ns::cref(data), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, send, data, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -2509,11 +2506,7 @@ template<typename Const_buffer_sequence>
 size_t Peer_socket::sync_send_impl(const Const_buffer_sequence& data, const Fine_time_pt& wait_until,
                                    Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_send_impl<Const_buffer_sequence>,
-                                     bind_ns::cref(data), bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, sync_send_impl, data, wait_until, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -2542,10 +2535,7 @@ size_t Peer_socket::sync_send_impl(const Const_buffer_sequence& data, const Fine
 template<typename Mutable_buffer_sequence>
 size_t Peer_socket::receive(const Mutable_buffer_sequence& target, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::receive<Mutable_buffer_sequence>, bind_ns::cref(target), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, receive, target, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -2601,11 +2591,7 @@ template<typename Mutable_buffer_sequence>
 size_t Peer_socket::sync_receive_impl(const Mutable_buffer_sequence& target,
                                       const Fine_time_pt& wait_until, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_receive_impl<Mutable_buffer_sequence>,
-                                     bind_ns::cref(target), bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, sync_receive_impl, target, wait_until, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.

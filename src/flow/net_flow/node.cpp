@@ -1053,8 +1053,7 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
 
 bool Node::set_options(const Node_options& opts, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Node::set_options, bind_ns::cref(opts), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, set_options, opts, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.

@@ -129,7 +129,6 @@ const uint8_t& Low_lvl_packet::type_id_native_to_raw(const std::type_info& type_
 
 size_t Low_lvl_packet::serialize_to_raw_data_and_log(Const_buffer_sequence* raw_bufs) const
 {
-  namespace bind_ns = util::bind_ns;
   using util::buffers_dump_string;
   using std::ostream;
 

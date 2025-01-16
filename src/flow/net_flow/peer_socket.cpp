@@ -113,11 +113,7 @@ bool Peer_socket::sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until,
 {
   // Similar to sync_send_impl(), so keeping comments light.  Reminder: Goal is to wait until *this is Writable.
 
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_send_reactor_pattern_impl,
-                                     bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, sync_send_reactor_pattern_impl, wait_until, _1);
 
   Lock_guard lock(m_mutex);
 
@@ -198,11 +194,7 @@ bool Peer_socket::sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_unt
 {
   // Similar to sync_receive_impl(), so keeping comments light.  Reminder: Goal is to wait until *this is Readable.
 
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_receive_reactor_pattern_impl,
-                                     bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, sync_receive_reactor_pattern_impl, wait_until, _1);
 
   Lock_guard lock(m_mutex);
 
@@ -296,8 +288,7 @@ void Peer_socket::close_abruptly(Error_code* err_code)
 
 bool Peer_socket::set_options(const Peer_socket_options& opts, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Peer_socket::set_options, bind_ns::cref(opts), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(bool, set_options, opts, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -390,10 +381,9 @@ flow_port_t Peer_socket::local_port() const
 size_t Peer_socket::get_connect_metadata(const boost::asio::mutable_buffer& buffer,
                                          Error_code* err_code) const
 {
-  namespace bind_ns = util::bind_ns;
   using std::memcpy;
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::get_connect_metadata, bind_ns::cref(buffer), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(size_t, get_connect_metadata, buffer, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -3919,15 +3909,11 @@ Peer_socket::Ptr Node::connect_with_metadata(const Remote_endpoint& to,
                                              Error_code* err_code,
                                              const Peer_socket_options* sock_opts)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Node::connect_with_metadata,
-                                     bind_ns::cref(to), bind_ns::cref(serialized_metadata), _1, sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Peer_socket::Ptr, connect_with_metadata, to, serialized_metadata, _1, sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
-  namespace bind_ns = util::bind_ns;
   using async::asio_exec_ctx_post;
   using async::Synchronicity;
-  using bind_ns::bind;
 
   // We are in thread U != W.
 
@@ -4159,13 +4145,9 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
                                          const boost::asio::const_buffer& serialized_metadata,
                                          Error_code* err_code, const Peer_socket_options* sock_opts)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Node::sync_connect_impl,
-                                     bind_ns::cref(to), bind_ns::cref(max_wait), bind_ns::cref(serialized_metadata),
-                                     _1, sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(Peer_socket::Ptr, sync_connect_impl,
+                                     to, max_wait, serialized_metadata, _1, sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
-
-  using util::bind_ns::bind;
 
   // We are in thread U != W.
 
