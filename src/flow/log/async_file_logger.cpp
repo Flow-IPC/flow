@@ -435,7 +435,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   m_async_worker.post(std::move(really_log));
 
   // XXX
-  log_flush_and_reopen(false);
+  //log_flush_and_reopen(false);
 } // Async_file_logger::do_log()
 
 size_t Async_file_logger::mem_cost(const Log_request& log_request) // Static.

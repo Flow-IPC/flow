@@ -129,7 +129,8 @@ class FlowRecipe(ConanFile):
             # TODO: Surely soon enough the version will be in conan-center, at which point:
             #   - Remove the "@" here.
             #   - Remove the `conan expert` + related command(s) from the relevant `.yml`s.
-            self.requires("boost/1.87.0@")
+            #XXXself.requires("boost/1.87.0@")
+            self.requires("boost/1.86.0")
 
             self.requires("fmt/10.0.0")
 
