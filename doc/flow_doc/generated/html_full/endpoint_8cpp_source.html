@@ -116,7 +116,7 @@ $(function() {
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <span class="keywordflow">if</span> (addr.is_v4())</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// Host byte order, but that&#39;s cool, as the hash value is computed and used only on this machine.</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    hash_combine(val, addr.to_v4().to_ulong());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    hash_combine(val, addr.to_v4().to_uint());</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  }</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (addr.is_v6())</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>  {</div>
@@ -157,7 +157,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:44 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

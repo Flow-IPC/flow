@@ -6,5 +6,5 @@
 <area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#a34e2c7dfb5596269a6f86a716015f1a6" title="This is to sync_send() as node_send() is to send()." alt="" coords="225,65,387,101"/>
 <area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy..." alt="" coords="27,5,156,41"/>
 <area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#a3f1a802024549a59978a53343b09a86d" title="Same as sync_send() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation co..." alt="" coords="13,65,169,101"/>
-<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" title="Helper similar to sync_send_impl() but for the null_buffers versions of sync_send()." alt="" coords="5,150,177,198"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" title="Helper similar to sync_send_impl() but for the nullptr_t versions of sync_send()." alt="" coords="5,150,177,198"/>
 </map>

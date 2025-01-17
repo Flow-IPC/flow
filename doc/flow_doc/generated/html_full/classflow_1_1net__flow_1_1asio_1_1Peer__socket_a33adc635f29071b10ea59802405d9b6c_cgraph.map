@@ -1,5 +1,5 @@
 <map id="flow::net_flow::asio::Peer_socket::async_send" name="flow::net_flow::asio::Peer_socket::async_send">
-<area shape="rect" id="node1" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="5,140,172,176"/>
+<area shape="rect" id="node1" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::..." alt="" coords="5,140,172,176"/>
 <area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#ab6c48bcfc9cab0b42216443f39fa8a4b" title="De&#45;templated implementation of all async_send() methods." alt="" coords="240,62,375,110"/>
 <area shape="rect" id="node9" href="$namespaceflow_1_1util.html#a5488415feb5570a6551892a7bdfeeec4" title="Helper that takes a non&#45;negative duration of arbitrary precision/period and converts it to Fine_durat..." alt="" coords="234,134,381,182"/>
 <area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#aa727c33c3eeeb217d50fcd451096ded8" title="Returns a functor that essentially performs post() on_result onto *async_task_engine() in a way suita..." alt="" coords="220,207,395,243"/>

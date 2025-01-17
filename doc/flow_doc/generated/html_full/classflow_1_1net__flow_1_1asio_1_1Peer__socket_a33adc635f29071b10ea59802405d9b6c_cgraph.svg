@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke...">
+<g id="a_node1"><a xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-50.5 0,-76.5 125,-76.5 125,-50.5 0,-50.5"/>
 <text text-anchor="start" x="8" y="-66.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="middle" x="62.5" y="-57.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Peer_socket::async_send</text>

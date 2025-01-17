@@ -94,7 +94,7 @@ Collaboration diagram for flow::util::Scheduled_task_handle_state:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af86e69ee260b73f608ba24eef871fb88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af86e69ee260b73f608ba24eef871fb88">Scheduled_task_handle_state</a> (<a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">Unique_id_holder::id_t</a> id, <a class="el" href="classbool.html">bool</a> single_threaded, <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *task_engine, <a class="el" href="namespaceflow_1_1util.html#aafa03984c5012ef7db2e7d01b6909a83">Scheduled_task</a> &amp;&amp;body_moved)</td></tr>
+<tr class="memitem:af86e69ee260b73f608ba24eef871fb88"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af86e69ee260b73f608ba24eef871fb88">Scheduled_task_handle_state</a> (<a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">Unique_id_holder::id_t</a> id, <a class="el" href="classbool.html">bool</a> single_threaded, <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *task_engine, <a class="el" href="namespaceflow_1_1util.html#aafa03984c5012ef7db2e7d01b6909a83">Scheduled_task</a> &amp;&amp;body_moved)</td></tr>
 <tr class="memdesc:af86e69ee260b73f608ba24eef871fb88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs it to the initial state, wherein it has neither fired nor been canceled.  <a href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af86e69ee260b73f608ba24eef871fb88">More...</a><br /></td></tr>
 <tr class="separator:af86e69ee260b73f608ba24eef871fb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -106,7 +106,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae23a4cae508bdfc5fd8316eb798e3acb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespaceflow_1_1util.html#aafa03984c5012ef7db2e7d01b6909a83">Scheduled_task</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#ae23a4cae508bdfc5fd8316eb798e3acb">m_body</a></td></tr>
 <tr class="memdesc:ae23a4cae508bdfc5fd8316eb798e3acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to execute when (and if) the timer fires, or short-fires.  <a href="structflow_1_1util_1_1Scheduled__task__handle__state.html#ae23a4cae508bdfc5fd8316eb798e3acb">More...</a><br /></td></tr>
 <tr class="separator:ae23a4cae508bdfc5fd8316eb798e3acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3eb85a490f1386423fe4a6a32979a93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af3eb85a490f1386423fe4a6a32979a93">m_task_engine</a></td></tr>
+<tr class="memitem:af3eb85a490f1386423fe4a6a32979a93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af3eb85a490f1386423fe4a6a32979a93">m_task_engine</a></td></tr>
 <tr class="memdesc:af3eb85a490f1386423fe4a6a32979a93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the task-executing engine (<code>Task_engine</code>) onto which to post tasks, including (if applicable) <a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#ae23a4cae508bdfc5fd8316eb798e3acb" title="The function to execute when (and if) the timer fires, or short-fires.">m_body</a>.  <a href="structflow_1_1util_1_1Scheduled__task__handle__state.html#af3eb85a490f1386423fe4a6a32979a93">More...</a><br /></td></tr>
 <tr class="separator:af3eb85a490f1386423fe4a6a32979a93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a521f4d604b987b3bd81ad8a0d0e82836"><td class="memItemLeft" align="right" valign="top">boost::movelib::unique_ptr&lt; <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626">Mutex_non_recursive</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html#a521f4d604b987b3bd81ad8a0d0e82836">m_mutex_unless_single_threaded</a></td></tr>
@@ -150,7 +150,7 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *&#160;</td>
           <td class="paramname"><em>task_engine</em>, </td>
         </tr>
         <tr>
@@ -294,7 +294,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a>* const flow::util::Scheduled_task_handle_state::m_task_engine</td>
+          <td class="memname"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a>* const flow::util::Scheduled_task_handle_state::m_task_engine</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -330,7 +330,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -449,7 +449,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00054">54</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="low__lvl__packet_8cpp_source.html#l01053">type_to_ostream()</a>.</p>
+<p class="reference">References <a class="el" href="low__lvl__packet_8cpp_source.html#l01052">type_to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -515,7 +515,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A null pointer on failure; otherwise pointer to an object of some sub-type of <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">381</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">380</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00532">FLOW_LOG_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00230">flow::log::Log_context::get_log_component()</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00572">m_aux_raw_data</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00448">flow::net_flow::Low_lvl_packet::Aux_raw_data::m_opt_rexmit_on_raw</a>, <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#a3e7152648c0098491512da590b47b464">m_packed</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00455">flow::net_flow::Low_lvl_packet::Aux_raw_data::m_reserved2</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a138fe9b2eb78ab00c84b21c4a6b48fed">flow::log::S_DATA</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00119">type_id_native_to_raw()</a>.</p>
 
@@ -753,7 +753,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">serialize_to_raw_data()</a>. The total # of bytes encoded and appended to <code>*raw_bufs</code> by the call. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">159</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00158">158</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="low__lvl__packet_8hpp_source.html#l00572">m_aux_raw_data</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00223">m_opt_rexmit_on</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00448">flow::net_flow::Low_lvl_packet::Aux_raw_data::m_opt_rexmit_on_raw</a>, <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#a3e7152648c0098491512da590b47b464">m_packed</a>, <a class="el" href="low__lvl__packet_8hpp_source.html#l00455">flow::net_flow::Low_lvl_packet::Aux_raw_data::m_reserved2</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00119">type_id_native_to_raw()</a>.</p>
 <div class="dynheader">
@@ -899,9 +899,9 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="structflow_1_1net__flow_1_1Syn__packet.html#a11ded0bc8596fb4adc815c5322e7ad26">flow::net_flow::Syn_packet</a>, <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__packet.html#a9c98a61096d86196c073a232e432d03b">flow::net_flow::Syn_ack_packet</a>, <a class="el" href="structflow_1_1net__flow_1_1Syn__ack__ack__packet.html#a0f2665713bcedc20db1365412630ff6f">flow::net_flow::Syn_ack_ack_packet</a>, <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#a0bfa19b23164c8189c05d3c2417cf23b">flow::net_flow::Data_packet</a>, and <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html#a49659e0e672d324ad17e2f4240604b49">flow::net_flow::Ack_packet</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00912">912</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l00911">911</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00925">flow::net_flow::Syn_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00947">flow::net_flow::Syn_ack_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00958">flow::net_flow::Syn_ack_ack_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00968">flow::net_flow::Data_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00996">flow::net_flow::Ack_packet::to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00924">flow::net_flow::Syn_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00946">flow::net_flow::Syn_ack_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00957">flow::net_flow::Syn_ack_ack_packet::to_ostream()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00967">flow::net_flow::Data_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00995">flow::net_flow::Ack_packet::to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -951,7 +951,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="low__lvl__packet_8hpp_source.html#l00559">S_NATIVE_TYPE_ID_TO_PACKET_TYPE_INFO</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">serialize_common_header_to_raw_data()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00158">serialize_common_header_to_raw_data()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -998,7 +998,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="low__lvl__packet_8hpp_source.html#l00559">S_NATIVE_TYPE_ID_TO_PACKET_TYPE_INFO</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00490">flow::net_flow::Peer_socket_info::output_pkt_count_key()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l01053">type_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00490">flow::net_flow::Peer_socket_info::output_pkt_count_key()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l01052">type_to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1043,7 +1043,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l01053">1053</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8cpp_source.html#l01052">1052</a> of file <a class="el" href="low__lvl__packet_8cpp_source.html">low_lvl_packet.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="low__lvl__packet_8cpp_source.html#l00108">type_id_to_str()</a>.</p>
 
@@ -1090,7 +1090,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00572">572</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00381">create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">serialize_common_header_to_raw_data()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">create_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00158">serialize_common_header_to_raw_data()</a>.</p>
 
 </div>
 </div>
@@ -1148,7 +1148,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00223">223</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">flow::net_flow::Data_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">flow::net_flow::Ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00159">serialize_common_header_to_raw_data()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00654">flow::net_flow::Data_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00784">flow::net_flow::Ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00158">serialize_common_header_to_raw_data()</a>.</p>
 
 </div>
 </div>
@@ -1186,7 +1186,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00246">246</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00513">flow::net_flow::Syn_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00565">flow::net_flow::Syn_ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00614">flow::net_flow::Syn_ack_ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00655">flow::net_flow::Data_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00785">flow::net_flow::Ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00893">flow::net_flow::Rst_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00130">serialize_to_raw_data_and_log()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__packet_8cpp_source.html#l00512">flow::net_flow::Syn_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00564">flow::net_flow::Syn_ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00613">flow::net_flow::Syn_ack_ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00654">flow::net_flow::Data_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00784">flow::net_flow::Ack_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00892">flow::net_flow::Rst_packet::deserialize_type_specific_data_from_raw_data_packet()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00130">serialize_to_raw_data_and_log()</a>.</p>
 
 </div>
 </div>
@@ -1246,7 +1246,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

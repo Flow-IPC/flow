@@ -101,7 +101,7 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab7f2dc947fc3c57a6a0e93efb33c8a08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Send__pacing__data.html#ab7f2dc947fc3c57a6a0e93efb33c8a08">Send_pacing_data</a> (<a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">util::Task_engine</a> *task_engine)</td></tr>
+<tr class="memitem:ab7f2dc947fc3c57a6a0e93efb33c8a08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Send__pacing__data.html#ab7f2dc947fc3c57a6a0e93efb33c8a08">Send_pacing_data</a> (<a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">util::Task_engine</a> *task_engine)</td></tr>
 <tr class="memdesc:ab7f2dc947fc3c57a6a0e93efb33c8a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes data to initial state (no active time slice).  <a href="structflow_1_1net__flow_1_1Send__pacing__data.html#ab7f2dc947fc3c57a6a0e93efb33c8a08">More...</a><br /></td></tr>
 <tr class="separator:ab7f2dc947fc3c57a6a0e93efb33c8a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -181,7 +181,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
         <tr>
           <td class="memname">flow::net_flow::Send_pacing_data::Send_pacing_data </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">util::Task_engine</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">util::Task_engine</a> *&#160;</td>
           <td class="paramname"><em>task_engine</em></td><td>)</td>
           <td></td>
         </tr>
@@ -201,7 +201,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__io_8cpp_source.html#l01096">1096</a> of file <a class="el" href="low__lvl__io_8cpp_source.html">low_lvl_io.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__io_8cpp_source.html#l01048">1048</a> of file <a class="el" href="low__lvl__io_8cpp_source.html">low_lvl_io.cpp</a>.</p>
 
 </div>
 </div>
@@ -224,7 +224,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__io_8hpp_source.html#l00212">212</a> of file <a class="el" href="low__lvl__io_8hpp_source.html">low_lvl_io.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00649">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00765">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00849">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00642">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00757">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00841">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
 
 </div>
 </div>
@@ -241,11 +241,11 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 </div><div class="memdoc">
 
 <p>Queue of low-level packets to be sent to the remote endpoint, in order in which they are to be sent, with the head element the one to be sent next. </p>
-<p >Each new pending packet is to be added at the tail. Invariant: <code>m_packet_q.front()</code>, if it exists, is of type DATA after any <a class="el" href="classflow_1_1net__flow_1_1Node.html#a62e1f8e6da36d7cd3ad905924aea376c" title="async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just pass...">Node::sock_pacing_new_packet_ready()</a> or <a class="el" href="classflow_1_1net__flow_1_1Node.html#aaf0acf9de5f151727a43acce180a5e49" title="async_sock_low_lvl_packet_send_paced() pacing helper: Given that we are currently in the pacing time ...">Node::sock_pacing_process_q()</a> call returns. (This is consistent with the aforementioned "do not re-order non-DATA packets, but do not pace them" philosophy.) </p>
+<p >Each new pending packet is to be added at the tail. Invariant: <code>m_packet_q.front()</code>, if it exists, is of type DATA after any <a class="el" href="classflow_1_1net__flow_1_1Node.html#a0556af278dc07a43f109fbd74ac64d5e" title="async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just pass...">Node::sock_pacing_new_packet_ready()</a> or <a class="el" href="classflow_1_1net__flow_1_1Node.html#a73cfaa8e5ed7fe845f759a30423a9cbf" title="async_sock_low_lvl_packet_send_paced() pacing helper: Given that we are currently in the pacing time ...">Node::sock_pacing_process_q()</a> call returns. (This is consistent with the aforementioned "do not re-order non-DATA packets, but do not pace them" philosophy.) </p>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__io_8hpp_source.html#l00221">221</a> of file <a class="el" href="low__lvl__io_8hpp_source.html">low_lvl_io.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00649">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00849">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00642">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00841">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
 
 </div>
 </div>
@@ -266,7 +266,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__io_8hpp_source.html#l00199">199</a> of file <a class="el" href="low__lvl__io_8hpp_source.html">low_lvl_io.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00649">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00765">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00849">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00642">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00757">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00841">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
 
 </div>
 </div>
@@ -287,7 +287,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__io_8hpp_source.html#l00192">192</a> of file <a class="el" href="low__lvl__io_8hpp_source.html">low_lvl_io.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00649">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00765">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00849">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00642">flow::net_flow::Node::sock_pacing_new_packet_ready()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00757">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="low__lvl__io_8cpp_source.html#l00841">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
 
 </div>
 </div>
@@ -308,7 +308,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__io_8hpp_source.html#l00232">232</a> of file <a class="el" href="low__lvl__io_8hpp_source.html">low_lvl_io.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00849">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00841">flow::net_flow::Node::sock_pacing_process_q()</a>.</p>
 
 </div>
 </div>
@@ -319,7 +319,7 @@ down to zero, then queue packet." Note that the latter reduces to the former whe
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

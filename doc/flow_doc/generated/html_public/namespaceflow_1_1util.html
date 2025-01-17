@@ -182,12 +182,12 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>String_view</b> = <a
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Thread_id</b> = Thread::id</td></tr>
 <tr class="memdesc:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for an OS-provided ID of a <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>. <br /></td></tr>
 <tr class="separator:a0a4e7b2d3107bd630e0dc0c0b8f2e4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf23368210219716b6fd22d15b765cb6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> = boost::asio::io_service</td></tr>
-<tr class="memdesc:adf23368210219716b6fd22d15b765cb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio event service, the central class of boost.asio.  <a href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">More...</a><br /></td></tr>
-<tr class="separator:adf23368210219716b6fd22d15b765cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3e89a8a271b0ddc76ac2a0ce488dea4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> = boost::asio::io_context</td></tr>
+<tr class="memdesc:ac3e89a8a271b0ddc76ac2a0ce488dea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio event service, the central class of boost.asio.  <a href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">More...</a><br /></td></tr>
+<tr class="separator:ac3e89a8a271b0ddc76ac2a0ce488dea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa59354ab408e978c8a7bda1a4706924e"><td class="memItemLeft" align="right" valign="top"><a id="aa59354ab408e978c8a7bda1a4706924e" name="aa59354ab408e978c8a7bda1a4706924e"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>Strand</b> = Task_engine::strand</td></tr>
-<tr class="memdesc:aa59354ab408e978c8a7bda1a4706924e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio strand, an ancillary class that works with <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6" title="Short-hand for boost.asio event service, the central class of boost.asio.">Task_engine</a> for advanced task scheduling. <br /></td></tr>
+<tr class="memdesc:aa59354ab408e978c8a7bda1a4706924e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for boost.asio strand, an ancillary class that works with <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">Task_engine</a> for advanced task scheduling. <br /></td></tr>
 <tr class="separator:aa59354ab408e978c8a7bda1a4706924e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7416d64d2989051104bb396e28e15e6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6">Timer</a> = boost::asio::basic_waitable_timer&lt; <a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00">Fine_clock</a> &gt;</td></tr>
 <tr class="memdesc:ae7416d64d2989051104bb396e28e15e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">boost.asio timer.  <a href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6">More...</a><br /></td></tr>
@@ -287,11 +287,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad339cf2543e0ad692203817b19e4e8ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether a previously scheduled (by <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> or similar) task has been canceled.  <a href="namespaceflow_1_1util.html#ad339cf2543e0ad692203817b19e4e8ed">More...</a><br /></td></tr>
 <tr class="separator:ad339cf2543e0ad692203817b19e4e8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74d4a66fb00055be4e1bd6ee98e04667"><td class="memTemplParams" colspan="2">template&lt;typename Scheduled_task_handler &gt; </td></tr>
-<tr class="memitem:a74d4a66fb00055be4e1bd6ee98e04667"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667">schedule_task_from_now</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a> &amp;from_now, bool single_threaded, <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</td></tr>
+<tr class="memitem:a74d4a66fb00055be4e1bd6ee98e04667"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667">schedule_task_from_now</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a> &amp;from_now, bool single_threaded, <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</td></tr>
 <tr class="memdesc:a74d4a66fb00055be4e1bd6ee98e04667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedule the given function to execute in a certain amount of time: A handy wrapper around <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> (asio's timer facility).  <a href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667">More...</a><br /></td></tr>
 <tr class="separator:a74d4a66fb00055be4e1bd6ee98e04667"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad8c8f7335eb892350dc386cb4be397e"><td class="memTemplParams" colspan="2">template&lt;typename Scheduled_task_handler &gt; </td></tr>
-<tr class="memitem:aad8c8f7335eb892350dc386cb4be397e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">schedule_task_at</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const <a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">Fine_time_pt</a> &amp;at, bool single_threaded, <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</td></tr>
+<tr class="memitem:aad8c8f7335eb892350dc386cb4be397e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">schedule_task_at</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const <a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">Fine_time_pt</a> &amp;at, bool single_threaded, <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</td></tr>
 <tr class="memdesc:aad8c8f7335eb892350dc386cb4be397e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> except the time is specified in absolute terms.  <a href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">More...</a><br /></td></tr>
 <tr class="separator:aad8c8f7335eb892350dc386cb4be397e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92ad411feccf73908abe6ed130d48f5"><td class="memItemLeft" align="right" valign="top">boost::chrono::microseconds&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ad92ad411feccf73908abe6ed130d48f5">time_since_posix_epoch</a> ()</td></tr>
@@ -697,14 +697,14 @@ template&lt;typename Shared_mutex &gt; </div>
 
 </div>
 </div>
-<a id="adf23368210219716b6fd22d15b765cb6" name="adf23368210219716b6fd22d15b765cb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf23368210219716b6fd22d15b765cb6">&#9670;&nbsp;</a></span>Task_engine</h2>
+<a id="ac3e89a8a271b0ddc76ac2a0ce488dea4" name="ac3e89a8a271b0ddc76ac2a0ce488dea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3e89a8a271b0ddc76ac2a0ce488dea4">&#9670;&nbsp;</a></span>Task_engine</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">flow::util::Task_engine</a> = typedef boost::asio::io_service</td>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">flow::util::Task_engine</a> = typedef boost::asio::io_context</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -721,7 +721,7 @@ template&lt;typename Shared_mutex &gt; </div>
     type." Plus there's the usual danger of accidentally overloading a term already used elsewhere nearby. Some ideas considered were: manager, engine, execution engine, queue, queues, context (which boost.asio chose), and various abbreviations thereof. Ultimately it came down to context vs. engine, and I chose engine because context is just a little vague, or it suggests an arbitrary grouping of things &ndash; whereas "engine" actually implies action: want to express this thing provides logical/algorithmic value as opposed to just bundling stuff together as "context" objects often do (e.g., "SSL context" in openssl). Indeed <code>io_service</code> does provide immense algorithmic value.<ul>
 <li>Manager: generic but not bad; clashes with "Windows task manager" and such.</li>
 <li>Execution engine: good but long.</li>
-<li>Queue: early candidate, but at the very least it's not a <em>single</em> queue; if there are multiple threads <code>io_service::run()</code>ning then to the extent there are any queues there might be multiple.</li>
+<li>Queue: early candidate, but at the very least it's not a <em>single</em> queue; if there are multiple threads <code>io_context::run()</code>ning then to the extent there are any queues there might be multiple.</li>
 <li>Queues, qs: better... but having a thing called <code>Task_qs</code> &ndash; of which there could be multiple (plural) &ndash; was clumsy. (An early proof-of-concept used <code>Task_qs</code>; people were not fans.) </li>
 </ul>
 </li>
@@ -1639,7 +1639,7 @@ template&lt;typename Scheduled_task_handler &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *&#160;</td>
           <td class="paramname"><em>task_engine</em>, </td>
         </tr>
         <tr>
@@ -1708,7 +1708,7 @@ template&lt;typename Scheduled_task_handler &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">Task_engine</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *&#160;</td>
           <td class="paramname"><em>task_engine</em>, </td>
         </tr>
         <tr>
@@ -1786,7 +1786,7 @@ template&lt;typename Scheduled_task_handler &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Handle to the scheduled task which can be ignored in most cases. If you want to cancel, short-fire, etc. subsequently, save this (by value) and operate on it subsequently, e.g., with <a class="el" href="namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2" title="Attempts to prevent the execution of a previously scheduled (by schedule_task_from_now() or similar) ...">scheduled_task_cancel()</a>.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Scheduled_task_handler</td><td>Completion handler with signature compatible with <code>void (bool short_fired)</code>. This allows for standard boost.asio semantics, including associating with an executor such as a <code>boost::asio::strand</code>. In particular you may pass in: <code>bind_executor(S, F)</code>, where <code>F(bool short_fire)</code> is the handler, and <code>S</code> is a <a class="el" href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e" title="Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...">Strand</a> (or other executor). Binding to a <a class="el" href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e" title="Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...">Strand</a> will ensure the fired or short-fired body will not execute concurrently with any other handler also bound to it. </td></tr>
+    <tr><td class="paramname">Scheduled_task_handler</td><td>Completion handler with signature compatible with <code>void (bool short_fired)</code>. This allows for standard boost.asio semantics, including associating with an executor such as a <code>boost::asio::io_context::strand</code>. In particular you may pass in: <code>bind_executor(S, F)</code>, where <code>F(bool short_fire)</code> is the handler, and <code>S</code> is a <a class="el" href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e" title="Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...">Strand</a> (or other executor). Binding to a <a class="el" href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e" title="Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...">Strand</a> will ensure the fired or short-fired body will not execute concurrently with any other handler also bound to it. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2504,7 +2504,7 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:42 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

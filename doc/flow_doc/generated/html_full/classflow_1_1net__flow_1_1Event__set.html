@@ -389,7 +389,7 @@ All that said, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" ti
 <div class="line">v</div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html">flow::net_flow::Event_set</a></div><div class="ttdoc">A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8hpp_source.html#l00247">event_set.hpp:254</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html_a19cc3a286c8a11c986d2a59ec1e39a71"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71">flow::net_flow::Event_set::Event_type</a></div><div class="ttdeci">Event_type</div><div class="ttdoc">Type of event or condition of interest supported by class Event_set.</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8hpp_source.html#l00306">event_set.hpp:307</a></div></div>
-<div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html_a3122100c044da08495fac737998f60db"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html#a3122100c044da08495fac737998f60db">flow::net_flow::Event_set::async_wait_finish</a></div><div class="ttdeci">bool async_wait_finish(Error_code *err_code=0)</div><div class="ttdoc">Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(...</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8cpp_source.html#l00215">event_set.cpp:215</a></div></div>
+<div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html_a3122100c044da08495fac737998f60db"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html#a3122100c044da08495fac737998f60db">flow::net_flow::Event_set::async_wait_finish</a></div><div class="ttdeci">bool async_wait_finish(Error_code *err_code=0)</div><div class="ttdoc">Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(...</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8cpp_source.html#l00214">event_set.cpp:214</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html_a43dfb881ab3a9488a6a60dd83ad21c85"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html#a43dfb881ab3a9488a6a60dd83ad21c85">flow::net_flow::Event_set::async_wait</a></div><div class="ttdeci">bool async_wait(const Event_handler &amp;on_event, Error_code *err_code=0)</div><div class="ttdoc">Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,...</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8cpp_source.html#l00072">event_set.cpp:72</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Event__set_html_a496b760adb19356b4aee9a17ca13b523"><div class="ttname"><a href="classflow_1_1net__flow_1_1Event__set.html#a496b760adb19356b4aee9a17ca13b523">flow::net_flow::Event_set::add_wanted_socket</a></div><div class="ttdeci">bool add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code *err_code=0)</div><div class="ttdoc">Adds the given socket to the set of sockets we want to know are &quot;ready&quot; by the definition of the give...</div><div class="ttdef"><b>Definition:</b> <a href="event__set_8hpp_source.html#l01015">event_set.hpp:1015</a></div></div>
 </div><!-- fragment --><p >The above are informal suggestions for use. Here is the more formal description of operation of an <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a>. <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a> is a simple state machine with three states: INACTIVE, WAITING, CLOSED. After construction (which is done by <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> in a factory fashion), <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a> is in INACTIVE state. CLOSED means the <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a> has been <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a9ae292072a84d07c867536e3de3b878e" title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()...">Event_set::close()</a>d, or the originating <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> has been destroyed. It is not possible to perform any operations on a CLOSED <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a>, nor is it possible to exit the CLOSED state. A CLOSED <a class="el" href="classflow_1_1net__flow_1_1Event__set.html" title="A user-set collection of sockets and desired conditions on those sockets (such as: &quot;socket has data t...">Event_set</a> stores no resources and will be deleted via <code>shared_ptr&lt;&gt;</code> mechanics once all user references to it are gone.</p>
@@ -683,7 +683,7 @@ data to be sent") or zero and an error (but not zero and NO error). </p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00881">flow::net_flow::Node::event_set_create()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00879">flow::net_flow::Node::event_set_create()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -748,7 +748,7 @@ template&lt;typename Socket &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l01015">1015</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a8f3a13ffefc4897da606c86e60a4422f">flow::net_flow::error::S_EVENT_SET_EVENT_ALREADY_EXISTS</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a8f3a13ffefc4897da606c86e60a4422f">flow::net_flow::error::S_EVENT_SET_EVENT_ALREADY_EXISTS</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -802,9 +802,9 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00072">72</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00756">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00917">flow::net_flow::Node::event_set_async_wait()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482adccb025a96014a74a1435481ec2b58ac">flow::net_flow::error::S_EVENT_SET_DOUBLE_WAIT_OR_POLL</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a5cbb0762dc20632c76db479f40237492">flow::net_flow::error::S_EVENT_SET_NO_EVENTS</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00754">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00915">flow::net_flow::Node::event_set_async_wait()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482adccb025a96014a74a1435481ec2b58ac">flow::net_flow::error::S_EVENT_SET_DOUBLE_WAIT_OR_POLL</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a5cbb0762dc20632c76db479f40237492">flow::net_flow::error::S_EVENT_SET_NO_EVENTS</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -848,11 +848,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success). In particular, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a8453cccdaaf22ea6b027c5de9738f0f0" title="Current State of the Event_set.">state()</a> being <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657" title="Default state; valid Event_set that is not currently waiting on events.">State::S_INACTIVE</a> when the method starts is not an error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00215">215</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00214">214</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00926">m_on_event</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00926">m_on_event</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -893,11 +893,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if and only if no error occurred (*err_code is success). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00705">705</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00703">703</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00747">clear_ev_type_to_socks_map()</a>, <a class="el" href="event__set_8cpp_source.html#l00761">ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, and <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00745">clear_ev_type_to_socks_map()</a>, <a class="el" href="event__set_8cpp_source.html#l00759">ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, and <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -946,13 +946,13 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00747">747</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00745">745</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="event__set_8cpp_source.html#l00917">flow::net_flow::Node::event_set_async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l01332">flow::net_flow::Node::event_set_close_worker()</a>, <a class="el" href="event__set_8cpp_source.html#l01421">flow::net_flow::Node::interrupt_all_waits_worker()</a>, and <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="event__set_8cpp_source.html#l00915">flow::net_flow::Node::event_set_async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l01330">flow::net_flow::Node::event_set_close_worker()</a>, <a class="el" href="event__set_8cpp_source.html#l01419">flow::net_flow::Node::interrupt_all_waits_worker()</a>, and <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_a0edced1cb69b2cad299ee32e652ccea7_icgraph.svg" width="2078" height="1012"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_a0edced1cb69b2cad299ee32e652ccea7_icgraph.svg" width="2014" height="630"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -994,11 +994,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Same. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00649">649</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00647">647</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00649">clear_result_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00647">clear_result_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00649">clear_result_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00647">clear_result_sockets()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1050,11 +1050,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00527">527</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00525">525</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00527">clear_wanted_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00525">clear_wanted_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00527">clear_wanted_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00525">clear_wanted_sockets()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1096,11 +1096,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00464">464</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00463">463</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00464">close()</a>, <a class="el" href="event__set_8cpp_source.html#l01273">flow::net_flow::Node::event_set_close()</a>, <a class="el" href="error_2error_8hpp_source.html#l00168">flow::error::exec_void_and_throw_on_error()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="util__fwd_8hpp_source.html#l00971">FLOW_UTIL_WHERE_AM_I_STR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00463">close()</a>, <a class="el" href="event__set_8cpp_source.html#l01271">flow::net_flow::Node::event_set_close()</a>, <a class="el" href="error_2error_8hpp_source.html#l00168">flow::error::exec_void_and_throw_on_error()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="util__fwd_8hpp_source.html#l00971">FLOW_UTIL_WHERE_AM_I_STR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00464">close()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00463">close()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1178,11 +1178,11 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success).</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a72b26f25a2e76e3c61b4760b59de5b25" title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait.">Event_set::emit_result_sockets()</a> sets a <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a592b3ce6602051bd9994216041a3cbdc" title="A set of sockets of one type, used to communicate sets of desired and resulting events in various Eve...">Sockets</a> structure which stores <code>boost:any</code>s each of which stores either a <code><a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc" title="Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).">Peer_socket::Ptr</a></code> or a <code><a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc" title="Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).">Server_socket::Ptr</a></code>; <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a592b3ce6602051bd9994216041a3cbdc" title="A set of sockets of one type, used to communicate sets of desired and resulting events in various Eve...">Sockets</a> should be changed to store C++17 <code>std::variant</code>s. Performance, both internally and externally, would improve by using this type-safe compile-time mechanism (which is akin to <code>union</code>s but much more pleasant to use). At the time this feature was written, Flow was in C++11, so <code>variant</code>s were not available, and the author wanted to play around with <code>any</code>s instead of haxoring old-school <code>union</code>s. <code>variant</code> is much nicer, however, and the dynamic nature of <code>any</code> is entirely unnecessary here. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00613">613</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00611">611</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00613">emit_result_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00722">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00611">emit_result_sockets()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>, and <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00613">emit_result_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00611">emit_result_sockets()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1224,7 +1224,7 @@ Here is the caller graph for this function:</div>
 <p>Creates a maximally empty <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#affac46b4e327b3781faab4853a290877" title="Short-hand for type storing a set of socket sets – one per possible Event_type enum value.">Ev_type_to_socks_map</a>: it will have all possible Event_type as keys but only empty <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a592b3ce6602051bd9994216041a3cbdc" title="A set of sockets of one type, used to communicate sets of desired and resulting events in various Eve...">Sockets</a> sets as values. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00736">736</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00734">734</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a7cedcbdde2b86daeb1268c63c6cb6b88">S_PEER_SOCKET_READABLE</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71a5efb94617bcb00507a087224ce7a7d02">S_PEER_SOCKET_WRITABLE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71afb218b0110d3f9f26ee089bad2e0eba2">S_SERVER_SOCKET_ACCEPTABLE</a>.</p>
 
@@ -1263,13 +1263,13 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if the socket set is empty. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00756">756</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00754">754</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="event__set_8cpp_source.html#l01084">flow::net_flow::Node::event_set_fire_if_got_events()</a>, <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="event__set_8cpp_source.html#l01082">flow::net_flow::Node::event_set_fire_if_got_events()</a>, <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_aed9505b886c78169fe35b527f4e01855_icgraph.svg" width="2082" height="928"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_aed9505b886c78169fe35b527f4e01855_icgraph.svg" width="2016" height="567"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1308,11 +1308,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Loggable string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00761">761</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00759">759</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00367">flow::util::ostream_op_to_string()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l01070">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;::size()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, and <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, and <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1322,7 +1322,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_a19e241ae4dfe1ea54de6027052bc2135_icgraph.svg" width="2082" height="847"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_a19e241ae4dfe1ea54de6027052bc2135_icgraph.svg" width="2016" height="427"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1356,11 +1356,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if there are active events; <code>false</code> if there are no active events (then <code>*err_code</code> is success) or there was an error (<code>*err_code</code> is failure; i.e., <code>bool(*err_code) == true</code>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00576">576</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00574">574</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00756">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00761">ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a3e273da0f7d2f231dbfaab8d07fd5ecd">flow::net_flow::error::S_EVENT_SET_RESULT_CHECK_WHEN_WAITING</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00754">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00759">ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a3e273da0f7d2f231dbfaab8d07fd5ecd">flow::net_flow::error::S_EVENT_SET_RESULT_CHECK_WHEN_WAITING</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1401,11 +1401,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if there are wanted events; <code>false</code> if there are no wanted events (then <code>*err_code</code> is success) or there was an error (<code>*err_code</code> is failure; i.e., <code>bool(*err_code) == true</code>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00553">553</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00551">551</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00756">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00754">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1480,11 +1480,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if OK to modify; <code>false</code> if not OK to modify. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00675">675</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00673">673</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a3f2c29ade2454001982c033a37fd9c79">flow::net_flow::error::S_EVENT_SET_IMMUTABLE_WHEN_WAITING</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00649">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00527">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00613">emit_result_sockets()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, and <a class="el" href="event__set_8cpp_source.html#l00493">swap_wanted_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00647">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00525">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00611">emit_result_sockets()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, and <a class="el" href="event__set_8cpp_source.html#l00492">swap_wanted_sockets()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1521,11 +1521,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00266">266</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00265">265</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00747">clear_ev_type_to_socks_map()</a>, <a class="el" href="event__set_8cpp_source.html#l01017">flow::net_flow::Node::event_set_check_baseline()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00934">m_baseline_check_pending</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482adccb025a96014a74a1435481ec2b58ac">flow::net_flow::error::S_EVENT_SET_DOUBLE_WAIT_OR_POLL</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00745">clear_ev_type_to_socks_map()</a>, <a class="el" href="event__set_8cpp_source.html#l01015">flow::net_flow::Node::event_set_check_baseline()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="event__set_8hpp_source.html#l00934">m_baseline_check_pending</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00904">m_node</a>, <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>, <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a6abcbd1be8478aa03e76aec9c540e14f">S_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae643fd244bd1d6b483295cb9f356b0ae">flow::net_flow::error::S_EVENT_SET_CLOSED</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482adccb025a96014a74a1435481ec2b58ac">flow::net_flow::error::S_EVENT_SET_DOUBLE_WAIT_OR_POLL</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a9ed0ac855342c04cf614bf2fb5549657">S_INACTIVE</a>, and <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a2855bd159b6e63bf448ed1f41b608975a48954e0be2947224e80cdfc2283af906">S_WAITING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1594,7 +1594,7 @@ template&lt;typename Socket &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l01052">1052</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00671">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::erase()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a96f464959b6ce918048a2167c23f1c0b">flow::net_flow::error::S_EVENT_SET_EVENT_DOES_NOT_EXIST</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__set_8hpp_source.html#l00671">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::erase()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a96f464959b6ce918048a2167c23f1c0b">flow::net_flow::error::S_EVENT_SET_EVENT_DOES_NOT_EXIST</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1637,11 +1637,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Loggable string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00777">777</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00775">775</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00367">flow::util::ostream_op_to_string()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01129">flow::net_flow::Node::event_set_all_check_delta()</a>, and <a class="el" href="event__set_8cpp_source.html#l01017">flow::net_flow::Node::event_set_check_baseline()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, and <a class="el" href="event__set_8cpp_source.html#l01015">flow::net_flow::Node::event_set_check_baseline()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1651,7 +1651,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_ae04c117b15179ba37a94f6836c63497b_icgraph.svg" width="2091" height="830"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Event__set_ae04c117b15179ba37a94f6836c63497b_icgraph.svg" width="2027" height="511"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1680,7 +1680,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, and <a class="el" href="event__set_8hpp_source.html#l00901">m_state</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01509">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01507">operator&lt;&lt;()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1742,11 +1742,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00493">493</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00492">492</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00357">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>, and <a class="el" href="event__set_8cpp_source.html#l00493">swap_wanted_sockets()</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8hpp_source.html#l00910">m_want</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00852">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::size()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>, and <a class="el" href="event__set_8cpp_source.html#l00492">swap_wanted_sockets()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00493">swap_wanted_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00492">swap_wanted_sockets()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1813,7 +1813,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l01092">1092</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00031">flow::util::chrono_duration_to_fine_duration()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00031">flow::util::chrono_duration_to_fine_duration()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1851,11 +1851,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if no error occurred (<code>*err_code</code> is success). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00458">458</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00457">457</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00458">sync_wait()</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00457">sync_wait()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00458">sync_wait()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00457">sync_wait()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1915,9 +1915,9 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a133c518168fe3922ab6729a99077dd3f" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr...">sync_wait()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00336">336</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l00335">335</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00756">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ab92ec3b2b78d74acf0fda0786f601df5">flow::net_flow::error::S_WAIT_INTERRUPTED</a>.</p>
+<p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00754">ev_type_to_socks_map_entry_is_empty()</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="event__set_8hpp_source.html#l00920">m_can</a>, <a class="el" href="event__set_8hpp_source.html#l00937">m_mutex</a>, <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ab92ec3b2b78d74acf0fda0786f601df5">flow::net_flow::error::S_WAIT_INTERRUPTED</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01092">sync_wait()</a>.</p>
 <div class="dynheader">
@@ -2007,7 +2007,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l01532">1532</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l01530">1530</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 </div>
 </div>
@@ -2055,7 +2055,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l01509">1509</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="event__set_8cpp_source.html#l01507">1507</a> of file <a class="el" href="event__set_8cpp_source.html">event_set.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="event__set_8cpp_source.html#l00060">state()</a>.</p>
 <div class="dynheader">
@@ -2093,7 +2093,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00934">934</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>.</p>
 
 </div>
 </div>
@@ -2123,7 +2123,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00920">920</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00649">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00613">emit_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00647">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00611">emit_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 
 </div>
 </div>
@@ -2151,7 +2151,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00937">937</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00649">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00527">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00464">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00613">emit_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>, <a class="el" href="event__set_8cpp_source.html#l00066">node()</a>, <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00060">state()</a>, <a class="el" href="event__set_8cpp_source.html#l00493">swap_wanted_sockets()</a>, and <a class="el" href="event__set_8cpp_source.html#l00336">sync_wait_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00647">clear_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00525">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00463">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00611">emit_result_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>, <a class="el" href="event__set_8cpp_source.html#l00066">node()</a>, <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00060">state()</a>, <a class="el" href="event__set_8cpp_source.html#l00492">swap_wanted_sockets()</a>, and <a class="el" href="event__set_8cpp_source.html#l00335">sync_wait_impl()</a>.</p>
 
 </div>
 </div>
@@ -2179,7 +2179,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00904">904</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00464">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00066">node()</a>, and <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00463">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00066">node()</a>, and <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>.</p>
 
 </div>
 </div>
@@ -2208,7 +2208,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00926">926</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>.</p>
 
 </div>
 </div>
@@ -2236,7 +2236,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00901">901</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00215">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00464">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00576">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>, <a class="el" href="event__set_8cpp_source.html#l00675">ok_to_mod_socket_set()</a>, <a class="el" href="event__set_8cpp_source.html#l00266">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00060">state()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00214">async_wait_finish()</a>, <a class="el" href="event__set_8cpp_source.html#l00463">close()</a>, <a class="el" href="event__set_8cpp_source.html#l00574">events_detected()</a>, <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>, <a class="el" href="event__set_8cpp_source.html#l00673">ok_to_mod_socket_set()</a>, <a class="el" href="event__set_8cpp_source.html#l00265">poll()</a>, and <a class="el" href="event__set_8cpp_source.html#l00060">state()</a>.</p>
 
 </div>
 </div>
@@ -2264,7 +2264,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00910">910</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00705">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00527">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00553">events_wanted()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, and <a class="el" href="event__set_8cpp_source.html#l00493">swap_wanted_sockets()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8hpp_source.html#l01015">add_wanted_socket()</a>, <a class="el" href="event__set_8cpp_source.html#l00072">async_wait()</a>, <a class="el" href="event__set_8cpp_source.html#l00703">clear()</a>, <a class="el" href="event__set_8cpp_source.html#l00525">clear_wanted_sockets()</a>, <a class="el" href="event__set_8cpp_source.html#l00551">events_wanted()</a>, <a class="el" href="event__set_8hpp_source.html#l01052">remove_wanted_socket()</a>, and <a class="el" href="event__set_8cpp_source.html#l00492">swap_wanted_sockets()</a>.</p>
 
 </div>
 </div>
@@ -2293,7 +2293,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="event__set_8hpp_source.html#l00897">897</a> of file <a class="el" href="event__set_8hpp_source.html">event_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01017">flow::net_flow::Node::event_set_check_baseline()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l01015">flow::net_flow::Node::event_set_check_baseline()</a>.</p>
 
 </div>
 </div>
@@ -2304,7 +2304,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

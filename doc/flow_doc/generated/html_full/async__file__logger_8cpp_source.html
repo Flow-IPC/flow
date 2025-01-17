@@ -161,7 +161,7 @@ $(function() {
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">/* this-&gt;impl_log_flush_and_reopen() will be called on signal (or error).</span></div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">     * Note that that function&#39;s contract (from its doc comment) is it must execute in m_async_worker (see</span></div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">     * m_signal_set() init above in the init section of ctor).</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">     * Indeed boost::asio::io_service semantics guarantee it&#39;ll run in m_async_worker (not some</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">     * Indeed boost::asio::io_context semantics guarantee it&#39;ll run in m_async_worker (not some</span></div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">     * no-man&#39;s-land signal handler thread of execution, as one might fear could be the case) for the same reason</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">     * the various post()ed tasks will run in m_async_worker. */</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    m_signal_set.async_wait([<span class="keyword">this</span>](<span class="keyword">const</span> <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a>&amp; sys_err_code, <span class="keywordtype">int</span> sig_number)</div>
@@ -670,7 +670,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:44 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

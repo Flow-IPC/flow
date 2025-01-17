@@ -117,9 +117,9 @@
 <path fill="none" stroke="midnightblue" d="M105.16,-458.79C116.9,-461.83 129.35,-464.91 141,-467.5 197.34,-480.01 261.63,-491.57 309.78,-499.7"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="309.36,-503.18 319.8,-501.38 310.52,-496.28 309.36,-503.18"/>
 </g>
-<!-- Node51 -->
+<!-- Node50 -->
 <g id="node43" class="node">
-<title>Node51</title>
+<title>Node50</title>
 <g id="a_node43"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ad502e0a992a79b71af42a9cdc20a4280" target="_top" xlink:title="Sets Peer_socket::m_state and Peer_socket::m_open_sub_state.">
 <polygon fill="white" stroke="black" points="866.5,-381.5 866.5,-407.5 967.5,-407.5 967.5,-381.5 866.5,-381.5"/>
 <text text-anchor="start" x="874.5" y="-397.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -127,15 +127,15 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node51 -->
+<!-- Node1&#45;&gt;Node50 -->
 <g id="edge83" class="edge">
-<title>Node1&#45;&gt;Node51</title>
+<title>Node1&#45;&gt;Node50</title>
 <path fill="none" stroke="midnightblue" d="M56.88,-426.73C64.71,-390.76 87.66,-309.34 141,-269.5 228.52,-204.13 273.76,-226.5 383,-226.5 383,-226.5 383,-226.5 559,-226.5 668.66,-226.5 708.97,-192.56 805,-245.5 856.68,-273.99 891.18,-337.85 906.67,-371.98"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="903.47,-373.41 910.69,-381.16 909.88,-370.59 903.47,-373.41"/>
 </g>
-<!-- Node58 -->
+<!-- Node57 -->
 <g id="node51" class="node">
-<title>Node58</title>
+<title>Node57</title>
 <g id="a_node51"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aa1d9656e9e1480021c87530ec6dbebbe" target="_top" xlink:title="Sets internal state of given socket to the given state and logs a TRACE message about it.">
 <polygon fill="white" stroke="black" points="686,-255.5 686,-281.5 787,-281.5 787,-255.5 686,-255.5"/>
 <text text-anchor="start" x="694" y="-271.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -143,15 +143,15 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node58 -->
+<!-- Node1&#45;&gt;Node57 -->
 <g id="edge82" class="edge">
-<title>Node1&#45;&gt;Node58</title>
+<title>Node1&#45;&gt;Node57</title>
 <path fill="none" stroke="midnightblue" d="M61.26,-426.81C73.82,-400.46 101.3,-351.56 141,-328.5 313.67,-228.22 562.79,-244.82 675.77,-259.23"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="675.57,-262.73 685.95,-260.57 676.49,-255.79 675.57,-262.73"/>
 </g>
-<!-- Node42 -->
+<!-- Node58 -->
 <g id="node52" class="node">
-<title>Node42</title>
+<title>Node58</title>
 <g id="a_node52"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a99836ffb51eaefa4d2cc21770461cd97" target="_top" xlink:title="Constructs the socket pair (connection ID) for the given socket.">
 <polygon fill="white" stroke="black" points="686,-339.5 686,-365.5 787,-365.5 787,-339.5 686,-339.5"/>
 <text text-anchor="start" x="694" y="-355.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -159,9 +159,9 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node42 -->
+<!-- Node1&#45;&gt;Node58 -->
 <g id="edge84" class="edge">
-<title>Node1&#45;&gt;Node42</title>
+<title>Node1&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M80.86,-426.97C127.63,-398.15 226.93,-341.94 320,-321.5 444.5,-294.16 594.47,-319.14 675.86,-337.37"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="675.39,-340.86 685.92,-339.67 676.95,-334.03 675.39,-340.86"/>
 </g>
@@ -620,9 +620,9 @@
 <path fill="none" stroke="midnightblue" d="M396.29,-529.35C425.88,-576.14 505.82,-702.56 540.54,-757.46"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="537.59,-759.36 545.9,-765.94 543.51,-755.62 537.59,-759.36"/>
 </g>
-<!-- Node43 -->
+<!-- Node42 -->
 <g id="node35" class="node">
-<title>Node43</title>
+<title>Node42</title>
 <g id="a_node35"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ade49e7bc7202a0adf33fec2d93d1b177" target="_top" xlink:title="A thread W method that handles the transition of the given socket from OPEN (any sub&#45;state) to CLOSED...">
 <polygon fill="white" stroke="black" points="484,-540.5 484,-566.5 632,-566.5 632,-540.5 484,-540.5"/>
 <text text-anchor="start" x="492" y="-556.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -630,15 +630,15 @@
 </a>
 </g>
 </g>
-<!-- Node30&#45;&gt;Node43 -->
+<!-- Node30&#45;&gt;Node42 -->
 <g id="edge40" class="edge">
-<title>Node30&#45;&gt;Node43</title>
+<title>Node30&#45;&gt;Node42</title>
 <path fill="none" stroke="midnightblue" d="M448.07,-526.9C462.87,-530.51 478.65,-534.37 493.47,-537.99"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="493.01,-541.48 503.55,-540.45 494.67,-534.68 493.01,-541.48"/>
 </g>
-<!-- Node30&#45;&gt;Node42 -->
+<!-- Node30&#45;&gt;Node58 -->
 <g id="edge71" class="edge">
-<title>Node30&#45;&gt;Node42</title>
+<title>Node30&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M448.11,-524.77C502.71,-532.41 580.74,-533.59 632,-492.5 674.78,-458.21 629.6,-413.64 668,-374.5 670.66,-371.79 673.66,-369.41 676.87,-367.33"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="678.7,-370.32 685.81,-362.47 675.35,-364.17 678.7,-370.32"/>
 </g>
@@ -651,7 +651,7 @@
 <!-- Node32 -->
 <g id="node32" class="node">
 <title>Node32</title>
-<g id="a_node32"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a31edf238c1b21a409ea807c66c1b22f0" target="_top" xlink:title="Begins the process of asynchronously sending the given low&#45;level packet to the remote Node specified ...">
+<g id="a_node32"><a xlink:href="classflow_1_1net__flow_1_1Node.html#af1c4623729d0a061200a386f7a651926" target="_top" xlink:title="Begins the process of asynchronously sending the given low&#45;level packet to the remote Node specified ...">
 <polygon fill="white" stroke="black" points="686,-1305 686,-1340 787,-1340 787,-1305 686,-1305"/>
 <text text-anchor="start" x="694" y="-1329.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="start" x="694" y="-1320.6" font-family="Helvetica,sans-Serif" font-size="8.00">::async_sock_low_lvl</text>
@@ -685,7 +685,7 @@
 <!-- Node38 -->
 <g id="node34" class="node">
 <title>Node38</title>
-<g id="a_node34"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a62e1f8e6da36d7cd3ad905924aea376c" target="_top" xlink:title="async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just pass...">
+<g id="a_node34"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a0556af278dc07a43f109fbd74ac64d5e" target="_top" xlink:title="async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just pass...">
 <polygon fill="white" stroke="red" points="841,-1309.5 841,-1335.5 993,-1335.5 993,-1309.5 841,-1309.5"/>
 <text text-anchor="start" x="849" y="-1325.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="917" y="-1316.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sock_pacing_new_packet_ready</text>
@@ -704,21 +704,21 @@
 <path fill="none" stroke="midnightblue" d="M993.09,-1331.59C1005.97,-1333.15 1019.2,-1334.75 1031.61,-1336.25"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1031.47,-1339.76 1041.82,-1337.49 1032.31,-1332.81 1031.47,-1339.76"/>
 </g>
-<!-- Node43&#45;&gt;Node2 -->
+<!-- Node42&#45;&gt;Node2 -->
 <g id="edge41" class="edge">
-<title>Node43&#45;&gt;Node2</title>
+<title>Node42&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M564.67,-566.53C578.31,-598.35 613.2,-682.83 632,-756.5 657.7,-857.18 631.73,-890.13 668,-987.5 680.16,-1020.13 702.9,-1053.49 718.61,-1074.33"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="715.99,-1076.66 724.86,-1082.46 721.54,-1072.4 715.99,-1076.66"/>
 </g>
-<!-- Node43&#45;&gt;Node5 -->
+<!-- Node42&#45;&gt;Node5 -->
 <g id="edge42" class="edge">
-<title>Node43&#45;&gt;Node5</title>
+<title>Node42&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M564.67,-566.71C590.03,-625.76 693.19,-865.97 725.66,-941.59"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="722.6,-943.33 729.76,-951.13 729.03,-940.56 722.6,-943.33"/>
 </g>
-<!-- Node44 -->
+<!-- Node43 -->
 <g id="node36" class="node">
-<title>Node44</title>
+<title>Node43</title>
 <g id="a_node36"><a xlink:href="classflow_1_1util_1_1Linked__hash__map.html#aae7a4a3047c90f0ab26ae1a4ec7b9963" target="_top" xlink:title="Attempts to insert the given key/mapped&#45;value pair into the map.">
 <polygon fill="white" stroke="black" points="690.5,-648.5 690.5,-674.5 782.5,-674.5 782.5,-648.5 690.5,-648.5"/>
 <text text-anchor="start" x="698.5" y="-664.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Linked</text>
@@ -726,15 +726,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node44 -->
+<!-- Node42&#45;&gt;Node43 -->
 <g id="edge43" class="edge">
-<title>Node43&#45;&gt;Node44</title>
+<title>Node42&#45;&gt;Node43</title>
 <path fill="none" stroke="midnightblue" d="M572.33,-566.63C591.83,-585.2 629.96,-619.14 668,-639.5 672.02,-641.65 676.29,-643.64 680.65,-645.47"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="679.69,-648.86 690.28,-649.22 682.23,-642.33 679.69,-648.86"/>
 </g>
-<!-- Node45 -->
+<!-- Node44 -->
 <g id="node37" class="node">
-<title>Node45</title>
+<title>Node44</title>
 <g id="a_node37"><a xlink:href="classflow_1_1net__flow_1_1Port__space.html#a9fe1be917ff7584ff587b5da5967127a" target="_top" xlink:title="Return a previously reserved port (of any type).">
 <polygon fill="white" stroke="black" points="688.5,-513.5 688.5,-539.5 784.5,-539.5 784.5,-513.5 688.5,-513.5"/>
 <text text-anchor="start" x="696.5" y="-529.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Port</text>
@@ -742,15 +742,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node45 -->
+<!-- Node42&#45;&gt;Node44 -->
 <g id="edge44" class="edge">
-<title>Node43&#45;&gt;Node45</title>
+<title>Node42&#45;&gt;Node44</title>
 <path fill="none" stroke="midnightblue" d="M632.06,-542.32C647.55,-539.95 663.68,-537.49 678.47,-535.22"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="679.11,-538.67 688.47,-533.69 678.06,-531.75 679.11,-538.67"/>
 </g>
-<!-- Node48 -->
+<!-- Node47 -->
 <g id="node40" class="node">
-<title>Node48</title>
+<title>Node47</title>
 <g id="a_node40"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a8a6c02bf520a16df4028bd3c88732a8d" target="_top" xlink:title="Records that a Server_socket&#45;contained (i.e., currently un&#45;established, or established but not yet ac...">
 <polygon fill="white" stroke="black" points="674.5,-603.5 674.5,-629.5 798.5,-629.5 798.5,-603.5 674.5,-603.5"/>
 <text text-anchor="start" x="682.5" y="-619.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -758,15 +758,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node48 -->
+<!-- Node42&#45;&gt;Node47 -->
 <g id="edge48" class="edge">
-<title>Node43&#45;&gt;Node48</title>
+<title>Node42&#45;&gt;Node47</title>
 <path fill="none" stroke="midnightblue" d="M592.74,-566.63C614.2,-574.88 642.63,-585.6 668,-594.5 673.44,-596.41 679.14,-598.35 684.83,-600.26"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="683.76,-603.59 694.35,-603.41 685.96,-596.94 683.76,-603.59"/>
 </g>
-<!-- Node49 -->
+<!-- Node48 -->
 <g id="node41" class="node">
-<title>Node49</title>
+<title>Node48</title>
 <g id="a_node41"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ade529b5452c9fe363ae468346e662ceb" target="_top" xlink:title="While in S_OPEN+S_DISCONNECTING state (i.e., after beginning a graceful close with sock_disconnect_de...">
 <polygon fill="white" stroke="black" points="668,-384.5 668,-410.5 805,-410.5 805,-384.5 668,-384.5"/>
 <text text-anchor="start" x="676" y="-400.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -774,15 +774,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node49 -->
+<!-- Node42&#45;&gt;Node48 -->
 <g id="edge49" class="edge">
-<title>Node43&#45;&gt;Node49</title>
+<title>Node42&#45;&gt;Node48</title>
 <path fill="none" stroke="midnightblue" d="M610.42,-540.43C618.39,-536.63 625.97,-531.75 632,-525.5 666.25,-489.99 633.08,-455.35 668,-420.5 669.6,-418.9 671.32,-417.41 673.13,-416.03"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="675.05,-418.95 681.56,-410.6 671.26,-413.07 675.05,-418.95"/>
 </g>
-<!-- Node52 -->
+<!-- Node51 -->
 <g id="node44" class="node">
-<title>Node52</title>
+<title>Node51</title>
 <g id="a_node44"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ada9357f6ce9d5fc249b1cc176afdc471" target="_top" xlink:title="Records that thread W shows underlying connection is broken (graceful termination,...">
 <polygon fill="white" stroke="black" points="671,-429.5 671,-455.5 802,-455.5 802,-429.5 671,-429.5"/>
 <text text-anchor="start" x="679" y="-445.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -790,15 +790,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node52 -->
+<!-- Node42&#45;&gt;Node51 -->
 <g id="edge52" class="edge">
-<title>Node43&#45;&gt;Node52</title>
+<title>Node42&#45;&gt;Node51</title>
 <path fill="none" stroke="midnightblue" d="M606.14,-540.41C615.29,-536.54 624.39,-531.64 632,-525.5 654.74,-507.16 645.51,-489.15 668,-470.5 672.81,-466.51 678.26,-463.03 683.93,-459.99"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="685.51,-463.12 692.97,-455.59 682.45,-456.82 685.51,-463.12"/>
 </g>
-<!-- Node53 -->
+<!-- Node52 -->
 <g id="node45" class="node">
-<title>Node53</title>
+<title>Node52</title>
 <g id="a_node45"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a2336fae98b318ab73e7268e9a242bf09" target="_top" xlink:title="Given a Peer_socket, copies all stats info (as available via Peer_socket::info()) from various struct...">
 <polygon fill="white" stroke="black" points="862,-471.5 862,-497.5 972,-497.5 972,-471.5 862,-471.5"/>
 <text text-anchor="start" x="870" y="-487.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -806,15 +806,15 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node53 -->
+<!-- Node42&#45;&gt;Node52 -->
 <g id="edge55" class="edge">
-<title>Node43&#45;&gt;Node53</title>
+<title>Node42&#45;&gt;Node52</title>
 <path fill="none" stroke="midnightblue" d="M596.63,-540.4C608.14,-536.03 620.74,-530.9 632,-525.5 648.7,-517.49 650.33,-510.05 668,-504.5 728.34,-485.55 800.78,-481.74 851.74,-481.94"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="851.93,-485.44 861.96,-482.04 851.99,-478.44 851.93,-485.44"/>
 </g>
-<!-- Node55 -->
+<!-- Node54 -->
 <g id="node48" class="node">
-<title>Node55</title>
+<title>Node54</title>
 <g id="a_node48"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a755c329b9e0f2b8edb2e5b900bd2a337" target="_top" xlink:title="Logs a verbose state report for the given socket.">
 <polygon fill="white" stroke="black" points="686,-558.5 686,-584.5 787,-584.5 787,-558.5 686,-558.5"/>
 <text text-anchor="start" x="694" y="-574.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -822,27 +822,27 @@
 </a>
 </g>
 </g>
-<!-- Node43&#45;&gt;Node55 -->
+<!-- Node42&#45;&gt;Node54 -->
 <g id="edge58" class="edge">
-<title>Node43&#45;&gt;Node55</title>
+<title>Node42&#45;&gt;Node54</title>
 <path fill="none" stroke="midnightblue" d="M632.06,-560.95C646.64,-562.44 661.79,-563.98 675.85,-565.42"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="675.56,-568.91 685.87,-566.44 676.27,-561.94 675.56,-568.91"/>
 </g>
-<!-- Node43&#45;&gt;Node58 -->
+<!-- Node42&#45;&gt;Node57 -->
 <g id="edge69" class="edge">
-<title>Node43&#45;&gt;Node58</title>
+<title>Node42&#45;&gt;Node57</title>
 <path fill="none" stroke="midnightblue" d="M581.6,-540.36C598.1,-529.58 619.65,-512.82 632,-492.5 670.53,-429.1 630.71,-393.64 668,-329.5 677.6,-312.99 693.19,-298.47 706.97,-287.74"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="709.32,-290.35 715.24,-281.57 705.13,-284.74 709.32,-290.35"/>
 </g>
-<!-- Node43&#45;&gt;Node42 -->
+<!-- Node42&#45;&gt;Node58 -->
 <g id="edge70" class="edge">
-<title>Node43&#45;&gt;Node42</title>
+<title>Node42&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M612.05,-540.35C619.54,-536.58 626.54,-531.73 632,-525.5 677.46,-473.6 621.23,-425.22 668,-374.5 670.62,-371.66 673.61,-369.19 676.84,-367.03"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="678.81,-369.94 685.86,-362.04 675.42,-363.82 678.81,-369.94"/>
 </g>
-<!-- Node46 -->
+<!-- Node45 -->
 <g id="node38" class="node">
-<title>Node46</title>
+<title>Node45</title>
 <g id="a_node38"><a xlink:href="namespaceflow_1_1util.html#a024ddda9acb2b66f2a1b35cdb0c016aa" target="_top" xlink:title="Returns true if and only if the given value is within the given range, given as a [low,...">
 <polygon fill="white" stroke="black" points="1044.5,-553.5 1044.5,-579.5 1140.5,-579.5 1140.5,-553.5 1044.5,-553.5"/>
 <text text-anchor="start" x="1052.5" y="-569.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::in_closed</text>
@@ -850,15 +850,15 @@
 </a>
 </g>
 </g>
-<!-- Node45&#45;&gt;Node46 -->
+<!-- Node44&#45;&gt;Node45 -->
 <g id="edge45" class="edge">
-<title>Node45&#45;&gt;Node46</title>
+<title>Node44&#45;&gt;Node45</title>
 <path fill="none" stroke="midnightblue" d="M784.78,-528.47C836.2,-531.01 920.74,-536.37 993,-546.5 1006.36,-548.37 1020.63,-550.94 1034.04,-553.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1033.61,-557.09 1044.11,-555.66 1035.01,-550.23 1033.61,-557.09"/>
 </g>
-<!-- Node47 -->
+<!-- Node46 -->
 <g id="node39" class="node">
-<title>Node47</title>
+<title>Node46</title>
 <g id="a_node39"><a xlink:href="classflow_1_1net__flow_1_1Port__space.html#ac43e4303aac2bde697b99bf03901ec85" target="_top" xlink:title="Returns true if and only if the given port is a service port (as opposed to ephemeral or S_PORT_ANY).">
 <polygon fill="white" stroke="black" points="861.5,-555.5 861.5,-581.5 972.5,-581.5 972.5,-555.5 861.5,-555.5"/>
 <text text-anchor="start" x="869.5" y="-571.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Port</text>
@@ -866,21 +866,21 @@
 </a>
 </g>
 </g>
-<!-- Node45&#45;&gt;Node47 -->
+<!-- Node44&#45;&gt;Node46 -->
 <g id="edge46" class="edge">
-<title>Node45&#45;&gt;Node47</title>
+<title>Node44&#45;&gt;Node46</title>
 <path fill="none" stroke="midnightblue" d="M784.87,-537.64C805.29,-542.45 829.49,-548.15 851.51,-553.33"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="850.92,-556.78 861.46,-555.67 852.52,-549.97 850.92,-556.78"/>
 </g>
-<!-- Node47&#45;&gt;Node46 -->
+<!-- Node46&#45;&gt;Node45 -->
 <g id="edge47" class="edge">
-<title>Node47&#45;&gt;Node46</title>
+<title>Node46&#45;&gt;Node45</title>
 <path fill="none" stroke="midnightblue" d="M972.9,-567.87C992.43,-567.64 1014.46,-567.39 1034.18,-567.16"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1034.3,-570.66 1044.26,-567.04 1034.22,-563.66 1034.3,-570.66"/>
 </g>
-<!-- Node50 -->
+<!-- Node49 -->
 <g id="node42" class="node">
-<title>Node50</title>
+<title>Node49</title>
 <g id="a_node42"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a1d5f13062bec6730db533cc1e89bf515" target="_top" xlink:title="Helper that clears all non&#45;O(1)&#45;space data structures stored inside sock.">
 <polygon fill="white" stroke="black" points="866.5,-426.5 866.5,-452.5 967.5,-452.5 967.5,-426.5 866.5,-426.5"/>
 <text text-anchor="start" x="874.5" y="-442.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -888,27 +888,27 @@
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node50 -->
+<!-- Node48&#45;&gt;Node49 -->
 <g id="edge50" class="edge">
-<title>Node49&#45;&gt;Node50</title>
+<title>Node48&#45;&gt;Node49</title>
 <path fill="none" stroke="midnightblue" d="M793,-410.56C813.14,-415.3 835.97,-420.67 856.45,-425.49"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="855.75,-428.92 866.29,-427.8 857.35,-422.11 855.75,-428.92"/>
 </g>
-<!-- Node49&#45;&gt;Node51 -->
+<!-- Node48&#45;&gt;Node50 -->
 <g id="edge51" class="edge">
-<title>Node49&#45;&gt;Node51</title>
+<title>Node48&#45;&gt;Node50</title>
 <path fill="none" stroke="midnightblue" d="M805.24,-396.36C821.9,-396.08 839.63,-395.78 855.91,-395.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="856.43,-399 866.37,-395.33 856.31,-392 856.43,-399"/>
 </g>
-<!-- Node52&#45;&gt;Node50 -->
+<!-- Node51&#45;&gt;Node49 -->
 <g id="edge53" class="edge">
-<title>Node52&#45;&gt;Node50</title>
+<title>Node51&#45;&gt;Node49</title>
 <path fill="none" stroke="midnightblue" d="M802.19,-441.41C819.88,-441.12 838.95,-440.79 856.34,-440.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="856.42,-444 866.36,-440.33 856.3,-437 856.42,-444"/>
 </g>
-<!-- Node52&#45;&gt;Node51 -->
+<!-- Node51&#45;&gt;Node50 -->
 <g id="edge54" class="edge">
-<title>Node52&#45;&gt;Node51</title>
+<title>Node51&#45;&gt;Node50</title>
 <path fill="none" stroke="midnightblue" d="M786.28,-429.38C808.4,-423.43 834.74,-416.35 857.89,-410.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="858.84,-413.49 867.59,-407.52 857.03,-406.73 858.84,-413.49"/>
 </g>
@@ -921,15 +921,15 @@
 </a>
 </g>
 </g>
-<!-- Node53&#45;&gt;Node37 -->
+<!-- Node52&#45;&gt;Node37 -->
 <g id="edge56" class="edge">
-<title>Node53&#45;&gt;Node37</title>
+<title>Node52&#45;&gt;Node37</title>
 <path fill="none" stroke="midnightblue" d="M972.42,-482.93C988.22,-482.48 1005.69,-481.97 1022.27,-481.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1022.56,-484.99 1032.46,-481.2 1022.36,-477.99 1022.56,-484.99"/>
 </g>
-<!-- Node54 -->
+<!-- Node53 -->
 <g id="node47" class="node">
-<title>Node54</title>
+<title>Node53</title>
 <g id="a_node47"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ac397d3fd163f1456b7bb370a3cff951c" target="_top" xlink:title="Computes and returns the currently correct rcv_wnd value; that is the amount of space free in Receive...">
 <polygon fill="white" stroke="black" points="1042,-507.5 1042,-533.5 1143,-533.5 1143,-507.5 1042,-507.5"/>
 <text text-anchor="start" x="1050" y="-523.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -937,21 +937,21 @@
 </a>
 </g>
 </g>
-<!-- Node53&#45;&gt;Node54 -->
+<!-- Node52&#45;&gt;Node53 -->
 <g id="edge57" class="edge">
-<title>Node53&#45;&gt;Node54</title>
+<title>Node52&#45;&gt;Node53</title>
 <path fill="none" stroke="midnightblue" d="M972.42,-495.79C991.38,-499.73 1012.74,-504.16 1032.08,-508.17"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1031.48,-511.62 1041.99,-510.23 1032.9,-504.77 1031.48,-511.62"/>
 </g>
-<!-- Node55&#45;&gt;Node53 -->
+<!-- Node54&#45;&gt;Node52 -->
 <g id="edge68" class="edge">
-<title>Node55&#45;&gt;Node53</title>
+<title>Node54&#45;&gt;Node52</title>
 <path fill="none" stroke="midnightblue" d="M782.31,-558.39C789.99,-555.73 797.81,-552.73 805,-549.5 834.54,-536.22 866.23,-517.13 888.16,-503.07"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="890.15,-505.95 896.63,-497.57 886.34,-500.08 890.15,-505.95"/>
 </g>
-<!-- Node56 -->
+<!-- Node55 -->
 <g id="node49" class="node">
-<title>Node56</title>
+<title>Node55</title>
 <g id="a_node49"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ac2fdb686165aae42f474cc655fca80c0" target="_top" xlink:title="Logs TRACE or DATA messages that show the detailed state of the receiving sequence number space.">
 <polygon fill="white" stroke="black" points="866.5,-684.5 866.5,-710.5 967.5,-710.5 967.5,-684.5 866.5,-684.5"/>
 <text text-anchor="start" x="874.5" y="-700.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -959,15 +959,15 @@
 </a>
 </g>
 </g>
-<!-- Node55&#45;&gt;Node56 -->
+<!-- Node54&#45;&gt;Node55 -->
 <g id="edge59" class="edge">
-<title>Node55&#45;&gt;Node56</title>
+<title>Node54&#45;&gt;Node55</title>
 <path fill="none" stroke="midnightblue" d="M786.21,-584.56C792.8,-587.32 799.26,-590.61 805,-594.5 825.36,-608.29 823.39,-619.34 841,-636.5 856.27,-651.38 874.86,-666.52 889.71,-677.99"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="887.9,-681.01 897.97,-684.29 892.14,-675.44 887.9,-681.01"/>
 </g>
-<!-- Node57 -->
+<!-- Node56 -->
 <g id="node50" class="node">
-<title>Node57</title>
+<title>Node56</title>
 <g id="a_node50"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a24785d3e04e0a9cd5daca43bc867e5aa" target="_top" xlink:title="Logs TRACE or DATA messages thats show the detailed state of the sending sequence number space.">
 <polygon fill="white" stroke="black" points="866.5,-600.5 866.5,-626.5 967.5,-626.5 967.5,-600.5 866.5,-600.5"/>
 <text text-anchor="start" x="874.5" y="-616.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -975,51 +975,51 @@
 </a>
 </g>
 </g>
-<!-- Node55&#45;&gt;Node57 -->
+<!-- Node54&#45;&gt;Node56 -->
 <g id="edge63" class="edge">
-<title>Node55&#45;&gt;Node57</title>
+<title>Node54&#45;&gt;Node56</title>
 <path fill="none" stroke="midnightblue" d="M787.22,-583.2C808.7,-588.25 834,-594.21 856.47,-599.49"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="855.7,-602.91 866.24,-601.79 857.3,-596.09 855.7,-602.91"/>
 </g>
-<!-- Node56&#45;&gt;Node3 -->
+<!-- Node55&#45;&gt;Node3 -->
 <g id="edge61" class="edge">
-<title>Node56&#45;&gt;Node3</title>
+<title>Node55&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M967.72,-709.54C986.74,-714.14 1008.67,-719.45 1028.75,-724.31"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1028.2,-727.78 1038.75,-726.73 1029.85,-720.98 1028.2,-727.78"/>
 </g>
-<!-- Node56&#45;&gt;Node10 -->
+<!-- Node55&#45;&gt;Node10 -->
 <g id="edge62" class="edge">
-<title>Node56&#45;&gt;Node10</title>
+<title>Node55&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M937.83,-710.68C959.56,-724.75 995.77,-747.1 1029,-762.5 1032.87,-764.3 1036.94,-766.03 1041.06,-767.69"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1040.11,-771.08 1050.7,-771.41 1042.63,-764.55 1040.11,-771.08"/>
 </g>
-<!-- Node56&#45;&gt;Node18 -->
+<!-- Node55&#45;&gt;Node18 -->
 <g id="edge60" class="edge">
-<title>Node56&#45;&gt;Node18</title>
+<title>Node55&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M967.72,-685.46C986.74,-680.86 1008.67,-675.55 1028.75,-670.69"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1029.85,-674.02 1038.75,-668.27 1028.2,-667.22 1029.85,-674.02"/>
 </g>
-<!-- Node57&#45;&gt;Node3 -->
+<!-- Node56&#45;&gt;Node3 -->
 <g id="edge65" class="edge">
-<title>Node57&#45;&gt;Node3</title>
+<title>Node56&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M935.91,-626.51C966.56,-648.77 1029.21,-694.26 1064.95,-720.22"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1063.28,-723.33 1073.42,-726.37 1067.39,-717.66 1063.28,-723.33"/>
 </g>
-<!-- Node57&#45;&gt;Node10 -->
+<!-- Node56&#45;&gt;Node10 -->
 <g id="edge66" class="edge">
-<title>Node57&#45;&gt;Node10</title>
+<title>Node56&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M938.85,-626.56C955.4,-637.81 978.15,-655.39 993,-675.5 1017.86,-709.16 998.62,-733.72 1029,-762.5 1031.54,-764.91 1034.36,-767.05 1037.36,-768.96"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1035.72,-772.06 1046.18,-773.76 1039.07,-765.91 1035.72,-772.06"/>
 </g>
-<!-- Node57&#45;&gt;Node18 -->
+<!-- Node56&#45;&gt;Node18 -->
 <g id="edge64" class="edge">
-<title>Node57&#45;&gt;Node18</title>
+<title>Node56&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M967.72,-625.54C986.74,-630.14 1008.67,-635.45 1028.75,-640.31"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1028.2,-643.78 1038.75,-642.73 1029.85,-636.98 1028.2,-643.78"/>
 </g>
-<!-- Node57&#45;&gt;Node27 -->
+<!-- Node56&#45;&gt;Node27 -->
 <g id="edge67" class="edge">
-<title>Node57&#45;&gt;Node27</title>
+<title>Node56&#45;&gt;Node27</title>
 <path fill="none" stroke="midnightblue" d="M967.53,-606.67C976.96,-603.38 986.05,-598.56 993,-591.5 1035.07,-548.79 989.01,-506.17 1029,-461.5 1031.05,-459.21 1033.33,-457.13 1035.78,-455.24"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1038.16,-457.87 1044.66,-449.51 1034.36,-451.99 1038.16,-457.87"/>
 </g>
@@ -1035,9 +1035,9 @@
 <path fill="none" stroke="midnightblue" d="M246.58,-457.58C270.03,-466.84 301.99,-479.48 329.09,-490.19"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="327.87,-493.47 338.45,-493.89 330.44,-486.96 327.87,-493.47"/>
 </g>
-<!-- Node60&#45;&gt;Node42 -->
+<!-- Node60&#45;&gt;Node58 -->
 <g id="edge81" class="edge">
-<title>Node60&#45;&gt;Node42</title>
+<title>Node60&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M263,-433.88C280.93,-430.14 301.35,-426 320,-422.5 446.35,-398.81 595.03,-374.66 675.84,-361.84"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="676.5,-365.28 685.83,-360.26 675.4,-358.37 676.5,-365.28"/>
 </g>

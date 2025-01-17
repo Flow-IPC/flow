@@ -1,4 +1,4 @@
 <map id="flow::net_flow::Peer_socket::sync_send" name="flow::net_flow::Peer_socket::sync_send">
 <area shape="rect" id="node1" title="Blocking (synchronous) version of send()." alt="" coords="183,5,312,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a7d1f3d07ec71e46ff8f4c4d1bbc44079" title="Equivalent to sync_send(null_buffers(), duration::max(), err_code); i.e., sync_send(null_buffers) wit..." alt="" coords="5,5,135,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a94f1e498fdd2349075ee5bcd7906d308" title="Equivalent to sync_send(nullptr, duration::max(), err_code); i.e., sync_send(nullptr_t) with no timeo..." alt="" coords="5,5,135,41"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="flow::net_flow::Node::max_block_size" name="flow::net_flow::Node::max_block_size">
 <area shape="rect" id="node1" title="The maximum number of bytes of user data per received or sent block on connections generated from thi..." alt="" coords="820,36,955,72"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a81e50276d0b162f6577adc690e0ef9e0" title="Sends a low&#45;level ACK packet, with all accumulated in Peer_socket::m_rcv_pending_acks of sock individ..." alt="" coords="613,5,772,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a6524cbac013de26f46784b9a2823e5af" title="Sends a low&#45;level ACK packet, with all accumulated in Peer_socket::m_rcv_pending_acks of sock individ..." alt="" coords="613,5,772,41"/>
 <area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a1699dfdaf3e5ebe1b1d715a9c306d116" title="Handles a just&#45;received, not&#45;yet&#45;deserialized low&#45;level packet." alt="" coords="625,65,760,101"/>
 <area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a4368247d07e930bdd07ab8d2425c6de8" title="Sets up handle_incoming(packet_data, low_lvl_remote_endpoint) to be called asynchronously after a spe..." alt="" coords="415,29,565,77"/>
 <area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Node.html#a90ecbad1ff3a8d2fe4b3ad1c474f7513" title="Helper for low_lvl_recv_and_handle() that calls handle_incoming() on the not&#45;yet&#45;deserialized low&#45;lev..." alt="" coords="216,59,367,107"/>

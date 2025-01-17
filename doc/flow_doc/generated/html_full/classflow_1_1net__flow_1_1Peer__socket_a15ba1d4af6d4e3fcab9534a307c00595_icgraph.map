@@ -1,4 +1,4 @@
 <map id="flow::net_flow::Peer_socket::sync_send_reactor_pattern_impl" name="flow::net_flow::Peer_socket::sync_send_reactor_pattern_impl">
-<area shape="rect" id="node1" title="Helper similar to sync_send_impl() but for the null_buffers versions of sync_send()." alt="" coords="183,29,355,77"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a28cb6fc51585c9fa2bf2f152675615a1" title="sync_send() operating in null_buffers mode, wherein – if Writable state is reached – the actual data ..." alt="" coords="5,35,135,71"/>
+<area shape="rect" id="node1" title="Helper similar to sync_send_impl() but for the nullptr_t versions of sync_send()." alt="" coords="183,29,355,77"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa4c4e5917d693efdf4701962bdc35a0f" title="sync_send() operating in nullptr_t mode, wherein – if Writable state is reached – the actual data are..." alt="" coords="5,35,135,71"/>
 </map>

@@ -1,8 +1,7 @@
 <map id="flow::net_flow::Drop_timer::start_timer" name="flow::net_flow::Drop_timer::start_timer">
-<area shape="rect" id="node1" title="Starts a new wait on the timer, so that is it asynchronously triggered according to the current DTO v..." alt="" coords="5,132,136,168"/>
+<area shape="rect" id="node1" title="Starts a new wait on the timer, so that is it asynchronously triggered according to the current DTO v..." alt="" coords="5,99,136,135"/>
 <area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="184,5,327,41"/>
 <area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="184,65,327,101"/>
 <area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Drop__timer.html#aaf4f0fce1d41e16309beca40a126e2f0" title="Called by boost.asio when the Drop Timer fires; disables timer and calls an outside action callback (..." alt="" coords="188,126,323,174"/>
 <area shape="rect" id="node5" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="194,199,317,235"/>
-<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Drop__timer.html#a40029643f0a6c7a2a6b20499ca4c5a67" title="Called by boost.asio after we post it, in the event of some timer error." alt="" coords="190,259,321,295"/>
 </map>

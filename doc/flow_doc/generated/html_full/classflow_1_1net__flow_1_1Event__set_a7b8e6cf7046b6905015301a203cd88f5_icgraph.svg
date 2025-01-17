@@ -35,12 +35,6 @@
 <path fill="none" stroke="midnightblue" d="M595.71,-126.5C587.24,-126.5 578.61,-126.5 570.36,-126.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="595.93,-130 605.93,-126.5 595.93,-123 595.93,-130"/>
 </g>
-<!-- Node2&#45;&gt;Node2 -->
-<g id="edge4" class="edge">
-<title>Node2&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M543.98,-149.94C541.26,-154.64 533.1,-158 519.5,-158 497.19,-158 489.52,-148.96 496.49,-139.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="547.4,-149.17 542.51,-139.77 540.47,-150.17 547.4,-149.17"/>
-</g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
@@ -68,7 +62,7 @@
 </g>
 </g>
 <!-- Node2&#45;&gt;Node4 -->
-<g id="edge5" class="edge">
+<g id="edge4" class="edge">
 <title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M459.07,-116.82C450.52,-115.42 441.79,-114 433.45,-112.64"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="458.56,-120.28 469,-118.43 459.69,-113.37 458.56,-120.28"/>
@@ -90,7 +84,7 @@
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
-<g id="edge6" class="edge">
+<g id="edge5" class="edge">
 <title>Node4&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M343.52,-121.87C339.62,-123.74 335.72,-125.64 332,-127.5 305.25,-140.89 275.09,-157.27 254.85,-168.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="345.02,-125.03 352.57,-117.6 342.04,-118.7 345.02,-125.03"/>
@@ -106,7 +100,7 @@
 </g>
 </g>
 <!-- Node4&#45;&gt;Node10 -->
-<g id="edge10" class="edge">
+<g id="edge9" class="edge">
 <title>Node4&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M321.67,-104.5C311.62,-104.5 301.2,-104.5 291.16,-104.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="321.97,-108 331.97,-104.5 321.97,-101 321.97,-108"/>
@@ -122,7 +116,7 @@
 </g>
 </g>
 <!-- Node4&#45;&gt;Node15 -->
-<g id="edge14" class="edge">
+<g id="edge13" class="edge">
 <title>Node4&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M346.82,-86.7C319.42,-72.63 281.79,-53.31 257.07,-40.63"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="345.56,-89.98 356.05,-91.44 348.76,-83.76 345.56,-89.98"/>
@@ -138,7 +132,7 @@
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
-<g id="edge7" class="edge">
+<g id="edge6" class="edge">
 <title>Node5&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M192.44,-198.88C173.59,-207.52 150.23,-217.92 129,-226.5 120.63,-229.88 111.55,-233.31 102.94,-236.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="193.96,-202.03 201.58,-194.67 191.03,-195.67 193.96,-202.03"/>
@@ -146,7 +140,7 @@
 <!-- Node8 -->
 <g id="node7" class="node">
 <title>Node8</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1a2eccfa314a397c12259f414ef6798c" target="_top" xlink:title="Helper similar to sync_receive_impl() but for the null_buffers versions of sync_receive().">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1a2eccfa314a397c12259f414ef6798c" target="_top" xlink:title="Helper similar to sync_receive_impl() but for the nullptr_t versions of sync_receive().">
 <polygon fill="white" stroke="red" points="11.5,-164 11.5,-199 117.5,-199 117.5,-164 11.5,-164"/>
 <text text-anchor="start" x="19.5" y="-188.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="start" x="19.5" y="-179.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>
@@ -155,13 +149,13 @@
 </g>
 </g>
 <!-- Node5&#45;&gt;Node8 -->
-<g id="edge8" class="edge">
+<g id="edge7" class="edge">
 <title>Node5&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M154.36,-181.5C141.98,-181.5 129.39,-181.5 117.74,-181.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="154.68,-185 164.68,-181.5 154.68,-178 154.68,-185"/>
 </g>
 <!-- Node8&#45;&gt;Node8 -->
-<g id="edge9" class="edge">
+<g id="edge8" class="edge">
 <title>Node8&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M93.41,-209.6C89.35,-214.27 79.71,-217.5 64.5,-217.5 39.54,-217.5 29.59,-208.81 34.66,-199.28"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="96.93,-209.56 94.34,-199.28 89.96,-208.93 96.93,-209.56"/>
@@ -177,7 +171,7 @@
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
-<g id="edge11" class="edge">
+<g id="edge10" class="edge">
 <title>Node10&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M159.72,-115.99C147.55,-117.99 135.01,-120.06 123.21,-122"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="160.53,-119.4 169.83,-114.32 159.39,-112.5 160.53,-119.4"/>
@@ -185,7 +179,7 @@
 <!-- Node13 -->
 <g id="node10" class="node">
 <title>Node13</title>
-<g id="a_node10"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" target="_top" xlink:title="Helper similar to sync_send_impl() but for the null_buffers versions of sync_send().">
+<g id="a_node10"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" target="_top" xlink:title="Helper similar to sync_send_impl() but for the nullptr_t versions of sync_send().">
 <polygon fill="white" stroke="red" points="0,-46 0,-81 129,-81 129,-46 0,-46"/>
 <text text-anchor="start" x="8" y="-70.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="start" x="8" y="-61.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_send_reactor</text>
@@ -194,19 +188,19 @@
 </g>
 </g>
 <!-- Node10&#45;&gt;Node13 -->
-<g id="edge12" class="edge">
+<g id="edge11" class="edge">
 <title>Node10&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M167.3,-88.95C154.81,-85.83 141.66,-82.54 129.11,-79.4"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="166.61,-92.38 177.16,-91.41 168.31,-85.59 166.61,-92.38"/>
 </g>
 <!-- Node13&#45;&gt;Node13 -->
-<g id="edge13" class="edge">
+<g id="edge12" class="edge">
 <title>Node13&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M93.41,-91.6C89.35,-96.27 79.71,-99.5 64.5,-99.5 39.54,-99.5 29.59,-90.81 34.66,-81.28"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="96.93,-91.56 94.34,-81.28 89.96,-90.93 96.93,-91.56"/>
 </g>
 <!-- Node15&#45;&gt;Node15 -->
-<g id="edge16" class="edge">
+<g id="edge15" class="edge">
 <title>Node15&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M257.86,-50.94C254.82,-55.64 245.7,-59 230.5,-59 205.56,-59 196.99,-49.96 204.78,-40.77"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="261.27,-50.09 256.22,-40.77 254.35,-51.2 261.27,-50.09"/>
@@ -222,7 +216,7 @@
 </g>
 </g>
 <!-- Node15&#45;&gt;Node16 -->
-<g id="edge15" class="edge">
+<g id="edge14" class="edge">
 <title>Node15&#45;&gt;Node16</title>
 <path fill="none" stroke="midnightblue" d="M157.65,-21.37C144.03,-20.2 130.03,-19.01 117.19,-17.91"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="157.7,-24.88 167.97,-22.25 158.3,-17.91 157.7,-24.88"/>

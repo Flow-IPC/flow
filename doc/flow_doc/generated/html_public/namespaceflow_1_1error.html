@@ -87,7 +87,7 @@ Classes</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:aa3708bdd4ceb1a6c801f3d4a1fc10f6d"><td class="memTemplParams" colspan="2">template&lt;typename Func , typename Ret &gt; </td></tr>
 <tr class="memitem:aa3708bdd4ceb1a6c801f3d4a1fc10f6d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1error.html#aa3708bdd4ceb1a6c801f3d4a1fc10f6d">exec_and_throw_on_error</a> (const Func &amp;func, Ret *ret, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> context)</td></tr>
-<tr class="memdesc:aa3708bdd4ceb1a6c801f3d4a1fc10f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> macro that does everything in the latter not needing a preprocessor.  <a href="namespaceflow_1_1error.html#aa3708bdd4ceb1a6c801f3d4a1fc10f6d">More...</a><br /></td></tr>
+<tr class="memdesc:aa3708bdd4ceb1a6c801f3d4a1fc10f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for <a class="el" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> macro that does everything in the latter not needing a preprocessor.  <a href="namespaceflow_1_1error.html#aa3708bdd4ceb1a6c801f3d4a1fc10f6d">More...</a><br /></td></tr>
 <tr class="separator:aa3708bdd4ceb1a6c801f3d4a1fc10f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48afa7f8c2e100acd461365dfb00a114"><td class="memTemplParams" colspan="2">template&lt;typename Func &gt; </td></tr>
 <tr class="memitem:a48afa7f8c2e100acd461365dfb00a114"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1error.html#a48afa7f8c2e100acd461365dfb00a114">exec_void_and_throw_on_error</a> (const Func &amp;func, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> context)</td></tr>
@@ -140,15 +140,15 @@ template&lt;typename Func , typename Ret &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Helper for <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> macro that does everything in the latter not needing a preprocessor. </p>
+<p>Helper for <a class="el" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> macro that does everything in the latter not needing a preprocessor. </p>
 <p >Probably not to be called except by that macro.</p>
-<p >This function is the meat of it. I omit details, since they are explained in <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> doc header. The present function does what is described therein &ndash; except for preprocessor-requiring actions:</p>
+<p >This function is the meat of it. I omit details, since they are explained in <a class="el" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a> doc header. The present function does what is described therein &ndash; except for preprocessor-requiring actions:</p>
 <p >Preprocessor is needed to (1) supply halfway-decent "context" (file/line #/etc.) info to the exception object; and (2) to trigger the invoker of the macro (the actual user-facing API or very close to it) to return XYZ to <em>its</em> caller (user code or very close to it). So this function cannot do that, but instead it respectively (1) takes the context string as an argument; and (2) returns <code>true</code> if and only if the invoker of the macro should in fact immediately return the value <code>*ret</code>, where <code>ret</code> is an "out" argument to the present function.</p>
 <dl class="section note"><dt>Note</dt><dd>ATTENTION! This is a (rare) case where documentation is more complicated than just looking at the implementation. This embarrassingly verbose doc header is sort of a pedantic formality in this particular (rare) case and is probably not worth reading for most people. </dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Func</td><td>Any type such that given an instance <code>Func f</code>, the expression <code>r = f(&amp;e_c)</code> is valid, assuming <code>e_c</code> is an <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a>, and <code>r</code> is a <code>Ret</code>. In practice, this is usually the insane type of whatever concoction lambda or <code>bind()</code> conjures out of a plain, hard-working method like Peer_socket::send() and a bunch of innocent, API user-originated arguments thereto. </td></tr>
-    <tr><td class="paramname">Ret</td><td>The return type of the operation <code>func()</code>. Should equal <code>ARG_ret_type</code> of <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a>. </td></tr>
+    <tr><td class="paramname">Ret</td><td>The return type of the operation <code>func()</code>. Should equal <code>ARG_ret_type</code> of <a class="el" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -222,7 +222,7 @@ template&lt;typename Func &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:42 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

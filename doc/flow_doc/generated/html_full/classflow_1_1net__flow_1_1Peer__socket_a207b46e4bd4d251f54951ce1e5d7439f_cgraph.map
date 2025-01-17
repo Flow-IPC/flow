@@ -1,0 +1,13 @@
+<map id="flow::net_flow::Peer_socket::sync_receive" name="flow::net_flow::Peer_socket::sync_receive">
+<area shape="rect" id="node1" title="Equivalent to sync_receive(nullptr, duration::max(), err_code); i.e., sync_receive(nullptr_t) with no..." alt="" coords="5,63,147,99"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive()." alt="" coords="195,63,336,99"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a5488415feb5570a6551892a7bdfeeec4" title="Helper that takes a non&#45;negative duration of arbitrary precision/period and converts it to Fine_durat..." alt="" coords="395,23,542,71"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket.html#ad29f61b9885b10ddc3846cdae0560518" title="Same as sync_receive() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation..." alt="" coords="384,96,553,132"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Socket__buffer.html#af60133c1d6825246b54f10f26810cd88" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s..." alt="" coords="601,36,779,72"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#a8abde92d5189bf2a058fe8741789f814" title="This is to sync_receive() as node_receive() is to receive()." alt="" coords="603,125,777,161"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="837,5,952,41"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Node.html#a109a118ca312e94686595ea08dac7ad0" title="Helper method that checks whether the given Peer_socket or Server_socket is CLOSED; if so,..." alt="" coords="827,65,962,101"/>
+<area shape="rect" id="node9" href="$classflow_1_1net__flow_1_1Peer__socket.html#a5003c554807f5b5b58989ad58be48d42" title="Constructs object; initializes most values to well&#45;defined (0, empty, etc.) but not necessarily meani..." alt="" coords="827,125,963,161"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1Node.html#addbb96858fd7b3c9ddd7c6fe8078809c" title="Implementation of non&#45;blocking sock&#45;&gt;receive() for socket sock in all cases except when sock&#45;&gt;state()..." alt="" coords="827,185,962,221"/>
+<area shape="rect" id="node11" href="$classflow_1_1net__flow_1_1Node.html#a2a4dc3d8e294bbc8423e111f52e414ae" title="Implementation of core blocking transfer methods, namely Peer_socket::sync_send(),..." alt="" coords="827,245,962,281"/>
+</map>

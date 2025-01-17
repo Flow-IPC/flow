@@ -40,7 +40,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke...">
+<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::...">
 <polygon fill="white" stroke="black" points="154,-181 154,-216 255,-216 255,-181 154,-181"/>
 <text text-anchor="start" x="162" y="-205.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="start" x="162" y="-196.6" font-family="Helvetica,sans-Serif" font-size="8.00">::Peer_socket::async</text>
@@ -57,7 +57,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::...">
 <polygon fill="white" stroke="black" points="142,-135.5 142,-161.5 267,-161.5 267,-135.5 142,-135.5"/>
 <text text-anchor="start" x="150" y="-151.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="middle" x="204.5" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Peer_socket::async_send</text>
@@ -121,7 +121,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a4429aead81514f99e3120a0b96667cb5" target="_top" xlink:title="Equivalent to sync_receive(null_buffers(), duration::max(), err_code); i.e., sync_receive(null_buffer...">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a207b46e4bd4d251f54951ce1e5d7439f" target="_top" xlink:title="Equivalent to sync_receive(nullptr, duration::max(), err_code); i.e., sync_receive(nullptr_t) with no...">
 <polygon fill="white" stroke="black" points="0,-45.5 0,-71.5 106,-71.5 106,-45.5 0,-45.5"/>
 <text text-anchor="start" x="8" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>
@@ -137,7 +137,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a7d1f3d07ec71e46ff8f4c4d1bbc44079" target="_top" xlink:title="Equivalent to sync_send(null_buffers(), duration::max(), err_code); i.e., sync_send(null_buffers) wit...">
+<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a94f1e498fdd2349075ee5bcd7906d308" target="_top" xlink:title="Equivalent to sync_send(nullptr, duration::max(), err_code); i.e., sync_send(nullptr_t) with no timeo...">
 <polygon fill="white" stroke="black" points="4.5,-0.5 4.5,-26.5 101.5,-26.5 101.5,-0.5 4.5,-0.5"/>
 <text text-anchor="start" x="12.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_send</text>

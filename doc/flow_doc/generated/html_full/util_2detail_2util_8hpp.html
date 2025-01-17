@@ -244,7 +244,7 @@ Functions</h2></td></tr>
 <p >(<code>constexpr</code> sweetness can be used for an otherwise compile-time-determined value; but we promised a literal here. <code>constexpr</code>ness is outside our scope. Though perhaps see <a class="el" href="util_2detail_2util_8hpp.html#aa0a4409a31022ddcb1a30936f59bbc69" title="Helper macro, same as FLOW_UTIL_WHERE_AM_I(), but takes the source location details as arguments inst...">FLOW_UTIL_WHERE_AM_I_FROM_ARGS()</a> for that.)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ARG_function</td><td>Informally this is something akin to <code>ARG_function</code> to <a class="el" href="error_2error_8hpp.html#a224db72c60a916b968e65706641bd279" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a>. Formally this can be anything; it will be stringified via <code>#ARG_function</code> and output as the function name. (Do not attempt to pass here the name of a string-typed variable; that probably won't do what you want. E.g., if you invoke <code><a class="el" href="util_2detail_2util_8hpp.html#a03c693936e039ffd16a3511050496a66" title="Helper macro: like FLOW_UTIL_WHERE_AM_I(), with a major relative strength – its replacement is a stri...">FLOW_UTIL_WHERE_AM_I_LITERAL(func_name)</a></code>, and <code>func_name</code> is an <code>std::string</code> with a function name, then the macro replacement will be <code>"/some/file.cpp:func_name(332)"</code> &ndash; without <code>func_name</code> getting replaced by the contents of your <code>func_name</code> variable or whatever.) </td></tr>
+    <tr><td class="paramname">ARG_function</td><td>Informally this is something akin to <code>ARG_function</code> to <a class="el" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5" title="Narrow-use macro that implements the error code/exception semantics expected of most public-facing Fl...">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()</a>. Formally this can be anything; it will be stringified via <code>#ARG_function</code> and output as the function name. (Do not attempt to pass here the name of a string-typed variable; that probably won't do what you want. E.g., if you invoke <code><a class="el" href="util_2detail_2util_8hpp.html#a03c693936e039ffd16a3511050496a66" title="Helper macro: like FLOW_UTIL_WHERE_AM_I(), with a major relative strength – its replacement is a stri...">FLOW_UTIL_WHERE_AM_I_LITERAL(func_name)</a></code>, and <code>func_name</code> is an <code>std::string</code> with a function name, then the macro replacement will be <code>"/some/file.cpp:func_name(332)"</code> &ndash; without <code>func_name</code> getting replaced by the contents of your <code>func_name</code> variable or whatever.) </td></tr>
   </table>
   </dd>
 </dl>
@@ -337,7 +337,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:44 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a98186f8257f1f7b49dbbbc13c0dda7fe" target="_top" xlink:title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::...">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-35.5 101,-35.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Peer_socket::async</text>

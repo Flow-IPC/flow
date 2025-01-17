@@ -38,7 +38,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" target="_top" xlink:title="Helper similar to sync_send_impl() but for the null_buffers versions of sync_send().">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a15ba1d4af6d4e3fcab9534a307c00595" target="_top" xlink:title="Helper similar to sync_send_impl() but for the nullptr_t versions of sync_send().">
 <polygon fill="white" stroke="black" points="133,-0.5 133,-35.5 262,-35.5 262,-0.5 133,-0.5"/>
 <text text-anchor="start" x="141" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="start" x="141" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_send_reactor</text>
@@ -77,7 +77,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a28cb6fc51585c9fa2bf2f152675615a1" target="_top" xlink:title="sync_send() operating in null_buffers mode, wherein – if Writable state is reached – the actual data ...">
+<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aa4c4e5917d693efdf4701962bdc35a0f" target="_top" xlink:title="sync_send() operating in nullptr_t mode, wherein – if Writable state is reached – the actual data are...">
 <polygon fill="white" stroke="black" points="0,-5 0,-31 97,-31 97,-5 0,-5"/>
 <text text-anchor="start" x="8" y="-20.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="48.5" y="-11.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_send</text>

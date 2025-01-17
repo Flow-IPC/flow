@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a4429aead81514f99e3120a0b96667cb5" target="_top" xlink:title="Equivalent to sync_receive(null_buffers(), duration::max(), err_code); i.e., sync_receive(null_buffer...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a207b46e4bd4d251f54951ce1e5d7439f" target="_top" xlink:title="Equivalent to sync_receive(nullptr, duration::max(), err_code); i.e., sync_receive(nullptr_t) with no...">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 106,-26.5 106,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>

@@ -132,7 +132,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p >Metadata (and data, if retransmission is on) for a packet that has been received (and, if retransmission is off, copied to Receive buffer). </p>
 <p >This is purely a data store, not a class. It is not copyable, and moving them around by smart <a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc" title="Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).">Received_packet::Ptr</a> is encouraged. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02338">2338</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02334">2334</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9f0809d5dd7272e31f4111ee2be97330" name="a9f0809d5dd7272e31f4111ee2be97330"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9f0809d5dd7272e31f4111ee2be97330">&#9670;&nbsp;</a></span>Received_packet()</h2>
@@ -184,9 +184,9 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00451">451</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8cpp_source.html#l00441">441</a> of file <a class="el" href="peer__socket_8cpp_source.html">peer_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02354">m_data</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02346">m_size</a>.</p>
+<p class="reference">References <a class="el" href="peer__socket_8hpp_source.html#l02350">m_data</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02342">m_size</a>.</p>
 
 </div>
 </div>
@@ -206,9 +206,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Byte sequence equal to that of <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">Data_packet::m_data</a> of the packet. </p>
 <p >Kept <code>empty()</code> if retransmission is off, since in that mode any received packet's <code>m_data</code> is immediately moved to Receive buffer. With retransmission on, it is stored until all gaps before the packet are filled (a/k/a reassembly). </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02354">2354</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02350">2350</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00451">Received_packet()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01471">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00441">Received_packet()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01456">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
 
 </div>
 </div>
@@ -226,9 +226,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Number of bytes in the <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ad76ae289cd958d62bb5cd29b9f9e894d" title="The payload.">Data_packet::m_data</a> field of that packet. </p>
 
-<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02346">2346</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="peer__socket_8hpp_source.html#l02342">2342</a> of file <a class="el" href="peer__socket_8hpp_source.html">peer_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00451">Received_packet()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01471">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00441">Received_packet()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01456">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
 
 </div>
 </div>
@@ -239,7 +239,7 @@ Additional Inherited Members</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

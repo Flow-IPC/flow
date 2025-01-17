@@ -167,14 +167,14 @@ Private Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a68550b62b7d5575a47ccb60204942930"><td class="memTemplParams" colspan="2">template&lt;typename Const_buffer_sequence &gt; </td></tr>
-<tr class="memitem:a68550b62b7d5575a47ccb60204942930"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930">copy_bytes_from_buf_seq</a> (typename Const_buffer_sequence::const_iterator *cur_buf_it, size_t *pos_in_buf, size_t to_copy, <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">util::Blob</a> *dest_buf, util::Blob::Iterator dest)</td></tr>
-<tr class="memdesc:a68550b62b7d5575a47ccb60204942930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that copies, to a given raw memory buffer, a given number of bytes from a given <code>Const_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence.  <a href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930">More...</a><br /></td></tr>
-<tr class="separator:a68550b62b7d5575a47ccb60204942930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d41f38322c26d9500ff76df8c255db3"><td class="memTemplParams" colspan="2">template&lt;typename Mutable_buffer_sequence &gt; </td></tr>
-<tr class="memitem:a9d41f38322c26d9500ff76df8c255db3"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a9d41f38322c26d9500ff76df8c255db3">copy_bytes_to_buf_seq</a> (typename Mutable_buffer_sequence::const_iterator *cur_buf_it, size_t *pos_in_buf, size_t to_copy, const <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">util::Blob</a> &amp;src_buf, util::Blob::Const_iterator src)</td></tr>
-<tr class="memdesc:a9d41f38322c26d9500ff76df8c255db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that copies, to a given raw memory buffer, a given number of bytes to a given <code>Mutable_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence.  <a href="classflow_1_1net__flow_1_1Socket__buffer.html#a9d41f38322c26d9500ff76df8c255db3">More...</a><br /></td></tr>
-<tr class="separator:a9d41f38322c26d9500ff76df8c255db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89291fb233a05b7d449d9c3ebb802341"><td class="memTemplParams" colspan="2">template&lt;typename Const_buffer_sequence , typename Const_it &gt; </td></tr>
+<tr class="memitem:a89291fb233a05b7d449d9c3ebb802341"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341">copy_bytes_from_buf_seq</a> (Const_it *cur_buf_it, size_t *pos_in_buf, size_t to_copy, <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">util::Blob</a> *dest_buf, util::Blob::Iterator dest)</td></tr>
+<tr class="memdesc:a89291fb233a05b7d449d9c3ebb802341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that copies, to a given raw memory buffer, a given number of bytes from a given <code>Const_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence.  <a href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341">More...</a><br /></td></tr>
+<tr class="separator:a89291fb233a05b7d449d9c3ebb802341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b5068ab3386d99ae7b27047a23ffda"><td class="memTemplParams" colspan="2">template&lt;typename Mutable_buffer_sequence , typename Const_it &gt; </td></tr>
+<tr class="memitem:a45b5068ab3386d99ae7b27047a23ffda"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a45b5068ab3386d99ae7b27047a23ffda">copy_bytes_to_buf_seq</a> (Const_it *cur_buf_it, size_t *pos_in_buf, size_t to_copy, const <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">util::Blob</a> &amp;src_buf, util::Blob::Const_iterator src)</td></tr>
+<tr class="memdesc:a45b5068ab3386d99ae7b27047a23ffda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that copies, to a given raw memory buffer, a given number of bytes to a given <code>Mutable_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence.  <a href="classflow_1_1net__flow_1_1Socket__buffer.html#a45b5068ab3386d99ae7b27047a23ffda">More...</a><br /></td></tr>
+<tr class="separator:a45b5068ab3386d99ae7b27047a23ffda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -365,7 +365,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="socket__buffer_8cpp_source.html#l00170">170</a> of file <a class="el" href="socket__buffer_8cpp_source.html">socket_buffer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00375">m_q</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00379">m_q</a>.</p>
 
 </div>
 </div>
@@ -408,9 +408,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="socket__buffer_8cpp_source.html#l00103">103</a> of file <a class="el" href="socket__buffer_8cpp_source.html">socket_buffer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00543">consume_bufs_copy()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00375">m_q</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00548">consume_bufs_copy()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00379">m_q</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04798">flow::net_flow::Node::send_worker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04721">flow::net_flow::Node::send_worker()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -448,7 +448,7 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 <p >The bytes are removed from the front of the internal byte buffer and are written in the same order, starting from the first byte in <code>target_bufs</code>. The operation involves a copy and has <em>O(n)</em> time complexity.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Mutable_buffer_sequence</td><td>Type that models the boost.asio <code>MutableBufferSequence</code> concept (see Boost docs). Basically, it's any container with elements convertible to <code>boost::asio::mutable_buffer</code>; and bidirectional iterator support. Examples: <code>vector&lt;mutable_buffer&gt;</code>, l<code>ist&lt;mutable_buffer&gt;.</code> Why allow <code>mutable_buffer</code> instead of, say, Sequence of bytes? Same reason as boost.asio's receive functions: it allows a great amount of flexibility without sacrificing performance, since <code>boost::asio::buffer()</code> function can adapt lots of different objects (arrays, <code>vector</code>s, <code>string</code>s, and more of bytes, integers, and more). </td></tr>
+    <tr><td class="paramname">Mutable_buffer_sequence</td><td>Type that models the boost.asio <code>MutableBufferSequence</code> concept (see Boost docs). Basically, it's any container with elements convertible to <code>boost::asio::mutable_buffer</code>; and bidirectional iterator support. Examples: <code>vector&lt;mutable_buffer&gt;</code>, <code>list&lt;mutable_buffer&gt;.</code> Why allow <code>mutable_buffer</code> instead of, say, <code>Sequence</code> of bytes? Same reason as boost.asio's receive functions: it allows a great amount of flexibility without sacrificing performance, since <code>boost::asio::buffer()</code> function can adapt lots of different objects (arrays, <code>vector</code>s, <code>string</code>s, and more of bytes, integers, and more). </td></tr>
   </table>
   </dd>
 </dl>
@@ -460,11 +460,11 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes (possibly zero) by which <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#af21cd24bba62da1d16a8fc4f9b8e37fd" title="The total number of bytes of application-layer data stored in this object.">data_size()</a> decreased, which equals the # of bytes copied into <code>target_bufs</code>. This is quite important &ndash; without it there is absolutely no way to know how much of <code>target_bufs</code> we've used up. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00543">543</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00548">548</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00375">m_q</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00379">m_q</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02547">flow::net_flow::Peer_socket::receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02605">flow::net_flow::Peer_socket::sync_receive_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02536">flow::net_flow::Peer_socket::receive()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02591">flow::net_flow::Peer_socket::sync_receive_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -480,13 +480,13 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a68550b62b7d5575a47ccb60204942930" name="a68550b62b7d5575a47ccb60204942930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68550b62b7d5575a47ccb60204942930">&#9670;&nbsp;</a></span>copy_bytes_from_buf_seq()</h2>
+<a id="a89291fb233a05b7d449d9c3ebb802341" name="a89291fb233a05b7d449d9c3ebb802341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89291fb233a05b7d449d9c3ebb802341">&#9670;&nbsp;</a></span>copy_bytes_from_buf_seq()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Const_buffer_sequence &gt; </div>
+template&lt;typename Const_buffer_sequence , typename Const_it &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -494,7 +494,7 @@ template&lt;typename Const_buffer_sequence &gt; </div>
         <tr>
           <td class="memname">void flow::net_flow::Socket_buffer::copy_bytes_from_buf_seq </td>
           <td>(</td>
-          <td class="paramtype">typename Const_buffer_sequence::const_iterator *&#160;</td>
+          <td class="paramtype">Const_it *&#160;</td>
           <td class="paramname"><em>cur_buf_it</em>, </td>
         </tr>
         <tr>
@@ -536,10 +536,11 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 
 <p>Helper that copies, to a given raw memory buffer, a given number of bytes from a given <code>Const_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence. </p>
 <p >It uses <code>memcpy()</code> or similar for copying and makes as few calls to it as possible. It is similar to the <code>boost::asio::buffer_copy(ConstBufferSequence -&gt; buffer)</code> function but also returns the logical pointers just past the last byte copied, so that this can be resumed into some other target buffer. Of course there's a <code>buffer_copy(ConstBufferSequence -&gt; MutableBufferSequence)</code> that would do this, but it would be inefficient for us to have to create a <code>MutableBufferSequence</code>.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000075">Todo:</a></b></dt><dd>It would not be crazy to move <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a> and <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a9d41f38322c26d9500ff76df8c255db3" title="Helper that copies, to a given raw memory buffer, a given number of bytes to a given Mutable_buffer_s...">copy_bytes_to_buf_seq()</a> into <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">util::Blob</a> to make it more widely available, though as of this writing there is no demand for this: perhaps a buffer-sequence version of <code>util::Blob::emplace_copy()</code> and in the other direction. In that case <code>util::Blob::assign_copy()</code> and all single-buffer <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">util::Blob</a> methods should probably be similarly generalized (overloaded).</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000075">Todo:</a></b></dt><dd>It would not be crazy to move <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a> and <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a45b5068ab3386d99ae7b27047a23ffda" title="Helper that copies, to a given raw memory buffer, a given number of bytes to a given Mutable_buffer_s...">copy_bytes_to_buf_seq()</a> into <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">util::Blob</a> to make it more widely available, though as of this writing there is no demand for this: perhaps a buffer-sequence version of <code>util::Blob::emplace_copy()</code> and in the other direction. In that case <code>util::Blob::assign_copy()</code> and all single-buffer <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">util::Blob</a> methods should probably be similarly generalized (overloaded).</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Const_buffer_sequence</td><td>See user-facing APIs. </td></tr>
+    <tr><td class="paramname">Const_it</td><td>Iterator type suitable for traversing <code>Const_buffer_sequence</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -554,17 +555,17 @@ template&lt;typename Const_buffer_sequence &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00624">624</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00629">629</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9d41f38322c26d9500ff76df8c255db3" name="a9d41f38322c26d9500ff76df8c255db3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d41f38322c26d9500ff76df8c255db3">&#9670;&nbsp;</a></span>copy_bytes_to_buf_seq()</h2>
+<a id="a45b5068ab3386d99ae7b27047a23ffda" name="a45b5068ab3386d99ae7b27047a23ffda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b5068ab3386d99ae7b27047a23ffda">&#9670;&nbsp;</a></span>copy_bytes_to_buf_seq()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Mutable_buffer_sequence &gt; </div>
+template&lt;typename Mutable_buffer_sequence , typename Const_it &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -572,7 +573,7 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
         <tr>
           <td class="memname">void flow::net_flow::Socket_buffer::copy_bytes_to_buf_seq </td>
           <td>(</td>
-          <td class="paramtype">typename Mutable_buffer_sequence::const_iterator *&#160;</td>
+          <td class="paramtype">Const_it *&#160;</td>
           <td class="paramname"><em>cur_buf_it</em>, </td>
         </tr>
         <tr>
@@ -613,25 +614,26 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 </div><div class="memdoc">
 
 <p>Helper that copies, to a given raw memory buffer, a given number of bytes to a given <code>Mutable_buffer_sequence</code>, starting at a given offset in a given member of that buffer sequence. </p>
-<p >It uses <code>memcpy()</code> or similar for copying and makes as few calls to it as possible. It is the opposite of <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>.</p>
+<p >It uses <code>memcpy()</code> or similar for copying and makes as few calls to it as possible. It is the opposite of <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Mutable_buffer_sequence</td><td>See user-facing APIs. </td></tr>
+    <tr><td class="paramname">Const_it</td><td>Iterator type suitable for traversing <code>Mutable_buffer_sequence</code>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cur_buf_it</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
-    <tr><td class="paramname">pos_in_buf</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
-    <tr><td class="paramname">to_copy</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a68550b62b7d5575a47ccb60204942930" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
+    <tr><td class="paramname">cur_buf_it</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
+    <tr><td class="paramname">pos_in_buf</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
+    <tr><td class="paramname">to_copy</td><td>See <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a89291fb233a05b7d449d9c3ebb802341" title="Helper that copies, to a given raw memory buffer, a given number of bytes from a given Const_buffer_s...">copy_bytes_from_buf_seq()</a>. </td></tr>
     <tr><td class="paramname">src_buf</td><td>Buffer containing <code>src</code> location Must be of sufficient size, or behavior is undefined. </td></tr>
     <tr><td class="paramname">src</td><td>Pointer to the location from where bytes will be copied. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00668">668</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00673">673</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
 </div>
 </div>
@@ -657,9 +659,9 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="socket__buffer_8cpp_source.html#l00034">34</a> of file <a class="el" href="socket__buffer_8cpp_source.html">socket_buffer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04798">flow::net_flow::Node::send_worker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l04721">flow::net_flow::Node::send_worker()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -689,7 +691,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="socket__buffer_8cpp_source.html#l00165">165</a> of file <a class="el" href="socket__buffer_8cpp_source.html">socket_buffer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>.</p>
+<p class="reference">References <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>.</p>
 
 </div>
 </div>
@@ -733,7 +735,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="socket__buffer_8cpp_source.html#l00039">39</a> of file <a class="el" href="socket__buffer_8cpp_source.html">socket_buffer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00391">feed_bufs_copy()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00225">flow::log::Log_context::get_logger()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00352">m_block_size_hint</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00375">m_q</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00395">feed_bufs_copy()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00225">flow::log::Log_context::get_logger()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00356">m_block_size_hint</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00379">m_q</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -776,7 +778,7 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 <p >As many bytes as possible are copied, subject to the constraint <code><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#af21cd24bba62da1d16a8fc4f9b8e37fd" title="The total number of bytes of application-layer data stored in this object.">data_size()</a> &lt;= max_data_size</code>. In particular if this is already untrue, no bytes are copied.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Const_buffer_sequence</td><td>Type that models the boost.asio <code>ConstBufferSequence</code> concept (see Boost docs). Basically, it's any container with elements convertible to <code>boost::asio::const_buffer</code>; and bidirectional iterator support. Examples: <code>vector&lt;const_buffer&gt;</code>, <code>list&lt;const_buffer&gt;</code>. Why allow <code>const_buffer</code> instead of, say, Sequence of bytes? Same reason as boost.asio's send functions: it allows a great amount of flexibility without sacrificing performance, since <code>boost::asio::buffer()</code> function can adapt lots of different objects (arrays, vectors, strings, and more of bytes, integers, and more). </td></tr>
+    <tr><td class="paramname">Const_buffer_sequence</td><td>Type that models the boost.asio <code>ConstBufferSequence</code> concept (see Boost docs). Basically, it's any container with elements convertible to <code>boost::asio::const_buffer</code>; and bidirectional iterator support. Examples: <code>vector&lt;const_buffer&gt;</code>, <code>list&lt;const_buffer&gt;</code>. Why allow <code>const_buffer</code> instead of, say, <code>Sequence</code> of bytes? Same reason as boost.asio's send functions: it allows a great amount of flexibility without sacrificing performance, since <code>boost::asio::buffer()</code> function can adapt lots of different objects (arrays, vectors, strings, and more of bytes, integers, and more). </td></tr>
   </table>
   </dd>
 </dl>
@@ -789,11 +791,11 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of bytes (possibly zero) by which <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#af21cd24bba62da1d16a8fc4f9b8e37fd" title="The total number of bytes of application-layer data stored in this object.">data_size()</a> increased. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00391">391</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00395">395</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00225">flow::log::Log_context::get_logger()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00352">m_block_size_hint</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00383">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00375">m_q</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="log_8hpp_source.html#l00242">FLOW_LOG_DATA</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00225">flow::log::Log_context::get_logger()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00356">m_block_size_hint</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00387">m_data_size</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00379">m_q</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02443">flow::net_flow::Peer_socket::send()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02513">flow::net_flow::Peer_socket::sync_send_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, <a class="el" href="peer__socket_8hpp_source.html#l02439">flow::net_flow::Peer_socket::send()</a>, and <a class="el" href="peer__socket_8hpp_source.html#l02506">flow::net_flow::Peer_socket::sync_send_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -883,9 +885,9 @@ Here is the caller graph for this function:</div>
 <p>The max_data_size argument value that the user is predicting to use when calling <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a8fe3fe5f6a33cfd8fb84eb2607fbc05b" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s...">consume_buf_move()</a>; or 0 if the user intends to instead use <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#af60133c1d6825246b54f10f26810cd88" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s...">consume_bufs_copy()</a>. </p>
 <p >This is explored in detail in the class doc header. Basically this should be 0, when this <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html" title="Internal net_flow class that implements a socket buffer, as used by Peer_socket for Send and Receive ...">Socket_buffer</a> is used as a Receive buffer; and it should be set to max-block-size, when this <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html" title="Internal net_flow class that implements a socket buffer, as used by Peer_socket for Send and Receive ...">Socket_buffer</a> is used as a Send buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00352">352</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00356">356</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00391">feed_bufs_copy()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00395">feed_bufs_copy()</a>.</p>
 
 </div>
 </div>
@@ -913,9 +915,9 @@ Here is the caller graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#af21cd24bba62da1d16a8fc4f9b8e37fd" title="The total number of bytes of application-layer data stored in this object.">data_size()</a> for more discussion.</dd></dl>
 <p>Invariant: <code>m_data_size</code> = sum(<code>m-&gt;size()</code>: for all <code>m</code> in <code>m_q</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00383">383</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00387">387</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00170">clear()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00543">consume_bufs_copy()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00034">data_size()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00165">empty()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00391">feed_bufs_copy()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00170">clear()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00548">consume_bufs_copy()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00034">data_size()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00165">empty()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00395">feed_bufs_copy()</a>.</p>
 
 </div>
 </div>
@@ -943,9 +945,9 @@ Here is the caller graph for this function:</div>
 <p >The logical byte sequence, as visible to the outside user of the class, is obtained as follows: iterate through range [<code>m_q[0]-&gt;begin()</code>, <code>m_q[0]-&gt;end()</code>); iterate through range [<code>m_q[1]-&gt;begin()</code>, <code>m_q[1]-&gt;end()</code>); ...; etc. <code>shared_ptr</code>s, instead of raw pointers, are used as elements just to avoid having to delete. Pointers are stored instead of direct vector objects to avoid any wholesale copying by the <code>deque</code> machinery.</p>
 <p >Why not just use a queue of bytes then? The code would be far simpler. Answer: the chief use case is if <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html" title="Internal net_flow class that implements a socket buffer, as used by Peer_socket for Send and Receive ...">Socket_buffer</a> is Send buffer, so they'll set <code>block_size_hint == N</code> and use <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a69a0c514df820c36e7109fb1fcf78522" title="Feeds (adds to the back of the byte buffer) the contents of the byte stream composed of the bytes in ...">feed_bufs_copy()</a> whenever <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">Peer_socket::send()</a> is called. Then we will always <code>reserve()</code> <code>N</code> bytes in each <code>Blob</code> in <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#ab9d0faeeb2a8d1058b24319e8a14e52a" title="The data in the buffer.">m_q</a>; as <code>feed*()</code> is called, we will fill up the last <code>Blob</code> sequence until all <code>N</code> bytes are exhausted, in which case we'll <code>push_back()</code> another <code>N</code>-capacity <code>Blob</code> sequence and fill that one as needed, etc. Since <code>send()</code> always copies bytes from user's buffer(s) anyway, we're not adding any extra copying (only the allocation behavior is different than if we'd used a simple byte buffer instead). Now, when the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> needs to packetize a packet to send, with <code>max-block-size == N</code>, it will use <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a8fe3fe5f6a33cfd8fb84eb2607fbc05b" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s...">consume_buf_move()</a> directly into the packet data structure. Since <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> will avoid sending unless congestion window allows at least <code>N</code> bytes to be sent, in <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a8fe3fe5f6a33cfd8fb84eb2607fbc05b" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s...">consume_buf_move()</a> it will use <code>max_data_size == N</code>. Therefore, <a class="el" href="classflow_1_1net__flow_1_1Socket__buffer.html#a8fe3fe5f6a33cfd8fb84eb2607fbc05b" title="Consumes (removes from the front of the internal byte buffer and returns them to the caller) a byte s...">consume_buf_move()</a> will be constant-time due to performing a constant-time vector swap. Thus exactly one data copy is performed including the original <code>send()</code> call through sending bytes on the wire. </p>
 
-<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00375">375</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="socket__buffer_8hpp_source.html#l00379">379</a> of file <a class="el" href="socket__buffer_8hpp_source.html">socket_buffer.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00170">clear()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00543">consume_bufs_copy()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00391">feed_bufs_copy()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00170">clear()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00103">consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00548">consume_bufs_copy()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">feed_buf_move()</a>, and <a class="el" href="socket__buffer_8hpp_source.html#l00395">feed_bufs_copy()</a>.</p>
 
 </div>
 </div>
@@ -956,7 +958,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:45 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,4 +1,4 @@
 <map id="flow::net_flow::asio::Peer_socket::async_send_impl" name="flow::net_flow::asio::Peer_socket::async_send_impl">
 <area shape="rect" id="node1" title="De&#45;templated implementation of all async_send() methods." alt="" coords="220,5,355,53"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;null_buffers net_flow::Peer_socke..." alt="" coords="5,11,172,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1asio_1_1Peer__socket.html#a33adc635f29071b10ea59802405d9b6c" title="boost.asio&#45;style asynchronous version that essentially performs non&#45;nullptr_t net_flow::Peer_socket::..." alt="" coords="5,11,172,47"/>
 </map>

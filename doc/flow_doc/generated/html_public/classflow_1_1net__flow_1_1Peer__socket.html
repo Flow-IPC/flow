@@ -146,17 +146,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a70629642551f18e474b87c128d2d77e2"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2">sync_send</a> (const Const_buffer_sequence &amp;data, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:a70629642551f18e474b87c128d2d77e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking (synchronous) version of <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">send()</a>.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2">More...</a><br /></td></tr>
 <tr class="separator:a70629642551f18e474b87c128d2d77e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28cb6fc51585c9fa2bf2f152675615a1"><td class="memTemplParams" colspan="2">template&lt;typename Rep , typename Period &gt; </td></tr>
-<tr class="memitem:a28cb6fc51585c9fa2bf2f152675615a1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a28cb6fc51585c9fa2bf2f152675615a1">sync_send</a> (const boost::asio::null_buffers &amp;, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
-<tr class="memdesc:a28cb6fc51585c9fa2bf2f152675615a1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a></code> operating in <code>null_buffers</code> mode, wherein &ndash; if Writable state is reached &ndash; the actual data are not moved out of any buffer, leaving that to the caller to do if desired.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a28cb6fc51585c9fa2bf2f152675615a1">More...</a><br /></td></tr>
-<tr class="separator:a28cb6fc51585c9fa2bf2f152675615a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4c4e5917d693efdf4701962bdc35a0f"><td class="memTemplParams" colspan="2">template&lt;typename Rep , typename Period &gt; </td></tr>
+<tr class="memitem:aa4c4e5917d693efdf4701962bdc35a0f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa4c4e5917d693efdf4701962bdc35a0f">sync_send</a> (std::nullptr_t, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
+<tr class="memdesc:aa4c4e5917d693efdf4701962bdc35a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a></code> operating in <code>nullptr_t</code> mode, wherein &ndash; if Writable state is reached &ndash; the actual data are not moved out of any buffer, leaving that to the caller to do if desired.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#aa4c4e5917d693efdf4701962bdc35a0f">More...</a><br /></td></tr>
+<tr class="separator:aa4c4e5917d693efdf4701962bdc35a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b9fa02a7c41b52fde9e05e862a9d20f"><td class="memTemplParams" colspan="2">template&lt;typename Const_buffer_sequence &gt; </td></tr>
 <tr class="memitem:a6b9fa02a7c41b52fde9e05e862a9d20f"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a6b9fa02a7c41b52fde9e05e862a9d20f">sync_send</a> (const Const_buffer_sequence &amp;data, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:a6b9fa02a7c41b52fde9e05e862a9d20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_send(data, duration::max(), err_code)</code>; i.e., <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a6b9fa02a7c41b52fde9e05e862a9d20f">More...</a><br /></td></tr>
 <tr class="separator:a6b9fa02a7c41b52fde9e05e862a9d20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d1f3d07ec71e46ff8f4c4d1bbc44079"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a7d1f3d07ec71e46ff8f4c4d1bbc44079">sync_send</a> (const boost::asio::null_buffers &amp;, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
-<tr class="memdesc:a7d1f3d07ec71e46ff8f4c4d1bbc44079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_send(null_buffers(), duration::max(), err_code)</code>; i.e., <code>sync_send(null_buffers)</code> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a7d1f3d07ec71e46ff8f4c4d1bbc44079">More...</a><br /></td></tr>
-<tr class="separator:a7d1f3d07ec71e46ff8f4c4d1bbc44079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94f1e498fdd2349075ee5bcd7906d308"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a94f1e498fdd2349075ee5bcd7906d308">sync_send</a> (std::nullptr_t, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
+<tr class="memdesc:a94f1e498fdd2349075ee5bcd7906d308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_send(nullptr, duration::max(), err_code)</code>; i.e., <code>sync_send(nullptr_t)</code> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a94f1e498fdd2349075ee5bcd7906d308">More...</a><br /></td></tr>
+<tr class="separator:a94f1e498fdd2349075ee5bcd7906d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb88e9253cc3f52269cb762c8e57e6d0"><td class="memTemplParams" colspan="2">template&lt;typename Mutable_buffer_sequence &gt; </td></tr>
 <tr class="memitem:aeb88e9253cc3f52269cb762c8e57e6d0"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0">receive</a> (const Mutable_buffer_sequence &amp;target, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:aeb88e9253cc3f52269cb762c8e57e6d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of bytes as inferred from size of provided target buffer sequence.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0">More...</a><br /></td></tr>
@@ -165,17 +165,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a256b77e546fff9394ef8d509e2ae771b"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b">sync_receive</a> (const Mutable_buffer_sequence &amp;target, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:a256b77e546fff9394ef8d509e2ae771b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blocking (synchronous) version of <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a>.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b">More...</a><br /></td></tr>
 <tr class="separator:a256b77e546fff9394ef8d509e2ae771b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d796625339aa1aae09326091509d18"><td class="memTemplParams" colspan="2">template&lt;typename Rep , typename Period &gt; </td></tr>
-<tr class="memitem:a45d796625339aa1aae09326091509d18"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a45d796625339aa1aae09326091509d18">sync_receive</a> (const boost::asio::null_buffers &amp;, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
-<tr class="memdesc:a45d796625339aa1aae09326091509d18"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a></code> operating in <code>null_buffers</code> mode, wherein &ndash; if Readable state is reached &ndash; the actual data are not moved into any buffer, leaving that to the caller to do if desired.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a45d796625339aa1aae09326091509d18">More...</a><br /></td></tr>
-<tr class="separator:a45d796625339aa1aae09326091509d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34cc9ad4501bb8cefe2c4e946be88232"><td class="memTemplParams" colspan="2">template&lt;typename Rep , typename Period &gt; </td></tr>
+<tr class="memitem:a34cc9ad4501bb8cefe2c4e946be88232"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a34cc9ad4501bb8cefe2c4e946be88232">sync_receive</a> (std::nullptr_t, const boost::chrono::duration&lt; Rep, Period &gt; &amp;max_wait, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
+<tr class="memdesc:a34cc9ad4501bb8cefe2c4e946be88232"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a></code> operating in <code>nullptr_t</code> mode, wherein &ndash; if Readable state is reached &ndash; the actual data are not moved into any buffer, leaving that to the caller to do if desired.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a34cc9ad4501bb8cefe2c4e946be88232">More...</a><br /></td></tr>
+<tr class="separator:a34cc9ad4501bb8cefe2c4e946be88232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5143886b33b4f16e4fbfbe3a4e91e44"><td class="memTemplParams" colspan="2">template&lt;typename Mutable_buffer_sequence &gt; </td></tr>
 <tr class="memitem:af5143886b33b4f16e4fbfbe3a4e91e44"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44">sync_receive</a> (const Mutable_buffer_sequence &amp;target, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:af5143886b33b4f16e4fbfbe3a4e91e44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_receive(target, duration::max(), err_code)</code>; i.e., <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44">More...</a><br /></td></tr>
 <tr class="separator:af5143886b33b4f16e4fbfbe3a4e91e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4429aead81514f99e3120a0b96667cb5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a4429aead81514f99e3120a0b96667cb5">sync_receive</a> (const boost::asio::null_buffers &amp;, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
-<tr class="memdesc:a4429aead81514f99e3120a0b96667cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_receive(null_buffers(), duration::max(), err_code)</code>; i.e., <code>sync_receive(null_buffers)</code> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a4429aead81514f99e3120a0b96667cb5">More...</a><br /></td></tr>
-<tr class="separator:a4429aead81514f99e3120a0b96667cb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a207b46e4bd4d251f54951ce1e5d7439f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a207b46e4bd4d251f54951ce1e5d7439f">sync_receive</a> (std::nullptr_t, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
+<tr class="memdesc:a207b46e4bd4d251f54951ce1e5d7439f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>sync_receive(nullptr, duration::max(), err_code)</code>; i.e., <code>sync_receive(nullptr_t)</code> with no timeout.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a207b46e4bd4d251f54951ce1e5d7439f">More...</a><br /></td></tr>
+<tr class="separator:a207b46e4bd4d251f54951ce1e5d7439f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ab710704237f912eb219f9b8d574afc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc">close_abruptly</a> (<a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=0)</td></tr>
 <tr class="memdesc:a9ab710704237f912eb219f9b8d574afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acts as if fatal error <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a35606f4143e15dbe6bc03a543599dec8" title="User code on this side abruptly closed connection; other side may be informed of this.">error::Code::S_USER_CLOSED_ABRUPTLY</a> has been discovered on the connection.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc">More...</a><br /></td></tr>
 <tr class="separator:a9ab710704237f912eb219f9b8d574afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,7 +230,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5003c554807f5b5b58989ad58be48d42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5003c554807f5b5b58989ad58be48d42">Peer_socket</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">util::Task_engine</a> *task_engine, const <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html">Peer_socket_options</a> &amp;opts)</td></tr>
+<tr class="memitem:a5003c554807f5b5b58989ad58be48d42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5003c554807f5b5b58989ad58be48d42">Peer_socket</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">util::Task_engine</a> *task_engine, const <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html">Peer_socket_options</a> &amp;opts)</td></tr>
 <tr class="memdesc:a5003c554807f5b5b58989ad58be48d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object; initializes most values to well-defined (0, empty, etc.) but not necessarily meaningful values.  <a href="classflow_1_1net__flow_1_1Peer__socket.html#a5003c554807f5b5b58989ad58be48d42">More...</a><br /></td></tr>
 <tr class="separator:a5003c554807f5b5b58989ad58be48d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -399,7 +399,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#adf23368210219716b6fd22d15b765cb6">util::Task_engine</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">util::Task_engine</a> *&#160;</td>
           <td class="paramname"><em>task_engine</em>, </td>
         </tr>
         <tr>
@@ -845,108 +845,8 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 
 </div>
 </div>
-<a id="a45d796625339aa1aae09326091509d18" name="a45d796625339aa1aae09326091509d18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45d796625339aa1aae09326091509d18">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Rep , typename Period &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool flow::net_flow::Peer_socket::sync_receive </td>
-          <td>(</td>
-          <td class="paramtype">const boost::asio::null_buffers &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const boost::chrono::duration&lt; Rep, Period &gt; &amp;&#160;</td>
-          <td class="paramname"><em>max_wait</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
-          <td class="paramname"><em>err_code</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a></code> operating in <code>null_buffers</code> mode, wherein &ndash; if Readable state is reached &ndash; the actual data are not moved into any buffer, leaving that to the caller to do if desired. </p>
-<p >Hence, this is a way of waiting for Readable state that could be more concise in some situations than <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a133c518168fe3922ab6729a99077dd3f" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr...">Event_set::sync_wait()</a>.</p>
-<h3>Error handling</h3>
-<p >These are the possible outcomes:</p><ol type="1">
-<li>There are data in the Receive buffer; and socket is fully connected (<code>S_OPEN+S_CONNECTED</code>) or gracefully shutting down (<code>S_OPEN+S_DISCONNECTING</code>). Socket Readable. <code>true</code> is returned; <code>*err_code</code> is set to success unless null.</li>
-<li>The operation cannot proceed due to an error. <code>false</code> is returned; <code>*err_code</code> is set to the specific error unless null. <code>*err_code == S_WAIT_INTERRUPTED</code> means the wait was interrupted (similarly to POSIX's <code>EINTR</code>). (If <code>err_code</code> null, Runtime_error thrown.)</li>
-<li>Neither condition above is detected before the timeout expires (if provided). Output semantics are the same as in 2, with the specific code <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ab835895723a7d71c964b84e0f0b78c3c" title="A blocking (sync_) or background-blocking (async_) operation timed out versus user-supplied time limi...">error::Code::S_WAIT_USER_TIMEOUT</a>.</li>
-</ol>
-<p >Note that it is NOT possible to return <code>false</code> and no error.</p>
-<p >Tip: Typical types you might use for <code>max_wait</code>: <code>boost::chrono::milliseconds</code>, <code>boost::chrono::seconds</code>, <code>boost::chrono::high_resolution_clock::duration</code>.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Rep</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-    <tr><td class="paramname">Period</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">max_wait</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-    <tr><td class="paramname">err_code</td><td>See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> docs for error reporting semantics. Error, except <code>WAIT_INTERRUPTED</code> or <code>WAIT_USER_TIMEOUT</code>, implies that neither this nor any subsequent <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a> on this socket will succeeed. (In particular a clean disconnect is an error.) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if there are 1+ bytes ready to read; <code>false</code> if either a timeout has occurred (no bytes ready), or another error has occurred. </dd></dl>
-
-</div>
-</div>
-<a id="a4429aead81514f99e3120a0b96667cb5" name="a4429aead81514f99e3120a0b96667cb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4429aead81514f99e3120a0b96667cb5">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool flow::net_flow::Peer_socket::sync_receive </td>
-          <td>(</td>
-          <td class="paramtype">const boost::asio::null_buffers &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
-          <td class="paramname"><em>err_code</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Equivalent to <code>sync_receive(null_buffers(), duration::max(), err_code)</code>; i.e., <code>sync_receive(null_buffers)</code> with no timeout. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">err_code</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-    <tr><td class="paramname">tag</td><td>Tag argument. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </dd></dl>
-
-</div>
-</div>
 <a id="a256b77e546fff9394ef8d509e2ae771b" name="a256b77e546fff9394ef8d509e2ae771b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a256b77e546fff9394ef8d509e2ae771b">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a256b77e546fff9394ef8d509e2ae771b">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1012,7 +912,7 @@ template&lt;typename Rep , typename Period , typename Mutable_buffer_sequence &g
 </div>
 </div>
 <a id="af5143886b33b4f16e4fbfbe3a4e91e44" name="af5143886b33b4f16e4fbfbe3a4e91e44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5143886b33b4f16e4fbfbe3a4e91e44">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af5143886b33b4f16e4fbfbe3a4e91e44">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1057,8 +957,8 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 
 </div>
 </div>
-<a id="a28cb6fc51585c9fa2bf2f152675615a1" name="a28cb6fc51585c9fa2bf2f152675615a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28cb6fc51585c9fa2bf2f152675615a1">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[1/4]</span></h2>
+<a id="a34cc9ad4501bb8cefe2c4e946be88232" name="a34cc9ad4501bb8cefe2c4e946be88232"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34cc9ad4501bb8cefe2c4e946be88232">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1066,9 +966,9 @@ template&lt;typename Mutable_buffer_sequence &gt; </div>
 template&lt;typename Rep , typename Period &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool flow::net_flow::Peer_socket::sync_send </td>
+          <td class="memname">bool flow::net_flow::Peer_socket::sync_receive </td>
           <td>(</td>
-          <td class="paramtype">const boost::asio::null_buffers &amp;&#160;</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
           <td class="paramname">, </td>
         </tr>
         <tr>
@@ -1091,11 +991,11 @@ template&lt;typename Rep , typename Period &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a></code> operating in <code>null_buffers</code> mode, wherein &ndash; if Writable state is reached &ndash; the actual data are not moved out of any buffer, leaving that to the caller to do if desired. </p>
-<p >Hence, this is a way of waiting for Writable state that could be more concise in some situations than <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a133c518168fe3922ab6729a99077dd3f" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr...">Event_set::sync_wait()</a>.</p>
+<p><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a></code> operating in <code>nullptr_t</code> mode, wherein &ndash; if Readable state is reached &ndash; the actual data are not moved into any buffer, leaving that to the caller to do if desired. </p>
+<p >Hence, this is a way of waiting for Readable state that could be more concise in some situations than <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a133c518168fe3922ab6729a99077dd3f" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr...">Event_set::sync_wait()</a>.</p>
 <h3>Error handling</h3>
 <p >These are the possible outcomes:</p><ol type="1">
-<li>There is space in the Send buffer; and socket is fully connected (<code>S_OPEN+S_CONNECTED</code>). Socket Writable. <code>true</code> is returned; <code>*err_code</code> is set to success unless null.</li>
+<li>There are data in the Receive buffer; and socket is fully connected (<code>S_OPEN+S_CONNECTED</code>) or gracefully shutting down (<code>S_OPEN+S_DISCONNECTING</code>). Socket Readable. <code>true</code> is returned; <code>*err_code</code> is set to success unless null.</li>
 <li>The operation cannot proceed due to an error. <code>false</code> is returned; <code>*err_code</code> is set to the specific error unless null. <code>*err_code == S_WAIT_INTERRUPTED</code> means the wait was interrupted (similarly to POSIX's <code>EINTR</code>). (If <code>err_code</code> null, Runtime_error thrown.)</li>
 <li>Neither condition above is detected before the timeout expires (if provided). Output semantics are the same as in 2, with the specific code <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ab835895723a7d71c964b84e0f0b78c3c" title="A blocking (sync_) or background-blocking (async_) operation timed out versus user-supplied time limi...">error::Code::S_WAIT_USER_TIMEOUT</a>.</li>
 </ol>
@@ -1103,33 +1003,33 @@ template&lt;typename Rep , typename Period &gt; </div>
 <p >Tip: Typical types you might use for <code>max_wait</code>: <code>boost::chrono::milliseconds</code>, <code>boost::chrono::seconds</code>, <code>boost::chrono::high_resolution_clock::duration</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Rep</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </td></tr>
-    <tr><td class="paramname">Period</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </td></tr>
+    <tr><td class="paramname">Rep</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
+    <tr><td class="paramname">Period</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">max_wait</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-    <tr><td class="paramname">err_code</td><td>See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> docs for error reporting semantics. Error, except <code>WAIT_INTERRUPTED</code> or <code>WAIT_USER_TIMEOUT</code>, implies that neither this nor any subsequent <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">send()</a> on this socket will succeeed. (In particular a clean disconnect is an error.) </td></tr>
+    <tr><td class="paramname">err_code</td><td>See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> docs for error reporting semantics. Error, except <code>WAIT_INTERRUPTED</code> or <code>WAIT_USER_TIMEOUT</code>, implies that neither this nor any subsequent <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">receive()</a> on this socket will succeeed. (In particular a clean disconnect is an error.) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if 1+ bytes are possible to add to Send buffer; <code>false</code> if either a timeout has occurred (bytes not writable), or another error has occurred. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if there are 1+ bytes ready to read; <code>false</code> if either a timeout has occurred (no bytes ready), or another error has occurred. </dd></dl>
 
 </div>
 </div>
-<a id="a7d1f3d07ec71e46ff8f4c4d1bbc44079" name="a7d1f3d07ec71e46ff8f4c4d1bbc44079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d1f3d07ec71e46ff8f4c4d1bbc44079">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[2/4]</span></h2>
+<a id="a207b46e4bd4d251f54951ce1e5d7439f" name="a207b46e4bd4d251f54951ce1e5d7439f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a207b46e4bd4d251f54951ce1e5d7439f">&#9670;&nbsp;</a></span>sync_receive() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool flow::net_flow::Peer_socket::sync_send </td>
+          <td class="memname">bool flow::net_flow::Peer_socket::sync_receive </td>
           <td>(</td>
-          <td class="paramtype">const boost::asio::null_buffers &amp;&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1145,11 +1045,10 @@ template&lt;typename Rep , typename Period &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Equivalent to <code>sync_send(null_buffers(), duration::max(), err_code)</code>; i.e., <code>sync_send(null_buffers)</code> with no timeout. </p>
+<p>Equivalent to <code>sync_receive(nullptr, duration::max(), err_code)</code>; i.e., <code>sync_receive(nullptr_t)</code> with no timeout. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">err_code</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
-    <tr><td class="paramname">tag</td><td>Tag argument. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1158,7 +1057,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 </div>
 </div>
 <a id="a70629642551f18e474b87c128d2d77e2" name="a70629642551f18e474b87c128d2d77e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70629642551f18e474b87c128d2d77e2">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a70629642551f18e474b87c128d2d77e2">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1224,7 +1123,7 @@ template&lt;typename Rep , typename Period , typename Const_buffer_sequence &gt;
 </div>
 </div>
 <a id="a6b9fa02a7c41b52fde9e05e862a9d20f" name="a6b9fa02a7c41b52fde9e05e862a9d20f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b9fa02a7c41b52fde9e05e862a9d20f">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b9fa02a7c41b52fde9e05e862a9d20f">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1266,6 +1165,105 @@ template&lt;typename Const_buffer_sequence &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="aa4c4e5917d693efdf4701962bdc35a0f" name="aa4c4e5917d693efdf4701962bdc35a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4c4e5917d693efdf4701962bdc35a0f">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Rep , typename Period &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool flow::net_flow::Peer_socket::sync_send </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const boost::chrono::duration&lt; Rep, Period &gt; &amp;&#160;</td>
+          <td class="paramname"><em>max_wait</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
+          <td class="paramname"><em>err_code</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a></code> operating in <code>nullptr_t</code> mode, wherein &ndash; if Writable state is reached &ndash; the actual data are not moved out of any buffer, leaving that to the caller to do if desired. </p>
+<p >Hence, this is a way of waiting for Writable state that could be more concise in some situations than <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a133c518168fe3922ab6729a99077dd3f" title="Blocks indefinitely until one or more of the previously described events hold – or the wait is interr...">Event_set::sync_wait()</a>.</p>
+<h3>Error handling</h3>
+<p >These are the possible outcomes:</p><ol type="1">
+<li>There is space in the Send buffer; and socket is fully connected (<code>S_OPEN+S_CONNECTED</code>). Socket Writable. <code>true</code> is returned; <code>*err_code</code> is set to success unless null.</li>
+<li>The operation cannot proceed due to an error. <code>false</code> is returned; <code>*err_code</code> is set to the specific error unless null. <code>*err_code == S_WAIT_INTERRUPTED</code> means the wait was interrupted (similarly to POSIX's <code>EINTR</code>). (If <code>err_code</code> null, Runtime_error thrown.)</li>
+<li>Neither condition above is detected before the timeout expires (if provided). Output semantics are the same as in 2, with the specific code <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ab835895723a7d71c964b84e0f0b78c3c" title="A blocking (sync_) or background-blocking (async_) operation timed out versus user-supplied time limi...">error::Code::S_WAIT_USER_TIMEOUT</a>.</li>
+</ol>
+<p >Note that it is NOT possible to return <code>false</code> and no error.</p>
+<p >Tip: Typical types you might use for <code>max_wait</code>: <code>boost::chrono::milliseconds</code>, <code>boost::chrono::seconds</code>, <code>boost::chrono::high_resolution_clock::duration</code>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Rep</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </td></tr>
+    <tr><td class="paramname">Period</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a70629642551f18e474b87c128d2d77e2" title="Blocking (synchronous) version of send().">sync_send()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_wait</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
+    <tr><td class="paramname">err_code</td><td>See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> docs for error reporting semantics. Error, except <code>WAIT_INTERRUPTED</code> or <code>WAIT_USER_TIMEOUT</code>, implies that neither this nor any subsequent <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">send()</a> on this socket will succeeed. (In particular a clean disconnect is an error.) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if 1+ bytes are possible to add to Send buffer; <code>false</code> if either a timeout has occurred (bytes not writable), or another error has occurred. </dd></dl>
+
+</div>
+</div>
+<a id="a94f1e498fdd2349075ee5bcd7906d308" name="a94f1e498fdd2349075ee5bcd7906d308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94f1e498fdd2349075ee5bcd7906d308">&#9670;&nbsp;</a></span>sync_send() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool flow::net_flow::Peer_socket::sync_send </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
+          <td class="paramname"><em>err_code</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Equivalent to <code>sync_send(nullptr, duration::max(), err_code)</code>; i.e., <code>sync_send(nullptr_t)</code> with no timeout. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">err_code</td><td>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a256b77e546fff9394ef8d509e2ae771b" title="Blocking (synchronous) version of receive().">sync_receive()</a>. </dd></dl>
 
 </div>
 </div>
@@ -1326,7 +1324,7 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 10 2025 20:12:42 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Jan 17 2025 21:56:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

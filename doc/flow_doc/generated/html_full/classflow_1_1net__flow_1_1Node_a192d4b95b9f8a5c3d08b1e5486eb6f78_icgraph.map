@@ -6,5 +6,5 @@
 <area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#a8abde92d5189bf2a058fe8741789f814" title="This is to sync_receive() as node_receive() is to receive()." alt="" coords="223,65,397,101"/>
 <area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of..." alt="" coords="25,5,155,41"/>
 <area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#ad29f61b9885b10ddc3846cdae0560518" title="Same as sync_receive() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation..." alt="" coords="5,65,175,101"/>
-<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#a1a2eccfa314a397c12259f414ef6798c" title="Helper similar to sync_receive_impl() but for the null_buffers versions of sync_receive()." alt="" coords="19,150,161,198"/>
+<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#a1a2eccfa314a397c12259f414ef6798c" title="Helper similar to sync_receive_impl() but for the nullptr_t versions of sync_receive()." alt="" coords="19,150,161,198"/>
 </map>
