@@ -116,7 +116,7 @@ class FlowRecipe(ConanFile):
 
     def requirements(self):
         if self.options.build:
-            # Attention: This version of Boost is not unfortunately as of this writing (1/14/2025) not
+            # Attention: This version of Boost is unfortunately as of this writing (1/14/2025) not
             # in conan-center; 1.86 is the latest version in conan-center, with 1.87 PR
             # (https://github.com/conan-io/conan-center-index/pull/26079) still open
             # since 1.87's release ~1 month earlier.  We try to get it manually for now, which is why the "@"
@@ -128,9 +128,9 @@ class FlowRecipe(ConanFile):
             #   - Then the "@" here gets the desired Boost based on that locally-obtained recipe.
             # TODO: Surely soon enough the version will be in conan-center, at which point:
             #   - Remove the "@" here.
-            #   - Remove the `conan expert` + related command(s) from the relevant `.yml`s.
+            #   - Remove the `conan export` + related command(s) from the relevant `.yml`s.
+            #     Spoiler alert: that's our main.yml and Flow-IPC's main.yml.
             self.requires("boost/1.87.0@")
-            #self.requires("boost/1.84.0")
 
             self.requires("fmt/10.0.0")
 
