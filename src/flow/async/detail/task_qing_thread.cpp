@@ -20,6 +20,7 @@
 #include "flow/log/config.hpp"
 #include <boost/asio.hpp>
 #include <boost/move/make_unique.hpp>
+#include <boost/asio/executor_work_guard.hpp>
 #include <string>
 #include <exception>
 #include <cstdlib>
@@ -43,6 +44,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
 {
   using boost::promise;
   using boost::asio::post;
+  using boost::asio::make_work_guard;
   using boost::movelib::unique_ptr;
   using boost::movelib::make_unique;
   using std::exception;
@@ -52,7 +54,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
   using util::Task_engine;
   using log::Logger;
   using log::beautify_chrono_logger_this_thread;
-  using Task_engine_work = Task_engine::work;
+  using Task_engine_work = boost::asio::executor_work_guard<Task_engine::executor_type>;
   using Log_config = log::Config;
 
   assert(m_task_engine);
@@ -145,8 +147,8 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
        * starts running in earnest. */
     } // const auto sev_override_auto = // Restore logging to normal (how it normally is at thread start).
 
-    // @todo boost::asio::io_context::work is deprecated; use its replacement (see io_context boost.asio doc page).
-    Task_engine_work avoid_task_engine_stop(*m_task_engine); // Avoid loop, thread exiting when no pending tasks remain.
+    // Avoid loop, thread exiting when no pending tasks remain.
+    Task_engine_work avoid_task_engine_stop(make_work_guard(*m_task_engine));
 
     // Block -- wait for tasks to be posted on this thread's (possibly shared with other threads) Task_engine.
     m_task_engine->run();

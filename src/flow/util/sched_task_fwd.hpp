@@ -174,7 +174,7 @@ using Scheduled_task = Function<void (bool short_fire)>;
  * @tparam Scheduled_task_handler
  *         Completion handler with signature compatible with `void (bool short_fired)`.
  *         This allows for standard boost.asio semantics, including associating with an executor such as a
- *         `boost::asio::strand`.  In particular you may pass in: `bind_executor(S, F)`, where
+ *         `boost::asio::io_context::strand`.  In particular you may pass in: `bind_executor(S, F)`, where
  *         `F(bool short_fire)` is the handler, and `S` is a #Strand (or other executor).
  *         Binding to a #Strand will ensure the fired or short-fired body will not execute concurrently with
  *         any other handler also bound to it.

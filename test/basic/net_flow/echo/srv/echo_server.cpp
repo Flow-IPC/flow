@@ -18,6 +18,7 @@
 #include "flow/net_flow/node.hpp"
 #include "flow/log/simple_ostream_logger.hpp"
 #include "flow/log/async_file_logger.hpp"
+#include "flow/util/string_view.hpp"
 
 #include <boost/array.hpp>
 #include <fstream>
@@ -92,19 +93,18 @@ int Main::main(int argc, const char** argv)
   using flow::net_flow::Peer_socket;
   using flow::net_flow::Remote_endpoint;
   using flow::error::Runtime_error;
-  using boost::asio::io_service;
+  using String_view = flow::util::String_view;
+  using boost::asio::io_context;
   using resolver = boost::asio::ip::udp::resolver;
-  using query = boost::asio::ip::udp::resolver::query;
   using boost::thread;
   using std::ofstream;
   using std::ios_base;
-  using std::string;
   using std::exception;
 
   const int BAD_EXIT = 1;
   const flow_port_t LOCAL_FLOW_PORT = 50; // Must match what's in client.cpp.
-  const string LOCALHOST_TOKEN = "localhost";
-  const string LOG_FILE = "flow_echo_srv.log";
+  const String_view LOCALHOST_TOKEN = "localhost";
+  const boost::filesystem::path LOG_FILE = "flow_echo_srv.log";
 
   // Set up logging to file for Flow node. This is separate from our console logging.
   FLOW_LOG_INFO("Opening log file [" << LOG_FILE << "] for Flow logs only.");
@@ -121,7 +121,7 @@ int Main::main(int argc, const char** argv)
   }
   // else
 
-  const string port_str(argv[1]);
+  const String_view port_str(argv[1]);
   const bool bind_to_localhost = (argc - 1) == 2;
 
   // Argument parsing done. Go!
@@ -132,27 +132,28 @@ int Main::main(int argc, const char** argv)
     // Resolve the host/port strings (e.g., port can be a number or service string) to a UDP endpoint.
     Udp_endpoint local_udp_endpoint;
     {
-      const string host_str = bind_to_localhost ? "127.0.0.1" : "0.0.0.0";
+      const String_view host_str = bind_to_localhost ? "127.0.0.1" : "0.0.0.0";
 
-      io_service io;
+      io_context io;
       resolver res(io);
       Error_code ec;
-      resolver::iterator result_it = res.resolve(query(host_str, port_str), ec);
+      const auto results = res.resolve(host_str, port_str, ec);
       if (ec)
       {
         throw Runtime_error(ec, FLOW_UTIL_WHERE_AM_I_STR());
       }
       // else
 
-      if (result_it == resolver::iterator())
+      if (results.empty())
       {
-        FLOW_LOG_WARNING("Could not resolve [" + host_str + ":" + port_str + "].");
+        FLOW_LOG_WARNING("Could not resolve [" << host_str << ':' << port_str << "].");
         return BAD_EXIT;
       }
 
       // Essentially, this is just a resolved IP address and port number. Note this has nothing to do with Flow per se.
-      local_udp_endpoint = *result_it;
-      FLOW_LOG_INFO("Resolved successfully: [" + host_str + ":" + port_str + "] => [" << local_udp_endpoint << "].");
+      local_udp_endpoint = *(results.begin());
+      FLOW_LOG_INFO("Resolved successfully: [" << host_str << ':' << port_str << "] "
+                    "=> [" << local_udp_endpoint << "].");
     }
 
     // Now put our transport endpoint on selected interfaces, specific UDP port resolved above.

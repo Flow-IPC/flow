@@ -89,7 +89,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
     /* this->impl_log_flush_and_reopen() will be called on signal (or error).
      * Note that that function's contract (from its doc comment) is it must execute in m_async_worker (see
      * m_signal_set() init above in the init section of ctor).
-     * Indeed boost::asio::io_service semantics guarantee it'll run in m_async_worker (not some
+     * Indeed boost::asio::io_context semantics guarantee it'll run in m_async_worker (not some
      * no-man's-land signal handler thread of execution, as one might fear could be the case) for the same reason
      * the various post()ed tasks will run in m_async_worker. */
     m_signal_set.async_wait([this](const Error_code& sys_err_code, int sig_number)

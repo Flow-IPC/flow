@@ -247,7 +247,7 @@ Scheduled_task_handle schedule_task_at(log::Logger* logger_ptr,
                                        Task_engine* task_engine,
                                        Scheduled_task_handler&& task_body_moved)
 {
-  /* The core object, Timer m_timer, has expires_at() and expires_from_now() available.  As a black box, perhaps it'd
+  /* The core object, Timer m_timer, has expires_at() and expires_after() available.  As a black box, perhaps it'd
    * be best for us to call those respectively from schedule_task_at() and schedule_task_from_now().  However,
    * certain boost.asio docs suggest that ultimately Timer is built around the "fire T period after now" routine,
    * so it would ultimately just subtract Fine_clock::now() anyway even in expires_at().  So, for simpler code, we just

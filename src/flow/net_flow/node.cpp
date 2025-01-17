@@ -250,7 +250,7 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
 
     /* this->interrupt_all_waits_internal_sig_handler(err_code, signal_number) will be called on signal (or error).
      * Note that that function's contract (from its doc comment) is it must execute in thread W.
-     * Indeed boost::asio::io_service semantics guarantee it'll run in thread W (not some
+     * Indeed boost::asio::io_context semantics guarantee it'll run in thread W (not some
      * no-man's-land signal handler thread of execution, as one might fear could be the case) for the same reason
      * the various socket I/O handlers and timer handlers above will run in thread W: because we'll run
      * m_task_engine.run() below from thread W, and all such functions are guaranteed to run "as if"
@@ -277,9 +277,9 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
 
   m_task_engine.run();
 
-  /* Destructor must have stop()ped m_task_engine.  reset() will allow the below poll()s to
+  /* Destructor must have stop()ped m_task_engine.  restart() will allow the below poll()s to
    * proceed. */
-  m_task_engine.reset();
+  m_task_engine.restart();
 
   // Log final state report before closing down.  Do not schedule to run again.
   perform_regular_infrequent_tasks(false);
@@ -1053,8 +1053,7 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
 
 bool Node::set_options(const Node_options& opts, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Node::set_options, bind_ns::cref(opts), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, set_options, opts, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.

@@ -454,11 +454,11 @@ namespace flow::net_flow
  * original problem (internal kernel buffer overflowing and dropping datagrams).
  *
  * @todo Receive UDP datagrams as soon as possible (avoid internal buffer overflow): APPROACH 1 (CO-WINNER!):
- * One approach is to note that, as of this writing, we call `m_low_lvl_sock.async_receive(null_buffers)`;
- * the `null_buffers` value for the buffers arg means that the handler is called without any actual UDP
- * receive is performed by boost.asio; our handler is called once there is at least 1 message TO read;
+ * One approach is to note that, as of this writing, we call `m_low_lvl_sock.async_wait(wait_read)`;
+ * our handler is called once there is at least 1 message TO read;
  * and then indeed our handler does read it (and any more messages that may also have arrived).
- * Well, if we pass in an actual buffer instead, then boost.asio will read 1 (and no more, even if there are more)
+ * Well, if we use actual `async_receive()` and an actual buffer instead,
+ * then boost.asio will read 1 (and no more, even if there are more)
  * message into that buffer and have it ready in the handler.  Assuming the mainstream case involves only 1
  * message being ready, and/or assuming that reading at least 1 message each time ASAP would help significantly,
  * this may be a good step toward relieving the problem, when it exists.  The code becomes a tiny bit less
@@ -772,9 +772,6 @@ namespace flow::net_flow
  * group's method(s) are meant to be called by outside code vs. being helpers thereof: Introduce `static`-method-only
  * inner classes (and, conceivably, even classes within those classes) to enforce this grouping (`public` methods
  * and `private` methods enforcing what is a "public" helper vs. a helper's helper).
- *
- * @todo We are now on Boost 1.75; the use of asio's `null_buffers` semantics is deprecated and should be changed to
- * the replacement mechanism suggested in Boost docs -- the `async_wait()` method.
  *
  * @todo Make use of flow::async::Concurrent_task_loop or flow::async::Single_thread_task_loop, instead of manually
  * setting up a thread and util::Task_engine, for #m_worker.  I, Yuri, wrote the constructor, worker_run(), destructor,
@@ -1774,9 +1771,7 @@ private:
    * Takes ownership of packet; do not reference it in any way after this method returns.
    *
    * Note that an error may occur in asynchronous operations triggered by this method; if this
-   * happens the socket will be closed via close_connection_immediately().  However if the error
-   * happens IN this method (`false` is returned), it is up to the caller to handle the error as
-   * desired.
+   * happens the socket will be closed via close_connection_immediately().
    *
    * @param sock
    *        Socket whose `remote_endpoint()` specifies to what Node and what Flow port within that
@@ -1785,16 +1780,9 @@ private:
    *        Pointer to packet structure with everything except the source, destination, and
    *        retransmission mode fields (essentially, the public members of Low_lvl_packet proper but
    *        not its derived types) filled out as desired.
-   * @param err_code
-   *        After return, `*err_code` is success or:
-   *        error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER.
-   * @return `true` on success so far; `false` on failure (and thus no send initiation).
-   *         Note that `true` in no way indicates the send succeeded (indeed, the send cannot possibly
-   *         *initiate* until this method exits).
    */
-  bool async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
-                                            Low_lvl_packet::Ptr&& packet,
-                                            Error_code* err_code);
+  void async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
+                                            Low_lvl_packet::Ptr&& packet);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: Handles a DATA or ACK packet that was just
@@ -1806,9 +1794,7 @@ private:
    * invariants described for `struct` Send_pacing_data hold.
    *
    * Note that an error may occur in asynchronous operations triggered by this method; if this
-   * happens the socket will be closed via close_connection_immediately().  However if the error
-   * happens IN this method (`false` is returned), it is up to the caller to handle the error as
-   * desired.
+   * happens the socket will be closed via close_connection_immediately().
    *
    * Takes ownership of packet; do not reference it in any way after this method returns.
    *
@@ -1816,12 +1802,8 @@ private:
    *        Socket under consideration.
    * @param packet
    *        Packet to send.
-   * @param err_code
-   *        See async_sock_low_lvl_packet_send_paced().
-   * @return See async_sock_low_lvl_packet_send_paced().
    */
-  bool sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet,
-                                    Error_code* err_code);
+  void sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: Resets the socket's Send_pacing_data structure
@@ -1860,14 +1842,11 @@ private:
    *
    * @param sock
    *        Socket under consideration.
-   * @param err_code
-   *        See async_sock_low_lvl_packet_send_paced().
    * @param executing_after_delay
    *        `true` if executing from a pacing-related timer handler; `false` otherwise (i.e.,
    *        if sock_pacing_new_packet_ready() is in the call stack).
-   * @return See async_sock_low_lvl_packet_send_paced().
    */
-  bool sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bool executing_after_delay);
+  void sock_pacing_process_q(Peer_socket::Ptr sock, bool executing_after_delay);
 
   /**
    * async_sock_low_lvl_packet_send_paced() pacing helper: If sock_pacing_process_q() ran out of the last
@@ -1895,23 +1874,6 @@ private:
    *        boost.asio error code.
    */
   void sock_pacing_time_slice_end(Peer_socket::Ptr sock, const Error_code& sys_err_code);
-
-  /**
-   * Similar to async_sock_low_lvl_packet_send_paced() except it also calls
-   * `close_connection_immediately(sock)` if the former fails.
-   *
-   * @param sock
-   *        See async_sock_low_lvl_packet_send_paced().  Additionally, `sock` must be suitable for
-   *        close_connection_immediately(); see that method's doc comment.
-   * @param packet
-   *        See async_sock_low_lvl_packet_send_paced() analogous parameter.
-   * @param defer_delta_check
-   *        Same meaning as in close_connection_immediately().
-   * @return See async_low_lvl_packet_send_paced().
-   */
-  bool async_sock_low_lvl_packet_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                           Low_lvl_packet::Ptr&& packet,
-                                                           bool defer_delta_check);
 
   /**
    * Sends an RST to the other side of the given socket asynchronously when possible.  An error is
@@ -2167,7 +2129,7 @@ private:
    * Causes an acknowledgment of the given received packet to be included in a future Ack_packet
    * sent to the other side.  That ACK low-level UDP packet is not sent in this handler, even if
    * the low-level UDP socket is currently writable.  The sending of this packet is performed
-   * asynchronously in the manner of `boost::asio::io_service::post()`.
+   * asynchronously in the manner of `boost::asio::post(io_context&)`.
    *
    * Note that the Ack_packet may include other packets being acknowledged; and that ACK may be
    * artificially delayed for reasons like the desire to accumulate more acknowledgments before
@@ -2626,17 +2588,16 @@ private:
   Syn_ack_packet::Ptr create_syn_ack(Peer_socket::Const_ptr sock);
 
   /**
-   * Helper to create, fully fill out, and asynchronously send via async_sock_low_lvl_packet_send_or_close_immediately()
+   * Helper to create, fully fill out, and asynchronously send via async_sock_low_lvl_packet_send_paced()
    * a SYN_ACK_ACK packet.  Since rcv_wnd is advertised, Peer_socket::m_rcv_last_sent_rcv_wnd is updated for `sock`.
    *
    * @param sock
    *        See async_sock_low_lvl_packet_send().
    * @param syn_ack
    *        SYN_ACK to which the resulting SYN_ACK_ACK is the reply.
-   * @return See async_sock_low_lvl_packet_send().
    */
-  bool async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                           boost::shared_ptr<const Syn_ack_packet>& syn_ack);
+  void async_low_lvl_syn_ack_ack_send(const Peer_socket::Ptr& sock,
+                                      boost::shared_ptr<const Syn_ack_packet>& syn_ack);
 
   /**
    * Asynchronously send RST to the other side of the given socket and
@@ -2859,16 +2820,13 @@ private:
    * @param sock
    *        Socket the remote side of which will get the RST.  Method is basically a NOOP unless
    *        state is Peer_socket::Int_state::S_ESTABLISHED.
-   * @param defer_delta_check
-   *        Same meaning as in event_set_all_check_delta().
    * @param sys_err_code
    *        If invoked via timer trigger, this is boost.asio's error code.  If invoked directly,
    *        this should be set to the default (success).  Value is handled as follows: assuming
    *        ESTABLISHED state: `operation_aborted` => NOOP; success or any other error => attempt to
    *        send ACK(s).
    */
-  void async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
-                              const Error_code& sys_err_code = Error_code());
+  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code());
 
   /**
    * Return `true` if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of `sock` (if
@@ -3476,7 +3434,7 @@ private:
    *        If `non_blocking_func.empty()`, do not call `non_blocking_func()` --
    *        return indicating no error so far, and let them do actual operation, if they want; we just tell them it
    *        should be ready for them.  This is known
-   *        as `null_buffers` mode or reactor pattern mode.  Otherwise, do the successful operation and then
+   *        as reactor pattern mode.  Otherwise, do the successful operation and then
    *        return.  This is arguably more typical.
    * @param would_block_ret_val
    *        The value that `non_blocking_func()` returns to indicate it was unable to perform the
@@ -4081,7 +4039,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
      * plus it's a pre-condition of the non-blocking operation (e.g., Node::send()).  In the
      * meantime sock may have gotten closed. Ensure that's not so (another pre-condition).
      *
-     * Alternatively, in null_buffers mode, they want us to basically do a glorified sync_wait() for
+     * Alternatively, in reactor-pattern mode, they want us to basically do a glorified sync_wait() for
      * one of the 3 events, depending on ev_type, and just return without performing any non_blocking_func();
      * in fact this mode is indicated by non_blocking_func.empty(). */
 

@@ -83,7 +83,7 @@ namespace flow::net_flow
  * `boost::filesystem::path`) in `~Port_space()`.  This wouldn't work if Port_space crashed, however.  To
  * solve that, we could easily start a thread in Port_space() (and join it in `~Port_space()`) that
  * would save that state every N seconds.  If that's not enough, we can instead have that thread run
- * a boost.asio `io_service::run()` event loop and `io_service::post()` the save operation onto it (from
+ * a boost.asio `io_context::run()` event loop and `post(io_context&)` the save operation onto it (from
  * arbitrary threads) each time a new ephemeral port is reserved (with some kind of protection
  * against incessant disk writing built into this worker thread; e.g., don't save if saved in the
  * last N msec).

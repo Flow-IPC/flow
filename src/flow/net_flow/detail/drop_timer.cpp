@@ -356,11 +356,11 @@ void Drop_timer::start_timer()
   assert(!m_timer_running);
 
   /* Determine when the timer will fire.  Due to the interface of Timer, we need either a
-   * Fine_duration (for expires_from_now()) or a Fine_time_pt (for expires_at()): how long from now,
+   * Fine_duration (for expires_after()) or a Fine_time_pt (for expires_at()): how long from now,
    * or when in absolute terms, respectively.
    *
    * The obvious first choice would be simply the DTO from now, so
-   * expires_from_now(m_sock_drop_timeout), where the latter is a Fine_duration.
+   * expires_after(m_sock_drop_timeout), where the latter is a Fine_duration.
    *
    * A more complex setup we may want is: the timer firing in m_sock_drop_timeout time units since the time
    * of the earliest (first) current In-flight packet was sent.  Call that initial time point P.  (P is a
@@ -419,24 +419,9 @@ void Drop_timer::start_timer()
   const auto this_ptr = shared_from_this();
 
   // Set the firing time decided above.
-  Error_code sys_err_code;
   use_time_pt_over_duration
-    ? m_timer.expires_at(fire_time_pt, sys_err_code)
-    : m_timer.expires_from_now(fire_duration_vs_now, sys_err_code);
-  if (sys_err_code)
-  {
-    FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-    // Pretty unlikely, but just leave timer disabled (!m_timer_running) and let the Node know.
-
-    // Call timer_failure() asynchronously.  this_ptr will prevent "this" from getting deleted until timer_failure().
-    post(m_node_task_engine, [this, this_ptr]()
-    {
-      timer_failure(this_ptr, error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER);
-    });
-    return;
-  }
-  // else can actually schedule it.
+    ? m_timer.expires_at(fire_time_pt)
+    : m_timer.expires_after(fire_duration_vs_now);
 
   /* Call handle_timer_firing() asynchronously.  this_wait_id will be used to identify which start_timer() caused
    * that callback to fire.  this_ptr used as above. */
@@ -464,7 +449,7 @@ void Drop_timer::disable_timer()
    * handle_timer_firing() will see that and do nothing, as if it had been canceled. */
 
   FLOW_LOG_TRACE("Drop_timer [" << this << "] disabling; was set to fire in "
-                 "[" << round<milliseconds>(m_timer.expires_from_now()) << "]; "
+                 "[" << round<milliseconds>(m_timer.expiry() - Fine_clock::now()) << "]; "
                  "wait_id = [" << m_current_wait_id << "].");
 
   // Try to cancel any pending waits (call ASAP with err_code = operation_aborted).

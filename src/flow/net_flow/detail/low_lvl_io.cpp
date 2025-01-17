@@ -30,14 +30,8 @@ namespace flow::net_flow
 
 void Node::async_low_lvl_recv()
 {
-  using boost::asio::null_buffers;
-
   // We are in thread W.
-
-  /* null_buffers() => don't actually read into any buffer.  Invoked handler will read.
-   * Invoke this->low_lvl_recv_and_handle(<error code>) when data/error ready. */
-  m_low_lvl_sock.async_receive(null_buffers(),
-                               [this](const Error_code& sys_err_code, size_t)
+  m_low_lvl_sock.async_wait(Udp_socket::wait_read, [this](const Error_code& sys_err_code)
   {
     low_lvl_recv_and_handle(sys_err_code);
   });
@@ -139,7 +133,7 @@ void Node::low_lvl_recv_and_handle(Error_code sys_err_code)
          * error codes which often demand special handling?  Well, firstly, we are likely mostly not hitting that
          * situation, as async_receive() (the call for which this is the handler function) specifically attempts
          * to avoid those error codes by only executing the handler once the socket is Readable.
-         * Still, it's probably not impossible: we used null_buffers as of this writing, which means the actual
+         * Still, it's probably not impossible: we used async_wait() as of this writing, which means the actual
          * receiving is done in this handler, not by boost.asio (and even if it was, we would still try more receives
          * until no more are available).  Between detection of Readable by boost.asio and the actual receive call,
          * the situation may have changed.  Well, fine.  What's there to do?  would_block/try_again means
@@ -539,7 +533,7 @@ void Node::low_lvl_packet_sent(Peer_socket::Ptr sock, Low_lvl_packet::Const_ptr 
      * that those two errors are _specifically_ avoided.  However, that's probably not a 100% safe assumption.
      * Even if the OS reports "Writable" at time T, a few microseconds later some resource might get used up
      * (unrelated to our activities); and by the time the actual send executes, we might get would_block/try_again.
-     * Now, it's possible that since we do NOT use null_buffers in our async_send() call -- meaning we let
+     * Now, it's possible that since we do NOT use async_wait() instead of async_send() call -- meaning we let
      * boost.asio both wait for Writable *and* itself execute the write -- that it would hide any such
      * corner-case EAGAIN/etc. from us and just not call this handler in that case and retry later by itself.
      * However, I don't know if it does that.  @todo Therefore it would be safer to treat those error codes,
@@ -602,9 +596,8 @@ void Node::async_no_sock_low_lvl_rst_send(Low_lvl_packet::Const_ptr causing_pack
   // If that returned false: It's an RST, so there's no one to inform of an error anymore.  Oh well.
 } // Node::async_no_sock_low_lvl_rst_send()
 
-bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
-                                                Low_lvl_packet::Ptr&& packet,
-                                                Error_code* err_code)
+void Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
+                                                Low_lvl_packet::Ptr&& packet)
 {
   // We are in thread W.
 
@@ -639,15 +632,14 @@ bool Node::async_sock_low_lvl_packet_send_paced(const Peer_socket::Ptr& sock,
      * jump the queue ahead of DATA/ACK packets already there, but since it is an error condition
      * causing RST, we consider that OK (those packets will not be sent). */
     async_sock_low_lvl_packet_send(sock, std::move(packet), false); // false => not queued in pacing module.
-    return true;
+    return;
   }
   // else pacing algorithm enabled and both can and must be used.
 
-  return sock_pacing_new_packet_ready(sock, std::move(packet), err_code);
+  sock_pacing_new_packet_ready(sock, std::move(packet));
 } // Node::async_sock_low_lvl_packet_send_paced()
 
-bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet,
-                                        Error_code* err_code)
+void Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::Ptr packet)
 {
   using boost::chrono::duration_cast;
   using boost::chrono::microseconds;
@@ -705,7 +697,7 @@ bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
      * the head packet now?  No; if the last sock_pacing_new_packet_ready() or
      * sock_pacing_time_slice_end() left a non-empty queue, then the timer has been set to fire when
      * the slice ends, and more packets can be sent.  Done. */
-    return true;
+    return;
   }
   // else if (q_was_empty)
 
@@ -726,7 +718,7 @@ bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
      * sole element on the queue).  Since it doesn't count against m_bytes_allowed_this_slice, the
      * pacing timing is irrelevant to it, and based on the "send ASAP" rule, we send it now. */
     async_sock_low_lvl_packet_send(sock, std::move(packet), false); // false => not queued in pacing module.
-    return true;
+    return;
   }
   // else packet is DATA packet.
 
@@ -759,7 +751,7 @@ bool Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
    * max_block_size(), so certainly the following statement will immediately send the just-queued
    * packet. If the time slice was in progress, then it depends. */
 
-  return sock_pacing_process_q(sock, err_code, false);
+  sock_pacing_process_q(sock, false);
 } // Node::sock_pacing_new_packet_ready()
 
 void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt& now)
@@ -846,7 +838,7 @@ void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt&
                  "[" << pacing.m_bytes_allowed_this_slice << "].");
 } // Node::sock_pacing_new_time_slice()
 
-bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bool executing_after_delay)
+void Node::sock_pacing_process_q(Peer_socket::Ptr sock, bool executing_after_delay)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::round;
@@ -920,7 +912,7 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
     FLOW_LOG_TRACE("Pacing: Queue emptied.");
 
     // Successfully sent off entire queue.  Pacing done for now -- until the next sock_pacing_new_packet_ready().
-    return true;
+    return;
   }
   // else
 
@@ -930,22 +922,12 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
    * m_slice_start + m_slice_period. */
   const Fine_time_pt slice_end = pacing.m_slice_start + pacing.m_slice_period;
 
-  Error_code sys_err_code;
-  pacing.m_slice_timer.expires_at(slice_end, sys_err_code);
+  pacing.m_slice_timer.expires_at(slice_end);
   // (Even if slice_end is slightly in the past, that'll just mean it'll fire ASAP.)
 
   FLOW_LOG_TRACE("Pacing: Exhausted budget; queue size [" << pacing.m_packet_q.size() << "]; "
                  "scheduling next processing at end of time slice "
                  "in [" << round<milliseconds>(slice_end - Fine_clock::now()) << "].");
-
-  if (sys_err_code) // If that failed, it's probably the death of the socket....
-  {
-    FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-    FLOW_ERROR_EMIT_ERROR(error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER);
-
-    return false;
-  }
-  // else
 
   // When triggered or canceled, call this->sock_pacing_time_slice_end(sock, <error code>).
   pacing.m_slice_timer.async_wait([this, sock_observer = weak_ptr<Peer_socket>(sock)]
@@ -960,7 +942,6 @@ bool Node::sock_pacing_process_q(Peer_socket::Ptr sock, Error_code* err_code, bo
   });
 
   // More work to do later, but for now we've been successful.
-  return true;
 
   /* That's it.  The only reason the timer would get canceled is if we go into CLOSED state, in
    * which case it can just do nothing. */
@@ -1001,34 +982,8 @@ void Node::sock_pacing_time_slice_end(Peer_socket::Ptr sock, [[maybe_unused]] co
    * m_bytes_allowed_this_slice >= max_block_size(), and certainly the following statement will
    * immediately send at least one packet. */
 
-  Error_code err_code;
-  if (!sock_pacing_process_q(sock, &err_code, true)) // Process as many packets as the new budget allows.
-  {
-    /* Error sending.  Unlike in sock_pacing_process_q() or sock_pacing_new_packet_ready() --
-     * which are called by something else that would handle the error appropriately -- we are
-     * called by boost.asio on a timer event.  Therefore we must handle the error ourselves.  As is
-     * standard procedure elsewhere in the code, in this situation we close socket. */
-
-    // Pre-conditions: sock is in m_socks and S_OPEN, err_code contains reason for closing.
-    rst_and_close_connection_immediately(socket_id(sock), sock, err_code, false); // This will log err_code.
-    /* ^-- defer_delta_check == false: for similar reason as when calling send_worker() from
-     * send_worker_check_state(). */
-  }
+  sock_pacing_process_q(sock, true); // Process as many packets as the new budget allows.
 } // Node::sock_pacing_time_slice_end()
-
-bool Node::async_sock_low_lvl_packet_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                               Low_lvl_packet::Ptr&& packet,
-                                                               bool defer_delta_check)
-{
-  Error_code err_code;
-  if (!async_sock_low_lvl_packet_send_paced(sock, std::move(packet), &err_code))
-  {
-    close_connection_immediately(socket_id(sock), sock, err_code, defer_delta_check);
-    return false;
-  }
-  // else
-  return true;
-}
 
 void Node::async_sock_low_lvl_rst_send(Peer_socket::Ptr sock)
 {
@@ -1036,10 +991,7 @@ void Node::async_sock_low_lvl_rst_send(Peer_socket::Ptr sock)
 
   // Fill out common fields and asynchronously send packet.
   auto rst = Low_lvl_packet::create_uninit_packet_base<Rst_packet>(get_logger());
-  Error_code dummy;
-  async_sock_low_lvl_packet_send_paced(sock, std::move(rst), &dummy);
-
-  // If that returned false: It's an RST, so there's no one to inform of an error anymore.  Oh well.
+  async_sock_low_lvl_packet_send_paced(sock, std::move(rst));
 } // Node::async_sock_low_lvl_rst_send()
 
 void Node::sync_sock_low_lvl_rst_send(Peer_socket::Ptr sock)

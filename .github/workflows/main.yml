@@ -519,6 +519,11 @@ jobs:
       run: |
         # Install Flow dependencies with Conan using the profile.
         ${{ env.setup-run-env }}
+        # Next 4 lines: See explanation in flow/conanfile.py.  TODO: See the TODO there which applies to these lines.
+        # In short: this Boost-version recipe is not in conan-center yet, so we borrowed a recipe locally.
+        # This installs that recipe (not Boost itself) locally; the recipe will then work inside `conan install`.
+        NON_REMOTE_BOOST_VER=1.87
+        conan export ./conan/boost/$NON_REMOTE_BOOST_VER boost/$NON_REMOTE_BOOST_VER.0@
         # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
         $BUILT_CMD_PREFIX \
           conan install . --profile:build conan_profile --profile:host conan_profile --build missing || FAILED=yep

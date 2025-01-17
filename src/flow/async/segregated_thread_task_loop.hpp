@@ -240,7 +240,7 @@ private:
   // Methods.
 
   /**
-   * Helper performing the core `Task_engine::post()` (or similar) call on behalf of the various `post()` overloads.
+   * Helper performing the core `post(Task_engine&)` (or similar) call on behalf of the various `post()` overloads.
    *
    * @param chosen_task_engine
    *        The value `m_qing_threads[idx].task_engine().` for some valid `idx`: the engine for the thread selected
@@ -293,7 +293,7 @@ private:
   std::vector<Task_qing_thread_ptr> m_qing_threads;
 
   /**
-   * boost.asio `Task_engine`s (a/k/a `io_service`s) used by each respective element in #m_qing_threads.
+   * boost.asio `Task_engine`s (a/k/a `io_context`s) used by each respective element in #m_qing_threads.
    * It is critical that this not be modified after constructor returns, for the same thread safety reason mentioned
    * in the warning in #m_qing_threads doc header.
    */

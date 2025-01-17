@@ -173,8 +173,6 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
                               const Peer_socket_options* opts,
                               Handler_func&& on_result)
 {
-  using boost::asio::null_buffers;
-
   // We are in thread U != W.
 
   /* This follows similar beats to sync_connect_impl(); though ultimately it happens to be simpler
@@ -199,7 +197,7 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
    * exception throw) below, EXCEPT the success case. */
 
   /* "Cheat": we just want it to be writable, indicating it is connected (e.g., see sync_connect_impl()).
-   * Fortunately we can use async_send(null_buffers()) for exactly that purpose: it will await writability
+   * Fortunately we can use async_wait(wait_write) for exactly that purpose: it will await writability
    * (not even conceivably competing with any other entity awaiting same, since we haven't given socket to
    * anyone yet); but will not actually write anything when ready, merely calling our handler. */
   const auto on_writable = [this, on_result = std::move(on_result), sock]
@@ -243,7 +241,7 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
   assert(sock->async_task_engine() == target_task_engine);
 
   // Go!
-  sock->async_send(null_buffers(), max_wait, on_writable);
+  sock->async_send(nullptr, max_wait, on_writable);
 } // Node::async_connect_impl()
 
 // Free implementations.

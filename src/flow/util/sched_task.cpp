@@ -42,7 +42,7 @@ bool scheduled_task_cancel(log::Logger* logger_ptr, Scheduled_task_handle task)
     /* This is inside cancel_if_should() because it accesses `timer.*()` potentially concurrently with another thread:
      * e.g., another scheduled_task_cancel() call. */
     FLOW_LOG_TRACE("Canceling scheduled task [" << task->m_id << "] "
-                   "that was set to fire in [" << round<milliseconds>(timer.expires_from_now()) << "]; "
+                   "that was set to fire in [" << round<milliseconds>(timer.expiry() - Fine_clock::now()) << "]; "
                    "single-threaded optimizations applicable? = [" << single_threaded << "].");
 
     if (task->m_fired)
@@ -114,7 +114,7 @@ bool scheduled_task_short_fire(log::Logger* logger_ptr, Scheduled_task_handle ta
   auto fire_if_should = [&]()
   {
     FLOW_LOG_TRACE("Short-firing scheduled task [" << task->m_id << "] "
-                   "that was set to fire in [" << round<milliseconds>(timer.expires_from_now()) << "]; "
+                   "that was set to fire in [" << round<milliseconds>(timer.expiry() - Fine_clock::now()) << "]; "
                    "single-threaded optimizations applicable? = [" << single_threaded << "].");
 
     if (task->m_fired)
@@ -213,7 +213,7 @@ Fine_duration scheduled_task_fires_from_now_or_canceled(log::Logger* logger_ptr,
       return Fine_duration::max();
     }
     // else
-    const auto& from_now = task->m_timer.expires_from_now();
+    const auto& from_now = task->m_timer.expiry() - Fine_clock::now();
     FLOW_LOG_TRACE("Scheduled task [" << task->m_id <<"]: Returning fires-from-now value "
                    "[" << round<milliseconds>(from_now) << "].");
 

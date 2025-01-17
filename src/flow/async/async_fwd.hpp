@@ -38,8 +38,8 @@
  * certain advanced features as mentioned above.
  *
  *   - boost.asio provides the core algorithmic abilities of an optionally multi-threaded task-executing loop,
- *     particularly through classes util::Task_engine (a/k/a `boost::asio::io_service`), util::Strand
- *     (a/k/a `boost::asio::io_service::strand`), and util::Timer.  flow::async Flow module somewhat streamlines
+ *     particularly through classes util::Task_engine (a/k/a `boost::asio::io_context`), util::Strand
+ *     (a/k/a `strand` in `boost::asio`), and util::Timer.  flow::async Flow module somewhat streamlines
  *     this API in such a way as to keep the user's focus on their conceptual async-task-driven algorithm as opposed
  *     to details of threads, handlers, cores, etc.  The async::Op opaque type is central to this streamlined API,
  *     plus the central class Concurrent_task_loop.
@@ -177,7 +177,7 @@ using Task_asio_err = Function<void (const Error_code&)>;
 using Task_asio_err_sz = Function<void (const Error_code&, size_t)>;
 
 /**
- * Short-hand for reference-counting pointer to a mutable util::Task_engine (a/k/a `boost::asio::io_service`).
+ * Short-hand for reference-counting pointer to a mutable util::Task_engine (a/k/a `boost::asio::io_context`).
  * This is generally how classes in the Concurrent_task_loop hierarchy refer to their internally used
  * `Task_engine`s but also in advanced cases may be communicated to their user.
  *

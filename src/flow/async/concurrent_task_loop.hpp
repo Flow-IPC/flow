@@ -35,7 +35,7 @@ namespace flow::async
  * ### Thread safety ###
  * All methods are thread-safe for read-write on a shared Concurrent_task_loop, after its ctor returns, unless
  * otherwise specified (but read on).  This is highly significant, just as it is highly significant that boost.asio's
- * `Task_engine::post()` is similarly thread-safe.  However, it is *not* safe to call either stop() or start()
+ * `post(Task_engine&)` is similarly thread-safe.  However, it is *not* safe to call either stop() or start()
  * concurrently with itself or the other of the two, on the same Concurrent_task_loop.
  *
  * ### First, select subclass to instantiate ###
@@ -64,7 +64,7 @@ namespace flow::async
  *   - (This start/stop/run/post paradigm may be familiar to boost.asio (particularly `boost::asio::io_context`) users.)
  *
  * ### Next, post() tasks on it: create_op() to group task into operations ###
- * One can post() a task (in the same way one would simply `Task_engine::post()`).  If one wants to execute an async
+ * One can post() a task (in the same way one would simply `post(Task_engine&)`).  If one wants to execute an async
  * op with 2+ non-concurrent tasks, they would pass the same async::Op to post() for each of the aforementioned 2+
  * `Task`s (which are simply `void` no-arg functions basically).  An async::Op can be created
  * via create_op(); or if the task must be pinned to a specific pre-made per-software-thread async::Op,
@@ -77,7 +77,7 @@ namespace flow::async
  * and that should be enough for most async algorithms.
  *
  * Note also the optional `Synchronicity synchronicity` argument to the `post()` methods.  By default this acts
- * like regular `Task_engine::post()`, but you can also access `Task_engine::dispatch()` type of behavior;
+ * like regular `post(Task_engine&)`, but you can also access `dispatch(Task_engine&)` type of behavior;
  * you can wait for the task to complete using yet another mode.  The latter feature,
  * Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION, may be particularly helpful at initialization time, such
  * as if one needs to perform some startup tasks in the new thread(s) before continuing to general work on
@@ -315,7 +315,7 @@ namespace flow::async
  * is considerable flexibility available.  One can think of this as a convenient wrapper around various functionality
  * typically used manually and separately from each other -- simplifying the core interface to just async::Op and
  * post() and providing automatic flexibility as to what functionality is in fact used and when as a result.
- * The functionality accessible: `Task_engine::post()`; scheduling via util::Strand; scheduling on specific thread;
+ * The functionality accessible: `post(Task_engine&)`; scheduling via util::Strand; scheduling on specific thread;
  * non-concurrency guarantees of 2+ tasks in one async op; and thread-count selection and pinning based on available
  * processor architecture (hardware threads, physical cores).
  */
@@ -506,7 +506,7 @@ public:
    * thread to be idle, but informally -- all else being equal -- that's a great goal.
    *
    * `synchronicity` controls the precise behavior of the "post" operation.  Read #Synchronicity `enum` docs carefully.
-   * That said: if left defaulted, `post()` works in the `Task_engine::post()` manner: return immediately; then
+   * That said: if left defaulted, `post()` works in the `post(Task_engine&)` manner: return immediately; then
    * execute either concurrently in another thread or later in the same thread.
    *
    * This is safe to call after stop(), but `task()` will not run until start() (see stop() doc header).
@@ -622,7 +622,7 @@ public:
                                                   const Fine_time_pt& at, Scheduled_task&& task) = 0;
 
   /**
-   * Returns a pointer to *an* internal util::Task_engine (a/k/a boost.asio `io_service`) for the purpose of
+   * Returns a pointer to *an* internal util::Task_engine (a/k/a boost.asio `io_context`) for the purpose of
    * performing a boost.asio `async_*()` action on some boost.asio I/O object in the immediate near future.
    *
    * The mechanics of using this are explained in Concurrent_task_loop doc header.  Using this in any other

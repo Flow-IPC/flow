@@ -74,7 +74,7 @@ flow_port_t Server_socket::local_port() const
 
 Peer_socket::Ptr Server_socket::accept(Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Server_socket::accept, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, accept, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -100,12 +100,9 @@ Peer_socket::Ptr Server_socket::sync_accept(bool reactor_pattern, Error_code* er
 Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until, bool reactor_pattern,
                                                  Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
   using boost::adopt_lock;
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Server_socket::sync_accept_impl,
-                                     bind_ns::cref(wait_until), reactor_pattern, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, sync_accept_impl, wait_until, reactor_pattern, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -144,7 +141,7 @@ Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until,
 Server_socket::Ptr Node::listen(flow_port_t local_port, Error_code* err_code,
                                 const Peer_socket_options* child_sock_opts)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Server_socket::Ptr, Node::listen, local_port, _1, child_sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Server_socket::Ptr, listen, local_port, _1, child_sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using async::asio_exec_ctx_post;
@@ -551,20 +548,8 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
 
   // Make a packet; fill out common fields in and asynchronously send it.
   auto syn_ack = create_syn_ack(sock);
-  Error_code dummy;
-  if (!async_sock_low_lvl_packet_send_paced(sock,
-                                            Low_lvl_packet::ptr_cast(syn_ack),
-                                            &dummy)) // Warns on error.
-  {
-    /* Serialization error.  Very unlikely.  We'd inform the user here, but they didn't open the
-     * connection (it's a passive open, and they haven't yet called accept()).  We'd send RST to the
-     * other side, but we couldn't even serialize a SYN_ACK, so nothing to do except give up
-     * silently.  We didn't place sock into m_socks, so just let it disappear via shared_ptr<>
-     * magic. */
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn_ack));
 
-    cancel_timers(sock); // Cancel timers set up above.
-    return Peer_socket::Ptr();
-  }
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
 

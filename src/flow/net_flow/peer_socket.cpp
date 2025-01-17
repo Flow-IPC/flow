@@ -104,20 +104,16 @@ Error_code Peer_socket::disconnect_cause() const
   return m_disconnect_cause;
 }
 
-bool Peer_socket::sync_send(const boost::asio::null_buffers& tag, Error_code* err_code)
+bool Peer_socket::sync_send(std::nullptr_t, Error_code* err_code)
 {
-  return sync_send(tag, Fine_duration::max(), err_code);
+  return sync_send(nullptr, Fine_duration::max(), err_code);
 }
 
 bool Peer_socket::sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code)
 {
   // Similar to sync_send_impl(), so keeping comments light.  Reminder: Goal is to wait until *this is Writable.
 
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_send_reactor_pattern_impl,
-                                     bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, sync_send_reactor_pattern_impl, wait_until, _1);
 
   Lock_guard lock(m_mutex);
 
@@ -189,20 +185,16 @@ size_t Peer_socket::node_sync_send(const Function<size_t (size_t max_data_size)>
                 wait_until, err_code);
 } // Peer_socket::node_sync_send()
 
-bool Peer_socket::sync_receive(const boost::asio::null_buffers& tag, Error_code* err_code)
+bool Peer_socket::sync_receive(std::nullptr_t, Error_code* err_code)
 {
-  return sync_receive(tag, Fine_duration::max(), err_code);
+  return sync_receive(nullptr, Fine_duration::max(), err_code);
 }
 
 bool Peer_socket::sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code)
 {
   // Similar to sync_receive_impl(), so keeping comments light.  Reminder: Goal is to wait until *this is Readable.
 
-  namespace bind_ns = util::bind_ns;
-  using bind_ns::bind;
-
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::sync_receive_reactor_pattern_impl,
-                                     bind_ns::cref(wait_until), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, sync_receive_reactor_pattern_impl, wait_until, _1);
 
   Lock_guard lock(m_mutex);
 
@@ -296,8 +288,7 @@ void Peer_socket::close_abruptly(Error_code* err_code)
 
 bool Peer_socket::set_options(const Peer_socket_options& opts, Error_code* err_code)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, Peer_socket::set_options, bind_ns::cref(opts), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, set_options, opts, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -326,7 +317,7 @@ Peer_socket_info Peer_socket::info() const
 
   /* There are two cases.  If the socket is open (not S_CLOSED), then an m_node owns it and may
    * change the stats we want to copy in its thread W at any time.  In this case we must copy it in
-   * thread W (which we do using a future and io_service::post(), as in listen() and other places in
+   * thread W (which we do using a future and post(io_context&), as in listen() and other places in
    * Node).  In the socket is closed (S_CLOSED), then no m_node owns it, so there is no thread W
    * applicable to this socket anymore, and we can just copy the data in thread U != W. */
 
@@ -390,10 +381,9 @@ flow_port_t Peer_socket::local_port() const
 size_t Peer_socket::get_connect_metadata(const boost::asio::mutable_buffer& buffer,
                                          Error_code* err_code) const
 {
-  namespace bind_ns = util::bind_ns;
   using std::memcpy;
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, Peer_socket::get_connect_metadata, bind_ns::cref(buffer), _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, get_connect_metadata, buffer, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in user thread U != W.
@@ -488,14 +478,9 @@ void Node::handle_syn_ack_to_syn_sent(const Socket_id& socket_id,
 
   // Send SYN_ACK_ACK to finish the handshake.
 
-  if (!async_low_lvl_syn_ack_ack_send_or_close_immediately(sock, syn_ack))
-  {
-    return;
-  }
+  async_low_lvl_syn_ack_ack_send(sock, syn_ack);
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
-
-  // No more errors.
 
   // Handle the logical SYN part of their SYN_ACK.
 
@@ -554,7 +539,7 @@ void Node::handle_syn_ack_to_established(Peer_socket::Ptr sock,
 
   // Everything has already been validated.
 
-  async_low_lvl_syn_ack_ack_send_or_close_immediately(sock, syn_ack);
+  async_low_lvl_syn_ack_ack_send(sock, syn_ack);
 } // Node::handle_syn_ack_to_established()
 
 void Node::handle_data_to_established(const Socket_id& socket_id,
@@ -1807,26 +1792,10 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
       FLOW_LOG_TRACE("On [" << sock << "] "
                      "canceling delayed [ACK] timer due to forcing "
                      "immediate [ACK]; would have fired "
-                     "in [" << round<milliseconds>(sock->m_rcv_delayed_ack_timer.expires_from_now()) << "] "
+                     "in [" << round<milliseconds>(sock->m_rcv_delayed_ack_timer.expiry() - Fine_clock::now()) << "] "
                      "from now.");
 
-      Error_code sys_err_code;
-      const size_t num_canceled = sock->m_rcv_delayed_ack_timer.cancel(sys_err_code);
-      if (sys_err_code)
-      {
-        FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-        // Pretty unlikely, but let's send RST and abort connection, since something crazy is going on.
-
-        // As above....
-        rst_and_close_connection_immediately(socket_id, sock,
-                                             error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER, true);
-        // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-        return;
-      }
-      // else
-
-      if (num_canceled == 0)
+      if (sock->m_rcv_delayed_ack_timer.cancel() == 0)
       {
         /* Unlikely but legitimate; timer was queued to trigger very soon, so we could not
          * cancel it.  No problem -- just let the ACKing happen per timer.  Log INFO due to
@@ -1841,9 +1810,7 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
     // If still forcing immediate ACK, finally do it.
     if (force_ack)
     {
-      async_low_lvl_ack_send(sock, true);
-      // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-
+      async_low_lvl_ack_send(sock);
       assert(pending_acks.empty());
     }
   } // if (force_ack)
@@ -1870,33 +1837,16 @@ void Node::handle_accumulated_pending_acks(const Socket_id& socket_id, Peer_sock
     {
       // First individual acknowledgment accumulated: start countdown to send the next batch of acknowledgments.
 
-      Error_code sys_err_code;
-      sock->m_rcv_delayed_ack_timer.expires_from_now(delayed_ack_timer_period, sys_err_code);
-      if (sys_err_code)
-      {
-        FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log the non-portable system error code/message.
-
-        // Pretty unlikely, but let's send RST and abort connection, since something crazy is going on.
-
-        /* Close connection in our structures (inform user if necessary as well).  Pre-conditions
-         * assumed by call: sock in m_socks and sock->state() == S_OPEN (yes, since m_int_state ==
-         * S_ESTABLISHED); 3rd arg contains the reason for the close (yes).  This will empty the Send
-         * and Receive buffers.  That is OK, because this is the abrupt type of close (error). */
-        rst_and_close_connection_immediately(socket_id, sock,
-                                             error::Code::S_INTERNAL_ERROR_SYSTEM_ERROR_ASIO_TIMER, true);
-        // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
-        return;
-      }
-      // else
+      sock->m_rcv_delayed_ack_timer.expires_after(delayed_ack_timer_period);
 
       FLOW_LOG_TRACE("On [" << sock << "] "
                      "scheduled delayed [ACK] timer to fire "
                      "in [" << round<milliseconds>(delayed_ack_timer_period) << "].");
 
-      // When triggered or canceled, call this->async_low_lvl_ack_send(sock, false, <error code>).
+      // When triggered or canceled, call this->async_low_lvl_ack_send(sock, <error code>).
       sock->m_rcv_delayed_ack_timer.async_wait([this, socket_id, sock](const Error_code& sys_err_code)
       {
-        async_low_lvl_ack_send(sock, false, sys_err_code);
+        async_low_lvl_ack_send(sock, sys_err_code);
       });
       // ^-- defer_delta_check == false: for similar reason as in send_worker_check_state() calling send_worker().
     }
@@ -3959,15 +3909,11 @@ Peer_socket::Ptr Node::connect_with_metadata(const Remote_endpoint& to,
                                              Error_code* err_code,
                                              const Peer_socket_options* sock_opts)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Node::connect_with_metadata,
-                                     bind_ns::cref(to), bind_ns::cref(serialized_metadata), _1, sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, connect_with_metadata, to, serialized_metadata, _1, sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
-  namespace bind_ns = util::bind_ns;
   using async::asio_exec_ctx_post;
   using async::Synchronicity;
-  using bind_ns::bind;
 
   // We are in thread U != W.
 
@@ -4168,22 +4114,8 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
   auto syn = create_syn(sock);
 
   // Fill out common fields and asynchronously send packet.
-  if (!async_sock_low_lvl_packet_send_paced(sock,
-                                            Low_lvl_packet::ptr_cast(syn),
-                                            &sock->m_disconnect_cause))
-  {
-    // Error marked and logged already.
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn));
 
-    // Return port.
-    Error_code return_err_code;
-    m_ports.return_port(sock->m_local_port, &return_err_code);
-    assert(!return_err_code);
-
-    // Cancel any timers set up above.
-    cancel_timers(sock);
-
-    return;
-  }
   /* send will happen asynchronously, and the registered completion handler will execute in this
    * thread when done (NO SOONER than this method finishes executing). */
 
@@ -4213,13 +4145,9 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
                                          const boost::asio::const_buffer& serialized_metadata,
                                          Error_code* err_code, const Peer_socket_options* sock_opts)
 {
-  namespace bind_ns = util::bind_ns;
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, Node::sync_connect_impl,
-                                     bind_ns::cref(to), bind_ns::cref(max_wait), bind_ns::cref(serialized_metadata),
-                                     _1, sock_opts);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(Peer_socket::Ptr, sync_connect_impl,
+                                     to, max_wait, serialized_metadata, _1, sock_opts);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
-
-  using util::bind_ns::bind;
 
   // We are in thread U != W.
 
@@ -4442,12 +4370,7 @@ void Node::handle_connection_rexmit_timer_event(const Socket_id& socket_id, Peer
   }
 
   // Fill out common fields and asynchronously send packet.
-  if (!async_sock_low_lvl_packet_send_or_close_immediately(sock, std::move(re_syn_base), false))
-  {
-    /* ^-- defer_delta_check == false: for similar reason as when calling send_worker() from
-     * send_worker_check_state(). */
-    return;
-  }
+  async_sock_low_lvl_packet_send_paced(sock, std::move(re_syn_base));
 } // Node::handle_connection_rexmit_timer_event()
 
 void Node::cancel_timers(Peer_socket::Ptr sock)
@@ -5002,12 +4925,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
        * affected the result of can_send().  We do check it at the end of the while () body, so OK. */
 
       // Fill out common fields and asynchronously send packet (packet pacing potentially performed inside).
-      if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(data),
-                                                               defer_delta_check))
-      {
-        return;
-      }
+      async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(data));
 
       sock->m_snd_stats.data_sent(data->m_data.size(), rexmit);
     }
@@ -5416,14 +5334,7 @@ void Node::async_rcv_wnd_recovery(Peer_socket::Ptr sock, size_t rcv_wnd)
   // Record that it was advertised!
   sock->m_rcv_last_sent_rcv_wnd = rcv_wnd;
 
-  if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                           Low_lvl_packet::ptr_cast(ack),
-                                                           false))
-  // ^-- defer_delta_check == false: for similar reason as in send_worker_check_state() calling send_worker().
-  {
-    return;
-  }
-  // else
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
 
   // Register one ACK packet we will send ASAP (and that it acknowledged no individual packets).
   sock->m_rcv_stats.sent_low_lvl_ack_packet(true);
@@ -5842,8 +5753,8 @@ Syn_ack_packet::Ptr Node::create_syn_ack(Peer_socket::Const_ptr sock)
   return syn_ack;
 }
 
-bool Node::async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket::Ptr& sock,
-                                                               boost::shared_ptr<const Syn_ack_packet>& syn_ack)
+void Node::async_low_lvl_syn_ack_ack_send(const Peer_socket::Ptr& sock,
+                                          boost::shared_ptr<const Syn_ack_packet>& syn_ack)
 {
   // Make a packet.
   auto syn_ack_ack = Low_lvl_packet::create_uninit_packet<Syn_ack_ack_packet>(get_logger());
@@ -5854,13 +5765,10 @@ bool Node::async_low_lvl_syn_ack_ack_send_or_close_immediately(const Peer_socket
   syn_ack_ack->m_packed.m_rcv_wnd = sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
 
   // Fill out common fields and asynchronously send packet.
-  return async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                             Low_lvl_packet::ptr_cast(syn_ack_ack),
-                                                             true); // Warns on error.
-  // ^-- defer_delta_check == true: for similar reason as in handle_syn_ack_ack_to_syn_rcvd().
+  async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(syn_ack_ack));
 }
 
-void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check, const Error_code& sys_err_code)
+void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code)
 {
   using boost::chrono::milliseconds;
   using boost::chrono::duration_cast;
@@ -5956,13 +5864,7 @@ void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
     if (size_est_so_far + size_est_inc > max_block_size)
     {
       // Too big.  Send off what we have.
-      if (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(ack),
-                                                               defer_delta_check))
-      {
-        return;
-      }
-      // else
+      async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
 
       // Register one ACK packet we will send ASAP.
       sock->m_rcv_stats.sent_low_lvl_ack_packet(false);
@@ -6051,12 +5953,9 @@ void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, bool defer_delta_check,
   } // for (ind_ack : pending_acks)
 
   // Don't forget the last non-full ACK, if any.
-  if ((size_est_so_far != 0)
-      && (!async_sock_low_lvl_packet_send_or_close_immediately(sock,
-                                                               Low_lvl_packet::ptr_cast(ack),
-                                                               defer_delta_check)))
+  if (size_est_so_far != 0)
   {
-    return;
+    async_sock_low_lvl_packet_send_paced(sock, Low_lvl_packet::ptr_cast(ack));
   }
 
   // Register one ACK packet we will send ASAP.
