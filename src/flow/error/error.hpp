@@ -345,7 +345,9 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
  *        and would therefore write a statement of the form `return F(A1, A2, ..., err_code, ...);`.
  *        `ARG_function_name` shall be the `F` part of such a hypothetical statement.
  *        Tip: Even in non-`static` member functions (methods), just the method name -- without the class name `::`
- *        part or the (if applicable) template `<arg list>` -- is almost always fine.
+ *        part -- is almost always fine.
+ *        Tip: However template args typically do have to be forwarded (e.g., in `template<typename T> X::f() {}`
+ *        you'd supply `f<T>` as `ARG_function_name`.
  *        Example: in a `bool X::listen(int x, Error_code* err_code, float y) {}` you'd have
  *        `{ return listen(x, err_code, y); }` and thus `ARG_function_name` shall be just `listen`.
  * @param ...

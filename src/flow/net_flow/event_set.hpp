@@ -1016,7 +1016,7 @@ bool Event_set::add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type,
 {
   using boost::any;
 
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, add_wanted_socket, sock, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, add_wanted_socket<Socket>, sock, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   // We are in thread U != W.
@@ -1051,7 +1051,7 @@ bool Event_set::add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type,
 template<typename Socket>
 bool Event_set::remove_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code* err_code)
 {
-  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, remove_wanted_socket, sock, ev_type, _1);
+  FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(bool, remove_wanted_socket<Socket>, sock, ev_type, _1);
   // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
 
   using boost::any;
