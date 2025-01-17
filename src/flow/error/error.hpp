@@ -347,9 +347,11 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
  *        Tip: Even in non-`static` member functions (methods), just the method name -- without the class name `::`
  *        part -- is almost always fine.
  *        Tip: However template args typically do have to be forwarded (e.g., in `template<typename T> X::f() {}`
- *        you'd supply `f<T>` as `ARG_function_name`.
+ *        you'd supply `f<T>` as `ARG_function_name`), unless the compiler can infer them.
  *        Example: in a `bool X::listen(int x, Error_code* err_code, float y) {}` you'd have
  *        `{ return listen(x, err_code, y); }` and thus `ARG_function_name` shall be just `listen`.
+ *        Tip: But, if there are 2+ template args, and the compiler cannot infer them, you need to
+ *        surround the `x<a, b, ...>` with parentheses: like: `FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(int, (x<a, b>), ...)`.
  * @param ...
  *        First see the premise in the doc header for `ARG_function_name` just above.
  *        Then the `...` arg list shall be as follows:
