@@ -368,7 +368,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
     /* the invoker's code).  We can't use a sentinel value to combine the two, since the operation's result may */ \
     /* require ARG_ret_type's entire range. */ \
     ARG_ret_type result; \
-    /* We provide the function: f(Error_code*), where f(e_c) == ARG_method_name(..., e_c, ...). */ \
+    /* We provide the function: f(Error_code*), where f(e_c) == ARG_function_name(..., e_c, ...). */ \
     /* Also supply context info of this macro's invocation spot. */ \
     /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
     if (::flow::error::exec_and_throw_on_error \
