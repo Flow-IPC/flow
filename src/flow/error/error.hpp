@@ -302,10 +302,9 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 #define FLOW_ERROR_SYS_ERROR_LOG_FATAL() \
   FLOW_LOG_FATAL("System error occurred: [" << sys_err_code << "] [" << sys_err_code.message() << "].")
 
-// XXX
 /**
  * Narrow-use macro that implements the error code/exception semantics expected of most public-facing Flow (and
- * Flow-inspired) class method APIs.  The semantics it helps implement are explained in flow::Error_code doc header.
+ * Flow-like) class method APIs.  The semantics it helps implement are explained in flow::Error_code doc header.
  * More formally, here is how to use it:
  *
  * First, please read flow::Error_code doc header.  Next read on:
@@ -324,110 +323,40 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
  *   {
  *     FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(T, // Provide the return type of the API.
  *                                           // Forward all the args into the macro, but replace `err_code` => `_1`.
- *                                           // Add [c]ref() around any passed-by-reference args.
- *                                        arg1, cref(arg2), _1, arg3);
+ *                                        arg1, arg2, _1, arg3);
  *     // ^-- Call ourselves and return if err_code is null.  If got to present line, err_code is not null.
  *
  *     // ...Bulk of f() goes here!  You can now set *err_code to anything without fear....
  *   }
  *   ~~~
  *
- * A caveat noted in the example above is handling references.  If the argument is a `const` reference, then to avoid
- * copying it during the intermediate call, surround it with `cref()`.  We don't tend to use non-`const` references
- * (preferring pointers for stylistic reasons), but if you must do so, then use `ref()`.  All other types are OK
- * to copy (by definition -- since you are passing them by value a/k/a copy in the first place in the original
- * signature).
- *
  * @see flow::Error_code for typical error reporting semantics this macro helps implement.
- * @see exec_void_and_throw_on_error() which you can use directly when ARG_ret_type would be void.
+ * @see exec_void_and_throw_on_error() which you can use directly when `ARG_ret_type` would be void.
  *      The present macro does not work in that case; but at that point using the function directly is concise enough.
+ * @see exec_and_throw_on_error() which you can use directly when `T` is a reference type.
+ *      The present macro does not work in that case.
  *
  * @param ARG_ret_type
- *        The return type of the invoking method.  In practice this would be, for example,
- *        `size_t` when wrapping a `receive()` (which returns # of bytes received or 0).
- * @param ARG_method_name
- *        Class-qualified name of the invoking method.  For example, `flow::Node::listen()`.  Don't forget template
- *        parameter values, if applicable; e.g., note the `<...>` part of
- *        `Peer_socket::sync_send<Const_buffer_sequence>`.
- * @param ...
- *        The remaining arguments, of which there must be at least 1, are to simply forward the arguments into
- *        the invoking method; thus similar to what one provided when calling the method that must implement
- *        the above-discussed error reporting semantics.  However, the (mandatory, in this context)
- *        `Error_code* err_code` parameter MUST be replaced by the following identifier: `_1` (as for `bind()`).
- */
-#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(ARG_ret_type, ARG_method_name, ...) \
-  FLOW_ERROR_EXEC_FUNC_AND_THROW_ON_ERROR(ARG_ret_type, ARG_method_name, this, __VA_ARGS__)
-
-/**
- * Identical to FLOW_ERROR_EXEC_AND_THROW_ON_ERROR() but supports not only class methods but free functions as well.
- * The latter macro is, really, a bit of syntactic sugar on top of the present macro, so that explicitly listing
- * `this` as an arg can be omitted in the typical (but not universal) case wherein the API is a class method.
- *
- * All usage notes for FLOW_ERROR_EXEC_AND_THROW_ON_ERROR() apply here within reason.
- *
- * ### Implementation notes ###
- * This macro exists purely to shorten boiler-plate.  Furthermore, we don't like macros
- * (debugger-unfriendly, hard to edit, etc.), so most of it is implemented in a function this macro invokes.
- * However, a function cannot force its caller to return (which we need), so we need the preprocessor at least for that.
- * We also use it to provide halfway useful source code context (file, line #, etc.) info.  (It's not THAT useful --
- * it basically identifies the throwing method; not where the method failed; but that's still pretty good and better
- * than what one would achieve without using a macro.)
- *
- * Another way to have done this would've been to split up `T f()` into `T f()` and `T f_impl()`; where the latter
- * assumes non-null `err_code`; while the former calls it and throws flow::error::Runtime_error() if appropriate.
- * That would be less tricky to de-boiler-plate, probably.  However, the final code would be longer, and then both
- * functions have to be documented, which is still more boiler-plate.  In fact, at that point we might as well
- * have two distinct APIs, as boost.asio does.  The way it's done here may be a little trickier, but it's more concise
- * (though, admittedly, a tiny bit slower with one redundant code path that could otherwise be avoided).
- *
- * The implementation uses `bind()`, and a requirement on the `...` macro args is to provide a `bind()`-compatible
- * `_1` argument.  Generally, in this code base, we prefer lambdas over `bind()`.  In this case, would it be possible
- * to move to a lambda as well?  How would the user supply `_1`, without `bind()`?  I am not making this a formal
- * to-do for now, as the existing system already appears slick and not trivially replaceable with lambdas.
- *
- * @see FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(), particularly all notes on how to use it, as they apply here similarly.
- *
- * @param ARG_ret_type
- *        The return type of the invoking method.  In practice this would be, for example,
+ *        The return type of the invoking function/method.  It cannot be a reference type.
+ *        In practice this would be, for example,
  *        `size_t` when wrapping a `receive()` (which returns # of bytes received or 0).
  * @param ARG_function_name
- *        Class-qualified (if applicable) name of the invoking method.  For example,
- *        `flow::Node::listen`.  Don't forget template parameter values, if applicable; e.g., note the `<...>` part of
- *        `Peer_socket::sync_send<Const_buffer_sequence>`.
+ *        Suppose you wanted to, via infinite recursion, call the function -- from where you use this macro --
+ *        and would therefore write a statement of the form `return F(A1, A2, ..., err_code, ...);`.
+ *        `ARG_function_name` shall be the `F` part of such a hypothetical statement.
+ *        Tip: Even in non-`static` member functions (methods), just the method name -- without the class name `::`
+ *        part or the (if applicable) template `<arg list>` -- is almost always fine.
+ *        Example: in a `bool X::listen(int x, Error_code* err_code, float y) {}` you'd have
+ *        `{ return listen(x, err_code, y); }` and thus `ARG_function_name` shall be just `listen`.
  * @param ...
- *        The remaining arguments, of which there must be at least 1, are to simply forward the arguments into
- *        the invoking method; thus similar to what one provided when calling the method that must implement
- *        the above-discussed error reporting semantics.  However, the (mandatory, in this context)
- *        `Error_code* err_code` parameter MUST be replaced by the following identifier: `_1` (as for `bind()`).
- *        If `ARG_function_name` is a class method, then the first arg to `...` must be `this`.
- *        However in that case it is more concise and typical to use FLOW_ERROR_EXEC_AND_THROW_ON_ERROR() instead.
+ *        First see the premise in the doc header for `ARG_function_name` just above.
+ *        Then the `...` arg list shall be as follows:
+ *        `A1, A2, ..., _1, ...`.  In other words it shall be the arg list for the invoking function/method as-if
+ *        recursively calling it, but with the `err_code` arg replaced by the special identifier `_1`.
+ *        Example: in a `bool X::listen(int x, Error_code* err_code, float y) {}` you'd have
+ *        `{ return listen(x, err_code, y); }` and thus `...` arg list shall be: `x, _1, y`.
  */
-#define FLOW_ERROR_EXEC_FUNC_AND_THROW_ON_ERROR(ARG_ret_type, ARG_function_name, ...) \
-  FLOW_UTIL_SEMICOLON_SAFE \
-  ( \
-    using namespace boost::placeholders; /* So they can use _1, _2, etc., without qualification. */ \
-    /* We need both the result of the operation (if applicable) and whether it actually ran. */ \
-    /* So we must introduce this local variable (note it's within a { block } so should minimally interfere with */ \
-    /* the invoker's code).  We can't use a sentinel value to combine the two, since the operation's result may */ \
-    /* require ARG_ret_type's entire range. */ \
-    ARG_ret_type result; \
-    /* We provide the function: f(Error_code*), where f(e_c) == this->ARG_function_name(..., e_c, ...). */ \
-    /* Also supply context info of this macro's invocation spot. */ \
-    /* Note that, if f() is executed, it may throw Runtime_error which is the point of its existence. */ \
-    if (::flow::error::exec_and_throw_on_error(::flow::util::bind_ns::bind(&ARG_function_name, __VA_ARGS__), \
-                                               &result, err_code, \
-                                               /* See discussion below. */ \
-                                               FLOW_UTIL_WHERE_AM_I_LITERAL(ARG_function_name))) \
-    { \
-      /* Aforementioned f() WAS executed; did NOT throw (no error); and return value was placed into `result`. */ \
-      return result; \
-    } \
-    /* f() did not run, because err_code is non-null.  So no macro invoker should do its thing assuming that fact. */ \
-    /* Recall that the idea is that f() is just recursively calling the method invoking this macro with the same */ \
-    /* arguments except for the Error_code* arg. */ \
-  )
-
-#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROx(ARG_ret_type, ARG_function_name, ...) \
+#define FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(ARG_ret_type, ARG_function_name, ...) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
     /* We need both the result of the operation (if applicable) and whether it actually ran. */ \
@@ -455,7 +384,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 /* Now that we're out of that macro's body with all the backslashes...
  * Discussion of the FLOW_UTIL_WHERE_AM_I_LITERAL(ARG_function_name) snippet above:
  *
- * Considering the potential frequency that FLOW_ERROR_EXEC_FUNC_AND_THROW_ON_ERROR() is invoked in a
+ * Considering the potential frequency that FLOW_ERROR_EXEC_AND_THROW_ON_ERROR() is invoked in
  * an error-reporting API (such as flow::net_flow) -- even *without* an error actually being emitted --
  * it is important we do not add undue computation.  That macro does not take a context string, so it must
  * compute it itself; as usual we use file/function/line for this.  With the technique used above

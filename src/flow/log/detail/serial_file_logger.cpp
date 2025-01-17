@@ -142,8 +142,6 @@ void Serial_file_logger::log_flush_and_reopen()
     if (m_ofs.is_open())
     {
       FLOW_LOG_INFO("detail/Serial_file_logger [" << this << "] @ [" << m_log_path << "]: Closing before re-opening.");
-      // XXX
-#if 0
       if (m_ofs) // As noted above, avoid entropy if stream is in bad state anyway.
       {
         /* This shall be *the* last message logged before the close.  If part of a rotation operation -- a HUP sent
@@ -157,7 +155,6 @@ void Serial_file_logger::log_flush_and_reopen()
         FLOW_LOG_INFO("detail/Serial_file_logger [" << this << "] @ [" << m_log_path << "]: "
                       "Closing before re-opening.");
       }
-#endif
 
       m_ofs.flush(); // m_ofs_writer `flush`es after each message... but just in case.
       m_ofs.close();
@@ -169,15 +166,12 @@ void Serial_file_logger::log_flush_and_reopen()
 
     if (m_ofs) // As noted above, avoid entropy if stream is in bad state anyway.
     {
-      // XXX
-#if 0
       /* This shall be *the* first message logged after the re-open.  If part of a rotation operation (see above),
        * then it'll be the first message in the new file, as the preceding file has been renamed, while we were still
        * writing to it. */
       FLOW_LOG_SET_LOGGER(this);
       FLOW_LOG_INFO("detail/Serial_file_logger [" << this << "] @ [" << m_log_path << "]: "
                     "Opened successfully for further logging.");
-#endif
       m_ofs.flush(); // m_ofs_writer `flush`es after each message... but just in case.
     }
     else // if (!m_ofs)
