@@ -607,7 +607,7 @@ jobs:
         $BUILT_CMD_PREFIX ./libflow_unit_test.exec "$@"
         EOF
         RUN_IT='/usr/bin/bash -e ${{ env.install-dir }}/bin/run_unit_test.sh'
-        OUT_DIR=logs/libipc_unit_test
+        OUT_DIR=logs/libflow_unit_test
         mkdir -p $OUT_DIR
         SUPP_DIR_A=${{ github.workspace }}/src
         # As of this writing there are TSAN suppressions for this test specifically.  TODO: Revisit them; and then this.
@@ -618,8 +618,6 @@ jobs:
         ${{ env.setup-tests-env }}
         ${{ env.setup-run-env }}
         $RUN_IT > $OUT_DIR/console.log 2>&1
-
-    # (More tests/demos here as needed.)
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
       if: |

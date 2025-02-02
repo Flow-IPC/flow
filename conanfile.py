@@ -94,6 +94,7 @@ class FlowRecipe(ConanFile):
 
         toolchain = CMakeToolchain(self)
         if self.options.build:
+            toolchain.variables["CFG_ENABLE_TEST_SUITE"] = "ON"
             if self.options.build_no_lto:
                 toolchain.variables["CFG_NO_LTO"] = "ON"
             if self.options.build_cxx_std != 0:
