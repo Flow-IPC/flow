@@ -177,14 +177,6 @@ const std::type_info& Component::payload_type() const
   return *m_payload_type_or_null;
 }
 
-std::type_index Component::payload_type_index() const
-{
-  using std::type_index;
-
-  // See perf discussion in our doc header (regarding whether there's any computational cost to this).
-  return type_index(payload_type());
-}
-
 Component::enum_raw_t Component::payload_enum_raw_value() const
 {
   assert(!empty()); // We advertised undefined behavior in this case.

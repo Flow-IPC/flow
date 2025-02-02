@@ -110,7 +110,7 @@ enum class Clock_type : size_t
    *
    * Processor time actually measures processor *cycles* being spent to make computations.  (I/O ops and idle time
    * are not counted.)  Every cycle spent by any processor core is either charged to this process or another process;
-   * if the former then it's counted; otherwise it isn't.  Next, the cycle count is multiplied by the its standard
+   * if the former then it's counted; otherwise it isn't.  Next, the cycle count is multiplied by its standard
    * constant time duration (which is based directly on the clock frequency, the GHz thing).  That is the result.
    * Multiple threads acting concurrently would all count if present, so remember that.  Further, it is apparently
    * not straightforward what the system will charge to process A vs. process B.  For this reason, processor-time

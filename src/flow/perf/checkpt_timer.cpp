@@ -51,7 +51,7 @@ Checkpointing_timer::Checkpointing_timer(log::Logger* logger_ptr,
     {
       if (m_which_clocks[clock_type_idx])
       {
-        active_clock_type_strs.push_back(ostream_op_string(Clock_type(clock_type_idx)));
+        active_clock_type_strs.emplace_back(ostream_op_string(Clock_type(clock_type_idx)));
       }
     }
 
@@ -357,7 +357,7 @@ Checkpointing_timer::Aggregator::Aggregator(flow::log::Logger* logger_ptr,
 void Checkpointing_timer::Aggregator::aggregate(Checkpointing_timer_ptr timer_ptr)
 {
   assert((m_timers.size() + 1) <= m_timers.capacity()); // Similarly to Checkpointing_timer::checkpoint()....
-  m_timers.push_back(timer_ptr); // Watch out for concurrency!
+  m_timers.emplace_back(timer_ptr); // Watch out for concurrency!
 
   FLOW_LOG_TRACE("Aggregator [" << m_name << "]: Added Timer # [" << (m_timers.size() - 1) << "] "
                  "named [" << timer_ptr->m_name << "].");
@@ -401,7 +401,7 @@ Checkpointing_timer_ptr Checkpointing_timer::Aggregator::create_aggregated_resul
       if (timer == model_timer)
       {
         // First timer being examined.  Start up this *result* checkpt to equal it.  Later, we will += to it.
-        agg_timer->m_checkpoints.push_back(checkpoint);
+        agg_timer->m_checkpoints.emplace_back(checkpoint);
       }
       else // if (timer != model_timer)
       {

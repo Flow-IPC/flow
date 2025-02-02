@@ -30,7 +30,7 @@ const Sev Config::S_MOST_VERBOSE_SEV_DEFAULT = Sev::S_INFO;
 
 Config::Config(Sev most_verbose_sev_default) :
   m_use_human_friendly_time_stamps(true),
-  m_verbosity_default(raw_sev_t(most_verbose_sev_default))
+  m_verbosity_default(static_cast<raw_sev_t>(most_verbose_sev_default))
 {
   // Nothing.
 }
@@ -39,17 +39,24 @@ Config::Config(const Config&) = default;
 
 Config::component_union_idx_t Config::component_to_union_idx(const Component& component) const
 {
-  const auto component_cfg_it = m_component_cfgs_by_payload_type.find(component.payload_type_index());
+  /* Caution!  This is called by output_whether_should_log() which is potentially called in *every* log call site
+   * including ones for which output_whether_should_log() == Logger::should_log() will yields false.
+   * Keep this code -- including .lookup() insides -- tight and performant, more-so than almost anyplace else! */
+
+  // Use sentinel -1 to track lookup() failure instead of lookup() retval. Might speed things up a tiny bit.
+  Component_config component_cfg{component_union_idx_t(-1)};
+
+  m_component_cfgs_by_payload_type.lookup(component.payload_type(), &component_cfg);
   // BTW, as of this writing, that asserts !component.empty() (non-null Component), as advertised (undefined behavior).
 
-  if (component_cfg_it == m_component_cfgs_by_payload_type.end())
+  if (component_cfg.m_enum_to_num_offset != component_union_idx_t(-1))
   {
-    return component_union_idx_t(-1); // As advertised, this is an allowed eventuality.
+    component_cfg.m_enum_to_num_offset += component.payload_enum_raw_value();
+    // Note: Result is not -1 (both addends are non-negative).
   }
-  // else
+  // else if (m_enum_to_num_offset == -1) { As advertised, this is an allowed eventuality: return -1. }
 
-  // Note: Never -1 (both are non-negative).
-  return component_cfg_it->second.m_enum_to_num_offset + component.payload_enum_raw_value();
+  return component_cfg.m_enum_to_num_offset;
 }
 
 void Config::store_severity_by_component(component_union_idx_t component_union_idx, raw_sev_t most_verbose_sev_or_none)
@@ -103,7 +110,7 @@ void Config::store_severity_by_component(component_union_idx_t component_union_i
    * visible by all threads soon enough.  I add that we explicitly say concurrent such calls are allowed and are safe,
    * but in practical terms it's ill-advised to have your program change config concurrently from multiple threads;
    * there is unlikely to be a good design that would do this. */
-  m_verbosities_by_component[size_t(component_union_idx)].store(most_verbose_sev_or_none, memory_order_relaxed);
+  m_verbosities_by_component[size_t{component_union_idx}].store(most_verbose_sev_or_none, memory_order_relaxed);
 } // Config::store_severity_by_component()
 
 void Config::configure_default_verbosity(Sev most_verbose_sev, bool reset)
@@ -111,12 +118,12 @@ void Config::configure_default_verbosity(Sev most_verbose_sev, bool reset)
   using std::memory_order_relaxed;
 
   // Straightforward (except see discussion on atomic assignment in store_severity_by_component(); applies here).
-  m_verbosity_default.store(raw_sev_t(most_verbose_sev), memory_order_relaxed);
+  m_verbosity_default.store(static_cast<raw_sev_t>(most_verbose_sev), memory_order_relaxed);
 
   if (reset)
   {
     for (component_union_idx_t component_union_idx = 0;
-         size_t(component_union_idx) != m_verbosities_by_component.size();
+         size_t{component_union_idx} != m_verbosities_by_component.size();
          ++component_union_idx)
     {
       store_severity_by_component(component_union_idx, raw_sev_t(-1));
@@ -127,7 +134,7 @@ void Config::configure_default_verbosity(Sev most_verbose_sev, bool reset)
 bool Config::configure_component_verbosity_by_name(Sev most_verbose_sev,
                                                    util::String_view component_name_unnormalized)
 {
-  const auto component_name(normalized_component_name(component_name_unnormalized));
+  const auto component_name = normalized_component_name(component_name_unnormalized);
   const auto component_union_idx_it = m_component_union_idxs_by_name.find(component_name);
   if (component_union_idx_it == m_component_union_idxs_by_name.end())
   {
@@ -214,7 +221,7 @@ bool Config::output_whether_should_log(Sev sev, const Component& component) cons
 
       if (most_verbose_sev_raw != raw_sev_t(-1))
       {
-        return sev <= Sev(most_verbose_sev_raw);
+        return sev <= Sev{most_verbose_sev_raw};
       }
       // else { Fall through.  Out of bounds, or -1. }
     }
@@ -227,7 +234,7 @@ bool Config::output_whether_should_log(Sev sev, const Component& component) cons
    * verbosty in the table.  In all cases the default catch-all verbosity therefore applies. */
 
   // Use the same atomic read technique as in the verbosity table for the identical reasons.
-  return sev <= Sev(m_verbosity_default.load(memory_order_relaxed));
+  return sev <= Sev{m_verbosity_default.load(memory_order_relaxed)};
 } // Config::output_whether_should_log()
 
 std::string Config::normalized_component_name(util::String_view name) // Static.
@@ -236,7 +243,7 @@ std::string Config::normalized_component_name(util::String_view name) // Static.
   using std::locale;
   using std::string;
 
-  return to_upper_copy(string(name), locale::classic());
+  return to_upper_copy(string{name}, locale::classic());
 }
 
 void Config::normalize_component_name(std::string* name) // Static.
@@ -261,7 +268,7 @@ util::Scoped_setter<Sev> Config::this_thread_verbosity_override_auto(Sev most_ve
 {
   /* Return this RAII thingie that'll immediately set *P and in dtor restore *P, where P is the pointer to thread-local
    * storage as returned by this_thread_verbosity_override(). */
-  return util::Scoped_setter<Sev>(this_thread_verbosity_override(), std::move(most_verbose_sev_or_none));
+  return util::Scoped_setter<Sev>{this_thread_verbosity_override(), std::move(most_verbose_sev_or_none)};
 }
 
 Config::Atomic_raw_sev::Atomic_raw_sev(raw_sev_t init_val) :
