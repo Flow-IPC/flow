@@ -122,6 +122,55 @@ void dict_map_death_test()
 }
 
 template<typename... Dict>
+void dict_test()
+{
+  Test_logger logger;
+  FLOW_LOG_SET_CONTEXT(&logger, Flow_log_component::S_UNCAT);
+
+  (([&]()
+  {
+    FLOW_LOG_INFO("Testing dict-type [" << dict_type_printable(typeid(Dict)) << "].");
+    {
+      Dict dict;
+      dict.insert(typeid(n1::n1::Enum), 1);
+      dict.insert(typeid(n0::n0::Enum), 0);
+      dict.insert(typeid(n2::n2::Enum), 2);
+      dict.insert(typeid(nX::nX::Enum), 100);
+      cfg_t cfg{-1};
+      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Enum), &cfg));
+      EXPECT_EQ(cfg, -1);
+      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_EQ(cfg, 0);
+      EXPECT_TRUE(dict.lookup(typeid(n1::n1::Enum), &cfg));
+      EXPECT_EQ(cfg, 1);
+      EXPECT_TRUE(dict.lookup(typeid(n2::n2::Enum), &cfg));
+      EXPECT_EQ(cfg, 2);
+      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Enum), &cfg));
+      EXPECT_EQ(cfg, 2);
+      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_EQ(cfg, 0);
+      EXPECT_TRUE(dict.lookup(typeid(nX::nX::Enum), &cfg));
+      EXPECT_EQ(cfg, 100);
+      /* @todo It is tough to test _by_val_ dudes where &typeid(X) yields different addrs at different times;
+       * probably needs to be done across a shared-object boundary at least.  Could contrive something though.
+       * For now there is no unit test for it, so code review was doubly important. */
+
+      // Weird stuff.
+      cfg = -1;
+      EXPECT_FALSE(dict.lookup(typeid(int), &cfg));
+      EXPECT_FALSE(dict.lookup(typeid(dict), &cfg));
+      EXPECT_EQ(cfg, -1);
+    }
+    {
+      Dict dict; // Deal with degenerate case of an empty dict.
+      cfg_t cfg{-1};
+      EXPECT_FALSE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_EQ(cfg, -1);
+    }
+  })(), ...);
+} // dict_test()
+
+template<typename... Dict>
 void dict_benchmark(size_t n_cfgs)
 {
   Test_logger logger;
@@ -260,10 +309,13 @@ void dict_benchmark(size_t n_cfgs)
 
       if (by_ptr_else_val)
       {
-        EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD)
-          << "Dict type [by-ptr (fast)] impl [" << dict_type_printable(rec.m_type, true) << "] "
-             "benchmarked as significantly (beyond allowance) slower than the fastest impl, but by-ptr (fast) impls "
-             "should all be similarly quick.  Look into it.";
+        if (rec.m_type == Type_idx(typeid(FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR<cfg_t>)))
+        {
+          EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD)
+            << "Dict type [by-ptr (fast)] impl [" << dict_type_printable(rec.m_type, true) << "] is the default "
+               "but benchmark finds it is not the fastest (of by-ptr/fast impls), AND it is over the safety "
+               "allowance.  Perhaps reconsider the default?";
+        }
       }
       else
       {
@@ -365,17 +417,26 @@ void dict_benchmark(size_t n_cfgs)
 
 } // Anonymous namespace
 
+// detail/ Component_payload_type_dict_*: correctness testing.
+TEST(Component_cfg_test, Dict_internals_interface)
+{
+  dict_test<Dict_ptr_tree_map, Dict_ptr_s_hash_map, Dict_ptr_b_hash_map, Dict_ptr_array, Dict_ptr_sorted_array,
+            Dict_val_tree_map, Dict_val_s_hash_map, Dict_val_b_hash_map, Dict_val_array, Dict_val_sorted_array>();
+}
+
 #ifdef NDEBUG // These "deaths" occur only if assert()s enabled; else these are guaranteed failures.
-TEST(Component_cfg_DeathTest, DISABLED_Interface)
+TEST(Component_cfg_DeathTest, DISABLED_Dict_internals)
 #else
-TEST(Component_cfg_DeathTest, Interface)
+TEST(Component_cfg_DeathTest, Dict_internals)
 #endif
 {
+  // Only the map guys have dupe-insert checking.
   dict_map_death_test<Dict_ptr_tree_map, Dict_ptr_s_hash_map, Dict_ptr_b_hash_map,
                       Dict_val_tree_map, Dict_val_s_hash_map, Dict_val_b_hash_map>();
 }
 
-TEST(Component_cfg_test, Interface)
+// detail/ Component_payload_type_dict_*: benchmark them and gently verify they are as expected.
+TEST(Component_cfg_test, Dict_internals_benchmark)
 {
   constexpr std::array<size_t, 3> N_CFGS_ARRAY = {2, 5, 10};
   for(const auto n_cfgs : N_CFGS_ARRAY)
@@ -384,6 +445,11 @@ TEST(Component_cfg_test, Interface)
                    Dict_val_tree_map, Dict_val_s_hash_map, Dict_val_b_hash_map, Dict_val_array, Dict_val_sorted_array>
       (n_cfgs);
   }
+}
+
+TEST(Component_cfg_test, Interface)
+{
+  // @todo Add.
 }
 
 } // namespace flow::log::test
