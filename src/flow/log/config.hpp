@@ -25,6 +25,65 @@
 #include <typeinfo>
 #include <utility>
 
+// Macros.
+
+#ifdef FLOW_DOXYGEN_ONLY // Compiler ignores; Doxygen sees.
+/**
+ * Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use flow::log::Config)
+ * to override a certain flow::log::Config internal behavior that can affect flow::log::Logger::should_log() perf.
+ * Typically there is no need to set this, especially if when calling
+ * flow::log::Config::init_component_to_union_idx_mapping() one always provides arg value
+ * `component_payload_type_info_ptr_is_uniq = false` (safe default).  (Note: It is recommended to in fact set it
+ * to `true`.)  So, if relevant, and if your benchmarks show `should_log()` is using significant
+ * processor cycles, it can make sense to experiment by setting this to other values; namely:
+ *   - `::flow::log::Component_payload_type_dict_by_ptr_via_tree_map`
+ *   - `::flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map`
+ *   - `::flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map`
+ *   - `::flow::log::Component_payload_type_dict_by_ptr_via_array`
+ *   - `::flow::log::Component_payload_type_dict_by_ptr_via_sorted_array`
+ * Adventurous types can also implement their own such a template, as long as it implements the semantics of
+ * `flow::log::Component_payload_type_dict_by_ptr_via_tree_map`.
+ *
+ * @internal
+ * Regarding the default value: Briefly (this requires understanding of Component_payload_type_dict):
+ * All choices are pretty good, as all rely on pointers and not long type names, but reassuringly
+ * `std::unordered_map` (with `boost::unordered_map` very close) is the best, though with only 2 types
+ * linear-search array can be marginally better.
+ */
+#  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR value_for_exposition
+/**
+ * Cousin of #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR, similarly affecting a related behavior.
+ * Again typically there is no need to set this, especially if when calling
+ * flow::log::Config::init_component_to_union_idx_mapping() one always provides arg value
+ * `component_payload_type_info_ptr_is_uniq = true`.  Otherwise, and if your benchmarks show `should_log()` is
+ * using significant processor cycles, it can make sense to experiment by setting this to other values; namely:
+ *   - `::flow::log::Component_payload_type_dict_by_val_via_tree_map`
+ *   - `::flow::log::Component_payload_type_dict_by_val_via_s_hash_map`
+ *   - `::flow::log::Component_payload_type_dict_by_val_via_b_hash_map`
+ *   - `::flow::log::Component_payload_type_dict_by_val_via_array`
+ *   - `::flow::log::Component_payload_type_dict_by_val_via_sorted_array`
+ * Adventurous types can also implement their own such a template, as long as it implements the semantics of
+ * `flow::log::Component_payload_type_dict_by_val_via_tree_map`.
+ *
+ * @internal
+ * Regarding the default value: This is the slower lookup type, and may be irrelevant, but within this category we can
+ * still do better or worse.  As noted in flow::log::Config::Component_payload_type_to_cfg_map doc header
+ * by far the worst are the hash-maps; so not that.
+ * As of this writing that leaves sorted-map-based; linear-search array; and binary-search array.
+ * Empirically (presumably due to the <= ~10 # of types in map) the linear-search array is best, though
+ * when closer to 10 types for some hardware binary-search array works best.  They are close, though.
+ */
+#  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR value_for_exposition
+#else // if !defined(FLOW_DOXYGEN_ONLY)
+
+#  ifndef FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR
+#    define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR Component_payload_type_dict_by_ptr_via_s_hash_map
+#  endif
+#  ifndef FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL
+#    define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL Component_payload_type_dict_by_val_via_sorted_array
+#  endif
+#endif // if !defined(FLOW_DOXYGEN_ONLY)
+
 namespace flow::log
 {
 
@@ -397,6 +456,8 @@ public:
    * -- very much including those that will *not* pass the should-log filter and hence will not log).  This can have
    * a *significant* impact on your overall performance.
    *
+   * @see #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR and #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL.
+   *
    * @internal
    * ### Rationale for `enum_sparse_length` ###
    * A design is possible (and indeed was used for a very brief period of time) that avoids the need for this arg.
@@ -731,21 +792,13 @@ private:
    * So what one needs to decide here is how to configure Component_payload_type_dict via its two template args
    * just below.  The current choices were obtained empirically with benchmarking (which can be found elsewhere
    * in unit-test-land; a unit test will fail if those benchmarks start giving unexpected results, e.g. due
-   * to differing hardware or who knows what).  Briefly (this requires understanding of Component_payload_type_dict):
-   *
-   *   - Arg 1 (for "fast" pointer-based `type_info` lookup):
-   *     All choices are pretty good, as all rely on pointers and not long type names, but reassuringly
-   *     `std::unordered_map` (with `boost::unordered_map` very close) is the best.
-   *   - Arg 2 (for "slow" name-based `type_info` lookup):
-   *     As discussed -- when required -- this is the slower lookup type, but within this category we can
-   *     still do better or worse.  As noted above by far the worst are the hash-maps; so not that.
-   *     As of this writing that leaves sorted-map-based; linear-search array; and binary-search array.
-   *     Empirically (presumably due to the <= ~10 # of types in map) the linear-search array is best
-   *     (the other 2 are pretty close).
+   * to differing hardware or who knows what). (See #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR and
+   * #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL `internal` section for discussion.  They also allow
+   * user to override our decision.)
    */
   using Component_payload_type_to_cfg_map
-    = Component_payload_type_dict<Component_payload_type_dict_by_ptr_via_s_hash_map<Component_config>,
-                                  Component_payload_type_dict_by_val_via_array<Component_config>>;
+    = Component_payload_type_dict<FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR<Component_config>,
+                                  FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL<Component_config>>;
 
   /// How we store a log::Sev (a mere `enum` itself) in a certain data structure.
   using raw_sev_t = uint8_t;

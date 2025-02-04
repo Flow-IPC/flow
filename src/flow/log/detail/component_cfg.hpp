@@ -130,8 +130,9 @@ private:
  * This is (at least) potentially used by log::Config, internally, to map Component::payload_type() values to
  * log-config table indices.
  *
- * Note: The API/semantics documented here are also shared by all `Component_payload_type_dict_by_val_*` types,
- * except that the aforementioned `type_info` address uniqueness guarantee cannot be made for those types.  Generally
+ * Note: The API/semantics documented here are also shared by all `Component_payload_type_dict_by_val_*` types
+ * (modulo member `bool S_BY_PTR_ELSE_VAL`) except that the aforementioned `type_info` address
+ * uniqueness guarantee cannot be made for those types.  Generally
  * *our* implementation(s) tend to be faster than their implementation(s), because internally lookup by pointer
  * is faster than lookup by `std::type_index` which (due to the possibility of dynamic linking) must involve hashing
  * and/or comparison of type name strings.
@@ -152,6 +153,14 @@ public:
   using Map_to_cfg = Map_to_cfg_t;
   /// Convenience alias for the mapped-type looked-up by a `*this`.
   using Cfg = typename Map_to_cfg::mapped_type;
+
+  // Constants.
+
+  /**
+   * For meta-programming convenience: `true` indicates for us `type_info` equality <=> `&type_info` equality;
+   * meaning we belong to the `Component_payload_type_dict_by_ptr_*` family.
+   */
+  static constexpr bool S_BY_PTR_ELSE_VAL = true;
 
   // Methods.
 
@@ -209,6 +218,9 @@ public:
   // Types.
   /// See Component_payload_type_dict_by_ptr_via_map.
   using Cfg = Cfg_t;
+  // Constants.
+  /// See Component_payload_type_dict_by_ptr_via_map.
+  static constexpr bool S_BY_PTR_ELSE_VAL = true;
   // Methods.
   /**
    * See Component_payload_type_dict_by_ptr_via_map.
@@ -268,6 +280,9 @@ public:
   // Types.
   /// See Component_payload_type_dict_by_ptr_via_map.
   using Cfg = Cfg_t;
+  // Constants.
+  /// See Component_payload_type_dict_by_ptr_via_map.
+  static constexpr bool S_BY_PTR_ELSE_VAL = true;
   // Methods.
   /**
    * See Component_payload_type_dict_by_ptr_via_map.
@@ -335,6 +350,15 @@ public:
   using Map_to_cfg = Map_to_cfg_t;
   /// See Component_payload_type_dict_by_ptr_via_map.
   using Cfg = typename Map_to_cfg::mapped_type;
+
+  // Constants.
+
+  /**
+   * For meta-programming convenience: `false` indicates for us `type_info` equality <=> `&type_info` equality
+   * is *not* guaranteed; meaning we belong to the `Component_payload_type_dict_by_val_*` family.
+   */
+  static constexpr bool S_BY_PTR_ELSE_VAL = false;
+
   // Methods.
   /**
    * See Component_payload_type_dict_by_ptr_via_map.
@@ -370,7 +394,7 @@ private:
    * the string is more or less `type_info::name()`.  In practice that usually contains at least the fully qualified
    * name of each type being `typeid()`ed.  Still... it is potentially not *too* terrible, as the first character
    * to differ will end a string-compare, and this should typically come pretty early-on.
-   * 
+   *
    * If it is a hash map, it is amortized constant-time -- but the constant factor is (while technically a black box
    * inside `std::type_info::hash_code()`) almost certainly composed of *very slow*
    * hashing of the aforementioned `type_info::name()`.  The constant time sounds nice, but for low N
@@ -393,6 +417,9 @@ public:
   // Types.
   /// See Component_payload_type_dict_by_ptr_via_map.
   using Cfg = Cfg_t;
+  // Constants.
+  /// See Component_payload_type_dict_by_val_via_map.
+  static constexpr bool S_BY_PTR_ELSE_VAL = false;
   // Methods.
   /**
    * See Component_payload_type_dict_by_ptr_via_map.
@@ -451,6 +478,9 @@ public:
   // Types.
   /// See Component_payload_type_dict_by_ptr_via_map.
   using Cfg = Cfg_t;
+  // Constants.
+  /// See Component_payload_type_dict_by_val_via_map.
+  static constexpr bool S_BY_PTR_ELSE_VAL = false;
   // Methods.
   /**
    * See Component_payload_type_dict_by_ptr_via_map.
