@@ -455,20 +455,92 @@ TEST(Component_cfg_test, Dict_internals_benchmark)
  * perf matters has much subtlety to it -- this tests it end-to-end through the publicly available log::Config API. */
 TEST(Component_cfg_test, Interface)
 {
-#if 0
   Config cfg(Sev::S_INFO);
-  cfg.init_component_to_union_idx_mapping<>
-    (10,
-     S_CMPS_SZ, // @todo Test subtleties of this arg.
-     true);
 
   Component comp0a{n0::n0::Cmps::S_COMP_A};
   Component comp0b{n0::n0::Cmps::S_COMP_B};
   Component comp1a{n1::n1::Cmps::S_COMP_A};
   Component comp1b{n1::n1::Cmps::S_COMP_B};
+  Component comp2a{n2::n2::Cmps::S_COMP_A};
+  Component comp2b{n2::n2::Cmps::S_COMP_B};
+  Component comp3a{n3::n3::Cmps::S_COMP_A};
+  Component comp3b{n3::n3::Cmps::S_COMP_B};
+  Component compXa{nX::nX::Cmps::S_COMP_A};
+  Component compXb{nX::nX::Cmps::S_COMP_B};
 
+  cfg.init_component_to_union_idx_mapping<n0::n0::Cmps>(10,
+                                                        S_CMPS_SZ, // @todo Test subtleties of this arg.
+                                                        true);
+  cfg.init_component_to_union_idx_mapping<n1::n1::Cmps>(10 + S_CMPS_SZ,
+                                                        S_CMPS_SZ);
+                                                        // 3rd arg default = false.
+  cfg.init_component_to_union_idx_mapping<n2::n2::Cmps>(10 + (2 * S_CMPS_SZ),
+                                                        S_CMPS_SZ,
+                                                        true);
+  cfg.init_component_to_union_idx_mapping<n3::n3::Cmps>(10 + (3 * S_CMPS_SZ),
+                                                        S_CMPS_SZ,
+                                                        false);
+  // Logging (and/or per-component verbosity configuring) would begin here and below.
 
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp3a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp3b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp0a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp0b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp1a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp1b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp3a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp3b));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp0a));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp0b));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp1a));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp1b));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp3a));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp3b));
+  // These enums are not registered (but same result for now).
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXa));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXb));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, compXa));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, compXb));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, compXa));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, compXb));
 
+  cfg.configure_component_verbosity(Sev::S_TRACE, comp0a);
+  cfg.configure_component_verbosity(Sev::S_TRACE, comp3b);
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp2a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp2b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp3a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp3b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp0a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp0b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp1a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp1b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp2a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp2b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp3a));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, comp3b));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_TRACE, comp0a)); // Oh goody!  This should log now!
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp0b)); // Not this, though, still.
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp1a));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp1b));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp2a));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp2b));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp3a)); // Not this, though, still.
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_TRACE, comp3b)); // Oh yay!
+  // These enums are not registered... so same as before.
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXa));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXb));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, compXa));
+  EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, compXb));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, compXa));
+  EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, compXb));
 
   /* @todo Test component names (config via component-name Config::configure_component_verbosity_by_name();
    * output of component-names Config::output_component_to_ostream(); the relevant Config::init_*()).
@@ -479,7 +551,5 @@ TEST(Component_cfg_test, Interface)
   /* @todo Test various `Logger`s and/or Ostream_log_msg_writer in the sense that they leverage component-based
    * log::Config aspects.  I.e., test from a still-higher layer.  Possibly that would go in the unit tests
    * for those classes though.  As of this writing they don't exist. */
-#endif
-  
 } // TEST(Component_cfg_test, Interface)
 } // namespace flow::log::test
