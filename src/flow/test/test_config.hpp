@@ -38,13 +38,11 @@ public:
     return s_config;
   }
 
-  /// Help command-line parameter.
-  static const std::string S_HELP_PARAM;
-  /// Minimum log severity command-line parameter.
-  static const std::string S_LOG_SEVERITY_PARAM;
-
   /// Minimum log severity.
   log::Sev m_sev = flow::log::Sev::S_DATA;
+
+  /// Sensitive (not necessarily all) benchmarks will be performed (unless test skipped obv) but won't cause failure.
+  bool m_do_not_fail_benchmarks = false;
 
 private:
   /// Constructor.

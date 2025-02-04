@@ -19,6 +19,7 @@
 #include "flow/log/simple_ostream_logger.hpp"
 #include "flow/log/detail/component_cfg.hpp" // Yes, detail/ -- we do what we must.
 #include "flow/test/test_logger.hpp"
+#include "flow/test/test_config.hpp"
 #include "flow/perf/checkpt_timer.hpp"
 #include "flow/util/string_view.hpp"
 #include <gtest/gtest.h>
@@ -179,6 +180,8 @@ void dict_benchmark(size_t n_cfgs)
   FLOW_LOG_SET_CONTEXT(&logger, Flow_log_component::S_UNCAT);
   log::beautify_chrono_logger_this_thread(&logger); // Nice short-form duration printouts.
 
+  const bool do_not_fail_benchmarks = flow::test::Test_config::get_singleton().m_do_not_fail_benchmarks;
+
   using Ti = const std::type_info*;
   using Type_idx = std::type_index;
   using std::string;
@@ -206,7 +209,18 @@ void dict_benchmark(size_t n_cfgs)
   std::mt19937 gen(rd());
   std::uniform_int_distribution<size_t> dist_to_n_cfgs(0, n_cfgs - 1);
   perf::Clock_types_subset clocks;
-  constexpr auto CLK_TYPE = size_t(perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES);
+  /* Important (in our benchmarking context) discussion -- what clock to measure?  Normally I (ygoldfel) by far
+   * prefer REAL_HI_RES.  It is extremely accurate and itself very low-cost.  When it's a local environment without
+   * a real possibility of irrelevant stuff happening simultaneously, it's great.  Here, though, we've got a brittle
+   * situation: the thing being timed in is in the nanoseconds, so the slightest disruption throws various ratios
+   * below out of whack and triggers failures and confusion.  So in this case it seems best to count processor cycles;
+   * and just in case multithreading (though there shouldn't be any in our context) becomes an issue, let's count
+   * this thread's cycles.
+   * Update: On 2nd thought, failing tests due to this benchmark appears too draconian, at least in automated
+   * setups like GitHub Actions; so we allow for --do-not-fail-benchmarks flag to override that.  Hence
+   * let's use the (IMO) nicer experience of REAL_HI_RES, since we will basically run without --do-not-fail-benchmarks
+   * only locally, where we can control our environment and not worry about spurious craziness that much. */
+  constexpr auto CLK_TYPE = size_t(perf::Clock_type::S_REAL_HI_RES);
   clocks.set(CLK_TYPE);
 
   /* Maps Dict_* type to total (findable lookup + unfindable lookup) benchmark result for that dictionary impl.
@@ -315,20 +329,37 @@ void dict_benchmark(size_t n_cfgs)
       {
         if (rec.m_type == Type_idx(typeid(FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR<cfg_t>)))
         {
-          EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD)
-            << "Dict type [by-ptr (fast)] impl [" << dict_type_printable(rec.m_type, true) << "] is the default "
-               "but benchmark finds it is not the fastest (of by-ptr/fast impls), AND it is over the safety "
-               "allowance.  Perhaps reconsider the default?";
+#define MSG "Dict type [by-ptr (fast)] impl [" << dict_type_printable(rec.m_type, true) << "] is the default " \
+            "but benchmark finds it is not the fastest (of by-ptr/fast impls), AND it is over the safety " \
+            "allowance.  Perhaps reconsider the default?"
+          if (do_not_fail_benchmarks)
+          {
+            if (rec.m_time_multiple >= SIGNIFICANT_MULTIPLE_THRESHOLD) { FLOW_LOG_WARNING(MSG); }
+          }
+          else
+          {
+            EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD) << MSG;
+          }
+#undef MSG
         }
       }
       else
       {
         if (rec.m_type == Type_idx(typeid(FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL<cfg_t>)))
         {
-          EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD)
-            << "Dict type [by-val (slow)] impl [" << dict_type_printable(rec.m_type, true) << "] is the default "
-               "but benchmark finds it is not the fastest (of by-val/slow impls), AND it is over the safety "
-               "allowance.  Perhaps reconsider the default?";
+#define MSG "Dict type [by-val (slow)] impl [" << dict_type_printable(rec.m_type, true) << "] is the default " \
+            "but benchmark finds it is not the fastest (of by-val/slow impls), AND it is over the safety " \
+            "allowance.  Perhaps reconsider the default?"
+
+          if (do_not_fail_benchmarks)
+          {
+            if (rec.m_time_multiple >= SIGNIFICANT_MULTIPLE_THRESHOLD) { FLOW_LOG_WARNING(MSG); }
+          }
+          else
+          {
+            EXPECT_LT(rec.m_time_multiple, SIGNIFICANT_MULTIPLE_THRESHOLD) << MSG;
+          }
+#undef MSG
 
           /* This isn't a benchmark check but a sanity-check of a basic assumption (slow hashing + hash map = let us
            * not default to it, even among the slow-lookup map types). */
@@ -378,11 +409,18 @@ void dict_benchmark(size_t n_cfgs)
   const auto slow_timing_vec = analyze_dict_type(false, by_val_timing, by_val_timing1, by_val_time_sum);
   FLOW_LOG_INFO("-- END OF: Results for [n_cfgs=" << n_cfgs << "] --");
 
-  EXPECT_LT(by_ptr_time_sum, by_val_time_sum)
-    << "While individual by-val (slow) dict lookups might occasionally benchmark as faster than "
-       "by-ptr (fast) dict lookups (for lower n_cfgs and just spuriously every now and then), the sum thereof "
-       "should really show them to be overall slow.  What happened?";
-
+#define MSG "While individual by-val (slow) dict lookups might occasionally benchmark as faster than " \
+            "by-ptr (fast) dict lookups (for lower n_cfgs and just spuriously every now and then), the sum thereof " \
+            "should really show them to be overall slow.  What happened?"
+  if (do_not_fail_benchmarks)
+  {
+    if (by_ptr_time_sum >= by_val_time_sum) { FLOW_LOG_WARNING(MSG); }
+  }
+  else
+  {
+    EXPECT_LT(by_ptr_time_sum, by_val_time_sum) << MSG;
+  }
+#undef MSG
 
   /* My (ygoldfel) heart was in the right place with the following check; but while in some real environments
    * this straightforwardly passes, on others instead results are muddled together and close.  So we'll let it go;
@@ -426,6 +464,11 @@ TEST(Component_cfg_test, Dict_internals_interface)
 {
   dict_test<Dict_ptr_tree_map, Dict_ptr_s_hash_map, Dict_ptr_b_hash_map, Dict_ptr_array, Dict_ptr_sorted_array,
             Dict_val_tree_map, Dict_val_s_hash_map, Dict_val_b_hash_map, Dict_val_array, Dict_val_sorted_array>();
+
+  /* @todo What about Component_payload_type_dict, the one that combines a Dict_ptr_* and a Dict_val_* and looks up
+   * first in the former and if needed the other one?  Could test that, straightforward though it is.
+   * It's probably not a huge deal, as we test that end-to-end in the `Interface` test below, from the log::Config
+   * layer which uses the compoung Component_payload_type_dict. */
 }
 
 #ifdef NDEBUG // These "deaths" occur only if assert()s enabled; else these are guaranteed failures.
@@ -482,6 +525,9 @@ TEST(Component_cfg_test, Interface)
                                                         false);
   // Logging (and/or per-component verbosity configuring) would begin here and below.
 
+  /* These enums are registered, so internally the base index for each enum mentioned will be found;
+   * but there will be no actual per-component verbosity configured for it; hence defaults to the overall
+   * verbosity (INFO, seen above in ctor args). */
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0a));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0b));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1a));
@@ -500,7 +546,7 @@ TEST(Component_cfg_test, Interface)
   EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp1b));
   EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp3a));
   EXPECT_FALSE(cfg.output_whether_should_log(Sev::S_TRACE, comp3b));
-  // These enums are not registered (but same result for now).
+  // These enums are not registered so no base index found (but same result for now: no per-component verbosity).
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXa));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, compXb));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_WARNING, compXa));
@@ -510,6 +556,11 @@ TEST(Component_cfg_test, Interface)
 
   cfg.configure_component_verbosity(Sev::S_TRACE, comp0a);
   cfg.configure_component_verbosity(Sev::S_TRACE, comp3b);
+  /* Some (not all certainly) per-component verbosities have indeed been set.
+   * So the base index lookup (internally via the Component_payload_type_dict_*::lookup()) will work for
+   * all but the nX::nx:: component checks; but then only the actually-configured per-component verbosities
+   * will be found in the big flat table. */
+
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0a));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp0b));
   EXPECT_TRUE(cfg.output_whether_should_log(Sev::S_INFO, comp1a));
@@ -552,4 +603,5 @@ TEST(Component_cfg_test, Interface)
    * log::Config aspects.  I.e., test from a still-higher layer.  Possibly that would go in the unit tests
    * for those classes though.  As of this writing they don't exist. */
 } // TEST(Component_cfg_test, Interface)
+
 } // namespace flow::log::test

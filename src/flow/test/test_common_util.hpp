@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <gtest/gtest.h>
 #include <functional>
 #include <iostream>
 #include <regex>

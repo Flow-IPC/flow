@@ -23,7 +23,6 @@ include("${PROJECT_SOURCE_DIR}/tools/cmake/FlowLikeLoadGoogleTest.cmake")
 set(name libflow_unit_test.exec)
 set(SRCS
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_common_util.cpp
-    ${PROJECT_SOURCE_DIR}/src/flow/test/test_config.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_file_util.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/log/detail/test/component_cfg_test.cpp
     test_main.cpp)

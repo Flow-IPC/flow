@@ -617,7 +617,9 @@ jobs:
             > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
         ${{ env.setup-tests-env }}
         ${{ env.setup-run-env }}
-        $RUN_IT > $OUT_DIR/console.log 2>&1
+        # Sensitive benchmarks in this setting should run and be warned about it they "fail," but they should not
+        # fail the test.
+        $RUN_IT --do-not-fail-benchmarks > $OUT_DIR/console.log 2>&1
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
       if: |
