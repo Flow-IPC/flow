@@ -42,7 +42,7 @@ public:
   {
     // Yes, it is formally (and practically) fine to do this after the Logger took the m_config ptr already.
     m_config.init_component_to_union_idx_mapping<Flow_log_component>
-      (100, log::Config::standard_component_payload_enum_sparse_length<Flow_log_component>());
+      (100, log::Config::standard_component_payload_enum_sparse_length<Flow_log_component>(), true);
     m_config.init_component_names<Flow_log_component>(S_FLOW_LOG_COMPONENT_NAME_MAP, false, "flow-");
     // Now the logging may commence.
   }

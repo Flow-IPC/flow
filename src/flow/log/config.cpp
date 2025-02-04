@@ -43,7 +43,7 @@ Config::component_union_idx_t Config::component_to_union_idx(const Component& co
    * including ones for which output_whether_should_log() == Logger::should_log() will yields false.
    * Keep this code -- including .lookup() insides -- tight and performant, more-so than almost anyplace else! */
 
-  // Use sentinel -1 to track lookup() failure instead of lookup() retval. Might speed things up a tiny bit.
+  // Use sentinel -1 to track lookup() failure instead of lookup() retval.  Might speed things up a tiny bit.
   Component_config component_cfg{component_union_idx_t(-1)};
 
   m_component_cfgs_by_payload_type.lookup(component.payload_type(), &component_cfg);
