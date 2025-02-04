@@ -36,11 +36,11 @@
  * `component_payload_type_info_ptr_is_uniq = false` (safe default).  (Note: It is recommended to in fact set it
  * to `true`.)  So, if relevant, and if your benchmarks show `should_log()` is using significant
  * processor cycles, it can make sense to experiment by setting this to other values; namely:
- *   - `::flow::log::Component_payload_type_dict_by_ptr_via_tree_map`
- *   - `::flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map`
- *   - `::flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map`
- *   - `::flow::log::Component_payload_type_dict_by_ptr_via_array`
- *   - `::flow::log::Component_payload_type_dict_by_ptr_via_sorted_array`
+ *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_tree_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_array"`
+ *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_sorted_array"`
  * Adventurous types can also implement their own such a template, as long as it implements the semantics of
  * `flow::log::Component_payload_type_dict_by_ptr_via_tree_map`.
  *
@@ -57,11 +57,11 @@
  * flow::log::Config::init_component_to_union_idx_mapping() one always provides arg value
  * `component_payload_type_info_ptr_is_uniq = true`.  Otherwise, and if your benchmarks show `should_log()` is
  * using significant processor cycles, it can make sense to experiment by setting this to other values; namely:
- *   - `::flow::log::Component_payload_type_dict_by_val_via_tree_map`
- *   - `::flow::log::Component_payload_type_dict_by_val_via_s_hash_map`
- *   - `::flow::log::Component_payload_type_dict_by_val_via_b_hash_map`
- *   - `::flow::log::Component_payload_type_dict_by_val_via_array`
- *   - `::flow::log::Component_payload_type_dict_by_val_via_sorted_array`
+ *   - `"::flow::log::Component_payload_type_dict_by_val_via_tree_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_val_via_s_hash_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_val_via_b_hash_map"`
+ *   - `"::flow::log::Component_payload_type_dict_by_val_via_array"`
+ *   - `"::flow::log::Component_payload_type_dict_by_val_via_sorted_array"`
  * Adventurous types can also implement their own such a template, as long as it implements the semantics of
  * `flow::log::Component_payload_type_dict_by_val_via_tree_map`.
  *
@@ -73,7 +73,7 @@
  * Empirically (presumably due to the <= ~10 # of types in map) the linear-search array is best, though
  * when closer to 10 types for some hardware binary-search array works best.  They are close, though.
  */
-#  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR value_for_exposition
+#  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL value_for_exposition
 #else // if !defined(FLOW_DOXYGEN_ONLY)
 
 #  ifndef FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR
