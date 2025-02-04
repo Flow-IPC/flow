@@ -207,13 +207,16 @@ void dict_benchmark(size_t n_cfgs)
       EXPECT_EQ(cfg_found2, findable_cfg);
     }
 
-    /* This is cool but wordy due to being general/etc.: timer_agg.log_aggregated_results(&logger, false, true, 0);
-     * We can print out a pithy thing ourselves.  (Also see above re. why we choose to use the sum.) */
+    // This is cool but too wordy due to being general/etc.:
+#if 0
+    timer_agg.log_aggregated_results(&logger, false, true, 0);
+#endif
+    // We can print out a pithy thing ourselves.  (Also see above re. why we choose to use the sum.)
     const auto total_timer = timer_agg.create_aggregated_result(nullptr, false, 1);
     constexpr auto CLK_TYPE = size_t(perf::Clock_type::S_REAL_HI_RES);
     const Fine_duration time = total_timer->since_start().m_values[CLK_TYPE];
     const Fine_duration time1 = total_timer->checkpoints()[0].m_since_last.m_values[CLK_TYPE];
-#if 0 // We'll summarize even more pithily below: time = time1 + (time - time1).
+#if 0 // We'll summarize even more pithily below by showing: (time) = (time1) + (time - time1).
     FLOW_LOG_INFO("Lookup time for [" << run_str << "]: [" << time << "] = "
                    "unfindable [" << time1 << "] + "
                    "findable [" << total_timer->checkpoints()[1].m_since_last.m_values[CLK_TYPE] << "].");
@@ -324,6 +327,14 @@ void dict_benchmark(size_t n_cfgs)
        "by-ptr (fast) dict lookups (for lower n_cfgs and just spuriously every now and then), the sum thereof "
        "should really show them to be overall slow.  What happened?";
 
+
+  /* My (ygoldfel) heart was in the right place with the following check; but while in some real environments
+   * this straightforwardly passes, on others instead results are muddled together and close.  So we'll let it go;
+   * while keeping the most important checks, which up-above, which are simply that (to reiterate):
+   *   - slow-map is slower than fast-map overall; and
+   *   - the default (in actualy log::Config) impl for each type of lookup is either the fastest or close-enough
+   *     to where it's "fine." */
+#if 0
   // The 2 slowest slow-map look impls should be the hash-maps; and they should be a lot slower than the best impl.
   const auto check_slow_guy = [&](bool worst_else_2nd_worst)
   {
@@ -349,6 +360,7 @@ void dict_benchmark(size_t n_cfgs)
   };
   check_slow_guy(true);
   check_slow_guy(false);
+#endif
 } // dict_benchmark()
 
 } // Anonymous namespace
