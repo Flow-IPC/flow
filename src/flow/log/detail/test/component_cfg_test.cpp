@@ -15,8 +15,9 @@
  * See the License for the specific language governing
  * permissions and limitations under the License. */
 
-#include "flow/log/detail/component_cfg.hpp"
 #include "flow/log/log.hpp"
+#include "flow/log/simple_ostream_logger.hpp"
+#include "flow/log/detail/component_cfg.hpp" // Yes, detail/ -- we do what we must.
 #include "flow/test/test_logger.hpp"
 #include "flow/perf/checkpt_timer.hpp"
 #include "flow/util/string_view.hpp"
@@ -50,17 +51,18 @@ using Dict_val_b_hash_map = Component_payload_type_dict_by_val_via_b_hash_map<cf
 using Dict_val_array = Component_payload_type_dict_by_val_via_array<cfg_t>;
 using Dict_val_sorted_array = Component_payload_type_dict_by_val_via_sorted_array<cfg_t>;
 
-namespace n1::n1 { enum class Enum { S_A }; }
-namespace n2::n2 { enum class Enum { S_A }; }
-namespace n3::n3 { enum class Enum { S_A }; }
-namespace n4::n4 { enum class Enum { S_A }; }
-namespace n5::n5 { enum class Enum { S_A }; }
-namespace n6::n6 { enum class Enum { S_A }; }
-namespace n7::n7 { enum class Enum { S_A }; }
-namespace n8::n8 { enum class Enum { S_A }; }
-namespace n9::n9 { enum class Enum { S_A }; }
-namespace n0::n0 { enum class Enum { S_A }; }
-namespace nX::nX { enum class Enum { S_A }; }
+namespace n1::n1 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n2::n2 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n3::n3 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n4::n4 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n5::n5 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n6::n6 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n7::n7 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n8::n8 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n9::n9 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace n0::n0 { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+namespace nX::nX { enum class Cmps : Component::enum_raw_t { S_COMP_A, S_COMP_B }; }
+constexpr auto S_CMPS_SZ = static_cast<Component::enum_raw_t>(nX::nX::Cmps::S_COMP_B) + 1;
 
 String_view dict_type_printable(const std::type_index& type, bool brief = false)
 {
@@ -108,16 +110,16 @@ void dict_map_death_test()
   {
     FLOW_LOG_INFO("Testing dict-type [" << dict_type_printable(typeid(Dict)) << "].");
     Dict dict;
-    dict.insert(typeid(n1::n1::Enum), 1);
-    dict.insert(typeid(n0::n0::Enum), 0);
-    EXPECT_DEATH(dict.insert(typeid(n0::n0::Enum), 0), "duplicate insertion is disallowed");
-    EXPECT_DEATH(dict.insert(typeid(n0::n0::Enum), -1), "duplicate insertion is disallowed");
-    dict.insert(typeid(n2::n2::Enum), 2);
+    dict.insert(typeid(n1::n1::Cmps), 1);
+    dict.insert(typeid(n0::n0::Cmps), 0);
+    EXPECT_DEATH(dict.insert(typeid(n0::n0::Cmps), 0), "duplicate insertion is disallowed");
+    EXPECT_DEATH(dict.insert(typeid(n0::n0::Cmps), -1), "duplicate insertion is disallowed");
+    dict.insert(typeid(n2::n2::Cmps), 2);
     cfg_t cfg;
-    EXPECT_TRUE(dict.lookup(typeid(n0::n0::Enum), &cfg)); // Sanity checks.
-    EXPECT_TRUE(dict.lookup(typeid(n1::n1::Enum), &cfg));
-    EXPECT_TRUE(dict.lookup(typeid(n2::n2::Enum), &cfg));
-    EXPECT_FALSE(dict.lookup(typeid(n3::n3::Enum), &cfg));
+    EXPECT_TRUE(dict.lookup(typeid(n0::n0::Cmps), &cfg)); // Sanity checks.
+    EXPECT_TRUE(dict.lookup(typeid(n1::n1::Cmps), &cfg));
+    EXPECT_TRUE(dict.lookup(typeid(n2::n2::Cmps), &cfg));
+    EXPECT_FALSE(dict.lookup(typeid(n3::n3::Cmps), &cfg));
   })(), ...);
 }
 
@@ -132,24 +134,24 @@ void dict_test()
     FLOW_LOG_INFO("Testing dict-type [" << dict_type_printable(typeid(Dict)) << "].");
     {
       Dict dict;
-      dict.insert(typeid(n1::n1::Enum), 1);
-      dict.insert(typeid(n0::n0::Enum), 0);
-      dict.insert(typeid(n2::n2::Enum), 2);
-      dict.insert(typeid(nX::nX::Enum), 100);
+      dict.insert(typeid(n1::n1::Cmps), 1);
+      dict.insert(typeid(n0::n0::Cmps), 0);
+      dict.insert(typeid(n2::n2::Cmps), 2);
+      dict.insert(typeid(nX::nX::Cmps), 100);
       cfg_t cfg{-1};
-      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Enum), &cfg));
+      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Cmps), &cfg));
       EXPECT_EQ(cfg, -1);
-      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Cmps), &cfg));
       EXPECT_EQ(cfg, 0);
-      EXPECT_TRUE(dict.lookup(typeid(n1::n1::Enum), &cfg));
+      EXPECT_TRUE(dict.lookup(typeid(n1::n1::Cmps), &cfg));
       EXPECT_EQ(cfg, 1);
-      EXPECT_TRUE(dict.lookup(typeid(n2::n2::Enum), &cfg));
+      EXPECT_TRUE(dict.lookup(typeid(n2::n2::Cmps), &cfg));
       EXPECT_EQ(cfg, 2);
-      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Enum), &cfg));
+      EXPECT_FALSE(dict.lookup(typeid(n3::n3::Cmps), &cfg));
       EXPECT_EQ(cfg, 2);
-      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_TRUE(dict.lookup(typeid(n0::n0::Cmps), &cfg));
       EXPECT_EQ(cfg, 0);
-      EXPECT_TRUE(dict.lookup(typeid(nX::nX::Enum), &cfg));
+      EXPECT_TRUE(dict.lookup(typeid(nX::nX::Cmps), &cfg));
       EXPECT_EQ(cfg, 100);
       /* @todo It is tough to test _by_val_ dudes where &typeid(X) yields different addrs at different times;
        * probably needs to be done across a shared-object boundary at least.  Could contrive something though.
@@ -164,7 +166,7 @@ void dict_test()
     {
       Dict dict; // Deal with degenerate case of an empty dict.
       cfg_t cfg{-1};
-      EXPECT_FALSE(dict.lookup(typeid(n0::n0::Enum), &cfg));
+      EXPECT_FALSE(dict.lookup(typeid(n0::n0::Cmps), &cfg));
       EXPECT_EQ(cfg, -1);
     }
   })(), ...);
@@ -191,11 +193,11 @@ void dict_benchmark(size_t n_cfgs)
   struct Type_rec { Ti m_type; cfg_t m_cfg; };
   vector<Type_rec> all_types =
   {
-    Type_rec{ &typeid(n1::n1::Enum), 1 }, Type_rec{ &typeid(n2::n2::Enum), 2 },
-    Type_rec{ &typeid(n3::n3::Enum), 3 }, Type_rec{ &typeid(n4::n4::Enum), 4 },
-    Type_rec{ &typeid(n5::n5::Enum), 5 }, Type_rec{ &typeid(n6::n6::Enum), 6 },
-    Type_rec{ &typeid(n7::n7::Enum), 7 }, Type_rec{ &typeid(n8::n8::Enum), 8 },
-    Type_rec{ &typeid(n9::n9::Enum), 9 }, Type_rec{ &typeid(n0::n0::Enum), 0 }
+    Type_rec{ &typeid(n1::n1::Cmps), 1 }, Type_rec{ &typeid(n2::n2::Cmps), 2 },
+    Type_rec{ &typeid(n3::n3::Cmps), 3 }, Type_rec{ &typeid(n4::n4::Cmps), 4 },
+    Type_rec{ &typeid(n5::n5::Cmps), 5 }, Type_rec{ &typeid(n6::n6::Cmps), 6 },
+    Type_rec{ &typeid(n7::n7::Cmps), 7 }, Type_rec{ &typeid(n8::n8::Cmps), 8 },
+    Type_rec{ &typeid(n9::n9::Cmps), 9 }, Type_rec{ &typeid(n0::n0::Cmps), 0 }
   };
   EXPECT_TRUE(n_cfgs <= all_types.size());
   all_types.resize(n_cfgs);
@@ -203,6 +205,9 @@ void dict_benchmark(size_t n_cfgs)
   std::random_device rd; // Seed source.
   std::mt19937 gen(rd());
   std::uniform_int_distribution<size_t> dist_to_n_cfgs(0, n_cfgs - 1);
+  perf::Clock_types_subset clocks;
+  constexpr auto CLK_TYPE = size_t(perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES);
+  clocks.set(CLK_TYPE);
 
   /* Maps Dict_* type to total (findable lookup + unfindable lookup) benchmark result for that dictionary impl.
    * Note: Empirically we see (as of this writing in the ~3 types of hardware tried) that the failed-lookup and
@@ -229,7 +234,7 @@ void dict_benchmark(size_t n_cfgs)
     {
       std::shuffle(all_types.begin(), all_types.end(), gen);
 
-      const Ti unfindable_type = &typeid(nX::nX::Enum);
+      const Ti unfindable_type = &typeid(nX::nX::Cmps);
       const auto& findable_type_rec = all_types[dist_to_n_cfgs(gen)];
       const Ti findable_type = findable_type_rec.m_type;
       const auto findable_cfg = findable_type_rec.m_cfg;
@@ -242,7 +247,7 @@ void dict_benchmark(size_t n_cfgs)
         dict.insert(*type.m_type, type.m_cfg);
       }
 
-      const auto timer = boost::make_shared<Timer>(nullptr, "benchiez", Timer::real_clock_types(), 2);
+      const auto timer = boost::make_shared<Timer>(nullptr, "benchiez", clocks, 2);
       dict.lookup(*unfindable_type, &cfg_found1);
       timer->checkpoint("unfindable");
       dict.lookup(*findable_type, &cfg_found2);
@@ -262,7 +267,6 @@ void dict_benchmark(size_t n_cfgs)
 #endif
     // We can print out a pithy thing ourselves.  (Also see above re. why we choose to use the sum.)
     const auto total_timer = timer_agg.create_aggregated_result(nullptr, false, 1);
-    constexpr auto CLK_TYPE = size_t(perf::Clock_type::S_REAL_HI_RES);
     const Fine_duration time = total_timer->since_start().m_values[CLK_TYPE];
     const Fine_duration time1 = total_timer->checkpoints()[0].m_since_last.m_values[CLK_TYPE];
 #if 0 // We'll summarize even more pithily below by showing: (time) = (time1) + (time - time1).
@@ -447,9 +451,35 @@ TEST(Component_cfg_test, Dict_internals_benchmark)
   }
 }
 
+/* While Dict_internals_interface tests the nitty-gritty of the map lookup at the heart of it -- which due to
+ * perf matters has much subtlety to it -- this tests it end-to-end through the publicly available log::Config API. */
 TEST(Component_cfg_test, Interface)
 {
-  // @todo Add.
-}
+#if 0
+  Config cfg(Sev::S_INFO);
+  cfg.init_component_to_union_idx_mapping<>
+    (10,
+     S_CMPS_SZ, // @todo Test subtleties of this arg.
+     true);
 
+  Component comp0a{n0::n0::Cmps::S_COMP_A};
+  Component comp0b{n0::n0::Cmps::S_COMP_B};
+  Component comp1a{n1::n1::Cmps::S_COMP_A};
+  Component comp1b{n1::n1::Cmps::S_COMP_B};
+
+
+
+
+  /* @todo Test component names (config via component-name Config::configure_component_verbosity_by_name();
+   * output of component-names Config::output_component_to_ostream(); the relevant Config::init_*()).
+   * (Originally unit-test was created in the first place due to the Component_payload_type_dict_... work;
+   * but as of this writing the other aspects of per-component log::Config remain un-unit-tested, though they
+   * have long been verified via heavy use + functional tests.  Obv the point of unit tests = do better than that.) */
+
+  /* @todo Test various `Logger`s and/or Ostream_log_msg_writer in the sense that they leverage component-based
+   * log::Config aspects.  I.e., test from a still-higher layer.  Possibly that would go in the unit tests
+   * for those classes though.  As of this writing they don't exist. */
+#endif
+  
+} // TEST(Component_cfg_test, Interface)
 } // namespace flow::log::test

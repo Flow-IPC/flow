@@ -80,7 +80,7 @@
 #    define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR Component_payload_type_dict_by_ptr_via_s_hash_map
 #  endif
 #  ifndef FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL
-#    define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL Component_payload_type_dict_by_val_via_sorted_array
+#    define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL Component_payload_type_dict_by_val_via_array
 #  endif
 #endif // if !defined(FLOW_DOXYGEN_ONLY)
 
