@@ -1011,8 +1011,8 @@ private:
    * internally hashing, equality, and ordering ops cannot simply always assume `type_info*`s are 1-1 with distinct
    * `type_info`s and hence usually STLs implement the hashing in terms of `type_info::name()` -- a string, namely
    * usually one containing the entire fully qualified type name (e.g.: some mangled version of
-   * "flow::Log_component").  Utilities in detail/component_cfg.hpp work with this topic.
-   * E.g., see: Component_payload_type_dict.
+   * `"flow::Log_component"`).  Utilities in detail/component_cfg.hpp work with this topic.  For more:
+   * start with Config::Component_payload_type_to_cfg_map doc header.
    */
   std::type_info const * m_payload_type_or_null;
 

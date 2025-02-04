@@ -36,19 +36,25 @@
  * `component_payload_type_info_ptr_is_uniq = false` (safe default).  (Note: It is recommended to in fact set it
  * to `true`.)  So, if relevant, and if your benchmarks show `should_log()` is using significant
  * processor cycles, it can make sense to experiment by setting this to other values; namely:
+ *
  *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_tree_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_array"`
  *   - `"::flow::log::Component_payload_type_dict_by_ptr_via_sorted_array"`
+ *
  * Adventurous types can also implement their own such a template, as long as it implements the semantics of
- * `flow::log::Component_payload_type_dict_by_ptr_via_tree_map`.
+ * `"flow::log::Component_payload_type_dict_by_ptr_via_tree_map"`.
+ *
+ * @see flow::log::Config class doc header Performance section for an overall recipe.
  *
  * @internal
+ * ### Impl: The chosen default ###
  * Regarding the default value: Briefly (this requires understanding of Component_payload_type_dict):
  * All choices are pretty good, as all rely on pointers and not long type names, but reassuringly
- * `std::unordered_map` (with `boost::unordered_map` very close) is the best, though with only 2 types
- * linear-search array can be marginally better.
+ * `std::unordered_map` (with `boost::unordered_map` very close) tends to be the best or close, though with only
+ * 2 types in the map linear-search array can be marginally better.  (GNU STL used here; LLVM STL might be
+ * different.)
  */
 #  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR value_for_exposition
 /**
@@ -57,21 +63,29 @@
  * flow::log::Config::init_component_to_union_idx_mapping() one always provides arg value
  * `component_payload_type_info_ptr_is_uniq = true`.  Otherwise, and if your benchmarks show `should_log()` is
  * using significant processor cycles, it can make sense to experiment by setting this to other values; namely:
+ *
  *   - `"::flow::log::Component_payload_type_dict_by_val_via_tree_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_val_via_s_hash_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_val_via_b_hash_map"`
  *   - `"::flow::log::Component_payload_type_dict_by_val_via_array"`
  *   - `"::flow::log::Component_payload_type_dict_by_val_via_sorted_array"`
+ *
  * Adventurous types can also implement their own such a template, as long as it implements the semantics of
- * `flow::log::Component_payload_type_dict_by_val_via_tree_map`.
+ * `"flow::log::Component_payload_type_dict_by_val_via_tree_map"`.
+ *
+ * @see flow::log::Config class doc header Performance section for an overall recipe.
  *
  * @internal
+ * ### Impl: The chosen default ###
  * Regarding the default value: This is the slower lookup type, and may be irrelevant, but within this category we can
  * still do better or worse.  As noted in flow::log::Config::Component_payload_type_to_cfg_map doc header
  * by far the worst are the hash-maps; so not that.
  * As of this writing that leaves sorted-map-based; linear-search array; and binary-search array.
  * Empirically (presumably due to the <= ~10 # of types in map) the linear-search array is best, though
- * when closer to 10 types for some hardware binary-search array works best.  They are close, though.
+ * when closer to 10 types for some hardware binary-search array works best.  They are close, though, and across
+ * different hardware/software settings we've tried to run the unit-test benchmark it's tough to get completely
+ * solid results that would hold for everyone.  (GNU STL used here; LLVM STL might be
+ * different.)
  */
 #  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL value_for_exposition
 #else // if !defined(FLOW_DOXYGEN_ONLY)
@@ -197,6 +211,49 @@ namespace flow::log
  *
  * Or one can opt to print the flat numeric index of the component instead; in which case the reverse name-to-union-idx
  * is not needed.
+ *
+ * ### Performance tips ###
+ * log::Config can have a significant effect on performance in high-intensity production applications.  The key
+ * thing is to configure your verbosities so that not too many messages per unit time are actually *logged* -- that
+ * is, a log call site (e.g., `FLOW_LOG_INFO(...)`) is invoked, *and* the Logger::should_log() filter returns `true`.
+ * Logging to an output itself is near-inescapably expensive, so the code and verbosity config should collaborate to
+ * avoid it in normal (e.g., not when debugging a problem) production conditions.  See log::Sev doc header for solid
+ * conventions as to the meanings of the severities.  If you follow those and generally keep verbosity at INFO, then
+ * mission shall be accomplished.  So let's assume that's the case.
+ *
+ * We have made every effort to optimize Logger::should_log() -- that is to say Config::output_whether_should_log() --
+ * to use as few processor cycles as possible.  This is invoked at ~every log call site, including for those that
+ * will *not* actually end up logging.  In high-intensity production scenarios you should consider the following
+ * tips to "help" `output_whether_should_log()` be cheap.
+ *
+ * Most importantly, when invoking init_component_to_union_idx_mapping() for a given `Component enum`
+ * (including but often not limited to Flow's own flow::Flow_log_component), maximize efforts to provide
+ * the arg value `component_payload_type_info_ptr_is_uniq = true`.  In particular if all relevant code is
+ * statically linked (tends to be the case), then you can do this worry-free.  See init_component_to_union_idx_mapping()
+ * doc header for details.
+ *
+ * *If* you were able to completely heed that tip, then there are two possibilities.
+ *
+ *   - Processor-cycle use benchmarks of yours show that log::Config::output_whether_should_log() uses acceptably
+ *     few cycles.  Then, you're done.
+ *   - Such benchmarks show that you'd like for it to use even fewer cycles.  In that case there is an additional
+ *     knob you can experiment with and re-run the benchmarks you use:
+ *     #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR.  See its doc header.  In short, though, set that
+ *     preprocessor symbol in your build (wherever config.hpp is directly or indirectly `#include`d -- or simply
+ *     everywhere; it doesn't hurt); and in your Flow build (use CMake's knobs to add compiler defines).
+ *     As for what to set it to, try each of the (several) values shown in the aforementioned doc header.
+ *     It is possible that the sensible default we chose is not the absolute best in your environment.
+ *
+ * Anecdotally, we have seen in a certain production application servicing tons of requests that this topic
+ * can e.g. make `output_whether_should_log()` use between ~3% and ~1% of all cycles -- the latter obviously
+ * being far preferable.  Worry not: we then further optimized and chose a sensible default, so that you get
+ * close to the low end right off the bat, especially if you can guarantee
+ * `component_payload_type_info_ptr_is_uniq = true`.  Given that, you can try to squeeze a bit more performance
+ * out of it using the aforementioned preprocessor define.
+ *
+ * *If* you were unable to always have `component_payload_type_info_ptr_is_uniq = true`, then you can
+ * get potential perf improvements by similarly messing with #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL
+ * (note: `_VAL`).
  *
  * ### Thread safety ###
  * Formally, Config is thread-safe for all operations when concurrent access is to separate `Config`s.
@@ -456,7 +513,7 @@ public:
    * -- very much including those that will *not* pass the should-log filter and hence will not log).  This can have
    * a *significant* impact on your overall performance.
    *
-   * @see #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR and #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL.
+   * @see log::Config doc header Performance section for overall recipe w/r/t perf.
    *
    * @internal
    * ### Rationale for `enum_sparse_length` ###
@@ -492,7 +549,7 @@ public:
    *        `Component_payload` type in the first place; and (b) therefore use
    *        `standard_component_payload_enum_sparse_length<Component_payload>()` for the present arg's value.
    * @param component_payload_type_info_ptr_is_uniq
-   *        Important for perf!  See above.
+   *        Potentially important for perf!  See above.
    */
   template<typename Component_payload>
   void init_component_to_union_idx_mapping(component_union_idx_t enum_to_num_offset,
@@ -763,38 +820,42 @@ private:
    * Short-hand for fast-lookup map from distinct `Component_payload` type to the config for that component `enum`.
    *
    * ### Rationale: Performance ###
+   * First please see class log::Config doc header Performance section for user-facing perf recipe.  That is
+   * related to this.  Then come back here.
+   *
    * This is, conceptually, nothing more than a mapping from `std::type_info` (which comes from
    * `typeid(E)`, where `E` is the component `enum class` used for a given logging-module) to an array index
    * (more or less a `size_t`) -- where the size of the map is small: the number of logging-modules in your application.
    * (This is typically something like 1, 2, 3 -- almost certainly no higher than ~10.)  Each
    * init_component_to_union_idx_mapping() inserts a key-value pair.  Then each output_whether_should_log() -- of
-   * which there will potentially be extremely many, one per log call site -- looks up a given key.
+   * which there will potentially be extremely many, one per log call site -- looks up a given key in this map.
+   * (If found, it then looks up another key in a flat array.  That's irrelevant to our discussion here though.)
    *
    * Hence a naive impl (and indeed the original such impl) would just use the STL-recommended allegedly-fast
    * associative mapping from `type_index` (cted from `type_info`) to our integer value.  A classic move would
-   * be to just use `boost::unordered_map<type_index, ...>`: constant-time lookup, great!
+   * be to just use `unordered_map<type_index, ...>`: constant-time lookup, great!
    *
    * Unfortunately -- and this was borne out in a real project with real benchmarking -- that's not the case.
    * The reason: `type_index` (which stores `type_info*` internally) isn't all that fast really, because
-   * hashing it cannot just hash the `type_info*` ptr value; and that is because 2 equal `type_info`s (referring
+   * hashing it cannot just hash the stored `type_info*` ptr value; and that is because 2 equal `type_info`s (referring
    * to the same type) *can* live at different addresses.  (When relevant `typeid()`s are invoked without a
    * shared-object boundary, they can't... but if dynamic linking is involved, then they can.)  Therefore
    * the hash of `type_index` has to use something else, and in fact this is usually `type_info::name()` which
    * is a fully qualified type name (in some interesting format, semi-readable usually).  That's a fairly expensive
    * operation that at least scans the entire string.  Using a sorted-map `std::map` does help -- the names can
-   * be lexicographically compared which is faster -- but still not amazing.
+   * be lexicographically compared which is faster, including many instances of early-return -- but still not amazing.
    *
-   * That's why Component_payload_type_dict (and its buddies) exist as opposed to just using a straightforward
+   * That's why Component_payload_type_dict (and its buddies) exists as opposed to just using a straightforward
    * hash-map.  We wrote some code that uses `type_info*` pointer values after all, when possible
    * (and hence the `component_payload_type_info_ptr_is_uniq` hint arg to init_component_to_union_idx_mapping()).
    * Further details are encapsulated in Component_payload_type_dict land.
    *
    * So what one needs to decide here is how to configure Component_payload_type_dict via its two template args
    * just below.  The current choices were obtained empirically with benchmarking (which can be found elsewhere
-   * in unit-test-land; a unit test will fail if those benchmarks start giving unexpected results, e.g. due
+   * in unit-test-land; a unit test will fail if those benchmarks start giving very unexpected results, e.g. due
    * to differing hardware or who knows what). (See #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR and
-   * #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL `internal` section for discussion.  They also allow
-   * user to override our decision.)
+   * #FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL Impl section for discussion.  These also allow
+   * user to override all or part of our decision.)
    */
   using Component_payload_type_to_cfg_map
     = Component_payload_type_dict<FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR<Component_config>,
