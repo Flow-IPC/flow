@@ -961,8 +961,8 @@ public:
    *   ~~~
    *
    * Now, `this->get_log_component().payload_type()` will equal that of `Flow_log_component` and `Cool_log_component`,
-   * respectively, within those 2 classes.  In particular, a custom Logger implementation can use `payload_type()` --
-   * and in particular the derived `payload_type_index()` -- to interpret the `Component`s of values from the 2
+   * respectively, within those 2 classes.  In particular, a custom Logger implementation can use `payload_type()`
+   * to interpret the `Component`s of values from the 2
    * entirely disparate `enum`s in different ways.  More in particular, the out-of-the-box `Logger`s use `Config`
    * to do all of that without your having to worry about it (but your own Logger would potentially have to worry
    * about it particularly if not using log::Config... though we suggest that you should, barring excellent
@@ -971,32 +971,6 @@ public:
    * @return See above.
    */
   const std::type_info& payload_type() const;
-
-  /**
-   * Convenience accessor that returns `std::type_index(payload_type())`, which can be used most excellently to store
-   * things in associative containers (like `std::map`) keyed by disparate Component payload `enum` types.  (E.g., such
-   * a map might have one entry for Flow's own flow::Flow_log_component; one for the example
-   * `cool_project::Cool_log_component` enumeration mentioned in the payload_type() doc header; and so on for any
-   * logging modules in your process.  Again, log::Config will do that for you, if you choose to use it in your
-   * custom Logger.)
-   *
-   * @internal
-   * ### Impl/perf discussion ###
-   * I (ygoldfel) considered *not* storing a `type_info` -- and hence not even providing payload_type() API -- but
-   * directly storing `type_index` *only* (and hence *only* providing payload_type_index()).  The plus would have been
-   * eliminating computation in `type_index()` construction, in the payload_type_index() accessor which is executed very
-   * frequently.  The minus would have been the lack of `type_info` access, so for instance the name of the `enum` type
-   * could not be printed.
-   *
-   * I almost did this; but since `type_index()` ctor is `inline`d, and all possible `type_info`s are actually
-   * generated at compile time before the program proper executes, the accessor likely reduces to a constant anyway
-   * in optimized code.  That said, if profiler results contradict this expectation, we can perform this optimization
-   * anyway.  However -- that would be a breaking change once a Flow user uses payload_type() publicly.
-   * @endinternal
-   *
-   * @return See above.
-   */
-  std::type_index payload_type_index() const;
 
   /**
    * Returns the numeric value of the `enum` payload stored by this Component, originating in the one-arg constructor;
@@ -1018,8 +992,27 @@ private:
    * Why is it a pointer and not something else?  Answer:
    * It cannot be a direct member: `type_info` is not copyable.  It cannot be a non-`const` reference for the
    * same reason.  It cannot be a `const` reference, because Component is mutable via assignment.
-   * (In any case, all possible `type_info` objects are known before program start and are 1-1 with all possible
-   * types; hence the desire to store a "copy" is wrong-headed perf-wise or otherwise; there is just no reason for it.)
+   * Could use `reference_wrapper<const type_info>`, but ultimately that's the same as storing a pointer.
+   *
+   * In any case by definition `type_info` is not copyable, and indeed the desire to store a "copy" is wrong-headed.
+   *
+   * ### Discussion of performance ###
+   * Careful: This does not mean that (for `type_info`s `A` and `B`)
+   * `A == B` only if `&A == &B`: two `type_info`s may be equal -- refer to the
+   * same type -- but be distinct objects.  This occurs essentially only if the `A = typeid(...)` op
+   * was done on another side of a shared-object boundary versus the `B = typeid(...)` op.
+   *
+   * (If they're *not* on opposing sides that way, then in fact `A == B` (if and) only if `&A == &B`.  For example, if
+   * you've statically-linked all relevant code, then the relevant `type_info`s will be 1-1 with their addresses
+   * after all.)
+   *
+   * That is why `type_index` (cted from a `type_info`) is useful for (essentially) storing `type_info`s in
+   * containers.  Problem is: syntactically it's great; but it can give a false sense of performance:
+   * internally hashing, equality, and ordering ops cannot simply always assume `type_info*`s are 1-1 with distinct
+   * `type_info`s and hence usually STLs implement the hashing in terms of `type_info::name()` -- a string, namely
+   * usually one containing the entire fully qualified type name (e.g.: some mangled version of
+   * `"flow::Log_component"`).  Utilities in detail/component_cfg.hpp work with this topic.  For more:
+   * start with Config::Component_payload_type_to_cfg_map doc header.
    */
   std::type_info const * m_payload_type_or_null;
 

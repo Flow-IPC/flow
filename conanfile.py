@@ -94,6 +94,7 @@ class FlowRecipe(ConanFile):
 
         toolchain = CMakeToolchain(self)
         if self.options.build:
+            toolchain.variables["CFG_ENABLE_TEST_SUITE"] = "ON"
             if self.options.build_no_lto:
                 toolchain.variables["CFG_NO_LTO"] = "ON"
             if self.options.build_cxx_std != 0:
@@ -133,6 +134,7 @@ class FlowRecipe(ConanFile):
             self.requires("boost/1.87.0@")
 
             self.requires("fmt/10.0.0")
+            self.requires("gtest/1.15.0")
 
     def build_requirements(self):
         self.tool_requires("cmake/3.26.3")

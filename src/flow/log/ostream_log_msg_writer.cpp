@@ -140,7 +140,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
      * @todo Maybe there is some way to just force it to print full-precision m_called_when in local time zone?
      * (boost.chrono did it, with a switch that would cause it to use either local time zone or UTC in the output;
      * but we are not using boost.chrono output anymore for perf reasons; plus one cannot specify a format
-     * which is a nice feature we can use to expand Ostream_log_writer capabilities in the future.) */
+     * which is a nice feature we can use to expand Ostream_log_msg_writer capabilities in the future.) */
     const auto end = fmt::format_to(m_last_human_friendly_time_stamp_str.begin(),
                                     static_cast<const std::string_view&>(TIME_STAMP_FORMAT),
                                     fmt::localtime(system_clock::to_time_t(metadata.m_called_when)),

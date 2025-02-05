@@ -323,8 +323,11 @@ public:
    * you will naturally spend some processor cycles which therefore risks slowing down the measured operation and
    * polluting timing results.  To avoid this, please follow the following suggestions.
    *
-   *   - Passing a constant string as follows is very cheap: `string("some constant")`.  All similar constructions
-   *     from a pre-made `const char*` or `std::string` are very cheap.  So if that's good enough for you, do that.
+   *   - Passing a constant string as follows is very cheap: `"some constant"` or `string("same")`.
+   *     So if that's good enough for you, do that.
+   *     - In most STL, due to the `std::string` SSO (optimization which stores a short-enough string directly inside
+   *       the `string` object), if you keep the constant 15 characters or less in length, it's even cheaper;
+   *       heap is not used as a result.
    *   - Constructing something via util::ostream_op_string() (and/or util::String_ostream) adds about 500 nanoseconds
    *     per checkpoint() call (e.g.: `util::ostream_op_string("some string", some_int)`) on a 2015 MacBook Pro.
    *     For many, many timing scenarios such sub-microsecond overheads are no big deal, but watch out if you're
@@ -339,7 +342,7 @@ public:
    *
    * @param name_moved
    *        Nickname for the timer, for logging and such.  If you want to preserve your string, pass in a copy:
-   *        `string(your_name_value)`.
+   *        `string(your_name_value)`.  See above regarding perf impact.
    * @return Reference to immutable new Checkpoint `struct`, as it sits directly inside `*this`.
    */
   const Checkpoint& checkpoint(std::string&& name_moved);
@@ -615,6 +618,10 @@ public:
    * It is possible to call it between `aggregate()`s, perhaps to output incremental results.  It may be slow and should
    * not be called within any perf-critical section and definitely not in any measured section.  The most natural
    * time to call it is after all data collection has finished.
+   *
+   * Tip: you can pass null as the logger to the ctor of each Checkpointing_timer and even the Aggregator
+   * and only use non-null `alternate_logger_ptr_or_null`.  Then the cost of should-log checks will be zero
+   * all over except here (where presumably it does not matter).
    *
    * @param alternate_logger_ptr_or_null
    *        If null, logs are sent to get_logger() as normal; otherwise it is sent to the supplied log::Logger instead.

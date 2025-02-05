@@ -70,7 +70,7 @@ Main::Main() :
   Log_context(&m_logger, flow::Flow_log_component::S_UNCAT),
   m_logger(&m_std_log_config) // Initialize logger to cout, cerr.
 {
-  m_std_log_config.init_component_to_union_idx_mapping<flow::Flow_log_component>(1000, 999);
+  m_std_log_config.init_component_to_union_idx_mapping<flow::Flow_log_component>(1000, 999, true);
   m_std_log_config.init_component_names<flow::Flow_log_component>(flow::S_FLOW_LOG_COMPONENT_NAME_MAP, false, "srv-");
 
   // Name this main thread, to identify it in each log message logged from it.

@@ -595,7 +595,31 @@ jobs:
         mv flow_echo_cli.log $OUT_DIR/cli.log
         [ $EC -eq 0 ]
 
-    # (More tests/demos here as needed.)
+    - name: Run unit tests
+      if: |
+        !cancelled()
+      run: |
+        # Run unit tests.
+        cd ${{ env.install-dir }}/bin
+        # Some newline issues with the possible additional args; so need to make a wrapper script
+        # and then redirect, as desired, its output.
+        cat <<'EOF' > ${{ env.install-dir }}/bin/run_unit_test.sh
+        $BUILT_CMD_PREFIX ./libflow_unit_test.exec "$@"
+        EOF
+        RUN_IT='/usr/bin/bash -e ${{ env.install-dir }}/bin/run_unit_test.sh'
+        OUT_DIR=logs/libflow_unit_test
+        mkdir -p $OUT_DIR
+        SUPP_DIR_A=${{ github.workspace }}/src
+        # As of this writing there are TSAN suppressions for this test specifically.  TODO: Revisit them; and then this.
+        SUPP_DIR_OWN=${{ github.workspace }}/test/suite/unit_test
+        { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
+              $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file2 }} \
+            > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
+        ${{ env.setup-tests-env }}
+        ${{ env.setup-run-env }}
+        # Sensitive benchmarks in this setting should run and be warned about it they "fail," but they should not
+        # fail the test.
+        $RUN_IT --do-not-fail-benchmarks > $OUT_DIR/console.log 2>&1
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
       if: |

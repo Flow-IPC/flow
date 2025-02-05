@@ -111,6 +111,7 @@ set(HDRS
     flow/log/async_file_logger.hpp
     flow/log/buffer_logger.hpp
     flow/log/config.hpp
+    flow/log/detail/component_cfg.hpp
     flow/log/detail/log_fwd.hpp
     flow/log/detail/serial_file_logger.hpp
     flow/log/detail/thread_lcl_str_appender.hpp

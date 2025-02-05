@@ -63,7 +63,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
    * Flow stuff will give us time stamps and such for free, so why not?  Normally, one derives from
    * Log_context to do this very trivially, but we just have the one function, main(), so far so: */
   Config std_log_config;
-  std_log_config.init_component_to_union_idx_mapping<Flow_log_component>(1000, 999);
+  std_log_config.init_component_to_union_idx_mapping<Flow_log_component>(1000, 999, true);
   std_log_config.init_component_names<Flow_log_component>(flow::S_FLOW_LOG_COMPONENT_NAME_MAP, false, "cli-");
 
   Simple_ostream_logger std_logger(&std_log_config);
