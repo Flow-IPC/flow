@@ -368,7 +368,10 @@ Related Functions</h2></td></tr>
 <h3>Naming vs. performance</h3>
 <p ><code>name_moved</code> will be taken via move semantics, meaning no string buffer will be copied, only the pointer(s) and buffer size scalar(s) inside <code>std::string</code>. This helps performance. However, to <em>form</em> <code>name_moved</code> you will naturally spend some processor cycles which therefore risks slowing down the measured operation and polluting timing results. To avoid this, please follow the following suggestions.</p>
 <ul>
-<li>Passing a constant string as follows is very cheap: <code>string("some constant")</code>. All similar constructions from a pre-made <code>const char*</code> or <code>std::string</code> are very cheap. So if that's good enough for you, do that.</li>
+<li>Passing a constant string as follows is very cheap: <code>"some constant"</code> or <code>string("same")</code>. So if that's good enough for you, do that.<ul>
+<li>In most STL, due to the <code>std::string</code> SSO (optimization which stores a short-enough string directly inside the <code>string</code> object), if you keep the constant 15 characters or less in length, it's even cheaper; heap is not used as a result.</li>
+</ul>
+</li>
 <li>Constructing something via <a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">util::ostream_op_string()</a> (and/or <a class="el" href="classflow_1_1util_1_1String__ostream.html" title="Similar to ostringstream but allows fast read-only access directly into the std::string being written...">util::String_ostream</a>) adds about 500 nanoseconds per <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">checkpoint()</a> call (e.g.: <code><a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">util::ostream_op_string</a>("some string", some_int)</code>) on a 2015 MacBook Pro. For many, many timing scenarios such sub-microsecond overheads are no big deal, but watch out if you're measuring something tiny-subtle.<ul>
 <li>If it is a problem, use a constant thing as in previous bullet. If that isn't sufficient, you can fairly easily use C-style direct-<code>char*</code>-writing to do it almost as quickly as that, or at least far closer to it than to the (syntactically-pretty but slow-in-*this*-context) stream-based string formation.</li>
 </ul>
@@ -378,7 +381,7 @@ Related Functions</h2></td></tr>
 <p >It will log a TRACE message. Hence if TRACE is enabled, timing results might be polluted, as logging can take non-trivial time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name_moved</td><td>Nickname for the timer, for logging and such. If you want to preserve your string, pass in a copy: <code>string(your_name_value)</code>. </td></tr>
+    <tr><td class="paramname">name_moved</td><td>Nickname for the timer, for logging and such. If you want to preserve your string, pass in a copy: <code>string(your_name_value)</code>. See above regarding perf impact. </td></tr>
   </table>
   </dd>
 </dl>
@@ -743,7 +746,7 @@ Related Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

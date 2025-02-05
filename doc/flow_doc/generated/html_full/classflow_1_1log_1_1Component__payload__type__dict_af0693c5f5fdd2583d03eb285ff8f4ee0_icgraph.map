@@ -1,0 +1,4 @@
+<map id="flow::log::Component_payload_type_dict::insert" name="flow::log::Component_payload_type_dict::insert">
+<area shape="rect" id="node1" title="Adds a mapping from the given type to a Cfg value, so it can be obtained by lookup()." alt="" coords="212,11,376,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#a9b7ba819538d221f190e044cfa6220db" title="Registers a generically&#45;typed enum class that represents the full set of the calling module&#39;s possibl..." alt="" coords="5,5,164,53"/>
+</map>

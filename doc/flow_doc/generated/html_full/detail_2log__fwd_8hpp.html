@@ -69,12 +69,19 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">log_fwd.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="log__fwd_8hpp_source.html">flow/log/log_fwd.hpp</a>&quot;</code><br />
 <code>#include &lt;boost/thread.hpp&gt;</code><br />
+<code>#include &lt;boost/unordered_map.hpp&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;typeinfo&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
 </div>
 <p><a href="detail_2log__fwd_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -87,6 +94,33 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:namespaceflow_1_1log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow module providing logging functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a6c8647b07c73f3a1160937053c16e15c"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a6c8647b07c73f3a1160937053c16e15c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a6c8647b07c73f3a1160937053c16e15c">flow::log::Component_payload_type_dict_by_ptr_via_tree_map</a> = Component_payload_type_dict_by_ptr_via_map&lt; std::map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a6c8647b07c73f3a1160937053c16e15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a6c8647b07c73f3a1160937053c16e15c">More...</a><br /></td></tr>
+<tr class="separator:a6c8647b07c73f3a1160937053c16e15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a91ff6edac2697bd16b5b82598a3a49ab">flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map</a> = Component_payload_type_dict_by_ptr_via_map&lt; std::unordered_map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a91ff6edac2697bd16b5b82598a3a49ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a91ff6edac2697bd16b5b82598a3a49ab">More...</a><br /></td></tr>
+<tr class="separator:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac94f575d6d855074f820b3846f2a7e7b"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:ac94f575d6d855074f820b3846f2a7e7b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#ac94f575d6d855074f820b3846f2a7e7b">flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map</a> = Component_payload_type_dict_by_ptr_via_map&lt; boost::unordered_map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:ac94f575d6d855074f820b3846f2a7e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#ac94f575d6d855074f820b3846f2a7e7b">More...</a><br /></td></tr>
+<tr class="separator:ac94f575d6d855074f820b3846f2a7e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aa4b9faf0aade18a87a0ce91c154d0261">flow::log::Component_payload_type_dict_by_val_via_tree_map</a> = Component_payload_type_dict_by_val_via_map&lt; std::map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:aa4b9faf0aade18a87a0ce91c154d0261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#aa4b9faf0aade18a87a0ce91c154d0261">More...</a><br /></td></tr>
+<tr class="separator:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362a481c04c35a9a52a95ad775e2a43a"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a362a481c04c35a9a52a95ad775e2a43a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a362a481c04c35a9a52a95ad775e2a43a">flow::log::Component_payload_type_dict_by_val_via_s_hash_map</a> = Component_payload_type_dict_by_val_via_map&lt; std::unordered_map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a362a481c04c35a9a52a95ad775e2a43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a362a481c04c35a9a52a95ad775e2a43a">More...</a><br /></td></tr>
+<tr class="separator:a362a481c04c35a9a52a95ad775e2a43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7c58c12eb721799ee4bae328c5535e"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:aba7c58c12eb721799ee4bae328c5535e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aba7c58c12eb721799ee4bae328c5535e">flow::log::Component_payload_type_dict_by_val_via_b_hash_map</a> = Component_payload_type_dict_by_val_via_map&lt; boost::unordered_map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:aba7c58c12eb721799ee4bae328c5535e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#aba7c58c12eb721799ee4bae328c5535e">More...</a><br /></td></tr>
+<tr class="separator:aba7c58c12eb721799ee4bae328c5535e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ada740b2acb9b14ebf025883245c64357"><td class="memItemLeft" align="right" valign="top">boost::thread_specific_ptr&lt; Msg_metadata &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#ada740b2acb9b14ebf025883245c64357">flow::log::this_thread_sync_msg_metadata_ptr</a></td></tr>
@@ -96,7 +130,7 @@ Variables</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:34 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

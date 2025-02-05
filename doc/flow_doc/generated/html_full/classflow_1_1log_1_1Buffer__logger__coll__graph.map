@@ -1,40 +1,41 @@
 <map id="flow::log::Buffer_logger" name="flow::log::Buffer_logger">
-<area shape="rect" id="node1" title="An implementation of Logger that logs messages to an internal std::string buffer and provides read&#45;on..." alt="" coords="1605,424,1755,448"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="1365,120,1480,144"/>
-<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="960,5,1112,29"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="978,54,1094,90"/>
-<area shape="rect" id="node5" title=" " alt="" coords="315,48,381,72"/>
-<area shape="rect" id="node6" title=" " alt="" coords="552,91,679,115"/>
-<area shape="rect" id="node7" title=" " alt="" coords="970,307,1102,331"/>
-<area shape="rect" id="node19" href="$classflow_1_1util_1_1String__ostream.html" title="Similar to ostringstream but allows fast read&#45;only access directly into the std::string being written..." alt="" coords="1368,297,1477,333"/>
-<area shape="rect" id="node24" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned..." alt="" coords="1361,615,1484,651"/>
-<area shape="rect" id="node8" title=" " alt="" coords="973,114,1099,150"/>
-<area shape="rect" id="node9" href="$classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers..." alt="" coords="980,423,1092,447"/>
-<area shape="rect" id="node10" title=" " alt="" coords="561,577,669,601"/>
-<area shape="rect" id="node11" href="$classbool.html" title=" " alt="" coords="592,629,639,653"/>
-<area shape="rect" id="node12" title=" " alt="" coords="537,252,694,300"/>
-<area shape="rect" id="node13" href="$classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,..." alt="" coords="288,351,408,387"/>
-<area shape="rect" id="node16" title=" " alt="" coords="550,385,681,421"/>
-<area shape="rect" id="node14" title=" " alt="" coords="111,357,225,381"/>
-<area shape="rect" id="node15" title=" " alt="" coords="5,357,44,381"/>
-<area shape="rect" id="node17" title=" " alt="" coords="524,445,707,481"/>
-<area shape="rect" id="node18" title=" " alt="" coords="547,505,684,553"/>
-<area shape="rect" id="node20" title=" " alt="" coords="997,364,1075,388"/>
-<area shape="rect" id="node21" title=" " alt="" coords="555,191,676,227"/>
-<area shape="rect" id="node22" title=" " alt="" coords="973,174,1099,210"/>
-<area shape="rect" id="node23" title=" " alt="" coords="953,235,1119,283"/>
-<area shape="rect" id="node25" title=" " alt="" coords="959,615,1113,651"/>
-<area shape="rect" id="node26" href="$classflow_1_1util_1_1Basic__string__view.html" title="Essentially alias for a C++17&#45;conforming string&#45;view class template, which is a very lightweight std:..." alt="" coords="544,698,687,734"/>
-<area shape="rect" id="node27" title=" " alt="" coords="277,698,419,734"/>
-<area shape="rect" id="node28" title=" " alt="" coords="997,471,1075,495"/>
-<area shape="rect" id="node29" href="$classflow_1_1Function.html" title=" " alt="" coords="949,519,1123,591"/>
-<area shape="rect" id="node30" title=" " alt="" coords="990,940,1082,964"/>
-<area shape="rect" id="node31" title=" " alt="" coords="552,934,679,970"/>
-<area shape="rect" id="node32" title=" " alt="" coords="275,940,421,964"/>
-<area shape="rect" id="node33" title=" " alt="" coords="991,676,1081,700"/>
-<area shape="rect" id="node34" title=" " alt="" coords="919,988,1153,1060"/>
-<area shape="rect" id="node35" title=" " alt="" coords="592,1012,639,1036"/>
-<area shape="rect" id="node36" title=" " alt="" coords="1009,820,1063,844"/>
-<area shape="rect" id="node37" title=" " alt="" coords="951,868,1121,916"/>
-<area shape="rect" id="node38" title=" " alt="" coords="1395,676,1450,700"/>
+<area shape="rect" id="node1" title="An implementation of Logger that logs messages to an internal std::string buffer and provides read&#45;on..." alt="" coords="1663,424,1812,448"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="1423,120,1537,144"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="1017,5,1169,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="1035,54,1151,90"/>
+<area shape="rect" id="node5" title=" " alt="" coords="315,63,382,87"/>
+<area shape="rect" id="node6" title=" " alt="" coords="605,36,732,60"/>
+<area shape="rect" id="node7" title=" " alt="" coords="1027,307,1159,331"/>
+<area shape="rect" id="node20" href="$classflow_1_1util_1_1String__ostream.html" title="Similar to ostringstream but allows fast read&#45;only access directly into the std::string being written..." alt="" coords="1425,297,1535,333"/>
+<area shape="rect" id="node25" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned..." alt="" coords="1419,615,1541,651"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1031,114,1156,150"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers..." alt="" coords="1037,423,1149,447"/>
+<area shape="rect" id="node10" title=" " alt="" coords="615,587,723,611"/>
+<area shape="rect" id="node11" href="$classbool.html" title=" " alt="" coords="645,639,692,663"/>
+<area shape="rect" id="node12" href="$classflow_1_1log_1_1Component__payload__type__dict.html" title=" " alt="" coords="573,236,764,308"/>
+<area shape="rect" id="node13" href="$classvalue__for__exposition_3_01Component__config_01_4.html" title=" " alt="" coords="275,254,423,290"/>
+<area shape="rect" id="node14" href="$classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,..." alt="" coords="289,362,409,398"/>
+<area shape="rect" id="node17" title=" " alt="" coords="603,333,734,369"/>
+<area shape="rect" id="node15" title=" " alt="" coords="111,368,225,392"/>
+<area shape="rect" id="node16" title=" " alt="" coords="5,368,44,392"/>
+<area shape="rect" id="node18" title=" " alt="" coords="577,454,760,490"/>
+<area shape="rect" id="node19" title=" " alt="" coords="600,515,737,563"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1054,365,1133,389"/>
+<area shape="rect" id="node22" title=" " alt="" coords="608,175,729,211"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1031,174,1156,210"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1011,235,1176,283"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1016,615,1171,651"/>
+<area shape="rect" id="node27" href="$classflow_1_1util_1_1Basic__string__view.html" title="Essentially alias for a C++17&#45;conforming string&#45;view class template, which is a very lightweight std:..." alt="" coords="597,705,740,741"/>
+<area shape="rect" id="node28" title=" " alt="" coords="277,705,420,741"/>
+<area shape="rect" id="node29" title=" " alt="" coords="1054,471,1133,495"/>
+<area shape="rect" id="node30" href="$classflow_1_1Function.html" title=" " alt="" coords="1006,519,1181,591"/>
+<area shape="rect" id="node31" title=" " alt="" coords="1047,940,1139,964"/>
+<area shape="rect" id="node32" title=" " alt="" coords="605,934,732,970"/>
+<area shape="rect" id="node33" title=" " alt="" coords="275,940,422,964"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1048,676,1139,700"/>
+<area shape="rect" id="node35" title=" " alt="" coords="976,988,1211,1060"/>
+<area shape="rect" id="node36" title=" " alt="" coords="645,1012,692,1036"/>
+<area shape="rect" id="node37" title=" " alt="" coords="1067,820,1120,844"/>
+<area shape="rect" id="node38" title=" " alt="" coords="1008,868,1179,916"/>
+<area shape="rect" id="node39" title=" " alt="" coords="1453,676,1507,700"/>
 </map>

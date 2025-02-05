@@ -1,5 +1,0 @@
-<map id="flow::log::Component::payload_type_index" name="flow::log::Component::payload_type_index">
-<area shape="rect" id="node1" title="Convenience accessor that returns std::type_index(payload_type()), which can be used most excellently..." alt="" coords="5,5,145,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Component.html#a3ff8ff4d75add447b3e10ded5430833d" title="Returns typeid(Payload), where Payload was the template param used when calling the originating one&#45;a..." alt="" coords="193,5,333,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1log_1_1Component.html#a5af2f66731c407bd519a873706bd04c4" title="Returns true if *this is as if default&#45;constructed (a null Component); false if as if constructed via..." alt="" coords="381,5,521,41"/>
-</map>

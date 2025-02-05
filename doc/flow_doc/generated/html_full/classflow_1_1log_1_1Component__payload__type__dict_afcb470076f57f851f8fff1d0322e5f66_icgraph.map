@@ -1,5 +1,5 @@
-<map id="flow::log::Component::payload_type_index" name="flow::log::Component::payload_type_index">
-<area shape="rect" id="node1" title="Convenience accessor that returns std::type_index(payload_type()), which can be used most excellently..." alt="" coords="839,111,979,147"/>
+<map id="flow::log::Component_payload_type_dict::lookup" name="flow::log::Component_payload_type_dict::lookup">
+<area shape="rect" id="node1" title="Looks up a value previously added via insert(), or indicates no such value has yet been added." alt="" coords="839,111,1009,147"/>
 <area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#af2d963a6e1e9e0fc5809764d5718e938" title="Given a component in the form user provides it at log call sites, returns its index in the flat compo..." alt="" coords="633,111,791,147"/>
 <area shape="rect" id="node3" href="$classflow_1_1log_1_1Config.html#adfde40890c0dc1fa8956451f44251dc8" title="Sets the per&#45;component verbosity for the given component to the given value, to be used by subsequent..." alt="" coords="429,5,570,53"/>
 <area shape="rect" id="node4" href="$classflow_1_1log_1_1Config.html#a146a60d96256dbaed4f5f0e7dcd8f529" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="425,78,573,114"/>

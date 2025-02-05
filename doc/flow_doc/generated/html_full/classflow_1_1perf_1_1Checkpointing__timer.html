@@ -347,7 +347,7 @@ Related Functions</h2></td></tr>
 <p >It can obtain a measurement of both user and kernel time spent by the process concurrently. In C++20 this isn't in std.chrono yet. Go, boost.chrono!</p>
 <dl class="section note"><dt>Note</dt><dd>It returns a "real" time too. However we use other, better clocks for that. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00449">449</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00452">452</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 </div>
 </div>
@@ -373,7 +373,7 @@ Related Functions</h2></td></tr>
 
 <p>Short-hand for the combo (user/kernel) durations-since-epoch tracked by <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#ae1983df5bfc263f2d4075e26f95cc544" title="chrono clock used, internally, for Clock_type::S_CPU_USER_LO_RES and Clock_type::S_CPU_SYS_LO_RES que...">Cpu_split_clock</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00452">452</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00455">455</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 </div>
 </div>
@@ -438,7 +438,7 @@ Related Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00029">29</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00230">flow::log::Log_context::get_log_component()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00526">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00437">m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00517">m_start_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00509">m_which_clocks</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00222">flow::log::Log_context::get_log_component()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00529">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00440">m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00520">m_start_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00512">m_which_clocks</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger::should_log()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00372">flow::perf::Checkpointing_timer::Aggregator::create_aggregated_result()</a>.</p>
 <div class="dynheader">
@@ -570,7 +570,10 @@ Here is the caller graph for this function:</div>
 <h3>Naming vs. performance</h3>
 <p ><code>name_moved</code> will be taken via move semantics, meaning no string buffer will be copied, only the pointer(s) and buffer size scalar(s) inside <code>std::string</code>. This helps performance. However, to <em>form</em> <code>name_moved</code> you will naturally spend some processor cycles which therefore risks slowing down the measured operation and polluting timing results. To avoid this, please follow the following suggestions.</p>
 <ul>
-<li>Passing a constant string as follows is very cheap: <code>string("some constant")</code>. All similar constructions from a pre-made <code>const char*</code> or <code>std::string</code> are very cheap. So if that's good enough for you, do that.</li>
+<li>Passing a constant string as follows is very cheap: <code>"some constant"</code> or <code>string("same")</code>. So if that's good enough for you, do that.<ul>
+<li>In most STL, due to the <code>std::string</code> SSO (optimization which stores a short-enough string directly inside the <code>string</code> object), if you keep the constant 15 characters or less in length, it's even cheaper; heap is not used as a result.</li>
+</ul>
+</li>
 <li>Constructing something via <a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">util::ostream_op_string()</a> (and/or <a class="el" href="classflow_1_1util_1_1String__ostream.html" title="Similar to ostringstream but allows fast read-only access directly into the std::string being written...">util::String_ostream</a>) adds about 500 nanoseconds per <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">checkpoint()</a> call (e.g.: <code><a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">util::ostream_op_string</a>("some string", some_int)</code>) on a 2015 MacBook Pro. For many, many timing scenarios such sub-microsecond overheads are no big deal, but watch out if you're measuring something tiny-subtle.<ul>
 <li>If it is a problem, use a constant thing as in previous bullet. If that isn't sufficient, you can fairly easily use C-style direct-<code>char*</code>-writing to do it almost as quickly as that, or at least far closer to it than to the (syntactically-pretty but slow-in-*this*-context) stream-based string formation.</li>
 </ul>
@@ -580,7 +583,7 @@ Here is the caller graph for this function:</div>
 <p >It will log a TRACE message. Hence if TRACE is enabled, timing results might be polluted, as logging can take non-trivial time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name_moved</td><td>Nickname for the timer, for logging and such. If you want to preserve your string, pass in a copy: <code>string(your_name_value)</code>. </td></tr>
+    <tr><td class="paramname">name_moved</td><td>Nickname for the timer, for logging and such. If you want to preserve your string, pass in a copy: <code>string(your_name_value)</code>. See above regarding perf impact. </td></tr>
   </table>
   </dd>
 </dl>
@@ -588,7 +591,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00272">272</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00526">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00437">m_name</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00529">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00440">m_name</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00372">flow::perf::Checkpointing_timer::Aggregator::create_aggregated_result()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00304">output()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00100">scale()</a>.</p>
 <div class="dynheader">
@@ -627,7 +630,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00299">299</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>.</p>
 
 </div>
 </div>
@@ -654,7 +657,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00241">241</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00509">m_which_clocks</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00512">m_which_clocks</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00189">now()</a>, <a class="el" href="timed__function_8hpp_source.html#l00032">flow::perf::timed_function()</a>, and <a class="el" href="timed__function_8hpp_source.html#l00047">flow::perf::timed_function_nvr()</a>.</p>
 <div class="dynheader">
@@ -885,7 +888,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00304">304</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00437">m_name</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00440">m_name</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00340">operator&lt;&lt;()</a>.</p>
 <div class="dynheader">
@@ -1019,7 +1022,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00100">100</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00526">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00212">flow::perf::Checkpointing_timer::Checkpoint::m_since_last</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00517">m_start_when</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00529">m_last_checkpoint_when</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00212">flow::perf::Checkpointing_timer::Checkpoint::m_since_last</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00520">m_start_when</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1050,7 +1053,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00293">293</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00532">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00526">m_last_checkpoint_when</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00517">m_start_when</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00535">m_checkpoints</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00529">m_last_checkpoint_when</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00520">m_start_when</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00304">output()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00100">scale()</a>.</p>
 <div class="dynheader">
@@ -1121,7 +1124,7 @@ Here is the caller graph for this function:</div>
 <p><a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html" title="This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...">Aggregator</a> needs access to the <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html" title="The central class in the perf Flow module, this efficiently times the user&#39;s operation,...">Checkpointing_timer</a> innards; generally speaking, stylistically, it is fine. </p>
 <p >It is an inner class to reflect that cooperation further. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00487">487</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00490">490</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 </div>
 </div>
@@ -1206,7 +1209,7 @@ Here is the call graph for this function:</div>
 <p>The checkpoints recorded so far, in order, one per <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">checkpoint()</a> call. </p>
 <p >To avoid any reallocations, this is reserved to contain a buffer at least <code>max_n_checkpoints</code> (see ctor) elements long. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00532">532</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00535">535</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00299">checkpoints()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00304">output()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00100">scale()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 
@@ -1236,7 +1239,7 @@ Here is the call graph for this function:</div>
 <p ><a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#afeb1faa0e4962dacf9b6a134191a4933" title="Returns the duration(s) (for all enabled Clock_types) between construction and the last checkpoint() ...">since_start()</a> (the total duration(s)) is based on this and <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#ac16b16c3192e287ae3f08be786626f1a" title="The value of now() saved in public constructor, marking the time point when the timing began.">m_start_when</a>.</p>
 <p >Ideally this would be <code>const</code> but had to be left technically mutable due to certain <code>array&lt;&gt;</code> initialization subtleties. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00526">526</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00529">529</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00100">scale()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 
@@ -1256,7 +1259,7 @@ Here is the call graph for this function:</div>
 
 <p>The immutable human-readable name for this timer. It's <code>const</code> so no need for accessor for now. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00437">437</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00440">440</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00357">flow::perf::Checkpointing_timer::Aggregator::aggregate()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00272">checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00372">flow::perf::Checkpointing_timer::Aggregator::create_aggregated_result()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00471">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00304">output()</a>.</p>
 
@@ -1286,7 +1289,7 @@ Here is the call graph for this function:</div>
 <p >Doesn't change after construction. <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#afeb1faa0e4962dacf9b6a134191a4933" title="Returns the duration(s) (for all enabled Clock_types) between construction and the last checkpoint() ...">since_start()</a> (the total duration(s)) is based on this and <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#ac16b16c3192e287ae3f08be786626f1a" title="The value of now() saved in public constructor, marking the time point when the timing began.">m_start_when</a>.</p>
 <p >Ideally this would be <code>const</code> but isn't for some minor reasons (see <code>public</code> constructor). </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00517">517</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00520">520</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00100">scale()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00293">since_start()</a>.</p>
 
@@ -1315,7 +1318,7 @@ Here is the call graph for this function:</div>
 <p>The bit-set indexed by <code>size_t(Clock_type::...)</code> wherein that clock will be sampled in <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta...">now()</a> and <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">checkpoint()</a> if and only if its bit is set. </p>
 <p >All zeroes is allowed and will, accordingly, result in 0 <code>Duration</code>s and <code>Time_pt</code>s in all results. Subtlety: <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a3b73f2812c2bf6a27ef2becc13859d73" title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta...">now()</a> doesn't work properly until this is initialized. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00509">509</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00512">512</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00029">Checkpointing_timer()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00241">now()</a>.</p>
 
@@ -1329,7 +1332,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

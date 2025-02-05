@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
@@ -96,6 +97,27 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component.html">Component</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A light-weight class, each object storing a <em>component</em> payload encoding an <code>enum</code> value from <code>enum</code> type of user's choice, and a light-weight ID of that <code>enum</code> type itself.  <a href="classflow_1_1log_1_1Component.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict.html">Component_payload_type_dict</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An internal-use dictionary for fast lookup of small <code>Cfg</code> values keyed by <code>type_info</code> objects; impl = 1 <code>Component_payload_type_dict_by_val_...</code> and 1 <code>Component_payload_type_dict_by_ptr_...</code>.  <a href="classflow_1_1log_1_1Component__payload__type__dict.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__array.html">Component_payload_type_dict_by_ptr_via_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exactly equivalent to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html" title="An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects,...">Component_payload_type_dict_by_ptr_via_map</a> but with impl = array with optimized linear search.  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__array.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An internal-use dictionary for fast lookup of small <code>Cfg</code> values keyed by <code>type_info</code> objects, given the guarantee that any type involved shall have 1 uniquely-addressed such object; impl = map.  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__sorted__array.html">Component_payload_type_dict_by_ptr_via_sorted_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exactly equivalent to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__array.html" title="Exactly equivalent to Component_payload_type_dict_by_ptr_via_map but with impl = array with optimized...">Component_payload_type_dict_by_ptr_via_array</a> but with impl = sorted array susceptible to binary search.  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__sorted__array.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__array.html">Component_payload_type_dict_by_val_via_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exactly equivalent to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html" title="An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects,...">Component_payload_type_dict_by_val_via_map</a> but with impl = array with linear search (likely by string equality).  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__array.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An internal-use dictionary for fast lookup of small <code>Cfg</code> values keyed by <code>type_info</code> objects, given NO guarantee that any type involved shall have 1 uniquely-addressed such object; impl = map.  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__sorted__array.html">Component_payload_type_dict_by_val_via_sorted_array</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exactly equivalent to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__array.html" title="Exactly equivalent to Component_payload_type_dict_by_val_via_map but with impl = array with linear se...">Component_payload_type_dict_by_val_via_array</a> but with impl = sorted array susceptible to binary search (likely with string lexicographic less-than comparisons).  <a href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__sorted__array.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html">Config</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class used to configure the filtering and logging behavior of <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s; its use in your custom <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s is optional but encouraged; supports dynamically changing filter settings even while concurrent logging occurs.  <a href="classflow_1_1log_1_1Config.html#details">More...</a><br /></td></tr>
@@ -124,6 +146,33 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Verbosity__config.html">Verbosity_config</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional-use structure encapsulating a full set of verbosity config, such that one can parse it from a config source (like an options file) in concise form and apply it to a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">log::Config</a> object.  <a href="classflow_1_1log_1_1Verbosity__config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a6c8647b07c73f3a1160937053c16e15c"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a6c8647b07c73f3a1160937053c16e15c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a6c8647b07c73f3a1160937053c16e15c">Component_payload_type_dict_by_ptr_via_tree_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt; std::map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a6c8647b07c73f3a1160937053c16e15c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a6c8647b07c73f3a1160937053c16e15c">More...</a><br /></td></tr>
+<tr class="separator:a6c8647b07c73f3a1160937053c16e15c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a91ff6edac2697bd16b5b82598a3a49ab">Component_payload_type_dict_by_ptr_via_s_hash_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt; std::unordered_map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a91ff6edac2697bd16b5b82598a3a49ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a91ff6edac2697bd16b5b82598a3a49ab">More...</a><br /></td></tr>
+<tr class="separator:a91ff6edac2697bd16b5b82598a3a49ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac94f575d6d855074f820b3846f2a7e7b"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:ac94f575d6d855074f820b3846f2a7e7b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#ac94f575d6d855074f820b3846f2a7e7b">Component_payload_type_dict_by_ptr_via_b_hash_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt; boost::unordered_map&lt; const std::type_info *, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:ac94f575d6d855074f820b3846f2a7e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#ac94f575d6d855074f820b3846f2a7e7b">More...</a><br /></td></tr>
+<tr class="separator:ac94f575d6d855074f820b3846f2a7e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aa4b9faf0aade18a87a0ce91c154d0261">Component_payload_type_dict_by_val_via_tree_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt; std::map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:aa4b9faf0aade18a87a0ce91c154d0261"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#aa4b9faf0aade18a87a0ce91c154d0261">More...</a><br /></td></tr>
+<tr class="separator:aa4b9faf0aade18a87a0ce91c154d0261"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362a481c04c35a9a52a95ad775e2a43a"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:a362a481c04c35a9a52a95ad775e2a43a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a362a481c04c35a9a52a95ad775e2a43a">Component_payload_type_dict_by_val_via_s_hash_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt; std::unordered_map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:a362a481c04c35a9a52a95ad775e2a43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#a362a481c04c35a9a52a95ad775e2a43a">More...</a><br /></td></tr>
+<tr class="separator:a362a481c04c35a9a52a95ad775e2a43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba7c58c12eb721799ee4bae328c5535e"><td class="memTemplParams" colspan="2">template&lt;typename Cfg_t &gt; </td></tr>
+<tr class="memitem:aba7c58c12eb721799ee4bae328c5535e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aba7c58c12eb721799ee4bae328c5535e">Component_payload_type_dict_by_val_via_b_hash_map</a> = <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt; boost::unordered_map&lt; std::type_index, Cfg_t &gt; &gt;</td></tr>
+<tr class="memdesc:aba7c58c12eb721799ee4bae328c5535e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias.  <a href="namespaceflow_1_1log.html#aba7c58c12eb721799ee4bae328c5535e">More...</a><br /></td></tr>
+<tr class="separator:aba7c58c12eb721799ee4bae328c5535e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -221,7 +270,128 @@ Variables</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>Lacking feature: boost.format-style logging call sites. This is conceptually similar to &ndash; and possibly even entirely subsuming in backwards-compatible fashion &ndash; the to-do just above for <code>printf()</code>-style logging. Likely both to-dos should be designed/implemented in one shot. Moreover, it is possible (and would be absolutely delightful if true) that boost.format's <code>format</code> class can be used entirely transparently on top of the <code>ostream</code>-focused existing <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a> API (such as <a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a> and buddies)!</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000056">Todo:</a></b></dt><dd>Lacking feature: log message rate-limiting. This could actually mean a few things. One is being able to rate-limit the messages produced a given log call site per unit time; this might be the minimum for this to-do. This could be done by a dirty macro hack; or it could be done in more civilized fashion (while minding perf) by configuring it by message ID (but message IDs are optional and not implemented as of this writing anyway). Another rate-limiting thing is general controls on frequency of logging; though arguably that is more applicable to individual <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code> implementations rather than as a mandatory-general mechanism.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>Lacking feature: compiler hints for optimizing away log filter checks. This is inspired by a certain other proprietary logging API in which we noticed attempts to give hints to the compiler as to how likely or unlikely the verbosity check is to return a true or false value, seemingly so that the compiler might optimize out the check and hence the entire log statement in some conditions; or <em>always</em> log others and skip the check in the optimized code. I omit any details here, but that's the general idea. I don't know how effective this is given that verbosities are configurable dynamically potentially; but look into it. </dd></dl>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="ac94f575d6d855074f820b3846f2a7e7b" name="ac94f575d6d855074f820b3846f2a7e7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac94f575d6d855074f820b3846f2a7e7b">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_ptr_via_b_hash_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#ac94f575d6d855074f820b3846f2a7e7b">flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt;boost::unordered_map&lt;const std::type_info*, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00062">62</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a91ff6edac2697bd16b5b82598a3a49ab" name="a91ff6edac2697bd16b5b82598a3a49ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91ff6edac2697bd16b5b82598a3a49ab">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_ptr_via_s_hash_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#a91ff6edac2697bd16b5b82598a3a49ab">flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt;std::unordered_map&lt;const std::type_info*, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00058">58</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c8647b07c73f3a1160937053c16e15c" name="a6c8647b07c73f3a1160937053c16e15c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8647b07c73f3a1160937053c16e15c">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_ptr_via_tree_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#a6c8647b07c73f3a1160937053c16e15c">flow::log::Component_payload_type_dict_by_ptr_via_tree_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">Component_payload_type_dict_by_ptr_via_map</a>&lt;std::map&lt;const std::type_info*, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00054">54</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aba7c58c12eb721799ee4bae328c5535e" name="aba7c58c12eb721799ee4bae328c5535e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba7c58c12eb721799ee4bae328c5535e">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_val_via_b_hash_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#aba7c58c12eb721799ee4bae328c5535e">flow::log::Component_payload_type_dict_by_val_via_b_hash_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt;boost::unordered_map&lt;std::type_index, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00074">74</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a362a481c04c35a9a52a95ad775e2a43a" name="a362a481c04c35a9a52a95ad775e2a43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362a481c04c35a9a52a95ad775e2a43a">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_val_via_s_hash_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#a362a481c04c35a9a52a95ad775e2a43a">flow::log::Component_payload_type_dict_by_val_via_s_hash_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt;std::unordered_map&lt;std::type_index, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00070">70</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa4b9faf0aade18a87a0ce91c154d0261" name="aa4b9faf0aade18a87a0ce91c154d0261"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b9faf0aade18a87a0ce91c154d0261">&#9670;&nbsp;</a></span>Component_payload_type_dict_by_val_via_tree_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Cfg_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#aa4b9faf0aade18a87a0ce91c154d0261">flow::log::Component_payload_type_dict_by_val_via_tree_map</a> = typedef <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">Component_payload_type_dict_by_val_via_map</a>&lt;std::map&lt;std::type_index, Cfg_t&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convenience alias. </p>
+
+<p class="definition">Definition at line <a class="el" href="detail_2log__fwd_8hpp_source.html#l00066">66</a> of file <a class="el" href="detail_2log__fwd_8hpp_source.html">log_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a5c602384e6fe9d7642740ac2fae4ad04" name="a5c602384e6fe9d7642740ac2fae4ad04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c602384e6fe9d7642740ac2fae4ad04">&#9670;&nbsp;</a></span>Sev</h2>
 
@@ -343,7 +513,7 @@ This severity <em>is</em> part of the <em>minimalistic</em> (in-use within Flow)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00279">279</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00271">271</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_8cpp_source.html#l00173">flow::util::beautify_chrono_ostream()</a>, and <a class="el" href="log_8cpp_source.html#l00150">flow::log::Logger::this_thread_ostream()</a>.</p>
 
@@ -388,11 +558,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00289">289</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00281">281</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8cpp_source.html#l00289">deep_size()</a>, <a class="el" href="util_8cpp_source.html#l00186">flow::util::deep_size()</a>, and <a class="el" href="log_8hpp_source.html#l01134">flow::log::Msg_metadata::m_call_thread_nickname</a>.</p>
+<p class="reference">References <a class="el" href="log_8cpp_source.html#l00281">deep_size()</a>, <a class="el" href="util_8cpp_source.html#l00186">flow::util::deep_size()</a>, and <a class="el" href="log_8hpp_source.html#l01127">flow::log::Msg_metadata::m_call_thread_nickname</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00456">flow::log::Async_file_logger::deep_size()</a>, and <a class="el" href="log_8cpp_source.html#l00289">deep_size()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00456">flow::log::Async_file_logger::deep_size()</a>, and <a class="el" href="log_8cpp_source.html#l00281">deep_size()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -525,7 +695,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00250">250</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00242">242</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a138fe9b2eb78ab00c84b21c4a6b48fed">S_DATA</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04aa6874010df179b46ffec47aaf9bc1358">S_DEBUG</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf">S_END_SENTINEL</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04aac04e40d3b2f54f1f517d49594eb7849">S_ERROR</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04ac90b5a22c7659cc99e7a6d919a14b660">S_FATAL</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04ac238793326fae17afcc849e96b96e8e7">S_INFO</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a9ed9d44ce5760f61ea506d5571343624">S_NONE</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">S_TRACE</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021">S_WARNING</a>.</p>
 
@@ -621,7 +791,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>is</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00270">270</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00262">262</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00523">flow::util::istream_to_enum()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf">S_END_SENTINEL</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a9ed9d44ce5760f61ea506d5571343624">S_NONE</a>.</p>
 <div class="dynheader">
@@ -709,11 +879,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00243">243</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00235">235</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8cpp_source.html#l00235">flow::log::Log_context::swap()</a>.</p>
+<p class="reference">References <a class="el" href="log_8cpp_source.html#l00227">flow::log::Log_context::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00211">flow::log::Log_context::operator=()</a>, and <a class="el" href="log_8cpp_source.html#l00235">flow::log::Log_context::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00203">flow::log::Log_context::operator=()</a>, and <a class="el" href="log_8cpp_source.html#l00227">flow::log::Log_context::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -752,7 +922,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:54 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:34 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

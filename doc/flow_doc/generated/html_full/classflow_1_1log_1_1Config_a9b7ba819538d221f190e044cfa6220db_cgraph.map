@@ -1,4 +1,4 @@
 <map id="flow::log::Config::init_component_to_union_idx_mapping" name="flow::log::Config::init_component_to_union_idx_mapping">
 <area shape="rect" id="node1" title="Registers a generically&#45;typed enum class that represents the full set of the calling module&#39;s possibl..." alt="" coords="5,5,164,53"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a03984e29450abf9cf287c501d6c8f866" title="Returns true if and only if the given key is present at least once in the given associative container..." alt="" coords="212,17,344,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Component__payload__type__dict.html#af0693c5f5fdd2583d03eb285ff8f4ee0" title="Adds a mapping from the given type to a Cfg value, so it can be obtained by lookup()." alt="" coords="212,11,376,47"/>
 </map>

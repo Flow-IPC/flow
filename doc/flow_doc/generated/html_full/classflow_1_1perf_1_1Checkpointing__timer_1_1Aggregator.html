@@ -169,7 +169,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment --><h3>Thread safety</h3>
 <p >A reiteration of the aforementioned <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html" title="The central class in the perf Flow module, this efficiently times the user&#39;s operation,...">Checkpointing_timer</a> doc header: Non-<code>const</code> methods are generally not safe if called concurrently with any other method on the same <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html" title="This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...">Aggregator</a>. In practice this should only matter for calling <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#a18bdb2f17039bcb82ddd4022a3a8340d" title="Register given Checkpointing_timer for aggregated results.">aggregate()</a>. If you are timing things concurrently happening in different threads you may need to add a mutex lock around <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#a18bdb2f17039bcb82ddd4022a3a8340d" title="Register given Checkpointing_timer for aggregated results.">aggregate()</a>; and in that case make sure it doesn't adversely affect your algorithm's overall performance (or, if it does, then that is acceptable). </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00556">556</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00559">559</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adbe0250e405ae2be4b434f5e2cb76f7a" name="adbe0250e405ae2be4b434f5e2cb76f7a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adbe0250e405ae2be4b434f5e2cb76f7a">&#9670;&nbsp;</a></span>Aggregator()</h2>
@@ -224,7 +224,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00348">348</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00706">m_timers</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00713">m_timers</a>.</p>
 
 </div>
 </div>
@@ -266,7 +266,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00357">357</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00437">flow::perf::Checkpointing_timer::m_name</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00440">flow::perf::Checkpointing_timer::m_name</a>.</p>
 
 </div>
 </div>
@@ -338,7 +338,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00371">371</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">flow::perf::Checkpointing_timer::checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00225">flow::log::Log_context::get_logger()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00206">flow::perf::Checkpointing_timer::Checkpoint::m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00437">flow::perf::Checkpointing_timer::m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00212">flow::perf::Checkpointing_timer::Checkpoint::m_since_last</a>, and <a class="el" href="clock__type__fwd_8hpp_source.html#l00188">flow::perf::Duration_set::m_values</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8cpp_source.html#l00272">flow::perf::Checkpointing_timer::checkpoint()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00217">flow::log::Log_context::get_logger()</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00206">flow::perf::Checkpointing_timer::Checkpoint::m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00440">flow::perf::Checkpointing_timer::m_name</a>, <a class="el" href="checkpt__timer_8hpp_source.html#l00212">flow::perf::Checkpointing_timer::Checkpoint::m_since_last</a>, and <a class="el" href="clock__type__fwd_8hpp_source.html#l00188">flow::perf::Duration_set::m_values</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -409,7 +409,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00470">470</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00437">flow::perf::Checkpointing_timer::m_name</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00440">flow::perf::Checkpointing_timer::m_name</a>.</p>
 
 </div>
 </div>
@@ -455,6 +455,7 @@ Here is the call graph for this function:</div>
 <p >This will include all 3 types of aggregation: sum; mean; and mean-scaled-by-convenience-constant; or some specified subset thereof.</p>
 <h3>Performance</h3>
 <p >It is possible to call it between <code><a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#a18bdb2f17039bcb82ddd4022a3a8340d" title="Register given Checkpointing_timer for aggregated results.">aggregate()</a></code>s, perhaps to output incremental results. It may be slow and should not be called within any perf-critical section and definitely not in any measured section. The most natural time to call it is after all data collection has finished.</p>
+<p >Tip: you can pass null as the logger to the ctor of each <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html" title="The central class in the perf Flow module, this efficiently times the user&#39;s operation,...">Checkpointing_timer</a> and even the <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html" title="This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...">Aggregator</a> and only use non-null <code>alternate_logger_ptr_or_null</code>. Then the cost of should-log checks will be zero all over except here (where presumably it does not matter).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">alternate_logger_ptr_or_null</td><td>If null, logs are sent to <a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a> as normal; otherwise it is sent to the supplied <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">log::Logger</a> instead. Since logging this output is a first-class facility within <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html" title="This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...">Checkpointing_timer::Aggregator</a> &ndash; unlike vast majority of Flow logging which is a secondary (though important in practice) nicety &ndash; it seemed sensible to provide extra control of this particular bit of logging. Also note that any (probably TRACE) logging outside of the timer-data output will still go to <a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a>. </td></tr>
@@ -486,7 +487,7 @@ Here is the call graph for this function:</div>
 
 <p>The immutable human-readable name for this timer. It's <code>const</code> so no need for accessor for now. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00700">700</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00707">707</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 </div>
 </div>
@@ -512,7 +513,7 @@ Here is the call graph for this function:</div>
 
 <p>The ref-counted pointers to source timers passed to <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#a18bdb2f17039bcb82ddd4022a3a8340d" title="Register given Checkpointing_timer for aggregated results.">aggregate()</a> in that order. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00706">706</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00713">713</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00348">Aggregator()</a>.</p>
 
@@ -525,7 +526,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:55 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

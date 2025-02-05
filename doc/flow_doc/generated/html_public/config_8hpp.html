@@ -69,7 +69,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">config.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -88,11 +89,73 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceflow_1_1log"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html">flow::log</a></td></tr>
 <tr class="memdesc:namespaceflow_1_1log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow module providing logging functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4c7537066356b7dcb9b9090fc98a38d2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#a4c7537066356b7dcb9b9090fc98a38d2">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR</a>&#160;&#160;&#160;value_for_exposition</td></tr>
+<tr class="memdesc:a4c7537066356b7dcb9b9090fc98a38d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a>) to override a certain <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a> internal behavior that can affect <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">flow::log::Logger::should_log()</a> perf.  <a href="config_8hpp.html#a4c7537066356b7dcb9b9090fc98a38d2">More...</a><br /></td></tr>
+<tr class="separator:a4c7537066356b7dcb9b9090fc98a38d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432ef317310a3c5e0f691f092e80494f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8hpp.html#a432ef317310a3c5e0f691f092e80494f">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL</a>&#160;&#160;&#160;value_for_exposition</td></tr>
+<tr class="memdesc:a432ef317310a3c5e0f691f092e80494f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cousin of <a class="el" href="config_8hpp.html#a4c7537066356b7dcb9b9090fc98a38d2" title="Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use flow...">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR</a>, similarly affecting a related behavior.  <a href="config_8hpp.html#a432ef317310a3c5e0f691f092e80494f">More...</a><br /></td></tr>
+<tr class="separator:a432ef317310a3c5e0f691f092e80494f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a4c7537066356b7dcb9b9090fc98a38d2" name="a4c7537066356b7dcb9b9090fc98a38d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c7537066356b7dcb9b9090fc98a38d2">&#9670;&nbsp;</a></span>FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR&#160;&#160;&#160;value_for_exposition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a>) to override a certain <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a> internal behavior that can affect <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">flow::log::Logger::should_log()</a> perf. </p>
+<p >Typically there is no need to set this, especially if when calling <a class="el" href="classflow_1_1log_1_1Config.html#a9b7ba819538d221f190e044cfa6220db" title="Registers a generically-typed enum class that represents the full set of the calling module&#39;s possibl...">flow::log::Config::init_component_to_union_idx_mapping()</a> one always provides arg value <code>component_payload_type_info_ptr_is_uniq = false</code> (safe default). (Note: It is recommended to in fact set it to <code>true</code>.) So, if relevant, and if your benchmarks show <code>should_log()</code> is using significant processor cycles, it can make sense to experiment by setting this to other values; namely:</p>
+<ul>
+<li><code>"::flow::log::Component_payload_type_dict_by_ptr_via_tree_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_ptr_via_s_hash_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_ptr_via_b_hash_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_ptr_via_array"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_ptr_via_sorted_array"</code></li>
+</ul>
+<p >Adventurous types can also implement their own such a template, as long as it implements the semantics of <code>"flow::log::Component_payload_type_dict_by_ptr_via_tree_map"</code>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a> class doc header Performance section for an overall recipe. </dd></dl>
+
+</div>
+</div>
+<a id="a432ef317310a3c5e0f691f092e80494f" name="a432ef317310a3c5e0f691f092e80494f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432ef317310a3c5e0f691f092e80494f">&#9670;&nbsp;</a></span>FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL&#160;&#160;&#160;value_for_exposition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Cousin of <a class="el" href="config_8hpp.html#a4c7537066356b7dcb9b9090fc98a38d2" title="Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use flow...">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR</a>, similarly affecting a related behavior. </p>
+<p >Again typically there is no need to set this, especially if when calling <a class="el" href="classflow_1_1log_1_1Config.html#a9b7ba819538d221f190e044cfa6220db" title="Registers a generically-typed enum class that represents the full set of the calling module&#39;s possibl...">flow::log::Config::init_component_to_union_idx_mapping()</a> one always provides arg value <code>component_payload_type_info_ptr_is_uniq = true</code>. Otherwise, and if your benchmarks show <code>should_log()</code> is using significant processor cycles, it can make sense to experiment by setting this to other values; namely:</p>
+<ul>
+<li><code>"::flow::log::Component_payload_type_dict_by_val_via_tree_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_val_via_s_hash_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_val_via_b_hash_map"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_val_via_array"</code></li>
+<li><code>"::flow::log::Component_payload_type_dict_by_val_via_sorted_array"</code></li>
+</ul>
+<p >Adventurous types can also implement their own such a template, as long as it implements the semantics of <code>"flow::log::Component_payload_type_dict_by_val_via_tree_map"</code>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">flow::log::Config</a> class doc header Performance section for an overall recipe. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2025 21:56:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Wed Feb 5 2025 22:39:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
