@@ -324,12 +324,6 @@ public:
    */
   using component_union_idx_t = Component::enum_raw_t;
 
-  /**
-   * Short-hand for a function that takes a Component (storing a payload of some generic component `enum` member of
-   * the logging user's choice) and returns its corresponding flat union component index.
-   */
-  using Component_to_union_idx_func = Function<component_union_idx_t (const Component&)>;
-
   // Constants.
 
   /// Recommended default/catch-all most-verbose-severity value if no specific config is given.
