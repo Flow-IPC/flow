@@ -507,7 +507,7 @@ jobs:
         CXX = ${{ matrix.compiler.cpp-path }}
 
         [options]
-        flow:build = True
+        flow/*:build=True
         flow:doc = False
         # `0` here as of this writing would effectively mean `17` too.  Specifying `17` explicitly has the same
         # effect in the end but goes down a slightly different code-path in FlowLikeCodeGenerate.cmake.  It's not
