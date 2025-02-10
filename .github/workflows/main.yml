@@ -508,7 +508,7 @@ jobs:
 
         [options]
         flow/*:build=True
-        flow:doc = False
+        flow/*:doc = False
         # `0` here as of this writing would effectively mean `17` too.  Specifying `17` explicitly has the same
         # effect in the end but goes down a slightly different code-path in FlowLikeCodeGenerate.cmake.  It's not
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
