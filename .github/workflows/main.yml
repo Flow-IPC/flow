@@ -456,7 +456,7 @@ jobs:
     # file).  See explanation in that file.  The to-do there applies to us as well (both should be done
     # at ~the same time).
     - name: Install the latest version of Conan which is less than 2
-      run: pip install 'conan<2'
+      run: pip install 'conan>=2,<3'
 
     - name: Checkout `flow` repository
       uses: actions/checkout@v4
