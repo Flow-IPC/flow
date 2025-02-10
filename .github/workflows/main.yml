@@ -28,7 +28,7 @@ on:
       - main
   push:
     branches:
-      - main
+      - kinokrt_test
     tags:
       - v*
   workflow_dispatch:
