@@ -533,7 +533,7 @@ jobs:
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
-        $(pwd)
+        echo "Current working directory: $(pwd)"
 
     - name: Install Flow dependencies with Conan using the profile
       run: |
@@ -545,6 +545,7 @@ jobs:
         NON_REMOTE_BOOST_VER=1.87
         conan export --version $NON_REMOTE_BOOST_VER.0 ./conan/boost/$NON_REMOTE_BOOST_VER
         # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        echo "Current working directory: $(pwd)"
         $BUILT_CMD_PREFIX \
           conan install . -vv --profile=./conan_profile --build=missing || FAILED=yep
         # Dep build failure is easy to diagnose from stdout/err, unless it happens during a `configure`;
