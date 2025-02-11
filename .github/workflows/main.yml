@@ -533,6 +533,7 @@ jobs:
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
+        $PWD
 
     - name: Install Flow dependencies with Conan using the profile
       run: |
