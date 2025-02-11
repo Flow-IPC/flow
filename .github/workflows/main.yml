@@ -250,9 +250,16 @@ jobs:
             conan-profile-custom-settings: |
               compiler.sanitizer = address
             conan-custom-settings-defs: | # Could we not copy/paste these 4x?
-              data = dict()
-              data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
-              data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+              data = { 
+                'compiler': { 
+                  'gcc' : { 
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined'] 
+                  },
+                  'clang' : {
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined']
+                  }
+                }
+              }
             sanitizer-name: asan
             no-lto: True
           - id: relwithdebinfo-ubsan
@@ -265,9 +272,16 @@ jobs:
             conan-profile-custom-settings: |
               compiler.sanitizer = undefined
             conan-custom-settings-defs: |
-              data = dict()
-              data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
-              data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+              data = { 
+                'compiler': { 
+                  'gcc' : { 
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined'] 
+                  },
+                  'clang' : {
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined']
+                  }
+                }
+              }
             sanitizer-name: ubsan
             no-lto: True
           - id: relwithdebinfo-tsan
@@ -280,9 +294,16 @@ jobs:
             conan-profile-custom-settings: |
               compiler.sanitizer = thread
             conan-custom-settings-defs: |
-              data = dict()
-              data['compiler']['gcc']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
-              data['compiler']['clang']['sanitizer'] = ['None', 'address', 'thread', 'memory', 'undefined']
+              data = { 
+                'compiler': { 
+                  'gcc' : { 
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined'] 
+                  },
+                  'clang' : {
+                    'sanitizer' : ['None', 'address', 'thread', 'memory', 'undefined']
+                  }
+                }
+              }
             sanitizer-name: tsan
             no-lto: True
 
