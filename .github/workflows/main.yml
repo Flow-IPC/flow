@@ -471,10 +471,12 @@ jobs:
         python -c "
 
         import yaml
+        from collections import defaultdict
 
         #with open('$CONAN_USER_SETTINGS_PATH', 'r') as file:
         #  data = yaml.safe_load(file)
 
+        data = defaultdict(lambda: defaultdict(dict))
         ${{ matrix.build-test-cfg.conan-custom-settings-defs }}
 
         with open('$CONAN_USER_SETTINGS_PATH', 'w') as file:
