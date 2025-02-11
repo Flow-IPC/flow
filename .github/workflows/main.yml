@@ -478,7 +478,9 @@ jobs:
 
         data = defaultdict(lambda: defaultdict(dict))
         ${{ matrix.build-test-cfg.conan-custom-settings-defs }}
-
+        
+        print(data)
+        
         with open('$CONAN_USER_SETTINGS_PATH', 'w') as file:
           yaml.dump(data, file)
         "
