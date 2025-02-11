@@ -525,6 +525,7 @@ jobs:
         NON_REMOTE_BOOST_VER=1.87
         conan export --version $NON_REMOTE_BOOST_VER.0 ./conan/boost/$NON_REMOTE_BOOST_VER
         # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        conan config list
         $BUILT_CMD_PREFIX \
           conan install . --profile:build conan_profile --profile:host conan_profile --build missing || FAILED=yep
         # Dep build failure is easy to diagnose from stdout/err, unless it happens during a `configure`;
