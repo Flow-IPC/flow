@@ -468,19 +468,20 @@ jobs:
         # Add custom settings for Conan packages.
         conan config init
         pip install PyYAML
-        CONAN_SETTINGS_PATH=$(conan config home)/settings.yml
+        CONAN_USER_SETTINGS_PATH=$(conan config home)/settings_user.yml
         python -c "
 
         import yaml
 
-        with open('$CONAN_SETTINGS_PATH', 'r') as file:
+        with open('$CONAN_USER_SETTINGS_PATH', 'r') as file:
           data = yaml.safe_load(file)
 
         ${{ matrix.build-test-cfg.conan-custom-settings-defs }}
 
-        with open('$CONAN_SETTINGS_PATH', 'w') as file:
+        with open('$CONAN_USER_SETTINGS_PATH', 'w') as file:
           yaml.dump(data, file)
         "
+        conan config install $CONAN_USER_SETTINGS_PATH
 
     - name: Create Conan profile
       run: |
@@ -524,7 +525,6 @@ jobs:
         NON_REMOTE_BOOST_VER=1.87
         conan export --version $NON_REMOTE_BOOST_VER.0 ./conan/boost/$NON_REMOTE_BOOST_VER
         # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
-        conan config list
         $BUILT_CMD_PREFIX \
           conan install . --profile:build conan_profile --profile:host conan_profile --build missing || FAILED=yep
         # Dep build failure is easy to diagnose from stdout/err, unless it happens during a `configure`;
