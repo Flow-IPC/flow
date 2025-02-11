@@ -538,6 +538,7 @@ jobs:
       run: |
         # Install Flow dependencies with Conan using the profile.
         ${{ env.setup-run-env }}
+        cat conan_profile
         # Next 4 lines: See explanation in flow/conanfile.py.  TODO: See the TODO there which applies to these lines.
         # In short: this Boost-version recipe is not in conan-center yet, so we borrowed a recipe locally.
         # This installs that recipe (not Boost itself) locally; the recipe will then work inside `conan install`.
