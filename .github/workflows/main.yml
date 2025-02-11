@@ -1,4 +1,4 @@
-# Flow
+f# Flow
 # Copyright 2023 Akamai Technologies, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the
@@ -483,7 +483,7 @@ jobs:
           yaml.dump(data, file)
         "
         cat $CONAN_USER_SETTINGS_PATH
-        conan config install $CONAN_USER_SETTINGS_PATH
+        conan config install --verbose $CONAN_USER_SETTINGS_PATH
 
     - name: Create Conan profile
       run: |
