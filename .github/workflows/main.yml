@@ -472,8 +472,8 @@ jobs:
 
         import yaml
 
-        with open('$CONAN_USER_SETTINGS_PATH', 'r') as file:
-          data = yaml.safe_load(file)
+        #with open('$CONAN_USER_SETTINGS_PATH', 'r') as file:
+        #  data = yaml.safe_load(file)
 
         ${{ matrix.build-test-cfg.conan-custom-settings-defs }}
 
