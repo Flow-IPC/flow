@@ -482,7 +482,7 @@ jobs:
         with open('$CONAN_USER_SETTINGS_PATH', 'w') as file:
           yaml.dump(data, file)
         "
-        conan config install '$CONAN_USER_SETTINGS_PATH'
+        #conan config install $CONAN_USER_SETTINGS_PATH
 
     - name: Create Conan profile
       run: |
