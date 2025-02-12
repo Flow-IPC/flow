@@ -504,8 +504,9 @@ jobs:
 
     - name: Create Conan profile
       run: |
+        conan profile detect
         # Create Conan profile.
-        cat <<'EOF' > conan_profile
+        cat <<'EOF' > profile
         [settings]
         compiler = ${{ matrix.compiler.name }}
         compiler.version = ${{ matrix.compiler.version }}
@@ -533,6 +534,7 @@ jobs:
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
+        conan profile list
 
     - name: Install Flow dependencies with Conan using the profile
       run: |
