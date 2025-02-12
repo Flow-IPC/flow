@@ -506,7 +506,7 @@ jobs:
       run: |
         conan profile detect
         # Create Conan profile.
-        cat <<'EOF' > default
+        cat <<'EOF' > $CONAN_HOME/profiles/default
         [settings]
         compiler = ${{ matrix.compiler.name }}
         compiler.version = ${{ matrix.compiler.version }}
@@ -535,6 +535,7 @@ jobs:
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
         conan profile list
+        $CONAN_HOME/profiles/default
 
     - name: Install Flow dependencies with Conan using the profile
       run: |
@@ -733,7 +734,7 @@ jobs:
         conan profile detect
       
         # Create Conan profile.
-        cat <<EOF > default
+        cat <<EOF > $CONAN_HOME/profiles/default
         [settings]
         compiler = ${{ matrix.compiler.name }}
         compiler.version = ${{ matrix.compiler.version }}
@@ -756,6 +757,7 @@ jobs:
         EOF
 
         conan profile list
+        cat $CONAN_HOME/profiles/default
 
     - name: Install Flow dependencies (like Doxygen) with Conan using the profile
       run: conan install . --build missing
