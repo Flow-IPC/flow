@@ -51,7 +51,7 @@
 #     As a matter of convention we ask that you do *not* include dependency targets already listed as such by
 #     those you *did* list (e.g., if Flow::flow requires Threads::Threads, then you should omit it, even if you
 #     use stuff from it directly yourself).
-#     IMPORTANT: Suppose you need a library... in fact let's use Flow itself.  If your lib or needs Flow,
+#     IMPORTANT: Suppose you need a library... in fact let's use Flow itself.  If your lib needs Flow,
 #     you'd indeed add "Flow::flow" to DEP_LIBS list.  However usually you would need to also make that target
 #     available; so it is up to you to use find_package() to do so.  In case of Flow that is:
 #       find_package(Flow 1.0 CONFIG REQUIRED) # Version number can be omitted depending on your needs.
@@ -70,16 +70,22 @@
 #       find_package(Threads REQUIRED)
 #       list(APPEND DEP_LIBS Threads::Threads) # THREADS_PREFER_PTHREAD_FLAG is already set by us.
 #       list(APPEND DEP_LIBS_PKG_ARG_LISTS "Threads")#
-#     Lastly!  Instead of a library target (as found by find_package()), or system lib (e.g., "rt"), you can
-#     specify an absolute library path (e.g., "/usr/lib/.../libxyz.a"); you should do so for non-system libraries,
-#     if find_package() support is not provided by the supplier of that library.  Tip: Use find_library() to obtain
-#     this value.  Key tip: Most likely you must also, after include()ing this .cmake, add a PUBLIC include-path
-#     entry for this library:
-#       target_include_directories(${PROJ} PUBLIC ${X})
-#       # Tip: Use find_path(${X} NAMES ${Y}), where Y is a nice example header; e.g.: "jemalloc/jemalloc.h".
-#     For CMake newbies: The niceness is: this allows the CMake-invoking user to specify config values for the lib path
-#     and/or include-path, if they live somewhere weird where find_*() can't find them, or if they're just paranoid;
-#     but if they don't do so, CMake will probably find them anyway.  Best of both worlds.
+#     Lastly!  Instead of a library target (as found by find_package()), or system lib (e.g., "rt"), you can --
+#     for non-system libraries -- specify an absolute library path (e.g., "/usr/lib/.../libxyz.a").  If you do go
+#     down this absolute-lib-path road, then most likely you must also, after include()ing this .cmake, do:
+#       target_include_directories(${PROJ} PUBLIC ${X}) # But you need to determine ${X} first though.
+#     Let's now discuss this contingency (wherein find_package() support is not provided by the library supplier).
+#     The goal is to get the lib-absolute-path and the lib-include-path.  How?  Answer: We suggest:
+#       - If and only if the user has supplied both of these in special variables, e.g., X_LIBRARIES and X_INCLUDEDIR:
+#         just use those.  These are overrides they can always supply, worst-case.  If not provided:
+#       - Use an auto-searcher.  Use only 1 auto-searcher, typically; no need to add 2+ approaches, as realistically
+#         all but 1 will end up being dead code effectively.
+#         - Sometimes a lib won't provide find_package() support but does export a .pc (pkg-config) file,
+#           in which case use pkg_check_modules().  This should set your X_LIBRARIES and X_INCLUDEDIR (or similar names;
+#           depends on how they did it... whatever names they used should probably be what you name your overrides too).
+#           If they don't export such a .pc thing though then:
+#         - Use find_library() for X_LIBRARIES; and use find_path() for X_INCLUDEDIR.
+#           (For the latter: find_path(${X} NAMES ${Y}), where Y is a nice example header; e.g.: "jemalloc/jemalloc.h".)
 #   DEP_LIBS_PKG_ARG_LISTS: See above.  To summarize: for each find_package() call you needed for a DEP_LIBS(), you
 #     must append a similar snippet (as a string) into the list DEP_LIBS_PKG_ARG_LISTS.  If no such thing is needed,
 #     you can leave DEP_LIBS_PKG_ARG_LISTS undefined or empty.
