@@ -575,7 +575,7 @@ jobs:
 
     - name: Install built targets with Makefile
       run: |
-        cmake --install ${{ env.build-dir }} --prefix ${{ env.install-root-dir }}
+        cmake --install ${{ env.build-dir }} --prefix ${{ env.install-dir }}
         #make install \
           --directory ${{ env.build-dir }} DESTDIR=${{ env.install-root-dir }}
         # Save runner space: blow away build dir after install.
