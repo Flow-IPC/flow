@@ -534,6 +534,9 @@ jobs:
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
+        echo $(conan config home)/profiles/default
+        cat $(conan config home)/profiles/default
+
     - name: Install Flow dependencies with Conan using the profile
       run: |
         # Install Flow dependencies with Conan using the profile.
