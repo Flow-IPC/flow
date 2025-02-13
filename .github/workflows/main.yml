@@ -535,9 +535,6 @@ jobs:
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
-        echo $(conan config home)/profiles/default
-        cat $(conan config home)/profiles/default
-
     - name: Install Flow dependencies with Conan using the profile
       run: |
         # Install Flow dependencies with Conan using the profile.
@@ -578,10 +575,11 @@ jobs:
 
     - name: Install built targets with Makefile
       run: |
-        make install \
+        cmake --install ${{ env.build-dir }} --prefix ${{ env.install-root-dir }}
+        #make install \
           --directory ${{ env.build-dir }} DESTDIR=${{ env.install-root-dir }}
         # Save runner space: blow away build dir after install.
-        rm -rf ${{ env.build-dir }}
+        #rm -rf ${{ env.build-dir }}
 
     # From now on use !cancelled() to try to run any test/demo that exists regardless
     # of preceding failures if any.  Same-ish (always()) with the log-upload at the end.
