@@ -131,7 +131,7 @@ class FlowRecipe(ConanFile):
             #   - Remove the "@" here.
             #   - Remove the `conan export` + related command(s) from the relevant `.yml`s.
             #     Spoiler alert: that's our main.yml and Flow-IPC's main.yml.
-            self.requires("boost/1.87.0@")
+            self.requires("boost/1.87.0")
 
             self.requires("fmt/10.0.0")
             self.requires("gtest/1.15.0")
