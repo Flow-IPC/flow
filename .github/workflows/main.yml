@@ -479,8 +479,8 @@ jobs:
     # We get highest 1.x, instead of 2+, essentially to stay even with the Flow-IPC pipeline (and its similar workflow
     # file).  See explanation in that file.  The to-do there applies to us as well (both should be done
     # at ~the same time).
-    - name: Install the latest version of Conan
-      run: pip install conan
+    - name: Install the latest version of Conan 2
+      run: pip install 'conan>=2,<3'
 
     - name: Checkout `flow` repository
       uses: actions/checkout@v4
@@ -707,8 +707,8 @@ jobs:
     - name: Install Flow dependencies (like Graphviz) with apt-get
       run: sudo apt-get install -y graphviz
 
-    - name: Install the latest version of Conan
-      run: pip install conan
+    - name: Install the latest version of Conan 2
+      run: pip install 'conan>=2,<3'
 
     - name: Checkout `flow` repository
       uses: actions/checkout@v4
