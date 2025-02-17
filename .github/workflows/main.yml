@@ -490,7 +490,6 @@ jobs:
         matrix.build-test-cfg.conan-custom-settings-defs
       run: |
         # Add custom settings for Conan packages.
-        conan config init
         pip install PyYAML
         CONAN_USER_SETTINGS_PATH=$(conan config home)/settings_user.yml
         python -c "
