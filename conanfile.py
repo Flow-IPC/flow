@@ -133,7 +133,7 @@ class FlowRecipe(ConanFile):
             #     Spoiler alert: that's our main.yml and Flow-IPC's main.yml.
             self.requires("boost/1.87.0@")
 
-            self.requires("fmt/10.0.0")
+            self.requires("fmt/11.0.2")
             self.requires("gtest/1.15.0")
 
     def build_requirements(self):
