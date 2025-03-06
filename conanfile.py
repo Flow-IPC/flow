@@ -111,9 +111,9 @@ class FlowRecipe(ConanFile):
 
         # Cannot use cmake.build(...) because not possible to pass make arguments like --keep-going.
         if self.options.build:
-            self.run("cmake --build . -- --keep-going VERBOSE=1")
+            self.run("cmake --build . -- --keep-going -j4 VERBOSE=1") # XXX -j
         if self.options.doc:
-            self.run("cmake --build . -- flow_doc_public flow_doc_full --keep-going VERBOSE=1")
+            self.run("cmake --build . -- flow_doc_public flow_doc_full --keep-going -j4 VERBOSE=1") # XXX -j
 
     def requirements(self):
         if self.options.build:
