@@ -16,6 +16,7 @@
 # permissions and limitations under the License.
 
 from conan import ConanFile
+from conan.tools.build import build_jobs
 from conan.tools.cmake import CMake, cmake_layout, CMakeDeps, CMakeToolchain
 
 def load_version_from_file():
@@ -111,9 +112,9 @@ class FlowRecipe(ConanFile):
 
         # Cannot use cmake.build(...) because not possible to pass make arguments like --keep-going.
         if self.options.build:
-            self.run("cmake --build . -- --keep-going VERBOSE=1")
+            self.run(f"cmake --build . -- --keep-going VERBOSE=1 -j{build_jobs(self)}")
         if self.options.doc:
-            self.run("cmake --build . -- flow_doc_public flow_doc_full --keep-going VERBOSE=1")
+            self.run(f"cmake --build . -- flow_doc_public flow_doc_full --keep-going VERBOSE=1 -j{build_jobs(self)}")
 
     def requirements(self):
         if self.options.build:
