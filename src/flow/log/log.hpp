@@ -1403,8 +1403,6 @@ public:
    *     - Note: Because "Initial" and "Blank" are necessarily not the same, it is recommended to call
    *       this_thread_set_logged_nickname() around thread creation time even if `thread_nickname` is blank.
    *       Then `ps`, `top`, etc. output will still be useful and possible to cross-reference with log output, say.
-   *     - Note: Truncation will be reverse, meaning -- if necessary -- *leading* characters will be eliminated.
-   *       This, in practice, tends to at least help disambiguate in case of truncation.
    *     - Note: N is documented in `man pthread_setname_np` as 15 not counting the NUL terminator.
    *       Therefore ideally keep the `thread_nickname.size()` to at most N.
    *

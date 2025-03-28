@@ -27,7 +27,7 @@ find_package(fmt REQUIRED)
 list(APPEND DEP_LIBS fmt::fmt)
 list(APPEND DEP_LIBS_PKG_ARG_LISTS fmt::fmt)
 
-# (See above if wondering why we're not auto-searching for these.  There's a good reason.)
+# (See comment in FlowLikeLib.cmake if wondering why we're not auto-searching for these.  There's a good reason.)
 # Ideally keep this in `find -s` order.
 set(SRCS
     flow/async/concurrent_task_loop.cpp

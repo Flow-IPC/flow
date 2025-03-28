@@ -19,8 +19,10 @@
 #include "flow/async/concurrent_task_loop.hpp"
 #include "flow/error/error.hpp"
 #ifdef FLOW_OS_MAC
-#  include <mach/thread_policy.h>
-#  include <mach/thread_act.h>
+#  if 0 // That code is disabled at the moment (see below).
+#    include <mach/thread_policy.h>
+#    include <mach/thread_act.h>
+#  endif
 #endif
 
 namespace flow::async
@@ -32,7 +34,7 @@ Concurrent_task_loop::~Concurrent_task_loop() = default; // Virtual.
 
 // Free function implementations.
 
-unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger* logger_ptr,
+unsigned int optimal_worker_thread_count_per_pool(log::Logger* logger_ptr,
                                                   bool est_hw_core_sharing_helps_algo)
 {
   using util::Thread;
@@ -75,12 +77,25 @@ unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger* logger_ptr,
   return n_phys_cores;
 } // optimal_worker_thread_count_per_pool()
 
-void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
+void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
                                      const std::vector<util::Thread*>& threads_in_pool,
-                                     [[maybe_unused]] bool est_hw_core_sharing_helps_algo,
+                                     bool est_hw_core_sharing_helps_algo,
                                      bool est_hw_core_pinning_helps_algo,
-                                     bool hw_threads_is_grouping_collated)
+                                     bool hw_threads_is_grouping_collated,
+                                     Error_code* err_code)
 {
+  if (flow::error::exec_void_and_throw_on_error
+        ([&](Error_code* actual_err_code)
+           { optimize_pinning_in_thread_pool(logger_ptr, threads_in_pool, est_hw_core_sharing_helps_algo,
+                                             est_hw_core_pinning_helps_algo, hw_threads_is_grouping_collated,
+                                             actual_err_code); },
+         err_code, "flow::async::optimize_pinning_in_thread_pool()"))
+  {
+    return;
+  }
+  // else if (err_code):
+  err_code->clear();
+
   /* There are 2 ways (known to us) to set thread-core affinity.  In reality they are mutually exclusive (one is Mac,
    * other is Linux), but conceptually they could co-exist.  With the latter in mind, note the subtlety that we choose
    * the Linux way over the Mac way, had they both been available.  The Mac way doesn't rely on specifying a hardware
@@ -96,17 +111,9 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
    * implications in some cases.  So in that case it's nice to pin those to the same
    * core which will indeed occur in the Linux algorithm below. */
 
-#if FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX
-  using ::cpu_set_t;
-  using ::pthread_setaffinity_np;
-#elif FLOW_ASYNC_HW_THREAD_AFFINITY_MACH_VIA_POLICY_TAG
-  using ::pthread_mach_thread_np;
-  using ::thread_affinity_policy_data_t;
-  using ::thread_policy_set;
-  // using ::THREAD_AFFINITY_POLICY; // Nope; it's a #define.
-#else
-  static_assert(false, "We only know how to deal with thread-core affinities in Darwin/Mac and Linux.");
-#endif
+  static_assert(FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX || FLOW_ASYNC_HW_THREAD_AFFINITY_MACH_VIA_POLICY_TAG,
+                "We only know how to deal with thread-core affinities in Darwin/Mac and Linux.");
+
   using boost::system::system_category;
   using std::runtime_error;
   using util::ostream_op_string;
@@ -140,6 +147,9 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
     const auto native_pthread_thread_id = thread->native_handle();
 
 #if FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX
+    using ::cpu_set_t;
+    using ::pthread_setaffinity_np;
+
     cpu_set_t cpu_set_for_thread;
     CPU_ZERO(&cpu_set_for_thread);
 
@@ -165,17 +175,38 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
     const auto code = pthread_setaffinity_np(native_pthread_thread_id, sizeof(cpu_set_for_thread), &cpu_set_for_thread);
     if (code == -1)
     {
-      const Error_code sys_err_code(errno, system_category());
+      const Error_code sys_err_code{errno, system_category()};
       FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log non-portable error.
-      throw error::Runtime_error(sys_err_code,
-                                 "pthread_setaffinity_np() call in optimize_pinning_in_thread_pool()");
+      *err_code = sys_err_code;
+      return;
     }
     // else OK!
-#elif FLOW_ASYNC_HW_THREAD_AFFINITY_MACH_VIA_POLICY_TAG
+#else // if FLOW_ASYNC_HW_THREAD_AFFINITY_MACH_VIA_POLICY_TAG
+
+    static_assert(false, "This strongly platform-dependent function has not been properly tested and maintained "
+                           "for Darwin/Mac in a long time, as Flow has been Linux-only for many years.  "
+                           "There is also a likely (documented, known) bug in this impl.  Please revisit when "
+                           "we re-add Mac/Darwin support.")
+
+#  if 0
+    /* Maintenance note: When/if re-enabling this Darwin/Mac section:
+     *   - Resolve the likely bug noted in below @todo.
+     *   - Update the code to generate an Error_code even on the Mach error (will need to make a new Error_code
+     *     category, in flow.async; which is no big deal; we do that all the time; or if there is one out there
+     *     for these Mach errors specifically, then use that).
+     *   - Update the code assign to *err_code, not throw (the rest of the function now acts this way, per standard
+     *     Flow semantics).
+     *   - Test, test, test... Mac, ARM64... all that. */
+
+    using ::pthread_mach_thread_np;
+    using ::thread_affinity_policy_data_t;
+    using ::thread_policy_set;
+    // using ::THREAD_AFFINITY_POLICY; // Nope; it's a #define.
+
     const unsigned int native_affinity_tag = 1 + thread_idx;
     FLOW_LOG_INFO("Thread [" << thread_idx << "] in pool: setting Mach affinity tag [" << native_affinity_tag << "].");
 
-    flow::Error_code sys_err_code;
+    Error_code sys_err_code;
     const auto native_mach_thread_id = pthread_mach_thread_np(native_pthread_thread_id);
     if (native_pthread_thread_id == 0)
     {
@@ -222,10 +253,62 @@ void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
                                             "] [thread_policy_set(THREAD_AFFINITY_POLICY) failed]"));
     }
     // else OK!
-#else
-    static_assert(false, "Compiler should not have reached this point; serious bug?");
+#  endif // if 0
 #endif
   } // for (thread_idx in [0, n_pool_threads))
 } // optimize_pinning_in_thread_pool()
+
+void reset_thread_pinning(log::Logger* logger_ptr, util::Thread* thread_else_ours, Error_code* err_code)
+{
+  if (flow::error::exec_void_and_throw_on_error
+        ([&](Error_code* actual_err_code) { reset_thread_pinning(logger_ptr, thread_else_ours, actual_err_code); },
+         err_code, "flow::async::reset_thread_pinning()"))
+  {
+    return;
+  }
+  // else if (err_code):
+  err_code->clear();
+
+  using util::Thread;
+  using boost::system::system_category;
+
+  static_assert(FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX,
+                "For this function we only know how to deal with thread-core affinities in Linux.");
+
+  using ::cpu_set_t;
+  using ::pthread_setaffinity_np;
+  using ::pthread_self;
+
+  FLOW_LOG_SET_CONTEXT(logger_ptr, Flow_log_component::S_ASYNC);
+
+  const auto native_pthread_thread_id = thread_else_ours ? thread_else_ours->native_handle()
+                                                           // `man` -v- page says, "This function always succeeds."
+                                                         : pthread_self();
+  cpu_set_t cpu_set_for_thread;
+  CPU_ZERO(&cpu_set_for_thread);
+
+  const unsigned int n_logic_cores = Thread::hardware_concurrency();
+  for (unsigned int logic_core_idx = 0; logic_core_idx != n_logic_cores; ++logic_core_idx)
+  {
+    CPU_SET(logic_core_idx, &cpu_set_for_thread);
+  }
+
+  FLOW_LOG_INFO("Thread with native ID [" << native_pthread_thread_id << "]: resetting processor-affinity, "
+                "so that no particular core is preferred for this thread.  (This may have already been the case.)");
+
+  if (pthread_setaffinity_np(native_pthread_thread_id, sizeof(cpu_set_for_thread), &cpu_set_for_thread) == -1)
+  {
+    const Error_code sys_err_code{errno, system_category()};
+    FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log non-portable error.
+    *err_code = sys_err_code;
+    return;
+  }
+  // else OK!
+} // reset_thread_pinning()
+
+void reset_this_thread_pinning() // I know this looks odd and pointless; but see our doc header.
+{
+  reset_thread_pinning();
+}
 
 } // namespace flow::async

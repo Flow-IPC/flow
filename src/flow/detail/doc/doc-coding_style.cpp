@@ -904,7 +904,7 @@ T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no
  *   - Enumerations and templates thereof:
  *     - It must be declared/defined exactly once, together with its full Doxygen docs (including leading
  *       doc header).  Do not forward-declare.  (Rationale omitted: But trust us; trying to fwd-declare it is
- *       more trouble than it is worth; and avoiding it generally plays with with other nearby conventions.)
+ *       more trouble than it is worth; and avoiding it generally well with other nearby conventions.)
  *   - Type aliases:
  *     - It must be declared/defined exactly once (as required by C++), together with its Doxygen doc header.
  *   - Varibles and constants (non-`constexpr`):
@@ -946,7 +946,7 @@ T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no
  * pain is likely to occur down the line.  We talk about good exception cases below.  For now let's forge on:
  *
  * That rule, in and of itself, is pretty simple.  Got a thing that must be declared/defined or forward-declared?
- * Put it in a _fwd.hpp.  If there's only one definitin/declaration, then that's that.  If there's also a 2nd
+ * Put it in a _fwd.hpp.  If there's only one definition/declaration, then that's that.  If there's also a 2nd
  * definition/declaration (aggregate types/templates thereof; variables/constants; free functions/templates) then:
  *   - Any code requiring use of a given symbol can include the relevant _fwd.hpp when only a forward-declaration
  *     is required; e.g., if only referring to forward-declared type `T` by pointer or reference.
@@ -954,7 +954,7 @@ T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no
  *     header.
  *
  * This allows for (1) shorter build times; and (arguably more importantly) (2) the methodical pre-disentangling of
- * hairy circular-reference nightmares during to C++'s single-pass compilation model.
+ * hairy circular-reference nightmares due to C++'s single-pass compilation model.
  *
  * The convention gets somewhat annoying when it comes to the details of *which* _fwd.hpp to place the
  * declaration.  We note that different libraries do different things and not very consistently at that.  We give
@@ -973,7 +973,7 @@ T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no
  *       Use common sense/analogy thinking.
  *   - At any dir level, for a given C.hpp focused on central aggregate type (or aggregate type template, or namespace,
  *     or compact feature or ...) named ~C, there is potentially (not necessarily) C_fwd.hpp in the same dir.
- *     This is known as *header-specific forward-header.
+ *     This is known as *header-specific forward-header*.
  *
  * First decide which of the ~3 locations your declaration belongs in; then create that _fwd.hpp if needed; and
  * then put the declaration there in the appropriate section.  So which one should it be?  Answer: it shall be either
@@ -1043,7 +1043,7 @@ T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no
  *       data members outside of `static` constants -- so only a ctor/method API and/or static constants.  If this
  *       added API + constants is small enough -- e.g., adding convenience constructor(s)
  *       and/or a couple compatibility accessors -- then it can go into _fwd.hpp.  Omit the forward-declaration;
- *       declare directly in _fwd.hpp; okace the doc header as you would normally in non-_fwd.hpp.  This class
+ *       declare directly in _fwd.hpp; place the doc header as you would normally in non-_fwd.hpp.  This class
  *       is "almost" an alias to its superclass.
  *       - If the class/class template C is too large to stylistically belong in a module-level _fwd.hpp, you might
  *         place it into its own C.hpp; but it is then okay to `include` in that _fwd.hpp.  If C is oft-used, this
@@ -1346,10 +1346,9 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
 /* - Corollary: Use, e.g., `using Thread = <std or boost>::thread` for commonly used things from STL/Boost features. -
  *
  * [Rationale: 2 benefits.  One, if it's commonly used then this increases pithiness and cosmetic consistency.
- * Two, particularly for items in both STL and Boost, it makes it easy to switch the underlying implementation
- * easily.] */
+ * Two, particularly for items in both STL and Boost, it makes it easy to switch the underlying implementation.] */
 
-/* - Do: In particular, familiarize self with these boost. modules: -
+/* - Do: In particular, familiarize self with these boost.* modules: -
  *
  *   Basic tools (should be familiar at minimum):
  *     any, array, chrono^, core, dynamic_bitset, lexical_cast, random*, unordered#,
@@ -1381,9 +1380,9 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
  *     better or at least not-worse perf due to native nature of it.  It can go either way; but current preference
  *     in Flow has switched to std::atomic.  (A perf bake-off might be nice, but std::atomic really should be safe
  *     and full-featured.)
- * -!- Boost.function is, it turns out, horrendously slow (too much capture copying).  Plus it has a 10-arg limit.
- *     std::function in gcc looks great in both regards though lacking some very minor APIs from Boost.function.
- *     Just use flow::Function: it's the best of both worlds.  Definitely do not use Boost.function! */
+ * -!- boost.function is, it turns out, horrendously slow (too much capture copying).  Plus it has a 10-arg limit.
+ *     std::function in gcc looks great in both regards though lacking some very minor APIs from boost.function.
+ *     Just use flow::Function: it's the best of both worlds.  Definitely do not use boost.function! */
 
 // -- BEST PRACTICES: Error handling --
 

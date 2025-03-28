@@ -51,7 +51,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
   /* ...Speaking of which: start the worker thread right now; synchronously; return from this ctor once it has
    * certified it is up.  It will log (to *backup_logger_ptr if not null) about starting up right here, too, which
    * in practice would be the bulk of INFO-or-less-verbose log lines from us in my experience. */
-  m_async_worker(backup_logger_ptr, util::ostream_op_string("Async_file_logger[", this, ']')),
+  m_async_worker(backup_logger_ptr, util::ostream_op_string("ASFL-", this)),
   /* Set up a signal set object; this is a no-op until we .add() signals to it (which we may or may not do).
    * Whether we do or not is more significant than merely whether whatever handler we'd later register
    * via m_signal_set.async_wait() will be called; if we .add() zero signals, then IF some non-boost.asio
@@ -65,7 +65,8 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
    * vaguely similar code in flow::net_flow; but the 2 modules are barely related if at all, so....) */
   m_signal_set(*(m_async_worker.task_engine()))
 {
-  m_async_worker.start();
+  m_async_worker.start(flow::async::reset_this_thread_pinning);
+  // Don't inherit any strange core-affinity!  ^-- Worker must float free.
 
   FLOW_LOG_INFO("Async_file_logger [" << this << "]: "
                 "Log-writing worker thread(s) have started around now; ready to work.");

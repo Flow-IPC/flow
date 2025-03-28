@@ -73,7 +73,7 @@ namespace flow::perf
  * lowest possible overhead:
  *
  *   ~~~
- *   flow::perf::Checkpointing_timer sum_timer("op name", which_clocks, 1, logger); // 1 checkpoint only.
+ *   flow::perf::Checkpointing_timer sum_timer(logger, "op name", which_clocks, 1); // 1 checkpoint only.
  *   const unsigned int n_samples = 1000000;
  *   for (unsigned int sample_idx = 0; sample_idx != n_samples; ++sample_idx)
  *   {
