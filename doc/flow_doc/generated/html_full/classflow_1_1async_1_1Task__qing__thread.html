@@ -175,7 +175,7 @@ Private Attributes</h2></td></tr>
 </ul>
 </li>
 <li>Exits the program (!) if a task posted via <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903" title="Returns pointer to util::Task_engine such that post()ing to it will cause the subsequent asynchronous...">task_engine()</a> throws an uncaught exception.</li>
-<li>Provides access to low-level underlying <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> via <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5" title="Returns the util::Thread – a thin wrapper around the native OS thread handle – corresponding to the w...">raw_worker_thread()</a>; see <a class="el" href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">async::optimize_pinning_in_thread_pool()</a>. Note <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> in turn allows direct native access to the OS thread object (pthread handle, or whatever).</li>
+<li>Provides access to low-level underlying <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> via <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5" title="Returns the util::Thread – a thin wrapper around the native OS thread handle – corresponding to the w...">raw_worker_thread()</a>; see <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">async::optimize_pinning_in_thread_pool()</a>. Note <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> in turn allows direct native access to the OS thread object (pthread handle, or whatever).</li>
 </ul>
 <h3>Design rationale</h3>
 <p ><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#abb03d1b5f50a2b6148da27139a2391da" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header contains discussion worth reading. </p>
@@ -537,7 +537,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

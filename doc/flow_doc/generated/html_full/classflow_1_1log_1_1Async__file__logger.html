@@ -283,7 +283,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p >An implementation of <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> that logs messages to a given file-system path but never blocks any logging thread for file I/O; suitable for heavy-duty file logging. </p>
 <p >Protects against garbling due to simultaneous logging from multiple threads.</p>
 <p >For file logging, the two out-of-the-box <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s currently suitable are this <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> and <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a>. Vaguely speaking, <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html" title="An implementation of Logger that logs messages to the given ostreams (e.g., cout or an ofstream for a...">Simple_ostream_logger</a> is suitable for console (<code>cout</code>, <code>cerr</code>) output; and, in a pinch outside of a heavy-duty production/server environment, for file (<code>ofstream</code>) output. For heavy-duty file logging one should use this <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. The primary reason is performance; this is discussed in the <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> class doc header; note <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> logs asynchronously. A secondary reason is additional file-logging-specific utilities &ndash; such as rotation &ndash; are now or in the future going to be in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>, as its purpose is heavy-duty file logging specifically.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000034">Todo:</a></b></dt><dd>Lacking feature: Compress-as-you-log in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. So, optionally, when characters are actually written out to file-system, gzip/zip/whatever them instead of writing plain text. (This is possible at least for gzip.) Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation time: F.log.1.gz -&gt; F.log.2.gz, F.log -&gt; F.log.1 -&gt; F.log.1.gz). It is more space-efficient (at least), however, to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.: F.log.1.gz -&gt; F.log.2.gz, F.log.gz [already gzipped from the start] -&gt; F.log.1.gz).</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000033">Todo:</a></b></dt><dd>Lacking feature: Compress-as-you-log in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>. So, optionally, when characters are actually written out to file-system, gzip/zip/whatever them instead of writing plain text. (This is possible at least for gzip.) Background: It is common-place to compress a log file after it has been rotated (e.g., around rotation time: F.log.1.gz -&gt; F.log.2.gz, F.log -&gt; F.log.1 -&gt; F.log.1.gz). It is more space-efficient (at least), however, to write to F.log.gz directly already in compressed form; then rotation requires only renaming (e.g.: F.log.1.gz -&gt; F.log.2.gz, F.log.gz [already gzipped from the start] -&gt; F.log.1.gz).</dd></dl>
 <h3>Throttling</h3>
 <p >By default this feature is disabled, but one can enable/disable/configure it at will via <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator. For example a viable tactic is to call it once right after construction, before any logging via <code>*this</code>; then call it subsequently in case of dynamic config update.</p>
 <p >Throttling deals with the following potential problem which can occur under very heavy <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> throughput (lots of calls being made per unit time, probably from many threads); in practice this would typically only happen if one sets effective verbosity to <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b" title="Message indicates any condition that may occur with great frequency (thus verbose if logged).">Sev::S_TRACE</a> or more-verbose &ndash; as <code>S_INFO</code>-or-less-verbose means <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> should be preventing <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> from being called frequently. For example one might enable TRACE logging temporarily in production to see some details, causing a heavy <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> execution rate. (That said, if your code does INFO-level logging too often, it could happen then too. The official <em>convention</em> is to log INFO-or-more-severe messages only if this would not meaningfully affect the overall perf and responsiveness of the system; but sometimes mistakes are made.)</p>
@@ -571,7 +571,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Constructs logger to subsequently log to the given file-system path. </p>
 <p >It will append.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000035">Todo:</a></b></dt><dd>Consider adding <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> constructor option to overwrite the file instead of appending.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000034">Todo:</a></b></dt><dd>Consider adding <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> constructor option to overwrite the file instead of appending.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config</td><td>Controls behavior of this <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>. In particular, it affects <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd" title="Implements interface method by returning true if the severity and component (which is allowed to be n...">should_log()</a> logic (verbosity default and per-component) and output format (such as time stamp format). See thread safety notes in class doc header. This is saved in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a4b6dcf5c791e32c517c41c935fba29a4" title="Reference to the config object passed to constructor.">m_config</a>. </td></tr>
@@ -613,7 +613,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Flushes out anything buffered, returns resources/closes output file(s); then returns. </p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00176">176</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00177">177</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
 <div class="dynheader">
@@ -659,11 +659,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00456">456</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00457">457</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00456">deep_size()</a>, <a class="el" href="log_8cpp_source.html#l00281">flow::log::deep_size()</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00621">flow::log::Async_file_logger::Log_request::m_metadata</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00618">flow::log::Async_file_logger::Log_request::m_msg_size</a>.</p>
+<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00457">deep_size()</a>, <a class="el" href="log_8cpp_source.html#l00281">flow::log::deep_size()</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00621">flow::log::Async_file_logger::Log_request::m_metadata</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00618">flow::log::Async_file_logger::Log_request::m_msg_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00456">deep_size()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00438">mem_cost()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00457">deep_size()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00439">mem_cost()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -724,9 +724,9 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#a934667f16dd6ca0841e521296ab3a6e2">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00241">241</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00242">242</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00385">flow::log::Async_file_logger::Throttling_cfg::m_hi_limit</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00720">m_throttling_now</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00438">mem_cost()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04ac238793326fae17afcc849e96b96e8e7">flow::log::S_INFO</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021">flow::log::S_WARNING</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00385">flow::log::Async_file_logger::Throttling_cfg::m_hi_limit</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00720">m_throttling_now</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00439">mem_cost()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04ac238793326fae17afcc849e96b96e8e7">flow::log::S_INFO</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021">flow::log::S_WARNING</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -756,7 +756,7 @@ Here is the call graph for this function:</div>
 <h3>Uses</h3>
 <p >Flushing: <code>log_flush_and_reopen(false)</code> is a reasonable and safe way to flush anything buffered in memory to the file. Naturally, for performance, it should not be done frequently. For example this might be useful in the event of an abnormal termination (<code>abort()</code>, etc.), in the signal handler before exiting program.</p>
 <p >Rotation: <code>log_flush_and_reopen(true)</code> is useful for rotation purposes; however, you need not do this manually if you decided to (properly) use the <code>capture_rotate_signals_internally == true</code> option in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> constructor; the procedure will occur on receiving the proper signal automatically.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd><code>Async_file_logger::log_flush_and_reopen(true)</code> is great for flushing, such as in an abort-signal handler, but providing just the flushing part without the reopening might be useful. At the moment we've left it this way, due to the vague feeling that closing the file upon flushing it is somehow more final and thus safer (in terms of accomplishing its goal) in an abort-signal scenario. Feelings aren't very scientific though.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000035">Todo:</a></b></dt><dd><code>Async_file_logger::log_flush_and_reopen(true)</code> is great for flushing, such as in an abort-signal handler, but providing just the flushing part without the reopening might be useful. At the moment we've left it this way, due to the vague feeling that closing the file upon flushing it is somehow more final and thus safer (in terms of accomplishing its goal) in an abort-signal scenario. Feelings aren't very scientific though.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">async</td><td>If <code>true</code>, the operation will execute ASAP but asynchronously, the method exiting immediately; else it will complete fully before this method returns. </td></tr>
@@ -764,7 +764,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00496">496</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00497">497</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00774">m_async_worker</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, and <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>.</p>
 <div class="dynheader">
@@ -804,7 +804,7 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#ae04868e2a384e60a349ecba8340cd731">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00541">541</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00542">542</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 </div>
 </div>
@@ -842,11 +842,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Positive value. (Informally: we've observed roughly 200 plus message size as of this writing.) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00438">438</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00439">439</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00456">deep_size()</a>.</p>
+<p class="reference">References <a class="el" href="async__file__logger_8cpp_source.html#l00457">deep_size()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -906,11 +906,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00208">208</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00209">209</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00782">m_signal_set</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00208">on_rotate_signal()</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00767">m_serial_logger</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00782">m_signal_set</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00209">on_rotate_signal()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00208">on_rotate_signal()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00209">on_rotate_signal()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -974,7 +974,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022">flow::log::Logger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00510">510</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00511">511</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
 
@@ -1001,7 +1001,7 @@ Here is the caller graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> accessor also.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00120">120</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00121">121</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>.</p>
 
@@ -1027,7 +1027,7 @@ Here is the caller graph for this function:</div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a83cff0d6857a8295e41f90d5e9cab711" title="Whether the throttling feature is currently in effect.">throttling_active()</a> also.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>The current knobs controlling the behavior of the algorithm that determines Throttling versus Not-Throttling state. If <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ac2080e8abfc2cd9580c84626ae205010" title="Accessor returning a copy of the current set of throttling knobs.">throttling_cfg()</a> mutator is never called, then the values therein will be some valid defaults. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00114">114</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00115">115</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>.</p>
 
@@ -1071,7 +1071,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00125">125</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="async__file__logger_8cpp_source.html#l00126">126</a> of file <a class="el" href="async__file__logger_8cpp_source.html">async_file_logger.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00385">flow::log::Async_file_logger::Throttling_cfg::m_hi_limit</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00701">m_pending_logs_sz</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00733">m_throttling_active</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00683">m_throttling_cfg</a>, <a class="el" href="async__file__logger_8hpp_source.html#l00680">m_throttling_mutex</a>, and <a class="el" href="async__file__logger_8hpp_source.html#l00720">m_throttling_now</a>.</p>
 
@@ -1103,7 +1103,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00774">774</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00496">log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00176">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00497">log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00177">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -1157,7 +1157,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00701">701</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00125">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00176">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00126">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00177">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -1186,11 +1186,11 @@ Here is the caller graph for this function:</div>
 <h3>Design rationale</h3>
 <p >What's the point of <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a>? Why not just have all those data and logic (storing the <code>ofstream</code>, etc.) directly in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a>? Answer: That's how it was originally. The cumulative amount of state and logic is the same; and there's no real usefulness for <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> as a stand-alone <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> for general users; so in and of itself splitting it out only adds a bit of coding overhead but is otherwise the same. So why do it? Answer:</p>
 <p >The reason we split it off was the following: We wanted to sometimes log to the real file from within the <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a2cbf044c57201ea66c2c7fa0026846eb" title="The thread (1-thread pool, technically) in charge of all m_serial_logger I/O operations including wri...">m_async_worker</a> thread; namely to mark with a pair of log messages that a file has been rotated. It was possible to do this via direct calls to a would-be <code>impl_do_log()</code> (which is <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#aa557c0f55c1044161acc8fb54c115a3e" title="Implements interface method by asynchronously logging the message and some subset of the metadata in ...">do_log()</a> but already from the worker thread), but then one couldn't use the standard <code>FLOW_LOG_*()</code> statements to do it; this was both inconvenient and difficult to maintain over time (we predicted). At that point it made sense that really <a class="el" href="classflow_1_1log_1_1Async__file__logger.html" title="An implementation of Logger that logs messages to a given file-system path but never blocks any loggi...">Async_file_logger</a> <em>is</em> a would-be <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html" title="An internal-use implementation of Logger that logs messages to a given file-system path,...">Serial_file_logger</a> (one that works from one thread) with the creation of the one thread &ndash; and other such goodies &ndash; added on top. With that, <code><a class="el" href="log_8hpp.html#ad4958fbd8673f48be76bf8e5e11d0522" title="Equivalent to FLOW_LOG_SET_CONTEXT() but sets the get_logger only.">FLOW_LOG_SET_LOGGER(m_serial_logger)</a></code> + <code><a class="el" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d" title="Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_INFO()</a></code> trivially logs to the file (as long as it's done from the worker thread), accomplishing that goal; and furthermore it makes logical sense in terms of overall design. The latter fact I (ygoldfel) would say is the best justification; and the desire for <code>*this</code> to log to the file, itself, was the triggering use case.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da" title="This is the Logger doing all the real log-writing work (the one stored in Log_context is the logger-a...">Async_file_logger::m_serial_logger</a> (and likely a few other similar <code>unique_ptr</code> members of other classes) would be slightly nicer as an <code>std::optional&lt;&gt;</code> instead of <code>unique_ptr</code>. <code>optional</code> was not in STL back in the day and either did not exist or did not catch our attention back in the day. <code>unique_ptr</code> in situations like this is fine but uses the heap more. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a5c06c592797c70077fc02c98ebf231da" title="This is the Logger doing all the real log-writing work (the one stored in Log_context is the logger-a...">Async_file_logger::m_serial_logger</a> (and likely a few other similar <code>unique_ptr</code> members of other classes) would be slightly nicer as an <code>std::optional&lt;&gt;</code> instead of <code>unique_ptr</code>. <code>optional</code> was not in STL back in the day and either did not exist or did not catch our attention back in the day. <code>unique_ptr</code> in situations like this is fine but uses the heap more. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00767">767</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00496">log_flush_and_reopen()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00208">on_rotate_signal()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00176">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00497">log_flush_and_reopen()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00209">on_rotate_signal()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00177">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -1219,7 +1219,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00782">782</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00208">on_rotate_signal()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00209">on_rotate_signal()</a>.</p>
 
 </div>
 </div>
@@ -1249,7 +1249,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00733">733</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00120">throttling_active()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00125">throttling_cfg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00121">throttling_active()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00126">throttling_cfg()</a>.</p>
 
 </div>
 </div>
@@ -1277,7 +1277,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00683">683</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00114">throttling_cfg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00115">throttling_cfg()</a>.</p>
 
 </div>
 </div>
@@ -1309,7 +1309,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00680">680</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00114">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00176">~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00115">throttling_cfg()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00177">~Async_file_logger()</a>.</p>
 
 </div>
 </div>
@@ -1341,7 +1341,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="async__file__logger_8hpp_source.html#l00720">720</a> of file <a class="el" href="async__file__logger_8hpp_source.html">async_file_logger.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00125">throttling_cfg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">do_log()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00126">throttling_cfg()</a>.</p>
 
 </div>
 </div>
@@ -1352,7 +1352,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

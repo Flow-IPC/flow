@@ -1,0 +1,4 @@
+<map id="flow::async::reset_thread_pinning" name="flow::async::reset_thread_pinning">
+<area shape="rect" id="node1" title="Resets the processor&#45;affinity of the given thread – or calling thread – to be managed as the OS deems..." alt="" coords="188,29,308,65"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627" title="Resets processor&#45;affinity of the calling thread; does not log; and throws on extremely unlikely syste..." alt="" coords="5,29,140,65"/>
+</map>

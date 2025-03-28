@@ -1042,7 +1042,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000125">Todo:</a></b></dt><dd>There are a few guys like this which are marked <code>@internal</code> (Doxygen command) to hide from generated public documentation, and that works, but really they should not be visible in the publicly-exported (not in detail/) header source code; so this should be reorganized for cleanliness. The prototypes like this one can be moved to a detail/ header or maybe directly into .cpp that uses them (for those where it's only one).</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000124">Todo:</a></b></dt><dd>There are a few guys like this which are marked <code>@internal</code> (Doxygen command) to hide from generated public documentation, and that works, but really they should not be visible in the publicly-exported (not in detail/) header source code; so this should be reorganized for cleanliness. The prototypes like this one can be moved to a detail/ header or maybe directly into .cpp that uses them (for those where it's only one).</dd></dl>
 <p >Prints string representation of given socket state to given standard <code>ostream</code> and returns the latter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1212,7 +1212,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>is</code>.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000119">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000118">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="cong__ctl_8cpp_source.html#l00124">124</a> of file <a class="el" href="cong__ctl_8cpp_source.html">cong_ctl.cpp</a>.</p>
 
@@ -1244,7 +1244,7 @@ port," depending on the context. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -316,7 +316,7 @@ Static Private Attributes</h2></td></tr>
 <p >When 2 or more contiguous data members are used in serializing (<a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,...">serialize_to_raw_data()</a> or overridden version), they are packed together via <code>"#pragma pack"</code>. (Note that this affect entire <code>struct</code>s at a time only; hence we need to use some anonymously-typed grouping <code>struct</code>s named <code>m_packed</code>.)</p>
 <p >Numeric values are stored as unsigned integers, which is the most portable choice for serializing. Booleans are serialized as bytes for compactness.</p>
 <p >Some effort is made to keep fields aligned along word edges when serializing. There is not too much of that as of this writing, but we should remain vigilant as packet formats become more complex over time.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000066">Todo:</a></b></dt><dd>With C++11, some lines of code could be eliminated by using <code>using</code> for <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> sub-types to inherit the constructor(s) of <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a>. (For some of the sub-types an explicit constructor would still be necessary, but it would just shadow the inherited one, which is fine and still saves lines in the other sub-types.) However, for now I've left it as-is, partially to be friendly to the Doxygen documentation generator, and partially to make the interface easy to read. Still, it may be better the other way. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000065">Todo:</a></b></dt><dd>With C++11, some lines of code could be eliminated by using <code>using</code> for <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a> sub-types to inherit the constructor(s) of <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level packet structure and serves as...">Low_lvl_packet</a>. (For some of the sub-types an explicit constructor would still be necessary, but it would just shadow the inherited one, which is fine and still saves lines in the other sub-types.) However, for now I've left it as-is, partially to be friendly to the Doxygen documentation generator, and partially to make the interface easy to read. Still, it may be better the other way. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00165">165</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
@@ -333,7 +333,7 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Short-hand for boost.asio immutable buffer, which essentially is a pointer to and length of a memory area. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000068">Todo:</a></b></dt><dd>Consider moving alias <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#ab735867345855ad43e5e3ff788cf5a9a" title="Short-hand for boost.asio immutable buffer, which essentially is a pointer to and length of a memory ...">Low_lvl_packet::Const_buffer</a> to <code>util</code> namespace or even outside it, as it is used commonly (or <code>boost::asio::const_buffer</code> is used where <code>Const_buffer</code> could be used for readability). </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000067">Todo:</a></b></dt><dd>Consider moving alias <a class="el" href="structflow_1_1net__flow_1_1Low__lvl__packet.html#ab735867345855ad43e5e3ff788cf5a9a" title="Short-hand for boost.asio immutable buffer, which essentially is a pointer to and length of a memory ...">Low_lvl_packet::Const_buffer</a> to <code>util</code> namespace or even outside it, as it is used commonly (or <code>boost::asio::const_buffer</code> is used where <code>Const_buffer</code> could be used for readability). </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l00180">180</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
@@ -623,7 +623,7 @@ template&lt;typename Low_lvl_packet_sub &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01396">1396</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="shared__ptr__alias__holder_8hpp_source.html#l00180">flow::util::Shared_ptr_alias_holder&lt; boost::shared_ptr&lt; Low_lvl_packet &gt; &gt;::ptr_cast()</a>.</p>
+<p class="reference">References <a class="el" href="shared__ptr__alias__holder_8hpp_source.html#l00187">flow::util::Shared_ptr_alias_holder&lt; boost::shared_ptr&lt; Low_lvl_packet &gt; &gt;::ptr_cast()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1246,7 +1246,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

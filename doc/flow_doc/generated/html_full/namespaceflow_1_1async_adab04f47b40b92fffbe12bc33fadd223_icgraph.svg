@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e" target="_top" xlink:title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">
+<g id="a_node2"><a xlink:href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" target="_top" xlink:title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">
 <polygon fill="white" stroke="black" points="304,-22.5 304,-48.5 419,-48.5 419,-22.5 304,-22.5"/>
 <text text-anchor="start" x="312" y="-38.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::optimize</text>
 <text text-anchor="middle" x="361.5" y="-29.1" font-family="Helvetica,sans-Serif" font-size="8.00">_pinning_in_thread_pool</text>
@@ -36,6 +36,12 @@
 <path fill="none" stroke="midnightblue" d="M444.72,-35.5C436.34,-35.5 427.77,-35.5 419.48,-35.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="444.83,-39 454.83,-35.5 444.83,-32 444.83,-39"/>
 </g>
+<!-- Node2&#45;&gt;Node2 -->
+<g id="edge2" class="edge">
+<title>Node2&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M387.78,-58.94C384.86,-63.64 376.1,-67 361.5,-67 337.55,-67 329.31,-57.96 336.8,-48.77"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="391.19,-58.12 386.2,-48.77 384.27,-59.19 391.19,-58.12"/>
+</g>
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
@@ -47,7 +53,7 @@
 </g>
 </g>
 <!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M293.87,-45.72C285.34,-47.02 276.66,-48.36 268.29,-49.64"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="294.44,-49.17 303.79,-44.2 293.38,-42.25 294.44,-49.17"/>
@@ -63,7 +69,7 @@
 </g>
 </g>
 <!-- Node2&#45;&gt;Node4 -->
-<g id="edge3" class="edge">
+<g id="edge4" class="edge">
 <title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M293.87,-25.73C285,-24.43 275.97,-23.1 267.29,-21.83"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="293.39,-29.19 303.79,-27.18 294.41,-22.27 293.39,-29.19"/>
@@ -79,7 +85,7 @@
 </g>
 </g>
 <!-- Node4&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
+<g id="edge5" class="edge">
 <title>Node4&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M141.58,-13.5C132.81,-13.5 123.88,-13.5 115.29,-13.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="141.79,-17 151.79,-13.5 141.79,-10 141.79,-17"/>

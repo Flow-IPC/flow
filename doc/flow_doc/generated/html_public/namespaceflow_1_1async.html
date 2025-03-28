@@ -149,12 +149,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a24567271e97a67d3cae6bd8bf8dc63c4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4">asio_exec_ctx_post</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, Execution_context *exec_ctx, <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485">Synchronicity</a> synchronicity, <a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;task)</td></tr>
 <tr class="memdesc:a24567271e97a67d3cae6bd8bf8dc63c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">An extension of boost.asio's <code>post()</code> and <code>dispatch()</code> free function templates, this free function template allows the user to more easily select the synchronicity behavior as the given task is posted onto the given execution context (<a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> or <a class="el" href="namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e" title="Short-hand for boost.asio strand, an ancillary class that works with Task_engine for advanced task sc...">util::Strand</a> at least).  <a href="namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4">More...</a><br /></td></tr>
 <tr class="separator:a24567271e97a67d3cae6bd8bf8dc63c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2f32e9fc685e2e9013900b100321fff"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff">optimal_worker_thread_count_per_pool</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *logger_ptr, bool est_hw_core_sharing_helps_algo)</td></tr>
-<tr class="memdesc:ac2f32e9fc685e2e9013900b100321fff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particular, per-op latency-affecting) operations are largely between processor and RAM: Returns the # of threads to store in that pool for efficient performance.  <a href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff">More...</a><br /></td></tr>
-<tr class="separator:ac2f32e9fc685e2e9013900b100321fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02afaeea759dfc180890e376db79530e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e">optimize_pinning_in_thread_pool</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *logger_ptr, const std::vector&lt; <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">util::Thread</a> * &gt; &amp;threads_in_pool, bool est_hw_core_sharing_helps_algo, bool est_hw_core_pinning_helps_algo, bool hw_threads_is_grouping_collated)</td></tr>
-<tr class="memdesc:a02afaeea759dfc180890e376db79530e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assuming the same situation as documented for <a class="el" href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>, and that indeed the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that pool for efficient performance.  <a href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e">More...</a><br /></td></tr>
-<tr class="separator:a02afaeea759dfc180890e376db79530e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adab04f47b40b92fffbe12bc33fadd223"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223">optimal_worker_thread_count_per_pool</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, bool est_hw_core_sharing_helps_algo)</td></tr>
+<tr class="memdesc:adab04f47b40b92fffbe12bc33fadd223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particular, per-op latency-affecting) operations are largely between processor and RAM: Returns the # of threads to store in that pool for efficient performance.  <a href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223">More...</a><br /></td></tr>
+<tr class="separator:adab04f47b40b92fffbe12bc33fadd223"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e200db7e5375de21d2568004a85dcad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad">optimize_pinning_in_thread_pool</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const std::vector&lt; <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">util::Thread</a> * &gt; &amp;threads_in_pool, bool est_hw_core_sharing_helps_algo, bool est_hw_core_pinning_helps_algo, bool hw_threads_is_grouping_collated, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=nullptr)</td></tr>
+<tr class="memdesc:a3e200db7e5375de21d2568004a85dcad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assuming the same situation as documented for <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>, and that indeed the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that pool for efficient performance.  <a href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad">More...</a><br /></td></tr>
+<tr class="separator:a3e200db7e5375de21d2568004a85dcad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fa5292ae2e7dddd11a7fe5228b1e574"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574">reset_thread_pinning</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr=nullptr, <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">util::Thread</a> *thread_else_ours=nullptr, <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *err_code=nullptr)</td></tr>
+<tr class="memdesc:a7fa5292ae2e7dddd11a7fe5228b1e574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the processor-affinity of the given thread &ndash; or calling thread &ndash; to be managed as the OS deems best.  <a href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574">More...</a><br /></td></tr>
+<tr class="separator:a7fa5292ae2e7dddd11a7fe5228b1e574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a227e64eb71ec278f19d679d8411db627"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627">reset_this_thread_pinning</a> ()</td></tr>
+<tr class="memdesc:a227e64eb71ec278f19d679d8411db627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets processor-affinity of the calling thread; does not log; and throws on extremely unlikely system error.  <a href="namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627">More...</a><br /></td></tr>
+<tr class="separator:a227e64eb71ec278f19d679d8411db627"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af90c1e763d49c3f3033a74871e897394"><td class="memTemplParams" colspan="2">template&lt;typename Handler &gt; </td></tr>
 <tr class="memitem:af90c1e763d49c3f3033a74871e897394"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1async.html#af90c1e763d49c3f3033a74871e897394">asio_handler_via_op</a> (<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html">Concurrent_task_loop</a> *loop, const <a class="el" href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949">Op</a> &amp;op, Handler &amp;&amp;handler)</td></tr>
 <tr class="memdesc:af90c1e763d49c3f3033a74871e897394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Given a boost.asio <em>completion handler</em> <code>handler</code> for a boost.asio <code>async_*()</code> action on some boost.asio I/O object to be initiated in the immediate near future, returns a wrapped handler with the same signature to be passed as the handler arg to that <code>async_*()</code> action, so that <code>handler()</code> will execute non-concurrently with other tasks in <code>Op op</code>.  <a href="namespaceflow_1_1async.html#af90c1e763d49c3f3033a74871e897394">More...</a><br /></td></tr>
@@ -331,7 +337,7 @@ Functions</h2></td></tr>
 <dl class="section warning"><dt>Warning</dt><dd>One must <em>not</em> use this mode when posting onto a thread pool from inside that thread pool: boost.asio <code>post()</code>-like function by definition won't execute a task synchronously inside itself, yet by the definition of this mode it must also wait for the task to run and complete. So if <code>post()</code> (or similar) were to decide the task belongs on the calling thread, an inifinite block (deadlock) occurs, as it will be waiting for something to happen that the wait prevents from happening.</dd></dl>
 <p>This mode is reminiscent of the promise/future concept and allows one to easily solve the age-old problem of "how do I ask a thread/pool to do a thing and then wait for get a result?". One might do this by manually using a promise/future pair; or even mutex/condition variable pair; but by using this such boiler-plate is reduced (along with fewer bugs).</p>
 <dl class="section warning"><dt>Warning</dt><dd>Be aware that the wait for completion will block infinitely, if one were to do something that would prevent the task from ever running. When working with boost.asio <code>Task_engine</code>s, this may occur when one <code>stop()</code>s or simply destroys the <code>Task_engine</code> (though the time period during which one would have to do this is short, assuming the task is quick). Naturally the way to avoid this is by not stopping or destroying the execution context during a posting call in mode <code>S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</code>. For example, the <code>Task_engine::stop()</code> call might be placed in the same thread as the posting; then they cannot be concurrent. If this is triggered from a SIGTERM/INT handler, one might only set or post something that will trigger the destruction in an orderly fashion at the proper time as opposed to doing it directly from the sig handler itself. This warning isn't anything that should be particularly new &ndash; orderly shutdown is typically concerned with such logic anyway &ndash; but it seemed worth putting in perspective of the fact this mode involves a wait for something that doesn't necessarily ever run, unless you actively make sure it does.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Much like the promise/future mechanism provides optional timed wait functionality, it might make sense to provide the API ability to set an optional time limit for any wait invoked by <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25" title="Same as Synchronicity::S_ASYNC but the posting routine then waits as long as necessary for the given ...">Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</a> or <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485ae9a9ae292ea3fbbe3b313348dcec0846" title="Same as Synchronicity::S_ASYNC but the posting routine then waits as long as necessary for the given ...">Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_START</a>. Probably best to add this only once a need clearly arises though. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Much like the promise/future mechanism provides optional timed wait functionality, it might make sense to provide the API ability to set an optional time limit for any wait invoked by <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25" title="Same as Synchronicity::S_ASYNC but the posting routine then waits as long as necessary for the given ...">Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</a> or <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485ae9a9ae292ea3fbbe3b313348dcec0846" title="Same as Synchronicity::S_ASYNC but the posting routine then waits as long as necessary for the given ...">Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_START</a>. Probably best to add this only once a need clearly arises though. </dd></dl>
 </td></tr>
 <tr><td class="fieldname"><a id="a0a06794b16b72f2829ce3353557c8485ae9a9ae292ea3fbbe3b313348dcec0846" name="a0a06794b16b72f2829ce3353557c8485ae9a9ae292ea3fbbe3b313348dcec0846"></a>S_ASYNC_AND_AWAIT_CONCURRENT_START&#160;</td><td class="fielddoc"><p >Same as <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f" title="Simply post the given task to execute asynchronously in some execution context – as soon as the conte...">Synchronicity::S_ASYNC</a> but the posting routine then waits as long as necessary for the given task to <em>just</em> about to begin executing concurrently (so that any subsequent <code>Task_engine::stop()</code> shall be unable to prevent it from executing and eventually finishing) &ndash; and only then returns. </p>
 <p >This is most similar to <code>S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</code> but may improve responsiveness of the calling thread, if what one needs to achieve is a guarantee that <code>F()</code> <em>will definitely</em> execute and complete, but does <em>not</em> need to wait for this to happen. So it's a weapon against a "dangling" <code>post()</code> that might be followed immediately by <code>Task_engine::stop()</code> &ndash; while not blocking until the posted thing finishes.</p>
@@ -692,8 +698,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="ac2f32e9fc685e2e9013900b100321fff" name="ac2f32e9fc685e2e9013900b100321fff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2f32e9fc685e2e9013900b100321fff">&#9670;&nbsp;</a></span>optimal_worker_thread_count_per_pool()</h2>
+<a id="adab04f47b40b92fffbe12bc33fadd223" name="adab04f47b40b92fffbe12bc33fadd223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adab04f47b40b92fffbe12bc33fadd223">&#9670;&nbsp;</a></span>optimal_worker_thread_count_per_pool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -701,7 +707,7 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname">unsigned int flow::async::optimal_worker_thread_count_per_pool </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *&#160;</td>
           <td class="paramname"><em>logger_ptr</em>, </td>
         </tr>
         <tr>
@@ -719,7 +725,7 @@ template&lt;&gt; </div>
 </div><div class="memdoc">
 
 <p>Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particular, per-op latency-affecting) operations are largely between processor and RAM: Returns the # of threads to store in that pool for efficient performance. </p>
-<dl class="section see"><dt>See also</dt><dd>After the threads are created, use <a class="el" href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a> to complete the work that targets this good performance.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>After the threads are created, use <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a> to complete the work that targets this good performance.</dd></dl>
 <p>This will be used, by doc header contract, by all (as of this writing) <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> subclasses if so specified via <code>n_threads_or_zero == 0</code>. So in that context one needn't call this directly. However, it may be useful directly when one is operating a thread pool but without a <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -732,8 +738,8 @@ template&lt;&gt; </div>
 
 </div>
 </div>
-<a id="a02afaeea759dfc180890e376db79530e" name="a02afaeea759dfc180890e376db79530e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02afaeea759dfc180890e376db79530e">&#9670;&nbsp;</a></span>optimize_pinning_in_thread_pool()</h2>
+<a id="a3e200db7e5375de21d2568004a85dcad" name="a3e200db7e5375de21d2568004a85dcad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e200db7e5375de21d2568004a85dcad">&#9670;&nbsp;</a></span>optimize_pinning_in_thread_pool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -741,7 +747,7 @@ template&lt;&gt; </div>
         <tr>
           <td class="memname">void flow::async::optimize_pinning_in_thread_pool </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *&#160;</td>
           <td class="paramname"><em>logger_ptr</em>, </td>
         </tr>
         <tr>
@@ -766,7 +772,13 @@ template&lt;&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hw_threads_is_grouping_collated</em>&#160;</td>
+          <td class="paramname"><em>hw_threads_is_grouping_collated</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
+          <td class="paramname"><em>err_code</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -776,17 +788,103 @@ template&lt;&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Assuming the same situation as documented for <a class="el" href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>, and that indeed the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that pool for efficient performance. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a> first. The two functions work together (one before, the other after spawning the threads). Behavior is undefined if the two aren't used in coherent fashion, meaning one passed different values for same-named args.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>There is a to-do, as of this writing, to allow one to query system to auto-determine <code>hw_threads_is_grouping_collated</code> if desired. See <code>namespace</code> <a class="el" href="namespaceflow_1_1async.html" title="Flow module containing tools enabling multi-threaded event loops operating under the asynchronous-tas...">flow::async</a> doc header.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>For the Darwin/Mac platform only: There is likely a bug in <a class="el" href="namespaceflow_1_1async.html#a02afaeea759dfc180890e376db79530e" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a> regarding certain low-level pinning calls, the effect of which is that this function is probably effectively a no-op for now in Macs. The bug is explained inside the body of the function.</dd></dl>
+<p>Assuming the same situation as documented for <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>, and that indeed the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that pool for efficient performance. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor-affinity of the given thread – or calling thread – to be managed as the OS deems...">reset_thread_pinning()</a>: related operation.</dd></dl>
+<h3>Error condition</h3>
+<p >If an OS call fails, this will report error in standard Flow fashion. That said, this would indicate some sort of utter calamity of a situation; it might be reasonable to either both leave <code>err_code = null</code> and not-catch the exception; or abort the process on any error. In any case the situation will be logged.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a> first. The two functions work together (one before, the other after spawning the threads). Behavior is undefined if the two aren't used in coherent fashion, meaning one passed different values for same-named args.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>There is a to-do, as of this writing, to allow one to query system to auto-determine <code>hw_threads_is_grouping_collated</code> if desired. See namespace <a class="el" href="namespaceflow_1_1async.html" title="Flow module containing tools enabling multi-threaded event loops operating under the asynchronous-tas...">flow::async</a> doc header.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">logger_ptr</td><td>Logger to use in this function. </td></tr>
     <tr><td class="paramname">threads_in_pool</td><td>These raw threads, which must number <code>optimal_worker_thread_count_per_pool(same-relevant-args)</code>, comprise the pool in question. They must be already spawned (e.g., have had some caller's code execute OK). </td></tr>
-    <tr><td class="paramname">est_hw_core_sharing_helps_algo</td><td>See <a class="el" href="namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>. </td></tr>
+    <tr><td class="paramname">est_hw_core_sharing_helps_algo</td><td>See <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>. </td></tr>
     <tr><td class="paramname">est_hw_core_pinning_helps_algo</td><td>Set this to <code>true</code> if you have reason to believe that pinning each of the pool's threads to N (N &gt;= 1) logical cores would improve performance in some way. Set it to <code>false</code> otherwise. As of this writing I don't know why it would be <code>true</code> specifically; but it can be researched; and I know in practice some applications do (in fact) do it, so it's not necessarily worthless, at least. </td></tr>
     <tr><td class="paramname">hw_threads_is_grouping_collated</td><td>When the number of physical cores does not equal # of logical cores (hardware threads) &ndash; otherwise this arg is ignored &ndash; this determines the pattern in which each set of 2+ core-sharing hardware threads is arranged vs. the other sets. When <code>false</code>, it's like ABCDABCD, meaning logical cores 0,4 share core, 1,5 share different core, 2,6 yet another, etc. When <code>true</code>, it's like AABBCCDD instead. It seems <code>true</code> is either rare or non-existent, but I do not know for sure. </td></tr>
+    <tr><td class="paramname">err_code</td><td>See <code><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a></code> docs for error reporting semantics. <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> generated: various native system errors. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a227e64eb71ec278f19d679d8411db627" name="a227e64eb71ec278f19d679d8411db627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a227e64eb71ec278f19d679d8411db627">&#9670;&nbsp;</a></span>reset_this_thread_pinning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flow::async::reset_this_thread_pinning </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets processor-affinity of the calling thread; does not log; and throws on extremely unlikely system error. </p>
+<p >That is: simply calls <code><a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor-affinity of the given thread – or calling thread – to be managed as the OS deems...">reset_thread_pinning()</a></code>. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor-affinity of the given thread – or calling thread – to be managed as the OS deems...">reset_thread_pinning()</a>.</dd></dl>
+<p>This variant exists, so that one can pass it directly to APIs that expect a function object/pointer with signature <code>void F()</code>; for example <code>std::function&lt;void ()&gt;</code> ctor or <a class="el" href="classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">Single_thread_task_loop::start()</a>.</p>
+<p >It is unfortunately not possible to, e.g., supply one of the form <code>void F(some_type some_arg = some_default)</code>: the compiler doesn't like the presence of any args, even if they all have defaults. </p>
+
+</div>
+</div>
+<a id="a7fa5292ae2e7dddd11a7fe5228b1e574" name="a7fa5292ae2e7dddd11a7fe5228b1e574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fa5292ae2e7dddd11a7fe5228b1e574">&#9670;&nbsp;</a></span>reset_thread_pinning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void flow::async::reset_thread_pinning </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *&#160;</td>
+          <td class="paramname"><em>logger_ptr</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">util::Thread</a> *&#160;</td>
+          <td class="paramname"><em>thread_else_ours</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a> *&#160;</td>
+          <td class="paramname"><em>err_code</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the processor-affinity of the given thread &ndash; or calling thread &ndash; to be managed as the OS deems best. </p>
+<p >The variant <a class="el" href="namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627" title="Resets processor-affinity of the calling thread; does not log; and throws on extremely unlikely syste...">reset_this_thread_pinning()</a>, equivalent to <a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor-affinity of the given thread – or calling thread – to be managed as the OS deems...">reset_thread_pinning()</a> with args set to defaults, is suitable to be passed to APIs that take a <code>void F()</code> function object or function pointer; for example <a class="el" href="classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">Single_thread_task_loop::start()</a>:</p>
+<div class="fragment"><div class="line"><a class="code hl_class" href="classflow_1_1async_1_1Single__thread__task__loop.html">flow::async::Single_thread_task_loop</a> strong_confident_independent_thread{...};</div>
+<div class="line"><span class="comment">// It would inherit my core-affinity... so have it reset that early-on.</span></div>
+<div class="line">strong_confident_independent_thread.<a class="code hl_function" href="classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5">start</a>(<a class="code hl_function" href="namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627">flow::async::reset_this_thread_pinning</a>);</div>
+<div class="line">strong_confident_independent_thread.post([]()</div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// Do stuff!  Won&#39;t be tied down to any core(s)!</span></div>
+<div class="line">});</div>
+<div class="ttc" id="aclassflow_1_1async_1_1Single__thread__task__loop_html"><div class="ttname"><a href="classflow_1_1async_1_1Single__thread__task__loop.html">flow::async::Single_thread_task_loop</a></div><div class="ttdoc">A Concurrent_task_loop-related adapter-style class that represents a single-thread task loop; essenti...</div><div class="ttdef"><b>Definition:</b> single_thread_task_loop.hpp:78</div></div>
+<div class="ttc" id="aclassflow_1_1async_1_1Single__thread__task__loop_html_a0886e7f19d0c8b19f74851578802a5e5"><div class="ttname"><a href="classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5">flow::async::Single_thread_task_loop::start</a></div><div class="ttdeci">void start(Task &amp;&amp;init_task_or_empty=Task())</div><div class="ttdoc">Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...</div><div class="ttdef"><b>Definition:</b> single_thread_task_loop.cpp:41</div></div>
+<div class="ttc" id="anamespaceflow_1_1async_html_a227e64eb71ec278f19d679d8411db627"><div class="ttname"><a href="namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627">flow::async::reset_this_thread_pinning</a></div><div class="ttdeci">void reset_this_thread_pinning()</div><div class="ttdoc">Resets processor-affinity of the calling thread; does not log; and throws on extremely unlikely syste...</div><div class="ttdef"><b>Definition:</b> concurrent_task_loop.cpp:309</div></div>
+</div><!-- fragment --><h3>Rationale</h3>
+<p >This might be useful in the face of the fact that at least some OS (Linux is one), when spawning thread T2 from thread T1, by default have T2 inherit the processor-affinity of T1; so for example if T1 is pinned to core 7, so will the new thread T2 be pinned to core 7 by default. This may be desirable &ndash; or not.</p>
+<p >In particular, a general library that starts background work threads, especially ones with which the lib's user does not interact, might not want the default inheriting behavior but rather a thread behaving as independently and efficiently as possible.</p>
+<p >Alternatively maybe you just want to undo <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a> or something.</p>
+<h3>Error condition</h3>
+<p >See same section in <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a> doc header.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logger_ptr</td><td>Logger to use for logging inside. An INFO message may be logged. Null is as always allowed. </td></tr>
+    <tr><td class="paramname">thread_else_ours</td><td>The thread to affect; leave null to affect the calling thread. </td></tr>
+    <tr><td class="paramname">err_code</td><td>See <code><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a></code> docs for error reporting semantics. <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> generated: various native system errors. </td></tr>
   </table>
   </dd>
 </dl>
@@ -796,7 +894,7 @@ template&lt;&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:49 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

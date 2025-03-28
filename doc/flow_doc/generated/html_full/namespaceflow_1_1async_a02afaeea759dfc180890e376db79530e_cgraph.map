@@ -1,8 +1,0 @@
-<map id="flow::async::optimize_pinning_in_thread_pool" name="flow::async::optimize_pinning_in_thread_pool">
-<area shape="rect" id="node1" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),..." alt="" coords="5,45,159,81"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1async.html#ac2f32e9fc685e2e9013900b100321fff" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX&#45;affecting (in particul..." alt="" coords="207,5,348,53"/>
-<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="216,78,339,114"/>
-<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="396,78,519,114"/>
-<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="567,47,697,83"/>
-<area shape="rect" id="node6" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="577,107,687,143"/>
-</map>

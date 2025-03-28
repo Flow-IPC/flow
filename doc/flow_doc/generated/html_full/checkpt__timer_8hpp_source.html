@@ -145,7 +145,7 @@ $(function() {
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * lowest possible overhead:</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment"> *   ~~~</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"> *   flow::perf::Checkpointing_timer sum_timer(&quot;op name&quot;, which_clocks, 1, logger); // 1 checkpoint only.</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment"> *   flow::perf::Checkpointing_timer sum_timer(logger, &quot;op name&quot;, which_clocks, 1); // 1 checkpoint only.</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment"> *   const unsigned int n_samples = 1000000;</span></div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"> *   for (unsigned int sample_idx = 0; sample_idx != n_samples; ++sample_idx)</span></div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> *   {</span></div>
@@ -804,7 +804,7 @@ $(function() {
 <div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>std::ostream&amp; <a class="code hl_function" href="namespaceflow_1_1perf.html#a5bb3a068357516df714c4266ec5c3df4">operator&lt;&lt;</a>(std::ostream&amp; os, <span class="keyword">const</span> <a class="code hl_struct" href="structflow_1_1perf_1_1Checkpointing__timer_1_1Checkpoint.html">Checkpointing_timer::Checkpoint</a>&amp; checkpoint);</div>
 <div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span> </div>
 <div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>} <span class="comment">// namespace flow::perf</span></div>
-<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01611">log.hpp:1612</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01609">log.hpp:1610</a></div></div>
 <div class="ttc" id="aclassflow_1_1log_1_1Logger_html"><div class="ttname"><a href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a></div><div class="ttdoc">Interface that the user should implement, passing the implementing Logger into logging classes (Flow'...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01280">log.hpp:1284</a></div></div>
 <div class="ttc" id="aclassflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator_html"><div class="ttname"><a href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html">flow::perf::Checkpointing_timer::Aggregator</a></div><div class="ttdoc">This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...</div><div class="ttdef"><b>Definition:</b> <a href="checkpt__timer_8hpp_source.html#l00559">checkpt_timer.hpp:562</a></div></div>
 <div class="ttc" id="aclassflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator_html_a18bdb2f17039bcb82ddd4022a3a8340d"><div class="ttname"><a href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#a18bdb2f17039bcb82ddd4022a3a8340d">flow::perf::Checkpointing_timer::Aggregator::aggregate</a></div><div class="ttdeci">void aggregate(Checkpointing_timer_ptr timer_ptr)</div><div class="ttdoc">Register given Checkpointing_timer for aggregated results.</div><div class="ttdef"><b>Definition:</b> <a href="checkpt__timer_8cpp_source.html#l00357">checkpt_timer.cpp:357</a></div></div>
@@ -856,7 +856,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

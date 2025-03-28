@@ -384,7 +384,7 @@ Private Attributes</h2></td></tr>
 
 <p class="reference">References <a class="el" href="single__thread__task__loop_8hpp_source.html#l00290">m_underlying_loop</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">flow::async::Cross_thread_task_loop::post()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00241">flow::log::Async_file_logger::do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00496">flow::log::Async_file_logger::log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00176">flow::log::Async_file_logger::~Async_file_logger()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async__file__logger_8cpp_source.html#l00242">flow::log::Async_file_logger::do_log()</a>, <a class="el" href="async__file__logger_8cpp_source.html#l00497">flow::log::Async_file_logger::log_flush_and_reopen()</a>, and <a class="el" href="async__file__logger_8cpp_source.html#l00177">flow::log::Async_file_logger::~Async_file_logger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -496,7 +496,7 @@ Here is the call graph for this function:</div>
 <p>Equivalent to <a class="el" href="classflow_1_1async_1_1Single__thread__task__loop.html#adaf7dbd5fbd6ee7c886daabc7a6ad0ae" title="Cause the given Task (function) to execute within the worker thread as soon as the thread is free of ...">post()</a> but execution is scheduled for later, after the given time period passes. </p>
 <p >The semantics are, in all ways in which this differs from <a class="el" href="classflow_1_1async_1_1Single__thread__task__loop.html#adaf7dbd5fbd6ee7c886daabc7a6ad0ae" title="Cause the given Task (function) to execute within the worker thread as soon as the thread is free of ...">post()</a>, those of <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">util::schedule_task_from_now()</a>. This includes the meaning of the returned value and the nature of <a class="el" href="namespaceflow_1_1util.html#aafa03984c5012ef7db2e7d01b6909a83" title="Short-hand for tasks that can be scheduled/fired by schedule_task_from_now() and similar.">util::Scheduled_task</a>. Also, in particular, one can perform actions like canceling, short-firing, and info-access by passing the returned handle into <a class="el" href="namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2" title="Attempts to prevent the execution of a previously scheduled (by schedule_task_from_now() or similar) ...">util::scheduled_task_cancel()</a> and others.</p>
 <dl class="section warning"><dt>Warning</dt><dd>You <em>must</em> not call any <code>util::scheduled_task_*()</code> function on the returned handle except from within <code>*this</code> loop's tasks.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Deal with the scheduled-tasks-affected-from-outside-loop corner case of the <code>Single_thread_task_loop::schedule_*()</code> APIs. Perhaps add <code>bool in_loop_use_only</code> arg which, if <code>false</code>, will always disable the <code>single_threaded</code> optimization internally. At this time it always enables it which will cause thread un-safety if the returned handle is touched from outside an in-loop task. <code>void</code> versions of the <code>schedule_*()</code> APIs should be added which would lack this, as in that case there is no handle to misuse outside the loop.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Deal with the scheduled-tasks-affected-from-outside-loop corner case of the <code>Single_thread_task_loop::schedule_*()</code> APIs. Perhaps add <code>bool in_loop_use_only</code> arg which, if <code>false</code>, will always disable the <code>single_threaded</code> optimization internally. At this time it always enables it which will cause thread un-safety if the returned handle is touched from outside an in-loop task. <code>void</code> versions of the <code>schedule_*()</code> APIs should be added which would lack this, as in that case there is no handle to misuse outside the loop.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">from_now</td><td>See <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">util::schedule_task_from_now()</a>. </td></tr>
@@ -560,7 +560,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Single__thread__task__loop_a0886e7f19d0c8b19f74851578802a5e5_cgraph.svg" width="928" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Single__thread__task__loop_a0886e7f19d0c8b19f74851578802a5e5_cgraph.svg" width="928" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -730,7 +730,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

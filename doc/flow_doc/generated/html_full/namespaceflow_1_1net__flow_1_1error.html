@@ -193,7 +193,7 @@ Functions</h2></td></tr>
 <p >When you add a value to this <code>enum</code>, also add its description to net_flow_error.cpp’s <a class="el" href="classflow_1_1net__flow_1_1error_1_1Category.html#ae01ad7da6ba4d494a5455a82fc03481e" title="Implements superclass API: given the integer error code of an error in this category,...">Category::message()</a>. This description must be identical to the description in the /// comment below, or at least as close as possible.</p>
 <p >If, when adding a new revision of the code, you add a value to this <code>enum</code>, add it to the end. If, when adding a new revision of the code, you deprecate a value in this <code>enum</code>, do not delete it from this <code>enum</code>. Instead mark it as deprecated here and then remove it from Flow_category::message().</p>
 <p >Errors that indicate apparent logic bugs (in other words, assertions that we were too afraid to write as actual <code>assert()</code>s) should be prefixed with <code>S_INTERNAL_ERROR_</code>, and their messages should also indicate "Internal error: ".</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000080">Todo:</a></b></dt><dd>Consider adding specific subclasses of <a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">flow::error::Runtime_error</a> for the key codes, like <code>WAIT_INTERRUPTED</code> and <code>USER_TIMEOUT</code>. In doing so, make sure there's an automated syntactic-sugary way of doing this, so that one need only add a code&lt;-&gt;class pair into some internal centralized mapping, automatically making system emit the proper exception class, defaulting to plain Runtime_error if not specially-mapped. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>Consider adding specific subclasses of <a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">flow::error::Runtime_error</a> for the key codes, like <code>WAIT_INTERRUPTED</code> and <code>USER_TIMEOUT</code>. In doing so, make sure there's an automated syntactic-sugary way of doing this, so that one need only add a code&lt;-&gt;class pair into some internal centralized mapping, automatically making system emit the proper exception class, defaulting to plain Runtime_error if not specially-mapped. </dd></dl>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a18e13de77b119ea0f2be411490859482affac5d80b4e72f2e55bbbfadce2efd2e" name="a18e13de77b119ea0f2be411490859482affac5d80b4e72f2e55bbbfadce2efd2e"></a>S_NODE_NOT_RUNNING&#160;</td><td class="fielddoc"><p ><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> not running. </p>
 </td></tr>
@@ -294,7 +294,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:52 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -352,7 +352,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Same as <a class="el" href="classflow_1_1log_1_1Logger.html#a2d1a0283764e5f85abf00c7cee4c4e19" title="Loads msg_metadata-&gt;m_call_thread_nickname (if set) or else msg_metadata-&gt;m_call_thread_id,...">set_thread_info_in_msg_metadata()</a> but targets the given two variables as opposed to a <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a>. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000051">Todo:</a></b></dt><dd>It would be more consistent to rename <a class="el" href="classflow_1_1log_1_1Logger.html#a1ea9da10a13d3b422ba7162a13d7eeb1" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">set_thread_info()</a> to this_thread_set_info(), since it operates in thread-local fashion. This was a naming convention oversight.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>It would be more consistent to rename <a class="el" href="classflow_1_1log_1_1Logger.html#a1ea9da10a13d3b422ba7162a13d7eeb1" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">set_thread_info()</a> to this_thread_set_info(), since it operates in thread-local fashion. This was a naming convention oversight.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">call_thread_nickname</td><td>Non-null pointer to value to modify. See above. </td></tr>
@@ -363,7 +363,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00125">125</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01554">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l01552">s_this_thread_nickname_ptr</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00144">set_thread_info_in_msg_metadata()</a>.</p>
 <div class="dynheader">
@@ -401,7 +401,7 @@ Here is the caller graph for this function:</div>
 
 <p>Loads <code>msg_metadata-&gt;m_call_thread_nickname</code> (if set) or else <code>msg_metadata-&gt;m_call_thread_id</code>, based on whether/how <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">this_thread_set_logged_nickname()</a> was last called in the current thread. </p>
 <p >The two members should be set to ther default-constructed values on entry to the present function.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>It would be more consistent to rename <a class="el" href="classflow_1_1log_1_1Logger.html#a2d1a0283764e5f85abf00c7cee4c4e19" title="Loads msg_metadata-&gt;m_call_thread_nickname (if set) or else msg_metadata-&gt;m_call_thread_id,...">set_thread_info_in_msg_metadata()</a> to this_thread_set_info_in_msg_metadata(), since it operates in thread-local fashion. This was a naming convention oversight.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd>It would be more consistent to rename <a class="el" href="classflow_1_1log_1_1Logger.html#a2d1a0283764e5f85abf00c7cee4c4e19" title="Loads msg_metadata-&gt;m_call_thread_nickname (if set) or else msg_metadata-&gt;m_call_thread_id,...">set_thread_info_in_msg_metadata()</a> to this_thread_set_info_in_msg_metadata(), since it operates in thread-local fashion. This was a naming convention oversight.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">msg_metadata</td><td>Non-null pointer to structure to modify. See above. </td></tr>
@@ -469,7 +469,7 @@ writing characters to some internally maintained `ostream` accordingly."</p>
 
 <p>Implemented in <a class="el" href="classflow_1_1log_1_1Async__file__logger.html#ad139ac22e5953e52e03648860a15e3fd">flow::log::Async_file_logger</a>, <a class="el" href="classflow_1_1log_1_1Buffer__logger.html#aa27a237d1cc9d3d9f28c472f521f0163">flow::log::Buffer_logger</a>, <a class="el" href="classflow_1_1log_1_1Serial__file__logger.html#ad602948de59867b3a85c7f0dd6620497">flow::log::Serial_file_logger</a>, and <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html#aaf1987dc4e163db1c13e6f4407135fa9">flow::log::Simple_ostream_logger</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="async_2util_8hpp_source.html#l00031">flow::async::asio_exec_ctx_post()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02158">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::emplace_copy()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02110">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::make_zero()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01871">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::reserve()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01672">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01751">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_equally_impl()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01701">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_left()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01725">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_right()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00347">flow::net_flow::Drop_timer::start_timer()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02220">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::sub_copy()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01604">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="async_2util_8hpp_source.html#l00031">flow::async::asio_exec_ctx_post()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02159">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::emplace_copy()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02111">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::make_zero()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01872">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::reserve()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01673">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01752">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_equally_impl()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01702">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_left()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01726">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::share_after_split_right()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00347">flow::net_flow::Drop_timer::start_timer()</a>, <a class="el" href="basic__blob_8hpp_source.html#l02221">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::sub_copy()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01605">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -518,7 +518,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00108">108</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01554">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l01552">s_this_thread_nickname_ptr</a>.</p>
 
 </div>
 </div>
@@ -639,7 +639,6 @@ Here is the caller graph for this function:</div>
 <li>Blank: <code>ps</code>, <code>top</code>, etc. will show the thread name as the thread ID (truncated to N characters, though this is unlikely to be exceeded by real thread IDs).</li>
 <li>Non-blank: <code>ps</code>, <code>top</code>, etc. will show the thread name as equal to <code>thread_nickname</code> (truncated to N characters).</li>
 <li>Note: Because "Initial" and "Blank" are necessarily not the same, it is recommended to call <a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">this_thread_set_logged_nickname()</a> around thread creation time even if <code>thread_nickname</code> is blank. Then <code>ps</code>, <code>top</code>, etc. output will still be useful and possible to cross-reference with log output, say.</li>
-<li>Note: Truncation will be reverse, meaning &ndash; if necessary &ndash; <em>leading</em> characters will be eliminated. This, in practice, tends to at least help disambiguate in case of truncation.</li>
 <li>Note: N is documented in <code>man pthread_setname_np</code> as 15 not counting the NUL terminator. Therefore ideally keep the <code>thread_nickname.size()</code> to at most N.</li>
 </ul>
 </li>
@@ -659,11 +658,11 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000049">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">this_thread_set_logged_nickname()</a> could take multiple <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s, since it is an app-wide function and potentially would want to be reflected in multiple loggers. It could take a pair of iterators or a container (in both cases, of template argument type). Arguably, though, this is overkill; as (1) most code paths deal with only one <code>get_logger()</code>-owning object each; (2) naming of a thread is obvious enough in subsequent logs (hence this message only calls attention to that operation plus notes the thread ID before the nickname assignment, not necessarily the most critical of information). Certainly this zero-to-one-<code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code> version must continue to be available for syntactic-sugary convenience, even if the to-do is performed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000048">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1log_1_1Logger.html#a5600c71ccaa294650c7d34b596d90bf5" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">this_thread_set_logged_nickname()</a> could take multiple <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s, since it is an app-wide function and potentially would want to be reflected in multiple loggers. It could take a pair of iterators or a container (in both cases, of template argument type). Arguably, though, this is overkill; as (1) most code paths deal with only one <code>get_logger()</code>-owning object each; (2) naming of a thread is obvious enough in subsequent logs (hence this message only calls attention to that operation plus notes the thread ID before the nickname assignment, not necessarily the most critical of information). Certainly this zero-to-one-<code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code> version must continue to be available for syntactic-sugary convenience, even if the to-do is performed. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00036">36</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, and <a class="el" href="log_8hpp_source.html#l01554">s_this_thread_nickname_ptr</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, and <a class="el" href="log_8hpp_source.html#l01552">s_this_thread_nickname_ptr</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -696,7 +695,7 @@ Here is the call graph for this function:</div>
 
 <p>Thread-local storage for each thread's logged name (null pointer, which is default, means no nickname stored). </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01554">1554</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01552">1552</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00125">set_thread_info()</a>, <a class="el" href="log_8cpp_source.html#l00108">this_thread_logged_name_os_manip()</a>, and <a class="el" href="log_8cpp_source.html#l00036">this_thread_set_logged_nickname()</a>.</p>
 
@@ -709,7 +708,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 7 2025 20:04:51 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
