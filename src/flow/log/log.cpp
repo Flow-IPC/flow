@@ -74,8 +74,8 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
     constexpr size_t MAX_PTHREAD_NAME_SZ = 15;
     if (os_name.size() > MAX_PTHREAD_NAME_SZ)
     {
-      // As advertised: Truncate from the front to increase chance resulting name is still disambiguated from others.
-      os_name.erase(0, os_name.size() - MAX_PTHREAD_NAME_SZ);
+      // As advertised: Truncate.  `man` indicates not doing so shall lead to ERANGE error.
+      os_name.erase(MAX_PTHREAD_NAME_SZ);
     }
 
     const auto result_code = pthread_setname_np(pthread_self(), os_name.c_str());
@@ -87,7 +87,7 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
       if (result_code == -1)
       {
         const Error_code sys_err_code(errno, system_category());
-        FLOW_LOG_WARNING("Unable to set OS thread name to [" << os_name << "], possibly truncated from the front "
+        FLOW_LOG_WARNING("Unable to set OS thread name to [" << os_name << "], possibly truncated "
                          "to [" << MAX_PTHREAD_NAME_SZ << "] characters, via pthread_setname_np().  "
                          "This should only occur due to an overlong name, which we guard against, so this is "
                          "highly unexpected.  Details follow.");
@@ -95,7 +95,7 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
       }
       else
       {
-        FLOW_LOG_INFO("OS thread name has been set to [" << os_name << "], possibly truncated from the front "
+        FLOW_LOG_INFO("OS thread name has been set to [" << os_name << "], possibly truncated "
                       "to [" << MAX_PTHREAD_NAME_SZ << "] characters.");
       }
     }

@@ -105,6 +105,13 @@ namespace flow::util
  * @todo flow::util::Shared_ptr_alias_holder `Const_target_ptr` is deprecated and shall be always left at its default
  *       value in future code; eventually remove it entirely and hard-code the default value internally.
  *
+ * @todo flow::util::Shared_ptr_alias_holder, such as it is, may well largely work for `unique_ptr` and other
+ * smart/fancy pointer types; should be generalized both in name (if possible) and capabilities (if not already
+ * the case).  Could be just a matter of updating docs and renaming (deprecated-path alias may be required to
+ * avoid a breaking change); or not.  Needs a bit of investigation to determine such details.  (The author (ygoldfel)
+ * was conisderably less advanced when this was originally made versus the time of this writing... maybe a
+ * decade+?  He meant well though.)
+ *
  * @todo Add example usage snippets in Shared_ptr_alias_holder doc header, illustrating the pattern.
  */
 template<typename Target_ptr,

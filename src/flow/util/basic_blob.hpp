@@ -339,7 +339,7 @@ public:
    *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
    *        and by definition it is to equal `Allocator_raw()`.
    */
-  Basic_blob(const Allocator_raw& alloc_raw = Allocator_raw());
+  Basic_blob(const Allocator_raw& alloc_raw = Allocator_raw{});
 
   /**
    * Constructs blob with size() and capacity() equal to the given `size`, and `start() == 0`.  Performance note:
@@ -360,7 +360,8 @@ public:
    *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
    *        and by definition it is to equal `Allocator_raw()`.
    */
-  explicit Basic_blob(size_type size, log::Logger* logger_ptr = 0, const Allocator_raw& alloc_raw = Allocator_raw());
+  explicit Basic_blob(size_type size, log::Logger* logger_ptr = nullptr,
+                      const Allocator_raw& alloc_raw = Allocator_raw{});
 
   /**
    * Move constructor, constructing a blob exactly internally equal to pre-call `moved_src`, while the latter is
@@ -372,7 +373,7 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    */
-  Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr = 0);
+  Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr = nullptr);
 
   /**
    * Copy constructor, constructing a blob logically equal to `src`.  More formally, guarantees post-condition wherein
@@ -399,7 +400,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) or asynchronously when TRACE-logging
    *        in the event of buffer dealloc.  Null allowed.
    */
-  explicit Basic_blob(const Basic_blob& src, log::Logger* logger_ptr = 0);
+  explicit Basic_blob(const Basic_blob& src, log::Logger* logger_ptr = nullptr);
 
   /**
    * Destructor that drops `*this` ownership of the allocated internal buffer if any, as by make_zero();
@@ -429,7 +430,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return `*this`.
    */
-  Basic_blob& assign(Basic_blob&& moved_src, log::Logger* logger_ptr = 0);
+  Basic_blob& assign(Basic_blob&& moved_src, log::Logger* logger_ptr = nullptr);
 
   /**
    * Move assignment operator (no logging): equivalent to `assign(std::move(moved_src), nullptr)`.
@@ -510,7 +511,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return `*this`.
    */
-  Basic_blob& assign(const Basic_blob& src, log::Logger* logger_ptr = 0);
+  Basic_blob& assign(const Basic_blob& src, log::Logger* logger_ptr = nullptr);
 
   /**
    * Copy assignment operator (no logging): equivalent to `assign(src, nullptr)`.
@@ -530,7 +531,7 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    */
-  void swap(Basic_blob& other, log::Logger* logger_ptr = 0);
+  void swap(Basic_blob& other, log::Logger* logger_ptr = nullptr);
 
   /**
    * Applicable to `!zero()` blobs, this returns an identical Basic_blob that shares (co-owns) `*this` allocated buffer
@@ -552,7 +553,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return An identical Basic_blob to `*this` that shares the underlying allocated buffer.  See above.
    */
-  Basic_blob share(log::Logger* logger_ptr = 0) const;
+  Basic_blob share(log::Logger* logger_ptr = nullptr) const;
 
   /**
    * Applicable to `!zero()` blobs, this shifts `this->begin()` by `size` to the right without changing
@@ -585,7 +586,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return The split-off-on-the-left Basic_blob that shares the underlying allocated buffer with `*this`.  See above.
    */
-  Basic_blob share_after_split_left(size_type size, log::Logger* logger_ptr = 0);
+  Basic_blob share_after_split_left(size_type size, log::Logger* logger_ptr = nullptr);
 
   /**
    * Identical to share_after_split_left(), except `this->end()` shifts by `size` to the left (instead of
@@ -605,7 +606,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return The split-off-on-the-right Basic_blob that shares the underlying allocated buffer with `*this`.  See above.
    */
-  Basic_blob share_after_split_right(size_type size, log::Logger* logger_ptr = 0);
+  Basic_blob share_after_split_right(size_type size, log::Logger* logger_ptr = nullptr);
 
   /**
    * Identical to successively performing `share_after_split_left(size)` until `this->empty() == true`;
@@ -641,7 +642,7 @@ public:
    */
   template<typename Emit_blob_func>
   void share_after_split_equally(size_type size, bool headless_pool, Emit_blob_func&& emit_blob_func,
-                                 log::Logger* logger_ptr = 0);
+                                 log::Logger* logger_ptr = nullptr);
 
   /**
    * share_after_split_equally() wrapper that places `Basic_blob`s into the given container via
@@ -660,7 +661,7 @@ public:
    */
   template<typename Blob_container>
   void share_after_split_equally_emit_seq(size_type size, bool headless_pool, Blob_container* out_blobs,
-                                          log::Logger* logger_ptr = 0);
+                                          log::Logger* logger_ptr = nullptr);
 
   /**
    * share_after_split_equally() wrapper that places `Ptr<Basic_blob>`s into the given container via
@@ -681,7 +682,7 @@ public:
    */
   template<typename Blob_ptr_container>
   void share_after_split_equally_emit_ptr_seq(size_type size, bool headless_pool, Blob_ptr_container* out_blobs,
-                                              log::Logger* logger_ptr = 0);
+                                              log::Logger* logger_ptr = nullptr);
 
   /**
    * Replaces logical contents with a copy of the given non-overlapping area anywhere in memory.  More formally:
@@ -700,7 +701,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    * @return Number of elements copied, namely `src.size()`, or simply size().
    */
-  size_type assign_copy(const boost::asio::const_buffer& src, log::Logger* logger_ptr = 0);
+  size_type assign_copy(const boost::asio::const_buffer& src, log::Logger* logger_ptr = nullptr);
 
   /**
    * Copies `src` buffer directly onto equally sized area within `*this` at location `dest`; `*this` must have
@@ -724,7 +725,7 @@ public:
    * @return Location in this blob just past the last element copied; `dest` if none copied; in particular end() is a
    *         possible value.
    */
-  Iterator emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src, log::Logger* logger_ptr = 0);
+  Iterator emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src, log::Logger* logger_ptr = nullptr);
 
   /**
    * The opposite of emplace_copy() in every way, copying a sub-blob onto a target memory area.  Note that the size
@@ -743,7 +744,7 @@ public:
    * @return Location in this blob just past the last element copied; `src` if none copied; end() is a possible value.
    */
   Const_iterator sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest,
-                          log::Logger* logger_ptr = 0) const;
+                          log::Logger* logger_ptr = nullptr) const;
 
   /**
    * Returns number of elements stored, namely `end() - begin()`.  If zero(), this is 0; but if this is 0, then
@@ -815,7 +816,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) or asynchronously when TRACE-logging
    *        in the event of buffer dealloc.  Null allowed.
    */
-  void reserve(size_type capacity, log::Logger* logger_ptr = 0);
+  void reserve(size_type capacity, log::Logger* logger_ptr = nullptr);
 
   /**
    * Guarantees post-condition `zero() == true` by dropping `*this` ownership of the allocated internal buffer if any;
@@ -840,7 +841,7 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
    */
-  void make_zero(log::Logger* logger_ptr = 0);
+  void make_zero(log::Logger* logger_ptr = nullptr);
 
   /**
    * Guarantees post-condition `size() == size` and `start() == start`; no values in pre-call range `[begin(), end())`
@@ -868,7 +869,7 @@ public:
    *        The Logger implementation to use in *this* routine (synchronously) or asynchronously when TRACE-logging
    *        in the event of buffer dealloc.  Null allowed.
    */
-  void resize(size_type size, size_type start_or_unchanged = S_UNCHANGED, log::Logger* logger_ptr = 0);
+  void resize(size_type size, size_type start_or_unchanged = S_UNCHANGED, log::Logger* logger_ptr = nullptr);
 
   /**
    * Restructures blob to consist of an internally allocated buffer and a `[begin(), end)` range starting at
@@ -1293,7 +1294,7 @@ private:
    *   - Specifically it supports a perf-enhancing use mode: using `make_shared()` (and similar) instead of
    *     `.reset(<raw ptr>)` (or similar ctor) replaces 2 allocs (1 for user data, 1 for aux data/ref-count)
    *     with 1 (for both).
-   *   - If verbose logging in the deleter is desired its `virtual`-based type-erased deleter semantics make that
+   *   - If verbose logging in the deleter is desired, its `virtual`-based type-erased deleter semantics make that
    *     quite easy to achieve.
    *
    * ### The case where #S_SHARING is `false` ###
@@ -1335,7 +1336,7 @@ private:
    * @param logger_ptr
    *        See swap().
    */
-  void swap_impl(Basic_blob& other, log::Logger* logger_ptr = 0);
+  void swap_impl(Basic_blob& other, log::Logger* logger_ptr);
 
   /**
    * Returns iterator-to-mutable equivalent to given iterator-to-immutable.
@@ -1645,7 +1646,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap(Basic_blob& other, log::Logg
   // For m_alloc_raw: Follow rules established in m_alloc_raw doc header.
   if constexpr(std::allocator_traits<Allocator_raw>::propagate_on_container_swap::value)
   {
-    if (&this->m_alloc_raw != &other.m_alloc_raw) // @todo Is this redundant?  Or otherwise unnecessary?
+    if (&m_alloc_raw != &other.m_alloc_raw) // @todo Is this redundant?  Or otherwise unnecessary?
     {
       swap(m_alloc_raw, other.m_alloc_raw);
     }
@@ -1678,7 +1679,7 @@ Basic_blob<Allocator, S_SHARING_ALLOWED> Basic_blob<Allocator, S_SHARING_ALLOWED
 
   assert(!zero()); // As advertised.
 
-  Basic_blob sharing_blob(m_alloc_raw, logger_ptr); // Null Basic_blob (let that ctor log via same Logger if any).
+  Basic_blob sharing_blob{m_alloc_raw, logger_ptr}; // Null Basic_blob (let that ctor log via same Logger if any).
   assert(!sharing_blob.m_buf_ptr);
   sharing_blob.m_buf_ptr = m_buf_ptr;
   // These are currently (as of this writing) uninitialized (possibly garbage).
@@ -1817,7 +1818,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_emit_pt
 
   share_after_split_equally(size, headless_pool, [&](Basic_blob&& blob_moved)
   {
-    out_blobs_ptr->push_back(Ptr(new Basic_blob(std::move(blob_moved))));
+    out_blobs_ptr->push_back(Ptr(new Basic_blob{std::move(blob_moved)}));
   }, logger_ptr);
 }
 
@@ -1964,7 +1965,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
                            * Since only we happen to know the size of how much we actually allocated, we pass that info
                            * into the Deleter_raw as well, as it needs to know the `n` to pass to
                            * m_alloc_raw.deallocate(p, n). */
-                          Deleter_raw(m_alloc_raw, new_capacity));
+                          Deleter_raw{m_alloc_raw, new_capacity});
           /* Note: Unlike the S_IS_VANILLA_ALLOC=true case above, here we omit any attempt to log at the time
            * of dealloc, even if the verbosity is currently set high enough.  It is not practical to achieve:
            * Recall that the assumptions we take for granted when dealing with std::allocator/regular heap
@@ -1999,7 +2000,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, l
            * or we can assign via unique_ptr move-ct.  The latter is certainly pithier and prettier,
            * but the former might be a bit faster.  (Caution!  Recall m_buf_ptr is null currently.  If it were not
            * we would need to explicitly nullify it before the get_deleter() assignment.) */
-          m_buf_ptr.get_deleter() = Deleter_raw(m_alloc_raw, new_capacity);
+          m_buf_ptr.get_deleter() = Deleter_raw{m_alloc_raw, new_capacity};
           m_buf_ptr.reset(m_alloc_raw.allocate(new_capacity));
         } // else if constexpr(!S_SHARING)
       } // else if constexpr(!S_IS_VANILLA_ALLOC)
@@ -2191,7 +2192,7 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
      * This occurs due to (among other things) inlining from above our frame down into the std::memcpy() call
      * we make; plus allegedly the C++ front-end supplying the huge values during the diagnostics pass.
      * No such huge values (which are 0x800000000000000F, 0xFFFFFFFFFFFFFFFF, 0x7FFFFFFFFFFFFFFF, respectively)
-     * is actually passed-in at run-time nor mentioned anywhere
+     * are actually passed-in at run-time nor mentioned anywhere
      * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
      *
      * The warning is wholly inaccurate in a way reminiscent of the situation in reserve() with a somewhat
@@ -2204,7 +2205,7 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
 #pragma GCC diagnostic ignored "-Wrestrict" // Another similar bogus one pops up after pragma-ing away preceding one.
 
     /* Likely linear-time in `n` but hopefully optimized.  Could use a C++ construct, but I've seen that be slower
-     * that a direct memcpy() call in practice, at least in a Linux gcc.  Could use boost.asio buffer_copy(), which
+     * than a direct memcpy() call in practice, at least in a Linux gcc.  Could use boost.asio buffer_copy(), which
      * as of this writing does do memcpy(), but the following is an absolute guarantee of best performance, so better
      * safe than sorry (hence this whole Basic_blob class's existence, at least in part). */
     memcpy(dest_it, src_data, n);
@@ -2450,15 +2451,13 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
 template<typename Allocator, bool S_SHARING_ALLOWED>
 boost::asio::const_buffer Basic_blob<Allocator, S_SHARING_ALLOWED>::const_buffer() const
 {
-  using boost::asio::const_buffer;
-  return const_buffer(const_data(), size());
+  return boost::asio::const_buffer{const_data(), size()};
 }
 
 template<typename Allocator, bool S_SHARING_ALLOWED>
 boost::asio::mutable_buffer Basic_blob<Allocator, S_SHARING_ALLOWED>::mutable_buffer()
 {
-  using boost::asio::mutable_buffer;
-  return mutable_buffer(data(), size());
+  return boost::asio::mutable_buffer{data(), size()};
 }
 
 template<typename Allocator, bool S_SHARING_ALLOWED>

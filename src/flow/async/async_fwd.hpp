@@ -408,7 +408,7 @@ void asio_exec_ctx_post(log::Logger* logger_ptr, Execution_context* exec_ctx, Sy
  *        that is the not the case by default; one would have to prove it, or design the algorithm with that in mind.
  * @return The number of threads mandated for the thread pool in question.
  */
-unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger* logger_ptr,
+unsigned int optimal_worker_thread_count_per_pool(log::Logger* logger_ptr,
                                                   bool est_hw_core_sharing_helps_algo);
 
 /**
@@ -416,16 +416,19 @@ unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger* logger_ptr,
  * the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that
  * pool for efficient performance.
  *
+ * @see reset_thread_pinning(): related operation.
+ *
+ * ### Error condition ###
+ * If an OS call fails, this will report error in standard Flow fashion.  That said, this would indicate some sort
+ * of utter calamity of a situation; it might be reasonable to either both leave `err_code = null` and not-catch
+ * the exception; or abort the process on any error.  In any case the situation will be logged.
+ *
  * @see optimal_worker_thread_count_per_pool() first.  The two functions work together (one before, the other after
  *      spawning the threads).  Behavior is undefined if the two aren't used in coherent fashion, meaning one
  *      passed different values for same-named args.
  *
  * @note There is a to-do, as of this writing, to allow one to query system to auto-determine
- *       `hw_threads_is_grouping_collated` if desired.  See `namespace` flow::async doc header.
- *
- * @todo For the Darwin/Mac platform only: There is likely a bug in optimize_pinning_in_thread_pool() regarding
- *       certain low-level pinning calls, the effect of which is that this function is probably effectively a no-op for
- *       now in Macs.  The bug is explained inside the body of the function.
+ *       `hw_threads_is_grouping_collated` if desired.  See namespace flow::async doc header.
  *
  * @param logger_ptr
  *        Logger to use in this function.
@@ -445,12 +448,72 @@ unsigned int optimal_worker_thread_count_per_pool(flow::log::Logger* logger_ptr,
  *        2+ core-sharing hardware threads is arranged vs. the other sets.  When `false`, it's like ABCDABCD, meaning
  *        logical cores 0,4 share core, 1,5 share different core, 2,6 yet another, etc.  When `true`, it's like
  *        AABBCCDD instead.  It seems `true` is either rare or non-existent, but I do not know for sure.
+ * @param err_code
+ *        See `flow::Error_code` docs for error reporting semantics.  #Error_code generated:
+ *        various native system errors.
  */
-void optimize_pinning_in_thread_pool(flow::log::Logger* logger_ptr,
+void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
                                      const std::vector<util::Thread*>& threads_in_pool,
                                      bool est_hw_core_sharing_helps_algo,
                                      bool est_hw_core_pinning_helps_algo,
-                                     bool hw_threads_is_grouping_collated);
+                                     bool hw_threads_is_grouping_collated,
+                                     Error_code* err_code = nullptr);
+
+/**
+ * Resets the processor-affinity of the given thread -- or calling thread -- to be managed as the OS deems best.
+ *
+ * The variant reset_this_thread_pinning(), equivalent to reset_thread_pinning() with args set to defaults,
+ * is suitable to be passed to APIs that take a `void F()` function object
+ * or function pointer; for example Single_thread_task_loop::start():
+ *
+ *   ~~~
+ *   flow::async::Single_thread_task_loop strong_confident_independent_thread{...};
+ *   // It would inherit my core-affinity... so have it reset that early-on.
+ *   strong_confident_independent_thread.start(flow::async::reset_this_thread_pinning);
+ *   strong_confident_independent_thread.post([]()
+ *   {
+ *     // Do stuff!  Won't be tied down to any core(s)!
+ *   });
+ *   ~~~
+ *
+ * ### Rationale ###
+ * This might be useful in the face of the fact that at least some OS (Linux is one), when spawning thread T2 from
+ * thread T1, by default have T2 inherit the processor-affinity of T1; so for example if T1 is pinned to core 7,
+ * so will the new thread T2 be pinned to core 7 by default.  This may be desirable -- or not.
+ *
+ * In particular, a general library that starts background work threads, especially ones with which the lib's
+ * user does not interact, might not want the default inheriting behavior but rather a thread behaving as independently
+ * and efficiently as possible.
+ *
+ * Alternatively maybe you just want to undo optimize_pinning_in_thread_pool() or something.
+ *
+ * ### Error condition ###
+ * See same section in optimize_pinning_in_thread_pool() doc header.
+ *
+ * @param logger_ptr
+ *        Logger to use for logging inside.  An INFO message may be logged.  Null is as always allowed.
+ * @param thread_else_ours
+ *        The thread to affect; leave null to affect the calling thread.
+ * @param err_code
+ *        See `flow::Error_code` docs for error reporting semantics.  #Error_code generated:
+ *        various native system errors.
+ */
+void reset_thread_pinning(log::Logger* logger_ptr = nullptr,
+                          util::Thread* thread_else_ours = nullptr,
+                          Error_code* err_code = nullptr);
+
+/**
+ * Resets processor-affinity of the calling thread; does not log; and throws on extremely unlikely system error.
+ * That is: simply calls `reset_thread_pinning()`.  @see reset_thread_pinning().
+ *
+ * This variant exists, so that one can pass it directly to APIs that expect a function object/pointer with
+ * signature `void F()`; for example `std::function<void ()>` ctor or Single_thread_task_loop::start().
+ *
+ *
+ * It is unfortunately not possible to, e.g., supply one of the form `void F(some_type some_arg = some_default)`:
+ * the compiler doesn't like the presence of any args, even if they all have defaults.
+ */
+void reset_this_thread_pinning();
 
 /**
  * Given a boost.asio *completion handler* `handler` for a boost.asio `async_*()` action on some boost.asio I/O
