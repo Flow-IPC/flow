@@ -2269,10 +2269,12 @@ std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, c
    * [...]-by-dot-key substution is at least aesthetically perf-wasteful (those characters get replaced anyway later).
    * Anyway, all that aside, the following is easily defensible as clearly not having any such issues. */
   return ostream_op_string
-           (value_set_member_id_to_opt_name(String_view{&*matched_groups[1].first, matched_groups[1].length()}),
+           (value_set_member_id_to_opt_name(String_view{&*matched_groups[1].first,
+                                                        size_t(matched_groups[1].length())}),
             INDEX_SEP_BEFORE,
             key, // ostream<< it.
-            value_set_member_id_to_opt_name(String_view{&*matched_groups[2].first, matched_groups[2].length()}));
+            value_set_member_id_to_opt_name(String_view{&*matched_groups[2].first,
+                                                        size_t(matched_groups[2].length())}));
 } // value_set_member_id_to_opt_name_keyed()
 
 } // namespace flow::cfg
