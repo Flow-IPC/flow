@@ -563,7 +563,7 @@ private:
    * that is itself already noncopyable in the proper way, unlike `thread_specific_ptr` (which, at least as of
    * Boost-1.87, still has a copy-forbidding ctor/assigner that takes non-`const` ref).
    */
-  struct Tsp_wrapper : private boost::noncopyable
+  struct Tsp_wrapper
   {
     // Data.
 
@@ -579,7 +579,23 @@ private:
      */
     template<typename... Ctor_args>
     Tsp_wrapper(Ctor_args&&... ctor_args);
-  };
+
+    // Methods.
+
+    /**
+     * Forbid copy.
+     * @param src
+     *        Yeah.
+     */
+    Tsp_wrapper(const Tsp_wrapper& src) = delete;
+    /**
+     * Forbid copy.
+     * @param src
+     *        Yeah.
+     * @return Right.
+     */
+    Tsp_wrapper& operator=(const Tsp_wrapper& src) = delete;
+  }; // struct Tsp_wrapper
 
   // Methods.
 
