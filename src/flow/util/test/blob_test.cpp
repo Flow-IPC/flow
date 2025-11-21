@@ -301,7 +301,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_TRUE(ALL_ZERO_FN(b1));
 
       auto b3 = make_blob<Blob_t>(alloc, &logger, N_SM);
-      fill_n_ffs(b3.begin(), b3.size(), ONE);
+      std::fill_n(b3.begin(), b3.size(), ONE);
       const size_t N_TN = 5;
       b3.resize(N_SM - N_TN, N_TN); // Structure: [N_TN][N_SM - N_TN][], all ONEs.  Terms: [prefix][body][postfix].
       EXPECT_TRUE(RNG_ONES_FN(b3.begin() - N_TN, b3.end())); // Ensure they're all ONEs in fact.
@@ -556,7 +556,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       b1.resize(b1.capacity() - INC, INC); // [INC][N1 - INC][], all 0.
       EXPECT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(), b1.begin() - b1.start() + b1.capacity()));
-      fill_n_ffs(b1.begin() + INC, INC, ONE); // [INC x 0][INC x 0, INC x 1, rest x 0][].
+      std::fill_n(b1.begin() + INC, INC, ONE); // [INC x 0][INC x 0, INC x 1, rest x 0][].
       ASSERT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(),
                               b1.begin() - b1.start() + INC + INC)) << "Sanity-check selves.";
       ASSERT_TRUE(RNG_ONES_FN(b1.begin() - b1.start() + INC + INC,
@@ -596,7 +596,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC);
       b1.resize(b1.capacity() - INC, INC);
-      fill_n_ffs(b1.begin() + INC, INC, ONE);
+      std::fill_n(b1.begin() + INC, INC, ONE);
       EXPECT_EQ(b1.sub_copy(b1.begin() + INC, mutable_buffer{&(DIST_VEC.front()), 0}), // Degenerate case (no-op).
                 b1.begin() + INC);
       EXPECT_TRUE(RNG_ZERO_FN(DIST_VEC.begin(), DIST_VEC.end()));
