@@ -454,7 +454,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       uint8_t* const d = b1.data();
       const uint8_t* const c_d = b1.const_data();
 
-      EXPECT_EQ(e - b, b1.size());
+      EXPECT_EQ(int(e - b), int(b1.size()));
       EXPECT_TRUE(RNG_ZERO_FN(b - INC, e + INC)); // Should be all derefable (and zeroed) as opposed to possible crash.
       EXPECT_EQ(b, c_b); EXPECT_EQ(b, c_cb); EXPECT_EQ(b, c_ccb); EXPECT_EQ(b, d); EXPECT_EQ(b, c_d);
       EXPECT_EQ(e, c_e); EXPECT_EQ(e, c_ce); EXPECT_EQ(e, c_cce);
