@@ -119,7 +119,7 @@ class Server_socket :
   public util::Null_interface,
   // Endow us with shared_ptr<>s ::Ptr and ::Const_ptr (syntactic sugar).
   public util::Shared_ptr_alias_holder<boost::shared_ptr<Server_socket>>,
-  // Allow access to Ptr(this) from inside Server_socket methods.  Just call shared_from_this().
+  // Allow access to Ptr{this} from inside Server_socket methods.  Just call shared_from_this().
   public boost::enable_shared_from_this<Server_socket>,
   public log::Log_context,
   private boost::noncopyable
@@ -156,7 +156,7 @@ public:
 
   /**
    * Node that produced this Server_socket.
-   * @return Pointer to (guaranteed valid) Node; 0 if state is S_CLOSED.
+   * @return Pointer to (guaranteed valid) Node; null if state is S_CLOSED.
    */
   Node* node() const;
 
@@ -191,7 +191,7 @@ public:
    * @return A Peer_socket `sock` with `sock->state() == Peer_socket::State::S_OPEN`.  If no
    *         connections are available (including if `bool(*err_code) == true`), returns null pointer.
    */
-  Peer_socket_ptr accept(Error_code* err_code = 0);
+  Peer_socket_ptr accept(Error_code* err_code = nullptr);
 
   /**
    * Blocking (synchronous) version of accept().  Acts just like accept(), except that if `*this` is
@@ -246,7 +246,7 @@ public:
   template<typename Rep, typename Period>
   Peer_socket_ptr sync_accept(const boost::chrono::duration<Rep, Period>& max_wait,
                               bool reactor_pattern = false,
-                              Error_code* err_code = 0);
+                              Error_code* err_code = nullptr);
 
   /**
    * Equivalent to `sync_accept(duration::max(), reactor_pattern, err_code)`; i.e., sync_accept() with no user
@@ -258,7 +258,7 @@ public:
    *        See other sync_accept().
    * @return See other sync_accept().
    */
-  Peer_socket_ptr sync_accept(bool reactor_pattern = false, Error_code* err_code = 0);
+  Peer_socket_ptr sync_accept(bool reactor_pattern = false, Error_code* err_code = nullptr);
 
   /**
    * The error code that perviously caused state() to become State::S_CLOSED, or success code if state
@@ -317,7 +317,7 @@ private:
    *
    * @param wait_until
    *        See `sync_accept(timeout)`.  This is the absolute time point corresponding to that.
-   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt()` (Epoch) for this argument.
+   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt{}` (Epoch) for this argument.
    * @param reactor_pattern
    *        See sync_accept().
    * @param err_code
@@ -340,7 +340,7 @@ private:
   State m_state;
 
   /**
-   * See node().  Should be set before user gets access to `*this` and not changed, except to 0 when
+   * See node().  Should be set before user gets access to `*this` and not changed, except to null when
    * state is S_CLOSED.  Must not be modified by non-W threads.
    */
   Node* m_node;

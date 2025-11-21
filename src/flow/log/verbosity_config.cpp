@@ -37,7 +37,7 @@ Verbosity_config::Verbosity_config()
   using std::make_pair;
 
   // As promised:
-  m_component_sev_pairs.push_back(make_pair<string, Sev>(string(), Sev(Config::S_MOST_VERBOSE_SEV_DEFAULT)));
+  m_component_sev_pairs.push_back(make_pair<string, Sev>(string{}, Sev{Config::S_MOST_VERBOSE_SEV_DEFAULT}));
   assert(m_component_sev_pairs.size() == 1);
 }
 
@@ -132,7 +132,7 @@ bool Verbosity_config::parse(std::istream& is)
       }
       result_pairs.push_back
         (make_pair<string, Sev>
-           (string(to_upper_copy(leaf_tokens[0], locale::classic())),
+           (string{to_upper_copy(leaf_tokens[0], locale::classic())},
             std::move(sev)));
     } // for (token : tokens)
   } // if (!tokens_str.empty())
@@ -143,7 +143,7 @@ bool Verbosity_config::parse(std::istream& is)
   {
     result_pairs.insert
       (result_pairs.begin(),
-       make_pair<string, Sev>(string(), Sev(Config::S_MOST_VERBOSE_SEV_DEFAULT)));
+       make_pair<string, Sev>(string(), Sev{Config::S_MOST_VERBOSE_SEV_DEFAULT}));
   }
 
   // Finalize only if all succeeded only (as promised).

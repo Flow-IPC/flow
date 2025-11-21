@@ -79,6 +79,7 @@ set(SRCS
     flow/net_flow/server_socket.cpp
     flow/perf/checkpt_timer.cpp
     flow/perf/clock_type.cpp
+    flow/util/blob.cpp
     flow/util/detail/sched_task_handle_state.cpp
     flow/util/detail/util.cpp
     flow/util/sched_task.cpp
@@ -159,6 +160,7 @@ set(HDRS
     flow/util/basic_blob.hpp
     flow/util/blob.hpp
     flow/util/blob_fwd.hpp
+    flow/util/detail/linked_hash.hpp
     flow/util/detail/sched_task_handle_state.hpp
     flow/util/detail/util.hpp
     flow/util/detail/util_fwd.hpp
@@ -171,6 +173,7 @@ set(HDRS
     flow/util/shared_ptr_alias_holder.hpp
     flow/util/string_ostream.hpp
     flow/util/string_view.hpp
+    flow/util/thread_lcl.hpp
     flow/util/traits.hpp
     flow/util/uniq_id_holder.hpp
     flow/util/util.hpp

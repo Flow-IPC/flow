@@ -18,8 +18,9 @@
 /// @file
 #pragma once
 
-#include "flow/util/util_fwd.hpp"
+#include "flow/util/detail/util.hpp"
 #include "flow/util/string_ostream.hpp"
+#include "flow/util/util_fwd.hpp"
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 
@@ -37,7 +38,7 @@ namespace flow::util
  * destructor, even if it is `= default` or `{}`.  Otherwise, trying to delete an object of subclass `C2 : public C`
  * via a `C*` pointer will fail to call destructor `~C2()` -- which may not be empty, causing leaks and so on.
  * Declaring `~C()` and its empty implementation is surprisingly verbose.  So, instead, don't; and `public`ly derive
- * from Null_interface instead.
+ * from Null_interface.
  *
  * It is particularly useful for interface classes.
  */
@@ -93,10 +94,10 @@ struct Noncopyable
  *   thread_local int s_this_thread_val;
  *   ...
  *   {
- *     Scoped_setter<int> setter(&s_this_thread_val, 75); // Set it to 75 and memorize (whatever).
+ *     Scoped_setter<int> setter{&s_this_thread_val, 75}; // Set it to 75 and memorize (whatever).
  *     ...
  *     {
- *       Scoped_setter<int> setter(&s_this_thread_val, 125); // Set it to 125 and memorize 75.
+ *       Scoped_setter<int> setter{&s_this_thread_val, 125}; // Set it to 125 and memorize 75.
  *       ...
  *     } // Restored from 125 to 75.
  *     ...
@@ -110,7 +111,7 @@ struct Noncopyable
  *   thread_local Widget s_widget;
  *   auto widget_setter_auto(Widget&& widget_moved)
  *   {
- *     return flow::util::Scoped_setter<Widget>(&s_widget, std::move(widget_moved));
+ *     return flow::util::Scoped_setter<Widget>{&s_widget, std::move(widget_moved)};
  *   }
  *   ...
  *     { // Later, some block: Set s_widget.  Code here doesn't even know/care a Scoped_setter is involved.
@@ -231,7 +232,7 @@ Scoped_setter<Value>::~Scoped_setter()
   // else { `*this` must have been moved-from.  No-op. }
 }
 
-// Free function template implementations.
+// Free function template (and/or constexpr) implementations.
 
 template<typename Time_unit, typename N_items>
 double to_mbit_per_sec(N_items items_per_time, size_t bits_per_item)
@@ -254,17 +255,25 @@ double to_mbit_per_sec(N_items items_per_time, size_t bits_per_item)
     / (double(Time_unit::period::num) * double(1000 * 1000));
 }
 
-template<typename Integer>
-Integer ceil_div(Integer dividend, Integer divisor)
+template<typename Integer, typename Integer2>
+constexpr Integer ceil_div(Integer dividend, Integer2 divisor)
 {
   // ceil(A : B) = (A + B - 1) / B, where : is floating point division, while / is integer division.
-  static_assert(std::is_integral_v<Integer>, "ceil_div<T>: T must be an integer type.");
-  assert(dividend >= 0);
-  assert(divisor > 0);
+  static_assert(std::is_integral_v<Integer>, "ceil_div<T, T2>: T must be an integer type.");
+  static_assert(std::is_integral_v<Integer2>, "ceil_div<T, T2>: T2 must be an integer type.");
 
-  return (dividend + divisor - 1) / divisor;
+  // assert(dividend >= 0); // Cannot do that (or throw in C++17, can in C++20; @todo) in constexpr.
+  // assert(divisor > 0); // Ditto.
+
+  return (dividend + static_cast<Integer>(divisor) - static_cast<Integer>(1)) / static_cast<Integer>(divisor);
   /* (Could one do further bitwise trickery?  Perhaps but let optimizer do it.  Wouldn't optimizer also just
    * optimize a literal floating-point `ceil(a / b)`?  Well, no.  Probably not.  So we wrote this function.) */
+}
+
+template<typename Integer, typename Integer2>
+constexpr Integer round_to_multiple(Integer dividend, Integer2 unit)
+{
+  return static_cast<Integer>(unit) * ceil_div(dividend, unit);
 }
 
 template<typename T>
@@ -316,8 +325,8 @@ Auto_cleanup setup_auto_cleanup(const Cleanup_func& func)
    *
    * Subtlety: we need to make a copy (via capture) of func, as there's zero guarantee (and low likelihood in practice)
    * that func is a valid object at the time cleanup is actually needed (sometime after we return). */
-  return Auto_cleanup(static_cast<void*>(0),
-                      [func](void*) { func(); });
+  return Auto_cleanup{static_cast<void*>(nullptr),
+                      [func](void*) { func(); }};
 }
 
 template<typename Minuend, typename Subtrahend>
@@ -329,7 +338,7 @@ bool subtract_with_floor(Minuend* minuend, const Subtrahend& subtrahend, const M
    * The one underflow we allow is the subtraction of `floor`: doc header says keep `floor` small.
    * So it's their problem if it's not. */
 
-  const Minuend converted_subtrahend = Minuend(subtrahend);
+  const Minuend converted_subtrahend = Minuend{subtrahend};
 
   // min - sub <= floor <===> min - floor <= sub.
   if ((*minuend - floor) <= converted_subtrahend)
@@ -348,23 +357,14 @@ size_t size_unit_convert(From num_froms)
   return ((num_froms * sizeof(From)) + sizeof(To) - 1) / sizeof(To);
 }
 
-template<typename T1, typename ...T_rest>
-void feed_args_to_ostream(std::ostream* os, T1 const & ostream_arg1, T_rest const &... remaining_ostream_args)
+template<typename... T>
+void feed_args_to_ostream(std::ostream* os, T&&... ostream_args)
 {
-  // Induction step for variadic template.
-  feed_args_to_ostream(os, ostream_arg1);
-  feed_args_to_ostream(os, remaining_ostream_args...);
+  (*os << ... << std::forward<T>(ostream_args));
 }
 
-template<typename T>
-void feed_args_to_ostream(std::ostream* os, T const & only_ostream_arg)
-{
-  // Induction base.
-  *os << only_ostream_arg;
-}
-
-template<typename ...T>
-void ostream_op_to_string(std::string* target_str, T const &... ostream_args)
+template<typename... T>
+void ostream_op_to_string(std::string* target_str, T&&... ostream_args)
 {
   using std::flush;
 
@@ -372,18 +372,18 @@ void ostream_op_to_string(std::string* target_str, T const &... ostream_args)
    * by copy via `ostringstream::copy()`.  This is for performance and may make a large difference
    * overall, if this is used in logging for example.  However, Thread_local_string_appender accomplishes
    * better performance still and some other features. */
-  String_ostream os(target_str);
-  feed_args_to_ostream(&(os.os()), ostream_args...);
+  String_ostream os{target_str};
+  feed_args_to_ostream(&(os.os()), std::forward<T>(ostream_args)...);
   os.os() << flush;
 }
 
-template<typename ...T>
-std::string ostream_op_string(T const &... ostream_args)
+template<typename... T>
+std::string ostream_op_string(T&&... ostream_args)
 {
   using std::string;
 
   string result;
-  ostream_op_to_string(&result, ostream_args...);
+  ostream_op_to_string(&result, std::forward<T>(ostream_args)...);
   return result;
 }
 
@@ -443,9 +443,9 @@ std::ostream& buffers_to_ostream(std::ostream& os,
   }
 
   // Ensure format settings return to their previous values subsequently.
-  ios_flags_saver flags_saver(os);
-  ios_fill_saver fill_saver(os);
-  ios_width_saver width_saver(os);
+  ios_flags_saver flags_saver{os};
+  ios_fill_saver fill_saver{os};
+  ios_width_saver width_saver{os};
 
   /* Set formatting and output numeric value (hex) of first byte.
    * @todo Is there a way to write this with manipulators too? */
@@ -453,7 +453,6 @@ std::ostream& buffers_to_ostream(std::ostream& os,
   os << std::setfill('0');
 
   const Bufs_iter end_byte_it = Bufs_iter::end(data);
-
   for (Bufs_iter cur_byte_it = Bufs_iter::begin(data);
        cur_byte_it != end_byte_it;
        /* Advancing of cur_byte_it occurs within body of loop. */)
@@ -512,7 +511,7 @@ std::string buffers_dump_string(const Const_buffer_sequence& data, const std::st
   // See comment in ostream_op_to_string() which applies here too (re. perf).
 
   string target_str;
-  String_ostream os(&target_str);
+  String_ostream os{&target_str};
   buffers_to_ostream(os.os(), data, indentation, bytes_per_line);
   os.os() << flush;
 
@@ -539,7 +538,7 @@ Enum istream_to_enum(std::istream* is_ptr, Enum enum_default, Enum enum_sentinel
 
   assert(enum_t(enum_lowest) >= 0); // Otherwise we'd have to allow '-' (minus sign), and we'd... just rather not.
   auto& is = *is_ptr;
-  const is_iequal i_equal_func(locale::classic());
+  const is_iequal i_equal_func{locale::classic()};
 
   // Read into `token` until (and not including) the first non-alphanumeric/underscore character or stream end.
   string token;
@@ -565,9 +564,9 @@ Enum istream_to_enum(std::istream* is_ptr, Enum enum_default, Enum enum_sentinel
         {
           num_enum = enum_t(enum_default);
         }
-        val = Enum(num_enum);
+        val = Enum{num_enum};
       }
-      catch (const bad_lexical_cast& exc)
+      catch (const bad_lexical_cast&)
       {
         assert(val == enum_default);
       }
@@ -578,7 +577,7 @@ Enum istream_to_enum(std::istream* is_ptr, Enum enum_default, Enum enum_sentinel
       // This assumes a vanilla enum integer value ordering within this [closed range].
       for (idx = enum_t(enum_lowest); idx != enum_t(enum_sentinel); ++idx)
       {
-        const auto candidate = Enum(idx);
+        const auto candidate = Enum{idx};
         /* Note -- lexical_cast<string>(Enum) == (operator<<(ostringstream&, Enum)).str() -- the symbolic
          * encoding of Enum (as we promised to accept, case-[in]sensitively), not the numeric encoding.  The numeric
          * encoding is checked-for in the `if (accept_num_encoding...)` branch above using a non-looping technique. */

@@ -158,7 +158,7 @@ bool scheduled_task_short_fire(log::Logger* logger_ptr, Scheduled_task_handle ta
   }
   else
   {
-    Lock_guard<Mutex_non_recursive> lock(*task->m_mutex_unless_single_threaded);
+    Lock_guard<Mutex_non_recursive> lock{*task->m_mutex_unless_single_threaded};
     noop = !fire_if_should();
   }
 
@@ -185,7 +185,7 @@ bool scheduled_task_short_fire(log::Logger* logger_ptr, Scheduled_task_handle ta
     }
     else
     {
-      Lock_guard<Mutex_non_recursive> lock(*task->m_mutex_unless_single_threaded);
+      Lock_guard<Mutex_non_recursive> lock{*task->m_mutex_unless_single_threaded};
       assert(task->m_fired && (!task->m_canceled));
     }
 #endif
@@ -223,7 +223,7 @@ Fine_duration scheduled_task_fires_from_now_or_canceled(log::Logger* logger_ptr,
   const auto& mtx = task->m_mutex_unless_single_threaded;
   if (mtx)
   {
-    Lock_guard<Mutex_non_recursive> lock(*mtx);
+    Lock_guard<Mutex_non_recursive> lock{*mtx};
     return do_it();
   }
   // else
@@ -249,7 +249,7 @@ bool scheduled_task_fired(log::Logger* logger_ptr, Scheduled_task_const_handle t
   const auto& mtx = task->m_mutex_unless_single_threaded;
   if (mtx)
   {
-    Lock_guard<Mutex_non_recursive> lock(*mtx);
+    Lock_guard<Mutex_non_recursive> lock{*mtx};
     return do_it();
   }
   // else
@@ -270,7 +270,7 @@ bool scheduled_task_canceled(log::Logger* logger_ptr, Scheduled_task_const_handl
   const auto& mtx = task->m_mutex_unless_single_threaded;
   if (mtx)
   {
-    Lock_guard<Mutex_non_recursive> lock(*mtx);
+    Lock_guard<Mutex_non_recursive> lock{*mtx};
     return do_it();
   }
   // else

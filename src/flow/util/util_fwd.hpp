@@ -22,6 +22,7 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <boost/thread/null_mutex.hpp>
+#include <boost/core/span.hpp>
 #include <iostream>
 #include <memory>
 
@@ -39,6 +40,11 @@
  */
 namespace flow::util
 {
+// Constants.
+
+/// Configures a #Span at compile-time to have a variable, rather than constant, length (use it as template arg).
+constexpr size_t DYNAMIC_EXTENT = boost::dynamic_extent;
+
 // Types.
 
 // Find doc headers near the bodies of these compound types.
@@ -65,6 +71,12 @@ template<typename Target_ptr,
 class Shared_ptr_alias_holder;
 
 class String_ostream;
+
+template<typename Thread_local_state_t>
+class Thread_local_state_registry;
+
+template<typename Shared_state_t>
+class Polled_shared_state;
 
 class Unique_id_holder;
 
@@ -326,6 +338,20 @@ using Lock_guard_noop_shared_non_recursive_sh = boost::shared_lock<Mutex_noop_sh
  */
 using Lock_guard_noop_shared_non_recursive_ex = boost::unique_lock<Mutex_noop_shared_non_recursive>;
 
+/**
+ * Short-hand for `std::span`-like type; that is contiguous sequence of objects with the first element of the sequence
+ * at position zero.
+ *
+ * @todo Once we switch to C++20 (from C++17), #Span can be pointed at `std::span` instead of `boost::span`.
+ *
+ * @tparam T
+ *         Element type.
+ * @tparam E
+ *         Compile-time constant length of a span of this type; or `DYNAMIC_EXTENT` for it to be variable.
+ */
+template<typename T, size_t E = DYNAMIC_EXTENT>
+using Span = boost::span<T, E>;
+
 // Free functions.
 
 /**
@@ -337,8 +363,9 @@ using Lock_guard_noop_shared_non_recursive_ex = boost::unique_lock<Mutex_noop_sh
  * @param val2
  *        Object.
  */
-template<typename Key, typename Mapped, typename Hash, typename Pred>
-void swap(Linked_hash_map<Key, Mapped, Hash, Pred>& val1, Linked_hash_map<Key, Mapped, Hash, Pred>& val2);
+template<typename Key_t, typename Mapped_t, typename Hash_t, typename Pred_t>
+void swap(Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>& val1,
+          Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>& val2);
 
 /**
  * Equivalent to `val1.swap(val2)`.
@@ -349,8 +376,9 @@ void swap(Linked_hash_map<Key, Mapped, Hash, Pred>& val1, Linked_hash_map<Key, M
  * @param val2
  *        Object.
  */
-template<typename Key, typename Hash, typename Pred>
-void swap(Linked_hash_set<Key, Hash, Pred>& val1, Linked_hash_set<Key, Hash, Pred>& val2);
+template<typename Key_t, typename Hash_t, typename Pred_t>
+void swap(Linked_hash_set<Key_t, Hash_t, Pred_t>& val1,
+          Linked_hash_set<Key_t, Hash_t, Pred_t>& val2);
 
 /**
  * Get the current POSIX (Unix) time as a duration from the Epoch time point.
@@ -503,7 +531,7 @@ std::string buffers_dump_string(const Const_buffer_sequence& data, const std::st
 
 /**
  * Utility that converts a bandwidth in arbitrary units in both numerator and denominator to the same bandwidth
- * in megabits per second.  The input bandwidth is given in "items" per `Time_unit(1)`; where `Time_unit` is an
+ * in megabits per second.  The input bandwidth is given in "items" per `Time_unit{1}`; where `Time_unit` is an
  * arbitrary boost.chrono `duration` type that must be explicitly provided as input; and an "item" is defined
  * as `bits_per_item` bits.  Useful at least for logging.  It's probably easiest to understand by example; see below;
  * rather than by parsing that description I just wrote.
@@ -544,7 +572,7 @@ std::string buffers_dump_string(const Const_buffer_sequence& data, const std::st
  * @tparam N_items
  *         Some (not necessarily integral) numeric type.  Strictly speaking, any type convertible to `double` works.
  * @param items_per_time
- *        The value, in items per `Time_unit(1)` (where there are `bits_per_item` bits in 1 item) to convert to
+ *        The value, in items per `Time_unit{1}` (where there are `bits_per_item` bits in 1 item) to convert to
  *        megabits per second.  Note this need not be an integer.
  * @param bits_per_item
  *        Number of bits in an item, where `items_per_time` is given as a number of items.
@@ -557,16 +585,42 @@ double to_mbit_per_sec(N_items items_per_time, size_t bits_per_item = 8);
  * Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest
  * integer.  Internally, it avoids floating-point math for performance.
  *
+ * @note `constexpr`: can be used in compile-time expressions.
+ * @see round_to_multiple() which is essentially `return b * ceil_div(a, b)`.
+ *
  * @tparam Integer
  *         A signed or unsigned integral type.
+ * @tparam Integer2
+ *         Ditto.
  * @param dividend
- *        Dividend; non-negative or assertion trips.
+ *        Dividend; non-negative (else results undefined).
  * @param divisor
- *        Divisor; positive or assertion trips.
+ *        Divisor; positive (else results undefined).
  * @return Ceiling of `(dividend / divisor)`.
  */
-template<typename Integer>
-Integer ceil_div(Integer dividend, Integer divisor);
+template<typename Integer, typename Integer2>
+constexpr Integer ceil_div(Integer dividend, Integer2 divisor);
+
+/**
+ * Returns the smallest integer >= the given integer `dividend` such that it is a multiple
+ * of the given integer `unit`.  Essentialy that is: `unit * ceil_div(dividend, unit)`.
+ *
+ * For example: 0 in 1024s => 0; 1 in 1024s => 1024; 1024 in 1024s => 1024; 1025 in 1024s => 2048.
+ *
+ * @note `constexpr`: can be used in compile-time expressions.
+ *
+ * @tparam Integer
+ *         A signed or unsigned integral type.
+ * @tparam Integer2
+ *         Ditto.
+ * @param dividend
+ *        Dividend; non-negative (else results undefined).
+ * @param unit
+ *        Divisor; positive (else results undefined).
+ * @return See above.
+ */
+template<typename Integer, typename Integer2>
+constexpr Integer round_to_multiple(Integer dividend, Integer2 unit);
 
 /**
  * Provides a way to execute arbitrary (cleanup) code at the exit of the current block.  Simply
@@ -697,7 +751,7 @@ bool key_exists(const Container& container, const typename Container::key_type& 
  * @tparam Minuend
  *         Numeric type.
  * @tparam Subtrahend
- *         Numeric type, such that given `Subtrahend s`, `Minuend(s)` is something reasonable for all `s` involved.
+ *         Numeric type, such that given `Subtrahend s`, `Minuend{s}` is something reasonable for all `s` involved.
  * @param minuend
  *        `*minuend` is set to either `(*minuend - subtrahend)` or `floor`, whichever is higher.
  * @param subtrahend
@@ -790,7 +844,7 @@ void sequence_to_inverted_lookup_map
  * @see log::Thread_local_string_appender for an even more efficient version of this for some applications that can
  *      also enable a continuous stream across multiple stream-writing statements over time.
  *
- * @tparam ...T
+ * @tparam T
  *         Each type `T` is such that `os << t`, with types `T const & t` and `ostream& os`, builds and writes
  *         `t` to `os`, returning lvalue `os`.
  *         Usually in practice this means the existence of `ostream& operator<<(ostream&, T const &)` or
@@ -803,8 +857,8 @@ void sequence_to_inverted_lookup_map
  *        One or more arguments, such that each argument `arg` is suitable for `os << arg`, where
  *        `os` is an `ostream`.
  */
-template<typename ...T>
-void ostream_op_to_string(std::string* target_str, T const &... ostream_args);
+template<typename... T>
+void ostream_op_to_string(std::string* target_str, T&&... ostream_args);
 
 /**
  * Equivalent to ostream_op_to_string() but returns a new `string` by value instead of writing to the caller's
@@ -814,45 +868,27 @@ void ostream_op_to_string(std::string* target_str, T const &... ostream_args);
  * With the C++11-y use of move semantics in STL it should be no slower than using
  * `ostream_op_to_string()` -- meaning, it is no slower, period, as this library now requires C++11.
  *
- * @tparam ...T
+ * @tparam T
  *         See ostream_op_to_string().
  * @param ostream_args
  *        See ostream_op_to_string().
  * @return Resulting `std::string`.
  */
-template<typename ...T>
-std::string ostream_op_string(T const &... ostream_args);
+template<typename... T>
+std::string ostream_op_string(T&&... ostream_args);
 
 /**
- * "Induction step" version of variadic function template that simply outputs arguments 2+ via
- * `<<` to the given `ostream`, in the order given.
- *
- * @tparam ...T_rest
- *         See `...T` in ostream_op_to_string().
- * @param remaining_ostream_args
- *        See `ostream_args` in ostream_op_to_string().
- * @tparam T1
- *         Same as each of `...T_rest`.
- * @param ostream_arg1
- *        Same as each of `remaining_ostream_args`.
- * @param os
- *        Pointer to stream to which to sequentially send arguments for output.
- */
-template<typename T1, typename ...T_rest>
-void feed_args_to_ostream(std::ostream* os, T1 const & ostream_arg1, T_rest const &... remaining_ostream_args);
-
-/**
- * "Induction base" for a variadic function template, this simply outputs given item to given `ostream` via `<<`.
+ * Function template that simply outputs arguments 2+ via `<<` to the given `ostream`, in the order given.
  *
  * @tparam T
- *         See each of `...T` in ostream_op_to_string().
+ *         See `T` in ostream_op_to_string().
+ * @param ostream_args
+ *        See `ostream_args` in ostream_op_to_string().
  * @param os
  *        Pointer to stream to which to sequentially send arguments for output.
- * @param only_ostream_arg
- *        See each of `ostream_args` in ostream_op_to_string().
  */
-template<typename T>
-void feed_args_to_ostream(std::ostream* os, T const & only_ostream_arg);
+template<typename... T>
+void feed_args_to_ostream(std::ostream* os, T&&... ostream_args);
 
 /**
  * Deserializes an `enum class` value from a standard input stream.  Reads up to but not including the next
@@ -933,6 +969,20 @@ void beautify_chrono_ostream(std::ostream* os);
  * @return See above.
  */
 size_t deep_size(const std::string& val);
+
+/**
+ * Serializes a Thread_local_state_registry to a standard output stream.
+ *
+ * @relatesalso Thread_local_state_registry
+ *
+ * @param os
+ *        Stream to which to serialize.
+ * @param val
+ *        Value to serialize.
+ * @return `os`.
+ */
+template<typename Thread_local_state_t>
+std::ostream& operator<<(std::ostream& os, const Thread_local_state_registry<Thread_local_state_t>& val);
 
 // Macros.
 

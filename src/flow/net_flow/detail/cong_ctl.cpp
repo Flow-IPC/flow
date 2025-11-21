@@ -104,12 +104,12 @@ Congestion_control_strategy* Congestion_control_selector::create_strategy
   switch (strategy_choice)
   {
   case Strategy_choice::S_CLASSIC:
-    return new Congestion_control_classic(logger_ptr, sock);
+    return new Congestion_control_classic{logger_ptr, sock};
   case Strategy_choice::S_CLASSIC_BANDWIDTH_ESTIMATED:
-    return new Congestion_control_classic_with_bandwidth_est(logger_ptr, sock);
+    return new Congestion_control_classic_with_bandwidth_est{logger_ptr, sock};
   }
   assert(false);
-  return 0;
+  return nullptr;
 }
 
 void Congestion_control_selector::get_ids(std::vector<std::string>* ids) // Static.

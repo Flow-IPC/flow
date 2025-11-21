@@ -112,7 +112,7 @@ int Main::main(int argc, const char** argv)
   log_config.configure_default_verbosity(Sev::S_DATA, true);
   /* First arg: could use &m_logger to log-about-logging to console; but it's a bit heavy for such a console-dependent
    * little program.  Just just send it to /dev/null metaphorically speaking. */
-  Async_file_logger log_logger(0, &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */);
+  Async_file_logger log_logger{0, &log_config, LOG_FILE, true /* Hook up SIGHUP log rotation for fun. */};
 
   if ((argc == 1) || ((argc - 1) > 2) || (((argc - 1) == 2) && (argv[2] != LOCALHOST_TOKEN)))
   {
@@ -121,7 +121,7 @@ int Main::main(int argc, const char** argv)
   }
   // else
 
-  const String_view port_str(argv[1]);
+  const String_view port_str{argv[1]};
   const bool bind_to_localhost = (argc - 1) == 2;
 
   // Argument parsing done. Go!
@@ -135,7 +135,7 @@ int Main::main(int argc, const char** argv)
       const String_view host_str = bind_to_localhost ? "127.0.0.1" : "0.0.0.0";
 
       io_context io;
-      resolver res(io);
+      resolver res{io};
       Error_code ec;
       const auto results = res.resolve(host_str, port_str, ec);
       if (ec)
@@ -160,7 +160,7 @@ int Main::main(int argc, const char** argv)
     Node_options opts;
     opts.m_st_capture_interrupt_signals_internally = true; // Be reasonably graceful on SIGTERM (throw exception, etc.).
 
-    Node node(&log_logger, local_udp_endpoint, 0, 0, opts);
+    Node node{&log_logger, local_udp_endpoint, 0, 0, opts};
     // Within that, listen on hard-coded Flow port.
     Server_socket::Ptr serv = node.listen(LOCAL_FLOW_PORT);
 
@@ -221,7 +221,7 @@ void Main::on_client_connected(flow::net_flow::Peer_socket::Ptr sock)
       assert(rcvd != 0);
       /* Copy received buffer into this string. We are going to need a string to log it anyway, so might as well use
        * the same string as the reply payload buffer. (Or could use buf_rcvd for that; doesn't matter.) */
-      const string rcvd_msg(buf_rcvd.data(), rcvd);
+      const string rcvd_msg{buf_rcvd.data(), rcvd};
       FLOW_LOG_INFO("On Flow socket [" << sock << "]: received message [" << rcvd_msg << "].");
 
       sent = sock->sync_send(buffer(rcvd_msg), seconds(5), &err_code);

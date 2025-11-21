@@ -27,7 +27,7 @@ namespace flow::net_flow::asio
 
 Server_socket::Server_socket(log::Logger* logger_ptr, const Peer_socket_options* child_sock_opts) :
   net_flow::Server_socket(logger_ptr, child_sock_opts),
-  m_target_task_engine(0)
+  m_target_task_engine(nullptr)
 {
   // Only print pointer value, because most members are garbage at this point.
   FLOW_LOG_TRACE("boost.asio-integrated Server_socket [" << static_cast<void*>(this) << "] created; no Task_engine.");
@@ -73,7 +73,7 @@ void Server_socket::async_accept_impl(Handler_func&& on_result,
 
     FLOW_LOG_WARNING("Cannot perform async op on object [" << this << "]: it is already closed for "
                      "reason [" << err_code << '/' << err_code.message() << "].");
-    on_result(err_code, Peer_socket::Ptr()); // It post()s user's originally-passed-in handler.
+    on_result(err_code, Peer_socket::Ptr{}); // It post()s user's originally-passed-in handler.
     return;
   }
   // else

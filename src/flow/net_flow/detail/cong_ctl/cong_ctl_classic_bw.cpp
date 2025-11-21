@@ -180,7 +180,7 @@ size_t Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted
   const Peer_socket::Const_ptr sock = socket();
 
   /* The basic formula is CWND = B * RTTmin.  Units and arithmetic are as follows.  B is in units of
-   * bytes per Time_unit(1).  (The selection of Time_unit(1) is discussed in detail in that
+   * bytes per Time_unit{1}.  (The selection of Time_unit{1} is discussed in detail in that
    * alias's doc header.)  RTTmin, accordingly, is in units of Time_unit.  Therefore we can simply
    * multiply the two values.
    *
@@ -199,7 +199,7 @@ size_t Congestion_control_classic_with_bandwidth_est::congestion_window_adjusted
 
   FLOW_LOG_TRACE("cong_ctl|bw_est [" << sock << "] info: window calculation: wnd "
                  "= bw x rtt_min = [" << sock->bytes_blocks_str(size_t(bytes_per_time)) << "] bytes "
-                 "per [" << Time_unit(1) << "] x [" << m_rtt_min << "] "
+                 "per [" << Time_unit{1} << "] x [" << m_rtt_min << "] "
                  "(subject to floor [" << sock->bytes_blocks_str(floor_wnd_bytes) << "]) "
                  "= [" << sock->bytes_blocks_str(new_wnd_bytes) << "].");
 

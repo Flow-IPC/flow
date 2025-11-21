@@ -25,6 +25,11 @@ set(SRCS
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_common_util.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_file_util.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/log/detail/test/component_cfg_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/log/test/log_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/util/test/linked_hash_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/util/test/thread_lcl_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/util/test/util_test.cpp
     test_main.cpp)
 
 add_executable(${name} ${SRCS})
@@ -42,6 +47,11 @@ common_set_target_properties(${name})
 
 # Link good ol' flow; and gtest.
 target_link_libraries(${name} PRIVATE flow ${GTEST_LIB})
+# At least blob_test.cpp requires boost.interprocess SHM ops which require this lib.  (Flow itself doesn't as of
+# this writing.)
+if(LINUX)
+  target_link_libraries(${name} PRIVATE rt)
+endif()
 
 # Might as well export if they `make install` or equivalent.
 install(TARGETS ${name}

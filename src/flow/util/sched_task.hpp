@@ -176,7 +176,7 @@ Scheduled_task_handle schedule_task_from_now(log::Logger* logger_ptr,
       }
       else
       {
-        Lock_guard<Mutex_non_recursive> lock(*task->m_mutex_unless_single_threaded);
+        Lock_guard<Mutex_non_recursive> lock{*task->m_mutex_unless_single_threaded};
         assert(task->m_fired != task->m_canceled);
       }
     }
@@ -224,7 +224,7 @@ Scheduled_task_handle schedule_task_from_now(log::Logger* logger_ptr,
     }
     else
     {
-      Lock_guard<Mutex_non_recursive> lock(*task->m_mutex_unless_single_threaded);
+      Lock_guard<Mutex_non_recursive> lock{*task->m_mutex_unless_single_threaded};
       noop = !should_fire();
     }
 

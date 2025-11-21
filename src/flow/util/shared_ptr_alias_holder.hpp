@@ -188,7 +188,7 @@ typename Shared_ptr_alias_holder<Target_ptr, Const_target_ptr>::Ptr
 {
   // This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.
   auto const raw_ptr_post_cast = static_cast<typename Target_ptr::element_type*>(ptr_to_cast.get());
-  return Target_ptr(ptr_to_cast, raw_ptr_post_cast);
+  return Target_ptr{ptr_to_cast, raw_ptr_post_cast};
 }
 
 template<typename Target_ptr, typename Const_target_ptr>
@@ -198,7 +198,7 @@ typename Shared_ptr_alias_holder<Target_ptr, Const_target_ptr>::Const_ptr
 {
   // This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.
   auto const raw_ptr_post_cast = static_cast<typename Target_ptr::element_type const *>(ptr_to_cast.get());
-  return Const_target_ptr(ptr_to_cast, raw_ptr_post_cast);
+  return Const_target_ptr{ptr_to_cast, raw_ptr_post_cast};
 }
 
 template<typename Target_ptr, typename Const_target_ptr>
@@ -208,8 +208,8 @@ typename Shared_ptr_alias_holder<Target_ptr, Const_target_ptr>::Ptr
 {
   // This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.
   auto const raw_ptr_post_cast = dynamic_cast<typename Target_ptr::element_type*>(ptr_to_cast.get());
-  return raw_ptr_post_cast ? Target_ptr(ptr_to_cast, raw_ptr_post_cast)
-                           : Target_ptr();
+  return raw_ptr_post_cast ? Target_ptr{ptr_to_cast, raw_ptr_post_cast}
+                           : Target_ptr{};
 }
 
 template<typename Target_ptr, typename Const_target_ptr>
@@ -219,8 +219,8 @@ typename Shared_ptr_alias_holder<Target_ptr, Const_target_ptr>::Const_ptr
 {
   // This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.
   auto const raw_ptr_post_cast = dynamic_cast<typename Target_ptr::element_type const *>(ptr_to_cast.get());
-  return raw_ptr_post_cast ? Const_target_ptr(ptr_to_cast, raw_ptr_post_cast)
-                           : Const_target_ptr();
+  return raw_ptr_post_cast ? Const_target_ptr{ptr_to_cast, raw_ptr_post_cast}
+                           : Const_target_ptr{};
 }
 
 } // namespace flow::util

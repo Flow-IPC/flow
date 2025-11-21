@@ -385,7 +385,7 @@ public:
     uint64_t m_hi_limit;
 
     /**
-     * Value of `Async_file_logger(...).throttling_cfg().m_hi_limit`: default/initial value of #m_hi_limit.
+     * Value of `Async_file_logger{...}.throttling_cfg().m_hi_limit`: default/initial value of #m_hi_limit.
      *
      * Note that this value is not meant to be some kind of universally correct choice for #m_hi_limit.
      * Users can and should change `m_hi_limit`.

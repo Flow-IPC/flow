@@ -104,7 +104,7 @@ using Task = Function<void ()>;
  * In addition, it is guaranteed that copying (via constructor or assignment) of async::Op is
  * has performance characteristics no worse than those of `shared_ptr`.  I.e., it is to be thought of as light-weight.
  *
- * The value `Op()` is designated as a null/sentinel value and must not be passed to Concurrent_task_loop::post()
+ * The value `Op{}` is designated as a null/sentinel value and must not be passed to Concurrent_task_loop::post()
  * or anything built on it.
  *
  * That's the formal definition.  We reiterate that copying these is cheap; and moreover two `Op`s such that

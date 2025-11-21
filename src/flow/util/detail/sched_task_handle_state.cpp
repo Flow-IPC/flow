@@ -30,7 +30,8 @@ Scheduled_task_handle_state::Scheduled_task_handle_state(Unique_id_holder::id_t 
   m_id(id),
   m_body(std::move(body_moved)),
   m_task_engine(task_engine),
-  m_mutex_unless_single_threaded(single_threaded ? static_cast<Mutex_non_recursive*>(0) : (new Mutex_non_recursive)),
+  m_mutex_unless_single_threaded(single_threaded ? static_cast<Mutex_non_recursive*>(nullptr)
+                                                 : (new Mutex_non_recursive)),
   m_timer(*m_task_engine),
   m_fired(false),
   m_canceled(false)

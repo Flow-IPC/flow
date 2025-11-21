@@ -114,7 +114,7 @@ Async_file_logger::Async_file_logger(Logger* backup_logger_ptr,
 
 Async_file_logger::Throttling_cfg Async_file_logger::throttling_cfg() const
 {
-  Lock_guard lock(m_throttling_mutex);
+  Lock_guard lock{m_throttling_mutex};
   return m_throttling_cfg;
 }
 
@@ -151,7 +151,7 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
   // Deal with `cfg`.
 
   { // All this->m_ touched in { here } can concurrently change, unless we lock.
-    Lock_guard lock(m_throttling_mutex);
+    Lock_guard lock{m_throttling_mutex};
 
     if (m_throttling_cfg.m_hi_limit != cfg.m_hi_limit)
     {
@@ -171,7 +171,7 @@ void Async_file_logger::throttling_cfg(bool active, const Throttling_cfg& cfg)
     }
     /* else: As discussed in class doc header: no-op, unless they actually changed something; no state reset.
      * E.g., perhaps they changed `active` while passing-in `cfg = throttling_cfg()` unchanged. */
-  } // Lock_guard lock(m_throttling_mutex);
+  } // Lock_guard lock{m_throttling_mutex};
 } // Async_file_logger::throttling_cfg()
 
 Async_file_logger::~Async_file_logger() // Virtual.
@@ -179,7 +179,7 @@ Async_file_logger::~Async_file_logger() // Virtual.
   using async::Synchronicity;
 
   {
-    Lock_guard lock(m_throttling_mutex); // Careful: really_log()s may well be happening right now via m_async_worker.
+    Lock_guard lock{m_throttling_mutex}; // Careful: really_log()s may well be happening right now via m_async_worker.
 
     FLOW_LOG_INFO("Async_file_logger [" << this << "]: Deleting.  Worker thread will flush "
                   "output if possible; then we will proceed to shut down.  Current mem-use of queued "
@@ -281,7 +281,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
   logs_sz_t pending_logs_sz; // For logging.
   logs_sz_t prev_pending_logs_sz;
   {
-    Lock_guard lock(m_throttling_mutex);
+    Lock_guard lock{m_throttling_mutex};
     limit = static_cast<logs_sz_t>(m_throttling_cfg.m_hi_limit);
     prev_pending_logs_sz = m_pending_logs_sz;
     pending_logs_sz = (m_pending_logs_sz += logs_sz);
@@ -348,7 +348,7 @@ void Async_file_logger::do_log(Msg_metadata* metadata, util::String_view msg) //
     logs_sz_t pending_logs_sz; // For logging.
     logs_sz_t prev_pending_logs_sz;
     {
-      Lock_guard lock(m_throttling_mutex);
+      Lock_guard lock{m_throttling_mutex};
       limit = m_throttling_cfg.m_hi_limit; // Just for logging in this case.
       prev_pending_logs_sz = m_pending_logs_sz;
       assert((prev_pending_logs_sz >= logs_sz) && "Bug?  really_log() has no matching do_log()?");

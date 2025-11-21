@@ -114,7 +114,7 @@ public:
    * @return See above.  Note the address stored in the returned *reference* is valid until destructor runs;
    *         hence it's not necessary (though cheap) to copy the `Op`.
    */
-  const Op& random_op(size_t* chosen_idx = 0) const;
+  const Op& random_op(size_t* chosen_idx = nullptr) const;
 
   /**
    * Returns a randomly selected index from range [O, size()).

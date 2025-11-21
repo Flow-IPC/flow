@@ -32,6 +32,8 @@ class Basic_blob;
 template<bool S_SHARING_ALLOWED = false>
 class Blob_with_log_context;
 
+struct Clear_on_alloc;
+
 /**
  * Short-hand for a Basic_blob that allocates/deallocates in regular heap and is itself assumed to be stored
  * in heap or on stack; sharing feature compile-time-disabled (with perf boost as a result).
@@ -66,6 +68,11 @@ using Blob = Blob_with_log_context<>;
  * @see Also consider #Sharing_blob_sans_log_context.
  */
 using Sharing_blob = Blob_with_log_context<true>;
+
+// Constants.
+
+/// Tag value indicating init-with-zeroes-on-alloc policy.
+extern const Clear_on_alloc CLEAR_ON_ALLOC;
 
 // Free functions.
 
@@ -103,7 +110,7 @@ bool blobs_sharing(const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
  */
 template<typename Allocator, bool S_SHARING_ALLOWED>
 void swap(Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
-          Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2, log::Logger* logger_ptr = 0);
+          Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2, log::Logger* logger_ptr = nullptr) noexcept;
 
 /**
  * On top of the similar Basic_blob related function, logs using the stored log context of `blob1`.
@@ -115,6 +122,6 @@ void swap(Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
  *        See super-class related API.
  */
 template<bool S_SHARING_ALLOWED>
-void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2);
+void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2) noexcept;
 
 } // namespace flow::util

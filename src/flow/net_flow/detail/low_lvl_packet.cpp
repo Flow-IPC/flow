@@ -386,7 +386,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   using boost::endian::little_to_native;
   using std::ostream;
 
-  Const_buffer raw_buf(raw_packet->const_data(), raw_packet->size());
+  Const_buffer raw_buf{raw_packet->const_data(), raw_packet->size()};
 
   // Make FLOW_LOG_...() calls below use these (we are static).
   FLOW_LOG_SET_CONTEXT(logger_ptr, Flow_log_component::S_NET_FLOW);
@@ -417,7 +417,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet is too small: "
                      "[" << raw_buf_size << "] bytes.");
-    return Ptr();
+    return Ptr{};
   }
 
   /* We'll advance this as we keep reading off values from raw buffer.
@@ -447,7 +447,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
       ? create_uninit_packet_base<Ack_packet>(logger_ptr)
     : ((raw_type_id == type_id_native_to_raw(typeid(Rst_packet)))
       ? create_uninit_packet_base<Rst_packet>(logger_ptr)
-    : Ptr())))));
+    : Ptr{})))));
   if (!packet)
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet type is invalid: "
@@ -467,7 +467,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   if (reserved2 != 0)
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet format is unknown.");
-    return Ptr();
+    return Ptr{};
   }
   // else
 
@@ -490,7 +490,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   // Low_lvl_packet part is filled out.  The sub-type part has junk.  This will fill that part out.
   if (!packet->deserialize_type_specific_data_from_raw_data_packet(&raw_buf, prefer_no_move, raw_packet))
   {
-    return Ptr(); // Error.  It logged.
+    return Ptr{}; // Error.  It logged.
   }
   // else
 
@@ -851,7 +851,7 @@ bool Ack_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buffe
     const auto& ack_delay_raw = *reinterpret_cast<const ack_delay_t*>(data);
     data += sizeof ack_delay_raw;
     const Fine_duration ack_delay
-      = Ack_delay_time_unit(little_to_native(ack_delay_raw));
+      = Ack_delay_time_unit{little_to_native(ack_delay_raw)};
 
     unsigned int rexmit_id;
     if (m_opt_rexmit_on)
@@ -865,7 +865,7 @@ bool Ack_packet::deserialize_type_specific_data_from_raw_data_packet(Const_buffe
       rexmit_id = 0;
     }
 
-    m_rcv_acked_packets.push_back(Individual_ack::Ptr(new Individual_ack{ seq_num, ack_delay, rexmit_id }));
+    m_rcv_acked_packets.push_back(Individual_ack::Ptr{new Individual_ack{ seq_num, ack_delay, rexmit_id }});
   } // for (all acks)
 
   assert(data == static_cast<const uint8_t*>(raw_buf->data()));

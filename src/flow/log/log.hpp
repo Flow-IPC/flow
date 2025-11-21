@@ -122,7 +122,7 @@
  * Then one could even (when desired) write such things as
  *
  *   ~~~
- *   Logger some_logger(...); // Some Logger that is not available through get_logger() as would be more typical.
+ *   Logger some_logger{...}; // Some Logger that is not available through get_logger() as would be more typical.
  *   some_logger.warning("Error detected: [", err_num, "].");
  *   ~~~
  *
@@ -139,7 +139,7 @@
  * might change this overall API) just to remove a few characters from each log call.  The above call would become:
  *
  *   ~~~
- *   log_warning("Error detected: [", err_num, "]."); // Invoke superclass Log_context's Logger::warning() method.
+ *   log_warning("Error detected: [", err_num, "]."); // Invoke super-class Log_context's Logger::warning() method.
  *   ~~~
  *
  * which is a little more compact.  That can also be accomplished by having flow::log::Log_context implement
@@ -374,7 +374,7 @@
 
 /**
  * For the rest of the block within which this macro is instantiated, causes all `FLOW_LOG_...()`
- * invocations to log to `ARG_logger_ptr` with component `flow::log::Component(ARG_component_payload)`, instead of the
+ * invocations to log to `ARG_logger_ptr` with component `flow::log::Component{ARG_component_payload}`, instead of the
  * normal `get_logger()` and `get_log_component()`, if there even such things are available in the block.  This is
  * useful, for example, in `static` methods, where there is no `get_logger()` or `get_log_component()` function defined,
  * but a flow::log::Logger and component payload are available (for example) via parameters.  It's also useful if one
@@ -399,7 +399,7 @@
  *        `ARG_logger_ptr` will be used as the `Logger*` in subsequent `FLOW_LOG_...()`
  *        invocations in this block.
  * @param ARG_component_payload
- *        `Component(ARG_component_payload)`, a light-weight holder of a copy of `ARG_component_payload`, will be used
+ *        `Component{ARG_component_payload}`, a light-weight holder of a copy of `ARG_component_payload`, will be used
  *        as the `const Component&` in subsequent `FLOW_LOG_...()` invocations in this block.
  */
 #define FLOW_LOG_SET_CONTEXT(ARG_logger_ptr, ARG_component_payload) \
@@ -450,7 +450,7 @@
  */
 #define FLOW_LOG_SET_COMPONENT(ARG_component_payload) \
   [[maybe_unused]] \
-    const auto get_log_component = [component = ::flow::log::Component(ARG_component_payload)] \
+    const auto get_log_component = [component = ::flow::log::Component{ARG_component_payload}] \
                                      () -> const ::flow::log::Component & \
   { \
     return component; \
@@ -559,9 +559,11 @@
     constexpr size_t FLOW_LOG_WO_CHK_file_sz = sizeof(__FILE__) - 1; \
     constexpr char const * FLOW_LOG_WO_CHK_func_ptr = __FUNCTION__; \
     constexpr size_t FLOW_LOG_WO_CHK_func_sz = sizeof(__FUNCTION__) - 1; \
+    /* Minor: Using {} instead of () here leads to some macro trouble; not worth the pain to fix it. */ \
     constexpr String_view FLOW_LOG_WO_CHK_full_file_str(FLOW_LOG_WO_CHK_file_ptr, FLOW_LOG_WO_CHK_file_sz); \
     /* Yes -- get_last_path_segment() is constexpr and will thus "execute" at compile time! */ \
     constexpr String_view FLOW_LOG_WO_CHK_file_str = get_last_path_segment(FLOW_LOG_WO_CHK_full_file_str); \
+    /* Minor: Using {} instead of () here leads to some macro trouble; not worth the pain to fix it. */ \
     constexpr String_view FLOW_LOG_WO_CHK_func_str(FLOW_LOG_WO_CHK_func_ptr, FLOW_LOG_WO_CHK_func_sz); \
     const Component& FLOW_LOG_WO_CHK_component = get_log_component(); \
     string FLOW_LOG_WO_CHK_call_thread_nickname; \
@@ -742,7 +744,7 @@
     /*   However, for an alleged perf bump (@todo verify!) we use a */ \
     /*   thread-local Msg_metadata to avoid making this thing on the stack and then destroying almost immediately. */ \
     FLOW_LOG_DO_LOG_logger->do_log(FLOW_LOG_DO_LOG_msg_metadata_ptr, \
-                                   String_view(FLOW_LOG_DO_LOG_appender.target_contents())); \
+                                   String_view{FLOW_LOG_DO_LOG_appender.target_contents()}); \
   ) /* FLOW_UTIL_SEMICOLON_SAFE() */
 
 namespace flow::log
@@ -1204,14 +1206,14 @@ struct Msg_metadata
  * (say) Simple_ostream_logger, Buffer_logger, and Async_file_logger, do this:
  *   - Take a Config pointer at constructor and save it (do not copy the Config).  (There are thread safety
  *     implications.)
- *   - Internally use some kind of `ostream`-subclass member to a target device, if at all possible.
+ *   - Internally use some kind of `ostream`-sub-class member to a target device, if at all possible.
  *     (boost.asio will let you even write to network this way; but at least console output, file output, and
  *     memory string output are 100% practical via `ostream`s.  Existing `Logger`s provide examples.)
  *   - Internally use an Ostream_log_msg_writer to write to said `ostream`, the formatting thereof being configurable
  *     in a uniform way via the saved Config.
  *   - Forward should_log() logic to the saved Config (Config::output_whether_should_log()), so that verbosity is
  *     flexibly but uniformly set via Config.
- *   - It is up to the user, now, to set up the Config appropriately when passing it to your `Logger` subclass
+ *   - It is up to the user, now, to set up the Config appropriately when passing it to your `Logger` sub-class
  *     constructor.  The user would simply follow the documentation for Config, and you need neither re-implement
  *     nor re-document configurability of your Logger.
  *
@@ -1226,7 +1228,7 @@ struct Msg_metadata
  * synchronously or asynchronously.  To wit, the thread safety discussion:
  *
  * ### Thread safety ###
- * The degree of thread safety for either of the 2 main operations is completely up to the subclass implementer.
+ * The degree of thread safety for either of the 2 main operations is completely up to the sub-class implementer.
  * Informally, we suggest here that you think about this topic carefully.  In particular, without locking,
  * do_log() may run concurrently with itself from multiple threads; depending on the medium to which
  * it is writing, this may result in corruption or ugly output or turn out fine, depending on how you define
@@ -1235,7 +1237,7 @@ struct Msg_metadata
  * concurrently with themselves from multiple threads on the same Logger.  In general that should be expected in all but
  * the simplest single-threaded apps.
  *
- * Implementation suggestions for Logger subclasses with respect to thread safety: There are 2 likeliest patterns one
+ * Implementation suggestions for Logger sub-classes with respect to thread safety: There are 2 likeliest patterns one
  * can use.
  *   -# One can use a mutex lock around actual writing to the target device.  There's nothing inherently un-performant
  *      about this, in an of itself, and the implementation is incredibly simple.  For example see
@@ -1450,8 +1452,8 @@ public:
    * assignment, not necessarily the most critical of information).  Certainly this zero-to-one-`Logger` version must
    * continue to be available for syntactic-sugary convenience, even if the to-do is performed.
    */
-  static void this_thread_set_logged_nickname(util::String_view thread_nickname = util::String_view(),
-                                              Logger* logger_ptr = 0,
+  static void this_thread_set_logged_nickname(util::String_view thread_nickname = {},
+                                              Logger* logger_ptr = nullptr,
                                               bool also_set_os_name = true);
 
   /**
@@ -1504,7 +1506,7 @@ public:
    *        Non-null pointer to value to modify.  See above.
    */
   static void set_thread_info(std::string* call_thread_nickname,
-                              flow::util::Thread_id* call_thread_id);
+                              util::Thread_id* call_thread_id);
 
   /**
    * Returns the stream dedicated to the executing thread and `this` Logger, so that the caller can apply
@@ -1557,7 +1559,7 @@ private:
  * Logger and Component via get_logger() and get_log_component() public accessors.  It's extremely
  * useful (almost mandatory in conventional practice) for classes that want to log, as they can simply
  * derive from it (passing in the desired `Logger*` and Component payload (an `enum`
- * value) into the Log_context superclass constructor),
+ * value) into the Log_context super-class constructor),
  * at which point the get_logger() and get_log_component() functions the `FLOW_LOG_...()` macros expect automatically
  * become available without any additional code having to be written in the logging class.  Here is how:
  *
@@ -1571,7 +1573,7 @@ private:
  *       Log_context(&m_logger, My_cool_components::S_FUN_HAVER),
  *       // Initialize stdout logger that logs INFO-or-higher-severity messages.
  *       m_logger(true, std::cout, std::cout, flow::log::Sev::S_INFO),
- *       // ... other initializers and superclass constructors, if any ...
+ *       // ... other initializers and super-class constructors, if any ...
  *     {
  *       FLOW_LOG_INFO("I can log right from the constructor and throughout *this lifetime!");
  *       // ... other code ...
@@ -1580,7 +1582,7 @@ private:
  *   private:
  *     void do_fun_stuff()
  *     {
- *       // This macro works, because Log_context superclass defines get_logger() which returns m_logger,
+ *       // This macro works, because Log_context super-class defines get_logger() which returns m_logger,
  *       // and component() returns My_cool_components::S_FUN_HAVER.
  *       // But we need not ever worry about such details.
  *       FLOW_LOG_INFO("I am about to do something cool and fun: " << 42 << "!");
@@ -1593,7 +1595,33 @@ private:
  *   ~~~
  *
  * Note that the `operator=()` allows one to change the underlying Logger anytime after
- * construction (e.g., `existing_log_context = Log_context(&some_logger, Some_enum::S_SOME_COMPONENT);`).
+ * construction (e.g., `existing_log_context = Log_context{&some_logger, Some_enum::S_SOME_COMPONENT};`).
+ * That said it is more convenient to use set_logger(); but see the next section, as this may involve more
+ * subtleties than one might think.
+ *
+ * ### Setting the logger / thready safety ###
+ * set_logger() allows one, including an external user, to change the Logger.  However beware two points w/r/t
+ * thread safety.
+ *   -# It is not safe to use set_logger() or `*this = Log_context{...}` concurrently with any call
+ *      that would log via get_logger(): so anything that, e.g., does `FLOW_LOG_...()`.  It only replaces
+ *      a pointer in memory, but there is no mutex or atomic protection; so it is not safe.
+ *   -# Assuming one avoids any issues with the get_logger() pointer safety, please be sure that the Logger
+ *      itself is actually valid/alive.
+ *
+ * Informally: Generally it is best to avoid changing the active Logger, after an object is constructed.
+ * 99% of code in practice does not do so; it is usually far better to affect the Logger via its Config which
+ * takes massive pains to be both thread-safe and performant at that.
+ *
+ * However in practice there is at least one exception to this: when the sub-class's instance is `static` or
+ * even global and/or a singleton.  Then it might operate before and even after `main()`, and even during `main()` there
+ * may not be a good `Logger` to use yet.  One might then make use of set_logger(), e.g., early in `main()` to
+ * change it from null to a `Logger` and then back late in `main()` (or if not null then a default
+ * Simple_ostream_logger to `cout` + `cerr`... you get the idea).
+ *
+ * That however does not protect against thread-safety problems (point 1 above) necessarily.  It depends when one
+ * does it.  If it is necessary to be changing get_logger() return-value while get_logger() is potentially used
+ * by another thread, then consider using Log_context_mt.  There is a bit of a perf trade-off there (see its doc
+ * header).
  *
  * ### Implementation notes ###
  * The code could be shorter by getting rid of non-copy constuctor in favor of direct member initialization by user;
@@ -1615,10 +1643,10 @@ public:
    * Constructs Log_context by storing the given pointer to a Logger and a null Component.
    *
    * @param logger
-   *        Pointer to store.  Rationale for providing the null default: To facilitate subclass `= default` no-arg
+   *        Pointer to store.  Rationale for providing the null default: To facilitate sub-class `= default` no-arg
    *        ctors.
    */
-  explicit Log_context(Logger* logger = 0);
+  explicit Log_context(Logger* logger = nullptr);
 
   /**
    * Constructs Log_context by storing the given pointer to a Logger and a new Component storing the
@@ -1695,6 +1723,19 @@ public:
   Logger* get_logger() const;
 
   /**
+   * Sets the value to be returned by the next get_logger() call; returns get_logger() from before the change.
+   *
+   * Behavior is undefined if invoked concurrently with itself or get_logger() on the same `*this`.
+   * If that is unacceptable: see our class doc header for brief discussion / suggestion on alternative to
+   * Log_context.
+   *
+   * @param logger
+   *        As in ctor.
+   * @return get_logger() pre-change.
+   */
+  Logger* set_logger(Logger* logger);
+
+  /**
    * Returns reference to the stored Component object, particularly as many `FLOW_LOG_*()` macros expect.
    *
    * @note It's public at least so that FLOW_LOG_SET_CONTEXT() works in all reasonable contexts.
@@ -1711,6 +1752,114 @@ private:
   /// The held Component object.  Making the object non-`const` to allow `operator=()` to work.
   Component m_component;
 }; // class Log_context
+
+/**
+ * Identical to Log_context but is safe w/r/t to set_logger(), assignment, and `swap()` done concurrently to
+ * ops (especially get_logger()) on the same `*this`.
+ *
+ * @see Log_context doc header section "Setting the logger / thready safety."
+ *
+ * There is a perf trade-off: essentially all operations will lock an internal mutex, proceed, then unlock.
+ * This will have a small cost when there is no lock contention (no simultaneous logging -- get_logger() calls);
+ * and a larger cost when there is (when indeed there is simultaneous logging -- therefore get_logger() calls).
+ * Informally: in our experience, as noted in the aforementioned doc header discussion, set_logger() is mainly
+ * used when the sub-class is instantiated `static`ally or globally; and usually it is possible to simply avoid
+ * logging along fast-paths of such classes.
+ *
+ * Still: it requires care.  If you need to provide/use set_logger(), be mindful of this potential source of
+ * slow-down.
+ */
+class Log_context_mt :
+  private Log_context
+{
+public:
+  // Constructors/destructor.
+
+  /**
+   * Identical to Log_context API.
+   * @param logger
+   *        See above.
+   */
+  explicit Log_context_mt(Logger* logger = nullptr);
+
+  /**
+   * Identical to Log_context API.
+   * @tparam Component_payload
+   *         See above.
+   * @param logger
+   *        See above.
+   * @param component_payload
+   *        See above.
+   */
+  template<typename Component_payload>
+  explicit Log_context_mt(Logger* logger, Component_payload component_payload);
+
+  /**
+   * Identical to Log_context API.
+   * @param src
+   *        See above.
+   */
+  explicit Log_context_mt(const Log_context_mt& src);
+
+  /**
+   * Identical to Log_context API.
+   * @param src
+   *        See above.
+   */
+  Log_context_mt(Log_context_mt&& src);
+
+  // Methods.
+
+  /**
+   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
+   *
+   * @param src
+   *        See above.
+   * @return See above.
+   */
+  Log_context_mt& operator=(const Log_context_mt& src);
+
+  /**
+   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
+   * @param src
+   *        See above.
+   * @return See above.
+   */
+  Log_context_mt& operator=(Log_context_mt&& src);
+
+  /**
+   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
+   * @param other
+   *        See above.
+   */
+  void swap(Log_context_mt& other);
+
+  /**
+   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
+   * @return See above.
+   */
+  Logger* get_logger() const;
+
+  /**
+   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
+   * @param logger
+   *        See above.
+   * @return See above.
+   */
+  Logger* set_logger(Logger* logger);
+
+  /**
+   * Identical to Log_context API.
+   * @return See above.
+   */
+  const Component& get_log_component() const;
+
+private:
+  // Data.
+
+  /// Protects access to data in `static_cast<Log_context&>(*this)` (especially Log_context::m_logger).
+  mutable util::Mutex_non_recursive m_mutex;
+}; // class Log_context_mt
 
 // Free functions: in *_fwd.hpp.
 
@@ -1749,6 +1898,13 @@ template<typename Component_payload>
 Log_context::Log_context(Logger* logger, Component_payload component_payload) :
   m_logger(logger),
   m_component(component_payload)
+{
+  // Nothing.
+}
+
+template<typename Component_payload>
+Log_context_mt::Log_context_mt(Logger* logger, Component_payload component_payload) :
+  Log_context(logger, component_payload)
 {
   // Nothing.
 }

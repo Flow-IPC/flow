@@ -433,9 +433,9 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
       // Get the raw data pointer.
       const auto buf_start = static_cast<Blob::value_type const *>(buf_data.data());
 
-      const Blob_ptr buf_copy(new Blob(get_logger()));
+      const Blob_ptr buf_copy{new Blob{get_logger()}};
       // Make a byte blob copy from that raw memory.  Performance is highest possible (allocate, copy).
-      buf_copy->assign_copy(const_buffer(buf_start, to_copy));
+      buf_copy->assign_copy(const_buffer{buf_start, to_copy});
       m_q.push_back(buf_copy);
 
       // Accounting.
@@ -501,7 +501,7 @@ size_t Socket_buffer::feed_bufs_copy(const Const_buffer_sequence& data, size_t m
       if (m_q.empty() || (m_q.back()->size() == m_block_size_hint))
       {
         // Either the trailing buffer in queue is filled to capacity; or no trailing buffer exists. Make an all-new one.
-        m_q.push_back(Blob_ptr(new Blob(get_logger())));
+        m_q.push_back(Blob_ptr{new Blob{get_logger()}});
 
         // Reserve exactly N bytes of capacity (should be the only allocation for this member).
         m_q.back()->reserve(m_block_size_hint);
@@ -596,7 +596,7 @@ size_t Socket_buffer::consume_bufs_copy(const Mutable_buffer_sequence& target_bu
                    "slow-consumed buffer of size/total [" << to_copy << '/' << src_bytes.size() << "].");
     // Very verbose and CPU-intensive!
     FLOW_LOG_DATA("Buffer data "
-                  "[" << util::buffers_dump_string(const_buffer(src_bytes.const_begin(), to_copy),
+                  "[" << util::buffers_dump_string(const_buffer{src_bytes.const_begin(), to_copy},
                                                    "", size_t(-1))
                   << "].");
 
@@ -660,8 +660,8 @@ void Socket_buffer::copy_bytes_from_buf_seq(Const_it* cur_buf_it,
     /* This is the reason for using this function instead of buffer_iterator (which would've been much easier -- but
      * this is way faster and probably uses memcpy() or similar). */
     dest = dest_buf->emplace_copy(dest,
-                                  const_buffer(static_cast<Blob::Const_iterator>((*cur_buf_it)->data()) + *pos_in_buf,
-                                               to_copy_in_buf));
+                                  const_buffer{static_cast<Blob::Const_iterator>((*cur_buf_it)->data()) + *pos_in_buf,
+                                               to_copy_in_buf});
 
     to_copy -= to_copy_in_buf;
     *pos_in_buf += to_copy_in_buf;
@@ -696,8 +696,8 @@ void Socket_buffer::copy_bytes_to_buf_seq(Const_it* cur_buf_it,
 
     const size_t to_copy_in_buf = min(to_copy, cur_buf_size - *pos_in_buf);
     src = src_buf.sub_copy(src,
-                           mutable_buffer(static_cast<Blob::Iterator>((*cur_buf_it)->data()) + *pos_in_buf,
-                                          to_copy_in_buf));
+                           mutable_buffer{static_cast<Blob::Iterator>((*cur_buf_it)->data()) + *pos_in_buf,
+                                          to_copy_in_buf});
 
     to_copy -= to_copy_in_buf;
     *pos_in_buf += to_copy_in_buf;

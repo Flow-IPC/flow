@@ -249,7 +249,7 @@ protected:
  * - First, create your `Value_set` (named however you want, of course) `struct`.  The values stored therein must
  *   be reasonably deep-copyable; must have standard-stream `<<` and `>>` operators; and must reasonably implement
  *   `==` comparison.  `Value_set` itself must be copy-constructible and copy-assignable in a reasonable way.
- *   Lastly, and very importantly, the no-arg ctor `Value_set()` must initialize all configured
+ *   Lastly, and very importantly, the no-arg ctor `Value_set{}` must initialize all configured
  *   members to reasonable defaults: it is not possible to declare options as "required."
  *   - If you use the optional features mutable_values_copy(), #Mutable_values_ptr, and/or #Values_ptr, then, also,
  *     `Value_set` shall derive from util::Shared_ptr_alias_holder.  (Don't worry: it's easy.)
@@ -265,7 +265,7 @@ protected:
  * - Finally, create an instance of `Option_set<Value_set>`, and use parse_config_file() (or any other `parse_*()`
  *   methods that might exist) to parse things at will.
  *   - "At rest," Option_set is in CANONICAL state.  values_candidate() returns null, and values() is the *canonical*
- *     (official, current) set of parsed config; originally it equals `Value_set()`.
+ *     (official, current) set of parsed config; originally it equals `Value_set{}`.
  *     It returns a reference to immutable internally stored `Value_set`.
  *   - Invoking parse_config_file() (or any other `parse_*()`) either enters or continues PARSING state.
  *     In this state `*values_candidate()` starts equal to values(); and is then potentially modified by each
@@ -308,7 +308,7 @@ protected:
  * the following.
  *   - Note that parse_config_file() (and any similar `parse_*()` that scans+parses strings) will *only* validate
  *     (via individual-option-validator checks) values actually present in the config source.
- *     Defaults (from `Value_set()`) or baseline values (from parse_direct_values()) are not *mandatorily* checked.
+ *     Defaults (from `Value_set{}`) or baseline values (from parse_direct_values()) are not *mandatorily* checked.
  *     If one performs no additional validation calls, it will not be possible to know of bad defaults or baseline
  *     values, and one can canonicalize_candidate() invalid values.  This is allowed, for flexibility, but in most cases
  *     one will want to reject_candidate() instead.  The following abilities are provided to resolve this.
@@ -578,7 +578,7 @@ public:
    * Constructs an option set in CANONICAL state with a default-valued values() payload and options declared
    * by synchronously invoking the callback `declare_opts_func()`.  See below for details on the latter.
    *
-   * Post-condition: `values()` is equal to `Values()`; values_candidate() is null (so the state is initially
+   * Post-condition: `values()` is equal to `Values{}`; values_candidate() is null (so the state is initially
    * CANONICAL).  (Therefore `Value_set` no-args ctor must by definition be written so as to initialize all its
    * relevant members to their defaults.  Recall `Value_set` is a template parameter type with certain requirements.)
    *
@@ -665,7 +665,7 @@ public:
    * @param success_or_null
    *        If null exceptions mark failure; otherwise the pointed-to value shall indicate success or failure.
    */
-  void validate_values(bool* success_or_null = 0) const;
+  void validate_values(bool* success_or_null = nullptr) const;
 
   /**
    * Validates an arbitrary `Value_set`, as parseable by *an* `Option_set<Value_set>`, according to the
@@ -696,7 +696,7 @@ public:
    */
   static void validate_values(log::Logger* logger_ptr,
                               const Values& values_to_validate, const Declare_options_func& declare_opts_func,
-                              bool* success_or_null = 0);
+                              bool* success_or_null = nullptr);
 
   /**
    * Validates an arbitrary `Value_set`, using the same validators `*this` `Option_set<Value_set>` is configured to use
@@ -713,7 +713,7 @@ public:
    * @param success_or_null
    *        If null exceptions mark failure; otherwise the pointed-to value shall indicate success or failure.
    */
-  void validate_values(const Values& values_to_validate, bool* success_or_null = 0) const;
+  void validate_values(const Values& values_to_validate, bool* success_or_null = nullptr) const;
 
   /**
    * Equivalent to `validate_values(success_or_null)` but validates `*values_candidate()` instead of values().
@@ -727,7 +727,7 @@ public:
    * @param success_or_null
    *        If null exceptions mark failure; otherwise the pointed-to value shall indicate success or failure.
    */
-  void validate_values_candidate(bool* success_or_null = 0) const;
+  void validate_values_candidate(bool* success_or_null = nullptr) const;
 
   /**
    * Writes a multi-line user-suitable representation of the current values in a #Values object, at some point
@@ -739,7 +739,7 @@ public:
    * @param values_or_null
    *        Values to serialize; if null then we act as-if it's `&(values())`.
    */
-  void values_to_ostream(std::ostream& os, const Values* values_or_null = 0) const;
+  void values_to_ostream(std::ostream& os, const Values* values_or_null = nullptr) const;
 
   /**
    * Logs the given values payload using values_to_ostream().
@@ -751,7 +751,8 @@ public:
    * @param sev
    *        Severity to use for the log message.
    */
-  void log_values(util::String_view summary, const Values* values_or_null = 0, log::Sev sev = log::Sev::S_INFO) const;
+  void log_values(util::String_view summary,
+                  const Values* values_or_null = nullptr, log::Sev sev = log::Sev::S_INFO) const;
 
   /**
    * Prints a multi-line help message about the set of options that `*this` can parse.  This should typically
@@ -806,7 +807,7 @@ public:
    *        If null exceptions mark failure; otherwise the pointed-to value shall indicate success or failure.
    */
   void parse_config_file(const fs::path& cfg_path, bool allow_unregistered,
-                         bool* success_or_null = 0,
+                         bool* success_or_null = nullptr,
                          const boost::unordered_set<std::string>& allowed_unregistered_opts_or_empty = {});
 
   /**
@@ -825,7 +826,7 @@ public:
    * state is desired before each update.  Consider the example of an Option_set that stores dynamically changeable
    * values.  Suppose each update consists only of a single `parse_config_file(F)` call, where `F` is some file that
    * might get changed at various times to deliver dynamic updates.  Then consider this series:
-   *   -# Initial Option_set construction.  End state: `values() == Values()` (default).
+   *   -# Initial Option_set construction.  End state: `values() == Values{}` (default).
    *   -# First update occurs: `parse_config_file(F)`, followed by canonicalize_candidate().
    *      End state: `values()` == defaults + changes in file `F` at time 1.
    *   -# Second update occurs: `parse_config_file(F)`, followed by canonicalize_candidate().
@@ -842,7 +843,7 @@ public:
    *
    * To resolve this, one can save a *baseline* state of values() by copy; and then apply it via this
    * parse_direct_values() call before parsing the file in each dynamic update.  The baseline state could just be
-   * defaults (`Values()`), or it could come from some special "baseline" config file that is not `F` which one knows
+   * defaults (`Values{}`), or it could come from some special "baseline" config file that is not `F` which one knows
    * to never change.  (Such a file could also typically store static config managed by a separate Option_set.)
    *
    * So then the sequence might become not parse_config_file(), canonicalize_candidate(), parse_config_file(),
@@ -880,7 +881,7 @@ public:
    * @param change_detected
    *        If null, ignored; otherwise `*change_detected` is set to `true` if a setting changed; else `false`.
    */
-  void canonicalize_candidate(bool* change_detected = 0);
+  void canonicalize_candidate(bool* change_detected = nullptr);
 
   /**
    * In PARSING state, returns to CANONICAL state, as if no parse attempts have occurred.  In CANONICAL state, a no-op.
@@ -908,7 +909,7 @@ public:
    *        This must point inside `m_values_candidate`.
    * @param value_default_if_no_acc
    *        Usually -- with regular (accumulating) options -- null; otherwise pointer to the default value for
-   *        `*target_value` (as from `Values()`), inside `m_values_default`.  In the latter case (non-null) this
+   *        `*target_value` (as from `Values{}`), inside `m_values_default`.  In the latter case (non-null) this
    *        indicates this is an option marked by the user as non-accumulating
    *        (see FLOW_CFG_OPTION_SET_DECLARE_OPTION_NO_ACC() and similar), meaning each time a config source
    *        (e.g., a file) is parsed `*target_value` is first reset to this default; then overwritten with the value in
@@ -1373,7 +1374,7 @@ private:
     ( \
       char const * const FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str = ARG_opt_name_c_str; \
       /* Subtlety: This is only safe to use here synchronously. */ \
-      const ::flow::util::String_view FLOW_CFG_SET_DECL_OPT_MANUAL_name_view(FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str); \
+      const ::flow::util::String_view FLOW_CFG_SET_DECL_OPT_MANUAL_name_view{FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str}; \
       const bool FLOW_CFG_SET_DECL_OPT_MANUAL_no_acc = ARG_no_accumulation; \
       switch (args.m_call_type) \
       { \
@@ -1390,7 +1391,7 @@ private:
               (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
                &args.m_args.m_fill_parsing_role_opt_table_args.m_values_candidate->ARG_m_value, \
                /* Default is irrelevant if option accumulates from parse to parse.  Pass null. */ \
-               /* Default from Value_set() shall be in effect at construction time, but that's it. */ \
+               /* Default from Value_set{} shall be in effect at construction time, but that's it. */ \
                /* However if it's set as a non-accumulating option via knob, then pass-through the default: */ \
                /* each parse via boost.program_options shall first reset option to that default; then if present */ \
                /* overwrite that default.  Hence the value from any preceding parse is always forgotten. */ \
@@ -1398,7 +1399,7 @@ private:
                  ? &args.m_args.m_fill_parsing_role_opt_table_args.m_values_default_no_acc->ARG_m_value \
                  : nullptr, \
                ::std::move(FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func), \
-               ::flow::util::String_view(#ARG_bool_validate_expr)); \
+               ::flow::util::String_view{#ARG_bool_validate_expr}); \
         break; \
       } \
       case ::flow::cfg::Option_set_base::Declare_options_func_call_type::S_FILL_OUTPUT_HELP_ROLE_OPT_TABLE: \
@@ -1441,7 +1442,7 @@ private:
           (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
            args.m_args.m_validate_stored_vals_args.m_values_to_validate->ARG_m_value, \
            ::std::move(FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func), \
-           ::flow::util::String_view(#ARG_bool_validate_expr)); \
+           ::flow::util::String_view{#ARG_bool_validate_expr}); \
         break; \
       } \
       /* No `default:` intentionally: most compilers should catch a missing enum value and warn. */ \
@@ -1495,13 +1496,13 @@ const Value_set& Option_set<Value_set>::values() const
 template<typename Value_set>
 typename Option_set<Value_set>::Mutable_values_ptr Option_set<Value_set>::mutable_values_copy() const
 {
-  return Mutable_values_ptr(new Values(values()));
+  return Mutable_values_ptr{new Values{values()}};
 }
 
 template<typename Value_set>
 const Value_set* Option_set<Value_set>::values_candidate() const
 {
-  return m_parsing ? &m_values_candidate : 0;
+  return m_parsing ? &m_values_candidate : nullptr;
 }
 
 template<typename Value_set>
@@ -1587,7 +1588,7 @@ void Option_set<Value_set>::declare_option_for_parsing(util::String_view name_vi
   const auto val_spec = value<Value>(target_value)
                           ->notifier(throw_on_invalid_func(name_view, std::move(validator_func_moved),
                                                            validator_cond_str_view));
-  /* However: if non-accumulating mode is enabled then, in fact, set the value from Value_set()
+  /* However: if non-accumulating mode is enabled then, in fact, set the value from Value_set{}
    * as default_value(); so that starting to parse a config source (e.g., config file) shall always reset to default
    * first instead of accumulating from a previous parse (if any).  This matters for a given parse only if this
    * option is not specified in that config source. */
@@ -1630,7 +1631,7 @@ Function<void (const Value& val)> Option_set_base::throw_on_invalid_func
                      "Option value `val` = [";
       value_to_ostream(msg_os.os(), val);
       msg_os.os() << "]." << flush;
-      throw Runtime_error(msg_os.str());
+      throw Runtime_error{msg_os.str()};
     }
   };
 } // Option_set_base::throw_on_invalid_func()
@@ -1716,7 +1717,7 @@ void Option_set<Value_set>::scan_parsed_option(util::String_view name_view, cons
 {
   using boost::any_cast;
   using std::string;
-  string name(name_view);
+  string name{name_view};
 
   /* In this mode we are basically to check whether the value just parsed for `name`, which is in
    * m_iterable_values_candidate[name], is actually *different* from the current canonical value, which is
@@ -1748,7 +1749,7 @@ void Option_set<Value_set>::load_option_value_as_if_parsed(util::String_view nam
                                                            const Value& source_value)
 {
   using std::string;
-  string name(name_view);
+  string name{name_view};
 
   assert(target_value);
   assert(m_parsing);
@@ -1800,7 +1801,7 @@ void Option_set<Value_set>::parse_config_file
   {
     try
     {
-      parse_config_file(cfg_path, allow_unregistered, 0, allowed_unregistered_opts_or_empty);
+      parse_config_file(cfg_path, allow_unregistered, nullptr, allowed_unregistered_opts_or_empty);
     }
     catch (const exception& exc)
     {
@@ -1832,13 +1833,13 @@ void Option_set<Value_set>::parse_config_file
 
   log_values("pre-parsing candidate config", &m_values_candidate, log::Sev::S_TRACE);
 
-  ifstream ifs(cfg_path);
+  ifstream ifs{cfg_path};
   if (!ifs)
   {
-    const Error_code sys_err_code(errno, system_category());
+    const Error_code sys_err_code{errno, system_category()};
     FLOW_ERROR_SYS_ERROR_LOG_WARNING();
 
-    throw Runtime_error(sys_err_code, ostream_op_string("Could not open file [", cfg_path, "]."));
+    throw Runtime_error{sys_err_code, ostream_op_string("Could not open file [", cfg_path, "].")};
   }
   // else
 
@@ -1849,7 +1850,7 @@ void Option_set<Value_set>::parse_config_file
    * stay maintainable.  Still consider revisiting this and not catching the exception and not worrying about
    * backing this up -- if that's really how it works. */
   const auto values_candidate_backup = m_values_candidate;
-  opts::parsed_options parsed_options(&m_opts_for_parsing);
+  opts::parsed_options parsed_options{&m_opts_for_parsing};
   try
   {
     parsed_options = opts::parse_config_file(ifs, m_opts_for_parsing, allow_unregistered);
@@ -1894,8 +1895,8 @@ void Option_set<Value_set>::parse_config_file
 
             FLOW_LOG_WARNING("Option_set[" << *this << "]: State PARSING: Unregistered option named "
                              "[" << opt_name << "] is not approved; parse failed.  Values payload untouched.");
-            throw Runtime_error(ostream_op_string("Unregistered option named [", opt_name,
-                                                  "] is not approved; parse failed."));
+            throw Runtime_error{ostream_op_string("Unregistered option named [", opt_name,
+                                                  "] is not approved; parse failed.")};
           }
           // else
 
@@ -2179,7 +2180,7 @@ void value_to_ostream(std::ostream& os, const boost::chrono::duration<Rep, Perio
   using raw_ticks_t = uint64_t; // Should be big enough for anything.
 
   // Nanoseconds should be the highest precision we use anywhere.  It won't compile if this can lose precision.
-  nanoseconds val_ns(val);
+  nanoseconds val_ns{val};
 
   // Deal with positives only... why not?
   raw_ticks_t raw_abs_ticks = (val_ns.count() < 0) ? (-val_ns.count()) : val_ns.count();
@@ -2253,7 +2254,7 @@ std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, c
   /* @todo Should I be imbuing the regex with std::locale::classic() or something?
    * @todo Can probably make it work directly on String_view member_id; seems to conflict with `smatch`; but
    * probably it can be figured out.  Perf at this level is hardly of high import so not worrying. */
-  const string member_id_str(member_id);
+  const string member_id_str{member_id};
 #ifndef NDEBUG
   const bool matched_ok =
 #endif
@@ -2268,10 +2269,10 @@ std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, c
    * [...]-by-dot-key substution is at least aesthetically perf-wasteful (those characters get replaced anyway later).
    * Anyway, all that aside, the following is easily defensible as clearly not having any such issues. */
   return ostream_op_string
-           (value_set_member_id_to_opt_name(String_view(&*matched_groups[1].first, matched_groups[1].length())),
+           (value_set_member_id_to_opt_name(String_view{&*matched_groups[1].first, matched_groups[1].length()}),
             INDEX_SEP_BEFORE,
             key, // ostream<< it.
-            value_set_member_id_to_opt_name(String_view(&*matched_groups[2].first, matched_groups[2].length())));
+            value_set_member_id_to_opt_name(String_view{&*matched_groups[2].first, matched_groups[2].length()}));
 } // value_set_member_id_to_opt_name_keyed()
 
 } // namespace flow::cfg

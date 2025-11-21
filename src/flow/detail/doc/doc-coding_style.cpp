@@ -56,6 +56,7 @@
  * - Best practices [conceptual, subjective, non-exhaustive]
  *   - Comments
  *   - Inlining
+ *   - Constructor and initializer invocation
  *   - Doxygen doc header deep-dive
  *   - Namespaces, libraries
  *   - Error handling
@@ -734,7 +735,7 @@ void Cool_class::cool_method(int a, int b)
     = util::schedule_task_at(get_logger(), wait_until, &task_engine,
                              m_make_serial.wrap // Lambda begins as the arg to this function call:
                                ([this, timeout_state, on_result, would_block_ret_val, event_set]
-                                (bool) -> bool
+                                  (bool) -> bool
   {
     /* *Main point*: The lambda's { body } *always* starts on the same column as the current *statement*.
      * This is regardless of there the lambda itself -- the [captures] -- started.
@@ -866,16 +867,17 @@ const boost::unordered_map<Event_set::Event_type, Event_set::Func_ptr>
         // @todo It's a bit ambiguous what the indentation "anchor" column should be here....
         Event_set::S_EV_TYPE_TO_IS_ACTIVE_NODE_MTD
           // Use judgment to either have {} innards indented on separate line(s) or in-line.  Examples of both:
-          ({
+          {{
              { Event_set::Event_type::S_PEER_SOCKET_READABLE, &Node::sock_is_readable },
-             // ^-- Spaces around `contents` in `{ contents }`, when it's all on one line. --v
              { Event_set::Event_type::S_PEER_SOCKET_WRITABLE, &Node::sock_is_writable },
              { Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE, &Node::serv_is_acceptable }
-           });
+           }};
+// See also "Constructor and initializer invocation" under BEST PRACTICES.
 
 // Misc. convention:
-T* x = nullptr; // This is OK, but Flow was written before nullptr was available; we just use the following:
-T* x = 0; // This is the Flow convention.  Note, no `NULL`!  NULL is C stuff, no need.
+T* x = nullptr; // This is the modern Flow convention.
+T* x = 0; // OK and may be seen due to Flow originating before nullptr existed.  Ideally change to nullptr on sight.
+// Note, no `NULL`!  NULL is C stuff; no need.
 
 // -- STYLE GUIDE: Header files and forwarding; _fwd.hpp pattern --
 
@@ -1249,6 +1251,48 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
  * letting the compiler decide (`gcc -O3`) instead of the human constantly having to make the judgment call about what
  * to inline (`gcc -O2` + explicit inlining by dev) exceed the losses from LTO not being in effect yet.  Update:
  * with widespread LTO support in all modern gcc and clang compilers this complaint is mitigated/eliminated.] */
+
+// -- BEST PRACTICES: Constructor and initializer invocation --
+
+/* Before C++11, the language had an annoying ambiguity, inherited to this day; but if you follow the recommended
+ * conventions, you will bypass the ambiguity.  So what's this ambiguity?  It is, basically, the following.
+ * Note we're not trying to be complete and ultra-correct here; just giving a sense, for background: */
+T a(); // Is this constructing an object named `a` of type T, via its default constructor T::T()?
+T a(); // Or maybe it is a function named `a` that returns a `T`?
+
+/* So the modern Flow style is to entirely avoid the `T()` or `T a()` style of invoking a constructor.
+ * Use the brace{} form instead.
+ *
+ * Some old-style ctor-invoking code may be encountered, as Flow originated before C++11.  Ideally fix it on sight.
+ *
+ * There are more subleties, benefits, effects beyond removing ambiguity and avoiding strange compiler errors, but
+ * we aren't trying to copy/paste Effective C++ here.  Please just trust us and do it. */
+T a; // No args, no problem.  Could also write `T a{}`; why bother though?
+f(T{}); // No args and no name.  Use braces to explicitly convey it's a ctor invocation; not: `f(T())`.
+T a{1}; // Takes an arg... similarly use braces.
+auto x = string{"abc"}; // Not: auto x = string("abc").
+f(string{"abc"}); // Not: f(string("abc")).
+
+// If you're using an initializer-list and/or direct-init, please indicate this by placing spaces after { and before }.
+struct Complex { float m_real; float m_imag; };
+Complex num{ -2, 2.3 }; // Initializing via direct-init, not via a constructor: indicate with spaces.
+f(Complex{ -2, 2.3 });
+
+/* Do be careful of one thing: a container with an initializer_list ctor will invoke it over the would-be constructor
+ * with a matching signature (if any).  Unfortunately one must revert to the parentheses-using-constructor-call style. 
+ * (Needless to say, the compiler doesn't care if you put spaces in there; that is for humans only.) */
+vector<int> v{ 10, 1 }; // 2 elements: 10, 1.  initializer_list ctor is invoked, even though the following ctor matches.
+vector<int> v(10, 1); // 10 elements, each one equal to `1`.  Force compiler to ignore the initializer_list ctor.
+// Nevertheless, prefer {} for construction whenever possibe which is most of the time by far.
+
+// When the type is built-in like the integers and real numbers, construction via (), {}, and static_cast<> are all OK.
+f(size_t{-1}); // Might not compile, because size_t is unsigned, and this conversion is from signed -1.
+f(size_t(-1)); // OK: defeats the compile error/warning; stylistically no big deal, as size_t is basically built-in.
+f(static_cast<size_t>(-1)); // OK: explicit cast.  It's a bit wordy though, so the preceding could be preferred.
+// Corollary w/r/t multi-word type names:
+f(unsigned int{-1}); // SYNTAX ERROR.  This is due to the space in the type name.
+f((unsigned int)-1); // BAD.  By convention we do not use draconian C-style casts, even though it works.
+f(static_cast<unsigned int>(-1)); // Defeat the syntax error.  Could also `using uint = unsigned int` or something.
 
 // -- BEST PRACTICES: Doxygen doc header deep-dive --
 

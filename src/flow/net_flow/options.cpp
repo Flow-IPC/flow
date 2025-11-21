@@ -152,7 +152,7 @@ void Node_options::setup_config_parsing(Options_description* opts_desc)
 std::ostream& operator<<(std::ostream& os, const Node_options& opts)
 {
   Node_options sink;
-  Node_options::Options_description opts_desc("Per-net_flow::Node option values");
+  Node_options::Options_description opts_desc{"Per-net_flow::Node option values"};
   Node_options::setup_config_parsing_helper(&opts_desc, &sink, opts, true);
   return os << opts_desc;
 }
@@ -187,9 +187,9 @@ Peer_socket_options::Peer_socket_options() :
    * in the code. */
   m_st_max_block_size(1024),
   // Initial value recommended by RFC 6298 is 1 sec but seems too conservative.  @todo Decide.
-  m_st_connect_retransmit_period(boost::chrono::milliseconds(125)),
+  m_st_connect_retransmit_period(boost::chrono::milliseconds{125}),
   // @todo.
-  m_st_connect_retransmit_timeout(boost::chrono::seconds(3)),
+  m_st_connect_retransmit_timeout(boost::chrono::seconds{3}),
   /* @todo Reconsider.  See also to-do in class Node doc header.
    * WARNING!  If you change this, ensure s_st_max_cong_wnd_blocks is still sufficiently small. */
   m_st_snd_buf_max_size(6 * 1024 * 1024),
@@ -214,14 +214,14 @@ Peer_socket_options::Peer_socket_options() :
    * packets in SYN_RCVD state. */
   m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent(220),
   // Satisfies RFC 5681 (500 ms max); taken from BSD implementation (Stevens/Wright, TCP/IP Illustrated Vol. 2, 1995).
-  m_st_delayed_ack_timer_period(boost::chrono::milliseconds(200)),
+  m_st_delayed_ack_timer_period(boost::chrono::milliseconds{200}),
   // Per RFC 5681.
   m_st_max_full_blocks_before_ack_send(2),
   m_st_rexmit_on(true),
   // @todo Experiment and look at RFCs.
   m_st_max_rexmissions_per_packet(15),
   // @todo Experiment.  RFC 6298 recommends this value.
-  m_st_init_drop_timeout(boost::chrono::seconds(1)),
+  m_st_init_drop_timeout(boost::chrono::seconds{1}),
   // @todo Experiment.  Choosing less aggressive values for now, except for m_st_drop_all_on_drop_timeout.
   m_st_drop_packet_exactly_after_drop_timeout(false),
   // Consistent with RFC 4341, but see discussion where it's used.
@@ -233,7 +233,7 @@ Peer_socket_options::Peer_socket_options() :
   /* Value taken from Linux's westwood.c which was written by the creators of Westwood+ bandwidth
    * estimation algorithm themselves. 50 msec seems like a reasonable line in the sand between
    * "small RTT" and "medium RTT." */
-  m_st_snd_bandwidth_est_sample_period_floor(boost::chrono::milliseconds(50)),
+  m_st_snd_bandwidth_est_sample_period_floor(boost::chrono::milliseconds{50}),
   // Pass in a non-existent strategy ID, which will cause our operator<<() to choose what it considers the default.
   m_st_cong_ctl_strategy(boost::lexical_cast<Congestion_control_strategy_choice>("none")),
   // Let code choose initial CWND using RFC 5681 method.
@@ -257,13 +257,13 @@ Peer_socket_options::Peer_socket_options() :
   // Use RFC 5681 default (0 is special value).
   m_st_cong_ctl_classic_wnd_decay_percent(0),
   // The minimal allowed ceiling by RFC 6298.
-  m_dyn_drop_timeout_ceiling(boost::chrono::seconds(60)),
+  m_dyn_drop_timeout_ceiling(boost::chrono::seconds{60}),
   // RFC 6298 recommends this value.
   m_dyn_drop_timeout_backoff_factor(2),
   // This shouldn't be too bad.  @todo Though it should probably be based off DTO or something....
-  m_dyn_rcv_wnd_recovery_timer_period(boost::chrono::seconds(1)),
+  m_dyn_rcv_wnd_recovery_timer_period(boost::chrono::seconds{1}),
   // Seems OK.  After a minute it's probably a lost cause.
-  m_dyn_rcv_wnd_recovery_max_period(boost::chrono::minutes(1))
+  m_dyn_rcv_wnd_recovery_max_period(boost::chrono::minutes{1})
 {
   // Nothing.
 }

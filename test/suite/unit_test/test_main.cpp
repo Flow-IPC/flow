@@ -58,7 +58,7 @@ int configure_logging(int argc, char* argv[])
 
   Test_config::get_singleton(); // Touching it just below.
 
-  po::options_description cmd_line_opts("unit test options");
+  po::options_description cmd_line_opts{"unit test options"};
   const string HELP_PARAM = "help";
   cmd_line_opts.add_options()
     ((HELP_PARAM + ",h").c_str(), "help")

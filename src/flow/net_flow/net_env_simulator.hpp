@@ -132,11 +132,11 @@ public:
   explicit Net_env_simulator(log::Logger* logger_ptr,
                              seed_type_t random_seed = 0,
                              prob_type_t recv_packet_loss_prob = 0,
-                             const Packet_loss_seq& recv_packet_loss_seq = Packet_loss_seq(),
-                             const Latency_range& recv_latency_range = Latency_range(),
-                             const Latency_seq& recv_latency_seq = Latency_seq(),
+                             const Packet_loss_seq& recv_packet_loss_seq = Packet_loss_seq{},
+                             const Latency_range& recv_latency_range = Latency_range{},
+                             const Latency_seq& recv_latency_seq = Latency_seq{},
                              prob_type_t recv_packet_dup_prob = 0,
-                             const Packet_dup_seq& recv_packet_dup_seq = Packet_dup_seq());
+                             const Packet_dup_seq& recv_packet_dup_seq = Packet_dup_seq{});
 
   // Methods.
 

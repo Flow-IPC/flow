@@ -21,6 +21,7 @@
 #include "flow/util/string_view.hpp"
 #include "flow/common.hpp"
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_set.hpp>
 
 /// @cond
 // -^- Doxygen, please ignore the following.
@@ -93,6 +94,33 @@ namespace flow::util
  */
 namespace bind_ns = boost;
 
+// Find doc headers near the bodies of these compound types.
+
+template<typename Key, typename Iterator, bool IS_ITER_TO_PAIR>
+class Linked_hash_key;
+template<typename Hash>
+class Linked_hash_key_hash;
+template<typename Pred>
+class Linked_hash_key_pred;
+
+/**
+ * The lookup structure used inside Linked_hash_map and Linked_hash_set.  See the former's doc header(s).
+ *
+ * @tparam Key
+ *         See Linked_hash_map, Linked_hash_set.
+ * @tparam Iterator
+ *         Linked_hash_map::Iterator or Linked_hash_set::Iterator.
+ * @tparam Hash
+ *         See Linked_hash_map, Linked_hash_set.
+ * @tparam Pred
+ *         See Linked_hash_map, Linked_hash_set.
+ * @tparam IS_ITER_TO_PAIR
+ *         `true` for Linked_hash_map, `false` for Linked_hash_set.
+ */
+template<typename Key, typename Iterator, typename Hash, typename Pred, bool IS_ITER_TO_PAIR>
+using Linked_hash_key_set = boost::unordered_set<Linked_hash_key<Key, Iterator, IS_ITER_TO_PAIR>,
+                                                 Linked_hash_key_hash<Hash>,
+                                                 Linked_hash_key_pred<Pred>>;
 // Free functions.
 
 /**
@@ -113,7 +141,7 @@ Fine_duration chrono_duration_to_fine_duration(const boost::chrono::duration<Rep
 /**
  * Helper that takes a non-negative duration of arbitrary precision/period and converts it to
  * #Fine_duration, rounding up; then adds it to `Fine_clock::now()` and returns the result.
- * Also, the input type's `max()` is translated to `Fine_time_pt()` (Epoch-valued -- i.e., zero-valued -- time point).
+ * Also, the input type's `max()` is translated to `Fine_time_pt{}` (Epoch-valued -- i.e., zero-valued -- time point).
  *
  * @tparam Rep
  *         See `boost::chrono::duration` documentation.

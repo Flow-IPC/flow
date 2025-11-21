@@ -373,7 +373,7 @@ private:
    * for a boost.asio-compatible async-op.
    *
    * ### Rationale ###
-   * Why not simply create use `Handler_func(on_result)`?  After all they have the same signature, so if the
+   * Why not simply create use `Handler_func{on_result}`?  After all they have the same signature, so if the
    * idea is to de-template our internal implementation of the various `async_*()` APIs, then that would be sufficient.
    * Answer:
    *
@@ -413,7 +413,7 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
                                 Handler&& on_result)
 {
   assert(target.begin() != target.end());
-  async_receive_impl(Target_bufs_ptr(new Target_bufs(target.begin(), target.end())),
+  async_receive_impl(Target_bufs_ptr{new Target_bufs{target.begin(), target.end()}},
                      handler_func(on_result),
                      util::chrono_duration_from_now_to_fine_time_pt(max_wait));
 }
@@ -423,7 +423,7 @@ void Peer_socket::async_receive(std::nullptr_t,
                                 const boost::chrono::duration<Rep, Period>& max_wait,
                                 Handler&& on_result)
 {
-  async_receive_impl(Target_bufs_ptr(), handler_func(on_result),
+  async_receive_impl(Target_bufs_ptr{}, handler_func(on_result),
                      util::chrono_duration_from_now_to_fine_time_pt(max_wait));
 }
 
@@ -432,14 +432,14 @@ void Peer_socket::async_receive(const Mutable_buffer_sequence& target,
                                 Handler&& on_result)
 {
   assert(target.begin() != target.end());
-  async_receive_impl(Target_bufs_ptr(new Target_bufs(target.begin(), target.end())),
-                     handler_func(on_result), Fine_time_pt());
+  async_receive_impl(Target_bufs_ptr{new Target_bufs{target.begin(), target.end()}},
+                     handler_func(on_result), Fine_time_pt{});
 }
 
 template<typename Handler>
 void Peer_socket::async_receive(std::nullptr_t, Handler&& on_result)
 {
-  async_receive_impl(Target_bufs_ptr(), handler_func(on_result), Fine_time_pt());
+  async_receive_impl(Target_bufs_ptr{}, handler_func(on_result), Fine_time_pt{});
 }
 
 template<typename Rep, typename Period, typename Const_buffer_sequence, typename Handler>
@@ -448,7 +448,7 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
                              Handler&& on_result)
 {
   assert(source.begin() != source.end());
-  async_send_impl(Source_bufs_ptr(new Source_bufs(source.begin(), source.end())),
+  async_send_impl(Source_bufs_ptr{new Source_bufs{source.begin(), source.end()}},
                   handler_func(on_result),
                   util::chrono_duration_from_now_to_fine_time_pt(max_wait));
 }
@@ -458,7 +458,7 @@ void Peer_socket::async_send(std::nullptr_t,
                              const boost::chrono::duration<Rep, Period>& max_wait,
                              Handler&& on_result)
 {
-  async_send_impl(Source_bufs_ptr(), handler_func(on_result),
+  async_send_impl(Source_bufs_ptr{}, handler_func(on_result),
                   util::chrono_duration_from_now_to_fine_time_pt(max_wait));
 }
 
@@ -467,15 +467,15 @@ void Peer_socket::async_send(const Const_buffer_sequence& source,
                              Handler&& on_result)
 {
   assert(source.begin() != source.end());
-  async_send_impl(Source_bufs_ptr(new Source_bufs(source.begin(), source.end())),
-                  handler_func(on_result), Fine_time_pt());
+  async_send_impl(Source_bufs_ptr{new Source_bufs{source.begin(), source.end()}},
+                  handler_func(on_result), Fine_time_pt{});
 }
 
 template<typename Handler>
 void Peer_socket::async_send
                     (std::nullptr_t, Handler&& on_result)
 {
-  async_send_impl(Source_bufs_ptr(), handler_func(on_result), Fine_time_pt());
+  async_send_impl(Source_bufs_ptr{}, handler_func(on_result), Fine_time_pt{});
 }
 
 template<typename Handler>

@@ -23,6 +23,8 @@
 namespace flow::util
 {
 
+// Types.
+
 /**
  * Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Logger,
  * enabling easier logging albeit with a small perf trade-off.  Most users will use the concrete types
@@ -128,7 +130,7 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use subsequently.
    */
-  Blob_with_log_context(log::Logger* logger_ptr = 0);
+  Blob_with_log_context(log::Logger* logger_ptr = nullptr);
 
   /**
    * On top of the similar 3-arg Basic_blob ctor, memorizes the given log::Logger for all future logging
@@ -143,14 +145,32 @@ public:
   explicit Blob_with_log_context(log::Logger* logger_ptr, size_type size);
 
   /**
+   * On top of the similar 4-arg Basic_blob ctor, memorizes the given log::Logger for all future logging
+   * in `*this`.  (Except, technically, one can subsequently override this by using super-class APIs which take
+   * `Logger*`.)
+   *
+   * @param logger_ptr
+   *        The Logger implementation to use subsequently.
+   * @param size
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  explicit Blob_with_log_context(log::Logger* logger_ptr, size_type size, Clear_on_alloc coa_tag);
+
+  /**
    * On top of the similar Basic_blob move ctor, moves the source object's log::Logger for all future logging
    * in `*this`.  (Except, technically, one can subsequently override this by using super-class APIs which take
    * `Logger*`.)
    *
+   * @note It is important this be `noexcept`, if a copying counterpart to us exists in this class; otherwise
+   *       (e.g.) `vector<Blob_with_log_context>` will, on realloc, default to copying `*this`es around instead of
+   *       moving: a terrible (in its stealthiness) perf loss.
+   *
    * @param moved_src
    *        See super-class API.
    */
-  Blob_with_log_context(Blob_with_log_context&& moved_src);
+  Blob_with_log_context(Blob_with_log_context&& moved_src) noexcept;
 
   /**
    * On top of the similar Basic_blob copy ctor, copies the source object's log::Logger for all future logging
@@ -174,11 +194,15 @@ public:
    *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional
    *       arg.
    *
+   * @note It is important this be `noexcept`, if a copying counterpart to us exists in this class; otherwise
+   *       (e.g.) `vector<Blob_with_log_context>` will, on realloc, default to copying `*this`es around instead of
+   *       moving: a terrible (in its stealthiness) perf loss.
+   *
    * @param moved_src
    *        See super-class API.
    * @return See super-class API.
    */
-  Blob_with_log_context& operator=(Blob_with_log_context&& moved_src);
+  Blob_with_log_context& operator=(Blob_with_log_context&& moved_src) noexcept;
 
   /**
    * On top of the similar Basic_blob method, logs using the stored log context.
@@ -199,7 +223,7 @@ public:
    * @param other
    *        See super-class API.
    */
-  void swap(Blob_with_log_context& other);
+  void swap(Blob_with_log_context& other) noexcept;
 
   /**
    * On top of the similar Basic_blob method, logs using the stored log context and copies it to the returned
@@ -319,6 +343,16 @@ public:
    */
   void reserve(size_type capacity);
 
+  /**
+   * On top of the similar Basic_blob method, logs using the stored log context.
+   *
+   * @param capacity
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  void reserve(size_type capacity, Clear_on_alloc coa_tag);
+
   /// On top of the similar Basic_blob method, logs using the stored log context.
   void make_zero();
 
@@ -332,6 +366,18 @@ public:
    */
   void resize(size_type size, size_type start_or_unchanged = S_UNCHANGED);
 
+  /**
+   * On top of the similar Basic_blob method, logs using the stored log context.
+   *
+   * @param size
+   *        See super-class API.
+   * @param start_or_unchanged
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  void resize(size_type size, Clear_on_alloc coa_tag, size_type start_or_unchanged = S_UNCHANGED);
+
   // private: There are no added data per se, but there is the added base, log::Log_context, which stores some stuff.
 }; // class Blob_with_log_context
 
@@ -342,7 +388,7 @@ public:
 template<bool S_SHARING_ALLOWED>
 Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(log::Logger* logger_ptr) :
   log::Log_context(logger_ptr, Base::S_LOG_COMPONENT)
-  // And default-ct Base().
+  // And default-ct Base{}.
 {
   // Nothing else.
 }
@@ -356,7 +402,16 @@ Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(log::Logger* log
 }
 
 template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(Blob_with_log_context&& moved_src) :
+Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(log::Logger* logger_ptr, size_type size,
+                                                                Clear_on_alloc coa_tag) :
+  log::Log_context(logger_ptr, Base::S_LOG_COMPONENT),
+  Base(size, coa_tag, get_logger())
+{
+  // Nothing else.
+}
+
+template<bool S_SHARING_ALLOWED>
+Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(Blob_with_log_context&& moved_src) noexcept :
   log::Log_context(static_cast<log::Log_context&&>(std::move(moved_src))),
   Base(std::move(moved_src), get_logger())
 {
@@ -393,7 +448,7 @@ Blob_with_log_context<S_SHARING_ALLOWED>&
 
 template<bool S_SHARING_ALLOWED>
 Blob_with_log_context<S_SHARING_ALLOWED>&
-  Blob_with_log_context<S_SHARING_ALLOWED>::operator=(Blob_with_log_context&& moved_src)
+  Blob_with_log_context<S_SHARING_ALLOWED>::operator=(Blob_with_log_context&& moved_src) noexcept
 {
   using log::Log_context;
 
@@ -403,7 +458,7 @@ Blob_with_log_context<S_SHARING_ALLOWED>&
 }
 
 template<bool S_SHARING_ALLOWED>
-void Blob_with_log_context<S_SHARING_ALLOWED>::swap(Blob_with_log_context& other)
+void Blob_with_log_context<S_SHARING_ALLOWED>::swap(Blob_with_log_context& other) noexcept
 {
   using log::Log_context;
   using std::swap;
@@ -416,7 +471,7 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::swap(Blob_with_log_context& other
 }
 
 template<bool S_SHARING_ALLOWED>
-void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2)
+void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2) noexcept
 {
   return blob1.swap(blob2);
 }
@@ -424,7 +479,7 @@ void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context
 template<bool S_SHARING_ALLOWED>
 Blob_with_log_context<S_SHARING_ALLOWED> Blob_with_log_context<S_SHARING_ALLOWED>::share() const
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share(get_logger());
   return blob;
 }
@@ -433,7 +488,7 @@ template<bool S_SHARING_ALLOWED>
 Blob_with_log_context<S_SHARING_ALLOWED>
   Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_left(size_type lt_size)
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share_after_split_left(lt_size, get_logger());
   return blob;
 }
@@ -442,7 +497,7 @@ template<bool S_SHARING_ALLOWED>
 Blob_with_log_context<S_SHARING_ALLOWED>
   Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_right(size_type rt_size)
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share_after_split_right(rt_size, get_logger());
   return blob;
 }
@@ -490,7 +545,7 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally_emit_pt
 
   share_after_split_equally(size, headless_pool, [&](Blob_with_log_context&& blob_moved)
   {
-    out_blobs_ptr->push_back(Ptr(new Blob_with_log_context(std::move(blob_moved))));
+    out_blobs_ptr->push_back(Ptr{new Blob_with_log_context{std::move(blob_moved)}});
   });
 }
 
@@ -501,9 +556,22 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::reserve(size_type new_capacity)
 }
 
 template<bool S_SHARING_ALLOWED>
+void Blob_with_log_context<S_SHARING_ALLOWED>::reserve(size_type new_capacity, Clear_on_alloc coa_tag)
+{
+  Base::reserve(new_capacity, coa_tag, get_logger());
+}
+
+template<bool S_SHARING_ALLOWED>
 void Blob_with_log_context<S_SHARING_ALLOWED>::resize(size_type new_size, size_type new_start_or_unchanged)
 {
   Base::resize(new_size, new_start_or_unchanged, get_logger());
+}
+
+template<bool S_SHARING_ALLOWED>
+void Blob_with_log_context<S_SHARING_ALLOWED>::resize(size_type new_size, Clear_on_alloc coa_tag,
+                                                      size_type new_start_or_unchanged)
+{
+  Base::resize(new_size, coa_tag, new_start_or_unchanged, get_logger());
 }
 
 template<bool S_SHARING_ALLOWED>

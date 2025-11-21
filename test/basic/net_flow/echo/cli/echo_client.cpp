@@ -66,7 +66,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   std_log_config.init_component_to_union_idx_mapping<Flow_log_component>(1000, 999, true);
   std_log_config.init_component_names<Flow_log_component>(flow::S_FLOW_LOG_COMPONENT_NAME_MAP, false, "cli-");
 
-  Simple_ostream_logger std_logger(&std_log_config);
+  Simple_ostream_logger std_logger{&std_log_config};
   FLOW_LOG_SET_CONTEXT(&std_logger, Flow_log_component::S_UNCAT);
 
   // This is separate: the Flow node's logging will go into this file. Just pass log_logger to flow::net_flow::Node.
@@ -75,10 +75,10 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   log_config.configure_default_verbosity(Sev::S_DATA, true);
   /* First arg: could use &std_logger to log-about-logging to console; but it's a bit heavy for such a console-dependent
    * little program.  Just just send it to /dev/null metaphorically speaking. */
-  Async_file_logger log_logger(0, &log_config, LOG_FILE, false /* No rotation; we're no serious business. */);
+  Async_file_logger log_logger{0, &log_config, LOG_FILE, false /* No rotation; we're no serious business. */};
   unsigned int n_times;
 
-  if (((argc - 1) != 4) || String_view(argv[4]).empty() ||
+  if (((argc - 1) != 4) || String_view{argv[4]}.empty() ||
       (!try_lexical_convert(argv[1], n_times)) || (n_times == 0))
   {
     FLOW_LOG_WARNING("Usage: " << argv[0] << " <times to send >= 1> <host> <port> <message to send>");
@@ -86,7 +86,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
   }
   // else
 
-  const String_view message(argv[4]);
+  const String_view message{argv[4]};
   const size_t msg_size = message.size();
   if (msg_size >= MAX_MSG_SIZE)
   {
@@ -94,8 +94,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
     return BAD_EXIT;
   }
 
-  const String_view host_str(argv[2]);
-  const String_view port_str(argv[3]);
+  const String_view host_str{argv[2]};
+  const String_view port_str{argv[3]};
 
   // Arguments parsed. Go.
 
@@ -106,7 +106,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
     Udp_endpoint remote_udp_endpoint;
     {
       io_context io;
-      resolver res(io);
+      resolver res{io};
       Error_code ec;
       const auto results = res.resolve(host_str, port_str, ec);
       if (ec)
@@ -128,7 +128,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] const char** argv)
     }
 
     // Now put our transport endpoint on the IPADDR_ANY address (all interfaces), random ephemeral UDP port.
-    Node node(&log_logger, Udp_endpoint(Ip_address_v4(), 0));
+    Node node{&log_logger, Udp_endpoint(Ip_address_v4(), 0)};
 
     /* Connect to the above-resolved UDP endpoint (host/port); within that, hard-coded Flow port REMOTE_FLOW_PORT.
      * Time out if unsuccessful after a while (throw exception; note that our user timeout may exceed lower-layer

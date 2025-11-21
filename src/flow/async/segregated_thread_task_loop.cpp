@@ -58,7 +58,7 @@ Segregated_thread_task_loop::Segregated_thread_task_loop(log::Logger* logger_ptr
   for (Task_engine_ptr& task_engine_ptr_in_container : m_task_engines)
   {
     // Attn: The concurrency-hint=1 may avoid or all most locking in boost.asio.  Exactly 1 thread in the Task_engine.
-    task_engine_ptr_in_container.reset(new Task_engine(1));
+    task_engine_ptr_in_container.reset(new Task_engine{1});
 
     /* Task_engine starts in !stopped() mode ready to run().  start() pre-condition is stopped() so for simplicity
      * start in the same state that our stop() would put the Task_engine into: */
@@ -68,9 +68,9 @@ Segregated_thread_task_loop::Segregated_thread_task_loop(log::Logger* logger_ptr
 
   // Initialize our Ops_list of pre-created Ops which in our case simply store all `n` `Task_engine_ptr`s.
   const size_t n = n_threads();
-  m_per_thread_ops.reset(new Op_list(get_logger(), n,
+  m_per_thread_ops.reset(new Op_list{get_logger(), n,
                                      [this](size_t idx) -> Op
-                                       { return Op(static_cast<Task_engine_ptr>(m_task_engines[idx])); }));
+                                       { return Op{static_cast<Task_engine_ptr>(m_task_engines[idx])}; }});
   /* (The static_cast<> is probably unnecessary but makes the compiler check our type logic for us.  That's quite
    * helpful in this rare situation where we're essentially using a dynamically typed variable in C++ [boost::any].
    * There is 0 perf cost to it by the way.) */
@@ -124,7 +124,7 @@ void Segregated_thread_task_loop::start(Task&& init_task_or_empty,
    * though, so let's keep to the letter of our contract.  Also, this way we can do it in parallel instead of
    * serially. */
 
-  vector<promise<void>> thread_init_done_promises(n);
+  vector<promise<void>> thread_init_done_promises{n};
   for (size_t idx = 0; idx != n; ++idx)
   {
     Task task_qing_thread_init_func;
@@ -147,11 +147,11 @@ void Segregated_thread_task_loop::start(Task&& init_task_or_empty,
     // Now its Task_qing_thread can do ->run() as most of its thread body (and it won't just return).
 
     // Create/start the thread.
-    m_qing_threads[idx].reset(new Task_qing_thread(get_logger(),
+    m_qing_threads[idx].reset(new Task_qing_thread{get_logger(),
                                                    (n == 1) ? m_nickname : util::ostream_op_string(m_nickname, idx),
                                                    task_engine, true, // Its *own* 1-1 Task_engine.
                                                    &(thread_init_done_promises[idx]),
-                                                   std::move(task_qing_thread_init_func)));
+                                                   std::move(task_qing_thread_init_func)});
   } // for (idx in [0, n))
   FLOW_LOG_INFO("All threads are asynchronously starting.  Awaiting their readiness barrier-style, in sequence.");
   for (size_t idx = 0; idx != n; ++idx)
@@ -167,7 +167,7 @@ void Segregated_thread_task_loop::start(Task&& init_task_or_empty,
   {
     FLOW_LOG_INFO("Thread count was auto-determined.  Further attempting thread-to-core scheduling optimization.");
 
-    vector<Thread*> worker_threads(n); // Initialized to nulls.  Now set them to the raw `Thread*`s.
+    vector<Thread*> worker_threads{n}; // Initialized to nulls.  Now set them to the raw `Thread*`s.
     transform(m_qing_threads.begin(), m_qing_threads.end(), worker_threads.begin(),
               [](const Task_qing_thread_ptr& qing_thread_ptr) -> Thread*
                 { return qing_thread_ptr->raw_worker_thread(); });

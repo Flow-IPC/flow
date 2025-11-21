@@ -34,7 +34,7 @@ struct Scheduled_task_handle_state;
 /**
  * Black-box type that represents a handle to a scheduled task as scheduled by
  * schedule_task_at() or schedule_task_from_now() or similar, which can be (optionally) used to control the
- * scheduled task after it has been thus scheduled.  Special value `Scheduled_task_handle()` represents an invalid task
+ * scheduled task after it has been thus scheduled.  Special value `Scheduled_task_handle{}` represents an invalid task
  * and can be used as a sentinel, as with a null pointer.
  *
  * Values of this type are to be passed around by value, not reference.  They are light-weight.
@@ -128,8 +128,6 @@ using Scheduled_task = Function<void (bool short_fire)>;
  *     ASAP, a/k/a short-fired, via scheduled_task_short_fire().
  * - One can (incrementally) schedule 2+ tasks to fire at the scheduled time on one #Timer; this facility only takes
  *   exactly 1 task, up-front. (We could provide such an API, but again this feels like it defeats the point.)
- * - #Timer has certain informational accessors (like one that returns the scheduled firing time) that we lack.
- *   (Again, we could provide this also -- but why?)
  *
  * @todo We could eliminate schedule_task_from_now() potential limitation versus #Timer wherein each call constructs
  * (internally) a new #Timer.  A pool of `Timer`s can be internally maintained to implement this.  This may or may not

@@ -33,9 +33,9 @@ Server_socket::Server_socket(log::Logger* logger_ptr, const Peer_socket_options*
    * (when people connect to us), each peer socket's per-socket options will be copies of this.  If
    * they did not supply a Peer_socket_options, the Node's global Peer_socket_options will be used
    * for each subsequent Peer_socket. */
-  m_child_sock_opts(child_sock_opts ? new Peer_socket_options(*child_sock_opts) : 0),
+  m_child_sock_opts(child_sock_opts ? new Peer_socket_options{*child_sock_opts} : nullptr),
   m_state(State::S_CLOSED), // Incorrect; set explicitly.
-  m_node(0), // Incorrect; set explicitly.
+  m_node(nullptr), // Incorrect; set explicitly.
   m_local_port(S_PORT_ANY) // Incorrect; set explicitly.
 {
   // Only print pointer value, because most members are garbage at this point.
@@ -44,26 +44,26 @@ Server_socket::Server_socket(log::Logger* logger_ptr, const Peer_socket_options*
 
 Server_socket::~Server_socket()
 {
-  delete m_child_sock_opts; // May be 0 (that's okay).
+  delete m_child_sock_opts; // May be null (that's okay).
 
   FLOW_LOG_TRACE("Server_socket [" << this << "] destroyed.");
 }
 
 Server_socket::State Server_socket::state() const
 {
-  Lock_guard lock(m_mutex); // State is liable to change at any time.
+  Lock_guard lock{m_mutex}; // State is liable to change at any time.
   return m_state;
 }
 
 Node* Server_socket::node() const
 {
-  Lock_guard lock(m_mutex); // m_node can simultaneously change to 0 if state changes to S_CLOSED.
+  Lock_guard lock{m_mutex}; // m_node can simultaneously change to 0 if state changes to S_CLOSED.
   return m_node;
 }
 
 Error_code Server_socket::disconnect_cause() const
 {
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
   return m_disconnect_cause;
 }
 
@@ -79,12 +79,12 @@ Peer_socket::Ptr Server_socket::accept(Error_code* err_code)
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   const Ptr serv = shared_from_this();
   if (!Node::ensure_sock_open(serv, err_code)) // Ensure it's open, so that we can access m_node.
   {
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else m_node is valid.
 
@@ -94,7 +94,7 @@ Peer_socket::Ptr Server_socket::accept(Error_code* err_code)
 
 Peer_socket::Ptr Server_socket::sync_accept(bool reactor_pattern, Error_code* err_code)
 {
-  return sync_accept_impl(Fine_time_pt(), reactor_pattern, err_code);
+  return sync_accept_impl(Fine_time_pt{}, reactor_pattern, err_code);
 }
 
 Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until, bool reactor_pattern,
@@ -107,12 +107,12 @@ Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until,
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   const Ptr serv = shared_from_this();
   if (!Node::ensure_sock_open(serv, err_code)) // Ensure it's open, so that we can access m_node.
   {
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else m_node is valid.
 
@@ -123,7 +123,7 @@ Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until,
   /* Operating on Server_sockets, returning Peer_socket::Ptr; Event_set socket set type is
    * Server_sockets.
    * Object is serv; non-blocking operation is m_node->accept(...) -- or N/A in "reactor pattern" mode..
-   * Peer_socket::Ptr() is the "would-block" return value for this operation.
+   * Peer_socket::Ptr{} is the "would-block" return value for this operation.
    * S_SERVER_SOCKET_ACCEPTABLE is the type of event to watch for here. */
   return m_node
            ->sync_op<Server_socket, Peer_socket::Ptr>
@@ -132,7 +132,7 @@ Peer_socket::Ptr Server_socket::sync_accept_impl(const Fine_time_pt& wait_until,
                   ? Function<Peer_socket::Ptr ()>()
                   : Function<Peer_socket::Ptr ()>([this, serv, err_code]() -> Peer_socket::Ptr
                                                     { return m_node->accept(serv, err_code); }),
-                Peer_socket::Ptr(), Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE,
+                Peer_socket::Ptr{}, Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE,
                 wait_until, err_code);
 } // Server_socket::sync_accept_impl()
 
@@ -154,7 +154,7 @@ Server_socket::Ptr Node::listen(flow_port_t local_port, Error_code* err_code,
   if (!running())
   {
     FLOW_ERROR_EMIT_ERROR(error::Code::S_NODE_NOT_RUNNING);
-    return Server_socket::Ptr();
+    return Server_socket::Ptr{};
   }
   // else
 
@@ -205,7 +205,7 @@ Server_socket::Ptr Node::listen(flow_port_t local_port, Error_code* err_code,
   if (serv->m_disconnect_cause)
   {
     *err_code = serv->m_disconnect_cause;
-    return Server_socket::Ptr(); // serv will go out of scope and thus will be destroyed.
+    return Server_socket::Ptr{}; // serv will go out of scope and thus will be destroyed.
   }
   // else
   err_code->clear();
@@ -229,7 +229,7 @@ void Node::listen_worker(flow_port_t local_port, const Peer_socket_options* chil
      * (for proper values and internal consistency, etc.). */
 
     Error_code err_code;
-    const bool opts_ok = sock_validate_options(*child_sock_opts, 0, &err_code);
+    const bool opts_ok = sock_validate_options(*child_sock_opts, nullptr, &err_code);
 
     // Due to the advertised interface of the current method, we must create a socket even on error.
     serv.reset(serv_create(child_sock_opts));
@@ -248,7 +248,7 @@ void Node::listen_worker(flow_port_t local_port, const Peer_socket_options* chil
      * Peer_socket constructor; this will mean that when a Peer_socket is generated on connection,
      * the code is to provide a copy of the global template for the per-socket options.  That will
      * happen later; we just pass in null. */
-    serv.reset(serv_create(0));
+    serv.reset(serv_create(nullptr));
   }
 
   // Server socket created; set members.
@@ -309,7 +309,7 @@ Peer_socket::Ptr Node::accept(Server_socket::Ptr serv, Error_code* err_code)
     FLOW_ERROR_EMIT_ERROR_LOG_INFO(serv->m_disconnect_cause);
 
     // Not listening anymore; pretend nothing on queue.
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else
   assert(serv->m_state == Server_socket::State::S_LISTENING);
@@ -318,13 +318,14 @@ Peer_socket::Ptr Node::accept(Server_socket::Ptr serv, Error_code* err_code)
   {
     // Nothing on the queue.  As advertised, this is not an error in LISTENING state.
     err_code->clear();
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else
 
   // Pop from queue.  Linked_hash_set queues things up at the front (via insert()), so pop from the back.
-  Peer_socket::Ptr sock = serv->m_unaccepted_socks.const_back();
-  serv->m_unaccepted_socks.pop_back();
+  const auto it = --serv->m_unaccepted_socks.cend();
+  Peer_socket::Ptr sock = *it;
+  serv->m_unaccepted_socks.erase(it);
 
   /* Now that it's accepted, remove reference to the server socket, so that when the server socket
    * is closed, sock is not closed (since it's a fully functioning independent socket now). */
@@ -342,7 +343,7 @@ bool Node::serv_is_acceptable(const boost::any& serv_as_any) const
 
   const Server_socket::Const_ptr serv = any_cast<Server_socket::Ptr>(serv_as_any);
 
-  Peer_socket::Lock_guard lock(serv->m_mutex); // Many threads can access/write below state.
+  Peer_socket::Lock_guard lock{serv->m_mutex}; // Many threads can access/write below state.
 
   /* Our task here is to return true if and only if at this very moment calling serv->accept()would
    * yield either a non-null return value OR a non-success *err_code.  In other words,
@@ -369,7 +370,7 @@ void Node::close_empty_server_immediately(const flow_port_t local_port, Server_s
   // Caller should have closed all the associated sockets already.
   assert(serv->m_connecting_socks.empty());
   {
-    Server_socket::Lock_guard lock(serv->m_mutex); // At least m_unaccepted_socks can be accessed by user.
+    Server_socket::Lock_guard lock{serv->m_mutex}; // At least m_unaccepted_socks can be accessed by user.
     assert(serv->m_unaccepted_socks.empty());
   }
 
@@ -410,7 +411,7 @@ void Node::close_empty_server_immediately(const flow_port_t local_port, Server_s
 
 void Node::serv_set_state(Server_socket::Ptr serv, Server_socket::State state)
 {
-  Server_socket::Lock_guard lock(serv->m_mutex);
+  Server_socket::Lock_guard lock{serv->m_mutex};
 
   // @todo Add TRACE logging.
 
@@ -422,8 +423,8 @@ void Node::serv_set_state(Server_socket::Ptr serv, Server_socket::State state)
      * socket from its internal structures.  Therefore, the Node itself may even go away -- while
      * this Server_socket still exists.  Since we use shared_ptr when giving our socket objects,
      * that's fine -- but we want to avoid returning an invalid Node* in node().  So, when
-     * S_CLOSED, serv->m_node = 0. */
-    serv->m_node = 0;
+     * S_CLOSED, serv->m_node = nullptr. */
+    serv->m_node = nullptr;
   }
 }
 
@@ -457,7 +458,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
      *
      * Note: no need to validate; global options (including per-socket ones) are validated
      * elsewhere when set. */
-    Options_lock lock(m_opts_mutex);
+    Options_lock lock{m_opts_mutex};
     sock.reset(sock_create(m_opts.m_dyn_sock_opts));
   }
 
@@ -479,7 +480,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
    * outgoing bandwidth based on incoming acknowledgments).  It may be used by m_snd_cong_ctl,
    * depending on the strategy chosen, but may be useful in its own right.  Hence it's a separate
    * object, not inside *m_snd_cong_ctl. */
-  sock->m_snd_bandwidth_estimator.reset(new Send_bandwidth_estimator(get_logger(), sock));
+  sock->m_snd_bandwidth_estimator.reset(new Send_bandwidth_estimator{get_logger(), sock});
 
   // Initialize the connection's congestion control strategy based on the configured strategy.
   sock->m_snd_cong_ctl.reset
@@ -503,7 +504,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
      * connection isn't going to happen.  We didn't place sock into m_socks, so just let it
      * disappear via shared_ptr<> magic. */
     async_no_sock_low_lvl_rst_send(Low_lvl_packet::const_ptr_cast(syn), low_lvl_remote_endpoint);
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else
 
@@ -522,7 +523,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
 
     // Same reasoning as above: send RST, and let sock disappear.
     async_no_sock_low_lvl_rst_send(syn, low_lvl_remote_endpoint);
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   } // if (that socket pair already exists)
   // else
 
@@ -754,7 +755,7 @@ void Node::serv_close_detected(Server_socket::Ptr serv,
   /* @todo Nothing calls this yet, as we don't support any way to close a Server_socket yet.
    * Probably will reconsider this method when we do. */
 
-  Server_socket::Lock_guard lock(serv->m_mutex);
+  Server_socket::Lock_guard lock{serv->m_mutex};
   serv->m_disconnect_cause = disconnect_cause;
   if (close)
   {
@@ -796,7 +797,7 @@ void Node::serv_peer_socket_closed(Server_socket::Ptr serv, Peer_socket::Ptr soc
 
   /* Remove from serv->m_unaccepted_socks.  At this point accept() can access serv->m_unaccepted_socks and
    * m_originating_serv, so we must lock. */
-  Server_socket::Lock_guard lock(serv->m_mutex);
+  Server_socket::Lock_guard lock{serv->m_mutex};
 
   sock->m_originating_serv.reset(); // Maintain invariant.
 
@@ -825,7 +826,7 @@ void Node::serv_peer_socket_acceptable(Server_socket::Ptr serv, Peer_socket::Ptr
   // We are in thread W.
 
   {
-    Server_socket::Lock_guard lock(serv->m_mutex);
+    Server_socket::Lock_guard lock{serv->m_mutex};
     serv->m_unaccepted_socks.insert(sock); // Remember that Linked_hash_set<> insert()s at the *front*.
   }
   // This guy is only to be accessed from thread W (which we're in), so no lock needed.

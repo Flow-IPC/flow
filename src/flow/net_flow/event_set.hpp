@@ -247,7 +247,7 @@ namespace flow::net_flow
 class Event_set :
   // Endow us with shared_ptr<>s ::Ptr and ::Const_ptr (syntactic sugar).
   public util::Shared_ptr_alias_holder<boost::shared_ptr<Event_set>>,
-  // Allow access to Ptr(this) from inside Event_set methods.  Just call shared_from_this().
+  // Allow access to Ptr{this} from inside Event_set methods.  Just call shared_from_this().
   public boost::enable_shared_from_this<Event_set>,
   public log::Log_context,
   private boost::noncopyable

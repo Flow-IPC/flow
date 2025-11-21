@@ -85,7 +85,7 @@ Fine_duration Net_env_simulator::received_packet_latency()
   if (m_recv_latency_seq.empty())
   {
     // Ran out of prescribed outcomes; use randomness.
-    return Fine_duration(m_recv_latency_distribution_msec(m_rnd_generator));
+    return Fine_duration{m_recv_latency_distribution_msec(m_rnd_generator)};
   }
   // else
   const Fine_duration latency = m_recv_latency_seq.front();

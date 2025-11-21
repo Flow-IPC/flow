@@ -63,18 +63,18 @@ size_t Socket_buffer::feed_buf_move(util::Blob* data, size_t max_data_size)
     if (target_space_left < src_data_size)
     {
       // Unfortunately we'll have to move only part of *data; so we'll have to do a linear-time thing.
-      Blob* bytes = new Blob(get_logger());
+      Blob* bytes = new Blob{get_logger()};
       // (All operations are max-performance:)  Allocate N bytes; copy N bytes: (*data)[0, 1, ...].
       bytes->assign_copy(const_buffer(data->const_data(), target_space_left));
       data->erase(data->begin(), data->begin() + target_space_left);
 
-      m_q.push_back(Blob_ptr(bytes));
+      m_q.push_back(Blob_ptr{bytes});
       m_data_size = max_data_size;
     }
     else
     {
       // Enough space for all of *data -- so just use a constant-time swap.
-      Blob_ptr bytes_ptr(new Blob(std::move(*data))); // Move inner representation of *data into *bytes_ptr.
+      Blob_ptr bytes_ptr{new Blob{std::move(*data)}}; // Move inner representation of *data into *bytes_ptr.
       // *data empty now.
 
       m_q.push_back(bytes_ptr);

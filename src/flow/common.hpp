@@ -339,17 +339,6 @@
  * it does look sort of nice, but that's a matter of opinion, and single space looks fine too... AND doesn't
  * confuse various editors' auto-formatting facilityies, among other problem.)
  *
- * @todo We use `0` instead of `NULL` or `nullptr` when needing a null pointer; perhaps we should use the latter.
- * `NULL` is an anachronism from C, so we shouldn't use it.  `nullptr` is at least no worse than `0`,
- * however, other than being less concise.  However, the main reason it exists --
- * to avoid ambiguities in function overloading (e.g., when something could
- * take either an `int` or a `char*`, `nullptr` would resolve to the latter, while `0` probably unintentionally
- * to the former) -- is not a situation our style ever invokes, to my knowledge, so using `nullptr` would not
- * solve any actual problems.  However, it could be argued that using it more readily calls attention to the use
- * of a pointer, as opposed to an integer, in the particular context at play.  So it's something to consider
- * (but, no doubt, the conversion process would be laborious, as there's no simple search-replace that would
- * work).
- *
  * @todo `= default` for copy constructors and copy operators is now used in a few places; consider spreading
  * this C++11 feature everywhere it's being done implicitly due to C++03 rules (good documentation practices suggest
  * declaring them explicitly but of course leave the implementation to the compiler default, gaining best of both
@@ -434,7 +423,7 @@ using Fine_duration = Fine_clock::duration;
  *
  * Then, there are two possibilities.  If you pass in non-null `err_code`, then after return `*err_code` is
  * success (falsy) or a truthy `enum`-like value, representing a specific error.  If, instead, you pass in null,
- * then a flow::error::Runtime_error() `exc` is thrown if and only if `*err_code` would have been set to truthy value
+ * then a flow::error::Runtime_error `exc` is thrown if and only if `*err_code` would have been set to truthy value
  * `e_c` had a non-null `err_code` been passed in.  If such an exception is thrown, `Error_code e_c` is
  * encapsulated in exception object `exc`.  If and only if no exception is thrown, there was no error (`*err_code` would
  * have been falsy).

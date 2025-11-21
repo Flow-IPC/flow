@@ -145,9 +145,7 @@ Dynamic_cfg_context<Root, Target, Target_ptr>::Dynamic_cfg_context
   (const Config_manager<S_d_value_set...>& config_manager, Root_to_target_func&& root_to_target_func_moved,
    size_t d_value_set_idx) :
   m_get_root_func([&config_manager, d_value_set_idx]()
-  {
-    return config_manager.template dynamic_values<Root>(d_value_set_idx);
-  }),
+                    { return config_manager.template dynamic_values<Root>(d_value_set_idx); }),
   m_root_to_target_func(std::move(root_to_target_func_moved))
 {
 }
@@ -164,7 +162,7 @@ Target_ptr Dynamic_cfg_context<Root, Target, Target_ptr>::dynamic_cfg() const
   auto root = root_dynamic_cfg();
   /* This aliasing constructor provides the key mechanism: the constructed pointer object *shares ownership* of `root`,
    * but *stores* (and operates on) a pointer to the target object (contained by and translated from `root`). */
-  return Target_ptr(root, &(m_root_to_target_func(*root)));
+  return Target_ptr{root, &(m_root_to_target_func(*root))};
 }
 
 } // namespace flow::cfg

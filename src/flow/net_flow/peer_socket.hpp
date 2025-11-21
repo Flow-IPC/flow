@@ -217,7 +217,7 @@ class Peer_socket :
   public util::Null_interface,
   // Endow us with shared_ptr<>s ::Ptr and ::Const_ptr (syntactic sugar).
   public util::Shared_ptr_alias_holder<boost::shared_ptr<Peer_socket>>,
-  // Allow access to Ptr(this) from inside Peer_socket methods.  Just call shared_from_this().
+  // Allow access to Ptr{this} from inside Peer_socket methods.  Just call shared_from_this().
   public boost::enable_shared_from_this<Peer_socket>,
   public log::Log_context,
   private boost::noncopyable
@@ -286,7 +286,7 @@ public:
    *        the current sub-state of `S_OPEN`.
    * @return Current main state of the socket.
    */
-  State state(Open_sub_state* open_sub_state = 0) const;
+  State state(Open_sub_state* open_sub_state = nullptr) const;
 
   /**
    * Node that produced this Peer_socket.
@@ -335,7 +335,7 @@ public:
    * @return The size of the copied metadata.
    */
   size_t get_connect_metadata(const boost::asio::mutable_buffer& buffer,
-                              Error_code* err_code = 0) const;
+                              Error_code* err_code = nullptr) const;
 
   /**
    * Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size;
@@ -405,7 +405,7 @@ public:
    *         send() returns.
    */
   template<typename Const_buffer_sequence>
-  size_t send(const Const_buffer_sequence& data, Error_code* err_code = 0);
+  size_t send(const Const_buffer_sequence& data, Error_code* err_code = nullptr);
 
   /**
    * Blocking (synchronous) version of send().  Acts just like send(), except that if Socket is not
@@ -456,7 +456,7 @@ public:
    */
   template<typename Rep, typename Period, typename Const_buffer_sequence>
   size_t sync_send(const Const_buffer_sequence& data,
-                   const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
+                   const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = nullptr);
 
   /**
    * `sync_send()` operating in `nullptr_t` mode, wherein -- if Writable state is reached -- the actual data
@@ -495,7 +495,7 @@ public:
    */
   template<typename Rep, typename Period>
   bool sync_send(std::nullptr_t,
-                 const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
+                 const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = nullptr);
 
   /**
    * Equivalent to `sync_send(data, duration::max(), err_code)`; i.e., sync_send() with no timeout.
@@ -509,7 +509,7 @@ public:
    * @return See other sync_send().
    */
   template<typename Const_buffer_sequence>
-  size_t sync_send(const Const_buffer_sequence& data, Error_code* err_code = 0);
+  size_t sync_send(const Const_buffer_sequence& data, Error_code* err_code = nullptr);
 
   /**
    * Equivalent to `sync_send(nullptr, duration::max(), err_code)`; i.e., `sync_send(nullptr_t)`
@@ -519,7 +519,7 @@ public:
    *        See other sync_receive().
    * @return See other sync_receive().
    */
-  bool sync_send(std::nullptr_t, Error_code* err_code = 0);
+  bool sync_send(std::nullptr_t, Error_code* err_code = nullptr);
 
   /**
    * Receives (consumes from the Receive buffer) bytes of data, up to a given maximum
@@ -573,7 +573,7 @@ public:
    *         when receive() returns.
    */
   template<typename Mutable_buffer_sequence>
-  size_t receive(const Mutable_buffer_sequence& target, Error_code* err_code = 0);
+  size_t receive(const Mutable_buffer_sequence& target, Error_code* err_code = nullptr);
 
   /**
    * Blocking (synchronous) version of receive().  Acts just like receive(), except that if socket
@@ -623,7 +623,7 @@ public:
    */
   template<typename Rep, typename Period, typename Mutable_buffer_sequence>
   size_t sync_receive(const Mutable_buffer_sequence& target,
-                      const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
+                      const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = nullptr);
 
   /**
    * `sync_receive()` operating in `nullptr_t` mode, wherein -- if Readable state is reached -- the actual data
@@ -662,7 +662,7 @@ public:
    */
   template<typename Rep, typename Period>
   bool sync_receive(std::nullptr_t,
-                    const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
+                    const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = nullptr);
 
   /**
    * Equivalent to `sync_receive(target, duration::max(), err_code)`; i.e., sync_receive()
@@ -677,7 +677,7 @@ public:
    * @return See other sync_receive().
    */
   template<typename Mutable_buffer_sequence>
-  size_t sync_receive(const Mutable_buffer_sequence& target, Error_code* err_code = 0);
+  size_t sync_receive(const Mutable_buffer_sequence& target, Error_code* err_code = nullptr);
 
   /**
    * Equivalent to `sync_receive(nullptr, duration::max(), err_code)`; i.e., `sync_receive(nullptr_t)`
@@ -687,7 +687,7 @@ public:
    *        See other sync_receive().
    * @return See other sync_receive().
    */
-  bool sync_receive(std::nullptr_t, Error_code* err_code = 0);
+  bool sync_receive(std::nullptr_t, Error_code* err_code = nullptr);
 
   /**
    * Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the
@@ -723,7 +723,7 @@ public:
    *        error::Code::S_NODE_NOT_RUNNING, or -- if socket already closed (`state() == State::S_CLOSED`) --
    *        then the error that caused the closure.
    */
-  void close_abruptly(Error_code* err_code = 0);
+  void close_abruptly(Error_code* err_code = nullptr);
 
   /**
    * Dynamically replaces the current options set (options()) with the given options set.
@@ -742,7 +742,7 @@ public:
    *        error::Code::S_NODE_NOT_RUNNING.
    * @return `true` on success, `false` on error.
    */
-  bool set_options(const Peer_socket_options& opts, Error_code* err_code = 0);
+  bool set_options(const Peer_socket_options& opts, Error_code* err_code = nullptr);
 
   /**
    * Copies this socket's option set and returns that copy.  If you intend to use set_options() to
@@ -1005,7 +1005,7 @@ private:
    *        See sync_send().
    * @param wait_until
    *        See `sync_send(timeout)`.  This is the absolute time point corresponding to that.
-   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt()` (Epoch) for this argument.
+   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt{}` (Epoch) for this argument.
    * @param err_code
    *        See sync_send().
    * @return See sync_send().
@@ -1065,7 +1065,7 @@ private:
    *        See sync_receive().
    * @param wait_until
    *        See `sync_receive(timeout)`.  This is the absolute time point corresponding to that.
-   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt()` (Epoch) for this argument.
+   *        `"duration<Rep, Period>::max()"` maps to the value `Fine_time_pt{}` (Epoch) for this argument.
    * @param err_code
    *        See sync_receive().
    * @return See sync_receive().
@@ -1133,7 +1133,7 @@ private:
    * @return See above.
    */
   size_t max_block_size_multiple(const size_t& opt_val_ref,
-                                 const unsigned int* inflate_pct_val_ptr = 0) const;
+                                 const unsigned int* inflate_pct_val_ptr = nullptr) const;
 
   /**
    * Whether retransmission is enabled on this connection.  Short-hand for appropriate opt() call.
@@ -1547,7 +1547,7 @@ private:
    * data structure because we may not send each desired acknowledgment right away, combining
    * several together, thus reducing overhead at the cost of short delays (or even nearly
    * non-existent delays, as in the case of several DATA packets handled in one
-   * NodeLLlow_lvl_recv_and_handle() invocation, i.e., having arrived at nearly at the same time).
+   * Node::low_lvl_recv_and_handle() invocation, i.e., having arrived at nearly at the same time).
    *
    * Any two packets represented by these Individual_ack objects may be duplicates of each other (same
    * Sequence_number, possibly different Individual_ack::m_received_when values).  It's up to the sender (receiver
@@ -2156,7 +2156,7 @@ private:
 
   /**
    * This is the final set of stats collected at the time the socket was moved to S_CLOSED #m_state.
-   * If it has not yet moved to that state, this is not applicable (but equals Peer_socket_info()).
+   * If it has not yet moved to that state, this is not applicable (but equals `Peer_socket_info{}`).
    * It's used by info() to get at the final set of stats, before the source info is purged by the
    * resource cleanup in sock_free_memory().
    */
@@ -2443,7 +2443,7 @@ size_t Peer_socket::send(const Const_buffer_sequence& data, Error_code* err_code
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node; also it's a pre-condition for Node::send().
+  Lock_guard lock{m_mutex}; // Lock m_node; also it's a pre-condition for Node::send().
 
   /* Forward the rest of the logic to Node.
    * Now, what I really want to do here is simply:
@@ -2478,7 +2478,7 @@ size_t Peer_socket::send(const Const_buffer_sequence& data, Error_code* err_code
 template<typename Const_buffer_sequence>
 size_t Peer_socket::sync_send(const Const_buffer_sequence& data, Error_code* err_code)
 {
-  return sync_send_impl(data, Fine_time_pt(), err_code); // sync_send() with infinite timeout.
+  return sync_send_impl(data, Fine_time_pt{}, err_code); // sync_send() with infinite timeout.
 }
 
 template<typename Rep, typename Period, typename Const_buffer_sequence>
@@ -2511,7 +2511,7 @@ size_t Peer_socket::sync_send_impl(const Const_buffer_sequence& data, const Fine
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node; also it's a pre-condition for Node::send().
+  Lock_guard lock{m_mutex}; // Lock m_node; also it's a pre-condition for Node::send().
 
   /* Forward the rest of the logic to Node.
    * Now, what I really want to do here is simply:
@@ -2540,7 +2540,7 @@ size_t Peer_socket::receive(const Mutable_buffer_sequence& target, Error_code* e
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex);  // Lock m_node/m_state; also it's a pre-condition for Node::receive().
+  Lock_guard lock{m_mutex};  // Lock m_node/m_state; also it's a pre-condition for Node::receive().
 
   /* Forward the rest of the logic to Node.
    * Now, what I really want to do here is simply:
@@ -2565,7 +2565,7 @@ size_t Peer_socket::receive(const Mutable_buffer_sequence& target, Error_code* e
 template<typename Mutable_buffer_sequence>
 size_t Peer_socket::sync_receive(const Mutable_buffer_sequence& target, Error_code* err_code)
 {
-  return sync_receive_impl(target, Fine_time_pt(), err_code); // sync_receive() with infinite timeout.
+  return sync_receive_impl(target, Fine_time_pt{}, err_code); // sync_receive() with infinite timeout.
 }
 
 template<typename Rep, typename Period, typename Mutable_buffer_sequence>
@@ -2596,7 +2596,7 @@ size_t Peer_socket::sync_receive_impl(const Mutable_buffer_sequence& target,
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node; also it's a pre-condition for Node::send().
+  Lock_guard lock{m_mutex}; // Lock m_node; also it's a pre-condition for Node::send().
 
   /* Forward the rest of the logic to Node.
    * Now, what I really want to do here is simply:
@@ -2621,7 +2621,7 @@ template<typename Opt_type>
 Opt_type Peer_socket::opt(const Opt_type& opt_val_ref) const
 {
   // Similar to Node::opt().
-  Options_lock lock(m_opts_mutex);
+  Options_lock lock{m_opts_mutex};
   return opt_val_ref;
 }
 

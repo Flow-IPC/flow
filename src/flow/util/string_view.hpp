@@ -254,7 +254,7 @@ bool Basic_string_view<Ch, Traits>::starts_with(Ch const * needle) const
    * arg to starts_with() below) could improve perf; but on the other
    * hand it could even slow it down in the haystack-too-small case; plus length() is likely to be
    * assembly-optimized nicely.  Let's just not worry too much about it. */
-  return starts_with(Basic_string_view(needle));
+  return starts_with(Basic_string_view{needle});
 }
 
 template<typename Ch, typename Traits>
@@ -288,7 +288,7 @@ template<typename Ch, typename Traits>
 bool Basic_string_view<Ch, Traits>::ends_with(Ch const * needle) const
 {
   // Same comment as in starts_with().
-  return ends_with(Basic_string_view(needle));
+  return ends_with(Basic_string_view{needle});
 }
 
 template<typename Ch, typename Traits>

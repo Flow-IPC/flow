@@ -145,7 +145,7 @@ namespace flow::net_flow
 class Drop_timer :
   // Endow us with shared_ptr<>s ::Ptr and ::Const_ptr (syntactic sugar).
   public util::Shared_ptr_alias_holder<boost::shared_ptr<Drop_timer>>,
-  // Allow access to Ptr(this) from inside Drop_timer methods.  Just call shared_from_this().
+  // Allow access to Ptr{this} from inside Drop_timer methods.  Just call shared_from_this().
   public boost::enable_shared_from_this<Drop_timer>,
   public log::Log_context,
   private boost::noncopyable
@@ -301,7 +301,7 @@ private:
   /**
    * Constructs Drop_timer as described in the factory constructor create_drop_timer().
    * Why have the factory method?  We guarantee that this won't get deleted before the timer
-   * callback executes (causing a crash therein), by passing a `Ptr(this)` to
+   * callback executes (causing a crash therein), by passing a `Ptr{this}` to
    * `basic_waitable_timer::async_wait()`.  However that can only work if all users of the object also
    * access it by a sharing `Ptr`.  Thus we only provide access to the outside via a `Ptr` (the
    * factory).
@@ -462,7 +462,7 @@ private:
    * During the time period starting with the last start_contemporaneous_events() call and ending with the subsequent
    * end_contemporaneous_events() call, if any -- in other words, during the last
    * contemporary events group, finished or otherwise -- this is the ID of the most-recently-sent packet (highest
-   * packet ID) such that that packet was acknowledged during that time period. 0 if none were acknowledged.
+   * packet ID) such that that packet was acknowledged during that time period.  0 if none were acknowledged.
    */
   packet_id_t m_during_events_newest_acked_packet;
 

@@ -54,7 +54,7 @@ public:
    * Constructs Runtime_error.
    *
    * @param err_code_or_success
-   *        The #Error_code describing the error if available; or the success value (`Error_code()`)
+   *        The #Error_code describing the error if available; or the success value (`Error_code{}`)
    *        if an error code is unavailable or inapplicable to this error.
    *        In the latter case what() will omit anything to do with error codes and feature only `context`.
    * @param context
@@ -67,7 +67,7 @@ public:
 
   /**
    * Constructs Runtime_error, when one only has a context string and no applicable/known error code.
-   * Formally it's equivalent to `Runtime_error(Error_code(), context)`: it is syntactic sugar only.
+   * Formally it's equivalent to `Runtime_error(Error_code{}, context)`: it is syntactic sugar only.
    *
    * @param context
    *        See the other ctor.
@@ -100,8 +100,8 @@ private:
    *
    * The latter occurs in our superclass `what()` already, if we pass up `context` to the super-ctor.
    * Now suppose `!err_code_or_success`.  No matter which super-ctor we use, it will memorize an `Error_code` --
-   * if we pass `Error_code()` it'll remember that; if use a ctor that does not take an `Error_code()` it will
-   * memorize its own `Error_code()`.  Therefore we must override `what()` behavior in our own what() in that case.
+   * if we pass `Error_code{}` it'll remember that; if use a ctor that does not take an `Error_code{}` it will
+   * memorize its own `Error_code{}`.  Therefore we must override `what()` behavior in our own what() in that case.
    *
    * Therefore this algorithm works:
    *   - `!err_code_or_success`: Memorize `context` in #m_context_if_no_code.  what() just returns the latter.
@@ -158,7 +158,7 @@ bool exec_and_throw_on_error(const Func& func, Ret* ret,
     /* Error was detected: do our duty.  Pass through the context info from caller.
      * Note that passing in, say, FLOW_UTIL_WHERE_AM_I() would be less useful, since the present location
      * is not helpful to the log reader in determining where the actual error first occurred. */
-    throw Runtime_error(our_err_code, context);
+    throw Runtime_error{our_err_code, context};
   }
 
   return true;
@@ -179,7 +179,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 
   if (our_err_code)
   {
-    throw Runtime_error(our_err_code, context);
+    throw Runtime_error{our_err_code, context};
   }
 
   return true;
@@ -202,7 +202,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 #define FLOW_ERROR_EMIT_ERROR(ARG_val) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
-    ::flow::Error_code FLOW_ERROR_EMIT_ERR_val(ARG_val); \
+    ::flow::Error_code FLOW_ERROR_EMIT_ERR_val{ARG_val}; \
     FLOW_LOG_WARNING("Error code emitted: [" << FLOW_ERROR_EMIT_ERR_val << "] " \
                      "[" << FLOW_ERROR_EMIT_ERR_val.message() << "]."); \
     *err_code = FLOW_ERROR_EMIT_ERR_val; \
@@ -218,7 +218,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 #define FLOW_ERROR_EMIT_ERROR_LOG_INFO(ARG_val) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
-    ::flow::Error_code FLOW_ERROR_EMIT_ERR_LOG_val(ARG_val); \
+    ::flow::Error_code FLOW_ERROR_EMIT_ERR_LOG_val{ARG_val}; \
     FLOW_LOG_INFO("Error code emitted: [" << FLOW_ERROR_EMIT_ERR_LOG_val << "] " \
                   "[" << FLOW_ERROR_EMIT_ERR_LOG_val.message() << "]."); \
     *err_code = FLOW_ERROR_EMIT_ERR_LOG_val; \
@@ -233,7 +233,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
 #define FLOW_ERROR_LOG_ERROR(ARG_val) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
-    ::flow::Error_code FLOW_ERROR_LOG_ERR_val(ARG_val); \
+    ::flow::Error_code FLOW_ERROR_LOG_ERR_val{ARG_val}; \
     FLOW_LOG_WARNING("Error occurred: [" << FLOW_ERROR_LOG_ERR_val << "] " \
                      "[" << FLOW_ERROR_LOG_ERR_val.message() << "]."); \
   )
@@ -319,7 +319,7 @@ bool exec_void_and_throw_on_error(const Func& func, Error_code* err_code, util::
  *   // Example API.  In this one, there's a 4th argument that happens to follow the standard Error_code* one.
  *   // arg2 is a (const) reference, as opposed to a pointer or scalar, and is most efficiently handled by adding
  *   // cref() to avoid copying it.
- *   T f(AT1 arg1, const AT2& arg2, Error_code* err_code = 0, AT3 arg3 = 0)
+ *   T f(AT1 arg1, const AT2& arg2, Error_code* err_code = nullptr, AT3 arg3 = 0)
  *   {
  *     FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(T, // Provide the return type of the API.
  *                                           // Forward all the args into the macro, but replace `err_code` => `_1`.
