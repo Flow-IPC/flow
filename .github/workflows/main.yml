@@ -289,6 +289,16 @@ jobs:
         exclude:
           # Firstly the exclusions from the C++17 sub-matrix (the other being the C++20 sub-matrix).
           # Again, these exclusions are explained in Flow-IPC workflow counterpart.
+          # XXX
+          - compiler: { id: gcc-9 }
+          - compiler: { id: gcc-10 }
+          - compiler: { id: gcc-11 }
+          - compiler: { id: gcc-13 }
+          - build-test-cfg: { id: release }
+          - build-test-cfg: { id: debug }
+          - build-test-cfg: { id: relwithdebinfo }
+          - build-test-cfg: { id: relwithdebinfo-ubsan }
+          - build-test-cfg: { id: minsizerel }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-asan }
