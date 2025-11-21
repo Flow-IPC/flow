@@ -76,7 +76,7 @@ Blob_t make_blob([[maybe_unused]] const Allocator_t* alloc_if_applicable,
   }
 }
 
-/* @todo This std::fill_n() "replacement" should be removed, once we figure out a decent way to make some versions of
+/* XXX@todo This std::fill_n() "replacement" should be removed, once we figure out a decent way to make some versions of
  * gcc in Release-like configs stop giving nonsensical warnings like array-bounds and stringop-overflow, when we
  * use std::fill_n() (and some other similar low-level ops in other tests).  Ugh....
  * @todo Until then, maybe it's best to actually make this a flow::util, so it's reusable by everyone.  Same

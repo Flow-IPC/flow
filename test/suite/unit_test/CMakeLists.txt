@@ -46,11 +46,19 @@ target_include_directories(${name} PRIVATE
 common_set_target_properties(${name})
 
 # XXX
-if((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") AND
-   (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 11) AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 12))
-  set_source_files_properties(${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp
-                              PROPERTIES
-                              COMPILE_OPTIONS "-Wno-array-bounds;-Wno-stringop-overflow")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  block()
+    set(ver ${CMAKE_CXX_COMPILER_VERSION})
+    set(evil_file ${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp)
+    if((ver VERSION_GREATER_EQUAL 11) AND (ver VERSION_LESS 12))
+      set(evil_opts "-Wno-stringop-overflow")
+    elseif((ver VERSION_GREATER_EQUAL 13) AND (ver VERSION_LESS 15))
+      set(evil_opts "-Wno-array-bounds")
+    endif()
+    if(DEFINED evil_opts)
+      set_source_files_properties(${evil_file} PROPERTIES COMPILE_OPTIONS "${evil_opts}")
+    endif()
+  endblock()
 endif()
 
 # Link good ol' flow; and gtest.
