@@ -275,7 +275,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_TRUE(ALL_ZERO_FN(b1));
 
       auto b3 = make_blob<Blob_t>(alloc, &logger, N_SM);
-      fill_n(b3.begin(), ONE, b3.size());
+      fill_n(b3.begin(), b3.size(), ONE);
       const size_t N_TN = 5;
       b3.resize(N_SM - N_TN, N_TN); // Structure: [N_TN][N_SM - N_TN][], all ONEs.  Terms: [prefix][body][postfix].
       EXPECT_TRUE(RNG_ONES_FN(b3.begin() - N_TN, b3.end())); // Ensure they're all ONEs in fact.
@@ -530,7 +530,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       b1.resize(b1.capacity() - INC, INC); // [INC][N1 - INC][], all 0.
       EXPECT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(), b1.begin() - b1.start() + b1.capacity()));
-      fill_n(b1.begin() + INC, ONE, INC); // [INC x 0][INC x 0, INC x 1, rest x 0][].
+      fill_n(b1.begin() + INC, INC, ONE); // [INC x 0][INC x 0, INC x 1, rest x 0][].
       ASSERT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(),
                               b1.begin() - b1.start() + INC + INC)) << "Sanity-check selves.";
       ASSERT_TRUE(RNG_ONES_FN(b1.begin() - b1.start() + INC + INC,
