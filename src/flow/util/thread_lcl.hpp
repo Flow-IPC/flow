@@ -554,20 +554,31 @@ private:
     Thread_local_state* m_state;
   };
 
-  //XXX
-  struct Tsp_wrapper
+  /**
+   * Simply wraps a `boost::thread_specific_ptr<Tl_context>`, adding absolutely no data or algorithms, purely to
+   * work-around a combination of (some?) clang versions and (some?) GNU STL impls giving a bogus compile error,
+   * when one tries `optional<Thread_local_state_registry>`.  The error is
+   * "the parameter for this explicitly-defaulted copy constructor is const, but a member or base requires it to be
+   * non-const" and references impl details of STL's `optional`.  The solution is to wrap the thing in a thing
+   * that is itself already noncopyable in the proper way, unlike `thread_specific_ptr` (which, at least as of
+   * Boost-1.87, still has a copy-forbidding ctor/assigner that takes non-`const` ref).
+   */
+  struct Tsp_wrapper : private boost::noncopyable
   {
+    // Data.
+
+    /// What we wrap and forward-to-and-fro.
     boost::thread_specific_ptr<Tl_context> m_tsp;
 
-    template<typename... Ctor_args>
-    Tsp_wrapper(Ctor_args&&... ctor_args) :
-      m_tsp(std::forward<Ctor_args>(ctor_args)...)
-    {
-      // Yeah.
-    }
+    // Constructors/destructor.
 
-    Tsp_wrapper(const Tsp_wrapper& src) = delete;
-    Tsp_wrapper& operator=(const Tsp_wrapper& src) = delete;
+    /**
+     * Constructs payload.
+     * @param ctor_args
+     *        Args to #m_tsp ctor.
+     */
+    template<typename... Ctor_args>
+    Tsp_wrapper(Ctor_args&&... ctor_args);
   };
 
   // Methods.
@@ -1118,6 +1129,14 @@ void Thread_local_state_registry<Thread_local_state_t>::set_logger(log::Logger* 
     });
   }
 } // Thread_local_state_registry::set_logger()
+
+template<typename Thread_local_state_t>
+template<typename... Ctor_args>
+Thread_local_state_registry<Thread_local_state_t>::Tsp_wrapper::Tsp_wrapper(Ctor_args&&... ctor_args) :
+  m_tsp(std::forward<Ctor_args>(ctor_args)...)
+{
+  // Yeah.
+}
 
 template<typename Thread_local_state_t>
 std::ostream& operator<<(std::ostream& os, const Thread_local_state_registry<Thread_local_state_t>& val)
