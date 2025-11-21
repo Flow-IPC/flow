@@ -98,6 +98,7 @@ void fill_n_ffs(C* p, size_t n, T x)
 #pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
 #pragma GCC diagnostic ignored "-Warray-bounds"
 #pragma GCC diagnostic ignored "-Wstringop-overflow" // This one pops up too, if the preceding is pragma-ed out.
+#pragma GCC diagnostic ignored "-Wrestrict" // Another similar bogus one pops up after pragma-ing away preceding one.
   std::fill_n(p, n, static_cast<C>(x));
 #pragma GCC diagnostic pop
 }
