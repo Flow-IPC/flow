@@ -133,8 +133,7 @@ namespace flow::util
  */
 template<typename Thread_local_state_t>
 class Thread_local_state_registry :
-  public log::Log_context_mt,
-  private boost::noncopyable
+  public log::Log_context_mt
 {
 public:
   // Types.
@@ -212,6 +211,20 @@ public:
                                        decltype(m_create_state_func)&& create_state_func = {});
 
   /**
+   * Forbid copying.
+   *
+   * @internal
+   * Normally we'd derive from `boost::noncopyable`, but the combination of the crankiness of clang and
+   * old-schoolness of a `boost::thread_specific_ptr` copy-forbidding declaration causes a warning in at
+   * least some clang versions, when one wraps a `*this` in `optional<>`.
+   * @endinternal
+   *
+   * @param src
+   *        See above.
+   */
+  Thread_local_state_registry(const Thread_local_state& src) = delete;
+
+  /**
    * Deletes each #Thread_local_state to have been created so far by calls to this_thread_state() from various
    * threads (possibly but not necessarily including this thread).
    *
@@ -241,6 +254,14 @@ public:
   ~Thread_local_state_registry();
 
   // Methods.
+
+  /**
+   * Forbid copying.
+   * @param src
+   *        See above.
+   * @return See above.
+   */
+  Thread_local_state& operator=(const Thread_local_state& src) = delete;
 
   /**
    * Returns pointer to this thread's thread-local object, first constructing it via #m_create_state_func if

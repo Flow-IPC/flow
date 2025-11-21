@@ -42,6 +42,7 @@ using std::cout;
 using std::flush;
 using std::vector;
 using std::allocator_traits;
+using std::fill_n;
 namespace bipc = boost::interprocess;
 
 /* Basic_blob supports SHM-friendly allocators, and we test this to some extent.  The testing just
@@ -274,7 +275,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_TRUE(ALL_ZERO_FN(b1));
 
       auto b3 = make_blob<Blob_t>(alloc, &logger, N_SM);
-      std::memset(b3.begin(), ONE, b3.size());
+      fill_n(b3.begin(), ONE, b3.size());
       const size_t N_TN = 5;
       b3.resize(N_SM - N_TN, N_TN); // Structure: [N_TN][N_SM - N_TN][], all ONEs.  Terms: [prefix][body][postfix].
       EXPECT_TRUE(RNG_ONES_FN(b3.begin() - N_TN, b3.end())); // Ensure they're all ONEs in fact.
@@ -292,7 +293,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       { // Copy blob over itself (no-op).
         const auto saved_dt = b3.data();
         const auto saved_start = b3.start(); const auto saved_size = b3.size(); const auto saved_cap = b3.capacity();
-        b3 = b3;
+        b3 = static_cast<const Blob_t&>(b3); // Cast to avoid warning in some compilers (auto self-assignment).
         EXPECT_EQ(b3.data(), saved_dt);
         EXPECT_EQ(b3.start(), saved_start); EXPECT_EQ(b3.size(), saved_size); EXPECT_EQ(b3.capacity(), saved_cap);
       }
@@ -300,7 +301,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       { // Copy null blob over itself (no-op).
         const auto saved_dt = b4.data();
         const auto saved_start = b4.start(); const auto saved_size = b4.size(); const auto saved_cap = b4.capacity();
-        b4 = b4;
+        b4 = static_cast<const Blob_t&>(b4); // Cast to avoid warning in some compilers (auto self-assignment).
         EXPECT_EQ(b4.data(), saved_dt);
         EXPECT_EQ(b4.start(), saved_start); EXPECT_EQ(b4.size(), saved_size); EXPECT_EQ(b4.capacity(), saved_cap);
       }
@@ -529,7 +530,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       b1.resize(b1.capacity() - INC, INC); // [INC][N1 - INC][], all 0.
       EXPECT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(), b1.begin() - b1.start() + b1.capacity()));
-      memset(b1.begin() + INC, ONE, INC); // [INC x 0][INC x 0, INC x 1, rest x 0][].
+      fill_n(b1.begin() + INC, ONE, INC); // [INC x 0][INC x 0, INC x 1, rest x 0][].
       ASSERT_TRUE(RNG_ZERO_FN(b1.begin() - b1.start(),
                               b1.begin() - b1.start() + INC + INC)) << "Sanity-check selves.";
       ASSERT_TRUE(RNG_ONES_FN(b1.begin() - b1.start() + INC + INC,
@@ -569,7 +570,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC);
       b1.resize(b1.capacity() - INC, INC);
-      memset(b1.begin() + INC, ONE, INC);
+      fill_n(b1.begin() + INC, INC, ONE);
       EXPECT_EQ(b1.sub_copy(b1.begin() + INC, mutable_buffer{&(DIST_VEC.front()), 0}), // Degenerate case (no-op).
                 b1.begin() + INC);
       EXPECT_TRUE(RNG_ZERO_FN(DIST_VEC.begin(), DIST_VEC.end()));
