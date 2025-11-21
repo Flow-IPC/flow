@@ -291,13 +291,13 @@ TEST(Linked_hash, Interface)
     keys_check_map(map10, { "b", "a", "e", "d", "c" }, CTX);
     vals_check_map(map10, { "Y", "A", "Z", "D", "X" }, CTX);
 
-    EXPECT_EQ(map10.erase("x"), 0);
-    EXPECT_EQ(map10.erase("c"), 1);
-    EXPECT_EQ(map10.erase("c"), 0);
-    EXPECT_EQ(map10.erase("a"), 1);
-    EXPECT_EQ(map10.erase("a"), 0);
-    EXPECT_EQ(map10.erase("b"), 1);
-    EXPECT_EQ(map10.erase("b"), 0);
+    EXPECT_EQ(map10.erase("x"), size_t(0));
+    EXPECT_EQ(map10.erase("c"), size_t(1));
+    EXPECT_EQ(map10.erase("c"), size_t(0));
+    EXPECT_EQ(map10.erase("a"), size_t(1));
+    EXPECT_EQ(map10.erase("a"), size_t(0));
+    EXPECT_EQ(map10.erase("b"), size_t(1));
+    EXPECT_EQ(map10.erase("b"), size_t(0));
     keys_check_map(map10, { "e", "d" }, CTX);
     vals_check_map(map10, { "Z", "D" }, CTX);
     map10.clear();
@@ -327,12 +327,12 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(it5->first, "b");
     EXPECT_EQ(it5->second, "B");
 
-    EXPECT_EQ(map10.count("e"), 1);
-    EXPECT_EQ(map10.count("b"), 1);
-    EXPECT_EQ(map10.count("x"), 0);
-    EXPECT_EQ(map10.count(""), 0);
+    EXPECT_EQ(map10.count("e"), size_t(1));
+    EXPECT_EQ(map10.count("b"), size_t(1));
+    EXPECT_EQ(map10.count("x"), size_t(0));
+    EXPECT_EQ(map10.count(""), size_t(0));
     map10[""] = "Q";
-    EXPECT_EQ(map10.count(""), 1);
+    EXPECT_EQ(map10.count(""), size_t(1));
     EXPECT_EQ(map10[""], "Q");
     EXPECT_EQ(map10["e"], "E");
     EXPECT_EQ(map10["b"], "B");
@@ -458,13 +458,13 @@ TEST(Linked_hash, Interface)
     set10.touch(set10.find("b"));
     keys_check_set(set10, { "b", "a", "e", "d", "c" }, CTX);
 
-    EXPECT_EQ(set10.erase("x"), 0);
-    EXPECT_EQ(set10.erase("c"), 1);
-    EXPECT_EQ(set10.erase("c"), 0);
-    EXPECT_EQ(set10.erase("a"), 1);
-    EXPECT_EQ(set10.erase("a"), 0);
-    EXPECT_EQ(set10.erase("b"), 1);
-    EXPECT_EQ(set10.erase("b"), 0);
+    EXPECT_EQ(set10.erase("x"), size_t(0));
+    EXPECT_EQ(set10.erase("c"), size_t(1));
+    EXPECT_EQ(set10.erase("c"), size_t(0));
+    EXPECT_EQ(set10.erase("a"), size_t(1));
+    EXPECT_EQ(set10.erase("a"), size_t(0));
+    EXPECT_EQ(set10.erase("b"), size_t(1));
+    EXPECT_EQ(set10.erase("b"), size_t(0));
     keys_check_set(set10, { "e", "d" }, CTX);
     set10.clear();
     keys_check_set(set10, { }, CTX);
@@ -485,12 +485,12 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(it5, --set10.end());
     EXPECT_EQ(it5->m_str, "b");
 
-    EXPECT_EQ(set10.count("e"), 1);
-    EXPECT_EQ(set10.count("b"), 1);
-    EXPECT_EQ(set10.count("x"), 0);
-    EXPECT_EQ(set10.count(""), 0);
+    EXPECT_EQ(set10.count("e"), size_t(1));
+    EXPECT_EQ(set10.count("b"), size_t(1));
+    EXPECT_EQ(set10.count("x"), size_t(0));
+    EXPECT_EQ(set10.count(""), size_t(0));
     set10.insert("");
-    EXPECT_EQ(set10.count(""), 1);
+    EXPECT_EQ(set10.count(""), size_t(1));
   } // Set test block.
 } // TEST(Linked_hash, Interface)
 

@@ -139,7 +139,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
     const Allocator* const alloc2 = &(*alloc2_v);
 
     constexpr size_t N_SM = 1024;
-    ASSERT_EQ(N_SM % 2, 0) << "We shall be dividing it by 2; should probably be even.";
+    ASSERT_EQ(N_SM % 2, size_t(0)) << "We shall be dividing it by 2; should probably be even.";
     constexpr size_t ZERO = 0;
 
     const uint8_t ONE = 1;
@@ -168,66 +168,66 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
     { // Null blobs.
       auto b1 = make_blob<Blob_t>(alloc, &logger, ZERO);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.resize(0);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.resize(0, Blob_t::S_UNCHANGED);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
-      b1.resize(0, 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
+      b1.resize(0, size_t(0));
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.resize(0, CLEAR_ON_ALLOC);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.resize(0, CLEAR_ON_ALLOC, Blob_t::S_UNCHANGED);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
-      b1.resize(0, CLEAR_ON_ALLOC, 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
+      b1.resize(0, CLEAR_ON_ALLOC, size_t(0));
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.make_zero();
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.reserve(0);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.reserve(0, CLEAR_ON_ALLOC);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.start_past_prefix(0);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       b1.start_past_prefix_inc(0);
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
 
       Blob_t b2{b1}; // Copy-ct.
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
       b1 = b2; // Copy-assign.
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
       Blob_t b3{std::move(b2)}; // Move-ct.
       EXPECT_TRUE(b3.zero()); EXPECT_TRUE(b3.empty());
-      EXPECT_EQ(b3.size(), 0); EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.capacity(), 0);
+      EXPECT_EQ(b3.size(), size_t(0)); EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.capacity(), size_t(0));
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
       b2 = std::move(b3); // Move-assign.
       EXPECT_TRUE(b3.zero()); EXPECT_TRUE(b3.empty());
-      EXPECT_EQ(b3.size(), 0); EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.capacity(), 0);
+      EXPECT_EQ(b3.size(), size_t(0)); EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.capacity(), size_t(0));
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
       swap(b2, b3);
       EXPECT_TRUE(b3.zero()); EXPECT_TRUE(b3.empty());
-      EXPECT_EQ(b3.size(), 0); EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.capacity(), 0);
+      EXPECT_EQ(b3.size(), size_t(0)); EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.capacity(), size_t(0));
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
     } // Null blobs.
 
     // We can now generally perhaps ignore null blobs when testing construct/assign ops.
@@ -235,14 +235,14 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
     { // Copy-ct.
       auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC);
       EXPECT_FALSE(b1.zero()); EXPECT_FALSE(b1.empty());
-      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), N_SM);
+      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b1));
       Blob_t b2{b1};
       EXPECT_FALSE(b1.zero()); EXPECT_FALSE(b1.empty());
-      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), N_SM);
+      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b1));
       EXPECT_FALSE(b2.zero()); EXPECT_FALSE(b2.empty());
-      EXPECT_EQ(b2.size(), N_SM); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), N_SM);
+      EXPECT_EQ(b2.size(), N_SM); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b2));
       EXPECT_NE(b1.data(), b2.data());
 
@@ -251,7 +251,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_FALSE(b3.zero()); EXPECT_FALSE(b3.empty());
       EXPECT_EQ(b3.size(), N_SM / 2);
       // Attn: Only [.b(), .e()) range copied; start() shall be zero, and capacity() big-enough for size() only.
-      EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.capacity(), N_SM / 2);
+      EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.capacity(), N_SM / 2);
       EXPECT_FALSE(b2.zero()); EXPECT_FALSE(b2.empty());
       EXPECT_EQ(b2.size(), N_SM / 2); EXPECT_EQ(b2.start(), N_SM / 2); EXPECT_EQ(b2.capacity(), N_SM);
       EXPECT_NE(b3.data(), b2.data());
@@ -266,7 +266,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       b2 = b1; // Overwrite null blob.
       EXPECT_FALSE(b2.zero()); EXPECT_FALSE(b2.empty());
       EXPECT_EQ(b2.size(), N_SM / 2);
-      EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), N_SM / 2); // Attn: same deal as with copy-ct.
+      EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), N_SM / 2); // Attn: same deal as with copy-ct.
       EXPECT_TRUE(ALL_ZERO_FN(b2));
       EXPECT_NE(b1.data(), b2.data());
       EXPECT_FALSE(b1.zero()); EXPECT_FALSE(b1.empty());
@@ -285,7 +285,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
        * is adjusted accordingly. */
       b3 = b2; // So now it's [][N_SM / 2][N_SM - N_SN/2].
       EXPECT_FALSE(b3.zero()); EXPECT_FALSE(b3.empty());
-      EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.size(), N_SM / 2); EXPECT_EQ(b3.capacity(), N_SM);
+      EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.size(), N_SM / 2); EXPECT_EQ(b3.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b3)); // Copied-stuff a/k/a body should be as in b2.
       EXPECT_TRUE(RNG_ONES_FN(b3.end(), b3.begin() - b3.start() + b3.capacity())); // Postfix should be untouched.
 
@@ -313,20 +313,20 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       // assign_copy().
       auto b5 = make_blob<Blob_t>(alloc, &logger, ZERO);
       EXPECT_EQ(b5.assign_copy(STR_BUF), STR_BUF.size()); // Made of ONEs.
-      EXPECT_EQ(b5.start(), 0); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
+      EXPECT_EQ(b5.start(), size_t(0)); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
       EXPECT_TRUE(RNG_ONES_FN(b5.begin(), b5.end()));
       EXPECT_EQ(b5.assign_copy(STR_SM_BUF), STR_SM_BUF.size()); // Made of zeroes.
-      EXPECT_EQ(b5.start(), 0); EXPECT_EQ(b5.size(), STRING_SM.size()); EXPECT_EQ(b5.capacity(), STRING.size());
+      EXPECT_EQ(b5.start(), size_t(0)); EXPECT_EQ(b5.size(), STRING_SM.size()); EXPECT_EQ(b5.capacity(), STRING.size());
       EXPECT_TRUE(ALL_ZERO_FN(b5));
       EXPECT_TRUE(RNG_ONES_FN(b5.end(), b5.begin() + STRING.size()));
       // emplace_copy().
       b5.resize(b5.capacity());
-      EXPECT_EQ(b5.start(), 0); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
+      EXPECT_EQ(b5.start(), size_t(0)); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
       EXPECT_TRUE(RNG_ONES_FN(b5.begin() + STRING_SM.size(), b5.begin() + STRING.size()));
       EXPECT_EQ(b5.emplace_copy(b5.begin() + (STRING_SM.size() / 2), STR_SM_BUF),
                 b5.begin() + (STRING_SM.size() / 2) + STRING_SM.size());
       // All these must remain unchanged; just bytes were copied into a sub-range of [.b(), .e()).
-      EXPECT_EQ(b5.start(), 0); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
+      EXPECT_EQ(b5.start(), size_t(0)); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
       EXPECT_TRUE(RNG_ZERO_FN(b5.begin(),
                               b5.begin() + (STRING_SM.size() / 2)));
       EXPECT_TRUE(RNG_ZERO_FN(b5.begin() + (STRING_SM.size() / 2),
@@ -337,8 +337,8 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_EQ(b5.emplace_copy(b5.begin() + 1,
                                 const_buffer{b5.end() - 5, 4}),
                 b5.begin() + 5);
-      EXPECT_EQ(b5.start(), 0); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
-      EXPECT_EQ(b5.front(), 0);
+      EXPECT_EQ(b5.start(), size_t(0)); EXPECT_EQ(b5.size(), STRING.size()); EXPECT_EQ(b5.capacity(), STRING.size());
+      EXPECT_EQ(b5.front(), uint8_t(0));
       EXPECT_TRUE(RNG_ONES_FN(b5.begin() + 1,
                               b5.begin() + 1 + 4));
       EXPECT_TRUE(RNG_ZERO_FN(b5.begin() + 1 + 4,
@@ -354,14 +354,14 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC);
       EXPECT_FALSE(b1.zero()); EXPECT_FALSE(b1.empty());
-      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), N_SM);
+      EXPECT_EQ(b1.size(), N_SM); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b1));
       auto saved_dt = b1.const_data();
       Blob_t b2{std::move(b1)};
       EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
-      EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.capacity(), 0);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.capacity(), size_t(0));
       EXPECT_FALSE(b2.zero()); EXPECT_FALSE(b2.empty());
-      EXPECT_EQ(b2.size(), N_SM); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), N_SM);
+      EXPECT_EQ(b2.size(), N_SM); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b2));
       EXPECT_EQ(b1.data(), nullptr);
       EXPECT_EQ(b2.data(), saved_dt);
@@ -370,7 +370,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       saved_dt = b2.const_data();
       Blob_t b3{std::move(b2)};
       EXPECT_TRUE(b2.zero()); EXPECT_TRUE(b2.empty());
-      EXPECT_EQ(b2.size(), 0); EXPECT_EQ(b2.start(), 0); EXPECT_EQ(b2.capacity(), 0);
+      EXPECT_EQ(b2.size(), size_t(0)); EXPECT_EQ(b2.start(), size_t(0)); EXPECT_EQ(b2.capacity(), size_t(0));
       EXPECT_FALSE(b3.zero()); EXPECT_FALSE(b3.empty());
       EXPECT_EQ(b3.size(), N_SM / 2); EXPECT_EQ(b3.start(), N_SM / 2); EXPECT_EQ(b3.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b3));
@@ -379,10 +379,10 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
       auto b4 = make_blob<Blob_t>(alloc, &logger, N_TN, CLEAR_ON_ALLOC);
       EXPECT_FALSE(b4.zero()); EXPECT_FALSE(b4.empty());
-      EXPECT_EQ(b4.size(), N_TN); EXPECT_EQ(b4.start(), 0); EXPECT_EQ(b4.capacity(), N_TN);
+      EXPECT_EQ(b4.size(), N_TN); EXPECT_EQ(b4.start(), size_t(0)); EXPECT_EQ(b4.capacity(), N_TN);
       b4 = std::move(b3); // Move-assign.
       EXPECT_TRUE(b3.zero()); EXPECT_TRUE(b3.empty());
-      EXPECT_EQ(b3.size(), 0); EXPECT_EQ(b3.start(), 0); EXPECT_EQ(b3.capacity(), 0);
+      EXPECT_EQ(b3.size(), size_t(0)); EXPECT_EQ(b3.start(), size_t(0)); EXPECT_EQ(b3.capacity(), size_t(0));
       EXPECT_FALSE(b4.zero()); EXPECT_FALSE(b4.empty());
       EXPECT_EQ(b4.size(), N_SM / 2); EXPECT_EQ(b4.start(), N_SM / 2); EXPECT_EQ(b4.capacity(), N_SM);
       EXPECT_TRUE(ALL_ZERO_FN(b4));
@@ -395,26 +395,33 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       constexpr size_t N2 = 10;
       constexpr size_t N_BIG = 1024 * 1024; // Biggish so as to lower chance all-zeroes being already there by accident.
       auto b1 = make_blob<Blob_t>(alloc, &logger, ZERO);
-      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), 0); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), size_t(0));
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_EQ(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_EQ(b1.data(), nullptr);
       b1.make_zero(); // No-op.
-      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), 0); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), size_t(0));
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_EQ(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_EQ(b1.data(), nullptr);
       b1.reserve(N1);
-      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N1); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N1);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_NE(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_NE(b1.data(), nullptr);
       b1.reserve(N2); // Smaller => no-op.
-      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N1); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N1);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_NE(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_NE(b1.data(), nullptr);
       b1.make_zero(); // Dealloc here (ahead of destructor).
-      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), 0); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_TRUE(b1.zero()); EXPECT_EQ(b1.capacity(), size_t(0));
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_EQ(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_EQ(b1.data(), nullptr);
       b1.reserve(N_BIG, CLEAR_ON_ALLOC);
-      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N_BIG); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N_BIG);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_NE(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_NE(b1.data(), nullptr);
       RNG_ZERO_FN(b1.begin(), b1.begin() + b1.capacity());
       b1.reserve(N1); // Smaller => no-op.
-      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N_BIG); EXPECT_EQ(b1.size(), 0); EXPECT_EQ(b1.start(), 0);
+      EXPECT_FALSE(b1.zero()); EXPECT_EQ(b1.capacity(), N_BIG);
+      EXPECT_EQ(b1.size(), size_t(0)); EXPECT_EQ(b1.start(), size_t(0));
       EXPECT_NE(b1.begin(), nullptr); EXPECT_EQ(b1.begin(), b1.end()); EXPECT_NE(b1.data(), nullptr);
       RNG_ZERO_FN(b1.begin(), b1.begin() + b1.capacity());
       // Destructor deallocs.
@@ -431,7 +438,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       // Sanity-check begin() and end() cores when zero() and not zero() but empty() (degenerate cases).
       auto b1 = make_blob<Blob_t>(alloc, &logger, ZERO);
       EXPECT_EQ(b1.begin(), nullptr); EXPECT_EQ(b1.end(), b1.begin());
-      b1.reserve(N_SM, CLEAR_ON_ALLOC); ASSERT_EQ(b1.size(), 0);
+      b1.reserve(N_SM, CLEAR_ON_ALLOC); ASSERT_EQ(b1.size(), size_t(0));
       EXPECT_NE(b1.begin(), nullptr); EXPECT_EQ(b1.end(), b1.begin());
 
       // Now for the mainstream situation (!empty(); also have non-empty prefix (start()) and postfix).
@@ -473,7 +480,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       constexpr size_t INC = 5;
 
       auto b1 = make_blob<Blob_t>(alloc, &logger, N1);
-      EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.size(), N1);
+      EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.size(), N1);
       b1.start_past_prefix(N2);
       EXPECT_EQ(b1.start(), N2); EXPECT_EQ(b1.size(), N1 - N2);
       b1.make_zero(); // Dealloc.
@@ -486,27 +493,29 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
       EXPECT_EQ(b1.start(), INC); EXPECT_EQ(b1.size(), N2);
       ASSERT_GT(N1, N2 + INC) << "Sanity-check our own logic real quick.";
       b1.start_past_prefix(N1); // Requested start() > current start() + size() => size() becomes 0.
-      EXPECT_EQ(b1.start(), N1); EXPECT_EQ(b1.size(), 0);
+      EXPECT_EQ(b1.start(), N1); EXPECT_EQ(b1.size(), size_t(0));
       b1.start_past_prefix_inc(-1);
-      EXPECT_EQ(b1.start(), N1 - 1); EXPECT_EQ(b1.size(), 1);
+      EXPECT_EQ(b1.start(), N1 - 1); EXPECT_EQ(b1.size(), size_t(1));
       b1.start_past_prefix_inc(-5);
-      EXPECT_EQ(b1.start(), N1 - 1 - 5); EXPECT_EQ(b1.size(), 1 + 5);
+      EXPECT_EQ(b1.start(), N1 - 1 - 5); EXPECT_EQ(b1.size(), size_t(1) + 5);
       b1.start_past_prefix_inc(+2);
-      EXPECT_EQ(b1.start(), N1 - 1 - 5 + 2); EXPECT_EQ(b1.size(), 1 + 5 - 2);
+      EXPECT_EQ(b1.start(), N1 - 1 - 5 + 2); EXPECT_EQ(b1.size(), size_t(1) + 5 - 2);
       b1.start_past_prefix_inc(+5); // Push past original start().  size() itself is floored at 0.
-      EXPECT_EQ(b1.start(), N1 + 1); EXPECT_EQ(b1.size(), 0);
+      EXPECT_EQ(b1.start(), N1 + 1); EXPECT_EQ(b1.size(), size_t(0));
       b1.start_past_prefix_inc(-(N1 + 1));
-      EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.size(), N1 + 1);
+      EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.size(), N1 + 1);
       // (Recall that clear() never actually deallocs.  It really just sets size() to 0; that's it.)
       b1.resize(N2, INC);
       EXPECT_EQ(b1.start(), INC); EXPECT_EQ(b1.size(), N2);
       b1.clear(); // Attn.
       EXPECT_FALSE(b1.zero()); EXPECT_TRUE(b1.empty()); // Empty but buffer is actually allocated still.
-      EXPECT_EQ(b1.start(), INC); EXPECT_EQ(b1.size(), 0); // Empty (size is 0) but start() unchanged as advertised.
+      EXPECT_EQ(b1.start(), INC); EXPECT_EQ(b1.size(), size_t(0)); // Empty but start() unchanged as advertised.
       b1.make_zero();
-      EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty()); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.size(), 0);
+      EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
+      EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.size(), size_t(0));
       b1.clear(); // No-op.
-      EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty()); EXPECT_EQ(b1.start(), 0); EXPECT_EQ(b1.size(), 0);
+      EXPECT_TRUE(b1.zero()); EXPECT_TRUE(b1.empty());
+      EXPECT_EQ(b1.start(), size_t(0)); EXPECT_EQ(b1.size(), size_t(0));
     } // start_past_prefix[_inc](), clear().
 
     { // erase().
@@ -722,21 +731,21 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
          * copied-from.  Like, the moved-from allocator shouldn't get nullified or something; generally that is not
          * really a thing; that I (ygoldfel) know of.)  So we'll just still check the moved-from get_allocator(). */
         EXPECT_EQ(b4.get_allocator(), *alloc); EXPECT_EQ(b3.get_allocator(), *alloc);
-        EXPECT_EQ(b4.capacity(), N_SM); EXPECT_EQ(b3.capacity(), 0);
+        EXPECT_EQ(b4.capacity(), N_SM); EXPECT_EQ(b3.capacity(), size_t(0));
         auto b5 = make_blob<Blob_t>(alloc2, &logger, N_SM);
         EXPECT_EQ(b5.get_allocator(), *alloc2); EXPECT_EQ(b4.get_allocator(), *alloc);
         EXPECT_EQ(b5.capacity(), N_SM); EXPECT_EQ(b4.capacity(), N_SM);
         b4 = std::move(b5);
         EXPECT_EQ(b5.get_allocator(), *alloc2);
         EXPECT_EQ(b4.get_allocator(), *alloc); // Move-construction propagates... but not move-assignment.
-        EXPECT_EQ(b5.capacity(), 0); EXPECT_EQ(b4.capacity(), N_SM);
+        EXPECT_EQ(b5.capacity(), size_t(0)); EXPECT_EQ(b4.capacity(), N_SM);
 
         static_assert(!(SHM_ALLOC && allocator_traits<Allocator>::propagate_on_container_swap::value),
                       "Our stateful test allocators configured themselves to "
                         "*not* propagate on swap.  If this static-assert trips, something major changed "
                         "in boost.interprocess maybe?!");
         swap(b4, b5);
-        EXPECT_EQ(b5.capacity(), N_SM); EXPECT_EQ(b4.capacity(), 0); // Buf pointers apparently swapped...
+        EXPECT_EQ(b5.capacity(), N_SM); EXPECT_EQ(b4.capacity(), size_t(0)); // Buf pointers apparently swapped...
         EXPECT_EQ(b5.get_allocator(), *alloc2); // ...but not allocators.
         EXPECT_EQ(b4.get_allocator(), *alloc);
         b5.make_zero(); // Force deallocation now -- at least it shouldn't crash.
@@ -813,25 +822,25 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
         auto b2 = make_shared<Blob_t>(b1->share()); check_alloc_sz(1, CTX); // No extra alloc.
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
-        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), 0);
+        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
-        EXPECT_EQ(b2->size(), N); EXPECT_EQ(b2->start(), 0);
+        EXPECT_EQ(b2->size(), N); EXPECT_EQ(b2->start(), size_t(0));
 
         auto b3 = make_shared<Blob_t>(b2->share_after_split_left(INC)); check_alloc_sz(1, CTX);
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
-        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), 0);
+        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
         EXPECT_EQ(b2->size(), N - INC); EXPECT_EQ(b2->start(), INC);
         EXPECT_EQ(b3->data() - b3->start(), p); EXPECT_EQ(b3->capacity(), N);
-        EXPECT_EQ(b3->size(), INC); EXPECT_EQ(b3->start(), 0);
+        EXPECT_EQ(b3->size(), INC); EXPECT_EQ(b3->start(), size_t(0));
 
         auto b4 = make_shared<Blob_t>(b2->share_after_split_right(INC)); check_alloc_sz(1, CTX);
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
-        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), 0);
+        EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
         EXPECT_EQ(b2->size(), N - INC - INC); EXPECT_EQ(b2->start(), INC);
         EXPECT_EQ(b3->data() - b3->start(), p); EXPECT_EQ(b3->capacity(), N);
-        EXPECT_EQ(b3->size(), INC); EXPECT_EQ(b3->start(), 0);
+        EXPECT_EQ(b3->size(), INC); EXPECT_EQ(b3->start(), size_t(0));
         EXPECT_EQ(b4->data() - b4->start(), p); EXPECT_EQ(b4->capacity(), N);
         EXPECT_EQ(b4->size(), INC); EXPECT_EQ(b4->start(), N - INC);
 
@@ -912,7 +921,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
         constexpr size_t N_LG = N_SM + INC;
         auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM);
         b1.resize(0);
-        ASSERT_EQ(b1.capacity(), N_SM); ASSERT_EQ(b1.size(), 0);
+        ASSERT_EQ(b1.capacity(), N_SM); ASSERT_EQ(b1.size(), size_t(0));
         b1.reserve(N_SM);
         EXPECT_DEATH(b1.reserve(N_LG), RSRV_ERR);
         b1.make_zero();
@@ -945,9 +954,9 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
         // start_past_prefix_inc().
         b2.resize(10, 5);
-        b2.start_past_prefix_inc(-1); ASSERT_EQ(b2.start(), 4);
-        b2.start_past_prefix_inc(-4); ASSERT_EQ(b2.start(), 0);
-        b2.start_past_prefix_inc(+4); ASSERT_EQ(b2.start(), 4);
+        b2.start_past_prefix_inc(-1); ASSERT_EQ(b2.start(), size_t(4));
+        b2.start_past_prefix_inc(-4); ASSERT_EQ(b2.start(), size_t(0));
+        b2.start_past_prefix_inc(+4); ASSERT_EQ(b2.start(), size_t(4));
         EXPECT_DEATH(b2.start_past_prefix_inc(-5), "start.. >= size_type.-prefix_size_inc");
 
         { // emplace/sub_copy().
