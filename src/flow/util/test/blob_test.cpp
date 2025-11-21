@@ -42,7 +42,6 @@ using std::cout;
 using std::flush;
 using std::vector;
 using std::allocator_traits;
-using std::fill_n;
 namespace bipc = boost::interprocess;
 
 /* Basic_blob supports SHM-friendly allocators, and we test this to some extent.  The testing just
@@ -75,6 +74,16 @@ Blob_t make_blob([[maybe_unused]] const Allocator_t* alloc_if_applicable,
     assert(alloc_if_applicable);
     return Blob_t{std::forward<Ctor_args>(ctor_args)..., logger, *alloc_if_applicable};
   }
+}
+
+/* @todo This std::fill_n() "replacement" should be removed, once we figure out a decent way to make some versions of
+ * gcc in Release-like configs stop giving nonsensical warnings like array-bounds and stringop-overflow, when we
+ * use std::fill_n() (and some other similar low-level ops in other tests).  Ugh.... */
+template<typename T>
+void fill_n(uint8_t* p, size_t n, T x)
+{
+  const auto end = p + n;
+  for (; p != end; ++p) { *p = uint8_t(x); }
 }
 
 } // Anonymous namespace
