@@ -23,6 +23,7 @@
 #include <gtest/gtest.h>
 #include <atomic>
 #include <optional>
+#include <memory>
 
 namespace flow::util::test
 {
@@ -31,6 +32,8 @@ namespace
 {
 using std::optional;
 using std::string;
+using std::make_shared;
+using std::shared_ptr;
 using flow::test::Test_logger;
 using Thread_loop = async::Single_thread_task_loop;
 template<typename T>
@@ -173,28 +176,30 @@ TEST(Thread_local_state_registry, Interface)
     reg3.emplace(&logger, "testLock");
 
     Thread_loop t1{&logger, "threadLoop1"};
-    Task func1 = [&](bool)
+    auto func1 = make_shared<Task>();
+    *func1 = [self = func1, &reg3, &t1](bool)
     {
       bool exp{true};
       if (reg3->this_thread_state()->m_do_action.compare_exchange_strong(exp, false, std::memory_order_relaxed))
       {
         s_events += "didAction\n";
       }
-      t1.schedule_from_now(boost::chrono::milliseconds(500), Task{func1});
+      t1.schedule_from_now(boost::chrono::milliseconds(500), Task{*self});
     };
     Thread_loop t2{&logger, "threadLoop2"};
-    Task func2 = [&](bool)
+    auto func2 = make_shared<Task>();
+    *func2 = [self = func1, &reg3, &t2](bool)
     {
       bool exp{true};
       if (reg3->this_thread_state()->m_do_action.compare_exchange_strong(exp, false, std::memory_order_relaxed))
       {
         s_events += "didAction\n";
       }
-      t2.schedule_from_now(boost::chrono::milliseconds(500), Task{func2});
+      t2.schedule_from_now(boost::chrono::milliseconds(500), Task{*self});
     };
 
-    t1.start([&]() { func1(false); });
-    t2.start([&]() { func2(false); });
+    t1.start([func = func1]() { (*func)(false); });
+    t2.start([func = func2]() { (*func)(false); });
 
     EXPECT_TRUE(s_events.empty());
     reg3->while_locked([&](const auto& lock)
