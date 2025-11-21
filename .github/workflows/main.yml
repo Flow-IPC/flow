@@ -401,8 +401,12 @@ jobs:
       san-suppress-cfg-in-file2: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg
       setup-tests-env: |
         if [ '${{ matrix.build-test-cfg.sanitizer-name }}' = asan ]; then
+          export SAN_SUPP=1
+          export SAN_SUPP_CFG=${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
           export ASAN_OPTIONS='disable_coredump=0'
+          export LSAN_OPTIONS='suppressions=$SAN_SUPP_CFG'
           echo "ASAN_OPTIONS = [$ASAN_OPTIONS]."
+          echo "LSAN_OPTIONS = [$LSAN_OPTIONS]."
         elif [ '${{ matrix.build-test-cfg.sanitizer-name }}' = ubsan ]; then
           export SAN_SUPP=1
           export SAN_SUPP_CFG=${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg

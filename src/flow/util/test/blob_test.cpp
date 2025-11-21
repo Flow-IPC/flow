@@ -76,33 +76,6 @@ Blob_t make_blob([[maybe_unused]] const Allocator_t* alloc_if_applicable,
   }
 }
 
-/* XXX@todo This std::fill_n() "replacement" should be removed, once we figure out a decent way to make some versions of
- * gcc in Release-like configs stop giving nonsensical warnings like array-bounds and stringop-overflow, when we
- * use std::fill_n() (and some other similar low-level ops in other tests).  Ugh....
- * @todo Until then, maybe it's best to actually make this a flow::util, so it's reusable by everyone.  Same
- * with other similar things; search all-over for `-Warray-bounds` and/or `-Wstringop-overflow`. */
-template<typename C, typename T>
-void fill_n_ffs(C* p, size_t n, T x)
-{
-  /* Note: std::memset() doesn't defeat the warnings.  std::fill_n() doesn't either: internally it reduces to
-   * std::memset() anyway in this specialization.  You know what else?  Even doing
-   *   const auto end = p + n; for (; p != end; ++p) { *p = static_cast<C>(x); }
-   * does not defeat it either: gcc detects what this is doing and replaces it with memset()... which the front-end
-   * BSingly warns about, making us angry.
-   *
-   * No choice but to pragma.
-   * (A glance at the gcc bug database shows this particular set or warnings is not the most robust thing ever
-   * and has(d) both reporting bugs and a penchant for paranoia.) */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wpragmas" // For older versions, where the following does not exist/cannot be disabled.
-#pragma GCC diagnostic ignored "-Wunknown-warning-option" // (Similarly for clang.)
-#pragma GCC diagnostic ignored "-Warray-bounds"
-#pragma GCC diagnostic ignored "-Wstringop-overflow" // This one pops up too, if the preceding is pragma-ed out.
-#pragma GCC diagnostic ignored "-Wrestrict" // Another similar bogus one pops up after pragma-ing away preceding one.
-  std::fill_n(p, n, static_cast<C>(x));
-#pragma GCC diagnostic pop
-}
-
 } // Anonymous namespace
 
 // Yes... this is very cheesy... but this is a test, so I don't really care.

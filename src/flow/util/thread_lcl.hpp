@@ -664,7 +664,7 @@ private:
    * As for the the stuff in `m_this_thread_state_or_null.get()` other than `p` -- the Tl_context surrounding it --
    * again: see Tl_context doc header.
    */
-  Tsp_wrapper m_this_thread_state_or_null;//XXX
+  Tsp_wrapper m_this_thread_state_or_null;
 
   /// The non-thread-local state.  See Registry_ctl docs.  `shared_ptr` is used only for `weak_ptr`.
   boost::shared_ptr<Registry_ctl> m_ctl;
