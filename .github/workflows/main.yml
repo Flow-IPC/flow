@@ -414,7 +414,7 @@ jobs:
           export SAN_SUPP=1
           export SAN_SUPP_CFG=${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
           export ASAN_OPTIONS='disable_coredump=0'
-          export LSAN_OPTIONS='suppressions=$SAN_SUPP_CFG'
+          export LSAN_OPTIONS="suppressions=$SAN_SUPP_CFG"
           echo "ASAN_OPTIONS = [$ASAN_OPTIONS]."
           echo "LSAN_OPTIONS = [$LSAN_OPTIONS]."
         elif [ '${{ matrix.build-test-cfg.sanitizer-name }}' = ubsan ]; then
@@ -628,6 +628,7 @@ jobs:
         mkdir -p $OUT_DIR
         SUPP_DIR_A=${{ github.workspace }}/src
         # As of this writing there are TSAN suppressions for this test specifically.  TODO: Revisit them; and then this.
+        # Update: Now there are also ASAN (LSAN) suppressions.  These are likely permanent as of this writing.
         SUPP_DIR_OWN=${{ github.workspace }}/test/suite/unit_test
         { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
               $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file2 }} \
