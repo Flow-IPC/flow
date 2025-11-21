@@ -45,6 +45,14 @@ target_include_directories(${name} PRIVATE
 # Do stuff we've resolved to do on all our targets.
 common_set_target_properties(${name})
 
+# XXX
+if((CMAKE_CXX_COMPILER_ID STREQUAL "GNU") AND
+   (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 11) AND (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 12))
+  set_source_files_properties(${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp
+                              PROPERTIES
+                              COMPILE_OPTIONS "-Wno-array-bounds;-Wno-stringop-overflow")
+endif()
+
 # Link good ol' flow; and gtest.
 target_link_libraries(${name} PRIVATE flow ${GTEST_LIB})
 # At least blob_test.cpp requires boost.interprocess SHM ops which require this lib.  (Flow itself doesn't as of
