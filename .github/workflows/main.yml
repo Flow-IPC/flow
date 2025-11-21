@@ -572,6 +572,8 @@ jobs:
     # and will grow.  The techniques will still apply.
 
     - name: Run test/demo [NetFlow echo]
+      if: |
+        !cancelled()
       run: |
         # Run test/demo [NetFlow echo].
         cd ${{ env.install-dir }}/bin
