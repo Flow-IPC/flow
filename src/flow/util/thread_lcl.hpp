@@ -133,7 +133,8 @@ namespace flow::util
  */
 template<typename Thread_local_state_t>
 class Thread_local_state_registry :
-  public log::Log_context_mt
+  public log::Log_context_mt,
+  private boost::noncopyable
 {
 public:
   // Types.
@@ -211,20 +212,6 @@ public:
                                        decltype(m_create_state_func)&& create_state_func = {});
 
   /**
-   * Forbid copying.
-   *
-   * @internal
-   * Normally we'd derive from `boost::noncopyable`, but the combination of the crankiness of clang and
-   * old-schoolness of a `boost::thread_specific_ptr` copy-forbidding declaration causes a warning in at
-   * least some clang versions, when one wraps a `*this` in `optional<>`.
-   * @endinternal
-   *
-   * @param src
-   *        See above.
-   */
-  Thread_local_state_registry(const Thread_local_state& src) = delete;
-
-  /**
    * Deletes each #Thread_local_state to have been created so far by calls to this_thread_state() from various
    * threads (possibly but not necessarily including this thread).
    *
@@ -254,14 +241,6 @@ public:
   ~Thread_local_state_registry();
 
   // Methods.
-
-  /**
-   * Forbid copying.
-   * @param src
-   *        See above.
-   * @return See above.
-   */
-  Thread_local_state& operator=(const Thread_local_state& src) = delete;
 
   /**
    * Returns pointer to this thread's thread-local object, first constructing it via #m_create_state_func if
@@ -642,7 +621,7 @@ private:
    * As for the the stuff in `m_this_thread_state_or_null.get()` other than `p` -- the Tl_context surrounding it --
    * again: see Tl_context doc header.
    */
-  boost::thread_specific_ptr<Tl_context> m_this_thread_state_or_null;
+  //XXXno boost::thread_specific_ptr<Tl_context> m_this_thread_state_or_null;
 
   /// The non-thread-local state.  See Registry_ctl docs.  `shared_ptr` is used only for `weak_ptr`.
   boost::shared_ptr<Registry_ctl> m_ctl;
@@ -879,7 +858,7 @@ Thread_local_state_registry<Thread_local_state_t>::Thread_local_state_registry
 
   m_create_state_func(std::move(create_state_func)),
   m_nickname(nickname_str),
-  m_this_thread_state_or_null(cleanup),
+  //XXXno m_this_thread_state_or_null(cleanup),
   m_ctl(boost::make_shared<Registry_ctl>())
 {
   FLOW_LOG_INFO("Tl_registry[" << *this << "]: "
@@ -890,14 +869,17 @@ template<typename Thread_local_state_t>
 typename Thread_local_state_registry<Thread_local_state_t>::Thread_local_state*
   Thread_local_state_registry<Thread_local_state_t>::this_thread_state_or_null()
 {
-  const auto ctx = m_this_thread_state_or_null.get();
-  return ctx ? ctx->m_state : nullptr;
+  return nullptr;/*XXXno const auto ctx = m_this_thread_state_or_null.get();
+  return ctx ? ctx->m_state : nullptr;*/
 }
 
 template<typename Thread_local_state_t>
 typename Thread_local_state_registry<Thread_local_state_t>::Thread_local_state*
   Thread_local_state_registry<Thread_local_state_t>::this_thread_state()
 {
+  return nullptr;
+//XXXno 
+#if 0
   using log::Logger;
 
   auto ctx = m_this_thread_state_or_null.get();
@@ -985,6 +967,7 @@ typename Thread_local_state_registry<Thread_local_state_t>::Thread_local_state*
   // else if (ctx) { Fast path: state already init-ed.  Do not log or do anything unnecessary. }
 
   return ctx->m_state;
+#endif
 } // Thread_local_state_registry::this_thread_state()
 
 template<typename Thread_local_state_t>
@@ -1026,7 +1009,7 @@ Thread_local_state_registry<Thread_local_state_t>::~Thread_local_state_registry(
    * can come of that really.  We could try to prevent it by doing m_this_thread_state_or_null.reset()... but
    * same result.  Instead we do the following which simply replaces the stored (now bogus) ptr with null, and
    * that's it.  We already deleted it, so that's perfect. */
-  m_this_thread_state_or_null.release();
+  //XXXno m_this_thread_state_or_null.release();
 
   // After the }, m_ctl is nullified, and lastly m_this_thread_state_or_null is destroyed (a no-op in our context).
 } // Thread_local_state_registry::~Thread_local_state_registry()
