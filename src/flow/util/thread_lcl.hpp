@@ -559,8 +559,9 @@ private:
   {
     boost::thread_specific_ptr<Tl_context> m_tsp;
 
-    typename<typename... Ctor_args>
-    Tsp_wrapper(Ctor_args&&... ctor_args)
+    template<typename... Ctor_args>
+    Tsp_wrapper(Ctor_args&&... ctor_args) :
+      m_tsp(std::forward<Ctor_args>(ctor_args)...)
     {
       // Yeah.
     }
