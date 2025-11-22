@@ -46,7 +46,7 @@ static mutex s_events_mtx;
 static string s_events;
 static atomic<uint32_t> s_id{1};
 
-void events_clear() { Lock_guard<mutex> lock; events_clear(); }
+void events_clear() { Lock_guard<mutex> lock; s_events.clear(); }
 void events_set(const string& str) { Lock_guard<mutex> lock; s_events = str; }
 string events() { Lock_guard<mutex> lock; return s_events; }
 
