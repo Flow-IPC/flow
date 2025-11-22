@@ -24,6 +24,7 @@
 #include <atomic>
 #include <optional>
 #include <memory>
+#include <mutex>
 
 namespace flow::util::test
 {
@@ -34,13 +35,20 @@ using std::optional;
 using std::string;
 using std::make_shared;
 using std::shared_ptr;
+using std::mutex;
+using std::atomic;
 using flow::test::Test_logger;
 using Thread_loop = async::Single_thread_task_loop;
 template<typename T>
 using Tl_reg = Thread_local_state_registry<T>;
 
+static mutex s_events_mtx;
 static string s_events;
-static std::atomic<uint32_t> s_id{1};
+static atomic<uint32_t> s_id{1};
+
+void events_clear() { Lock_guard<mutex> lock; events_clear(); }
+void events_set(const string& str) { Lock_guard<mutex> lock; s_events = str; }
+string events() { Lock_guard<mutex> lock; return s_events; }
 
 struct State
 {
@@ -50,7 +58,7 @@ struct State
 
   ~State()
   {
-    s_events += ostream_op_string("~State/", s_id++, '\n');
+    events_set(ostream_op_string(events(), "~State/", s_id++, '\n'));
   }
 };
 struct State2
@@ -61,7 +69,7 @@ struct State2
 
   ~State2()
   {
-    s_events += ostream_op_string("~State/", s_id++, '\n');
+    events_set(ostream_op_string(events(), "~State/", s_id++, '\n'));
   }
 };
 
@@ -87,7 +95,7 @@ TEST(Thread_local_state_registry, Interface)
    *   - */
   s_reg2->set_logger(&logger);
 
-  EXPECT_TRUE(s_events.empty());
+  EXPECT_TRUE(events().empty());
 
   auto s1 = reg1->this_thread_state();
   EXPECT_EQ(s1->m_stuff, "stuff");
@@ -102,8 +110,8 @@ TEST(Thread_local_state_registry, Interface)
   s_reg2.reset();
   reg1.reset();
 
-  EXPECT_EQ(s_events, "~State/1\n~State/2\n");
-  s_events.clear();
+  EXPECT_EQ(events(), "~State/1\n~State/2\n");
+  events_clear();
 
   {
     optional<Tl_reg<State>> reg3;
@@ -126,16 +134,16 @@ TEST(Thread_local_state_registry, Interface)
       auto s2 = reg3->this_thread_state();
       EXPECT_EQ(s2, reg3->this_thread_state());
 
-      EXPECT_TRUE(s_events.empty());
+      EXPECT_TRUE(events().empty());
       t1.stop();
-      EXPECT_EQ(s_events, "~State/3\n");
+      EXPECT_EQ(events(), "~State/3\n");
       t2.stop();
-      EXPECT_EQ(s_events, "~State/3\n~State/4\n");
+      EXPECT_EQ(events(), "~State/3\n~State/4\n");
     }
-    EXPECT_EQ(s_events, "~State/3\n~State/4\n");
+    EXPECT_EQ(events(), "~State/3\n~State/4\n");
   }
-  EXPECT_EQ(s_events, "~State/3\n~State/4\n~State/5\n");
-  s_events.clear();
+  EXPECT_EQ(events(), "~State/3\n~State/4\n~State/5\n");
+  events_clear();
 
   {
     // Create a couple of `Tl_reg`s of the same type; and of a different type (some internal `static`s exercised).
@@ -156,18 +164,18 @@ TEST(Thread_local_state_registry, Interface)
                      EXPECT_EQ(reg3b->this_thread_state()->m_x, 3);
                      EXPECT_EQ(reg4b->this_thread_state()->m_x, 4); });
     t2.start([&]() { reg3->this_thread_state(); reg4b->this_thread_state(); });
-    EXPECT_TRUE(s_events.empty());
+    EXPECT_TRUE(events().empty());
     t1.stop();
-    EXPECT_EQ(s_events, "~State/6\n~State/7\n~State/8\n~State/9\n");
+    EXPECT_EQ(events(), "~State/6\n~State/7\n~State/8\n~State/9\n");
     reg4b.reset();
-    EXPECT_EQ(s_events, "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n");
+    EXPECT_EQ(events(), "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n");
     reg3.reset();
-    EXPECT_EQ(s_events, "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n~State/11\n");
+    EXPECT_EQ(events(), "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n~State/11\n");
     t2.stop();
-    EXPECT_EQ(s_events, "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n~State/11\n");
-    s_events.clear();
+    EXPECT_EQ(events(), "~State/6\n~State/7\n~State/8\n~State/9\n~State/10\n~State/11\n");
+    events_clear();
   }
-  EXPECT_TRUE(s_events.empty());
+  EXPECT_TRUE(events().empty());
 
   {
     using Task = async::Scheduled_task;
@@ -182,7 +190,7 @@ TEST(Thread_local_state_registry, Interface)
       bool exp{true};
       if (reg3->this_thread_state()->m_do_action.compare_exchange_strong(exp, false, std::memory_order_relaxed))
       {
-        s_events += "didAction\n";
+        events_set(events() + "didAction\n");
       }
       t1.schedule_from_now(boost::chrono::milliseconds(500), Task{*self});
     };
@@ -193,7 +201,7 @@ TEST(Thread_local_state_registry, Interface)
       bool exp{true};
       if (reg3->this_thread_state()->m_do_action.compare_exchange_strong(exp, false, std::memory_order_relaxed))
       {
-        s_events += "didAction\n";
+        events_set(events() + "didAction\n");
       }
       t2.schedule_from_now(boost::chrono::milliseconds(500), Task{*self});
     };
@@ -201,7 +209,7 @@ TEST(Thread_local_state_registry, Interface)
     t1.start([func = func1]() { (*func)(false); });
     t2.start([func = func2]() { (*func)(false); });
 
-    EXPECT_TRUE(s_events.empty());
+    EXPECT_TRUE(events().empty());
     reg3->while_locked([&](const auto& lock)
     {
       const auto& states = reg3->state_per_thread(lock);
@@ -212,11 +220,11 @@ TEST(Thread_local_state_registry, Interface)
       }
     });
     this_thread::sleep_for(boost::chrono::seconds(2));
-    EXPECT_EQ(s_events, "didAction\ndidAction\n");
+    EXPECT_EQ(events(), "didAction\ndidAction\n");
     this_thread::sleep_for(boost::chrono::seconds(2));
-    EXPECT_EQ(s_events, "didAction\ndidAction\n");
+    EXPECT_EQ(events(), "didAction\ndidAction\n");
   }
-  EXPECT_EQ(s_events, "didAction\ndidAction\n~State/12\n~State/13\n");
+  EXPECT_EQ(events(), "didAction\ndidAction\n~State/12\n~State/13\n");
 } // TEST(Thread_local_state_registry, Interface)
 
 TEST(Thread_local_state_registry, DISABLED_Advanced)
