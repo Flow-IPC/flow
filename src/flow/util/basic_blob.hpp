@@ -2183,7 +2183,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capaci
           if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, S_LOG_COMPONENT))
           {
             /* This ensures delete[] call when buf_ptr() ref-count reaches 0.
-             * As advertised, for performance, the memory is NOT initialized. */
+             * As advertised, for performance, the memory is NOT initialized unless so instructed. */
             buf_ptr().reset(clear_on_alloc ? (new value_type[new_capacity]()) : (new value_type[new_capacity]),
                             // Careful!  *this might be gone if some other share()ing obj is the one that 0s ref-count.
                             [logger_ptr, original_blob = this, new_capacity]
