@@ -396,6 +396,16 @@ jobs:
       # (Unfortunately cannot refer to earlier-assigned `env.` entries within subsequent ones.)
       install-dir: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local
       # For the remaining env entries please see comments in Flow-IPC workflow counterpart.  We use same techniques.
+      # Update: (As of this writing this is only here, not in Flow-IPC counterpart, but that'll change; might want to
+      # move the comment there then.)  ASAN is somewhat different from the others, as it's really two sanitizers with
+      # separate suppression files -- ASAN (actual safety checks) and LSAN (leak checks).  So far we do *not* need
+      # any suppressed ASAN warnings (ASAN false positives are known to be rare, so that makes sense), but there are
+      # at least a couple minor, intentional mem-leaks, so we *do* need to suppress LSAN warnings at times.  Therefore,
+      # until/unless this changes, we will essentially treat LSAN-suppression as *the* suppression for our ASAN runs,
+      # thus only requiring one suppression file type still.  If/when that changes, the below will need to be made
+      # more complicated, so that 2 suppression types per sanitizer are supported as opposed to just 1.  Until then,
+      # it's still simple.  So that's why $ASAN_OPTIONS does not mention suppression, but $LSAN_OPTIONS does... and
+      # it is the suppression file(s) (if any) under various `asan/` dirs in the source tree.
       san-suppress-cfg-file: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
       san-suppress-cfg-in-file1: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}.cfg
       san-suppress-cfg-in-file2: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg
@@ -619,13 +629,14 @@ jobs:
         SUPP_DIR_A=${{ github.workspace }}/src
         # As of this writing there are TSAN suppressions for this test specifically.  TODO: Revisit them; and then this.
         # Update: Now there are also ASAN (LSAN) suppressions.  These are likely permanent as of this writing.
+        # Reminder: the following construction handles suppression file(s) from *any* relevant sanitizer type (if any).
         SUPP_DIR_OWN=${{ github.workspace }}/test/suite/unit_test
         { cat $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_A/${{ env.san-suppress-cfg-in-file2 }} \
               $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file1 }} $SUPP_DIR_OWN/${{ env.san-suppress-cfg-in-file2 }} \
             > ${{ env.san-suppress-cfg-file }} 2> /dev/null; } || true
         ${{ env.setup-tests-env }}
         ${{ env.setup-run-env }}
-        # Sensitive benchmarks in this setting should run and be warned about it they "fail," but they should not
+        # Sensitive benchmarks in this setting should run and be warned about, if they "fail," but they should not
         # fail the test.
         $RUN_IT --do-not-fail-benchmarks > $OUT_DIR/console.log 2>&1
 
