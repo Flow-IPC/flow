@@ -51,27 +51,34 @@ namespace flow::util
  * disallowing any reset to null and back from null), but these are just happenstance/preference-based.
  * Likely we'd have just used the Boost guy, if that's all we wanted.
  *
- * The main reason `Thread_local_state_registry<T>` exists is the following feature:
- *   - If `~Thread_local_state_registry` (a `*this` dtor) executes before a given thread X, that has earlier
- *     caused the creation of a thread-local `T` (by calling `this->this_thread_state()` from X), then:
- *   - That dtor, from whichever thread invoked it, deletes that thread-local `T` (for all `T`).
- *   - Corollary: A related feature is the ability to look at all per-thread data accumulated so far (from any
- *     thread).  See state_per_thread() accessor (+ while_locked()).
+ * The main reason `Thread_local_state_registry<T>` exists comprises the following (mutually related) features:
+ *   -# The ability to look at all per-thread data accumulated so far (from any
+ *      thread).  See state_per_thread() accessor (+ while_locked()).
+ *   -# If `~Thread_local_state_registry` (a `*this` dtor) executes before a given thread X (that has earlier
+ *      caused the creation of a thread-local `T`, by calling `this->this_thread_state()` from X) is joined (exits),
+ *      then:
+ *      - That dtor, from whichever thread invoked it, deletes that thread-local `T` (for all `T`).
  *
- * So `*this` dtor does the equivalent of standard per-thread cleanup of per-thread data, if it is invoked
- * before such standard per-thread cleanup has run (because the relevant threads have simply not yet exited).
+ * Feature 1 us a clear value-add over `thread_specific_ptr` (or just `static thread_local`).  If one can get by
+ * without dealing with the set of per-thread objects from any 1 thread at a given time, that's good; it will involve
+ * far fewer corner cases and worries.  Unfortunately it is not always possible to do that.  In that case you want
+ * a *registry* of your `Thread_local_state`s; a `*this` provides this.
  *
- * `thread_specific_ptr` does not do that: you must either `.reset()` from each relevant thread, before
- * the `thread_specific_ptr` is itself deleted; or any such thread must exit before (causing an implicit `.reset()`).
- * Nor can one iterate through other threads' data.
+ * As for feature 2: Consider `static thread_specific_ptr` (or `static thread_local`, broadly speaking, without getting
+ * into the formal details of C++ language guarantees as to how such per-thread items are cleaned up).  By definition
+ * of `static` the `thread_specific_ptr` will outlive any threads to have been spawned by the time `main()` exits.
+ * Therefore an implicit `.reset()` will execute when extant threads are joined, and each thread-local object will
+ * be cleaned up.  No problem!  However, a non-`static thread_specific_ptr` offers no such behavior or guarantee:
+ * If the `~thread_specific_ptr` dtor runs in thread X, at most that thread's TL object shall be auto-`.reset()`.
+ * The other extant threads' TL objects will live on (leak).  (Nor can one iterate through them; that would be
+ * feature 1.)
  *
- * For this reason most people declare `thread_specific_ptr` either `static` or
- * as a global, as then the `thread_specific_ptr` always outlives the relevant threads, and everything is fine and easy.
- * What if you really must clean resources earlier, when they are no longer necessary, but relevant threads may
- * stay around?  Then try a `*this`.
+ * However a `*this` being destroyed in thread X will cause an automatic looping through the extant threads'
+ * objects (if any) and their cleanup as well.  So if you want that, use a `*this` instead of
+ * non-`static thread_specific_ptr`.
  *
- * As a secondary reason (ignoring the above) `Thread_local_state_registry` has a more straightforward/rigid API
- * that enforces certain assumptions/conventions (some of this is mentioned above).  These might be appealing
+ * As a secondary reason (ignoring the above 2 features) `Thread_local_state_registry` has a more straightforward/rigid
+ * API that enforces certain assumptions/conventions (some of this is mentioned above).  These might be appealing
  * depending on one's taste/reasoning.
  *
  * ### How to use ###
@@ -89,7 +96,7 @@ namespace flow::util
  *
  * A given thread's #Thread_local_state object shall be deleted via `delete Thread_local_state` when one of
  * the following occurs, whichever happens first:
- *   - The thread exits.  (Deletion occurs shortly before.)
+ *   - The thread exits (is joined).  (Deletion occurs shortly before.)
  *   - `*this` is destroyed (in some -- any -- thread, possibly a totally different one; or one of the ones
  *     for which this_thread_state() was called).
  *
