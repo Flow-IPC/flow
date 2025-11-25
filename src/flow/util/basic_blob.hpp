@@ -1353,8 +1353,8 @@ private:
      * or move-assignment of the Basic_blob; this reduces to Basic_blob::assign() (move overload); which will
      * do a swap -- that ultimately will move the stored Deleter_raw up to a few times.
      *
-     * As of this writing we also manually overwrite `.get_deleter()` it in one case in Basic_blob::reserve_impl();
-     * so this is useful for that also.
+     * As of this writing we also manually overwrite `.get_deleter()` in one case in Basic_blob::reserve_impl();
+     * so this is useful for that too.
      *
      * @param moved_src
      *        Moved guy.  For cleanliness it becomes as-if default-cted (unless it is the same object as `*this`).
@@ -2187,7 +2187,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capaci
             buf_ptr().reset(clear_on_alloc ? (new value_type[new_capacity]()) : (new value_type[new_capacity]),
                             // Careful!  *this might be gone if some other share()ing obj is the one that 0s ref-count.
                             [logger_ptr, original_blob = this, new_capacity]
-                              (value_type* buf_ptr)
+                              (value_type* buf_ptr_to_delete)
             {
               FLOW_LOG_SET_CONTEXT(logger_ptr, S_LOG_COMPONENT);
               FLOW_LOG_TRACE("Deallocating internal buffer sized [" << new_capacity << "] originally allocated by "
@@ -2195,7 +2195,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capaci
                              "Blob might live at that address now.  A message immediately preceding this one should "
                              "indicate the last Blob to give up ownership of the internal buffer.");
               // Finally just do what the default one would've done, as we've done our custom thing (logging).
-              delete [] buf_ptr;
+              delete [] buf_ptr_to_delete;
             });
           }
           else // if (!should_log()): No logging deleter; just delete[] it.
@@ -2262,7 +2262,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capaci
         {
           /* Conceptually it's quite similar to the S_SHARING case where we do shared_ptr::reset() above.
            * However there is an API difference that is subtle yet real (albeit only for stateful Allocator_raw):
-           * Current alloc_raw() was used to allocate *buf_ptr(), so it must be used also to dealloc it.
+           * Current alloc_raw() was used to allocate *(buf_ptr()), so it must be used also to dealloc it.
            * unique_ptr::reset() does *not* take a new Deleter_raw; hence if we used it (alone) here it would retain
            * the alloc_raw() from ction (or possibly last assignment) time -- and if that does not equal current
            * m_alloc => trouble in make_zero() or dtor.
