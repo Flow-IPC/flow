@@ -327,6 +327,13 @@ public:
    *       A regular mutex being locked/unlocked, sans contention, is quite cheap.  This should more than defeat
    *       the preceding "bad news" bullet.
    *
+   * @internal
+   *
+   * @todo Add a Flow unit-test or functional-test for the pattern "thread-caching of central canonical state," as
+   * described in the doc header for Thread_local_state_registry::this_thread_state().
+   *
+   * @endinternal
+   *
    * @return See above.  Never null.
    */
   Thread_local_state* this_thread_state();
@@ -607,8 +614,8 @@ private:
   // Methods.
 
   /**
-   * Called by `thread_specific_ptr` for a given thread's `m_this_thread_state_or_null.get()`, if `*this` dtor has not
-   * yet destroyed #m_this_thread_state_or_null.  With proper synchronization:
+   * Called by `thread_specific_ptr` for a given thread's `m_this_thread_state_or_null.m_tsp.get()`,
+   * if `*this` dtor has not yet destroyed #m_this_thread_state_or_null.  With proper synchronization:
    * does `delete ctx->m_state` and `delete ctx` and removes the former from Registry_ctl::m_state_per_thread.
    * It is possible that the `*this` dtor runs concurrently (if a relevant thread is exiting right around
    * the time the user chooses to invoke dtor) and manages to `delete ctx->m_state` first; however it will *not*
@@ -642,18 +649,18 @@ private:
    *
    * We however declare it as a non-`static` data member.  That's different.  When #m_this_thread_state_or_null
    * is destroyed (during `*this` destruction), if a given thread T (that is not the thread in which dtor is
-   * executing) has called this_thread_state() -- thus has `m_this_thread_state_or_null.get() != nullptr` -- and
+   * executing) has called this_thread_state() -- thus has `m_this_thread_state_or_null.m_tsp.get() != nullptr` -- and
    * is currently running, then its #Thread_local_state shall leak.  Cleanup functions run only while the owner
    * `thread_specific_ptr` exists.  Boost.thread docs specifically say this.
    *
    * Therefore, in our case, we can make it `static`: but then any cleanup is deferred until thread exit;
-   * and while it is maybe not the end of the world, we strive to be better; the whole point of the registry
+   * and while it is maybe not the end of the world, we strive to be better; a major part of the point of the registry
    * is to do timely cleanup.  So then instead of that we:
-   *   - Keep a non-thread-local registry Registry_ctl::m_state_per_thread of each thread's thread-local
-   *     #Thread_local_state.
-   *   - In dtor iterate through that registry and delete 'em.
+   *   - keep a non-thread-local registry Registry_ctl::m_state_per_thread of each thread's thread-local
+   *     #Thread_local_state;
+   *   - in dtor iterate through that registry and delete 'em.
    *
-   * Let `p` stand for `m_this_thread_state_or_null.get()->m_state`: if `p != nullptr`, that alone does not
+   * Let `p` stand for `m_this_thread_state_or_null.m_tsp.get()->m_state`: if `p != nullptr`, that alone does not
    * guarantee that `*p` is valid.  It is valid if and only if #m_ctl is a live `shared_ptr` (as determined
    * via `weak_ptr`), and `p` is in Registry_ctl::m_state_per_thread.  If #m_ctl is not live
    * (`weak_ptr::lock()` is null), then `*this` is destroyed or very soon to be destroyed, and its dtor thus
@@ -668,8 +675,8 @@ private:
    *   - By user code, probably following this_thread_state() to obtain `p`.  This is safe, because:
    *     It is illegal for them to access `*this`-owned state after destroying `*this`.
    *
-   * As for the the stuff in `m_this_thread_state_or_null.get()` other than `p` -- the Tl_context surrounding it --
-   * again: see Tl_context doc header.
+   * As for the the stuff in `m_this_thread_state_or_null.m_tsp.get()` other than `p` -- the Tl_context surrounding
+   * it -- again: see Tl_context doc header.
    */
   Tsp_wrapper m_this_thread_state_or_null;
 
@@ -752,7 +759,7 @@ private:
  *   ~~~
  *   void opportunistically_launch_when_triggered() // Assumes: bool(registry.this_thread_state_or_null()) == true.
  *   {
- *     T* const this_thread_state = registry.this_thread_state()l
+ *     T* const this_thread_state = registry.this_thread_state();
  *     if (!missiles_to_launch_polled_shared_state.poll_armed(this_thread_state->m_missile_launch_needed_poll_state))
  *     { // Fast-path!  Nothing to do re. missile-launching.
  *       return;
@@ -797,6 +804,13 @@ private:
  * calls it will cause a compile-time `static_assert()` fail.  As noted earlier using Polled_shared_state, despite
  * the name, for not any shared state but just the thread-local distributed flag arming/polling = a perfectly
  * valid approach.
+ *
+ * @tparam Shared_state_t
+ *         A single object of this type shall be constructed and can be accessed, whether for reading or writing,
+ *         using Polled_shared_state::while_locked().  It must be constructible via the ctor signature you choose
+ *         to use when constructing `*this` Polled_shared_state ctor (template).  The ctor args shall be forwarded
+ *         to the `Shared_state_t` ctor.  Note that it is not required to actually use a #Shared_state and
+ *         Polled_shared_state::while_locked().  In that case please let `Shared_state_t` be an empty `struct` type.
  */
 template<typename Shared_state_t>
 class Polled_shared_state :
@@ -1173,8 +1187,9 @@ template<typename Shared_state_t>
 template<typename... Ctor_args>
 Polled_shared_state<Shared_state_t>::Polled_shared_state(Ctor_args&&... shared_state_ctor_args) :
   m_poll_flag_registry(nullptr, "",
-                       []() -> auto { using Atomic_flag = typename decltype(m_poll_flag_registry)::Thread_local_state;
-                                      return new Atomic_flag{false}; }),
+                       []() -> auto
+                         { using Atomic_flag = typename decltype(m_poll_flag_registry)::Thread_local_state;
+                           return new Atomic_flag{false}; }),
   m_shared_state(std::forward<Ctor_args>(shared_state_ctor_args)...)
 {
   // Yep.
