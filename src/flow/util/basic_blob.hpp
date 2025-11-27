@@ -265,13 +265,13 @@ struct Clear_on_alloc {};
  *         and generally allocators for which `pointer` is not simply `value_type*` but rather a fancy-pointer
  *         (see cppreference.com) are correctly supported.  (Note this may not be the case for your compiler's
  *         `std::vector`.)
- * @tparam S_SHARING_ALLOWED
+ * @tparam SHARING
  *         If `true`, share() and all derived methods, plus blobs_sharing(), can be instantiated (invoked in compiled
  *         code).  If `false` they cannot (`static_assert()` will trip), but the resulting Basic_blob concrete
  *         class will be slightly more performant (internally, a `shared_ptr` becomes instead a `unique_ptr` which
  *         means smaller allocations and no ref-count logic invoked).
  */
-template<typename Allocator, bool S_SHARING_ALLOWED>
+template<typename Allocator, bool SHARING>
 class Basic_blob
 {
 public:
@@ -312,8 +312,8 @@ public:
 
   // Constants.
 
-  /// Value of template parameter `S_SHARING_ALLOWED` (for generic programming).
-  static constexpr bool S_SHARING = S_SHARING_ALLOWED;
+  /// Value of template parameter `SHARING` (for generic programming).
+  static constexpr bool S_SHARING = SHARING;
 
   /// Special value indicating an unchanged `size_type` value; such as in resize().
   static constexpr size_type S_UNCHANGED = size_type(-1); // Same trick as std::string::npos.
@@ -1666,8 +1666,8 @@ private:
 // Template implementations.
 
 // buf_ptr() initialized to null pointer.  n_capacity and m_size remain uninit (meaningless until buf_ptr() changes).
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(const Allocator_raw& alloc_raw) :
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw) :
   m_alloc_and_buf_ptr(alloc_raw), // Copy allocator; stateless allocator should have size 0 (no-op for the processor).
   m_capacity(0), // Not necessary, but some compilers will warn in some situations.  Fine; it's cheap enough.
   m_start(0), // Ditto.
@@ -1676,8 +1676,8 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(const Allocator_raw& alloc_
   // OK.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Basic_blob
   (size_type size, log::Logger* logger_ptr, const Allocator_raw& alloc_raw) :
 
   Basic_blob(alloc_raw) // Delegate.
@@ -1685,8 +1685,8 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob
   resize(size, 0, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Basic_blob
   (size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr, const Allocator_raw& alloc_raw) :
 
   Basic_blob(alloc_raw) // Delegate.
@@ -1694,8 +1694,8 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob
   resize(size, coa_tag, 0, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(const Basic_blob& src, log::Logger* logger_ptr) :
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Basic_blob(const Basic_blob& src, log::Logger* logger_ptr) :
   // Follow rules established in alloc_raw() doc header:
   m_alloc_and_buf_ptr(std::allocator_traits<Allocator_raw>::select_on_container_copy_construction(src.alloc_raw())),
   m_capacity(0), // See comment in first delegated ctor above.
@@ -1711,8 +1711,8 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(const Basic_blob& src, log:
   assign_copy(src.const_buffer(), logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept :
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept :
   // Follow rules established in alloc_raw() doc header:
   m_alloc_and_buf_ptr(std::move(moved_src.alloc_raw())),
   m_capacity(0), // See comment in first delegated ctor above.
@@ -1724,12 +1724,12 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Basic_blob(Basic_blob&& moved_src, log
   swap_impl(moved_src, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::~Basic_blob() = default;
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::~Basic_blob() = default;
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::assign(const Basic_blob& src, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>&
+  Basic_blob<Allocator, SHARING>::assign(const Basic_blob& src, log::Logger* logger_ptr)
 {
   if (this != &src)
   {
@@ -1790,15 +1790,15 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>&
   return *this;
 } // Basic_blob::assign(copy)
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>& Basic_blob<Allocator, S_SHARING_ALLOWED>::operator=(const Basic_blob& src)
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>& Basic_blob<Allocator, SHARING>::operator=(const Basic_blob& src)
 {
   return assign(src);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::assign(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>&
+  Basic_blob<Allocator, SHARING>::assign(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept
 {
   if (this != &moved_src)
   {
@@ -1827,15 +1827,15 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>&
   return *this;
 } // Basic_blob::assign(move)
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::operator=(Basic_blob&& moved_src) noexcept
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>&
+  Basic_blob<Allocator, SHARING>::operator=(Basic_blob&& moved_src) noexcept
 {
   return assign(std::move(moved_src));
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap_impl(Basic_blob& other, log::Logger* logger_ptr) noexcept
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::swap_impl(Basic_blob& other, log::Logger* logger_ptr) noexcept
 {
   using std::swap;
 
@@ -1886,8 +1886,8 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap_impl(Basic_blob& other, log:
   }
 } // Basic_blob::swap_impl()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap(Basic_blob& other, log::Logger* logger_ptr) noexcept
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::swap(Basic_blob& other, log::Logger* logger_ptr) noexcept
 {
   using std::swap;
 
@@ -1910,18 +1910,18 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::swap(Basic_blob& other, log::Logg
   swap_impl(other, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void swap(Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
-          Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2, log::Logger* logger_ptr) noexcept
+template<typename Allocator, bool SHARING>
+void swap(Basic_blob<Allocator, SHARING>& blob1,
+          Basic_blob<Allocator, SHARING>& blob2, log::Logger* logger_ptr) noexcept
 {
   return blob1.swap(blob2, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED> Basic_blob<Allocator, S_SHARING_ALLOWED>::share(log::Logger* logger_ptr) const
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING> Basic_blob<Allocator, SHARING>::share(log::Logger* logger_ptr) const
 {
   static_assert(S_SHARING,
-                "Do not invoke (and thus instantiate) share() or derived methods unless you set the S_SHARING_ALLOWED "
+                "Do not invoke (and thus instantiate) share() or derived methods unless you set the SHARING "
                   "template parameter to true.  Sharing will be enabled at a small perf cost; see class doc header.");
   // Note: The guys that call it will cause the same check to occur, since instantiating them will instantiate us.
 
@@ -1945,9 +1945,9 @@ Basic_blob<Allocator, S_SHARING_ALLOWED> Basic_blob<Allocator, S_SHARING_ALLOWED
   return sharing_blob;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_left(size_type lt_size, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>
+  Basic_blob<Allocator, SHARING>::share_after_split_left(size_type lt_size, log::Logger* logger_ptr)
 {
   if (lt_size > size())
   {
@@ -1969,9 +1969,9 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>
   return sharing_blob;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_right(size_type rt_size, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>
+  Basic_blob<Allocator, SHARING>::share_after_split_right(size_type rt_size, log::Logger* logger_ptr)
 {
   if (rt_size > size())
   {
@@ -1994,9 +1994,9 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>
   return sharing_blob;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
+template<typename Allocator, bool SHARING>
 template<typename Emit_blob_func, typename Share_after_split_left_func>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_impl
+void Basic_blob<Allocator, SHARING>::share_after_split_equally_impl
        (size_type size, bool headless_pool, Emit_blob_func&& emit_blob_func, log::Logger* logger_ptr,
         Share_after_split_left_func&& share_after_split_left_func)
 {
@@ -2023,11 +2023,11 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_impl
   }
 } // Basic_blob::share_after_split_equally_impl()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
+template<typename Allocator, bool SHARING>
 template<typename Emit_blob_func>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally(size_type size, bool headless_pool,
-                                                                         Emit_blob_func&& emit_blob_func,
-                                                                         log::Logger* logger_ptr)
+void Basic_blob<Allocator, SHARING>::share_after_split_equally(size_type size, bool headless_pool,
+                                                               Emit_blob_func&& emit_blob_func,
+                                                               log::Logger* logger_ptr)
 {
   share_after_split_equally_impl(size, headless_pool, std::move(emit_blob_func), logger_ptr,
                                  [this](size_type lt_size, log::Logger* logger_ptr) -> Basic_blob
@@ -2036,9 +2036,9 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally(size_ty
   });
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
+template<typename Allocator, bool SHARING>
 template<typename Blob_container>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_emit_seq
+void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_seq
        (size_type size, bool headless_pool, Blob_container* out_blobs_ptr, log::Logger* logger_ptr)
 {
   // If changing this please see Blob_with_log_context::<same method>().
@@ -2050,12 +2050,12 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_emit_se
   }, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
+template<typename Allocator, bool SHARING>
 template<typename Blob_ptr_container>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_emit_ptr_seq(size_type size,
-                                                                                      bool headless_pool,
-                                                                                      Blob_ptr_container* out_blobs_ptr,
-                                                                                      log::Logger* logger_ptr)
+void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_ptr_seq(size_type size,
+                                                                            bool headless_pool,
+                                                                            Blob_ptr_container* out_blobs_ptr,
+                                                                            log::Logger* logger_ptr)
 {
   // If changing this please see Blob_with_log_context::<same method>().
 
@@ -2070,12 +2070,12 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::share_after_split_equally_emit_pt
   }, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool blobs_sharing(const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
-                   const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2)
+template<typename Allocator, bool SHARING>
+bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1,
+                   const Basic_blob<Allocator, SHARING>& blob2)
 {
-  static_assert(S_SHARING_ALLOWED,
-                "blobs_sharing() would only make sense on `Basic_blob`s with S_SHARING_ALLOWED=true.  "
+  static_assert(SHARING,
+                "blobs_sharing() would only make sense on `Basic_blob`s with SHARING=true.  "
                   "Even if we were to allow this to instantiate (compile) it would always return false.");
 
   return ((!blob1.zero()) && (!blob2.zero())) // Can't co-own a buffer if doesn't own a buffer.
@@ -2086,52 +2086,50 @@ bool blobs_sharing(const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
   // @todo Maybe throw in assert(blob1.capacity() == blob2.capacity()), if `true` is being returned.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::size_type Basic_blob<Allocator, S_SHARING_ALLOWED>::size() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::size() const
 {
   return zero() ? 0 : m_size; // Note that zero() may or may not be true if we return 0.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::size_type Basic_blob<Allocator, S_SHARING_ALLOWED>::start() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::start() const
 {
   return zero() ? 0 : m_start; // Note that zero() may or may not be true if we return 0.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool Basic_blob<Allocator, S_SHARING_ALLOWED>::empty() const
+template<typename Allocator, bool SHARING>
+bool Basic_blob<Allocator, SHARING>::empty() const
 {
   return size() == 0; // Note that zero() may or may not be true if we return true.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::size_type Basic_blob<Allocator, S_SHARING_ALLOWED>::capacity() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::capacity() const
 {
   return zero() ? 0 : m_capacity; // Note that zero() <=> we return non-zero.  (m_capacity >= 1 if !zero().)
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool Basic_blob<Allocator, S_SHARING_ALLOWED>::zero() const
+template<typename Allocator, bool SHARING>
+bool Basic_blob<Allocator, SHARING>::zero() const
 {
   return !buf_ptr();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::reserve(size_type new_capacity, log::Logger* logger_ptr)
 {
   reserve_impl(new_capacity, false, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve(size_type new_capacity, Clear_on_alloc,
-                                                       log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::reserve(size_type new_capacity, Clear_on_alloc, log::Logger* logger_ptr)
 {
   reserve_impl(new_capacity, true, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capacity, bool clear_on_alloc,
-                                                            log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool clear_on_alloc, log::Logger* logger_ptr)
 {
   using boost::make_shared_noinit;
   using boost::make_shared;
@@ -2363,23 +2361,23 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::reserve_impl(size_type new_capaci
   assert(capacity() >= new_capacity); // Promised post-condition.
 } // Basic_blob::reserve()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::resize(size_type new_size, size_type new_start_or_unchanged,
-                                                      log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::resize(size_type new_size, size_type new_start_or_unchanged,
+                                            log::Logger* logger_ptr)
 {
   resize_impl(new_size, false, new_start_or_unchanged, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::resize(size_type new_size, Clear_on_alloc,
-                                                      size_type new_start_or_unchanged, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::resize(size_type new_size, Clear_on_alloc,
+                                            size_type new_start_or_unchanged, log::Logger* logger_ptr)
 {
   resize_impl(new_size, true, new_start_or_unchanged, logger_ptr);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::resize_impl(size_type new_size, bool clear_on_alloc,
-                                                           size_type new_start_or_unchanged, log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::resize_impl(size_type new_size, bool clear_on_alloc,
+                                                 size_type new_start_or_unchanged, log::Logger* logger_ptr)
 {
   auto& new_start = new_start_or_unchanged;
   if (new_start == S_UNCHANGED)
@@ -2408,8 +2406,8 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::resize_impl(size_type new_size, b
   assert(start() == new_start);
 } // Basic_blob::resize()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::start_past_prefix(size_type prefix_size)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::start_past_prefix(size_type prefix_size)
 {
   resize(((start() + size()) > prefix_size)
            ? (start() + size() - prefix_size)
@@ -2418,23 +2416,23 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::start_past_prefix(size_type prefi
   // Sanity check: `prefix_size == 0` translates to: resize(start() + size(), 0), as advertised.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::start_past_prefix_inc(difference_type prefix_size_inc)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::start_past_prefix_inc(difference_type prefix_size_inc)
 {
   assert((prefix_size_inc >= 0) || (start() >= size_type(-prefix_size_inc)));
   start_past_prefix(start() + prefix_size_inc);
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::clear()
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::clear()
 {
   // Note: start() remains unchanged (as advertised).  resize(0, 0) can be used if that is unacceptable.
   resize(0); // It won't log, as it cannot allocate, so no need to pass-through a Logger*.
   // Note corner case: zero() remains true if was true (and false if was false).
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::make_zero(log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::make_zero(log::Logger* logger_ptr)
 {
   /* Could also write more elegantly: `swap(Basic_blob{});`, but following is a bit optimized (while equivalent);
    * logs better. */
@@ -2443,7 +2441,7 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::make_zero(log::Logger* logger_ptr
     if (logger_ptr && logger_ptr->should_log(log::Sev::S_TRACE, S_LOG_COMPONENT))
     {
       FLOW_LOG_SET_CONTEXT(logger_ptr, S_LOG_COMPONENT);
-      if constexpr(S_SHARING_ALLOWED)
+      if constexpr(SHARING)
       {
         FLOW_LOG_TRACE_WITHOUT_CHECKING("Blob [" << this << "] giving up ownership of internal buffer sized "
                                         "[" << capacity() << "]; deallocation will immediately follow if no sharing "
@@ -2460,10 +2458,9 @@ void Basic_blob<Allocator, S_SHARING_ALLOWED>::make_zero(log::Logger* logger_ptr
   } // if (!zero())
 } // Basic_blob::make_zero()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::size_type
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::assign_copy(const boost::asio::const_buffer& src,
-                                                        log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::size_type
+  Basic_blob<Allocator, SHARING>::assign_copy(const boost::asio::const_buffer& src, log::Logger* logger_ptr)
 {
   const size_type n = src.size();
 
@@ -2480,10 +2477,10 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::size_type
   return n;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src,
-                                                         log::Logger* logger_ptr)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Iterator
+  Basic_blob<Allocator, SHARING>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src,
+                                               log::Logger* logger_ptr)
 {
   using std::memcpy;
 
@@ -2542,10 +2539,10 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
   return dest_it + n;
 } // Basic_blob::emplace_copy()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest,
-                                                     log::Logger* logger_ptr) const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest,
+                                           log::Logger* logger_ptr) const
 {
   // Code similar to emplace_copy().  Therefore keeping comments light.
 
@@ -2584,9 +2581,9 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
   return src + n;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::erase(Const_iterator first, Const_iterator past_last)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Iterator
+  Basic_blob<Allocator, SHARING>::erase(Const_iterator first, Const_iterator past_last)
 {
   using std::memmove;
 
@@ -2620,62 +2617,62 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
   return dest;
 } // Basic_blob::erase()
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type const &
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::const_front() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type const &
+  Basic_blob<Allocator, SHARING>::const_front() const
 {
   assert(!empty());
   return *const_begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type
-  const & Basic_blob<Allocator, S_SHARING_ALLOWED>::const_back() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type
+  const & Basic_blob<Allocator, SHARING>::const_back() const
 {
   assert(!empty());
   return const_end()[-1];
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::front()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type&
+  Basic_blob<Allocator, SHARING>::front()
 {
   assert(!empty());
   return *begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::back()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type&
+  Basic_blob<Allocator, SHARING>::back()
 {
   assert(!empty());
   return end()[-1];
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type const &
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::front() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type const &
+  Basic_blob<Allocator, SHARING>::front() const
 {
   return const_front();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type const &
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::back() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type const &
+  Basic_blob<Allocator, SHARING>::back() const
 {
   return const_back();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::const_begin() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::const_begin() const
 {
   return const_cast<Basic_blob*>(this)->begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::begin()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Iterator
+  Basic_blob<Allocator, SHARING>::begin()
 {
   if (zero())
   {
@@ -2697,139 +2694,139 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
   return &(*raw_or_fancy_buf_ptr) + m_start;
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::const_end() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::const_end() const
 {
   return zero() ? const_begin() : (const_begin() + size());
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::end()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Iterator
+  Basic_blob<Allocator, SHARING>::end()
 {
   return zero() ? begin() : (begin() + size());
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::begin() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::begin() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::cbegin() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::cbegin() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::end() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::end() const
 {
   return const_end();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Const_iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::cend() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Const_iterator
+  Basic_blob<Allocator, SHARING>::cend() const
 {
   return const_end();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type
-  const * Basic_blob<Allocator, S_SHARING_ALLOWED>::const_data() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type
+  const * Basic_blob<Allocator, SHARING>::const_data() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::value_type*
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::data()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::value_type*
+  Basic_blob<Allocator, SHARING>::data()
 {
   return begin();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool Basic_blob<Allocator, S_SHARING_ALLOWED>::valid_iterator(Const_iterator it) const
+template<typename Allocator, bool SHARING>
+bool Basic_blob<Allocator, SHARING>::valid_iterator(Const_iterator it) const
 {
   return empty() ? (it == const_end())
                  : in_closed_range(const_begin(), it, const_end());
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool Basic_blob<Allocator, S_SHARING_ALLOWED>::derefable_iterator(Const_iterator it) const
+template<typename Allocator, bool SHARING>
+bool Basic_blob<Allocator, SHARING>::derefable_iterator(Const_iterator it) const
 {
   return empty() ? false
                  : in_closed_open_range(const_begin(), it, const_end());
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Iterator
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::iterator_sans_const(Const_iterator it)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Iterator
+  Basic_blob<Allocator, SHARING>::iterator_sans_const(Const_iterator it)
 {
   return const_cast<value_type*>(it); // Can be done without const_cast<> but might as well save some cycles.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-boost::asio::const_buffer Basic_blob<Allocator, S_SHARING_ALLOWED>::const_buffer() const
+template<typename Allocator, bool SHARING>
+boost::asio::const_buffer Basic_blob<Allocator, SHARING>::const_buffer() const
 {
   return boost::asio::const_buffer{const_data(), size()};
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-boost::asio::mutable_buffer Basic_blob<Allocator, S_SHARING_ALLOWED>::mutable_buffer()
+template<typename Allocator, bool SHARING>
+boost::asio::mutable_buffer Basic_blob<Allocator, SHARING>::mutable_buffer()
 {
   return boost::asio::mutable_buffer{data(), size()};
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Allocator_raw
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::get_allocator() const
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Allocator_raw
+  Basic_blob<Allocator, SHARING>::get_allocator() const
 {
   return alloc_raw();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Buf_ptr& Basic_blob<Allocator, S_SHARING_ALLOWED>::buf_ptr()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Buf_ptr& Basic_blob<Allocator, SHARING>::buf_ptr()
 {
   return m_alloc_and_buf_ptr.second();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-const typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Buf_ptr&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::buf_ptr() const
+template<typename Allocator, bool SHARING>
+const typename Basic_blob<Allocator, SHARING>::Buf_ptr&
+  Basic_blob<Allocator, SHARING>::buf_ptr() const
 {
   return const_cast<Basic_blob*>(this)->buf_ptr();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Allocator_raw& Basic_blob<Allocator, S_SHARING_ALLOWED>::alloc_raw()
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Allocator_raw& Basic_blob<Allocator, SHARING>::alloc_raw()
 {
   return m_alloc_and_buf_ptr.first();
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-const typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Allocator_raw&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::alloc_raw() const
+template<typename Allocator, bool SHARING>
+const typename Basic_blob<Allocator, SHARING>::Allocator_raw&
+  Basic_blob<Allocator, SHARING>::alloc_raw() const
 {
   return const_cast<Basic_blob*>(this)->alloc_raw();
 }
 
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw() :
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw() :
   m_buf_sz(0)
 {
   /* It can be left `= default;`, but some gcc versions then complain m_buf_sz may be used uninitialized (not true but
    * such is life). */
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw(const Allocator_raw& alloc_raw, size_type buf_sz) :
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Allocator_raw& alloc_raw, size_type buf_sz) :
   /* Copy allocator; a stateless allocator should have size 0 (no-op for the processor in that case... except
    * the optional<> registering it has-a-value). */
   m_alloc_raw(std::in_place, alloc_raw),
@@ -2838,8 +2835,8 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw(const Allocat
   // OK.
 }
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw(Deleter_raw&& moved_src)
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(Deleter_raw&& moved_src)
 {
   /* We advertised our action is as-if we default-ct, then move-assign.  While we skipped delegating to default-ctor,
    * the only difference is that would've initialized m_buf_sz; but the following will just overwrite it anyway.  So
@@ -2849,12 +2846,12 @@ Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw(Deleter_raw&&
 
 /* Auto-generated copy-ct should be fine; the only conceivable source of trouble might be Allocator_raw copy-ction,
  * but that must exist for all allocators. */
-template<typename Allocator, bool S_SHARING_ALLOWED>
-Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::Deleter_raw(const Deleter_raw&) = default;
+template<typename Allocator, bool SHARING>
+Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Deleter_raw&) = default;
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::operator=(Deleter_raw&& moved_src)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Deleter_raw&
+  Basic_blob<Allocator, SHARING>::Deleter_raw::operator=(Deleter_raw&& moved_src)
 {
   using std::swap;
 
@@ -2895,9 +2892,9 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw&
   return *this;
 } // Basic_blob::Deleter_raw::operator=(&&)
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw&
-  Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::operator=(const Deleter_raw& src)
+template<typename Allocator, bool SHARING>
+typename Basic_blob<Allocator, SHARING>::Deleter_raw&
+  Basic_blob<Allocator, SHARING>::Deleter_raw::operator=(const Deleter_raw& src)
 {
   /* Ideally we'd just use `= default;`, but that might not compile, when Allocator_raw has no copy-assignment
    * (as noted elsewhere this is entirely possible).  So basically perform a simpler version of the move-assignment
@@ -2924,8 +2921,8 @@ typename Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw&
   return *this;
 } // Basic_blob::Deleter_raw::operator=(const&)
 
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void Basic_blob<Allocator, S_SHARING_ALLOWED>::Deleter_raw::operator()(Pointer_raw to_delete)
+template<typename Allocator, bool SHARING>
+void Basic_blob<Allocator, SHARING>::Deleter_raw::operator()(Pointer_raw to_delete)
 {
   // No need to invoke dtor: Allocator_raw::value_type is Basic_blob::value_type, a boring int type with no real dtor.
 
