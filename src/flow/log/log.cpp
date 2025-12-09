@@ -219,7 +219,7 @@ Logger* Log_context::get_logger() const
 
 Logger* Log_context::set_logger(Logger* logger)
 {
-  std::swap(logger, m_logger);
+  m_logger = logger;
   return logger;
 }
 
@@ -250,34 +250,25 @@ Log_context_mt::Log_context_mt(Logger* logger) :
 }
 
 Log_context_mt::Log_context_mt(const Log_context_mt& src) :
-  Log_context(src)
+  Log_context() // Eliminate possible warning at tiny (if any) perf cost.
 {
-  // Leave m_mutex alone.
+  // We could just do `operator=(src)`; but to avoid unnecessary locking of this->m_mutex do it manually.
+  util::Lock_guard<decltype(m_mutex)> lock{src.m_mutex};
+  Log_context::operator=(src);
 }
 
 Log_context_mt::Log_context_mt(Log_context_mt&& src) :
-  Log_context(static_cast<const Log_context&>(src)) // See below.
+  Log_context() // Clear *this in preparation for swap.
 {
-  using Lock = util::Lock_guard<decltype(m_mutex)>;
+  using std::swap; // This enables proper ADL.
 
-  /* We could just do `operator=(std::move(src))`; but to avoid unnecessary locking of this->m_mutex do it manually;
-   *   - lock-free copying from Log_context src onto Log_context *this = already done;
-   *   - so it remains to lock src and nullify it: */
-  Lock lock{src.m_mutex};
-  static_cast<Log_context&>(src).operator=(Log_context{});
+  // We could just do `operator=(move(src))`; but to avoid unnecessary locking of this->m_mutex do it manually.
+  util::Lock_guard<decltype(m_mutex)> lock{src.m_mutex};
+  swap(static_cast<Log_context&>(*this),
+       static_cast<Log_context&>(src));
 }
 
 Log_context_mt& Log_context_mt::operator=(const Log_context_mt& src)
-{
-  if (&src != this)
-  {
-    util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
-    Log_context::operator=(src);
-  }
-  return *this;
-}
-
-Log_context_mt& Log_context_mt::operator=(Log_context_mt&& src)
 {
   using Lock = util::Lock_guard<decltype(m_mutex)>;
 
@@ -286,18 +277,41 @@ Log_context_mt& Log_context_mt::operator=(Log_context_mt&& src)
     /* Naively we'd do something close to:
      *   Lock lock1{m_mutex};
      *   Lock lock2{src.m_mutex};
-     *   Log_context::operator=(std::move(src));
+     *   Log_context::operator=(src);
      * However conceivably this could cause an obscure deadlock for reasons similar to those cited in swap().  As there:
-     * Seems there's no choice but to lock things piecewise and execute the move-assignment manually as its 2
-     * component ops (copy-assign; then clear `src`), as we do so. */
+     * Seems there's no choice but to lock things piecewise and execute the copy-assignment via a temporary
+     * intermediary Log_context. */
 
-    {
-      Lock lock{m_mutex};
-      Log_context::operator=(static_cast<const Log_context&>(src));
-    }
+    Log_context obj_tmp;
     {
       Lock lock{src.m_mutex};
-      static_cast<Log_context&>(src).operator=(Log_context{});
+      obj_tmp = src;
+    }
+    {
+      Lock lock{m_mutex};
+      Log_context::operator=(obj_tmp);
+    }
+  }
+  return *this;
+}
+
+Log_context_mt& Log_context_mt::operator=(Log_context_mt&& src)
+{
+  using Lock = util::Lock_guard<decltype(m_mutex)>;
+  using std::swap; // This enables proper ADL.
+
+  if (&src != this)
+  {
+    // Same deal as in copy ctor; just have to add the clearing of `src` which we do by using swap(L_c&, L_c&).
+
+    Log_context obj_tmp;
+    {
+      Lock lock{src.m_mutex};
+      swap(obj_tmp, static_cast<Log_context&>(src));
+    }
+    {
+      Lock lock{m_mutex};
+      Log_context::operator=(obj_tmp);
     }
   }
 
@@ -324,6 +338,9 @@ const Component& Log_context_mt::get_log_component() const
 
 void Log_context_mt::swap(Log_context_mt& other)
 {
+  using Lock = util::Lock_guard<decltype(m_mutex)>;
+  using std::swap; // This enables proper ADL.
+
   /* Naively we'd do something close to:
    *   Lock lock1{m_mutex};
    *   Lock lock2{other.m_mutex};
@@ -333,15 +350,28 @@ void Log_context_mt::swap(Log_context_mt& other)
    * and
    *   lc_mt2.swap(lc_mt1);
    * Strange thing to do, but it is legal, and a classic AB-BA deadlock results.
-   * Seems there's no choice but to lock things piecewise and execute the swap manually as the 3 classic ops, as
-   * we do so. */
+   * Seems there's no choice but to lock things in series and use a temporary intermediary.
+   * (We could've also let the default std::swap() just do one move-construct and two move-assignments, but
+   * perf-wise that'd do some unnecessary stuff.) */
 
-  Log_context_mt& obj1 = *this;
-  Log_context_mt& obj2 = other;
+  auto& obj1_mt = *this;
+  auto& obj2_mt = other;
+  auto& obj1_rw = static_cast<Log_context&>(obj1_mt);
+  auto& obj2_rw = static_cast<Log_context&>(obj2_mt);
 
-  Log_context_mt obj_tmp{static_cast<const Log_context_mt&>(obj1)};
-  obj1 = static_cast<const Log_context_mt&>(obj2); // Will lock/unlock obj1.m_mutex.
-  obj2 = static_cast<const Log_context_mt&>(obj_tmp); // Will lock/unlock obj2.m_mutex.
+  Log_context tmp_rw;
+  {
+    Lock lock{obj1_mt.m_mutex};
+    tmp_rw = obj1_rw;
+  }
+  {
+    Lock lock{obj2_mt.m_mutex};
+    swap(tmp_rw, obj2_rw);
+  }
+  {
+    Lock lock{obj1_mt.m_mutex};
+    obj1_rw = tmp_rw;
+  }
 } // Log_context_mt::swap()
 
 void swap(Log_context_mt& val1, Log_context_mt& val2)

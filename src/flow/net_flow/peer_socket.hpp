@@ -783,7 +783,7 @@ public:
 
   /**
    * The error code that perviously caused state() to become State::S_CLOSED, or success code if state
-   * is not CLOSED.  For example, error::code::S_CONN_RESET_BY_OTHER_SIDE (if was connected) or
+   * is not CLOSED.  For example, error::Code::S_CONN_RESET_BY_OTHER_SIDE (if was connected) or
    * error::Code::S_CONN_TIMEOUT (if was connecting)
    *
    * @return Ditto.

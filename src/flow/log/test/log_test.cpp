@@ -20,6 +20,7 @@
 #include "flow/util/util.hpp"
 #include <gtest/gtest.h>
 #include <type_traits>
+#include <ostream>
 
 namespace flow::log::test
 {
@@ -27,6 +28,8 @@ namespace flow::log::test
 namespace
 {
 using std::string;
+using std::cout;
+using std::flush;
 } // Anonymous namespace
 
 // Yes... this is very cheesy... but this is a test, so I don't really care.
@@ -52,7 +55,9 @@ TEST(Log_context, Interface)
     const auto comp1 = Flow_log_component::S_UTIL;
     const auto comp2 = Flow_log_component::S_LOG;
     const auto comp0 = Component{};
-    EXPECT_TRUE(comp0.empty());
+    ASSERT_TRUE(comp0.empty());
+
+    cout << "Testing type [" << typeid(Log_context_t).name() << "].\n" << flush;
 
     // @todo Maybe should implement operator==(Component, Component)?  Then use it/test it here?
 
