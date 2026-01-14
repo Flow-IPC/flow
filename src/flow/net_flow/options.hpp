@@ -433,7 +433,7 @@ private:
  *   4. Add an ADD_CONFIG_OPTION() line into the proper `struct` setup_config_parsing_helper() by analogy
  *      with other present options.  The description string should usually be a copy of the comment
  *      from step 3.
- *   5. Add the default value (very important) into the the proper `struct` constructor.
+ *   5. Add the default value (very important) into the proper `struct` constructor.
  *      Explain the choice of default with a comment.
  *   6. Is this a static option (step 2)?  If so, add static validation (by analogy with present
  *      options) to Node::validate_options() or Node::sock_validate_options().

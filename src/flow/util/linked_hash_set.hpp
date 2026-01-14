@@ -470,12 +470,7 @@ template<typename Key_t, typename Hash_t, typename Pred_t>
 Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(size_type n_buckets,
                                                         const Hash& hasher_obj,
                                                         const Pred& pred) :
-  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
-   * We blame the somewhat annoying ctor API for unordered_*. */
-  m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count
-                     : n_buckets,
-                   hasher_obj, pred)
+  Linked_hash_set({}, n_buckets, hasher_obj, pred)
 {
   // That's all.
 }
@@ -487,8 +482,10 @@ Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(std::initializer_list<Va
                                                         const Pred& pred) :
   // Their initializer_list is meant for a set of keys, but it is perfect for our list of keys.
   m_value_list(values),
+  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
+   * We blame the somewhat annoying ctor API for unordered_*. */
   m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count // See @todo above.
+                     ? boost::unordered::detail::default_bucket_count
                      : n_buckets,
                    hasher_obj, pred)
 {

@@ -1031,7 +1031,7 @@ struct Ack_packet : public Low_lvl_packet
    * congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK
    * delay value) to be quite precise (microsecond level or so).  Therefore, to be totally safe, we
    * choose to use the same units as #Fine_duration, which is how we compute all time periods.  As
-   * for the the encoding width, we use 64 bits just in case.
+   * for the encoding width, we use 64 bits just in case.
    *
    * @todo Reconsider the encoding width.  If `Ack_delay_time_unit{1}` is a nanosecond, then 32 bits
    * would support a maximum delay of ~4.1 seconds which is likely fine for most real-world

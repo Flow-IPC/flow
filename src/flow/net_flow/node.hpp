@@ -619,7 +619,7 @@ namespace flow::net_flow
  * was able to run; thread W had just decided to send that packet over wire in the first place; so there's no
  * reason to access it until ACK -- much later -- or some kind of socket-wide catastrophe.)  All that put
  * together I dub APPROACH 5.  Thus, APPROACH 1 + APPROACH 5 seems like the best idea of all, distilling all
- * the trade-offs into the the fastest yet close to simplest approach.
+ * the trade-offs into the fastest yet close to simplest approach.
  *
  * @todo More uniform diagnostic logging: There is much diagnostic logging in the
  * implementation (FLOW_ERROR*(), etc.), but some of it lacks useful info like `sock` or `serv` (i.e., the
@@ -994,7 +994,7 @@ public:
    *        Network environment simulator to use to simulate (fake) external network conditions
    *        inside the code, e.g., for testing.  If 0, no such simulation will occur.  Otherwise the
    *        code will add conditions such as loss and latency (in addition to any present naturally)
-   *        and will take ownership of the the passed in pointer (meaning, we will `delete` as we see fit;
+   *        and will take ownership of the passed in pointer (meaning, we will `delete` as we see fit;
    *        and you must never do so from now on).
    * @param err_code
    *        See flow::Error_code docs for error reporting semantics.  error::Code generated:

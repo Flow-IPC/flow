@@ -363,12 +363,12 @@ public:
   /**
    * Constructs blob with `zero() == true`.  Note this means no buffer is allocated.
    *
-   * @param alloc_raw
+   * @param alloc_raw_src
    *        Allocator to copy and store in `*this` for all buffer allocations/deallocations.
    *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
    *        and by definition it is to equal `Allocator_raw{}`.
    */
-  Basic_blob(const Allocator_raw& alloc_raw = {});
+  Basic_blob(const Allocator_raw& alloc_raw_src = {});
 
   /**
    * Constructs blob with size() and capacity() equal to the given `size`, and `start() == 0`.  Performance note:
@@ -387,13 +387,13 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use in *this* routine (synchronously) or asynchronously when TRACE-logging
    *        in the event of buffer dealloc.  Null allowed.
-   * @param alloc_raw
+   * @param alloc_raw_src
    *        Allocator to copy and store in `*this` for all buffer allocations/deallocations.
    *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
    *        and by definition it is to equal `Allocator_raw{}`.
    */
   explicit Basic_blob(size_type size, log::Logger* logger_ptr = nullptr,
-                      const Allocator_raw& alloc_raw = {});
+                      const Allocator_raw& alloc_raw_src = {});
 
   /**
    * Identical to similar-sig ctor except, if `size > 0`, all `size` elements are performantly initialized to zero.
@@ -410,11 +410,11 @@ public:
    *        See similar ctor.
    * @param logger_ptr
    *        See similar ctor.
-   * @param alloc_raw
+   * @param alloc_raw_src
    *        See similar ctor.
    */
   explicit Basic_blob(size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr = nullptr,
-                      const Allocator_raw& alloc_raw = {});
+                      const Allocator_raw& alloc_raw_src = {});
 
   /**
    * Move constructor, constructing a blob exactly internally equal to pre-call `moved_src`, while the latter is
@@ -1320,12 +1320,12 @@ private:
      * to be passed-in.  Many allocators probably don't really need this, as array size is typically recorded
      * invisibly near the array itself, but formally this is not guaranteed for all allocators.
      *
-     * @param alloc_raw
+     * @param alloc_raw_src
      *        Allocator to copy and store.
      * @param buf_sz
      *        See above.
      */
-    explicit Deleter_raw(const Allocator_raw& alloc_raw, size_type buf_sz);
+    explicit Deleter_raw(const Allocator_raw& alloc_raw_src, size_type buf_sz);
 
     /**
      * Move-construction which may be required when we are used in `unique_ptr`.  This is equivalent to
@@ -1667,8 +1667,8 @@ private:
 
 // buf_ptr() initialized to null pointer.  n_capacity and m_size remain uninit (meaningless until buf_ptr() changes).
 template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw) :
-  m_alloc_and_buf_ptr(alloc_raw), // Copy allocator; stateless allocator should have size 0 (no-op for the processor).
+Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw_src) :
+  m_alloc_and_buf_ptr(alloc_raw_src), // Copy allocator; stateless alloc should have size 0 (no-op for the processor).
   m_capacity(0), // Not necessary, but some compilers will warn in some situations.  Fine; it's cheap enough.
   m_start(0), // Ditto.
   m_size(0) // Ditto.
@@ -1678,30 +1678,26 @@ Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw) :
 
 template<typename Allocator, bool SHARING>
 Basic_blob<Allocator, SHARING>::Basic_blob
-  (size_type size, log::Logger* logger_ptr, const Allocator_raw& alloc_raw) :
+  (size_type size, log::Logger* logger_ptr, const Allocator_raw& alloc_raw_src) :
 
-  Basic_blob(alloc_raw) // Delegate.
+  Basic_blob(alloc_raw_src) // Delegate.
 {
   resize(size, 0, logger_ptr);
 }
 
 template<typename Allocator, bool SHARING>
 Basic_blob<Allocator, SHARING>::Basic_blob
-  (size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr, const Allocator_raw& alloc_raw) :
+  (size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr, const Allocator_raw& alloc_raw_src) :
 
-  Basic_blob(alloc_raw) // Delegate.
+  Basic_blob(alloc_raw_src) // Delegate.
 {
   resize(size, coa_tag, 0, logger_ptr);
 }
 
 template<typename Allocator, bool SHARING>
 Basic_blob<Allocator, SHARING>::Basic_blob(const Basic_blob& src, log::Logger* logger_ptr) :
-  // Follow rules established in alloc_raw() doc header:
-  m_alloc_and_buf_ptr(std::allocator_traits<Allocator_raw>::select_on_container_copy_construction(src.alloc_raw())),
-  m_capacity(0), // See comment in first delegated ctor above.
-  m_start(0), // Ditto.
-  m_size(0) // Ditto
-
+  // Follow rules established in alloc_raw() doc header.  This is compatible with the delegated-to ctor.
+  Basic_blob(std::allocator_traits<Allocator_raw>::select_on_container_copy_construction(src.alloc_raw()))
 {
   /* What we want to do here, ignoring allocators, is (for concision): `assign(src, logger_ptr);`
    * However copy-assignment also must do something different w/r/t alloc_raw() than what we had to do above
@@ -2826,10 +2822,10 @@ Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw() :
 }
 
 template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Allocator_raw& alloc_raw, size_type buf_sz) :
+Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Allocator_raw& alloc_raw_src, size_type buf_sz) :
   /* Copy allocator; a stateless allocator should have size 0 (no-op for the processor in that case... except
    * the optional<> registering it has-a-value). */
-  m_alloc_raw(std::in_place, alloc_raw),
+  m_alloc_raw(std::in_place, alloc_raw_src),
   m_buf_sz(buf_sz) // Smart-ptr stores a T*, where T is a trivial-deleter PoD, but we delete an array of Ts: this many.
 {
   // OK.

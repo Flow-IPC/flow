@@ -594,7 +594,7 @@ private:
   Iterator insert_impl(const Value& key_and_mapped);
 
   /**
-   * Simimlar to insert_impl(), except `key_and_mapped` components are `move()`d into `*this` instead of being copied.
+   * Similar to insert_impl(), except `key_and_mapped` components are `move()`d into `*this` instead of being copied.
    *
    * @param key_and_mapped
    *        Same as in insert().
@@ -666,12 +666,7 @@ template<typename Key_t, typename Mapped_t, typename Hash_t, typename Pred_t>
 Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Linked_hash_map(size_type n_buckets,
                                                                   const Hash& hasher_obj,
                                                                   const Pred& pred) :
-  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
-   * We blame the somewhat annoying ctor API for unordered_*. */
-  m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count
-                     : n_buckets,
-                   hasher_obj, pred)
+  Linked_hash_map({}, n_buckets, hasher_obj, pred)
 {
   // That's all.
 }
@@ -683,8 +678,10 @@ Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Linked_hash_map(std::initializ
                                                                   const Pred& pred) :
   // Their initializer_list is meant for a dictionary, but it is perfect for our list of pairs!
   m_value_list(values),
+  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
+   * We blame the somewhat annoying ctor API for unordered_*. */
   m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count // See @todo above.
+                     ? boost::unordered::detail::default_bucket_count
                      : n_buckets,
                    hasher_obj, pred)
 {

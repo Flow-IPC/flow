@@ -83,7 +83,7 @@ namespace flow::util
  *
  * ### How to use ###
  * Ensure the template-arg #Thread_local_state has a proper destructor; and either ensure it has default (no-arg) ctor
- * (in which case it'll be created via `new Thread_local_state{}`), or assign #m_create_state_func (to choose
+ * (in which case it'll be created via `new Thread_local_state`), or assign #m_create_state_func (to choose
  * a method of creation yourself).
  *
  * Addendum: the default is `new Thread_local_state{this->get_logger()}` if and only if `Thread_local_state*` is
@@ -91,7 +91,7 @@ namespace flow::util
  * See also Logging section below.
  *
  * From any thread where you need a #Thread_local_state, call `this->this_thread_state()`.  The first time
- * in a given thread, this shall perform and save `new Thread_local_state{}`; subsequent times it shall return
+ * in a given thread, this shall perform and save `new Thread_local_state`; subsequent times it shall return
  * the same pointer.  (You can also save the pointer and reuse it; just be careful.)
  *
  * A given thread's #Thread_local_state object shall be deleted via `delete Thread_local_state` when one of
@@ -355,7 +355,7 @@ public:
    * You may access the returned data structure, including the #Thread_local_state pointees, in read-only mode.
    *
    * You may write to each individual #Thread_local_state pointee.  Moreover you are guaranteed (see
-   * "Thread safety" below) that no while_locked() user is doing the same simultaneously (byt while_locked()
+   * "Thread safety" below) that no while_locked() user is doing the same simultaneously (by while_locked()
    * contract).
    *
    * If you *do* write to a particular pointee, remember these points:
@@ -371,7 +371,7 @@ public:
    *       #Thread_local_state an `atomic<bool> m_do_flush{false}`; set it to `true` (with most-relaxed atomic mode)
    *       via while_locked() + state_per_thread() block when wanting a thread to perform an (e.g.) "flush" action;
    *       and in the owner-thread do checks like:
-   *       `if (this_thread_state()->m_do_flush.compare_exchange_strong(true, false, relaxed) { flush_stuff(); }`.
+   *       `if (this_thread_state()->m_do_flush.compare_exchange_strong(true, false, relaxed)) { flush_stuff(); }`.
    *       It is speedy and easy.
    *   - You could also surround any access, from the proper owner thread, to that `Thread_local_state` pointee
    *     with while_locked().  Again, usually one uses thread-local stuff to avoid such central-locking actions;
@@ -489,7 +489,7 @@ private:
    * The essential problem is that in cleanup() (which is called by thread X that earlier issued
    * `Thread_local_state* x` via this_thread_state() if and only if at X exit `*this` still exists, and therefore
    * so does #m_this_thread_state_or_null) we cannot be sure that `x` isn't being concurrently `delete`d and
-   * removed from #m_ctl by the (unlikely, but possibly) concurrently executing `*this` dtor.  To do that
+   * removed from #m_ctl by the (unlikely but possibly) concurrently executing `*this` dtor.  To do that
    * we must first lock `m_ctl->m_mutex`.  However, `*m_ctl` might concurrently disappear!  This is perfect
    * for `weak_ptr`: we can "just" capture a `weak_ptr` of `shared_ptr` #m_ctl and either grab a co-shared-pointer
    * of `m_ctl` via `weak_ptr::lock()`; or fail to do so which simply means the dtor will do the cleanup anyway.
@@ -515,7 +515,7 @@ private:
    * and the Tl_context (passed to cleanup() by `thread_specific_ptr`).
    *
    * If dtor runs before a given thread exits, then again: simple enough.  Dtor can just do (for each thread's stuff)
-   * what cleanup() what have done; hence for the thread in question it would delete the `Thread_local_state` and
+   * what cleanup() would have done; hence for the thread in question it would delete the `Thread_local_state` and
    * `Tl_context` and delete the entry from Registry_ctl::m_state_per_thread.  cleanup() will just not run.
    *
    * The problems begin in the unlikely but eminently possible, and annoying, scenario wherein they both run at
@@ -675,7 +675,7 @@ private:
    *   - By user code, probably following this_thread_state() to obtain `p`.  This is safe, because:
    *     It is illegal for them to access `*this`-owned state after destroying `*this`.
    *
-   * As for the the stuff in `m_this_thread_state_or_null.m_tsp.get()` other than `p` -- the Tl_context surrounding
+   * As for the stuff in `m_this_thread_state_or_null.m_tsp.get()` other than `p` -- the Tl_context surrounding
    * it -- again: see Tl_context doc header.
    */
   Tsp_wrapper m_this_thread_state_or_null;
@@ -1058,17 +1058,19 @@ Thread_local_state_registry<Thread_local_state_t>::~Thread_local_state_registry(
   {
     delete state;
     /* Careful!  We delete `state` (the Thread_local_state) but *not* the Tl_context (we didn't even store
-     * it in the map) that is actually stored in the thread_specific_ptr m_this_thread_state_or_null.
+     * it in the map) that is actually stored in the thread_specific_ptr m_this_thread_state_or_null.m_tsp.
      * See Tl_context doc header for explanation.  In short by leaving it alive we leave cleanup() able to
      * run concurrently with ourselves -- unlikely but possible. */
   }
 
   /* Subtlety: When m_this_thread_state_or_null is auto-destroyed shortly, it will auto-execute
-   * m_this_thread_state_or_null.reset() -- in *this* thread only.  If in fact this_thread_state() has been
-   * called in this thread, then it'll try to do cleanup(m_this_thread_state_or_null.get()); nothing good
-   * can come of that really.  We could try to prevent it by doing m_this_thread_state_or_null.reset()... but
-   * same result.  Instead we do the following which simply replaces the stored (now bogus) ptr with null, and
-   * that's it.  We already deleted it, so that's perfect. */
+   * m_this_thread_state_or_null.m_tsp.reset() -- in *this* thread only.  If in fact this_thread_state() has been
+   * called in this thread, then it'll try to do cleanup(m_this_thread_state_or_null.m_tsp.get()); nothing good
+   * can come of that really.  We could try to prevent it by doing m_this_thread_state_or_null.m_tsp.reset()... but
+   * same result.  Instead we do the following which simply replaces the stored (now useless) Tl_context* with null, and
+   * that's it.  We already deleted its ->m_state, so that's perfect.  (Again: per Tl_context doc header, it is
+   * intentional that we don't the release()d `delete m_this_thread_state_or_null.m_tsp.get()` but only "most" of it,
+   * namely (it)->m_state.) */
   m_this_thread_state_or_null.m_tsp.release();
 
   // After the }, m_ctl is nullified, and lastly m_this_thread_state_or_null is destroyed (a no-op in our context).
@@ -1091,11 +1093,12 @@ void Thread_local_state_registry<Thread_local_state_t>::cleanup(Tl_context* ctx)
   if (!shared_ptr_to_ctl)
   {
     /* Relevant Thread_local_state_registry dtor was called late enough to coincide with current thread about to exit
-     * but not quite late enough for its thread_specific_ptr ->m_this_thread_state_or_null to be destroyed.
+     * but not quite late enough for its thread_specific_ptr m_this_thread_state_or_null.m_tsp to be destroyed
+     * (hence we, cleanup(), were called for this thread -- possibly similarly for other thread(s) too).
      * Its shared_ptr m_ctl did already get destroyed though.  So -- we need not worry about cleanup after all.
      * This is rare and fun, but it is no different from that dtor simply running before this thread exited.
      * It will be/is cleaning up our stuff (and everything else) -- except the *ctx wrapper itself.  So clean that
-     * up (not actual ctx->m_state payload!); and GTFO. */
+     * up (not actual ctx->m_state payload!) -- as T_l_s_r dtor specifically never does -- and GTFO. */
     delete ctx;
     return;
   }

@@ -1780,7 +1780,7 @@ private:
    * This gains meaning only in thread W.  This should NOT be accessed outside of thread W and is
    * not protected by a mutex.
    *
-   * @see Sent_when and Sent_packet::m_sent_when, where if `X` is the the last element of the latter sequence, then
+   * @see Sent_when and Sent_packet::m_sent_when, where if `X` is the last element of the latter sequence, then
    *      `X.m_sent_time` is the value by which elements in the present map are ordered.  However, this only
    *      happens to be the case, because by definition an element
    *      is always placed at the front of the present map (Linked_hash_map), and this order is inductively maintained;
@@ -2144,7 +2144,7 @@ private:
    * Connection timeout scheduled task; fires if the entire initial connection process does not complete within a
    * certain amount of time.  It is started when the SYN or SYN_ACK is sent the very first time (NOT counting
    * resends), canceled when SYN_ACK or SYN_ACK_ACK (respectively) is received in response to ANY SYN or
-   * SYN_ACK (respevtively), and fired if the the latter does not occur in time.
+   * SYN_ACK (respectively), and fired if the latter does not occur in time.
    *
    * This gains meaning only in thread W.  This should NOT be accessed outside of thread W and is
    * not protected by a mutex.

@@ -403,7 +403,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
    *     - The raw type ID, which indicates what is after the Common Header.
    *       - We'll create the appropriate Low_lvl_packet sub-type object based on this.
    *     - Certain common fields that apply to all.
-   *       - We'll fill those out in the Low_lvl_packet (super-type) area of the the just-created object.
+   *       - We'll fill those out in the Low_lvl_packet (super-type) area of the just-created object.
    *   - Type-specific data:
    *     - We hand off the partially filled object and the remaining buffer to a virtual method that
    *       will appropriately fill the rest of the object. */
