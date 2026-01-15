@@ -136,7 +136,7 @@ public:
    *
    * On failure returns `false`; else returns `true`.  In the former case the overall state is equal to that
    * at entry to the method.  Tip: On failure you may want to exit program with error; or you
-   * can continue knowing that values() will return default values according to `Value_set()` no-arg ctor.
+   * can continue knowing that values() will return default values according to `Value_set{}` no-arg ctor.
    * WARNING(s) logged given failure.
    *
    * Before apply(), or after it fails, the contents of what values() returns will be the defaults from your `Value_set`

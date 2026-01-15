@@ -47,13 +47,13 @@ Fine_time_pt chrono_duration_from_now_to_fine_time_pt(const boost::chrono::durat
 
   assert(dur.count() >= 0);
   return (dur == User_duration::max())
-           ? Fine_time_pt()
+           ? Fine_time_pt{}
            : (Fine_clock::now() + ceil<Fine_duration>(dur));
 }
 
 constexpr String_view get_last_path_segment(String_view full_path)
 {
-  String_view path(full_path); // This only copies the pointer and length (not the string).
+  String_view path{full_path}; // This only copies the pointer and length (not the string).
   // @todo Get it from boost::filesystem or something:
 #  ifdef FLOW_OS_WIN
   constexpr char SEP = '\\';

@@ -66,7 +66,7 @@ using Checkpointing_timer_ptr = boost::shared_ptr<Checkpointing_timer>;
  * not using `atomic`.
  *
  *   ~~~
- *   flow::perf::duration_rep_t accumulated_ticks(0);
+ *   flow::perf::duration_rep_t accumulated_ticks{0};
  *   const auto timed_func
  *     = flow::perf::timed_function
  *         (flow::perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES, &accumulated_ticks,
@@ -76,7 +76,7 @@ using Checkpointing_timer_ptr = boost::shared_ptr<Checkpointing_timer>;
  *   timed_func(7, 7); // Note it can only be called void-style.
  *   // ...
  *   // Later, here's the result.  Note the construction from type-unsafe ticks to type-safe Duration.
- *   const flow::perf::Duration total_dur(accumulated_ticks);
+ *   const flow::perf::Duration total_dur{accumulated_ticks};
  *   // Can convert to whatever units type-safely now (duration_cast<> in this case allows for precision loss).
  *   const auto total_dur_us = chrono::duration_cast<chrono::microseconds>(total_dur);
  *   ~~~
@@ -84,7 +84,7 @@ using Checkpointing_timer_ptr = boost::shared_ptr<Checkpointing_timer>;
  * Same thing but with an `atomic` to support timing/execution occuring concurrently:
  *
  *   ~~~
- *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks(0);
+ *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks{0};
  *   const auto timed_func
  *     = flow::perf::timed_function
  *         (flow::perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES, &accumulated_ticks,
@@ -94,7 +94,7 @@ using Checkpointing_timer_ptr = boost::shared_ptr<Checkpointing_timer>;
  *   timed_func(7, 7); // Note it can only be called void-style.
  *   // ...
  *   // Later, here's the result.  Note the construction from type-unsafe ticks to type-safe Duration.
- *   const flow::perf::Duration total_dur(accumulated_ticks);
+ *   const flow::perf::Duration total_dur{accumulated_ticks};
  *   // Can convert to whatever units type-safely now (duration_cast<> in this case allows for precision loss).
  *   const auto total_dur_us = chrono::duration_cast<chrono::microseconds>(total_dur);
  *   ~~~
@@ -108,7 +108,7 @@ using Checkpointing_timer_ptr = boost::shared_ptr<Checkpointing_timer>;
  * `Accumulator` is understood to store raw ticks of #Duration -- not actual #Duration -- for performance reasons
  * (to wit: so that `atomic` plus-equals can be made use of, if it exists).  If you need a #Duration
  * ultimately -- and for type safety you really *should* -- it is up to you to construct a #Duration from the
- * accumulated `duration_rep_t`.  This is trivially done via the `Duration(duration_rep_t)` constructor.
+ * accumulated `duration_rep_t`.  This is trivially done via the `Duration{duration_rep_t}` constructor.
  *
  * @todo timed_function(), when operating on an `atomic<duration_rep_t>`, uses `+=` for accumulation which may be
  * lock-free but uses strict ordering; a version that uses `fetch_add()` with relaxed ordering may be desirable
@@ -154,7 +154,7 @@ auto timed_function(Clock_type clock_type, Accumulator* accumulator, Func&& func
  * allowing for concurrency by using an `atomic`.  The difference: `timed_func()` returns a value.
  *
  *   ~~~
- *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks(0);
+ *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks{0};
  *   const auto timed_func
  *     = flow::perf::timed_function_nvr
  *         (flow::perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES, &accumulated_ticks,
@@ -217,7 +217,7 @@ auto timed_function_nvr(Clock_type clock_type, Accumulator* accumulator, Func&& 
  *   // ...
  *   // Strand guaranteeing non-concurrency for any handler functions bound to it, perhaps pertaining to HTTP request R.
  *   flow::util::Strand this_request_strand(multi_threaded_engine);
- *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks(0);
+ *   std::atomic<flow::perf::duration_rep_t> accumulated_ticks{0};
  *   auto timed_hnd
  *     = flow::perf::timed_handler
  *         (flow::perf::Clock_type::S_CPU_THREAD_TOTAL_HI_RES, &accumulated_ticks,

@@ -100,7 +100,7 @@ private:
 
 // Static initializers.
 
-std::locale const * Duration_units_beautified::s_beautified_locale_or_null(0);
+std::locale const * Duration_units_beautified::s_beautified_locale_or_null{nullptr};
 boost::once_flag Duration_units_beautified::s_beautified_locale_init_flag;
 
 // Implementations.
@@ -153,8 +153,8 @@ boost::chrono::microseconds time_since_posix_epoch()
   using boost::posix_time::ptime;
   using boost::chrono::microseconds;
   using boost::gregorian::date;
-  return microseconds((microsec_clock::universal_time() - ptime(date(1970, 1, 1)))
-                      .total_microseconds());
+  return microseconds{(microsec_clock::universal_time() - ptime{date{1970, 1, 1}})
+                      .total_microseconds()};
 
   /* I am using boost.date_time machinery to get the UTC time and then the # of usec since the
    * exact epoch time point.  Beyond dealing with calendars and the like, I find boost.date_time

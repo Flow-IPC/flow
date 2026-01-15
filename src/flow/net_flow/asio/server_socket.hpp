@@ -261,7 +261,7 @@ void Server_socket::async_accept(const boost::chrono::duration<Rep, Period>& max
                                  bool reactor_pattern,
                                  const Handler& on_result)
 {
-  async_accept_impl(Handler_func(on_result),
+  async_accept_impl(Handler_func{on_result},
                     util::chrono_duration_from_now_to_fine_time_pt(max_wait),
                     reactor_pattern);
 }
@@ -269,20 +269,20 @@ void Server_socket::async_accept(const boost::chrono::duration<Rep, Period>& max
 template<typename Handler>
 void Server_socket::async_accept(const Handler& on_result)
 {
-  async_accept_impl(Handler_func(on_result), Fine_time_pt(), false);
+  async_accept_impl(Handler_func{on_result}, Fine_time_pt{}, false);
 }
 
 template<typename Handler>
 void Server_socket::async_accept(bool reactor_pattern, const Handler& on_result)
 {
-  async_accept_impl(Handler_func(on_result), Fine_time_pt(), reactor_pattern);
+  async_accept_impl(Handler_func(on_result), Fine_time_pt{}, reactor_pattern);
 }
 
 template<typename Rep, typename Period, typename Handler>
 void Server_socket::async_accept(const boost::chrono::duration<Rep, Period>& max_wait,
                                  const Handler& on_result)
 {
-  async_accept_impl(Handler_func(on_result),
+  async_accept_impl(Handler_func{on_result},
                     util::chrono_duration_from_now_to_fine_time_pt(max_wait),
                     false);
 }

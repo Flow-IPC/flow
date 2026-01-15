@@ -95,7 +95,7 @@ void asio_exec_ctx_post(log::Logger* logger_ptr, Execution_context* exec_ctx, Sy
                  "will we ensure concurrent initiation before continuing? = "
                  "[" << (synchronicity == Synchronicity::S_ASYNC_AND_AWAIT_CONCURRENT_START) << "].");
 
-  Task actual_task(std::move(task));
+  Task actual_task{std::move(task)};
 
   /* If the current log level suggests we want TRACE logging then book-end their task with some log statements.
    * For perf: entirely avoid this wrapping if almost certainly no logging would occur anyway. */

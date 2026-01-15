@@ -94,7 +94,7 @@ Error_code make_error_code(Code err_code)
 {
   /* Assign Category as the category for net_flow::error::Code-cast error_codes;
    * this basically glues together Category::name()/message() with the Code enum. */
-  return Error_code(static_cast<int>(err_code), Category::S_CATEGORY);
+  return Error_code{static_cast<int>(err_code), Category::S_CATEGORY};
 }
 
 Category::Category() = default;

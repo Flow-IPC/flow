@@ -91,7 +91,7 @@ String_view dict_type_printable(const std::type_index& type, bool brief = false)
   auto ret = impl();
   if (brief)
   {
-    ret.remove_prefix(String_view("idx=...|impl=").size());
+    ret.remove_prefix(String_view{"idx=...|impl="}.size());
   }
   return ret;
 }
@@ -373,7 +373,7 @@ void dict_benchmark(size_t n_cfgs)
       } // if (!by_ptr_else_val)
     } // for (rec : timing_vec)
 
-    vector<string> rel_time_str_vec(timing_vec.size());
+    vector<string> rel_time_str_vec{timing_vec.size()};
     std::transform(timing_vec.begin(), timing_vec.end(), rel_time_str_vec.begin(),
                    [](const auto& rec) -> auto
                      { return util::ostream_op_string('[', dict_type_printable(rec.m_type, true),
@@ -382,7 +382,7 @@ void dict_benchmark(size_t n_cfgs)
                                                       std::setprecision((rec.m_time_multiple == 1.f) ? 1 : 2),
                                                       rec.m_time_multiple, ']'); });
 
-    vector<string> time_str_vec(timing_vec.size());
+    vector<string> time_str_vec{timing_vec.size()};
     std::transform(timing_vec.begin(), timing_vec.end(), time_str_vec.begin(),
                    [](const auto& rec) -> auto
     {
@@ -498,7 +498,7 @@ TEST(Component_cfg_test, Dict_internals_benchmark)
  * perf matters has much subtlety to it -- this tests it end-to-end through the publicly available log::Config API. */
 TEST(Component_cfg_test, Interface)
 {
-  Config cfg(Sev::S_INFO);
+  Config cfg{Sev::S_INFO};
 
   Component comp0a{n0::n0::Cmps::S_COMP_A};
   Component comp0b{n0::n0::Cmps::S_COMP_B};

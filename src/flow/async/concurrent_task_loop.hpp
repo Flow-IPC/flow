@@ -208,11 +208,11 @@ namespace flow::async
  *   flow::async::Concurrent_task_loop L;
  *   auto op J = L.create_op(); // ATTN! The syntax is different from Strands but the idea is identical.
  *   ...
- *   X_type X(L.task_engine());
+ *   X_type X{L.task_engine()};
  *   // ATTN! The syntax is again somewhat different from bind_executor(S, F), but the idea is equivalent.
  *   X.async_A(&A_target, A_settings, flow::async::asio_handler_via_op(&L, J, F));
  *   ...
- *   Y_type Y(L.task_engine());
+ *   Y_type Y{L.task_engine()};
  *   Y.async_B(&B_target, B_settings, flow::async::asio_handler_via_op(&L, J, G));
  *   // X.sync_A() and Y.sync_B() are executing in background; F and G will run on respective completion;
  *   // but F() and G() shall run non-concurrently by virtue of being wrapped by the same Op: J.
@@ -408,8 +408,8 @@ public:
    *        in each thread, for all `thread_idx` in [0, n_threads()).  start() will return no sooner than
    *        when each such callback has finished.
    */
-  virtual void start(Task&& init_task_or_empty = Task(),
-                     const Thread_init_func& thread_init_func_or_empty = Thread_init_func()) = 0;
+  virtual void start(Task&& init_task_or_empty = Task{},
+                     const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) = 0;
 
   /**
    * Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such tasks
@@ -535,7 +535,7 @@ public:
    *
    * @param op
    *        The (presumably) multi-async-step operation to which `task` belongs, such that no `Task`s associated with
-   *        `op` may execute concurrently with `task`.  If `op.empty()` (a/k/a `op == Op()`, recalling that `Op()`
+   *        `op` may execute concurrently with `task`.  If `op.empty()` (a/k/a `op == Op{}`, recalling that `Op{}`
    *        is null/sentinel), then `assert()` trips.
    * @param task
    *        See other post().

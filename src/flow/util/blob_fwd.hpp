@@ -27,10 +27,12 @@ namespace flow::util
 
 // Find doc headers near the bodies of these compound types.
 
-template<typename Allocator = std::allocator<uint8_t>, bool S_SHARING_ALLOWED = false>
+template<typename Allocator = std::allocator<uint8_t>, bool SHARING = false>
 class Basic_blob;
-template<bool S_SHARING_ALLOWED = false>
+template<bool SHARING = false>
 class Blob_with_log_context;
+
+struct Clear_on_alloc;
 
 /**
  * Short-hand for a Basic_blob that allocates/deallocates in regular heap and is itself assumed to be stored
@@ -67,6 +69,11 @@ using Blob = Blob_with_log_context<>;
  */
 using Sharing_blob = Blob_with_log_context<true>;
 
+// Constants.
+
+/// Tag value indicating init-with-zeroes-on-alloc policy.
+extern const Clear_on_alloc CLEAR_ON_ALLOC;
+
 // Free functions.
 
 /**
@@ -86,9 +93,8 @@ using Sharing_blob = Blob_with_log_context<true>;
  *        Object.
  * @return Whether `blob1` and `blob2` both operate on the same underlying buffer.
  */
-template<typename Allocator, bool S_SHARING_ALLOWED>
-bool blobs_sharing(const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
-                   const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2);
+template<typename Allocator, bool SHARING>
+bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1, const Basic_blob<Allocator, SHARING>& blob2);
 
 /**
  * Equivalent to `blob1.swap(blob2)`.
@@ -101,9 +107,9 @@ bool blobs_sharing(const Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
  * @param logger_ptr
  *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
  */
-template<typename Allocator, bool S_SHARING_ALLOWED>
-void swap(Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
-          Basic_blob<Allocator, S_SHARING_ALLOWED>& blob2, log::Logger* logger_ptr = 0);
+template<typename Allocator, bool SHARING>
+void swap(Basic_blob<Allocator, SHARING>& blob1,
+          Basic_blob<Allocator, SHARING>& blob2, log::Logger* logger_ptr = nullptr) noexcept;
 
 /**
  * On top of the similar Basic_blob related function, logs using the stored log context of `blob1`.
@@ -114,7 +120,7 @@ void swap(Basic_blob<Allocator, S_SHARING_ALLOWED>& blob1,
  * @param blob2
  *        See super-class related API.
  */
-template<bool S_SHARING_ALLOWED>
-void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2);
+template<bool SHARING>
+void swap(Blob_with_log_context<SHARING>& blob1, Blob_with_log_context<SHARING>& blob2) noexcept;
 
 } // namespace flow::util

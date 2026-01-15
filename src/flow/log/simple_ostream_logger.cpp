@@ -32,11 +32,11 @@ Simple_ostream_logger::Simple_ostream_logger(Config* config,
    * It's just prettier (e.g., stream state saved/restores 1x instead of 2x) and a little better for performance.
    * However there could be 2+ Simple_ostream_loggers sharing the same ostream; nothing we can (reasonably) do to
    * detect that -- nor NEED we worry about it really; just a nicety. */
-  m_os_writers[0] = Ostream_log_msg_writer_ptr(new Ostream_log_msg_writer(*m_config, os));
+  m_os_writers[0] = Ostream_log_msg_writer_ptr{new Ostream_log_msg_writer{*m_config, os}};
   m_os_writers[1]
     = (&os == &os_for_err)
         ? m_os_writers[0]
-        : Ostream_log_msg_writer_ptr(new Ostream_log_msg_writer(*m_config, os_for_err));
+        : Ostream_log_msg_writer_ptr{new Ostream_log_msg_writer{*m_config, os_for_err}};
   // See m_os_writers doc header for details about how they are freed at `*this` destruction.
 }
 

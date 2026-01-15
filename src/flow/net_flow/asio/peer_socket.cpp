@@ -188,7 +188,7 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
   if (!sock)
   {
     // It's probably some user error like an invalid destination.
-    on_result(conn_err_code, Peer_socket::Ptr()); // It post()s user's originally-passed-in handler.
+    on_result(conn_err_code, Peer_socket::Ptr{}); // It post()s user's originally-passed-in handler.
     return;
   }
   // else we have a socket that has started connecting.
@@ -213,7 +213,7 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
       Error_code dummy_prevents_throw;
       sock->close_abruptly(&dummy_prevents_throw);
 
-      on_result(wait_err_code, Peer_socket::Ptr()); // It post()s user's originally-passed-in handler.
+      on_result(wait_err_code, Peer_socket::Ptr{}); // It post()s user's originally-passed-in handler.
       // *sock should lose all references and destruct shortly, as we didn't pass it to on_result().
     }
     else if (wait_err_code)
@@ -223,13 +223,13 @@ void Node::async_connect_impl(const Remote_endpoint& to, const Fine_duration& ma
       /* So we won't even pass the short-lived socket to callback, indicating failure via null pointer.
        * See comment in sync_connect_impl() about how we avoid passing an error socket for user to discover. */
 
-      on_result(wait_err_code, Peer_socket::Ptr()); // It post()s user's originally-passed-in handler.
+      on_result(wait_err_code, Peer_socket::Ptr{}); // It post()s user's originally-passed-in handler.
       // As above, *sock should destruct soon.
     }
     else
     {
       assert(!wait_err_code);
-      on_result(wait_err_code, Peer_socket::Ptr()); // It post()s user's originally-passed-in handler.
+      on_result(wait_err_code, Peer_socket::Ptr{}); // It post()s user's originally-passed-in handler.
       // *sock lives on by being passed to them and probably saved by them!
     }
 

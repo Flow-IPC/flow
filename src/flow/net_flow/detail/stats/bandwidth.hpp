@@ -81,7 +81,7 @@ namespace flow::net_flow
  *
  * ### Units ###
  * bandwidth_bytes_per_time() returns the current bandwidth estimate per unit time U, as an
- * *integer* number of bytes (rounded down).  What is U?  U is given as `Time_unit(1)`, where
+ * *integer* number of bytes (rounded down).  What is U?  U is given as `Time_unit{1}`, where
  * #Time_unit is a public alias of a boost.chrono duration type.  Be careful in any arithmetic done
  * with the value returned; both overflow and underflow can occur, if one does not take care to
  * sanity-check the arithmetic.  The justification for the value of the #Time_unit alias is given
@@ -136,7 +136,7 @@ public:
   /**
    * The primary time unit over which this class reports bandwidth.  So when
    * bandwidth_bytes_per_time() return the number N, that means its bandwidth estimate is N bytes
-   * per `Time_unit(1)` time.
+   * per `Time_unit{1}` time.
    *
    * ### Implementation notes ###
    * Why choose milliseconds?  There are two conflicting constraints on
@@ -189,7 +189,7 @@ public:
 
   /**
    * Returns the current estimate of the available outgoing bandwidth per unit time for the
-   * containing socket's connection, in units of bytes per `Time_unit(1)`.  This value may be zero if
+   * containing socket's connection, in units of bytes per `Time_unit{1}`.  This value may be zero if
    * either there is not enough information to make a reasonable estimate, or if the estimated
    * bandwidth is less than a certain low threshold.
    *
@@ -240,7 +240,7 @@ private:
   /**
    * Applies the low-pass filter that takes the given previous result of the filter and blends in
    * the given new sample.  The values should be in the same units, which are presumably bytes per
-   * `Time_unit(1)`.
+   * `Time_unit{1}`.
    *
    * @param prev_val_per_time
    *        Previous result of this filter.

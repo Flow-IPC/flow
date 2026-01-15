@@ -53,7 +53,7 @@ class Timed_concurrent_task_loop_impl : public Concurrent_task_loop
 public:
   // Types.
 
-  /// Short-hand for the exhanger function taken by the ctor.
+  /// Short-hand for the exchanger function taken by the ctor.
   using Exchanger_func = Function<perf::duration_rep_t (Time_accumulator*)>;
 
   // Constructors/destructor.
@@ -87,8 +87,8 @@ public:
    * @param thread_init_func_or_empty
    *        See superclass API.
    */
-  void start(Task&& init_task_or_empty = Task(),
-             const Thread_init_func& thread_init_func_or_empty = Thread_init_func()) override;
+  void start(Task&& init_task_or_empty = Task{},
+             const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) override;
 
   /// Implements superclass API.
   void stop() override;
@@ -230,7 +230,7 @@ private:
   Concurrent_task_loop* const m_loop;
 
   /// See constructor.
-  const Exchanger_func m_exhanger_func;
+  const Exchanger_func m_exchanger_func;
 
   /// Accumulates time ticks, of clock type #m_clock_type, spent in tasks posted onto #m_loop.
   Time_accumulator m_time_accumulator;
@@ -291,7 +291,7 @@ Timed_concurrent_task_loop_impl<Time_accumulator>::Timed_concurrent_task_loop_im
   (Concurrent_task_loop* loop, perf::Clock_type clock_type, Exchanger_func&& exchanger_func_moved) :
   m_clock_type(clock_type),
   m_loop(loop),
-  m_exhanger_func(std::move(exchanger_func_moved)),
+  m_exchanger_func(std::move(exchanger_func_moved)),
   m_time_accumulator(0)
 {
   // That's it.
@@ -384,7 +384,7 @@ Task_engine_ptr Timed_concurrent_task_loop_impl<Time_accumulator>::task_engine()
 template<typename Time_accumulator>
 perf::Duration Timed_concurrent_task_loop_impl<Time_accumulator>::accumulated_time()
 {
-  return perf::Duration(m_exhanger_func(&m_time_accumulator));
+  return perf::Duration{m_exchanger_func(&m_time_accumulator)};
 }
 
 template<typename Time_accumulator>

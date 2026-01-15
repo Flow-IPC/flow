@@ -33,9 +33,9 @@ namespace flow::net_flow
  * byte it would take many centuries for the sequence numbers to overflow seq_num_t. */
 const Sequence_number::seq_num_t Sequence_number::Generator::S_MAX_INIT_SEQ_NUM
   = std::numeric_limits<seq_num_t>::max() / 2;
-const Fine_duration Sequence_number::Generator::S_TIME_PER_SEQ_NUM = boost::chrono::microseconds(4); // From RFC 793.
+const Fine_duration Sequence_number::Generator::S_TIME_PER_SEQ_NUM = boost::chrono::microseconds{4}; // From RFC 793.
 const Fine_duration Sequence_number::Generator::S_MIN_DELAY_BETWEEN_ISN
-  = boost::chrono::milliseconds(500); // From TCP/IP Illustrated Vol. 2: The Implementation (BSD Net/3).
+  = boost::chrono::milliseconds{500}; // From TCP/IP Illustrated Vol. 2: The Implementation (BSD Net/3).
 
 // Implementations.
 
@@ -60,7 +60,7 @@ Sequence_number Sequence_number::Generator::generate_init_seq_num()
      * various considerations this would introduce -- multi-threadedness, for instance -- might be too much to worry
      * about given our modest, non-cryptographic needs here. */
 
-    Rnd_gen_uniform_range<seq_num_t> rnd_single_use(1, S_MAX_INIT_SEQ_NUM); // 0 is a reserved number; do not use.
+    Rnd_gen_uniform_range<seq_num_t> rnd_single_use{1, S_MAX_INIT_SEQ_NUM}; // 0 is a reserved number; do not use.
     m_last_init_seq_num.m_num = rnd_single_use();
   }
   else
@@ -128,7 +128,7 @@ Sequence_number& Sequence_number::operator-=(seq_num_delta_t delta)
 
 Sequence_number Sequence_number::operator+(seq_num_delta_t delta) const
 {
-  return Sequence_number(*this) += delta;
+  return Sequence_number{*this} += delta;
 }
 
 Sequence_number Sequence_number::operator-(seq_num_delta_t delta) const

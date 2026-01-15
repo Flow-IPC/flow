@@ -143,6 +143,7 @@ class Component;
 class Config;
 class Logger;
 class Log_context;
+class Log_context_mt;
 struct Msg_metadata;
 class Ostream_log_msg_writer;
 class Simple_ostream_logger;
@@ -363,6 +364,15 @@ std::ostream& operator<<(std::ostream& os, Sev val);
  *        Object.
  */
 void swap(Log_context& val1, Log_context& val2);
+
+/**
+ * Log_context_mt ADL-friendly swap: Equivalent to `val1.swap(val2)`.
+ * @param val1
+ *        Object.
+ * @param val2
+ *        Object.
+ */
+void swap(Log_context_mt& val1, Log_context_mt& val2);
 
 /**
  * Sets certain `chrono`-related formatting on the given Logger in the current thread that results in a consistent,

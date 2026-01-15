@@ -36,7 +36,7 @@
  *   std::cout << "General error value = [" << code.value() << "]; msg = [" << code.message() << "].\n";
  *   // And we can throw an std::exception (`catch{}` can log the exception's .what() which will contain
  *   // the numeric value, the human message, and the optional context string).
- *   throw flow::error::Runtime_error(code, "Additional context info here!");
+ *   throw flow::error::Runtime_error{code, "Additional context info here!"};
  *   ~~~
  *
  * ### Discussion ###

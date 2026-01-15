@@ -157,7 +157,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
                    "{:%S}", metadata.m_called_when);
   }
 
-  m_os << String_view(m_last_human_friendly_time_stamp_str.data(), m_last_human_friendly_time_stamp_str_sz);
+  m_os << String_view{m_last_human_friendly_time_stamp_str.data(), m_last_human_friendly_time_stamp_str_sz};
 
   log_past_time_stamp(metadata, msg);
 } // Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp()

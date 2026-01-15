@@ -460,7 +460,7 @@ public:
    *
    * Tip: On failure you may want to exit program with error; or you can continue knowing that
    * static_values() will return a reference to default values (and all_static_values() will emit pointers to
-   * `Value_set`s with default values) according to `Value_set()` no-arg ctor (for each `Value_set`).
+   * `Value_set`s with default values) according to `Value_set{}` no-arg ctor (for each `Value_set`).
    * WARNING(s) logged given failure.
    *
    * apply_static() will *not* be tolerant of unknown option names appearing in the config source.  The reasoning
@@ -946,7 +946,7 @@ public:
    * @param handle
    *        The handle which was returned by register_dynamic_change_listener() when the callback was registered.
    */
-  void unregister_dynamic_change_listener (const On_dynamic_change_func_handle& handle);
+  void unregister_dynamic_change_listener(const On_dynamic_change_func_handle& handle);
 
   /**
    * Prints a human-targeted long-form summary of our contents, doubling as a usage message and a dump of current
@@ -1337,7 +1337,7 @@ private:
    *
    * This stores each dynamic slot's baseline `Value_set` state to load as just described.
    *
-   * After construction this payload is just the default-cted `Value_set()`.  If the user chooses to execute
+   * After construction this payload is just the default-cted `Value_set{}`.  If the user chooses to execute
    * a one-time apply_static_and_dynamic(), then that payload is replaced by the state after having parsed that
    * baseline state.  Note, for context, that apply_static_and_dynamic() would be presumably loading *not*
    * from file F (which can change repeatedly, as dynamic updates come in) but some other file B, typically storing
@@ -1412,7 +1412,7 @@ private:
    * case only.
    *
    * When this is not-NONE, an `apply_*()` impl shall skip a couple of steps it would otherwise perform:
-   *   - Individually-validating the default `Value_set()` values: Skip, as the first `apply_*()` in the sequence
+   *   - Individually-validating the default `Value_set{}` values: Skip, as the first `apply_*()` in the sequence
    *     would have already done it.  So it's a waste of compute/entropy.
    *   - `apply_dynamic()` applying #m_d_baseline_value_sets onto to #m_s_d_opt_sets: Skip, as the first `apply_*()` in
    *     the sequence would have already done it.  So doing it again would be not only redundant but also destructive,
@@ -1503,11 +1503,11 @@ Config_manager<S_d_value_set...>::Config_manager
       // I (ygoldfel) tried make_shared() here, but it was too much for that gcc.  The perf impact is negligible anyway.
       m_s_d_opt_sets[value_set_idx]
         = Void_ptr
-            (new Option_set<S_d_value_set> // <-- Parameter pack expansion kernel here.
-                   (get_logger(),
+            {new Option_set<S_d_value_set> // <-- Parameter pack expansion kernel here.
+                   {get_logger(),
                     ostream_op_string(m_nickname, dyn_else_st ? "/dynamic" : "/static",
                                       value_set_idx / 2), // 0, 0, 1, 1, ....
-                    std::move(declare_opts_func_moved))), // (And here.)
+                    std::move(declare_opts_func_moved)}}, // (And here.)
 
       /* As noted above, fill a m_d_baseline_value_sets[] but for dynamic (non-null()) sets only.
        * Same deal for initializing m_d_value_sets.
@@ -1516,10 +1516,10 @@ Config_manager<S_d_value_set...>::Config_manager
         // * (This is `if (!(...).null()) { ... }` in expression form.)
         && (opt_set<S_d_value_set>(value_set_idx)->null() // (And here.)
               || (m_d_baseline_value_sets[d_value_set_idx]
-                    = Void_ptr(new S_d_value_set), // (And here.)
+                    = Void_ptr{new S_d_value_set}, // (And here.)
                   true),
             m_d_value_sets[d_value_set_idx]
-              = Void_ptr(new typename S_d_value_set::Const_ptr), // (And here.)
+              = Void_ptr{new typename S_d_value_set::Const_ptr}, // (And here.)
             ++d_value_set_idx,
             true),
 
@@ -1748,7 +1748,7 @@ bool Config_manager<S_d_value_set...>::apply_static_impl
     ...,
     (
       option_set_canonicalize_or_reject(opt_set<Value_set>(value_set_idx), // Param pack expansion kernel here.
-                                        success, 0),
+                                        success, nullptr),
       value_set_idx += 2 // Skip dynamic ones.
     )
   );
@@ -1804,7 +1804,7 @@ bool Config_manager<S_d_value_set...>::apply_static_or_dynamic_impl
                                 && dyn_else_st && (!opt_set<Value_set>(value_set_idx)->null()))
                                ? d_baseline_value_set<Value_set> // (And here.)
                                    (s_d_value_set_idx)
-                               : static_cast<const Value_set*>(0), // (And here.)
+                               : static_cast<const Value_set*>(nullptr), // (And here.)
 
                              cfg_path, all_opt_names_or_empty,
                              final_validator_func, // (And here.)
@@ -2036,7 +2036,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
       (
         success = apply_impl(opt_set<S_d_value_set>(value_set_idx), // Param pack expansion kernel here.
                              // Initial (baseline) parse: no need to apply baseline state.
-                             static_cast<const S_d_value_set*>(0), // (And here.)
+                             static_cast<const S_d_value_set*>(nullptr), // (And here.)
                              cfg_path, all_opt_names,
                              final_validator_func, // (And here.)
                              &skip_parsing),
@@ -2067,7 +2067,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
        * harmless no-op by Option_set docs. */
       option_set_canonicalize_or_reject
         (opt_set<S_d_value_set>(value_set_idx), // Param pack expansion kernel here.
-         success, 0),
+         success, nullptr),
       ++value_set_idx
     )
   );
@@ -2119,7 +2119,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
 
   // Next: Eureka!  Set the dynamic-values pointers for the first time.
   {
-    Lock_guard<decltype(m_d_value_sets_mutex)> lock(m_d_value_sets_mutex);
+    Lock_guard<decltype(m_d_value_sets_mutex)> lock{m_d_value_sets_mutex};
     value_set_idx = 0;
     dyn_else_st = false;
     (
@@ -2134,7 +2134,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
         dyn_else_st = !dyn_else_st
       )
     );
-  } // Lock_guard lock(m_d_value_sets_mutex);
+  } // Lock_guard lock{m_d_value_sets_mutex};
 
   // They shouldn't do apply_static_and_dynamic() except as the first apply*_dynamic() thing.
   assert((!m_dynamic_values_set)
@@ -2279,7 +2279,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
       option_set_canonicalize_or_reject(opt_set<Value_set>(value_set_idx), // Param pack expansion kernel here.
                                         success,
                                         // If initial dynamic parse, then `changed[] = true` by definition.
-                                        m_dynamic_values_set ? &changed[d_value_set_idx] : 0),
+                                        m_dynamic_values_set ? &changed[d_value_set_idx] : nullptr),
       // If initial dynamic parse, then `changed[] = true` by definition.
       changed[d_value_set_idx] = (!m_dynamic_values_set) || changed[d_value_set_idx],
       // some_changed = true iff: changed[x] == true for at least one x.
@@ -2329,7 +2329,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
    * in a helper function -- though less concise (possible @todo).  BTW generic lambdas could help there, but it would
    * require C++20 (I haven't looked into it thoroughly though). */
   {
-    Lock_guard<decltype(m_d_value_sets_mutex)> lock(m_d_value_sets_mutex);
+    Lock_guard<decltype(m_d_value_sets_mutex)> lock{m_d_value_sets_mutex};
     d_value_set_idx = 0;
     (
       ...,
@@ -2344,7 +2344,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
         ++d_value_set_idx
       )
     );
-  } // Lock_guard lock(m_d_value_sets_mutex);
+  } // Lock_guard lock{m_d_value_sets_mutex};
 
   const bool was_dynamic_values_set = m_dynamic_values_set;
   m_dynamic_values_set = true; // Might already be true (if not initial parse).
@@ -2384,7 +2384,7 @@ void Config_manager<S_d_value_set...>::reject_candidates()
        * it pertains to a static Value_set after an apply_dynamic() or dynamic after an apply_static(). */
       option_set_canonicalize_or_reject
         (opt_set<S_d_value_set>(value_set_idx), // Param pack expansion kernel here.
-         false, 0), // false <= reject.
+         false, nullptr), // false <= reject.
       ++value_set_idx
     )
   );
@@ -2546,7 +2546,7 @@ void Config_manager<S_d_value_set...>::all_dynamic_values
                   "Use nullptr for any Null_value_set and/or Value_set of no interest.");
 
   // As promised just copy out the values atomically and return them.  Next time it might return different ones.
-  Lock_guard<decltype(m_d_value_sets_mutex)> lock(m_d_value_sets_mutex);
+  Lock_guard<decltype(m_d_value_sets_mutex)> lock{m_d_value_sets_mutex};
 
   size_t d_value_set_idx = 0;
   size_t value_set_idx;
@@ -2576,7 +2576,7 @@ typename Value_set::Const_ptr
   assert((d_value_set_idx < S_N_D_VALUE_SETS) && "Invalid dynamic option set index.");
 
   // As promised just copy out the value atomically and return it.  Next time it might return different pointer.
-  Lock_guard<decltype(m_d_value_sets_mutex)> lock(m_d_value_sets_mutex);
+  Lock_guard<decltype(m_d_value_sets_mutex)> lock{m_d_value_sets_mutex};
   return *(static_cast<typename Value_set::Const_ptr*>(m_d_value_sets[d_value_set_idx].get()));
   // Attn: --^ void* -> T* cast; no RTTI to check our type safety.
 }

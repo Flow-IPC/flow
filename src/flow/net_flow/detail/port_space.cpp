@@ -263,7 +263,7 @@ size_t Port_space::find_available_port_bit_idx(const Bit_set& ports)
   using boost::random::uniform_int_distribution;
 
   // Pick a random bit in bit field.
-  uniform_int_distribution<size_t> range(0, ports.size() - 1);
+  uniform_int_distribution<size_t> range{0, ports.size() - 1};
   size_t port_bit_idx = range(m_rnd_generator);
 
   // If that bit is 0, go right until you find a 1.

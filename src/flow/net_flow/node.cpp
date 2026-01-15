@@ -26,7 +26,7 @@ namespace flow::net_flow
 {
 // Static initializations.
 
-const Fine_duration Node::S_REGULAR_INFREQUENT_TASKS_PERIOD = boost::chrono::seconds(1); // Infrequent enough CPU-wise.
+const Fine_duration Node::S_REGULAR_INFREQUENT_TASKS_PERIOD = boost::chrono::seconds{1}; // Infrequent enough CPU-wise.
 
 // Note that they're references, not copies.  Otherwise non-deterministic static initialization order would screw us.
 const size_t& Node::S_NUM_PORTS = Port_space::S_NUM_PORTS;
@@ -106,7 +106,7 @@ Node::Node(log::Logger* logger_ptr, const util::Udp_endpoint& low_lvl_endpoint, 
 
   if (our_err_code) // Throw exception if there is an error, and they passed in no Error_code.
   {
-    throw Runtime_error(our_err_code, FLOW_UTIL_WHERE_AM_I_STR());
+    throw Runtime_error{our_err_code, FLOW_UTIL_WHERE_AM_I_STR()};
   }
 } // Node::Node()
 
@@ -214,7 +214,7 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
   post(m_task_engine, [this]()
   {
     // We are in thread W.
-    m_event_loop_ready.set_value(Error_code());
+    m_event_loop_ready.set_value(Error_code{});
   });
 
   // When a packet is available for reading (or error), call this->low_lvl_recv_and_handle(<error code>).
@@ -986,7 +986,7 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
     const Node_options& result = validate_options(opts, init, &our_err_code);
     if (our_err_code)
     {
-      throw flow::error::Runtime_error(our_err_code, FLOW_UTIL_WHERE_AM_I_STR());
+      throw flow::error::Runtime_error{our_err_code, FLOW_UTIL_WHERE_AM_I_STR()};
     }
     return result;
   }
@@ -1042,7 +1042,7 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
 
   /* The above validated only global options.  Now verify that the per-socket template options (that
    * will be used to generate child Peer_sockets) are also valid. */
-  sock_validate_options(opts.m_dyn_sock_opts, 0, err_code); // Will not throw.  Will set *err_code if needed.
+  sock_validate_options(opts.m_dyn_sock_opts, nullptr, err_code); // Will not throw.  Will set *err_code if needed.
   // On error, that set *err_code.
 
   return opts;
@@ -1061,7 +1061,7 @@ bool Node::set_options(const Node_options& opts, Error_code* err_code)
   if (!running())
   {
     FLOW_ERROR_EMIT_ERROR(error::Code::S_NODE_NOT_RUNNING);
-    return Peer_socket::Ptr().get();
+    return Peer_socket::Ptr{}.get();
   }
   // else
 
@@ -1072,7 +1072,7 @@ bool Node::set_options(const Node_options& opts, Error_code* err_code)
   FLOW_LOG_TRACE("\n\n" << opts);
 
   // Will be writing if all goes well, so must acquire exclusive ownership of m_opts.
-  Options_lock lock(m_opts_mutex);
+  Options_lock lock{m_opts_mutex};
 
   /* Validate the new option set (including ensuring they're not changing static options' values).
    * Note that an explicit pre-condition of this method is that m_opts_mutex is locked if needed,

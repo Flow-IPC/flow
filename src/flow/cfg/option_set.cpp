@@ -71,7 +71,7 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id)
   constexpr char SEP_REPLACED = '_'; // From this...
   constexpr char SEP_REPLACEMENT = '-'; // ...to this.
 
-  string opt_name(member_id);
+  string opt_name{member_id};
 
   /* Nuke space-y chars.
    * Am paranoid about locales; and also didn't feel like using <locale> std::isspace(..., std::locale("C")). */
@@ -89,7 +89,7 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id)
   replace_all(opt_name, CONCAT_REPLACED, CONCAT_OK);
 
   // Now any leading M_PFX gone; and object separators normalized to CONCAT_OK.  Can eliminate remaining M_PFX:
-  replace_all(opt_name, string(CONCAT_OK) + string(M_PFX), CONCAT_OK);
+  replace_all(opt_name, string{CONCAT_OK} + string{M_PFX}, CONCAT_OK);
 
   // Lastly transform the word-separators.
   replace(opt_name.begin(), opt_name.end(), SEP_REPLACED, SEP_REPLACEMENT);
@@ -132,9 +132,9 @@ void validate(boost::any& target, const std::vector<std::string>& user_strings, 
     }
     catch (const bad_lexical_cast& exc)
     {
-      throw Runtime_error(ostream_op_string
+      throw Runtime_error{ostream_op_string
                             ("Error converting [", user_string,
-                             "] to boost::filesystem path.  Is there something strange in that string?"));
+                             "] to boost::filesystem path.  Is there something strange in that string?")};
     }
   }
   // else { Leave result_path at empty.  lexical_cast<path>("") would have yielded bad_lexical_cast, but we allow it. }

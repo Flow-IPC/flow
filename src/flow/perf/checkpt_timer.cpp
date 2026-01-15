@@ -160,8 +160,8 @@ Time_pt Checkpointing_timer::now(Clock_type clock_type)
 #ifndef NDEBUG
     assert(ok);
 #endif
-      return Time_pt(nanoseconds(duration_rep_t(time_spec.tv_sec) * duration_rep_t(1000 * 1000 * 1000)
-                                   + duration_rep_t(time_spec.tv_nsec)));
+      return Time_pt{nanoseconds{duration_rep_t(time_spec.tv_sec) * duration_rep_t(1000 * 1000 * 1000)
+                                   + duration_rep_t(time_spec.tv_nsec)}};
     }
     case Clock_type::S_CPU_THREAD_TOTAL_HI_RES:
     {
@@ -174,8 +174,8 @@ Time_pt Checkpointing_timer::now(Clock_type clock_type)
 #ifndef NDEBUG
     assert(ok);
 #endif
-      return Time_pt(nanoseconds(duration_rep_t(time_spec.tv_sec) * duration_rep_t(1000 * 1000 * 1000)
-                                   + duration_rep_t(time_spec.tv_nsec)));
+      return Time_pt{nanoseconds{duration_rep_t(time_spec.tv_sec) * duration_rep_t(1000 * 1000 * 1000)
+                                   + duration_rep_t(time_spec.tv_nsec)}};
     }
     case Clock_type::S_END_SENTINEL:
       assert(false && "END_SENTINEL passed to now() -- must specify actual Clock_type.");
@@ -183,7 +183,7 @@ Time_pt Checkpointing_timer::now(Clock_type clock_type)
   }
 
   assert(false && "Bug?  now() forgot to handle a Clock_type, yet compiler did not warn in switch()?");
-  return Time_pt();
+  return Time_pt{};
 } // Checkpointing_timer::now(Clock_type)
 
 Time_pt_set Checkpointing_timer::now(const Clock_types_subset& which_clocks) // Static.
@@ -196,7 +196,7 @@ Time_pt_set Checkpointing_timer::now(const Clock_types_subset& which_clocks) // 
    * So just leave unused clock types' values at 0, and then aggregation will just add up a bunch of zeroes,
    * when performance no longer matters.  This fill() should be quite cheap.
    * Also, string/stream output will list 0 on unused clocks instead of printing potential garbage. */
-  time_pt_set.m_values.fill(Time_pt());
+  time_pt_set.m_values.fill(Time_pt{});
 
   const bool do_cpu_user_lo = which_clocks[size_t(Clock_type::S_CPU_USER_LO_RES)];
   const bool do_cpu_sys_lo = which_clocks[size_t(Clock_type::S_CPU_SYS_LO_RES)];
@@ -265,8 +265,8 @@ Time_pt Checkpointing_timer::now_cpu_lo_res(const Cpu_split_clock_durs_since_epo
    * hence we can construct Cpu_split_component_duration from each.  Probably type of each of the following is
    * nanoseconds; but anything with that resolution or worse will convert OK.  Otherwise it wouldn't compile below
    * when converting to Duration in the construction of Time_pt. */
-  return Time_pt(Duration(Cpu_split_component_duration(user_else_sys ? cpu_combo_now_raw.user
-                                                                     : cpu_combo_now_raw.system)));
+  return Time_pt{Duration{Cpu_split_component_duration(user_else_sys ? cpu_combo_now_raw.user
+                                                                     : cpu_combo_now_raw.system)}};
 } // Checkpointing_timer::now_cpu_lo_res()
 
 const Checkpointing_timer::Checkpoint& Checkpointing_timer::checkpoint(std::string&& name_moved)
@@ -379,7 +379,7 @@ Checkpointing_timer_ptr Checkpointing_timer::Aggregator::create_aggregated_resul
   auto model_timer = m_timers.front();
 
   // Construct the thing minimally and fill out the rest of the fields as the public ctor would, with special values.
-  Checkpointing_timer_ptr agg_timer(new Checkpointing_timer(get_logger(), string(m_name), model_timer->m_which_clocks));
+  Checkpointing_timer_ptr agg_timer{new Checkpointing_timer{get_logger(), string(m_name), model_timer->m_which_clocks}};
   agg_timer->m_checkpoints.reserve(model_timer->m_checkpoints.size());
   // m_start_when, m_last_checkpoint_when, and m_checkpoints itself are empty; we set them below.
 
@@ -433,7 +433,7 @@ Checkpointing_timer_ptr Checkpointing_timer::Aggregator::create_aggregated_resul
   /* Note it's currently an uninitialized array; set it to 0s.  Then the below calls will yield appropriate
    * agg_timer->since_start() result.  This is a bit of a hack, perhaps, but since_start() is not an lvalue, and this
    * does work given that fact. */
-  agg_timer->m_start_when.m_values.fill(Time_pt());
+  agg_timer->m_start_when.m_values.fill(Time_pt{});
   agg_timer->m_last_checkpoint_when = agg_timer->m_start_when;
   agg_timer->m_last_checkpoint_when += total_dur;
   // This is what we really wanted, but since_start() isn't an lvalue hence the above hackery.

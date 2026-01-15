@@ -114,8 +114,8 @@ public:
    * @param thread_init_func_or_empty
    *        See superclass API.
    */
-  void start(Task&& init_task_or_empty = Task(),
-             const Thread_init_func& thread_init_func_or_empty = Thread_init_func()) override;
+  void start(Task&& init_task_or_empty = Task{},
+             const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) override;
 
   /**
    * Implements superclass API.  In this implementation this essentially boils down to N `Task_engine::stop()`s,

@@ -42,7 +42,7 @@ Peer_socket::Peer_socket(log::Logger* logger_ptr,
   m_active_connect(false), // Meaningless; set explicitly.
   m_state(State::S_CLOSED), // Incorrect; set explicitly.
   m_open_sub_state(Open_sub_state::S_DISCONNECTING), // Incorrect; set explicitly.
-  m_node(0), // Incorrect; set explicitly.
+  m_node(nullptr), // Incorrect; set explicitly.
   m_rcv_buf(logger_ptr, 0), // Receive buffer mode: block size irrelevant (see Socket_buffer doc header).
    // Send buffer mode: pack data into block-sized chunks for dequeueing speed.  See Socket_buffer doc header.
   m_snd_buf(logger_ptr, max_block_size()),
@@ -76,7 +76,7 @@ Peer_socket::Peer_socket(log::Logger* logger_ptr,
 
 Peer_socket::~Peer_socket() // Virtual.
 {
-  /* Note that m_snd_cong_ctl, m_snd_bandwidth_estimator (etc.) and others store no Ptr(this),
+  /* Note that m_snd_cong_ctl, m_snd_bandwidth_estimator (etc.) and others store no Ptr{this},
    * so this dtor will indeed execute (no circular shared_ptr problem). */
 
   FLOW_LOG_TRACE("Peer_socket [" << this << "] destroyed.");
@@ -84,7 +84,7 @@ Peer_socket::~Peer_socket() // Virtual.
 
 Peer_socket::State Peer_socket::state(Open_sub_state* open_sub_state) const
 {
-  Lock_guard lock(m_mutex); // State is liable to change at any time.
+  Lock_guard lock{m_mutex}; // State is liable to change at any time.
   if (open_sub_state && (m_state == State::S_OPEN))
   {
     *open_sub_state = m_open_sub_state;
@@ -94,13 +94,13 @@ Peer_socket::State Peer_socket::state(Open_sub_state* open_sub_state) const
 
 Node* Peer_socket::node() const
 {
-  Lock_guard lock(m_mutex); // m_node can simultaneously change to 0 if state changes to S_CLOSED.
+  Lock_guard lock{m_mutex}; // m_node can simultaneously change to 0 if state changes to S_CLOSED.
   return m_node;
 }
 
 Error_code Peer_socket::disconnect_cause() const
 {
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
   return m_disconnect_cause;
 }
 
@@ -115,7 +115,7 @@ bool Peer_socket::sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until,
 
   FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, sync_send_reactor_pattern_impl, wait_until, _1);
 
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   const Function<size_t (size_t)> empty_snd_buf_feed_func;
   assert(empty_snd_buf_feed_func.empty());
@@ -196,7 +196,7 @@ bool Peer_socket::sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_unt
 
   FLOW_ERROR_EXEC_AND_THROW_ON_ERROR(size_t, sync_receive_reactor_pattern_impl, wait_until, _1);
 
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   const Function<size_t ()> empty_rcv_buf_consume_func;
   assert(empty_rcv_buf_consume_func.empty());
@@ -270,7 +270,7 @@ void Peer_socket::close_abruptly(Error_code* err_code)
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node/m_state; also it's a pre-condition for Node::close_abruptly().
+  Lock_guard lock{m_mutex}; // Lock m_node/m_state; also it's a pre-condition for Node::close_abruptly().
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -293,7 +293,7 @@ bool Peer_socket::set_options(const Peer_socket_options& opts, Error_code* err_c
 
   // We are in thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node at least.
+  Lock_guard lock{m_mutex}; // Lock m_node at least.
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -321,7 +321,7 @@ Peer_socket_info Peer_socket::info() const
    * Node).  In the socket is closed (S_CLOSED), then no m_node owns it, so there is no thread W
    * applicable to this socket anymore, and we can just copy the data in thread U != W. */
 
-  Lock_guard lock(m_mutex); // Lock m_node; also it's a pre-condition for Node::sock_info().
+  Lock_guard lock{m_mutex}; // Lock m_node; also it's a pre-condition for Node::sock_info().
 
   const Const_ptr sock = shared_from_this();
 
@@ -349,7 +349,7 @@ size_t Peer_socket::max_block_size_multiple(const size_t& opt_val_ref,
                                             const unsigned int* inflate_pct_val_ptr) const
 {
   // Similar to opt() but specialized for this purpose.  Lock once to get both values.
-  Options_lock lock(m_opts_mutex);
+  Options_lock lock{m_opts_mutex};
 
   const size_t& max_block_size = m_opts.m_st_max_block_size;
   const unsigned int inflate_pct = inflate_pct_val_ptr ? (*inflate_pct_val_ptr) : 0;
@@ -388,7 +388,7 @@ size_t Peer_socket::get_connect_metadata(const boost::asio::mutable_buffer& buff
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_serialized_metadata (it can be changed in sock_free_memory()).
+  Lock_guard lock{m_mutex}; // Lock m_serialized_metadata (it can be changed in sock_free_memory()).
 
   if (!ensure_open(err_code)) // Ensure it's open; other m_serialized_metadata has been cleared.
   {
@@ -883,7 +883,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
 
     *dupe = true;
     *slide = false;
-    return Error_code();
+    return Error_code{};
   } // if (seq_num < rcv_next_seq_num)
   // else if (seq_num >= rcv_next_seq_num)
 
@@ -919,7 +919,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     *slide = true;
     *slide_size = size_t(seq_num_end - seq_num);
     assert(*slide_size == data.size());
-    return Error_code();
+    return Error_code{};
   }
 
   // else if:
@@ -1010,7 +1010,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     }
 
     *dupe = false;
-    return Error_code();
+    return Error_code{};
   } // if (next_packet does not exist)
   // else if (next_packet exists at the same or later sequence number as seq_num)
 
@@ -1047,7 +1047,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                    "sequence numbers [" << seq_num << ", " << seq_num_end << ").");
 
     *dupe = true;
-    return Error_code();
+    return Error_code{};
   } // if (seq_num_next_start == seq_num)
   // else if:
   assert(seq_num_next_start > seq_num); // lower_bound() is not horrifically broken.
@@ -1084,7 +1084,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     FLOW_LOG_TRACE("New packet partially fills first gap without sliding window; "
                    "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                    "first unreceived packet [" << rcv_next_seq_num << "].");
-    return Error_code(); // There are none. We're good.
+    return Error_code{}; // There are none. We're good.
   }
 
   const Peer_socket::Recvd_pkt_const_iter prev_packet = prior(next_packet);
@@ -1112,7 +1112,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                  "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                  "first unreceived packet [" << rcv_next_seq_num << "].");
 
-  return Error_code();
+  return Error_code{};
 } // Node::sock_categorize_data_to_established()
 
 bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
@@ -1132,7 +1132,7 @@ bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
   size_t buf_size;
   {
     // Receive Buffer can be consumed by user threads (not W) at the same time.  Must lock.
-    Peer_socket::Lock_guard lock(sock->m_mutex);
+    Peer_socket::Lock_guard lock{sock->m_mutex};
 
     /* First we must check if block will fit into sock->m_rcv_buf.  Why not just use feed_buf_move()'s
      * max_data_size argument?  Because that would allow to partially enqueue the block, if there's
@@ -1177,7 +1177,7 @@ bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
     assert(written == data_size);
 
     buf_size = sock->m_rcv_buf.data_size();
-  } // lock(sock->m_mutex)
+  } // lock{sock->m_mutex}
 
   // Register one packet of N bytes of acceptable data that we accepted -- did not drop.
   rcv_stats.good_data_accepted_packet(data_size);
@@ -1258,7 +1258,7 @@ void Node::sock_track_new_data_after_gap_rexmit_off(Peer_socket::Ptr sock,
 #endif
     rcv_packets_with_gaps.insert
       (make_pair(seq_num,
-                 Peer_socket::Received_packet::Ptr(new Peer_socket::Received_packet(get_logger(), data_size, 0))));
+                 Peer_socket::Received_packet::Ptr{new Peer_socket::Received_packet{get_logger(), data_size, 0}}));
   // m_rcv_reassembly_q_data_size untouched because !rexmit_on.
   assert(!sock->rexmit_on());
   assert(insert_result.second); // If was already there, there's some serious bug in above logic.
@@ -1435,7 +1435,7 @@ bool Node::sock_data_to_reassembly_q_unless_overflow(Peer_socket::Ptr sock,
 #endif
     rcv_packets_with_gaps.insert
       (make_pair(seq_num, // Decimation occurs in here: ------------------v, hence the `&`: -------------v.
-                 Peer_socket::Received_packet::Ptr(new Peer_socket::Received_packet(get_logger(), data_size, &data))));
+                 Peer_socket::Received_packet::Ptr{new Peer_socket::Received_packet{get_logger(), data_size, &data}}));
   sock->m_rcv_reassembly_q_data_size += data_size;
   assert(insert_result.second); // If was already there, there's some serious bug in above logic.
   // No other part of the invariant is violated, so that's it.
@@ -1509,7 +1509,7 @@ void Node::sock_slide_rcv_next_seq_num(Peer_socket::Ptr sock, size_t slide_size,
       size_t written;
       size_t buf_size;
       {
-        Peer_socket::Lock_guard lock(sock->m_mutex);
+        Peer_socket::Lock_guard lock{sock->m_mutex};
 
         /* Reassemble!  This is constant-time.  Note we don't check for overflow here, but that's because we
          * checked for it cleverly in first enqueueing this in rcv_packets_with_gaps
@@ -1588,7 +1588,7 @@ void Node::async_acknowledge_packet(Peer_socket::Ptr sock, const Sequence_number
    * substracting the ACK delay from its RTT measurement. */
   sock->m_rcv_pending_acks.push_back
     (Peer_socket::Individual_ack::Ptr
-       (new Peer_socket::Individual_ack{ seq_num, rexmit_id, Fine_clock::now(), data_size }));
+       {new Peer_socket::Individual_ack{ seq_num, rexmit_id, Fine_clock::now(), data_size }});
 
   /* m_rcv_pending_acks now stores at least one packet to acknowledge.  We can acknowledge it
    * immediately (modulo UDP layer availability of course).  However, suppose there is a fast stream
@@ -2980,7 +2980,7 @@ Peer_socket::Sent_pkt_ordered_by_when_iter
    * Then, invariant: high_ack_count_q contains the acks for all send attempts P where
    * P.m_sent_when < cur_sent_pkt.m_sent_when. In particular, P.m_sent_when.top < cur_sent_pkt.m_sent_when. */
   priority_queue<Peer_socket::order_num_t>
-    high_ack_count_q(flying_now_acked_pkts.begin(), flying_now_acked_pkts.end());
+    high_ack_count_q{flying_now_acked_pkts.begin(), flying_now_acked_pkts.end()};
 
   // Invariant: this will be the m_acks_after_me increment applied to the just-considered packet in snd_flying_pkts*.
   using ack_count_t = Peer_socket::Sent_packet::ack_count_t;
@@ -3153,7 +3153,7 @@ bool Node::drop_pkts_on_acks(Peer_socket::Ptr sock,
     if (!loss_event_finished)
     {
       if (// This is part of a new loss event if: There has been no loss event before this...
-          (sock->m_snd_last_loss_event_when != Fine_time_pt())
+          (sock->m_snd_last_loss_event_when != Fine_time_pt{})
           // ...OR there has, but this packet was sent after that event was detected.
           && (sent_when.m_sent_time < sock->m_snd_last_loss_event_when))
       {
@@ -3566,8 +3566,8 @@ void Node::new_round_trip_time_sample(Peer_socket::Ptr sock, Fine_duration round
    * high_resolution_timer exceed 5 microseconds.  Therefore, let us pick the exceedingly
    * conservative G = 500 microseconds = 1/2 milliseconds. */
 
-  const Fine_duration clock_resolution_at_least = microseconds(500);
-  const Fine_duration floor = seconds(1);
+  const Fine_duration clock_resolution_at_least = microseconds{500};
+  const Fine_duration floor = seconds{1};
   const Fine_duration ceiling = sock->opt(sock->m_opts.m_dyn_drop_timeout_ceiling);
   const unsigned int k = 4;
 
@@ -3720,7 +3720,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
   const Peer_socket::Sent_pkt_by_seq_num_map& flying_packets = sock->m_snd_flying_pkts_by_seq_num;
   if (flying_packets.empty())
   {
-    return Sequence_number(); // Default value.  Less than all others.
+    return Sequence_number{}; // Default value.  Less than all others.
   }
   // else
 
@@ -3822,7 +3822,7 @@ void Node::snd_flying_pkts_push_one(Peer_socket::Ptr sock,
   // else
 
   Sequence_number seq_num_end;
-  get_seq_num_range(pkt_it, 0, &seq_num_end);
+  get_seq_num_range(pkt_it, nullptr, &seq_num_end);
   if (sock->rexmit_on())
   {
     FLOW_LOG_TRACE_WITHOUT_CHECKING
@@ -3920,7 +3920,7 @@ Peer_socket::Ptr Node::connect_with_metadata(const Remote_endpoint& to,
   if (!running())
   {
     FLOW_ERROR_EMIT_ERROR(error::Code::S_NODE_NOT_RUNNING);
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
   // else
 
@@ -3928,7 +3928,7 @@ Peer_socket::Ptr Node::connect_with_metadata(const Remote_endpoint& to,
   if (serialized_metadata.size() > max_block_size())
   {
     FLOW_ERROR_EMIT_ERROR(error::Code::S_CONN_METADATA_TOO_LARGE);
-    return Peer_socket::Ptr();
+    return Peer_socket::Ptr{};
   }
 
   /* Put the rest of the work into thread W.  For justification, see big comment in listen().
@@ -3947,7 +3947,7 @@ Peer_socket::Ptr Node::connect_with_metadata(const Remote_endpoint& to,
   if (sock->m_disconnect_cause)
   {
     *err_code = sock->m_disconnect_cause;
-    return Peer_socket::Ptr(); // sock will go out of scope and thus will be destroyed.
+    return Peer_socket::Ptr{}; // sock will go out of scope and thus will be destroyed.
   }
   // else
   err_code->clear();
@@ -3974,7 +3974,7 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
      * validate them (for proper values and internal consistency, etc.). */
 
     Error_code err_code;
-    const bool opts_ok = sock_validate_options(*sock_opts, 0, &err_code);
+    const bool opts_ok = sock_validate_options(*sock_opts, nullptr, &err_code);
 
     // Due to the advertised interface of the current method, we must create a socket even on error.
     sock.reset(sock_create(*sock_opts));
@@ -3998,7 +3998,7 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
      * elsewhere when set. */
     Peer_socket* sock_non_ptr;
     {
-      Options_lock lock(m_opts_mutex);
+      Options_lock lock{m_opts_mutex};
       sock_non_ptr = sock_create(m_opts.m_dyn_sock_opts);
     }
     sock.reset(sock_non_ptr);
@@ -4017,7 +4017,7 @@ void Node::connect_worker(const Remote_endpoint& to, const boost::asio::const_bu
    * outgoing bandwidth based on incoming acknowledgments).  It may be used by m_snd_cong_ctl,
    * depending on the strategy chosen, but may be useful in its own right.  Hence it's a separate
    * object, not inside *m_snd_cong_ctl. */
-  sock->m_snd_bandwidth_estimator.reset(new Send_bandwidth_estimator(get_logger(), sock));
+  sock->m_snd_bandwidth_estimator.reset(new Send_bandwidth_estimator{get_logger(), sock});
 
   // Initialize the connection's congestion control strategy based on the configured strategy.
   sock->m_snd_cong_ctl.reset
@@ -4165,7 +4165,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
   if (!event_set)
   {
     assert(*err_code == error::Code::S_NODE_NOT_RUNNING);
-    return Peer_socket::Ptr(); // *err_code is set.
+    return Peer_socket::Ptr{}; // *err_code is set.
   }
   // Now we know Node is running(); and we have event_set.
 
@@ -4211,7 +4211,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
 
     // Clean up (as discussed above).
     sock->close_abruptly(&dummy_prevents_throw); // Eat any error; user doesn't care.
-    return Peer_socket::Ptr(); // *err_code is set.
+    return Peer_socket::Ptr{}; // *err_code is set.
   } // if (sync_wait() failed)
   // else we know event_set is still open, and sync_wait() succeeded.
 
@@ -4240,7 +4240,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
 
       // Return error as above.
       *err_code = sock->m_disconnect_cause; // No need to lock; m_disconnect_cause set and can't change later.
-      return Peer_socket::Ptr();
+      return Peer_socket::Ptr{};
     }
     // else it's probably really ready for action.
 
@@ -4251,7 +4251,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
   // Timed out!  Clean up socket, as above, and return null with a specific error (as advertised).
   sock->close_abruptly(&dummy_prevents_throw);
   *err_code = error::Code::S_WAIT_USER_TIMEOUT;
-  return Peer_socket::Ptr();
+  return Peer_socket::Ptr{};
 } // Node::sync_connect_impl()
 
 void Node::setup_connection_timers(const Socket_id& socket_id, Peer_socket::Ptr sock, bool initial)
@@ -4400,12 +4400,12 @@ void Node::cancel_timers(Peer_socket::Ptr sock)
   if (sock->m_init_rexmit_scheduled_task)
   {
     scheduled_task_cancel(get_logger(), sock->m_init_rexmit_scheduled_task);
-    sock->m_init_rexmit_scheduled_task = Scheduled_task_handle();
+    sock->m_init_rexmit_scheduled_task = Scheduled_task_handle{};
   }
   if (sock->m_connection_timeout_scheduled_task)
   {
     scheduled_task_cancel(get_logger(), sock->m_connection_timeout_scheduled_task);
-    sock->m_connection_timeout_scheduled_task = Scheduled_task_handle();
+    sock->m_connection_timeout_scheduled_task = Scheduled_task_handle{};
   }
   if (sock->m_rcv_in_rcv_wnd_recovery)
   {
@@ -4443,7 +4443,7 @@ void Node::setup_drop_timer(const Socket_id& socket_id, Peer_socket::Ptr sock)
    * Additionally, when events m_snd_drop_timer wants to know about happen, we will call
    * m_snd_drop_timer->on_...(). */
   sock->m_snd_drop_timer = Drop_timer::create_drop_timer(get_logger(), &m_task_engine, &sock->m_snd_drop_timeout,
-                                                         Peer_socket::Ptr(sock), on_fail, on_timer);
+                                                         Peer_socket::Ptr{sock}, on_fail, on_timer);
 }
 
 size_t Node::send(Peer_socket::Ptr sock,
@@ -4645,7 +4645,7 @@ bool Node::sock_is_writable(const boost::any& sock_as_any) const
 
   const Peer_socket::Const_ptr sock = any_cast<Peer_socket::Ptr>(sock_as_any);
 
-  Peer_socket::Lock_guard lock(sock->m_mutex); // Many threads can access/write below state.
+  Peer_socket::Lock_guard lock{sock->m_mutex}; // Many threads can access/write below state.
 
   /* Our task here is to return true if and only if at this very moment calling sock->send() would
    * yield either a return value of > 0 OR a non-success *err_code.  In other words, send() would
@@ -4773,7 +4773,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
     = sock->m_snd_drop_timeout * Idle_timeout_dto_factor::num / Idle_timeout_dto_factor::den;
   const Fine_duration since_last_send = Fine_clock::now() - sock->m_snd_last_data_sent_when;
 
-  if ((sock->m_snd_last_data_sent_when != Fine_time_pt()) && (since_last_send > idle_timeout))
+  if ((sock->m_snd_last_data_sent_when != Fine_time_pt{}) && (since_last_send > idle_timeout))
   {
     // Arguable if this should be INFO or TRACE.  We'll see.
     FLOW_LOG_INFO("Idle timeout triggered for [" << sock << "]; "
@@ -4805,7 +4805,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
   const bool rexmit_on = sock->rexmit_on();
   bool writable; // See below.
   {
-    Peer_socket::Lock_guard lock(sock->m_mutex);
+    Peer_socket::Lock_guard lock{sock->m_mutex};
 
     // Check whether enough data in retransmission queue or snd_buf to send a packet.
     if (!snd_deqable(sock))
@@ -4882,7 +4882,7 @@ void Node::send_worker(Peer_socket::Ptr sock, bool defer_delta_check)
          * with m_snd_flying_pkts_by_sent_when. */
 
         // New packet: create new metadata object.  Record send time.  (The latter will be rewritten later.)
-        sent_pkt = Peer_socket::Sent_packet::Ptr(new Peer_socket::Sent_packet(rexmit_on, data, sent_when));
+        sent_pkt = Peer_socket::Sent_packet::Ptr{new Peer_socket::Sent_packet{rexmit_on, data, sent_when}};
       }
       else // if (!rexmit_q.empty())
       {
@@ -5160,7 +5160,7 @@ bool Node::sock_is_readable(const boost::any& sock_as_any) const
 
   const Peer_socket::Const_ptr sock = any_cast<Peer_socket::Ptr>(sock_as_any);
 
-  Peer_socket::Lock_guard lock(sock->m_mutex); // Many threads can access/write below state.
+  Peer_socket::Lock_guard lock{sock->m_mutex}; // Many threads can access/write below state.
 
   /* Our task here is to return true if and only if at this very moment calling sock->receive(),
    * assuming sufficient user buffer space, would yield either a return value of > 0 OR a
@@ -5475,7 +5475,7 @@ void Node::receive_emptied_rcv_buf_while_disconnecting(Peer_socket::Ptr sock)
    *
    * Could think about locking later in this function, but this is called so rarely I'd rather not have to
    * worry about whether it's OK to do that and just not. */
-  Peer_socket::Lock_guard lock(sock->m_mutex);
+  Peer_socket::Lock_guard lock{sock->m_mutex};
 
   if (sock->m_state == Peer_socket::State::S_CLOSED)
   {
@@ -5523,7 +5523,7 @@ void Node::receive_emptied_rcv_buf_while_disconnecting(Peer_socket::Ptr sock)
   FLOW_LOG_TRACE('[' << sock << "] "
                  "is gracefully closing, and Receive buffer is now empty.  Ready to permanently close.");
   close_connection_immediately(socket_id, sock,
-                               Error_code(), /* err_code == success indicates clean close here. */
+                               Error_code{}, /* err_code == success indicates clean close here. */
                                false);
   /* ^-- defer_delta_check == false: for similar reason as when calling send_worker() from
    * send_worker_check_state(). */
@@ -5544,7 +5544,7 @@ void Node::close_abruptly(Peer_socket::Ptr sock, Error_code* err_code)
      * to the caller, because we must unlock at a specific point below, right before post()ing
      * close_abruptly_worker() onto thread W.  Use a Lock_guard that adopts an
      * already-locked mutex. */
-    Peer_socket::Lock_guard lock(sock->m_mutex, adopt_lock);
+    Peer_socket::Lock_guard lock{sock->m_mutex, adopt_lock};
 
     if (!running())
     {
@@ -5626,7 +5626,7 @@ void Node::close_connection_immediately(const Socket_id& socket_id, Peer_socket:
    * sock and Server_socket serv that may have originated it (if it was a passive open).  I will
    * comment on the locking situation for those data members as they come up in the code. */
 
-  // First, set various state in *sock (including emptying Send and Receive buffers and setting m_node = 0).
+  // First, set various state in *sock (including emptying Send and Receive buffers and setting m_node = nullptr).
 
   /* Save the final set of stats for Peer_socket::info(), as the source data will probably get
    * purged just below in sock_disconnect_*(). */
@@ -5929,22 +5929,22 @@ void Node::async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_e
                        "delay for packet [" << seq_num << ", ...) is [" << pkt_delay << "]; overflow; "
                        "using max value [" << MAX_DELAY_VALUE << "] units.");
       // @todo Maybe there's a more sane ceiling value than the absolute maximum?
-      pkt_delay = Ack_packet::Ack_delay_time_unit(MAX_DELAY_VALUE);
+      pkt_delay = Ack_packet::Ack_delay_time_unit{MAX_DELAY_VALUE};
     }
 
     // Finally write the individual acknowledgment.
     if (sock->rexmit_on())
     {
       ack->m_rcv_acked_packets_rexmit_on_out.push_back
-        (Ack_packet::Individual_ack_rexmit_on(seq_num,
+        (Ack_packet::Individual_ack_rexmit_on{seq_num,
                                               ind_ack->m_rexmit_id,
-                                              Ack_packet::ack_delay_t(pkt_delay.count())));
+                                              Ack_packet::ack_delay_t(pkt_delay.count())});
     }
     else
     {
       ack->m_rcv_acked_packets_rexmit_off_out.push_back
-        (Ack_packet::Individual_ack_rexmit_off(seq_num,
-                                               Ack_packet::ack_delay_t(pkt_delay.count())));
+        (Ack_packet::Individual_ack_rexmit_off{seq_num,
+                                               Ack_packet::ack_delay_t(pkt_delay.count())});
     }
     size_est_so_far += size_est_inc;
 
@@ -6016,7 +6016,7 @@ void Node::sock_set_int_state(Peer_socket::Ptr sock, Peer_socket::Int_state new_
 
 void Node::sock_set_state(Peer_socket::Ptr sock, Peer_socket::State state, Peer_socket::Open_sub_state open_sub_state)
 {
-  Peer_socket::Lock_guard lock(sock->m_mutex);
+  Peer_socket::Lock_guard lock{sock->m_mutex};
 
   // @todo Add TRACE logging.
 
@@ -6031,14 +6031,14 @@ void Node::sock_set_state(Peer_socket::Ptr sock, Peer_socket::State state, Peer_
      * receiving more data.  At this point the originating Node removes the socket from its internal
      * structures.  Therefore, the Node itself may even go away -- while this Peer_socket still
      * exists.  Since we use shared_ptr when giving our socket objects, that's fine -- but we want to
-     * avoid returning an invalid Node* in node().  So, when S_CLOSED, sock->m_node = 0. */
-    sock->m_node = 0;
+     * avoid returning an invalid Node* in node().  So, when S_CLOSED, sock->m_node = nullptr. */
+    sock->m_node = nullptr;
   }
 }
 
 void Node::sock_disconnect_detected(Peer_socket::Ptr sock, const Error_code& disconnect_cause, bool close)
 {
-  Peer_socket::Lock_guard lock(sock->m_mutex);
+  Peer_socket::Lock_guard lock{sock->m_mutex};
 
   sock->m_disconnect_cause = disconnect_cause;
 
@@ -6059,7 +6059,7 @@ void Node::sock_disconnect_detected(Peer_socket::Ptr sock, const Error_code& dis
 
 void Node::sock_disconnect_completed(Peer_socket::Ptr sock)
 {
-  Peer_socket::Lock_guard lock(sock->m_mutex);
+  Peer_socket::Lock_guard lock{sock->m_mutex};
 
   // Sanity-check pre-conditions.  (Basically ensure disconnect_detected(err_code, false) was previously called.)
   assert(sock->m_disconnect_cause);
@@ -6111,7 +6111,7 @@ bool Node::sock_set_options(Peer_socket::Ptr sock, const Peer_socket_options& op
   FLOW_LOG_TRACE("For [" << sock << "]:\n\n" << opts);
 
   // Will be writing sock->m_opts if all goes well, so must acquire exclusive ownership of m_opts.
-  Peer_socket::Options_lock lock(sock->m_opts_mutex);
+  Peer_socket::Options_lock lock{sock->m_opts_mutex};
 
   /* Validate the new option set (including ensuring they're not changing static options' values).
    * Note that an explicit pre-condition of this method is that m_opts_mutex is locked if needed,
@@ -6213,10 +6213,10 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
       VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size) &&
       VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u)) &&
       VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100) &&
-      VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds(1)) &&
+      VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1}) &&
       VALIDATE_CHECK(util::in_closed_range(Fine_duration::zero(),
                                            opts.m_st_delayed_ack_timer_period,
-                                           Fine_duration(seconds(1)))) &&
+                                           Fine_duration{seconds{1}})) &&
       VALIDATE_CHECK(opts.m_st_max_full_blocks_before_ack_send >= 1) &&
       VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet >= 1) &&
       VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet <= numeric_limits<Low_lvl_packet::rexmit_id_t>::max());
@@ -6304,7 +6304,7 @@ void Node::sock_load_info_struct(Peer_socket::Const_ptr sock, Peer_socket_info* 
 
   {
     // Gotta lock, as Receive and Send buffers can be modified at any time by thread U at least.
-    Peer_socket::Lock_guard lock(sock->m_mutex);
+    Peer_socket::Lock_guard lock{sock->m_mutex};
     stats->m_rcv_buf_size = sock->m_rcv_buf.data_size();
     stats->m_snd_buf_size = sock->m_snd_buf.data_size();
   }

@@ -527,7 +527,7 @@ private:
    * @param raw_packet
    *        See create_from_raw_data_packet().  `raw_buf` must start somewhere within it and be
    *        sized to go exactly to its end.
-   * @return `false` if create_from_raw_data_packet() should return `Ptr()` (error); `true` if
+   * @return `false` if create_from_raw_data_packet() should return `Ptr{}` (error); `true` if
    *         deserialization successful.
    */
   virtual bool deserialize_type_specific_data_from_raw_data_packet(Const_buffer* raw_buf,
@@ -1023,7 +1023,7 @@ struct Ack_packet : public Low_lvl_packet
 
   /**
    * Type used to store the ACK delay for a given individual acknowledged packet.  The value
-   * specifies the number of multiples of `Ack_delay_time_unit(1)` comprising a packet's ACK delay.
+   * specifies the number of multiples of `Ack_delay_time_unit{1}` comprised by a packet's ACK delay.
    *
    * An earlier version of `net_flow` used the unit milliseconds and the encoding type uint16_t.  The
    * reasoning was that this allowed a maximum ACK delay of ~65 sec which should be plenty; and that
@@ -1031,15 +1031,15 @@ struct Ack_packet : public Low_lvl_packet
    * congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK
    * delay value) to be quite precise (microsecond level or so).  Therefore, to be totally safe, we
    * choose to use the same units as #Fine_duration, which is how we compute all time periods.  As
-   * for the the encoding width, we use 64 bits just in case.
+   * for the encoding width, we use 64 bits just in case.
    *
-   * @todo Reconsider the encoding width.  If `Ack_delay_time_unit(1)` is a nanosecond, then 32 bits
+   * @todo Reconsider the encoding width.  If `Ack_delay_time_unit{1}` is a nanosecond, then 32 bits
    * would support a maximum delay of ~4.1 seconds which is likely fine for most real-world
    * scenarios.  This would reduce the size of ACK packets quite a bit.
    */
   using ack_delay_t = uint64_t;
 
-  /// `Ack_delay_time_unit(1)` is the duration corresponding to the #ack_delay_t value 1; and proportionally further.
+  /// `Ack_delay_time_unit{1}` is the duration corresponding to the #ack_delay_t value 1; and proportionally further.
   using Ack_delay_time_unit = Fine_duration;
 
   struct Individual_ack;
@@ -1254,7 +1254,7 @@ struct Ack_packet::Individual_ack_rexmit_off
   /// See Individual_ack::m_seq_num and Sequence_number::raw_num_ref().
   const Sequence_number::seq_num_t m_seq_num_raw;
 
-  /// See Individual_ack::m_delay; this is in `Ack_delay_time_unit(1)` multiples.
+  /// See Individual_ack::m_delay; this is in `Ack_delay_time_unit{1}` multiples.
   const ack_delay_t m_delay;
 
   // Type checks.
@@ -1389,7 +1389,7 @@ boost::shared_ptr<Low_lvl_packet_sub> Low_lvl_packet::create_uninit_packet(log::
   // Note: Low_lvl_packet_sub is not Low_lvl_packet. It is a sub-type: Syn_packet, Ack_packet, etc. We're a template.
 
   // `friend` relation required to be able to call this private constructor.
-  return shared_ptr<Low_lvl_packet_sub>(new Low_lvl_packet_sub(logger));
+  return shared_ptr<Low_lvl_packet_sub>(new Low_lvl_packet_sub{logger});
 }
 
 template<typename Low_lvl_packet_sub>

@@ -33,9 +33,9 @@ Drop_timer::Ptr Drop_timer::create_drop_timer
                    const Function<void (bool drop_all_packets)>& timer_fired) // Static.
 {
   // See doc comment for rationale.
-  return Ptr(new Drop_timer(logger_ptr,
+  return Ptr{new Drop_timer{logger_ptr,
                             node_task_engine, sock_drop_timeout, std::move(sock),
-                            timer_failure, timer_fired));
+                            timer_failure, timer_fired}};
 }
 
 void Drop_timer::start_contemporaneous_events()
@@ -385,7 +385,7 @@ void Drop_timer::start_timer()
     // Get time when earliest packet sent.
     assert(!m_sock->m_snd_flying_pkts_by_sent_when.empty()); // Timer must not be started when no packets In-flight.
     const Fine_time_pt& first_packet_sent_when
-      = m_sock->m_snd_flying_pkts_by_sent_when.const_back().second->m_sent_when.back().m_sent_time;
+      = (--m_sock->m_snd_flying_pkts_by_sent_when.cend())->second->m_sent_when.back().m_sent_time;
 
     fire_time_pt = first_packet_sent_when + m_sock_drop_timeout;
     use_time_pt_over_duration = true;

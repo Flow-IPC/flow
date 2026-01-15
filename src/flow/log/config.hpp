@@ -635,7 +635,7 @@ public:
   template<typename Component_payload>
   void init_component_names(const boost::unordered_multimap<Component_payload, std::string>& component_names,
                             bool output_components_numerically = false,
-                            util::String_view payload_type_prefix_or_empty = util::String_view());
+                            util::String_view payload_type_prefix_or_empty = {});
 
   /**
    * Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() calls whenever
@@ -1108,8 +1108,8 @@ void Config::init_component_to_union_idx_mapping(component_union_idx_t enum_to_n
   assert(component_union_idx_max >= enum_to_num_offset);
   assert(component_union_idx_max >= enum_sparse_length);
 
-  /* typeid(Component_payload) (arg 1) would equal Component(C).payload_type(), where C is a value of type
-   * Component_payload.  That is how this mapping would be used subsequently after this call.  Component(C) is
+  /* typeid(Component_payload) (arg 1) would equal Component{C}.payload_type(), where C is a value of type
+   * Component_payload.  That is how this mapping would be used subsequently after this call.  Component{C} is
    * routinely provided at log call sites. */
   m_component_cfgs_by_payload_type.insert(typeid(Component_payload),
                                           { enum_to_num_offset },
@@ -1128,8 +1128,8 @@ void Config::init_component_to_union_idx_mapping(component_union_idx_t enum_to_n
      * atomic<>::load()s from there.
      * (Note: OK, technically there's another way m_verbosities_by_component is set, in the copy ctor.  See copy ctor's
      * doc header.)
-     * (Note: This requires copying of a Atomic_raw_sev(raw_sev_t(-1)) N times, where N is the number of elements,
-     * if any, added to m_verbosities_by_component.  That's why Atomic_raw_sev() has a copy ctor unlike the
+     * (Note: This requires copying of a Atomic_raw_sev{raw_sev_t(-1)} N times, where N is the number of elements,
+     * if any, added to m_verbosities_by_component.  That's why Atomic_raw_sev{} has a copy ctor unlike the
      * underlying atomic<raw_sev_t>.  Its use can be unsafe, in terms of propagation across threads, as said in the
      * copy ctor's doc header; but since we do the source construction and N copies in the same thread, per that doc
      * header we are safe.) */

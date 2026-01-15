@@ -46,8 +46,8 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
    * value of s_this_thread_nickname.get() or dereference thereof in any thread except
    * the one in which we currently execute. */
   s_this_thread_nickname_ptr.reset(thread_nickname.empty()
-                                     ? 0
-                                     : new string(thread_nickname));
+                                     ? nullptr
+                                     : new string{thread_nickname});
 
   // Log about it if given an object capable of logging about itself.
   if (logger_ptr)
@@ -86,7 +86,7 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
       FLOW_LOG_SET_CONTEXT(logger_ptr, Flow_log_component::S_LOG);
       if (result_code == -1)
       {
-        const Error_code sys_err_code(errno, system_category());
+        const Error_code sys_err_code{errno, system_category()};
         FLOW_LOG_WARNING("Unable to set OS thread name to [" << os_name << "], possibly truncated "
                          "to [" << MAX_PTHREAD_NAME_SZ << "] characters, via pthread_setname_np().  "
                          "This should only occur due to an overlong name, which we guard against, so this is "
@@ -156,9 +156,10 @@ std::ostream* Logger::this_thread_ostream() const
 // Component implementations.
 
 Component::Component() :
-  m_payload_type_or_null(0) // <=> empty() == true.
+  m_payload_type_or_null(nullptr), // <=> empty() == true.
+  m_payload_enum_raw_value() // Should not be necessary (uninit=OK), but in some contexts at least gcc-9 warns.
 {
-  // That's it.  m_payload_enum_raw_value is uninitialized.
+  // That's it.
 }
 
 Component::Component(const Component& src) = default;
@@ -202,14 +203,11 @@ Log_context& Log_context::operator=(const Log_context& src) = default;
 
 Log_context& Log_context::operator=(Log_context&& src)
 {
-  using std::swap;
-
   if (&src != this)
   {
-    m_logger = 0;
-    m_component = Component();
-
-    swap(*this, src);
+    operator=(static_cast<const Log_context&>(src));
+    src.m_logger = nullptr;
+    src.m_component = {};
   }
   return *this;
 }
@@ -217,6 +215,12 @@ Log_context& Log_context::operator=(Log_context&& src)
 Logger* Log_context::get_logger() const
 {
   return m_logger;
+}
+
+Logger* Log_context::set_logger(Logger* logger)
+{
+  m_logger = logger;
+  return logger;
 }
 
 const Component& Log_context::get_log_component() const
@@ -233,6 +237,144 @@ void Log_context::swap(Log_context& other)
 }
 
 void swap(Log_context& val1, Log_context& val2)
+{
+  val1.swap(val2);
+}
+
+// Log_context_mt implementations.
+
+Log_context_mt::Log_context_mt(Logger* logger) :
+  Log_context(logger)
+{
+  // Nothing.
+}
+
+Log_context_mt::Log_context_mt(const Log_context_mt& src) :
+  Log_context() // Eliminate possible warning at tiny (if any) perf cost.
+{
+  // We could just do `operator=(src)`; but to avoid unnecessary locking of this->m_mutex do it manually.
+  util::Lock_guard<decltype(m_mutex)> lock{src.m_mutex};
+  Log_context::operator=(src);
+}
+
+Log_context_mt::Log_context_mt(Log_context_mt&& src) :
+  Log_context() // Clear *this in preparation for swap.
+{
+  using std::swap; // This enables proper ADL.
+
+  // We could just do `operator=(move(src))`; but to avoid unnecessary locking of this->m_mutex do it manually.
+  util::Lock_guard<decltype(m_mutex)> lock{src.m_mutex};
+  swap(static_cast<Log_context&>(*this),
+       static_cast<Log_context&>(src));
+}
+
+Log_context_mt& Log_context_mt::operator=(const Log_context_mt& src)
+{
+  using Lock = util::Lock_guard<decltype(m_mutex)>;
+
+  if (&src != this)
+  {
+    /* Naively we'd do something close to:
+     *   Lock lock1{m_mutex};
+     *   Lock lock2{src.m_mutex};
+     *   Log_context::operator=(src);
+     * However conceivably this could cause an obscure deadlock for reasons similar to those cited in swap().  As there:
+     * Seems there's no choice but to lock things piecewise and execute the copy-assignment via a temporary
+     * intermediary Log_context. */
+
+    Log_context obj_tmp;
+    {
+      Lock lock{src.m_mutex};
+      obj_tmp = src;
+    }
+    {
+      Lock lock{m_mutex};
+      Log_context::operator=(obj_tmp);
+    }
+  }
+  return *this;
+}
+
+Log_context_mt& Log_context_mt::operator=(Log_context_mt&& src)
+{
+  using Lock = util::Lock_guard<decltype(m_mutex)>;
+  using std::swap; // This enables proper ADL.
+
+  if (&src != this)
+  {
+    // Same deal as in copy ctor; just have to add the clearing of `src` which we do by using swap(L_c&, L_c&).
+
+    Log_context obj_tmp;
+    {
+      Lock lock{src.m_mutex};
+      swap(obj_tmp, static_cast<Log_context&>(src));
+    }
+    {
+      Lock lock{m_mutex};
+      Log_context::operator=(obj_tmp);
+    }
+  }
+
+  return *this;
+} // Log_context_mt::operator=(&&)
+
+Logger* Log_context_mt::get_logger() const
+{
+  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
+  return Log_context::get_logger();
+}
+
+Logger* Log_context_mt::set_logger(Logger* logger)
+{
+  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
+  return Log_context::set_logger(logger);
+}
+
+const Component& Log_context_mt::get_log_component() const
+{
+  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
+  return Log_context::get_log_component();
+}
+
+void Log_context_mt::swap(Log_context_mt& other)
+{
+  using Lock = util::Lock_guard<decltype(m_mutex)>;
+  using std::swap; // This enables proper ADL.
+
+  /* Naively we'd do something close to:
+   *   Lock lock1{m_mutex};
+   *   Lock lock2{other.m_mutex};
+   *   Log_context::swap(other);
+   * However conceivably this could cause an obscure deadlock; e.g. at least if one concurrently tries
+   *   lc_mt1.swap(lc_mt2);
+   * and
+   *   lc_mt2.swap(lc_mt1);
+   * Strange thing to do, but it is legal, and a classic AB-BA deadlock results.
+   * Seems there's no choice but to lock things in series and use a temporary intermediary.
+   * (We could've also let the default std::swap() just do one move-construct and two move-assignments, but
+   * perf-wise that'd do some unnecessary stuff.) */
+
+  auto& obj1_mt = *this;
+  auto& obj2_mt = other;
+  auto& obj1_rw = static_cast<Log_context&>(obj1_mt);
+  auto& obj2_rw = static_cast<Log_context&>(obj2_mt);
+
+  Log_context tmp_rw;
+  {
+    Lock lock{obj1_mt.m_mutex};
+    tmp_rw = obj1_rw;
+  }
+  {
+    Lock lock{obj2_mt.m_mutex};
+    swap(tmp_rw, obj2_rw);
+  }
+  {
+    Lock lock{obj1_mt.m_mutex};
+    obj1_rw = tmp_rw;
+  }
+} // Log_context_mt::swap()
+
+void swap(Log_context_mt& val1, Log_context_mt& val2)
 {
   val1.swap(val2);
 }

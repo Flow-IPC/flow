@@ -23,6 +23,8 @@
 namespace flow::util
 {
 
+// Types.
+
 /**
  * Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Logger,
  * enabling easier logging albeit with a small perf trade-off.  Most users will use the concrete types
@@ -54,7 +56,7 @@ namespace flow::util
  * Then when those 2 changes became required by some use cases, Basic_blob took the vast majority of what used to
  * be `Blob` and added those 2 changes.  Meanwhile `Blob` was rewritten in terms of Basic_blob in a way that
  * exactly preserved its behavior (so that no call-site changes for Blob-using code were needed).
- * Lastly, when `S_SHARING_ALLOWED` template param was added to Basic_blob, `Blob` became a template
+ * Lastly, when #S_SHARING template param was added to Basic_blob, `Blob` became a template
  * Blob_with_log_context, while #Blob aliased to `Blob_with_log_context<false>` thus staying functionally
  * exactly the same as before, minus the share() feature.  (`Sharing_blob` was added, aliasing to
  * `Blob_with_log_context<true>`, being exactly idetical to `Blob` before; the rename was possible due to
@@ -71,19 +73,19 @@ namespace flow::util
  * (See for example ~Blob_with_log_context() and the assignment operators.)
  * @endinternal
  *
- * @tparam S_SHARING_ALLOWED
+ * @tparam SHARING
  *         See Basic_blob.
  */
-template<bool S_SHARING_ALLOWED>
+template<bool SHARING>
 class Blob_with_log_context :
   public log::Log_context,
-  public Basic_blob<std::allocator<uint8_t>, S_SHARING_ALLOWED>
+  public Basic_blob<std::allocator<uint8_t>, SHARING>
 {
 public:
   // Types.
 
   /// Short-hand for our main base.
-  using Base = Basic_blob<std::allocator<uint8_t>, S_SHARING_ALLOWED>;
+  using Base = Basic_blob<std::allocator<uint8_t>, SHARING>;
 
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
   using value_type = typename Base::value_type;
@@ -118,6 +120,10 @@ public:
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
   static constexpr auto S_UNCHANGED = Base::S_UNCHANGED;
 
+  /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
+  static constexpr auto S_IS_VANILLA_ALLOC = Base::S_IS_VANILLA_ALLOC;
+  static_assert(S_IS_VANILLA_ALLOC, "We derive from a std::allocator-driven thingie.");
+
   // Constructors/destructor.
 
   /**
@@ -128,7 +134,7 @@ public:
    * @param logger_ptr
    *        The Logger implementation to use subsequently.
    */
-  Blob_with_log_context(log::Logger* logger_ptr = 0);
+  Blob_with_log_context(log::Logger* logger_ptr = nullptr);
 
   /**
    * On top of the similar 3-arg Basic_blob ctor, memorizes the given log::Logger for all future logging
@@ -143,14 +149,32 @@ public:
   explicit Blob_with_log_context(log::Logger* logger_ptr, size_type size);
 
   /**
+   * On top of the similar 4-arg Basic_blob ctor, memorizes the given log::Logger for all future logging
+   * in `*this`.  (Except, technically, one can subsequently override this by using super-class APIs which take
+   * `Logger*`.)
+   *
+   * @param logger_ptr
+   *        The Logger implementation to use subsequently.
+   * @param size
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  explicit Blob_with_log_context(log::Logger* logger_ptr, size_type size, Clear_on_alloc coa_tag);
+
+  /**
    * On top of the similar Basic_blob move ctor, moves the source object's log::Logger for all future logging
    * in `*this`.  (Except, technically, one can subsequently override this by using super-class APIs which take
    * `Logger*`.)
    *
+   * @note It is important this be `noexcept`, if a copying counterpart to us exists in this class; otherwise
+   *       (e.g.) `vector<Blob_with_log_context>` will, on realloc, default to copying `*this`es around instead of
+   *       moving: a terrible (in its stealthiness) perf loss.
+   *
    * @param moved_src
    *        See super-class API.
    */
-  Blob_with_log_context(Blob_with_log_context&& moved_src);
+  Blob_with_log_context(Blob_with_log_context&& moved_src) noexcept;
 
   /**
    * On top of the similar Basic_blob copy ctor, copies the source object's log::Logger for all future logging
@@ -174,11 +198,15 @@ public:
    *       operator.  In Blob_with_log_context, unlike Basic_blob, there is no need for an extra `logger_ptr` optional
    *       arg.
    *
+   * @note It is important this be `noexcept`, if a copying counterpart to us exists in this class; otherwise
+   *       (e.g.) `vector<Blob_with_log_context>` will, on realloc, default to copying `*this`es around instead of
+   *       moving: a terrible (in its stealthiness) perf loss.
+   *
    * @param moved_src
    *        See super-class API.
    * @return See super-class API.
    */
-  Blob_with_log_context& operator=(Blob_with_log_context&& moved_src);
+  Blob_with_log_context& operator=(Blob_with_log_context&& moved_src) noexcept;
 
   /**
    * On top of the similar Basic_blob method, logs using the stored log context.
@@ -199,7 +227,7 @@ public:
    * @param other
    *        See super-class API.
    */
-  void swap(Blob_with_log_context& other);
+  void swap(Blob_with_log_context& other) noexcept;
 
   /**
    * On top of the similar Basic_blob method, logs using the stored log context and copies it to the returned
@@ -319,6 +347,16 @@ public:
    */
   void reserve(size_type capacity);
 
+  /**
+   * On top of the similar Basic_blob method, logs using the stored log context.
+   *
+   * @param capacity
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  void reserve(size_type capacity, Clear_on_alloc coa_tag);
+
   /// On top of the similar Basic_blob method, logs using the stored log context.
   void make_zero();
 
@@ -332,6 +370,18 @@ public:
    */
   void resize(size_type size, size_type start_or_unchanged = S_UNCHANGED);
 
+  /**
+   * On top of the similar Basic_blob method, logs using the stored log context.
+   *
+   * @param size
+   *        See super-class API.
+   * @param start_or_unchanged
+   *        See super-class API.
+   * @param coa_tag
+   *        See super-class API.
+   */
+  void resize(size_type size, Clear_on_alloc coa_tag, size_type start_or_unchanged = S_UNCHANGED);
+
   // private: There are no added data per se, but there is the added base, log::Log_context, which stores some stuff.
 }; // class Blob_with_log_context
 
@@ -339,40 +389,49 @@ public:
 
 // Template implementations.
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(log::Logger* logger_ptr) :
+template<bool SHARING>
+Blob_with_log_context<SHARING>::Blob_with_log_context(log::Logger* logger_ptr) :
   log::Log_context(logger_ptr, Base::S_LOG_COMPONENT)
-  // And default-ct Base().
+  // And default-ct Base{}.
 {
   // Nothing else.
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(log::Logger* logger_ptr, size_type size) :
+template<bool SHARING>
+Blob_with_log_context<SHARING>::Blob_with_log_context(log::Logger* logger_ptr, size_type size) :
   log::Log_context(logger_ptr, Base::S_LOG_COMPONENT),
   Base(size, get_logger())
 {
   // Nothing else.
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(Blob_with_log_context&& moved_src) :
+template<bool SHARING>
+Blob_with_log_context<SHARING>::Blob_with_log_context(log::Logger* logger_ptr, size_type size,
+                                                                Clear_on_alloc coa_tag) :
+  log::Log_context(logger_ptr, Base::S_LOG_COMPONENT),
+  Base(size, coa_tag, get_logger())
+{
+  // Nothing else.
+}
+
+template<bool SHARING>
+Blob_with_log_context<SHARING>::Blob_with_log_context(Blob_with_log_context&& moved_src) noexcept :
   log::Log_context(static_cast<log::Log_context&&>(std::move(moved_src))),
   Base(std::move(moved_src), get_logger())
 {
   // Nothing else.
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::Blob_with_log_context(const Blob_with_log_context& src) :
+template<bool SHARING>
+Blob_with_log_context<SHARING>::Blob_with_log_context(const Blob_with_log_context& src) :
   log::Log_context(static_cast<const log::Log_context&>(src)),
   Base(src, get_logger())
 {
   // Nothing else.
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>::~Blob_with_log_context()
+template<bool SHARING>
+Blob_with_log_context<SHARING>::~Blob_with_log_context()
 {
   /* ~Basic_blob() doesn't log at all -- no way to give a Logger* to it -- but a way to get some potentially
    * useful logging is to make_zero().  It is redundant (which is why ~Basic_blob() does not bother) but in some
@@ -380,9 +439,9 @@ Blob_with_log_context<S_SHARING_ALLOWED>::~Blob_with_log_context()
   make_zero();
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>&
-  Blob_with_log_context<S_SHARING_ALLOWED>::operator=(const Blob_with_log_context& src)
+template<bool SHARING>
+Blob_with_log_context<SHARING>&
+  Blob_with_log_context<SHARING>::operator=(const Blob_with_log_context& src)
 {
   using log::Log_context;
 
@@ -391,9 +450,9 @@ Blob_with_log_context<S_SHARING_ALLOWED>&
   return *this;
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>&
-  Blob_with_log_context<S_SHARING_ALLOWED>::operator=(Blob_with_log_context&& moved_src)
+template<bool SHARING>
+Blob_with_log_context<SHARING>&
+  Blob_with_log_context<SHARING>::operator=(Blob_with_log_context&& moved_src) noexcept
 {
   using log::Log_context;
 
@@ -402,8 +461,8 @@ Blob_with_log_context<S_SHARING_ALLOWED>&
   return *this;
 }
 
-template<bool S_SHARING_ALLOWED>
-void Blob_with_log_context<S_SHARING_ALLOWED>::swap(Blob_with_log_context& other)
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::swap(Blob_with_log_context& other) noexcept
 {
   using log::Log_context;
   using std::swap;
@@ -415,42 +474,42 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::swap(Blob_with_log_context& other
   }
 }
 
-template<bool S_SHARING_ALLOWED>
-void swap(Blob_with_log_context<S_SHARING_ALLOWED>& blob1, Blob_with_log_context<S_SHARING_ALLOWED>& blob2)
+template<bool SHARING>
+void swap(Blob_with_log_context<SHARING>& blob1, Blob_with_log_context<SHARING>& blob2) noexcept
 {
   return blob1.swap(blob2);
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED> Blob_with_log_context<S_SHARING_ALLOWED>::share() const
+template<bool SHARING>
+Blob_with_log_context<SHARING> Blob_with_log_context<SHARING>::share() const
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share(get_logger());
   return blob;
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>
-  Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_left(size_type lt_size)
+template<bool SHARING>
+Blob_with_log_context<SHARING>
+  Blob_with_log_context<SHARING>::share_after_split_left(size_type lt_size)
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share_after_split_left(lt_size, get_logger());
   return blob;
 }
 
-template<bool S_SHARING_ALLOWED>
-Blob_with_log_context<S_SHARING_ALLOWED>
-  Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_right(size_type rt_size)
+template<bool SHARING>
+Blob_with_log_context<SHARING>
+  Blob_with_log_context<SHARING>::share_after_split_right(size_type rt_size)
 {
-  Blob_with_log_context blob(get_logger());
+  Blob_with_log_context blob{get_logger()};
   static_cast<Base&>(blob) = Base::share_after_split_right(rt_size, get_logger());
   return blob;
 }
 
-template<bool S_SHARING_ALLOWED>
+template<bool SHARING>
 template<typename Emit_blob_func>
-void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally(size_type size, bool headless_pool,
-                                                                         Emit_blob_func&& emit_blob_func)
+void Blob_with_log_context<SHARING>::share_after_split_equally(size_type size, bool headless_pool,
+                                                               Emit_blob_func&& emit_blob_func)
 {
   Base::share_after_split_equally_impl(size, headless_pool, std::move(emit_blob_func), get_logger(),
                                        [this](size_type lt_size, [[maybe_unused]] log::Logger* logger_ptr)
@@ -461,10 +520,10 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally(size_ty
   });
 }
 
-template<bool S_SHARING_ALLOWED>
+template<bool SHARING>
 template<typename Blob_container>
-void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally_emit_seq(size_type size, bool headless_pool,
-                                                                                  Blob_container* out_blobs_ptr)
+void Blob_with_log_context<SHARING>::share_after_split_equally_emit_seq(size_type size, bool headless_pool,
+                                                                        Blob_container* out_blobs_ptr)
 {
   // Almost copy-pasted from Basic_blob::<same method>().  It's short, though, so it seems fine.  @todo Revisit.
 
@@ -475,11 +534,11 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally_emit_se
   });
 }
 
-template<bool S_SHARING_ALLOWED>
+template<bool SHARING>
 template<typename Blob_ptr_container>
-void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally_emit_ptr_seq(size_type size,
-                                                                                      bool headless_pool,
-                                                                                      Blob_ptr_container* out_blobs_ptr)
+void Blob_with_log_context<SHARING>::share_after_split_equally_emit_ptr_seq(size_type size,
+                                                                            bool headless_pool,
+                                                                            Blob_ptr_container* out_blobs_ptr)
 {
   // Almost copy-pasted from Basic_blob::<same method>().  It's short, though, so it seems fine.  @todo Revisit.
 
@@ -490,45 +549,58 @@ void Blob_with_log_context<S_SHARING_ALLOWED>::share_after_split_equally_emit_pt
 
   share_after_split_equally(size, headless_pool, [&](Blob_with_log_context&& blob_moved)
   {
-    out_blobs_ptr->push_back(Ptr(new Blob_with_log_context(std::move(blob_moved))));
+    out_blobs_ptr->push_back(Ptr{new Blob_with_log_context{std::move(blob_moved)}});
   });
 }
 
-template<bool S_SHARING_ALLOWED>
-void Blob_with_log_context<S_SHARING_ALLOWED>::reserve(size_type new_capacity)
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::reserve(size_type new_capacity)
 {
   Base::reserve(new_capacity, get_logger());
 }
 
-template<bool S_SHARING_ALLOWED>
-void Blob_with_log_context<S_SHARING_ALLOWED>::resize(size_type new_size, size_type new_start_or_unchanged)
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::reserve(size_type new_capacity, Clear_on_alloc coa_tag)
+{
+  Base::reserve(new_capacity, coa_tag, get_logger());
+}
+
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::resize(size_type new_size, size_type new_start_or_unchanged)
 {
   Base::resize(new_size, new_start_or_unchanged, get_logger());
 }
 
-template<bool S_SHARING_ALLOWED>
-void Blob_with_log_context<S_SHARING_ALLOWED>::make_zero()
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::resize(size_type new_size, Clear_on_alloc coa_tag,
+                                            size_type new_start_or_unchanged)
+{
+  Base::resize(new_size, coa_tag, new_start_or_unchanged, get_logger());
+}
+
+template<bool SHARING>
+void Blob_with_log_context<SHARING>::make_zero()
 {
   Base::make_zero(get_logger());
 }
 
-template<bool S_SHARING_ALLOWED>
-typename Blob_with_log_context<S_SHARING_ALLOWED>::size_type
-  Blob_with_log_context<S_SHARING_ALLOWED>::assign_copy(const boost::asio::const_buffer& src)
+template<bool SHARING>
+typename Blob_with_log_context<SHARING>::size_type
+  Blob_with_log_context<SHARING>::assign_copy(const boost::asio::const_buffer& src)
 {
   return Base::assign_copy(src, get_logger());
 }
 
-template<bool S_SHARING_ALLOWED>
-typename Blob_with_log_context<S_SHARING_ALLOWED>::Iterator
-  Blob_with_log_context<S_SHARING_ALLOWED>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src)
+template<bool SHARING>
+typename Blob_with_log_context<SHARING>::Iterator
+  Blob_with_log_context<SHARING>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src)
 {
   return Base::emplace_copy(dest, src, get_logger());
 }
 
-template<bool S_SHARING_ALLOWED>
-typename Blob_with_log_context<S_SHARING_ALLOWED>::Const_iterator
-  Blob_with_log_context<S_SHARING_ALLOWED>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest) const
+template<bool SHARING>
+typename Blob_with_log_context<SHARING>::Const_iterator
+  Blob_with_log_context<SHARING>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest) const
 {
   return Base::sub_copy(src, dest, get_logger());
 }

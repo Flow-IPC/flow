@@ -138,7 +138,7 @@ public:
    *        thread started by this method, delaying the method's return to the caller until `init_task_or_empty()`
    *        returns in said spawned thread.
    */
-  void start(Task&& init_task_or_empty = Task());
+  void start(Task&& init_task_or_empty = Task{});
 
   /**
    * Waits for the ongoing task/completion handler -- if one is running -- to return; then prevents any further-queued

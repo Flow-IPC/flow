@@ -619,7 +619,7 @@ namespace flow::net_flow
  * was able to run; thread W had just decided to send that packet over wire in the first place; so there's no
  * reason to access it until ACK -- much later -- or some kind of socket-wide catastrophe.)  All that put
  * together I dub APPROACH 5.  Thus, APPROACH 1 + APPROACH 5 seems like the best idea of all, distilling all
- * the trade-offs into the the fastest yet close to simplest approach.
+ * the trade-offs into the fastest yet close to simplest approach.
  *
  * @todo More uniform diagnostic logging: There is much diagnostic logging in the
  * implementation (FLOW_ERROR*(), etc.), but some of it lacks useful info like `sock` or `serv` (i.e., the
@@ -986,7 +986,7 @@ public:
    * @param low_lvl_endpoint
    *        The UDP endpoint (IP address and UDP port) which will be used for receiving incoming and
    *        sending outgoing Flow traffic in this Node.
-   *        E.g.: `Udp_endpoint(Ip_address_v4::any(), 1234)` // UDP port 1234 on all IPv4 interfaces.
+   *        E.g.: `Udp_endpoint{Ip_address_v4::any(), 1234}` // UDP port 1234 on all IPv4 interfaces.
    * @param logger
    *        The Logger implementation through which all logging from this Node will run.
    *        See notes on logger ownership above.
@@ -994,7 +994,7 @@ public:
    *        Network environment simulator to use to simulate (fake) external network conditions
    *        inside the code, e.g., for testing.  If 0, no such simulation will occur.  Otherwise the
    *        code will add conditions such as loss and latency (in addition to any present naturally)
-   *        and will take ownership of the the passed in pointer (meaning, we will `delete` as we see fit;
+   *        and will take ownership of the passed in pointer (meaning, we will `delete` as we see fit;
    *        and you must never do so from now on).
    * @param err_code
    *        See flow::Error_code docs for error reporting semantics.  error::Code generated:
@@ -1007,8 +1007,8 @@ public:
    *        Peer_socket::set_options(), Peer_socket::options().
    */
   explicit Node(log::Logger* logger, const util::Udp_endpoint& low_lvl_endpoint,
-                Net_env_simulator* net_env_sim = 0, Error_code* err_code = 0,
-                const Node_options& opts = Node_options());
+                Net_env_simulator* net_env_sim = nullptr, Error_code* err_code = nullptr,
+                const Node_options& opts = Node_options{});
 
   /**
    * Destroys Node.  Closes all Peer_socket objects as if by `sock->close_abruptly()`.  Then closes all
@@ -1060,7 +1060,7 @@ public:
    * chose 0 as the port, the value returned here will contain the actual emphemeral port randomly chosen by
    * the OS).
    *
-   * If `!running()`, this equals Udp_endpoint().  The logical value of the returned util::Udp_endpoint
+   * If `!running()`, this equals `Udp_endpoint{}`.  The logical value of the returned util::Udp_endpoint
    * never changes over the lifetime of the Node.
    *
    * @return See above.  Note that it is a reference.
@@ -1096,8 +1096,8 @@ public:
    * @return Shared pointer to Peer_socket, which is in the `S_OPEN` main state; or null pointer,
    *         indicating an error.
    */
-  Peer_socket::Ptr connect(const Remote_endpoint& to, Error_code* err_code = 0,
-                           const Peer_socket_options* opts = 0);
+  Peer_socket::Ptr connect(const Remote_endpoint& to, Error_code* err_code = nullptr,
+                           const Peer_socket_options* opts = nullptr);
 
   /**
    * Same as connect() but sends, as part of the connection handshake, the user-supplied metadata,
@@ -1132,8 +1132,8 @@ public:
    */
   Peer_socket::Ptr connect_with_metadata(const Remote_endpoint& to,
                                          const boost::asio::const_buffer& serialized_metadata,
-                                         Error_code* err_code = 0,
-                                         const Peer_socket_options* opts = 0);
+                                         Error_code* err_code = nullptr,
+                                         const Peer_socket_options* opts = nullptr);
 
   /**
    * The blocking (synchronous) version of connect().  Acts just like connect() but instead of
@@ -1189,8 +1189,8 @@ public:
    */
   template<typename Rep, typename Period>
   Peer_socket::Ptr sync_connect(const Remote_endpoint& to, const boost::chrono::duration<Rep, Period>& max_wait,
-                                Error_code* err_code = 0,
-                                const Peer_socket_options* opts = 0);
+                                Error_code* err_code = nullptr,
+                                const Peer_socket_options* opts = nullptr);
 
   /**
    * A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied
@@ -1212,8 +1212,8 @@ public:
   Peer_socket::Ptr sync_connect_with_metadata(const Remote_endpoint& to,
                                               const boost::chrono::duration<Rep, Period>& max_wait,
                                               const boost::asio::const_buffer& serialized_metadata,
-                                              Error_code* err_code = 0,
-                                              const Peer_socket_options* opts = 0);
+                                              Error_code* err_code = nullptr,
+                                              const Peer_socket_options* opts = nullptr);
 
   /**
    * Equivalent to `sync_connect(to, duration::max(), err_code, opt)s`; i.e., sync_connect() with no user
@@ -1227,8 +1227,8 @@ public:
    *        See sync_connect().
    * @return See other sync_connect().
    */
-  Peer_socket::Ptr sync_connect(const Remote_endpoint& to, Error_code* err_code = 0,
-                                const Peer_socket_options* opts = 0);
+  Peer_socket::Ptr sync_connect(const Remote_endpoint& to, Error_code* err_code = nullptr,
+                                const Peer_socket_options* opts = nullptr);
 
   /**
    * Equivalent to `sync_connect_with_metadata(to, duration::max(), serialized_metadata, err_code, opts)`; i.e.,
@@ -1246,8 +1246,8 @@ public:
    */
   Peer_socket::Ptr sync_connect_with_metadata(const Remote_endpoint& to,
                                               const boost::asio::const_buffer& serialized_metadata,
-                                              Error_code* err_code = 0,
-                                              const Peer_socket_options* opts = 0);
+                                              Error_code* err_code = nullptr,
+                                              const Peer_socket_options* opts = nullptr);
 
   /**
    * Sets up a server on the given local Flow port and returns Server_socket which can be used to
@@ -1282,8 +1282,8 @@ public:
    * @return Shared pointer to Server_socket, which is in the Server_socket::State::S_LISTENING state at least
    *         initially; or null pointer, indicating an error.
    */
-  Server_socket::Ptr listen(flow_port_t local_port, Error_code* err_code = 0,
-                            const Peer_socket_options* child_sock_opts = 0);
+  Server_socket::Ptr listen(flow_port_t local_port, Error_code* err_code = nullptr,
+                            const Peer_socket_options* child_sock_opts = nullptr);
 
   /**
    * Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns this
@@ -1294,7 +1294,7 @@ public:
    *        error::Code::S_NODE_NOT_RUNNING.
    * @return Shared pointer to Event_set; or null pointer, indicating an error.
    */
-  Event_set::Ptr event_set_create(Error_code* err_code = 0);
+  Event_set::Ptr event_set_create(Error_code* err_code = nullptr);
 
   /**
    * Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the
@@ -1319,7 +1319,7 @@ public:
    *        See flow::Error_code docs for error reporting semantics.  error::Code generated:
    *        error::Code::S_NODE_NOT_RUNNING.
    */
-  void interrupt_all_waits(Error_code* err_code = 0);
+  void interrupt_all_waits(Error_code* err_code = nullptr);
 
   /**
    * Dynamically replaces the current options set (options()) with the given options set.
@@ -1339,7 +1339,7 @@ public:
    *        error::Code::S_OPTION_CHECK_FAILED, error::Code::S_NODE_NOT_RUNNING.
    * @return `true` on success, `false` on error.
    */
-  bool set_options(const Node_options& opts, Error_code* err_code = 0);
+  bool set_options(const Node_options& opts, Error_code* err_code = nullptr);
 
   /**
    * Copies this Node's option set and returns that copy.  If you intend to use set_options() to
@@ -1482,7 +1482,7 @@ private:
    *        not yet be available, say, during object construction).
    * @return Address of the Logger that was configured (either `logger` or `this->get_logger()`).
    */
-  log::Logger* this_thread_init_logger_setup(const std::string& thread_type, log::Logger* logger = 0);
+  log::Logger* this_thread_init_logger_setup(const std::string& thread_type, log::Logger* logger = nullptr);
 
   /**
    * Given a new set of Node_options intended to replace (or initialize) a Node's #m_opts, ensures
@@ -2826,7 +2826,7 @@ private:
    *        ESTABLISHED state: `operation_aborted` => NOOP; success or any other error => attempt to
    *        send ACK(s).
    */
-  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code());
+  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code{});
 
   /**
    * Return `true` if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of `sock` (if
@@ -2972,7 +2972,7 @@ private:
    * @param err_code
    *        After return, `*err_code` is success or: error::Code::S_OPTION_CHECK_FAILED,
    *        error::Code::S_STATIC_OPTION_CHANGED.
-   *        If `!err_code`, error::Runtime_error() with that #Error_code is thrown instead.
+   *        If `!err_code`, error::Runtime_error with that #Error_code is thrown instead.
    * @return `true` on success, `false` on validation error.
    */
   bool sock_validate_options(const Peer_socket_options& opts, const Peer_socket_options* prev_opts,
@@ -3261,7 +3261,7 @@ private:
    *        Deserialized immutable SYN.
    * @param low_lvl_remote_endpoint
    *        The remote Node address.
-   * @return New socket placed into Node socket table; or `Ptr()` on error, wherein no socket was saved.
+   * @return New socket placed into Node socket table; or `Ptr{}` on error, wherein no socket was saved.
    */
   Peer_socket::Ptr handle_syn_to_listening_server(Server_socket::Ptr serv,
                                                   boost::shared_ptr<const Syn_packet> syn,
@@ -3448,7 +3448,7 @@ private:
    *        See this argument on the originating `sync_*()` method.
    *        However, unlike that calling method's user-facing API, the present sync_op() method
    *        does NOT allow null `err_code` (behavior undefined if `err_code` is null).
-   *        Corollary: we will NOT throw Runtime_error().
+   *        Corollary: we will NOT throw `Runtime_error`.
    * @return The value that the calling `sync_*()` method should return to its caller.
    *         Corner/special case: If `non_blocking_func.empty()` (a/k/a "reactor pattern" mode), then
    *         this will always return `would_block_ret_val`; the caller shall interpret
@@ -3715,9 +3715,9 @@ private:
    * should contain the actual local address and port (even if user specified 0 for the latter,
    * say).
    *
-   * This is equal to `Udp_endpoint()` until the constructor exits.  After the constructor exits, its
+   * This is equal to `Udp_endpoint{}` until the constructor exits.  After the constructor exits, its
    * value never changes, therefore all threads can access it without mutex.  If the constructor
-   * fails to bind, this remains equal to `Udp_endpoint()` forever.
+   * fails to bind, this remains equal to `Udp_endpoint{}` forever.
    */
   util::Udp_endpoint m_low_lvl_endpoint;
 
@@ -3863,7 +3863,7 @@ struct Node::Socket_id
   // Data.
 
   /// The other side of the connection.
-  const Remote_endpoint m_remote_endpoint = Remote_endpoint();
+  const Remote_endpoint m_remote_endpoint;
   /// This side of the connection (within this Node).
   const flow_port_t m_local_port = S_PORT_ANY;
 
@@ -3994,7 +3994,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
   // else go ahead and wait.
 
   Non_blocking_func_ret_type op_result;
-  const bool timeout_given = wait_until != Fine_time_pt();
+  const bool timeout_given = wait_until != Fine_time_pt{};
   do
   {
     // We may have to call sync_wait() repeatedly; if timeout is given we must give less and less time each time.
@@ -4143,20 +4143,20 @@ Opt_type Node::opt(const Opt_type& opt_val_ref) const
    * or boost.chrono time values which are internally also usually just integers), so the copy
    * should not be a big deal. */
 
-  Options_lock lock(m_opts_mutex);
+  Options_lock lock{m_opts_mutex};
   return opt_val_ref;
 }
 
 template<typename Peer_socket_impl_type>
 Peer_socket* Node::sock_create_forward_plus_ctor_args(const Peer_socket_options& opts)
 {
-  return new Peer_socket_impl_type(get_logger(), &m_task_engine, opts);
+  return new Peer_socket_impl_type{get_logger(), &m_task_engine, opts};
 }
 
 template<typename Server_socket_impl_type>
 Server_socket* Node::serv_create_forward_plus_ctor_args(const Peer_socket_options* child_sock_opts)
 {
-  return new Server_socket_impl_type(get_logger(), child_sock_opts);
+  return new Server_socket_impl_type{get_logger(), child_sock_opts};
 }
 
 } // namespace flow::net_flow

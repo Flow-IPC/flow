@@ -48,11 +48,11 @@ Cross_thread_task_loop::Cross_thread_task_loop(log::Logger* logger_ptr, util::St
                    : m_n_threads_or_zero),
   /* n_threads() is now accurate.  Create the shared Task_engine capable of smartly scheduling across N threads.
    * Attn: Give concurrency hint; 1 in particular may help avoid or eliminate locking inside boost.asio. */
-  m_shared_task_engine(new util::Task_engine(n_threads())),
+  m_shared_task_engine(new util::Task_engine{static_cast<int>(n_threads())}),
   // Forever initialize our Ops_list of pre-created Ops which in our case simply store long-lived Strands.
   m_per_thread_strands(logger_ptr, n_threads(),
                        [this](size_t) -> Op
-                         { return Op(Strand_ptr(new util::Strand(*m_shared_task_engine))); })
+                         { return Op{Strand_ptr{new util::Strand{*m_shared_task_engine}}}; })
 {
   /* Task_engine starts in !stopped() mode ready to run().  start() pre-condition is stopped() so for simplicity
    * start in the same state that our stop() would put the Task_engine into: */
@@ -116,7 +116,7 @@ void Cross_thread_task_loop::start(Task&& init_task_or_empty,
    * So that's why we use the Task_qing_thread ctor mode wherein we pass in our own `promise`s and then wait afterwards
    * for them all to be satisfied, barrier-style. */
 
-  vector<promise<void>> thread_init_done_promises(n);
+  vector<promise<void>> thread_init_done_promises{n};
   for (size_t idx = 0; idx != n; ++idx)
   {
     Task task_qing_thread_init_func;
@@ -132,11 +132,11 @@ void Cross_thread_task_loop::start(Task&& init_task_or_empty,
       assert(task_qing_thread_init_func.empty()); // Just leave it.
     }
 
-    m_qing_threads[idx].reset(new Task_qing_thread(get_logger(),
+    m_qing_threads[idx].reset(new Task_qing_thread{get_logger(),
                                                    (n == 1) ? m_nickname : util::ostream_op_string(m_nickname, idx),
                                                    m_shared_task_engine, false, // A *shared* Task_engine.
                                                    &(thread_init_done_promises[idx]),
-                                                   std::move(task_qing_thread_init_func)));
+                                                   std::move(task_qing_thread_init_func)});
   } // for (idx in [0, n))
 
   // By barrier-style I mean that they all the waits must be done, before the loop exits.
@@ -266,7 +266,7 @@ size_t Cross_thread_task_loop::n_threads() const // Virtual.
 
 Op Cross_thread_task_loop::create_op() // Virtual.
 {
-  return Op(Strand_ptr(new util::Strand(*m_shared_task_engine)));
+  return Op{Strand_ptr{new util::Strand{*m_shared_task_engine}}};
 }
 
 const Op_list& Cross_thread_task_loop::per_thread_ops() // Virtual.

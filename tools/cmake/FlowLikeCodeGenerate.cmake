@@ -310,11 +310,14 @@ function(common_set_target_properties name)
   # Show only a few errors per file before bailing out.
   # TODO: This is convenient when developing locally but can (IME rarely) be limiting in automated builds/CI/etc.;
   # consider making it configurable via knob.
+  # Don't skip "required by" lines in template-related error messages (default limit 10 can make stuff shorter, but
+  # when it hides that 1-2 lines one actually wants... quite frustrating... especially if one doesn't realize that's
+  # where the key info is).
   set(MAX_ERRORS 3)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_compile_options(${name} PRIVATE "-fmax-errors=${MAX_ERRORS}")
+    target_compile_options(${name} PRIVATE "-fmax-errors=${MAX_ERRORS}" "-ftemplate-backtrace-limit=0")
   elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    target_compile_options(${name} PRIVATE "-ferror-limit=${MAX_ERRORS}")
+    target_compile_options(${name} PRIVATE "-ferror-limit=${MAX_ERRORS}" "-ftemplate-backtrace-limit=0")
   else()
     message(FATAL_ERROR "Target [${name}]: For this target wanted to limit # of compile errors per file but compiler "
                           "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}])"

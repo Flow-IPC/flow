@@ -210,9 +210,9 @@ void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
     const auto native_mach_thread_id = pthread_mach_thread_np(native_pthread_thread_id);
     if (native_pthread_thread_id == 0)
     {
-      const Error_code sys_err_code(errno, system_category()); // As above....
+      const Error_code sys_err_code{errno, system_category()}; // As above....
       FLOW_ERROR_SYS_ERROR_LOG_WARNING();
-      throw error::Runtime_error(sys_err_code, "pthread_mach_thread_np() call in optimize_pinning_in_thread_pool()");
+      throw error::Runtime_error{sys_err_code, "pthread_mach_thread_np() call in optimize_pinning_in_thread_pool()"};
     }
     // else
     FLOW_LOG_TRACE("pthread ID [" << native_pthread_thread_id << "] "
@@ -249,8 +249,8 @@ void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
        * @todo For sure though should use error::Runtime_error here, the ctor that takes no Error_code.
        * That ctor did not exist when the present code was written; as of this writing Flow is Linux-only.
        * Would do it right now but lack the time to verify any changes for Mac at the moment. */
-      throw runtime_error(ostream_op_string("[MACH_KERN_RETURN_T:", code,
-                                            "] [thread_policy_set(THREAD_AFFINITY_POLICY) failed]"));
+      throw runtime_error{ostream_op_string("[MACH_KERN_RETURN_T:", code,
+                                            "] [thread_policy_set(THREAD_AFFINITY_POLICY) failed]")};
     }
     // else OK!
 #  endif // if 0

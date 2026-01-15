@@ -57,7 +57,7 @@ public:
    *        undefined behavior.  (It should go without saying, but using `const_cast` or equivalents counts as being
    *        outside the bounds of this class's API.)
    */
-  explicit String_ostream(std::string* target_str = 0);
+  explicit String_ostream(std::string* target_str = nullptr);
 
   // Methods.
 

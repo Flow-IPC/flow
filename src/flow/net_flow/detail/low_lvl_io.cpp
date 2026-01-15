@@ -198,7 +198,7 @@ unsigned int Node::handle_incoming_with_simulation(util::Blob* packet_data,
     const bool must_dupe
       = (!is_sim_duplicate_packet) && m_net_env_sim && m_net_env_sim->should_duplicate_received_packet();
 
-    Blob packet_data_copy(get_logger());
+    Blob packet_data_copy{get_logger()};
     if (must_dupe)
     {
       /* We will simulate duplication of the packet below.  Since packet handling can be
@@ -207,7 +207,7 @@ unsigned int Node::handle_incoming_with_simulation(util::Blob* packet_data,
       packet_data_copy = *(static_cast<const Blob*>(packet_data)); // Add const to express we require a copy, not move.
     }
 
-    Fine_duration latency(m_net_env_sim ? m_net_env_sim->received_packet_latency() : Fine_duration::zero());
+    Fine_duration latency{m_net_env_sim ? m_net_env_sim->received_packet_latency() : Fine_duration::zero()};
     if (latency == Fine_duration::zero())
     {
       // No simulated latency; just handle the packet now (mainstream case).
@@ -263,7 +263,7 @@ void Node::async_wait_latency_then_handle_incoming(const Fine_duration& latency,
   /* As advertised, *packet_data loses its buffer into this new container, so that caller can immediately
    * use it for whatever they want.  Meanwhile, we asynchronously own the actual data in it now.
    * Make a smart pointer to ensure it lives long enough for handler to execute... but likely no longer than that. */
-  shared_ptr<Blob> packet_data_moved_ptr(new Blob(std::move(*packet_data)));
+  shared_ptr<Blob> packet_data_moved_ptr{new Blob{std::move(*packet_data)}};
 
   // Unused if it doesn't get logged, which is a slight perf hit, but anyway this sim feature is a debug/test thing.
   const Fine_time_pt started_at = Fine_clock::now();
@@ -309,7 +309,7 @@ void Node::async_no_sock_low_lvl_packet_send(const util::Udp_endpoint& low_lvl_r
 {
   /* As of this writing we don't pace things, when no Peer_socket is involved (e.g., some RSTs) => always `false`: -|
    *                                                              v-------------------------------------------------| */
-  async_low_lvl_packet_send_impl(low_lvl_remote_endpoint, packet, false, Peer_socket::Ptr());
+  async_low_lvl_packet_send_impl(low_lvl_remote_endpoint, packet, false, Peer_socket::Ptr{});
 }
 
 void Node::async_low_lvl_packet_send_impl(const util::Udp_endpoint& low_lvl_remote_endpoint,
@@ -723,7 +723,7 @@ void Node::sock_pacing_new_packet_ready(Peer_socket::Ptr sock, Low_lvl_packet::P
   // else packet is DATA packet.
 
   const Fine_time_pt now = Fine_clock::now();
-  if ((pacing.m_slice_start == Fine_time_pt()) || (now >= (pacing.m_slice_start + pacing.m_slice_period)))
+  if ((pacing.m_slice_start == Fine_time_pt{}) || (now >= (pacing.m_slice_start + pacing.m_slice_period)))
   {
     /* We are past the current time slice (if there is such a thing) and have a packet to send.  By
      * the algorithm in struct Send_pacing_data doc header, this means we create a new time slice with
@@ -781,7 +781,7 @@ void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt&
   if (slice_ideal_period == Fine_duration::zero())
   {
     // Avoid division by zero and any other tomfoolery below....
-    slice_ideal_period = Fine_duration(1);
+    slice_ideal_period = Fine_duration{1};
   }
 
   Fine_duration timer_min_period = opt(m_opts.m_st_timer_min_period);
@@ -793,7 +793,7 @@ void Node::sock_pacing_new_time_slice(Peer_socket::Ptr sock, const Fine_time_pt&
      * about 15 msec. @todo Perhaps choose here based on platform. It can get hairy, as there is
      * wide variation, so it would require much experimentation; but might be worth it for
      * performance. */
-    const Fine_duration TIMER_MIN_PERIOD_DEFAULT = milliseconds(15);
+    const Fine_duration TIMER_MIN_PERIOD_DEFAULT = milliseconds{15};
     timer_min_period = TIMER_MIN_PERIOD_DEFAULT;
   }
 

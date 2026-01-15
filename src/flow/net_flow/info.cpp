@@ -267,7 +267,7 @@ void Peer_socket_send_stats::output(std::ostream* os) const
        "[snd] low_lvl_packet_send_requested ";
 
   Peer_socket_info::output_map_of_pkt_counts(os, m_low_lvl_packet_xfer_requested_count_by_type,
-                                             static_cast<const map<type_index, uint64_t>*>(0));
+                                             static_cast<const map<type_index, uint64_t>*>(nullptr));
 
   *os
     << "]\n" <<

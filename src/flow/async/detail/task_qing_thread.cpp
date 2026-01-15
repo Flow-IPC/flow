@@ -58,7 +58,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
   using Log_config = log::Config;
 
   assert(m_task_engine);
-  string nickname(nickname_view); // We need an std::string below anyway, so copy this now.
+  string nickname{nickname_view}; // We need an std::string below anyway, so copy this now.
 
   // Some programs start tons of threads.  Let's be stingy with INFO messages.
 
@@ -93,7 +93,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
    * `sev_override == Sev::S_END_SENTINEL`; we need not even track it as a special case.) */
   const auto sev_override = *(Log_config::this_thread_verbosity_override());
 
-  m_worker_thread.reset(new Thread([this, // Valid throughout thread { body }.
+  m_worker_thread.reset(new Thread{[this, // Valid throughout thread { body }.
                                     sev_override,
                                     nickname = std::move(nickname), // Valid throughout thread { body }.
                                     init_func_or_empty = std::move(init_func_or_empty),
@@ -148,7 +148,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
     } // const auto sev_override_auto = // Restore logging to normal (how it normally is at thread start).
 
     // Avoid loop, thread exiting when no pending tasks remain.
-    Task_engine_work avoid_task_engine_stop(make_work_guard(*m_task_engine));
+    Task_engine_work avoid_task_engine_stop{make_work_guard(*m_task_engine)};
 
     // Block -- wait for tasks to be posted on this thread's (possibly shared with other threads) Task_engine.
     m_task_engine->run();
@@ -230,7 +230,7 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
      * trace to the logs as well.)  The answer is yes, though it's not on us to do it.  One should do such work either
      * in std::terminate() (by using std::set_terminate()) or, arguably even better, in a global SIGABRT handler.
      * I am only mentioning it here as opportunistic advice -- again, it's not in our purview, as shown above. */
-  })); // Thread body.
+  }}); // Thread body.
   // `nickname`, `init_task_or_empty` may now be hosed.
 
   if (done_promise_else_block)

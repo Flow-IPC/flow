@@ -18,36 +18,57 @@
 /// @file
 #pragma once
 
+#include "flow/util/detail/linked_hash.hpp"
 #include "flow/util/util_fwd.hpp"
 #include <cstddef>
-#include <boost/unordered_set.hpp>
-#include <boost/move/unique_ptr.hpp>
 
 namespace flow::util
 {
 
 /**
- * An object of this class is a set that combines the lookup speed of an `unordered_set<>` and ordering and iterator
- * stability capabilities of an `std::list<>`.
+ * An object of this class is a map that combines the lookup speed of an `unordered_set<>` and ordering and
+ * iterator stability capabilities of a `list<>`.
  *
  * This is just like Linked_hash_map, except it only stores keys -- no mapped values.  All comments, except for
  * self-explanatory differences, from Linked_hash_map apply here.  Thus I will only speak of differences below to
- * avoid duplication of this header.
+ * avoid duplication of this header.  Incidentally the most visible API difference (aside from having no `Mapped`s
+ * to speak of, only `Key`s) is that Linked_hash_set lacks `(*this)[]` operator; so one always uses insert() to
+ * insert.
  *
- * @see class Linked_hash_map.
+ * Move semantics for keys are supported (let `x` be a `*this`):
+ *   - `x.insert(std::move(a_key))`;
+ *   - `x.insert(Key{...})`.
  *
- * @tparam Key
+ * The iterators are, really, `list<Key>` const-iterators; and as such are not invalidated except
+ * due to direct erasure of a given pointee.
+ *
+ * @internal
+ * ### Impl notes ###
+ * It's very much like Linked_hash_map; just the `list` #m_value_list stores only `Key`s as opposed to
+ * `pair<const Key, Mapped>`s.  See Linked_hash_map.
+ * @endinternal
+ *
+ * @tparam Key_t
  *         Key type.  Same as for Linked_hash_map.
- * @tparam Hash
+ * @tparam Hash_t
  *         Hasher type.  Same as for Linked_hash_map.
- * @tparam Pred
+ * @tparam Pred_t
  *         Equality functor type.  Same as for Linked_hash_map.
  */
-template<typename Key, typename Hash, typename Pred>
+template<typename Key_t, typename Hash_t, typename Pred_t>
 class Linked_hash_set
 {
 public:
   // Types.
+
+  /// Convenience alias for template arg.
+  using Key = Key_t;
+
+  /// Convenience alias for template arg.
+  using Hash = Hash_t;
+
+  /// Convenience alias for template arg.
+  using Pred = Pred_t;
 
   /// Short-hand for values, which in this case are simply the keys.
   using Value = Key;
@@ -62,7 +83,7 @@ public:
 
   // Types (continued).
 
-  /// Type for index into array of items, where items are all applicable objects including `Value`s and `Key`s.
+  /// Expresses sizes/lengths of relevant things.
   using size_type = std::size_t;
   /// Type for difference of `size_type`s.
   using difference_type = std::ptrdiff_t;
@@ -85,22 +106,22 @@ public:
    */
   using Reverse_iterator = Const_reverse_iterator;
 
-  /// For container compliance (hence the irregular capitalization): `Key` type.
+  /// For container compliance (hence the irregular capitalization): #Key type.
   using key_type = Key;
-  /// For container compliance (hence the irregular capitalization): `Value` type.
+  /// For container compliance (hence the irregular capitalization): #Value type.
   using value_type = Value;
-  /// For container compliance (hence the irregular capitalization): `Hash` type.
+  /// For container compliance (hence the irregular capitalization): #Hash type.
   using hasher = Hash;
-  /// For container compliance (hence the irregular capitalization): `Pred` type.
+  /// For container compliance (hence the irregular capitalization): #Pred type.
   using key_equal = Pred;
-  /// For container compliance (hence the irregular capitalization): pointer to `Key` type.
+  /// For container compliance (hence the irregular capitalization): pointer to #Key type.
   using pointer = Value*;
   /// For container compliance (hence the irregular capitalization): pointer to `const Key` type.
-  using const_pointer = Value const *;
-  /// For container compliance (hence the irregular capitalization): reference to `Key` type.
+  using const_pointer = const Value*;
+  /// For container compliance (hence the irregular capitalization): reference to #Key type.
   using reference = Value&;
   /// For container compliance (hence the irregular capitalization): reference to `const Key` type.
-  using const_reference = Value const &;
+  using const_reference = const Value&;
   /// For container compliance (hence the irregular capitalization): `Iterator` type.
   using iterator = Iterator;
   /// For container compliance (hence the irregular capitalization): `Const_iterator` type.
@@ -112,52 +133,55 @@ public:
    * Constructs empty structure with some basic parameters.
    *
    * @param n_buckets
-   *        Number of buckets for the unordered (hash) table. Special value -1 (default) will cause us to use
+   *        Number of buckets for the unordered (hash) table.  Special value -1 (default) will cause us to use
    *        whatever `unordered_set<>` would use by default.
-   * @param hasher_instance
-   *        Instance of the hash function type (`hasher_instance(Key k)` should be `size_type`d hash of key `k`).
-   * @param key_equal_instance
-   *        Instance of the equality function type (`key_equal_instance(Key k1, Key k2)` should return `true` if and
-   *        only if `k1` equals `k2`).
+   * @param hasher_obj
+   *        Instance of the hash function type (`hasher_obj(k) -> size_t` should be hash of `Key k`).
+   * @param pred
+   *        Instance of the equality function type (`pred(k1, k2)` should return `true` if and
+   *        only if the `Key`s are equal by value).
    */
-  explicit Linked_hash_set(size_type n_buckets = size_type(-1),
-                           Hash const & hasher_instance = Hash(),
-                           Pred const & key_equal_instance = Pred());
+  Linked_hash_set(size_type n_buckets = size_type(-1),
+                  const Hash& hasher_obj = Hash{},
+                  const Pred& pred = Pred{});
 
   /**
    * Constructs structure with some basic parameters, and values initialized from initializer list.
-   * The values are inserted as if `insert(v)` was called for each pair `v` in `values`
-   * <em>in reverse order</em>.  Since the canonical ordering places the *newest* (last inserted/touch()ed)
+   * The values are inserted as if `insert(v)` was called for each element `v` in `values`
+   * **in reverse order**.  Since the canonical ordering places the *newest* (last inserted/`touch()`ed)
    * element at the *front* of the ordering, that means that forward iteration through the set (right after this
    * constructor runs) will yield values in the *same* order as in initializer list `values`.
    *
    * @param values
    *        Values with which to fill the structure after initializing it.
    *        Typically you'd provide a series of keys like this:
-   *        `{ key1, key2, ... }`.  They will appear in iterated sequence in the same order as they appear
-   *        in this list.
+   *        `{ key1, key2, ... }`.  They will appear in iterated sequence in the same order as
+   *        they appear in this list.
    * @param n_buckets
    *        See other constructor.
-   * @param hasher_instance
+   * @param hasher_obj
    *        See other constructor.
-   * @param key_equal_instance
+   * @param pred
    *        See other constructor.
    */
   explicit Linked_hash_set(std::initializer_list<Value> values,
                            size_type n_buckets = size_type(-1),
-                           Hash const & hasher_instance = Hash(),
-                           Pred const & key_equal_instance = Pred());
+                           const Hash& hasher_obj = Hash{},
+                           const Pred& pred = Pred{});
 
   /**
-   * Constructs object that is a copy of the given source.  Equivalent to `operator=(src)`.
+   * Constructs object that is a copy of the given source.  Equivalent to default-ction followed by `operator=(src)`.
    *
    * @param src
    *        Source object.
    */
-  Linked_hash_set(Linked_hash_set const & src);
+  Linked_hash_set(const Linked_hash_set& src);
 
   /**
    * Constructs object by making it equal to the given source, while the given source becomes as-if default-cted.
+   * Equivalent to default-ction followed by `operator=(std::move(src))`.
+   *
+   * This is a constant-time operation.
    *
    * @param src
    *        Source object which is emptied.
@@ -167,99 +191,92 @@ public:
   // Methods.
 
   /**
-   * Overwrites this object with a copy of the given source.  We become equal to `src` but independent of it to the max
-   * extent possible (if you've got pointers stored in there, for example, the pointers are copied, not the values
-   * at those pointers).  In addition, the hasher instance and equality predicate are copied from `src`.  Finally, a
-   * reasonable attempt is made to also make the internal structure of the hash set to be similar to that of `src`.
+   * Overwrites this object with a copy of the given source.  We become equal to `src` but independent of it to a
+   * common-sense extent.  In addition, the hasher instance and equality predicate are copied from `src`.  Finally, a
+   * reasonable attempt is made to also make the internal structure of the hash map to be similar to that of `src.
    *
    * @param src
-   *        Source object.
+   *        Source object.  No-op if `this == &src`.
    * @return `*this`.
    */
-  Linked_hash_set& operator=(Linked_hash_set const & src);
+  Linked_hash_set& operator=(const Linked_hash_set& src);
 
   /**
-   * Overwrites this object making it equal to the given source, while the given source becomes as-if default-cted.
+   * Overwrites this object making it identical to the given source, while the given source becomes as-if default-cted.
+   *
+   * This is a constant-time operation, plus whatever is the cost of `this->clear()` (linear in pre-op `.size()`).
    *
    * @param src
-   *        Source object which is emptied (unless it *is* `*this`; then no-op).
+   *        Source object which is emptied; except no-op if `this == &src`.
    * @return `*this`.
    */
   Linked_hash_set& operator=(Linked_hash_set&& src);
 
   /**
-   * Attempts to insert the given key into the set.  If the key is already present in the set,
-   * does nothing.  Return value indicates various info of interest about what occurred or did not occur.
-   * Key presence is determined according to the `Pred` template parameter which determines equality of 2 given keys;
-   * and via the `Hash` template parameter that enables efficient hash-based lookup.
+   * Swaps the contents of this structure and `other`.  This is a constant-time operation, as internal
+   * representations are swapped instead of any copy-assignment.
+   *
+   * @see The `swap()` free function.
+   *      It is generally best (equivalent but covers more generic cases) to use the ADL-enabled `swap(a, b)`
+   *      pattern instead of this member function.  That is: `using std::swap; ...; swap(a, b);`.
+   *      (Details are outside our scope here; but in short ADL will cause the right thing to happen.)
+   *
+   * @param other
+   *        The other structure.
+   */
+  void swap(Linked_hash_set& other);
+
+  /**
+   * Attempts to insert (copying it) the given keyinto the map; if key
+   * already in `*this` makes no change.  See also the overload which can avoid a copy and destructively move
+   * the key instead.
+   *
+   * Return value indicates various info of interest about what occurred or did not occur.
    * If inserted, the new element is considered "newest," as if by touch().  If not inserted, the existing element
-   * location is not affected.
+   * location is not affected (use touch() upon consulting the return value, if this is desirable).
    *
    * @param key
-   *        The key to attempt to insert.  This value is copied, and the copy is inserted.
-   * @return A pair whose second element is `true` if and only if the insertion occurred; and whose first element
-   *         is an iterator pointing to either the newly inserted element or already present one equal to
+   *        The key to attempt to insert.  A copy of this value is placed in `*this`.
+   * @return A pair whose second element is true if and only if the insertion occurred; and whose first element
+   *         is an iterator pointing to either the newly inserted element or already present one with a key equal to
    *         `key`.
    */
-  std::pair<Iterator, bool> insert(Value const & key);
+  std::pair<Iterator, bool> insert(const Key& key);
 
   /**
-   * Attempts to find the given key in the set.  Key presence is determined according to the `Pred` template
-   * parameter which determines equality of 2 given keys; and via the `Hash` template parameter that enables efficient
-   * hash-based lookup.  The returned iterator (if valid) cannot be used to mutate the elements stored in the map.
+   * Identical to the other overload, except that (if key not already present in `*this`) the key
+   * is moved, not copied, into `*this`.
    *
-   * As long as the key is not removed from the map, the iterator will continue to be valid.
+   * @param key
+   *        The key to attempt to insert (it is moved-from, if insertion occurs).
+   * @return See other overload.
+   */
+  std::pair<Iterator, bool> insert(Key&& key);
+
+  /**
+   * Attempts to find value at the given key in the map.  Key presence is determined identically to how it would be
+   * done in an `unordered_set<Key_t, Hash_t, Pred_t>`, with the particular #Hash and #Pred instances given to ctor
+   * (typically their default-cted instances, typically occupying no memory).
    *
-   * @note Let `r` be the returned value.  Since no `key`-associated value beyond `key` itself is stored in the
-   *       structure, the fact that `*r == key` is not valuable: you already had `key` after all!  It is only useful
-   *       in pin-pointing the relative location in the chronological ordering; in being used as an argument to
-   *       various erasing methods; and in checking for presence of the key in the set.  For the latter, I recommend
-   *       the following utility:
-   * @see util::key_exists(), which uses this method to more concisely check for the presence of a key.
+   * The returned iterator (if valid) *cannot* be used to mutate the key inside the map.
+   *
    * @param key
    *        Key whose equal to find.
-   * @return If found, iterator to the equivalent key; else `this->const_past_oldest()`.
+   * @return If found, iterator to the key/mapped-value pair with the equivalent key; else `this->end()`.
    */
-  Const_iterator find(Key const & key) const;
+  Const_iterator find(const Key& key) const;
 
   /**
-   * Returns the number of times a key is equivalent to the given one is present in the hash: either 1 or 0.
+   * Returns the number of times a key equal to the given one is present (as-if via find()) in the map: either 1 or 0.
    *
    * @param key
    *        Key whose equal to find.
    * @return 0 or 1.
    */
-  size_type count(Key const & key) const;
+  size_type count(const Key& key) const;
 
   /**
-   * Returns reference to immutable front ("newest") element in the structure; formally equivalent to
-   * `*(this->const_newest())`.
-   *
-   * OK to call when empty(); but behavior undefined if you attempt to access the result in any way if either empty()
-   * when this was called; or if `!empty()` at that time, but the underlying element is erased at time of access.
-   * If not `empty()` when this was called, then resulting reference continues to be valid as long as the underlying
-   * element is not erased; however, in the future the reference (while referring to the same element) might not refer
-   * to front ("newest") element any longer.  (Informally, most uses would only call const_front() when `!empty()`, and
-   * would access it immediately and but once.  However, I'm listing the corner cases above.)
-   *
-   * @return Reference to immutable `Key` (a/k/a `Value`) directly inside data structure; or to undefined location if
-   *         currently empty().
-   */
-  Value const & const_front() const;
-
-  /**
-   * Returns reference to immutable back ("oldest") element in the structure; formally equivalent to
-   * `*(--this->const_past_oldest())`.
-   *
-   * All other comments for const_front() apply analogously.
-   *
-   * @return Reference to immutable `Key` (a/k/a `Value`) directly inside data structure; or to undefined location if
-   *         currently empty().
-   */
-  Value const & const_back() const;
-
-  /**
-   * Given a valid iterator into the structure, makes the pointed to element "newest" by moving it from wherever it
+   * Given a valid iterator into the structure, makes the pointed-to element "newest" by moving it from wherever it
    * is to be first in the iteration order.  Behavior undefined if iterator invalid.
    *
    * The iterator continues to be valid.
@@ -267,18 +284,18 @@ public:
    * @param it
    *        Iterator to an element of the structure.
    */
-  void touch(Const_iterator const & it);
+  void touch(const Const_iterator& it);
 
   /**
    * Given a key into the structure, makes the corresponding element "newest" by moving it from wherever it
-   * is to be first in the iteration order; or does nothing if no such key.  Return value indicates various info of
-   * interest about what occurred or did not occur.
+   * is to be first in the iteration order; or does nothing if no such key.  `find(key)` equivalent is performed
+   * first.  Return value indicates whether it was found.
    *
    * @param key
    *        Key whose equal to find.
-   * @return `true` if the key was found (even if it was already "newest"); false if not found.
+   * @return `true` if the key was found (even if it was already "newest"); `false` if not found.
    */
-  bool touch(Key const & key);
+  bool touch(const Key& key);
 
   /**
    * Erases the element pointed to by the given valid iterator.  Behavior undefined if it is not valid.  `it` becomes
@@ -288,10 +305,11 @@ public:
    *        Iterator of element to erase.
    * @return Iterator one position past (i.e., "older") than `it`, before `*it` was removed.
    */
-  Iterator erase(Const_iterator const & it);
+  Const_iterator erase(const Const_iterator& it);
 
   /**
-   * Erases all elements in the range [`it_newest`, `it_past_oldest`).  Behavior undefined if given iterator is invalid.
+   * Erases all elements in the range [`it_newest`, `it_past_oldest`).  Behavior undefined if a given iterator is
+   * invalid, or if the range is invalid.  Corner case: an empty range is allowed; then this no-ops.  Unless no-op,
    * `it_newest` becomes invalid.
    *
    * @param it_newest
@@ -300,34 +318,20 @@ public:
    *        Iterator of one past last ("oldest") element to erase.
    * @return `it_past_oldest` copy.
    */
-  Iterator erase(Const_iterator const & it_newest, Const_iterator const & it_past_oldest);
+  Const_iterator erase(const Const_iterator& it_newest, const Const_iterator& it_past_oldest);
 
   /**
-   * Erases the element with the given key, if it exists.  Return value indicates various info of interest about what
-   * occurred or did not occur.
+   * Erases the element with the given key, if it exists.  `find(key)` equivalent is performed
+   * first.  Return value indicates whether it existed.
    *
    * @param key
    *        Key such that its equal's (if found) element will be erased.
    * @return Number of elements erased (0 or 1).
    */
-  size_type erase(Key const & key);
-
-  /// Queue-style pop (erase) of the front -- a/k/a newest -- element.  Behavior undefined if empty().
-  void pop_front();
-
-  /// Queue-style pop (erase) of the back -- a/k/a oldest -- element.  Behavior undefined if empty().
-  void pop_back();
+  size_type erase(const Key& key);
 
   /// Makes it so that `size() == 0`.
   void clear();
-
-  /**
-   * Swaps the contents of this structure and `other`.  This is a constant-time operation.
-   *
-   * @param other
-   *        The other structure.
-   */
-  void swap(Linked_hash_set& other);
 
   /**
    * Synonym of newest().
@@ -427,119 +431,96 @@ public:
   Const_reverse_iterator const_past_newest() const;
 
   /**
-   * Returns `true` if and only if container is empty.  Same performance as of `unordered_map<>`.
+   * Returns true if and only if container is empty.  Same performance as of `unordered_set<>`.
    * @return Ditto.
    */
   bool empty() const;
 
   /**
-   * Returns number of elements stored.  Same performance as of `unordered_map<>`.
+   * Returns number of elements stored.  Same performance as of `unordered_set<>.`
    * @return Ditto.
    */
   size_type size() const;
 
   /**
-   * Returns max number of elements that can be stored.  Same performance as of `unordered_map<>` + `list<>`.
+   * Returns max number of elements that can be stored.  Same performance as of `unordered_set<>` + `list<>`.
    * @return Ditto.
    */
   size_type max_size() const;
 
 private:
 
-  // Methods.
-
-  /**
-   * Helper that modifies #m_value_list and #m_keys_into_list_map so that `key`'s copy is inserted into
-   * the structure.  Pre-condition is that `key` is not in the structure (else behavior undefined).
-   *
-   * @param key
-   *        Same as in insert().
-   * @return Same as in `insert().first`.
-   */
-  Iterator insert_impl(Value const & key);
-
-  // Types.
-
-  /// Short-hand for iterator into doubly linked list of `Key` elements.
-  using Value_list_iter = Iterator;
-
-  /// Short-hand for const iterator into doubly linked list of `Key` elements.
-  using Value_list_const_iter = Const_iterator;
-
-  /// Short-hand for a hash map that maps `Key` to iterator into doubly linked list of `Key` elements.
-  using Key_to_value_iter_map = boost::unordered_map<Key, Value_list_iter, Hash, Pred>;
-
   // Data.
 
-  /// See Linked_hash_map::m_value_list.  Essentially all of that applies here.
+  /// Analogous to Linked_hash_map::m_value_list; but simpler in that it just stores `Key`s, not pairs of (stuff).
   Value_list m_value_list;
 
-  /// See Linked_hash_map::m_keys_into_list_map.  Essentially all of that applies here.
-  boost::movelib::unique_ptr<Key_to_value_iter_map> m_keys_into_list_map;
+  /**
+   * Analogous to Linked_hash_map::m_value_iter_set; just configured to generate a simpler `.iter()` off each element
+   * by supplying `false` instead of `true` for the last template arg.
+   */
+  Linked_hash_key_set<Key, Iterator, Hash, Pred, false> m_value_iter_set;
 }; // class Linked_hash_set
 
 // Free functions: in *_fwd.hpp.
 
 // Template implementations.
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>::Linked_hash_set(size_type n_buckets,
-                                                  hasher const & hasher_instance,
-                                                  key_equal const & key_equal_instance) :
-  Linked_hash_set({}, n_buckets, hasher_instance, key_equal_instance)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(size_type n_buckets,
+                                                        const Hash& hasher_obj,
+                                                        const Pred& pred) :
+  Linked_hash_set({}, n_buckets, hasher_obj, pred)
 {
-  // Nothing.
+  // That's all.
 }
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>::Linked_hash_set(std::initializer_list<Value> values,
-                                                  size_type n_buckets,
-                                                  hasher const & hasher_instance,
-                                                  key_equal const & key_equal_instance) :
-  // Their initializer_list is meant for a set, but it is perfect for our list of keys.
-  m_value_list(values)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(std::initializer_list<Value> values,
+                                                        size_type n_buckets,
+                                                        const Hash& hasher_obj,
+                                                        const Pred& pred) :
+  // Their initializer_list is meant for a set of keys, but it is perfect for our list of keys.
+  m_value_list(values),
+  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
+   * We blame the somewhat annoying ctor API for unordered_*. */
+  m_value_iter_set((n_buckets == size_type(-1))
+                     ? boost::unordered::detail::default_bucket_count
+                     : n_buckets,
+                   hasher_obj, pred)
 {
-  using boost::unordered_set;
-
-  /* Guess the default size, if they specified the default, from a dummy unrelated-type set.  Probably
-   * that'll be correct.  Even use our template argument values, just in case that matters. */
-  if (n_buckets == size_type(-1))
-  {
-    unordered_set<Key, Hash, Pred> dummy;
-    n_buckets = dummy.bucket_count();
-  }
-
-  // We use a unique_ptr<> because of the above: we couldn't immediately initialize this map.
-  m_keys_into_list_map.reset(new Key_to_value_iter_map(n_buckets, hasher_instance, key_equal_instance));
-
   // Now link each key in the quick-lookup table to its stored location in the ordering.
-  for (Value_list_iter value_list_it = m_value_list.begin(); value_list_it != m_value_list.end();
-       ++value_list_it)
+  const auto value_list_end_it = m_value_list.cend();
+  for (auto value_list_it = m_value_list.cbegin(); value_list_it != value_list_end_it; ++value_list_it)
   {
-    // Note this sets (at key K) the value: iterator to K.
-    (*m_keys_into_list_map)[*value_list_it] = value_list_it;
+    // Note that value_list_it contains both the iterator (lookup result) and the lookup key (iterator pointee).
+    m_value_iter_set.insert(value_list_it);
   }
 }
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>::Linked_hash_set(Linked_hash_set const & src) :
-  m_keys_into_list_map(new Key_to_value_iter_map()) // Dummy: all this is quickly replaced.
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(const Linked_hash_set& src)
+  // An empty m_value_iter_set is constructed here but immediately replaced within the {body}.
 {
   operator=(src);
 }
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>::Linked_hash_set(Linked_hash_set&& src) :
-  m_keys_into_list_map(new Key_to_value_iter_map()) // Dummy: all this is quickly replaced.
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(Linked_hash_set&& src)
+  // An empty m_value_iter_set is constructed here but immediately replaced within the {body}.
 {
   operator=(std::move(src));
 }
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>&
-  Linked_hash_set<Key, Hash, Pred>::operator=(Linked_hash_set const & src)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>&
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::operator=(const Linked_hash_set& src)
 {
-  // See Linked_hash_map equivalent method, to which this is analogous. Keeping comments here light.
+  /* See Linked_hash_map equivalent method, to which this is analogous.  Keeping comments here light.
+   * Though we don't have to do the reinterpret_cast<> thing; can just assign the list to src's counterpart;
+   * in our case Value is just Key -- no const-ness involved. */
+
+  using Value_iter_set = decltype(m_value_iter_set);
 
   if (&src == this)
   {
@@ -547,36 +528,25 @@ Linked_hash_set<Key, Hash, Pred>&
   }
   // else
 
+  m_value_list = src.m_value_list;
+
+  const auto& src_value_iter_set = src.m_value_iter_set;
+  m_value_iter_set = Value_iter_set{src_value_iter_set.bucket_count(),
+                                    src_value_iter_set.hash_function(),
+                                    src_value_iter_set.key_eq()};
+
+  const auto value_list_end_it = m_value_list.cend();
+  for (auto value_list_it = m_value_list.cbegin(); value_list_it != value_list_end_it; ++value_list_it)
   {
-    using std::pair;
-    using std::list;
-
-    using Mutable_key_list = list<Key>;
-
-    Mutable_key_list* const dst_list_ptr
-      = reinterpret_cast<Mutable_key_list*>(&m_value_list);
-    const Mutable_key_list* const src_list_ptr
-      = reinterpret_cast<const Mutable_key_list*>(&src.m_value_list);
-
-    *dst_list_ptr = *src_list_ptr;
-  }
-
-  *m_keys_into_list_map = *src.m_keys_into_list_map;
-
-  // So now replace the keys in the ready map.
-  for (Value_list_iter value_list_it = m_value_list.begin(); value_list_it != m_value_list.end();
-       ++value_list_it)
-  {
-    // Note this sets (at key K) the value: iterator to K.
-    (*m_keys_into_list_map)[*value_list_it] = value_list_it;
+    m_value_iter_set.insert(value_list_it);
   }
 
   return *this;
 } // Linked_hash_set::operator=()
 
-template<typename Key, typename Hash, typename Pred>
-Linked_hash_set<Key, Hash, Pred>&
-  Linked_hash_set<Key, Hash, Pred>::operator=(Linked_hash_set&& src)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+Linked_hash_set<Key_t, Hash_t, Pred_t>&
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::operator=(Linked_hash_set&& src)
 {
   if (&src != this)
   {
@@ -586,76 +556,88 @@ Linked_hash_set<Key, Hash, Pred>&
   return *this;
 }
 
-template<typename Key, typename Hash, typename Pred>
-std::pair<typename Linked_hash_set<Key, Hash, Pred>::Iterator, bool>
-  Linked_hash_set<Key, Hash, Pred>::insert(Value const & key)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+void Linked_hash_set<Key_t, Hash_t, Pred_t>::swap(Linked_hash_set& other)
 {
-  // See Linked_hash_map equivalent method, to which this is analogous. Keeping comments here light.
+  using std::swap;
 
+  swap(m_value_iter_set, other.m_value_iter_set); // unordered_set<> exchange; constant-time for sure at least.
+  swap(m_value_list, other.m_value_list); // list<> exchange (probably ~= head+tail pointer pairs exchanged).
+  // Per cppreference.com `list<>::iterator`s (inside the `_maps`s) remain valid after list<>s swapped.
+}
+
+template<typename Key_t, typename Hash_t, typename Pred_t>
+std::pair<typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator, bool>
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::insert(const Key& key)
+{
   using std::pair;
 
-  typename Key_to_value_iter_map::iterator const map_it = m_keys_into_list_map->find(key);
-  if (map_it != m_keys_into_list_map->end())
+  const auto set_it = m_value_iter_set.find(key);
+  if (set_it != m_value_iter_set.end())
   {
-    return pair<Iterator, bool>(map_it->second, false);
+    return pair<Iterator, bool>{set_it->iter(), false}; // *set_it is Linked_hash_key.
   }
-  return pair<Iterator, bool>(insert_impl(key), true);
+  // else
+
+  /* Insert it at the front: as advertised, new element is "touched," meaning it is made "newest," so goes at start.
+   * Note that "it" = a copy of key; this invokes Key copy ctor, as emplace_front() forwards to it. */
+  m_value_list.emplace_front(key);
+
+  /* Iterator to the new element is therefore iterator to start of list of `Key`s.
+   * And make sure we can look it up in the future quickly (such as what is done above).
+   * Linked_hash_key_set m_value_iter_set achieves these aims black-boxily. */
+  const auto list_it = m_value_list.cbegin();
+  m_value_iter_set.insert(list_it);
+  return pair<Iterator, bool>{list_it, true};
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::insert_impl(Value const & key)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+std::pair<typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator, bool>
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::insert(Key&& key)
 {
-  // See Linked_hash_map equivalent method, to which this is analogous. Keeping comments here light.
+  using std::pair;
 
-  m_value_list.push_front(key);
-  Iterator const new_elem_it = m_value_list.begin();
-  (*m_keys_into_list_map)[key] = new_elem_it;
+  // Same as other insert() but construct value in-place inside the list<> as-if: Key k2{move(k)}.
 
-  return new_elem_it;
+  const auto set_it = m_value_iter_set.find(key);
+  if (set_it != m_value_iter_set.end())
+  {
+    return pair<Iterator, bool>{set_it->iter(), false}; // *set_it is Linked_hash_key.
+  }
+  // else
+
+  m_value_list.emplace_front(std::move(key)); // <-- The difference.
+
+  const auto list_it = m_value_list.cbegin();
+  m_value_iter_set.insert(list_it);
+  return pair<Iterator, bool>{list_it, true};
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_iterator
-  Linked_hash_set<Key, Hash, Pred>::find(Key const & key) const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::find(const Key& key) const
 {
-  typename Key_to_value_iter_map::const_iterator const map_it = m_keys_into_list_map->find(key);
-  return (map_it == m_keys_into_list_map->cend()) ? m_value_list.cend() : map_it->second;
+  const auto set_it = m_value_iter_set.find(key);
+  return (set_it == m_value_iter_set.cend()) ? m_value_list.cend() : set_it->iter();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::size_type
-  Linked_hash_set<Key, Hash, Pred>::count(Key const & key) const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::size_type
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::count(const Key& key) const
 {
-  return m_keys_into_list_map->count(key);
+  return m_value_iter_set.count(key);
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Value const &
-  Linked_hash_set<Key, Hash, Pred>::const_front() const
-{
-  // No assert(): we promised not to crash even if empty().  They just can't access it subsequently if so.
-  return *(const_newest());
-}
-
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Value const &
-  Linked_hash_set<Key, Hash, Pred>::const_back() const
-{
-  // No assert(): we promised not to crash even if empty().  They just can't access it subsequently if so.
-  return *(--const_past_oldest());
-}
-
-template<typename Key, typename Hash, typename Pred>
-void Linked_hash_set<Key, Hash, Pred>::touch(Const_iterator const & it)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+void Linked_hash_set<Key_t, Hash_t, Pred_t>::touch(const Const_iterator& it)
 {
   m_value_list.splice(m_value_list.begin(), m_value_list, it);
 }
 
-template<typename Key, typename Hash, typename Pred>
-bool Linked_hash_set<Key, Hash, Pred>::touch(Key const & key)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+bool Linked_hash_set<Key_t, Hash_t, Pred_t>::touch(const Key& key)
 {
-  const Iterator it = find(key);
+  const auto it = find(key);
   if (it == end())
   {
     return false;
@@ -666,212 +648,187 @@ bool Linked_hash_set<Key, Hash, Pred>::touch(Key const & key)
   return true;
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::erase(Const_iterator const & it)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::erase(const Const_iterator& it)
 {
-  m_keys_into_list_map->erase(m_keys_into_list_map->find(*it));
+  m_value_iter_set.erase(*it);
   return m_value_list.erase(it);
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::erase(Const_iterator const & it_newest,
-                                          Const_iterator const & it_past_oldest)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::erase(const Const_iterator& it_newest, const Const_iterator& it_past_oldest)
 {
-  for (Value_list_const_iter it = it_newest; it != it_past_oldest; ++it)
+  for (auto it = it_newest; it != it_past_oldest; ++it)
   {
-    m_keys_into_list_map->erase(it->first);
+    m_value_iter_set.erase(*it);
   }
 
   return m_value_list.erase(it_newest, it_past_oldest);
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::size_type
-  Linked_hash_set<Key, Hash, Pred>::erase(Key const & key)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::size_type
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::erase(const Key& key)
 {
-  typename Key_to_value_iter_map::iterator const map_it = m_keys_into_list_map->find(key);
-  if (map_it == m_keys_into_list_map->end())
+  const auto set_it = m_value_iter_set.find(key);
+  if (set_it == m_value_iter_set.end())
   {
     return 0;
   }
   // else
 
-  m_value_list.erase(map_it->second);
-  m_keys_into_list_map->erase(map_it);
+  const auto list_it = set_it->iter();
+  m_value_iter_set.erase(set_it);
+  m_value_list.erase(list_it);
 
   return 1;
 }
 
-template<typename Key, typename Hash, typename Pred>
-void Linked_hash_set<Key, Hash, Pred>::pop_front()
+template<typename Key_t, typename Hash_t, typename Pred_t>
+void Linked_hash_set<Key_t, Hash_t, Pred_t>::clear()
 {
-  assert(!empty());
-  erase(const_newest());
-}
-
-template<typename Key, typename Hash, typename Pred>
-void Linked_hash_set<Key, Hash, Pred>::pop_back()
-{
-  assert(!empty());
-  erase(--const_past_oldest());
-}
-
-template<typename Key, typename Hash, typename Pred>
-void Linked_hash_set<Key, Hash, Pred>::clear()
-{
-  m_keys_into_list_map->clear();
+  m_value_iter_set.clear();
   m_value_list.clear();
 }
 
-template<typename Key, typename Hash, typename Pred>
-void Linked_hash_set<Key, Hash, Pred>::swap(Linked_hash_set& other)
-{
-  using std::swap;
-
-  swap(m_keys_into_list_map, other.m_keys_into_list_map); // unique_ptr<>s exchanged (= raw pointers exchanged).
-  swap(m_value_list, other.m_value_list); // list<> exchange (probably = head+tail pointer pairs exchanged).
-  // Per cppreference.com `list<>::iterator`s (inside the `_maps`s) remain valid after list<>s swapped.
-}
-
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::newest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::newest() const
 {
   return m_value_list.cbegin();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_iterator
-  Linked_hash_set<Key, Hash, Pred>::const_newest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::const_newest() const
 {
   return newest(); // For us Iterator = Const_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::begin() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::begin() const
 {
   return newest();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_iterator
-  Linked_hash_set<Key, Hash, Pred>::cbegin() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::cbegin() const
 {
   return begin(); // For us Iterator = Const_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::past_oldest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::past_oldest() const
 {
   return m_value_list.cend();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_iterator
-  Linked_hash_set<Key, Hash, Pred>::const_past_oldest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::const_past_oldest() const
 {
   return past_oldest(); // For us Iterator = Const_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Iterator
-  Linked_hash_set<Key, Hash, Pred>::end() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::end() const
 {
   return past_oldest();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_iterator
-  Linked_hash_set<Key, Hash, Pred>::cend() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::cend() const
 {
   return end(); // For us Iterator = Const_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::oldest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::oldest() const
 {
   return m_value_list.crbegin();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::const_oldest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::const_oldest() const
 {
   return oldest(); // For us Iterator = Const_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::rbegin() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::rbegin() const
 {
   return oldest();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::crbegin() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::crbegin() const
 {
   return rbegin(); // For us Reverse_iterator = Const_reverse_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::past_newest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::past_newest() const
 {
   return m_value_list.crend(); // For us Reverse_iterator = Const_reverse_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::const_past_newest() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::const_past_newest() const
 {
   return past_newest(); // For us Reverse_iterator = Const_reverse_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::rend() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::rend() const
 {
   return past_newest();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::Const_reverse_iterator
-  Linked_hash_set<Key, Hash, Pred>::crend() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::Const_reverse_iterator
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::crend() const
 {
   return m_value_list.rend(); // For us Reverse_iterator = Const_reverse_iterator.
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::size_type
-  Linked_hash_set<Key, Hash, Pred>::size() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::size_type
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::size() const
 {
-  return m_keys_into_list_map->size(); // I'm skeptical/terrified of list::size()'s time complexity.
+  return m_value_iter_set.size(); // I'm skeptical/terrified of list::size()'s time complexity.
 }
 
-template<typename Key, typename Hash, typename Pred>
-bool Linked_hash_set<Key, Hash, Pred>::empty() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+bool Linked_hash_set<Key_t, Hash_t, Pred_t>::empty() const
 {
-  return m_keys_into_list_map->empty();
+  return m_value_list.empty();
 }
 
-template<typename Key, typename Hash, typename Pred>
-typename Linked_hash_set<Key, Hash, Pred>::size_type
-  Linked_hash_set<Key, Hash, Pred>::max_size() const
+template<typename Key_t, typename Hash_t, typename Pred_t>
+typename Linked_hash_set<Key_t, Hash_t, Pred_t>::size_type
+  Linked_hash_set<Key_t, Hash_t, Pred_t>::max_size() const
 {
-  return std::min(m_keys_into_list_map->max_size(), m_value_list.max_size());
+  return std::min(m_value_iter_set.max_size(), m_value_list.max_size());
 }
 
-template<typename Key, typename Hash, typename Pred>
-void swap(Linked_hash_set<Key, Hash, Pred>& val1, Linked_hash_set<Key, Hash, Pred>& val2)
+template<typename Key_t, typename Hash_t, typename Pred_t>
+void swap(Linked_hash_set<Key_t, Hash_t, Pred_t>& val1, Linked_hash_set<Key_t, Hash_t, Pred_t>& val2)
 {
   val1.swap(val2);
 }
 
 } // namespace flow::util
-

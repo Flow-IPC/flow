@@ -42,7 +42,7 @@ const boost::unordered_map<Event_set::Event_type, Function<bool (const Node*, co
 Event_set::Event_set(log::Logger* logger_ptr) :
   log::Log_context(logger_ptr, Flow_log_component::S_NET_FLOW),
   m_state(State::S_CLOSED), // Incorrect; set explicitly.
-  m_node(0), // Incorrect; set explicitly.
+  m_node(nullptr), // Incorrect; set explicitly.
   m_want(empty_ev_type_to_socks_map()), // Each event type => empty socket set.
   m_can(empty_ev_type_to_socks_map()), // Ditto.
   m_baseline_check_pending(false)
@@ -59,13 +59,13 @@ Event_set::~Event_set()
 
 Event_set::State Event_set::state() const
 {
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
   return m_state;
 }
 
 Node* Event_set::node() const
 {
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
   return m_node;
 }
 
@@ -177,7 +177,7 @@ bool Event_set::async_wait(const Event_handler& on_event, Error_code* err_code)
    * wait" functionality in isolation (something like a select() with a 0 timeout). */
 
   // Lock everything.  We're going to be writing to things other user threads and W will be accessing/writing.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   // Check for invalid arguments, basically.
   if (all_of(m_want, ev_type_to_socks_map_entry_is_empty))
@@ -232,7 +232,7 @@ bool Event_set::async_wait_finish(Error_code* err_code)
    * when/if it gets to it, as user is no longer interested in *this's events (which is correct). */
 
   // Lock everything, as we'll be reading/changing m_state at least.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   if (m_state == State::S_CLOSED)
   {
@@ -289,7 +289,7 @@ bool Event_set::poll(Error_code* err_code)
    * Of course, the result is faster and simpler code as well (compared to post()ing it). */
 
   // Lock everything, as we'll be reading/changing much state.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   if (m_state == State::S_CLOSED)
   {
@@ -355,7 +355,7 @@ bool Event_set::sync_wait_impl(const Fine_duration& max_wait, Error_code* err_co
 
   {
     // Lock so that we can safely check result of the poll() without another thread messing with it.
-    Lock_guard lock(m_mutex); // OK because m_mutex is recursive (poll() will also momentarily lock).
+    Lock_guard lock{m_mutex}; // OK because m_mutex is recursive (poll() will also momentarily lock).
 
     if (!poll(err_code)) // May throw.
     {
@@ -471,7 +471,7 @@ void Event_set::close(Error_code* err_code)
 
   // We are in user thread U != W.
 
-  Lock_guard lock(m_mutex); // Lock m_node/m_state; also it's a pre-condition for Node::event_set_close().
+  Lock_guard lock{m_mutex}; // Lock m_node/m_state; also it's a pre-condition for Node::event_set_close().
 
   if (m_state == State::S_CLOSED)
   {
@@ -502,7 +502,7 @@ bool Event_set::swap_wanted_sockets(Sockets* target_set, Event_type ev_type, Err
   assert(target_set);
 
   // Accessing m_state, socket sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   Sockets& want_set = m_want[ev_type];
 
@@ -530,7 +530,7 @@ bool Event_set::clear_wanted_sockets(Event_type ev_type, Error_code* err_code)
   // We are in thread U != W.
 
   // Accessing m_state, the sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   Sockets& want_set = m_want[ev_type];
 
@@ -558,7 +558,7 @@ bool Event_set::events_wanted(Error_code* err_code) const
   // We are in thread U != W.
 
   // Lock everything, as we'll be reading state and other things.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   if (m_state == State::S_CLOSED)
   {
@@ -581,7 +581,7 @@ bool Event_set::events_detected(Error_code* err_code) const
   // We are in thread U != qW.
 
   // Lock everything, as we'll be reading state.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   if (m_state == State::S_CLOSED)
   {
@@ -618,7 +618,7 @@ bool Event_set::emit_result_sockets(Sockets* target_set, Event_type ev_type, Err
   assert(target_set);
 
   // Accessing m_state, the sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   Sockets& can_set = m_can[ev_type];
 
@@ -652,7 +652,7 @@ bool Event_set::clear_result_sockets(Event_type ev_type, Error_code* err_code)
   // We are in thread U != W.
 
   // Accessing m_state, the sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   Sockets& can_set = m_can[ev_type];
 
@@ -712,7 +712,7 @@ bool Event_set::clear(Error_code* err_code)
   // We are in thread U != W.
 
   // Accessing m_state, the sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   FLOW_LOG_TRACE("Clearing sets in Event_set [" << this << "]; pre-clear set sizes: "
                  "wanted [" << ev_type_to_socks_map_sizes_to_str(m_want) << "], "
@@ -734,12 +734,12 @@ bool Event_set::clear(Error_code* err_code)
 Event_set::Ev_type_to_socks_map Event_set::empty_ev_type_to_socks_map() // Static.
 {
   return Ev_type_to_socks_map
-         ({
+         {{
             // Linked_hash_map order is significant.  Iteration will occur in this canonical order in logs, etc.
             { Event_type::S_PEER_SOCKET_READABLE, Sockets() },
             { Event_type::S_PEER_SOCKET_WRITABLE, Sockets() },
             { Event_type::S_SERVER_SOCKET_ACCEPTABLE, Sockets() }
-          });
+          }};
 }
 
 void Event_set::clear_ev_type_to_socks_map(Ev_type_to_socks_map* ev_type_to_socks_map) // Static.
@@ -889,7 +889,7 @@ Event_set::Ptr Node::event_set_create(Error_code* err_code)
   if (!running())
   {
     FLOW_ERROR_EMIT_ERROR(error::Code::S_NODE_NOT_RUNNING);
-    return Event_set::Ptr();
+    return Event_set::Ptr{};
   }
   // else
 
@@ -897,7 +897,7 @@ Event_set::Ptr Node::event_set_create(Error_code* err_code)
    * Addendum regarding performance: event_set_create() should be pretty rare. */
 
   // Load this body onto thread W boost.asio work queue.  event_set_promise captured by reference, as we will wait.
-  Event_set::Ptr event_set(new Event_set(get_logger()));
+  Event_set::Ptr event_set{new Event_set{get_logger()}};
   event_set->m_state = Event_set::State::S_INACTIVE;
   event_set->m_node = this;
   event_set->m_baseline_check_pending = false;
@@ -989,7 +989,7 @@ void Node::event_set_check_baseline_assuming_state(Event_set::Ptr event_set)
   // We are in thread W.
 
   // Imperative to lock all of event_set.  Much access possible from user threads.
-  Event_set::Lock_guard lock(event_set->m_mutex);
+  Event_set::Lock_guard lock{event_set->m_mutex};
 
   /* event_set_async_wait() placed us onto thread W.  When it did so, event_set->m_state ==
    * S_WAITING (waiting for 1+ events to hold, so we can inform user).  However that may have
@@ -1189,7 +1189,7 @@ void Node::event_set_all_check_delta(bool defer_delta_check)
   for (Event_set::Ptr event_set : m_event_sets)
   {
     // As explained above, work on one Event_set at a time.  Lock it.
-    Event_set::Lock_guard lock(event_set->m_mutex);
+    Event_set::Lock_guard lock{event_set->m_mutex};
 
     if (event_set->m_state != Event_set::State::S_WAITING)
     {
@@ -1306,7 +1306,7 @@ void Node::event_set_close(Event_set::Ptr event_set, Error_code* err_code)
     // We are in thread W.  event_set_close() is waiting for us to set close_promise in thread U.
 
     // Something like async_wait_finish() may be setting event_set->m_state or other things... must lock.
-    Event_set::Lock_guard lock(event_set->m_mutex);
+    Event_set::Lock_guard lock{event_set->m_mutex};
 
     /* Since we were placed onto thread W, another handler may have been executed before boost.asio
      * got to us.  Therefore we may already be S_CLOSED.  Detect this. */
@@ -1365,7 +1365,7 @@ void Node::event_set_close_worker(Event_set::Ptr event_set)
 
   assert(event_set->m_state != Event_set::State::S_CLOSED);
   event_set->m_state = Event_set::State::S_CLOSED;
-  event_set->m_node = 0; // Maintain invariant.
+  event_set->m_node = nullptr; // Maintain invariant.
 
   // Free resources.  In particular, after Event_set close, user won't be able to see last set of fired events.
   Event_set::clear_ev_type_to_socks_map(&event_set->m_want);

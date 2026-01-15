@@ -258,8 +258,8 @@ public:
    */
   explicit Node(log::Logger* logger, util::Task_engine* target_async_task_engine,
                 const util::Udp_endpoint& low_lvl_endpoint,
-                Net_env_simulator* net_env_sim = 0, Error_code* err_code = 0,
-                const Node_options& opts = Node_options());
+                Net_env_simulator* net_env_sim = nullptr, Error_code* err_code = nullptr,
+                const Node_options& opts = Node_options{});
 
   // Methods.
 
@@ -379,7 +379,7 @@ public:
   void async_connect(const Remote_endpoint& to,
                      const Handler& on_result,
                      const boost::chrono::duration<Rep, Period>& max_wait,
-                     const Peer_socket_options* opts = 0);
+                     const Peer_socket_options* opts = nullptr);
 
   /**
    * A combination of async_connect() and connect_with_metadata() (asynchronously blocking connect, with supplied
@@ -407,7 +407,7 @@ public:
                                    const Handler& on_result,
                                    const boost::chrono::duration<Rep, Period>& max_wait,
                                    const boost::asio::const_buffer& serialized_metadata,
-                                   const Peer_socket_options* opts = 0);
+                                   const Peer_socket_options* opts = nullptr);
 
   /**
    * Equivalent to `async_connect(to, on_result, duration::max(), opts)`; i.e., async_connect()
@@ -425,7 +425,7 @@ public:
   template<typename Handler>
   void async_connect(const Remote_endpoint& to,
                      const Handler& on_result,
-                     const Peer_socket_options* opts = 0);
+                     const Peer_socket_options* opts = nullptr);
 
   /**
    * Equivalent to `async_connect_with_metadata(to, on_result, duration::max(),
@@ -446,7 +446,7 @@ public:
   void async_connect_with_metadata(const Remote_endpoint& to,
                                    const Handler& on_result,
                                    const boost::asio::const_buffer& serialized_metadata,
-                                   const Peer_socket_options* opts = 0);
+                                   const Peer_socket_options* opts = nullptr);
 
 private:
   // Friends.
@@ -647,7 +647,7 @@ void Node::async_op(typename Socket::Ptr sock,
 
   /* Timeout might be finite or infinite (non-existent).  Latter case is much simpler, but for brevity we mix the code
    * paths of the two cases. */
-  const bool timeout_given = wait_until != Fine_time_pt();
+  const bool timeout_given = wait_until != Fine_time_pt{};
 
   /* Explanation of why Strand is used / locking discussion:
    *
@@ -701,7 +701,7 @@ void Node::async_op(typename Socket::Ptr sock,
     // Start one of the racers: the timer that'll fire once timeout is finished.
 
     // All the stuff needed by timeout can now be created (if !timeout_given, we save resources by not doing this).
-    timeout_state.reset(new Timeout_state(task_engine));
+    timeout_state.reset(new Timeout_state{task_engine});
 
     // Performance note: cannot move(on_result) here, as we still need on_result for 2nd closure made below.  Copy.
     timeout_state->sched_task

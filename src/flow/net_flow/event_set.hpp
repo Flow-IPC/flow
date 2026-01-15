@@ -247,7 +247,7 @@ namespace flow::net_flow
 class Event_set :
   // Endow us with shared_ptr<>s ::Ptr and ::Const_ptr (syntactic sugar).
   public util::Shared_ptr_alias_holder<boost::shared_ptr<Event_set>>,
-  // Allow access to Ptr(this) from inside Event_set methods.  Just call shared_from_this().
+  // Allow access to Ptr{this} from inside Event_set methods.  Just call shared_from_this().
   public boost::enable_shared_from_this<Event_set>,
   public log::Log_context,
   private boost::noncopyable
@@ -423,7 +423,7 @@ public:
    *        See flow::Error_code docs for error reporting semantics.  Generated codes:
    *        error::Code::S_EVENT_SET_CLOSED.
    */
-  void close(Error_code* err_code = 0);
+  void close(Error_code* err_code = nullptr);
 
   /**
    * Adds the given socket to the set of sockets we want to know are "ready" by the definition of
@@ -444,7 +444,7 @@ public:
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
   template<typename Socket>
-  bool add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code* err_code = 0);
+  bool add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code* err_code = nullptr);
 
   /**
    * Opposite of add_wanted_socket().
@@ -461,7 +461,7 @@ public:
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
   template<typename Socket>
-  bool remove_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code* err_code = 0);
+  bool remove_wanted_socket(typename Socket::Ptr sock, Event_type ev_type, Error_code* err_code = nullptr);
 
   /**
    * Efficiently exchanges the current set of sockets we want to know are "ready" by the definiton of
@@ -508,7 +508,7 @@ public:
    *        error::Code::S_EVENT_SET_CLOSED, error::Code::S_EVENT_SET_IMMUTABLE_WHEN_WAITING.
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
-  bool clear_wanted_sockets(Event_type ev_type, Error_code* err_code = 0);
+  bool clear_wanted_sockets(Event_type ev_type, Error_code* err_code = nullptr);
 
   /**
    * Returns `true` if and only if at least one wanted event for at least one socket is registered
@@ -520,7 +520,7 @@ public:
    * @return `true` if there are wanted events; `false` if there are no wanted events (then `*err_code` is
    *         success) or there was an error (`*err_code` is failure; i.e., `bool(*err_code) == true`).
    */
-  bool events_wanted(Error_code* err_code = 0) const;
+  bool events_wanted(Error_code* err_code = nullptr) const;
 
   /**
    * Checks for all previously described events that currently hold, saves them for retrieval via
@@ -535,7 +535,7 @@ public:
    *        error::Code::S_EVENT_SET_CLOSED, error::Code::S_EVENT_SET_DOUBLE_WAIT_OR_POLL.
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
-  bool poll(Error_code* err_code = 0);
+  bool poll(Error_code* err_code = nullptr);
 
   /**
    * Blocks indefinitely until one or more of the previously described events hold -- or the wait
@@ -559,7 +559,7 @@ public:
    *        error::Code::S_EVENT_SET_DOUBLE_WAIT_OR_POLL, error::Code::S_EVENT_SET_CLOSED.
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
-  bool sync_wait(Error_code* err_code = 0);
+  bool sync_wait(Error_code* err_code = nullptr);
 
   /**
    * Same as the other sync_wait() but will stop waiting if the timeout given as argument
@@ -591,7 +591,7 @@ public:
    *         an error, in particular.
    */
   template<typename Rep, typename Period>
-  bool sync_wait(const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = 0);
+  bool sync_wait(const boost::chrono::duration<Rep, Period>& max_wait, Error_code* err_code = nullptr);
 
   /**
    * Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,
@@ -640,7 +640,7 @@ public:
    *        error::Code::S_EVENT_SET_DOUBLE_WAIT_OR_POLL, error::Code::S_EVENT_SET_CLOSED.
    * @return `true` if and only if no error occurred (`*err_code` is success).
    */
-  bool async_wait(const Event_handler& on_event, Error_code* err_code = 0);
+  bool async_wait(const Event_handler& on_event, Error_code* err_code = nullptr);
 
   /**
    * Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(), or does
@@ -661,7 +661,7 @@ public:
    * @return `true` if and only if no error occurred (`*err_code` is success).  In particular, state()
    *         being State::S_INACTIVE when the method starts is not an error.
    */
-  bool async_wait_finish(Error_code* err_code = 0);
+  bool async_wait_finish(Error_code* err_code = nullptr);
 
   /**
    * Returns `true` if and only if the last wait, if any, detected at least one event.  In other
@@ -689,7 +689,7 @@ public:
    * @return `true` if there are active events; `false` if there are no active events (then `*err_code` is
    *         success) or there was an error (`*err_code` is failure; i.e., `bool(*err_code) == true`).
    */
-  bool events_detected(Error_code* err_code = 0) const;
+  bool events_detected(Error_code* err_code = nullptr) const;
 
   /**
    * Gets the sockets that satisfy the condition of the given Event_type detected during the last wait.
@@ -742,7 +742,7 @@ public:
    *       the author wanted to play around with `any`s instead of haxoring old-school `union`s.
    *       `variant` is much nicer, however, and the dynamic nature of `any` is entirely unnecessary here.
    */
-  bool emit_result_sockets(Sockets* target_set, Event_type ev_type, Error_code* err_code = 0);
+  bool emit_result_sockets(Sockets* target_set, Event_type ev_type, Error_code* err_code = nullptr);
 
   /**
    * Identical to `emit_result_sockets(&sockets, ev_type, err_code)`, where originally `sockets` is empty and
@@ -754,7 +754,7 @@ public:
    *        Same.
    * @return Same.
    */
-  bool clear_result_sockets(Event_type ev_type, Error_code* err_code = 0);
+  bool clear_result_sockets(Event_type ev_type, Error_code* err_code = nullptr);
 
   /**
    * Forgets all sockets stored in this object in any fashion.
@@ -764,7 +764,7 @@ public:
    *        error::Code::S_EVENT_SET_CLOSED, error::Code::S_EVENT_SET_IMMUTABLE_WHEN_WAITING.
    * @return true if and only if no error occurred (*err_code is success).
    */
-  bool clear(Error_code* err_code = 0);
+  bool clear(Error_code* err_code = nullptr);
 
 private:
   // Friends.

@@ -155,7 +155,7 @@ void Send_bandwidth_estimator::on_acks(size_t bytes)
       if (since_sample_start > min_sample_period)
       {
         /* Cool, enough time has passed since this sample was started; take a bandwidth sample over
-         * that time period (just bytes/time).  As promised, our units are bytes per Time_unit(1),
+         * that time period (just bytes/time).  As promised, our units are bytes per Time_unit{1},
          * so convert from Fine_duration to (the likely less fine) Time_unit before dividing.  We
          * use ceil() instead of truncation or round() to avoid rounding down to zero and
          * resulting in division by zero.  (Shouldn't really happen due to sample_period_floor,
@@ -173,7 +173,7 @@ void Send_bandwidth_estimator::on_acks(size_t bytes)
           m_no_samples_yet = false;
 
           FLOW_LOG_TRACE("bw_est [" << sock << "] update: first complete sample; bw_est = bw_est_less_smoothed "
-                         "= [" << bytes_per_time_this_sample << "] bytes per [" << Time_unit(1) << "]"
+                         "= [" << bytes_per_time_this_sample << "] bytes per [" << Time_unit{1} << "]"
                          "= [" << util::to_mbit_per_sec<Time_unit>(bytes_per_time_this_sample) << " Mbit/s]; "
                          "start new sample at 0 bytes.");
 
@@ -208,7 +208,7 @@ void Send_bandwidth_estimator::on_acks(size_t bytes)
                          "= filter[" << prev_bytes_per_time_smoothed << ", " << m_bytes_per_time_less_smoothed << "] "
                          "= [" << m_bytes_per_time_smoothed << "] units "
                          "= [" << util::to_mbit_per_sec<Time_unit>(m_bytes_per_time_smoothed) << " Mbit/s]; "
-                         "units = bytes per [" << Time_unit(1) << "].");
+                         "units = bytes per [" << Time_unit{1} << "].");
         } // if (since_sample_start > min_sample_period)
 
         /* Start new sample.  Note that m_bytes_this_sample is about to get immediately incremented, as explained
