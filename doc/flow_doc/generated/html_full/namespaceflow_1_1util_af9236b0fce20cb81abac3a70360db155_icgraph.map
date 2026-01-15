@@ -1,0 +1,7 @@
+<map id="flow::util::swap" name="flow::util::swap">
+<area shape="rect" id="node1" title="Equivalent to val1.swap(val2)." alt="" coords="389,95,496,119"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__set.html#a15f73c0627f8b37f233afa9827af3009" title="Swaps the contents of this structure and other." alt="" coords="228,89,341,125"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a857180105d2bcd381ffe758a2bfeeef8" title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait." alt="" coords="13,29,172,65"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#af9236b0fce20cb81abac3a70360db155" title="Equivalent to val1.swap(val2)." alt="" coords="36,89,149,125"/>
+<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Event__set.html#a6e47fc394c09acf4d100a640e090a7aa" title="Efficiently exchanges the current set of sockets we want to know are &quot;ready&quot; by the definiton of the ..." alt="" coords="5,173,180,209"/>
+</map>

@@ -29,7 +29,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a34cc9ad4501bb8cefe2c4e946be88232" target="_top" xlink:title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#ac9f0416a6263eb3a87e4b196e090f2dc" target="_top" xlink:title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ...">
 <polygon fill="white" stroke="black" points="0,-5 0,-31 106,-31 106,-5 0,-5"/>
 <text text-anchor="start" x="8" y="-20.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-11.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>

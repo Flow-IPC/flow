@@ -1,4 +1,0 @@
-<map id="flow::util::ceil_div" name="flow::util::ceil_div">
-<area shape="rect" id="node1" title="Returns the result of the given non&#45;negative integer divided by a positive integer,..." alt="" coords="208,17,325,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a102b78eaac9c8add512238ec5f26fcfc" title="Returns the smallest multiple of max_block_size() that is &gt;= the given option value,..." alt="" coords="5,5,160,53"/>
-</map>

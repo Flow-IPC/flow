@@ -1,4 +1,4 @@
 <map id="flow::log::Config::normalize_component_name" name="flow::log::Config::normalize_component_name">
 <area shape="rect" id="node1" title="Normalizes given component name in place." alt="" coords="201,5,380,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#a146a60d96256dbaed4f5f0e7dcd8f529" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="5,5,153,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="5,5,153,41"/>
 </map>

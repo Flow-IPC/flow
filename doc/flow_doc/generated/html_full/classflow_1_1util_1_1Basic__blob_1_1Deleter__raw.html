@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flow: flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw Class Reference</title>
+<title>Flow: flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,14 +72,14 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw Class Reference</div></div>
+  <div class="headertitle"><div class="title">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Internal deleter functor used if and only if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ab79d366c55643022eaf9e0d7378165d7" title="true if Allocator_raw underlying allocator template is simply std::allocator; false otherwise.">S_IS_VANILLA_ALLOC</a> is <code>false</code> and therefore only with <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a30fe0a61f8b83e7588bdc4a88dbaabae" title="The smart-pointer type used for m_buf_ptr; a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> being <code>boost::interprocess::shared_ptr</code> or deleter-parameterized <code>unique_ptr</code>.  
+<p>Internal deleter functor used if and only if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a81e2b69eef6b4af966e224275d297e9c" title="true if Allocator_raw underlying allocator template is simply std::allocator; false otherwise.">S_IS_VANILLA_ALLOC</a> is <code>false</code> and therefore only with <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5b84fa4bce20b49c3ac0e7d87926cbf7" title="The smart-pointer type used for buf_ptr(); a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> being <code>boost::interprocess::shared_ptr</code> or deleter-parameterized <code>unique_ptr</code>.  
  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#details">More...</a></p>
 <div class="dynheader">
-Collaboration diagram for flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw:</div>
+Collaboration diagram for flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw__coll__graph.svg" width="219" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
@@ -87,127 +87,148 @@ Collaboration diagram for flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWE
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ad45a273758a0fc0bd81ab36edc9d8217"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">Pointer_raw</a> = typename std::allocator_traits&lt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a> &gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a0152dc5043d6375124456f71d961988c">::pointer</a></td></tr>
-<tr class="memdesc:ad45a273758a0fc0bd81ab36edc9d8217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the allocator's pointer type, pointing to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aeb9b64885b78263048d406ec34907ecf" title="Short-hand for values, which in this case are unsigned bytes.">Basic_blob::value_type</a>.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">More...</a><br /></td></tr>
-<tr class="separator:ad45a273758a0fc0bd81ab36edc9d8217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0152dc5043d6375124456f71d961988c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a0152dc5043d6375124456f71d961988c">pointer</a> = <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">Pointer_raw</a></td></tr>
-<tr class="memdesc:a0152dc5043d6375124456f71d961988c"><td class="mdescLeft">&#160;</td><td class="mdescRight">For <code>boost::interprocess::shared_ptr</code> and <code>unique_ptr</code> compliance (hence the irregular capitalization).  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a0152dc5043d6375124456f71d961988c">More...</a><br /></td></tr>
-<tr class="separator:a0152dc5043d6375124456f71d961988c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1874e589ec4dbc019ea55af671b0613f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">Pointer_raw</a> = typename std::allocator_traits&lt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a> &gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a03d84a79bc93b2835ddb284e8c8d4e50">::pointer</a></td></tr>
+<tr class="memdesc:a1874e589ec4dbc019ea55af671b0613f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the allocator's pointer type, pointing to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a9c54edf49fbe9fddab9cc5d927a414d2" title="Short-hand for values, which in this case are unsigned bytes.">Basic_blob::value_type</a>.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">More...</a><br /></td></tr>
+<tr class="separator:a1874e589ec4dbc019ea55af671b0613f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03d84a79bc93b2835ddb284e8c8d4e50"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a03d84a79bc93b2835ddb284e8c8d4e50">pointer</a> = <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">Pointer_raw</a></td></tr>
+<tr class="memdesc:a03d84a79bc93b2835ddb284e8c8d4e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">For <code>boost::interprocess::shared_ptr</code> and <code>unique_ptr</code> compliance (hence the irregular capitalization).  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a03d84a79bc93b2835ddb284e8c8d4e50">More...</a><br /></td></tr>
+<tr class="separator:a03d84a79bc93b2835ddb284e8c8d4e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a145ea5595e461bd93bd6e585a67516e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a145ea5595e461bd93bd6e585a67516e6">Deleter_raw</a> ()</td></tr>
-<tr class="memdesc:a145ea5595e461bd93bd6e585a67516e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default ctor: Must never be invoked; suitable only for a null smart-pointer.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a145ea5595e461bd93bd6e585a67516e6">More...</a><br /></td></tr>
-<tr class="separator:a145ea5595e461bd93bd6e585a67516e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40b06c7484a925fe7550a3437a0ad194"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a40b06c7484a925fe7550a3437a0ad194">Deleter_raw</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a> &amp;alloc_raw, <a class="el" href="classflow_1_1util_1_1Basic__blob.html#af9b27f4b460a0fa8a9c9638174a9433a">size_type</a> buf_sz)</td></tr>
-<tr class="memdesc:a40b06c7484a925fe7550a3437a0ad194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs deleter by memorizing the allocator (of zero size if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> is stateless, usually) used to allocate whatever shall be passed-to <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>; and the size (in # of <code>value_type</code>s) of the buffer allocated there.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a40b06c7484a925fe7550a3437a0ad194">More...</a><br /></td></tr>
-<tr class="separator:a40b06c7484a925fe7550a3437a0ad194"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83887b57f8a78c0224fd7563210e94ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec">operator()</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">Pointer_raw</a> to_delete)</td></tr>
-<tr class="memdesc:a83887b57f8a78c0224fd7563210e94ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates using <code>Allocator_raw::deallocate()</code>, passing-in the supplied pointer (to <code>value_type</code>) <code>to_delete</code> and the number of <code>value_type</code>s to delete (from ctor).  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec">More...</a><br /></td></tr>
-<tr class="separator:a83887b57f8a78c0224fd7563210e94ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6880e45a531a62bac85e0824b082d5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a4a6880e45a531a62bac85e0824b082d5">Deleter_raw</a> ()</td></tr>
+<tr class="memdesc:a4a6880e45a531a62bac85e0824b082d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default ctor: Deleter must never be invoked to delete anything in this state; suitable only for a null smart-pointer.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a4a6880e45a531a62bac85e0824b082d5">More...</a><br /></td></tr>
+<tr class="separator:a4a6880e45a531a62bac85e0824b082d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6177423ed8bbe6e9ac4badacb2479cc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6177423ed8bbe6e9ac4badacb2479cc0">Deleter_raw</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a> &amp;alloc_raw_src, <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a48015fe46d5378c44b32203efb1004da">size_type</a> buf_sz)</td></tr>
+<tr class="memdesc:a6177423ed8bbe6e9ac4badacb2479cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs deleter by memorizing the allocator (of zero size if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> is stateless, usually) used to allocate whatever shall be passed-to <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>; and the size (in # of <code>value_type</code>s) of the buffer allocated there.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6177423ed8bbe6e9ac4badacb2479cc0">More...</a><br /></td></tr>
+<tr class="separator:a6177423ed8bbe6e9ac4badacb2479cc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af66f11471232139fe1563763d7e8bf20"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#af66f11471232139fe1563763d7e8bf20">Deleter_raw</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&amp;moved_src)</td></tr>
+<tr class="memdesc:af66f11471232139fe1563763d7e8bf20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-construction which may be required when we are used in <code>unique_ptr</code>.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#af66f11471232139fe1563763d7e8bf20">More...</a><br /></td></tr>
+<tr class="separator:af66f11471232139fe1563763d7e8bf20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa90177363974500df4f91f836a25b648"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#aa90177363974500df4f91f836a25b648">Deleter_raw</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;src)</td></tr>
+<tr class="memdesc:aa90177363974500df4f91f836a25b648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-construction which may be required when we are used in <code>boost::interprocess::shared_ptr</code> which as of this writing requires copyable deleter in its <code>.reset()</code> and other places.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#aa90177363974500df4f91f836a25b648">More...</a><br /></td></tr>
+<tr class="separator:aa90177363974500df4f91f836a25b648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb0405bc4d95f24d4aabaeced22f72fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#afb0405bc4d95f24d4aabaeced22f72fa">operator=</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&amp;moved_src)</td></tr>
+<tr class="memdesc:afb0405bc4d95f24d4aabaeced22f72fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assignment which is required when we are used in <code>unique_ptr</code>.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#afb0405bc4d95f24d4aabaeced22f72fa">More...</a><br /></td></tr>
+<tr class="separator:afb0405bc4d95f24d4aabaeced22f72fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412712709e2ddc4ace79a8d6c3f45374"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a412712709e2ddc4ace79a8d6c3f45374">operator=</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;src)</td></tr>
+<tr class="memdesc:a412712709e2ddc4ace79a8d6c3f45374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assignment which is required when we are used in <code>boost::interprocess::shared_ptr</code> which as of this writing requires copyable deleter in its <code>.reset()</code> and other places.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a412712709e2ddc4ace79a8d6c3f45374">More...</a><br /></td></tr>
+<tr class="separator:a412712709e2ddc4ace79a8d6c3f45374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4248fba740dc1c5551199d27c26067"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067">operator()</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">Pointer_raw</a> to_delete)</td></tr>
+<tr class="memdesc:a6a4248fba740dc1c5551199d27c26067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocates using <code>Allocator_raw::deallocate()</code>, passing-in the supplied pointer (to <code>value_type</code>) <code>to_delete</code> and the number of <code>value_type</code>s to delete (from ctor).  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067">More...</a><br /></td></tr>
+<tr class="separator:a6a4248fba740dc1c5551199d27c26067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a2b946cc7c51563ef74d1d47ebfad53c2"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2b946cc7c51563ef74d1d47ebfad53c2">m_alloc_raw</a></td></tr>
-<tr class="memdesc:a2b946cc7c51563ef74d1d47ebfad53c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">See ctor: the allocator that <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> shall use to deallocate.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2b946cc7c51563ef74d1d47ebfad53c2">More...</a><br /></td></tr>
-<tr class="separator:a2b946cc7c51563ef74d1d47ebfad53c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2483f07aa6cf4ddb96309c4aa2eec00d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#af9b27f4b460a0fa8a9c9638174a9433a">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2483f07aa6cf4ddb96309c4aa2eec00d">m_buf_sz</a></td></tr>
-<tr class="memdesc:a2483f07aa6cf4ddb96309c4aa2eec00d"><td class="mdescLeft">&#160;</td><td class="mdescRight">See ctor and <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a>: the size of the buffer to deallocate.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2483f07aa6cf4ddb96309c4aa2eec00d">More...</a><br /></td></tr>
-<tr class="separator:a2483f07aa6cf4ddb96309c4aa2eec00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d492c236007f718966eeeb54565a7e8"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2d492c236007f718966eeeb54565a7e8">m_alloc_raw</a></td></tr>
+<tr class="memdesc:a2d492c236007f718966eeeb54565a7e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">See ctor: the allocator that <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> shall use to deallocate.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2d492c236007f718966eeeb54565a7e8">More...</a><br /></td></tr>
+<tr class="separator:a2d492c236007f718966eeeb54565a7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a339ca8b8808b2831774587f59b66c847"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a48015fe46d5378c44b32203efb1004da">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a339ca8b8808b2831774587f59b66c847">m_buf_sz</a></td></tr>
+<tr class="memdesc:a339ca8b8808b2831774587f59b66c847"><td class="mdescLeft">&#160;</td><td class="mdescRight">See ctor and <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>: the size of the buffer to deallocate.  <a href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a339ca8b8808b2831774587f59b66c847">More...</a><br /></td></tr>
+<tr class="separator:a339ca8b8808b2831774587f59b66c847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename Allocator, <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt;<br />
-class flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw</div><p >Internal deleter functor used if and only if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ab79d366c55643022eaf9e0d7378165d7" title="true if Allocator_raw underlying allocator template is simply std::allocator; false otherwise.">S_IS_VANILLA_ALLOC</a> is <code>false</code> and therefore only with <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a30fe0a61f8b83e7588bdc4a88dbaabae" title="The smart-pointer type used for m_buf_ptr; a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> being <code>boost::interprocess::shared_ptr</code> or deleter-parameterized <code>unique_ptr</code>. </p>
-<p >Basically its task is to undo the <code>m_alloc_raw.allocate()</code> call made when allocating a buffer in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aaa7bc2f80b4e46a18f04911954e2b3e7" title="Ensures that an internal buffer of at least capacity elements is allocated and owned; disallows growi...">reserve()</a>; the result of that call is passed-to <code>shared_ptr::reset()</code> or <code>unique_ptr::reset()</code>; as is <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2b946cc7c51563ef74d1d47ebfad53c2" title="See ctor: the allocator that operator()() shall use to deallocate.">m_alloc_raw</a> (for any aux allocation needed, but only for <code>shared_ptr</code> &ndash; <code>unique_ptr</code> needs no aux data); as is an instance of this <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> (to specifically dealloc the buffer when the ref-count reaches 0). (In the <code>unique_ptr</code> case there is no ref-count per se; or one can think of it as a ref-count that equals 1.)</p>
-<p >Note that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is used only to dealloc the buffer actually controlled by the <code>shared_ptr</code> group or <code>unique_ptr</code>. <code>shared_ptr</code> will use the <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> directly to dealloc aux data. (We guess <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is a separate argument to <code>shared_ptr</code> to support array deletion; <code>boost::interprocess:shared_ptr</code> does not provide built-in support for <code>U[]</code> as the pointee type; but the deleter can do whatever it wants/needs.)</p>
-<p >Note: this is not used except with custom <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a>. With <code>std::allocator</code> the usual default <code>delete[]</code> behavior is fine. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename Allocator, <a class="el" href="classbool.html">bool</a> SHARING&gt;<br />
+class flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw</div><p >Internal deleter functor used if and only if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a81e2b69eef6b4af966e224275d297e9c" title="true if Allocator_raw underlying allocator template is simply std::allocator; false otherwise.">S_IS_VANILLA_ALLOC</a> is <code>false</code> and therefore only with <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5b84fa4bce20b49c3ac0e7d87926cbf7" title="The smart-pointer type used for buf_ptr(); a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> being <code>boost::interprocess::shared_ptr</code> or deleter-parameterized <code>unique_ptr</code>. </p>
+<p >Basically its task is to undo the <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html#af6bdf2ee9e562400a0476282c8c66ff0" title="For convenience/expressiveness, the allocator object for *this.">alloc_raw()</a>.allocate()</code> call made when allocating a buffer in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a7105de11c7a24dc9012cef8ad38f448d" title="Ensures that an internal buffer of at least capacity elements is allocated and owned; disallows growi...">reserve()</a>; the result of that call is passed-to <code>shared_ptr::reset()</code> or <code>unique_ptr::reset()</code>; as is <a class="el" href="classflow_1_1util_1_1Basic__blob.html#af6bdf2ee9e562400a0476282c8c66ff0" title="For convenience/expressiveness, the allocator object for *this.">alloc_raw()</a> (for any aux allocation needed, but only for <code>shared_ptr</code> &ndash; <code>unique_ptr</code> needs no aux data); as is an instance of this <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> (to specifically dealloc the buffer when the ref-count reaches 0). (In the <code>unique_ptr</code> case there is no ref-count per se; or one can think of it as a ref-count that equals 1.)</p>
+<p >Note that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is used only to dealloc the buffer actually controlled by the <code>shared_ptr</code> group or <code>unique_ptr</code>. <code>shared_ptr</code> will use the <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> directly to dealloc aux data. (We guess <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> is a separate argument to <code>shared_ptr</code> to support array deletion; <code>boost::interprocess:shared_ptr</code> does not provide built-in support for <code>U[]</code> as the pointee type; but the deleter can do whatever it wants/needs.)</p>
+<p >Note: this is not used except with custom <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a>. With <code>std::allocator</code> the usual default <code>delete[]</code> behavior is fine.</p>
+<h3>How to delete using it</h3>
+<p ><code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> gets invoked by smart-pointer machinery; the pointer to delete is passed to it as an arg. So we need not memorize it ourselves.</p>
+<h3>How to initialize</h3>
+<p >Before <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> will work, it has to be loaded with the buffer size and allocator (both items needed by that operator in addition to the pointer itself). There are 3 ways to do this:</p><ul>
+<li>Construct via 2-arg ctor that takes those values. As usual the allocator object is to be copied (if it's even stateful; else that's a no-op).</li>
+<li>Move-construct from already-initialized <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a>.</li>
+<li>First, default-construct. Then, move-assign from an existing already-initialized other <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a>.</li>
+</ul>
+<p >For ~brevity we won't fully enumerate who uses these and when; but mainly wanted to place you attention on that last possibility. <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5f45c6f17074d8261147f89925516d55" title="Implements reserve() overloads.">Basic_blob::reserve_impl()</a>, in the non-sharing, non-vanilla-alloc case, when it does need to allocate <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html#adca2859a32cd701671bb82e7fb9bbc5e" title="For convenience/expressiveness, the pointer-to-main-buf for *this.">buf_ptr()</a></code>, will exercise that use-case. E.g., <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> default-ctor would default-ct a <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a>; then the next <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5f45c6f17074d8261147f89925516d55" title="Implements reserve() overloads.">reserve_impl()</a></code> would 2-arg-ct <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> and then move-assign it onto the default-cted <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01165">1165</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01291">1291</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a0152dc5043d6375124456f71d961988c" name="a0152dc5043d6375124456f71d961988c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0152dc5043d6375124456f71d961988c">&#9670;&nbsp;</a></span>pointer</h2>
+<a id="a03d84a79bc93b2835ddb284e8c8d4e50" name="a03d84a79bc93b2835ddb284e8c8d4e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03d84a79bc93b2835ddb284e8c8d4e50">&#9670;&nbsp;</a></span>pointer</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::pointer =  <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">Pointer_raw</a></td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::pointer =  <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">Pointer_raw</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For <code>boost::interprocess::shared_ptr</code> and <code>unique_ptr</code> compliance (hence the irregular capitalization). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01179">1179</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01305">1305</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad45a273758a0fc0bd81ab36edc9d8217" name="ad45a273758a0fc0bd81ab36edc9d8217"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad45a273758a0fc0bd81ab36edc9d8217">&#9670;&nbsp;</a></span>Pointer_raw</h2>
+<a id="a1874e589ec4dbc019ea55af671b0613f" name="a1874e589ec4dbc019ea55af671b0613f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1874e589ec4dbc019ea55af671b0613f">&#9670;&nbsp;</a></span>Pointer_raw</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::Pointer_raw =  typename std::allocator_traits&lt;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a>&gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a0152dc5043d6375124456f71d961988c">::pointer</a></td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::Pointer_raw =  typename std::allocator_traits&lt;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a>&gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a03d84a79bc93b2835ddb284e8c8d4e50">::pointer</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Short-hand for the allocator's pointer type, pointing to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#aeb9b64885b78263048d406ec34907ecf" title="Short-hand for values, which in this case are unsigned bytes.">Basic_blob::value_type</a>. </p>
+<p>Short-hand for the allocator's pointer type, pointing to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a9c54edf49fbe9fddab9cc5d927a414d2" title="Short-hand for values, which in this case are unsigned bytes.">Basic_blob::value_type</a>. </p>
 <p >This may or may not simply be <code>value_type*</code>; in cases including SHM-storing allocators without a constant cross-process vaddr scheme it needs to be a fancy-pointer type instead (e.g., <code>boost::interprocess::offset_ptr&lt;value_type&gt;</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01176">1176</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01302">1302</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a145ea5595e461bd93bd6e585a67516e6" name="a145ea5595e461bd93bd6e585a67516e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a145ea5595e461bd93bd6e585a67516e6">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[1/2]</span></h2>
+<a id="a4a6880e45a531a62bac85e0824b082d5" name="a4a6880e45a531a62bac85e0824b082d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a6880e45a531a62bac85e0824b082d5">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::Deleter_raw</td>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::Deleter_raw</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default ctor: Must never be invoked; suitable only for a null smart-pointer. </p>
+<p>Default ctor: Deleter must never be invoked to delete anything in this state; suitable only for a null smart-pointer. </p>
 <p >Without this a <code>unique_ptr&lt;..., Deleter_Raw&gt;</code> cannot be default-cted. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02481">2481</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02817">2817</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a40b06c7484a925fe7550a3437a0ad194" name="a40b06c7484a925fe7550a3437a0ad194"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40b06c7484a925fe7550a3437a0ad194">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[2/2]</span></h2>
+<a id="a6177423ed8bbe6e9ac4badacb2479cc0" name="a6177423ed8bbe6e9ac4badacb2479cc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6177423ed8bbe6e9ac4badacb2479cc0">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::Deleter_raw </td>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::Deleter_raw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a> &amp;&#160;</td>
-          <td class="paramname"><em>alloc_raw</em>, </td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a> &amp;&#160;</td>
+          <td class="paramname"><em>alloc_raw_src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#af9b27f4b460a0fa8a9c9638174a9433a">size_type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a48015fe46d5378c44b32203efb1004da">size_type</a>&#160;</td>
           <td class="paramname"><em>buf_sz</em>&#160;</td>
         </tr>
         <tr>
@@ -223,33 +244,108 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </table>
 </div><div class="memdoc">
 
-<p>Constructs deleter by memorizing the allocator (of zero size if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> is stateless, usually) used to allocate whatever shall be passed-to <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>; and the size (in # of <code>value_type</code>s) of the buffer allocated there. </p>
+<p>Constructs deleter by memorizing the allocator (of zero size if <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7" title="Short-hand for the allocator type specified at compile-time. Its element type is our value_type.">Allocator_raw</a> is stateless, usually) used to allocate whatever shall be passed-to <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>; and the size (in # of <code>value_type</code>s) of the buffer allocated there. </p>
 <p >The latter is required, at least technically, because <code>Allocator_raw::deallocate()</code> requires the value count, equal to that when <code>allocate()</code> was called, to be passed-in. Many allocators probably don't really need this, as array size is typically recorded invisibly near the array itself, but formally this is not guaranteed for all allocators.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">alloc_raw</td><td>Allocator to copy and store. </td></tr>
+    <tr><td class="paramname">alloc_raw_src</td><td>Allocator to copy and store. </td></tr>
     <tr><td class="paramname">buf_sz</td><td>See above. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02471">2471</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02825">2825</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a83887b57f8a78c0224fd7563210e94ec" name="a83887b57f8a78c0224fd7563210e94ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83887b57f8a78c0224fd7563210e94ec">&#9670;&nbsp;</a></span>operator()()</h2>
+<a id="af66f11471232139fe1563763d7e8bf20" name="af66f11471232139fe1563763d7e8bf20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af66f11471232139fe1563763d7e8bf20">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::operator() </td>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::Deleter_raw </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#ad45a273758a0fc0bd81ab36edc9d8217">Pointer_raw</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>moved_src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move-construction which may be required when we are used in <code>unique_ptr</code>. </p>
+<p >This is equivalent to default-construction followed by move-assignment. See move-assignment operator doc header regarding why we are defining both of these.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moved_src</td><td>Moved guy. For cleanliness it becomes as-if default-cted. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02835">2835</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01828">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::operator=()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw_af66f11471232139fe1563763d7e8bf20_cgraph.svg" width="360" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="aa90177363974500df4f91f836a25b648" name="aa90177363974500df4f91f836a25b648"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa90177363974500df4f91f836a25b648">&#9670;&nbsp;</a></span>Deleter_raw() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::Deleter_raw </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy-construction which may be required when we are used in <code>boost::interprocess::shared_ptr</code> which as of this writing requires copyable deleter in its <code>.reset()</code> and other places. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Copied guy. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6a4248fba740dc1c5551199d27c26067" name="a6a4248fba740dc1c5551199d27c26067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4248fba740dc1c5551199d27c26067">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a1874e589ec4dbc019ea55af671b0613f">Pointer_raw</a>&#160;</td>
           <td class="paramname"><em>to_delete</em></td><td>)</td>
           <td></td>
         </tr>
@@ -264,26 +360,98 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02489">2489</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02921">2921</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01391">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::m_alloc_raw</a>.</p>
+</div>
+</div>
+<a id="a412712709e2ddc4ace79a8d6c3f45374" name="a412712709e2ddc4ace79a8d6c3f45374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a412712709e2ddc4ace79a8d6c3f45374">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a4a6880e45a531a62bac85e0824b082d5">::Deleter_raw</a> &amp; <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy-assignment which is required when we are used in <code>boost::interprocess::shared_ptr</code> which as of this writing requires copyable deleter in its <code>.reset()</code> and other places. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>Copied guy. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02893">2893</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01409">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw::m_alloc_raw</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01412">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw::m_buf_sz</a>.</p>
+
+</div>
+</div>
+<a id="afb0405bc4d95f24d4aabaeced22f72fa" name="afb0405bc4d95f24d4aabaeced22f72fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb0405bc4d95f24d4aabaeced22f72fa">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt;<a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a4a6880e45a531a62bac85e0824b082d5">::Deleter_raw</a> &amp; <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html">Deleter_raw</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>moved_src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move-assignment which is required when we are used in <code>unique_ptr</code>. </p>
+<p >User might invoke move-construction or move-assignment of the <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a>; this reduces to <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a7deb969f7f8798b8a08a914e132c0f9f" title="Move assignment.">Basic_blob::assign()</a> (move overload); which will do a swap &ndash; that ultimately will move the stored <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html" title="Internal deleter functor used if and only if S_IS_VANILLA_ALLOC is false and therefore only with Buf_...">Deleter_raw</a> up to a few times.</p>
+<p >As of this writing we also manually overwrite <code>.get_deleter()</code> in one case in <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5f45c6f17074d8261147f89925516d55" title="Implements reserve() overloads.">Basic_blob::reserve_impl()</a>; so this is useful for that too.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moved_src</td><td>Moved guy. For cleanliness it becomes as-if default-cted (unless it is the same object as <code>*this</code>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02850">2850</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01886">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::swap()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01910">flow::util::swap()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw_afb0405bc4d95f24d4aabaeced22f72fa_cgraph.svg" width="507" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2b946cc7c51563ef74d1d47ebfad53c2" name="a2b946cc7c51563ef74d1d47ebfad53c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b946cc7c51563ef74d1d47ebfad53c2">&#9670;&nbsp;</a></span>m_alloc_raw</h2>
+<a id="a2d492c236007f718966eeeb54565a7e8" name="a2d492c236007f718966eeeb54565a7e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d492c236007f718966eeeb54565a7e8">&#9670;&nbsp;</a></span>m_alloc_raw</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#ae2089286c63766445b3bf40422eb17db">Allocator_raw</a>&gt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::m_alloc_raw</td>
+          <td class="memname">std::optional&lt;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0cff4bef1f4a45b9b25bd6526bad09c7">Allocator_raw</a>&gt; <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::m_alloc_raw</td>
         </tr>
       </table>
   </td>
@@ -293,29 +461,40 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </table>
 </div><div class="memdoc">
 
-<p>See ctor: the allocator that <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> shall use to deallocate. </p>
+<p>See ctor: the allocator that <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> shall use to deallocate. </p>
 <p >For stateless allocators this typically has size zero.</p>
 <h3>What's with <code>optional&lt;&gt;</code>?</h3>
-<p >...Okay, so actually this has size (whatever <code>optional</code> adds, probably a <code>bool</code>) + <code>sizeof(Allocator_raw)</code>, the latter being indeed zero for stateless allocators. Why use <code>optional&lt;&gt;</code> though? Well, we only do to support stateful allocators which cannot be default-cted; and our own default ctor requires that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2b946cc7c51563ef74d1d47ebfad53c2" title="See ctor: the allocator that operator()() shall use to deallocate.">m_alloc_raw</a> is initialized to <em>something</em>... even though it (by default ctor contract) will never be accessed.</p>
-<p >It is slightly annoying that we waste the extra space for <code>optional</code> internals even when <code>Allocator_raw</code> is stateless (and it is often stateless!). Plus, when <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a30fe0a61f8b83e7588bdc4a88dbaabae" title="The smart-pointer type used for m_buf_ptr; a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> is <code>shared_ptr</code> instead of <code>unique_ptr</code> our default ctor is not even needed. Probably some meta-programming thing could be done to avoid even this overhead, but in my (ygoldfel) opinion the overhead is so minor, it does not even rise to the level of a to-do. </p>
+<p >...Okay, so actually this has size (whatever <code>optional</code> adds, probably a <code>bool</code>) + <code>sizeof(Allocator_raw)</code>, the latter being indeed zero for stateless allocators. Why use <code>optional&lt;&gt;</code> though? Two reasons at least:</p><ul>
+<li>Stateful allocators often cannot be default-cted; and our own default ctor requires that <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a2d492c236007f718966eeeb54565a7e8" title="See ctor: the allocator that operator()() shall use to deallocate.">m_alloc_raw</a> is initialized to <em>something</em>... even though it (by default ctor contract) will never be accessed via <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code> in that form. Bottom line is a null smart-pointer needs a default-cted <code>*this</code> for at least some smart-pointer types (namely <code>unique_ptr</code> at least; probably not <code>shared_ptr</code>).<ul>
+<li>Yay, <code>optional</code> can be uninitialized.</li>
+</ul>
+</li>
+<li>Some allocators (such as <code>boost::interprocess::allocator</code>) are not assignable, only copy-constructible, while we need to be move-assignable (see doc header for move-assignment; spoiler alert: <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5f45c6f17074d8261147f89925516d55" title="Implements reserve() overloads.">Basic_blob::reserve_impl()</a> may need that).<ul>
+<li>Yay, <code>optional&lt;T&gt;</code> has <code>.emplace()</code> which will construct (including copy-construct) a <code>T</code>.</li>
+</ul>
+</li>
+</ul>
+<p >It is slightly annoying that we waste the extra space for <code>optional</code> internals even when <code>Allocator_raw</code> is stateless (and it is often stateless!). Plus, when <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5b84fa4bce20b49c3ac0e7d87926cbf7" title="The smart-pointer type used for buf_ptr(); a custom-allocator-and-SHM-friendly impl and parameterizat...">Buf_ptr</a> is <code>shared_ptr</code> instead of <code>unique_ptr</code> these bullet points probably do not apply. Probably some meta-programming thing could be done to avoid even this overhead, but in my (ygoldfel) opinion the overhead is so minor, it does not even rise to the level of a to-do. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01233">1233</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01409">1409</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02893">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw::operator=()</a>.</p>
 
 </div>
 </div>
-<a id="a2483f07aa6cf4ddb96309c4aa2eec00d" name="a2483f07aa6cf4ddb96309c4aa2eec00d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2483f07aa6cf4ddb96309c4aa2eec00d">&#9670;&nbsp;</a></span>m_buf_sz</h2>
+<a id="a339ca8b8808b2831774587f59b66c847" name="a339ca8b8808b2831774587f59b66c847"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a339ca8b8808b2831774587f59b66c847">&#9670;&nbsp;</a></span>m_buf_sz</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#af9b27f4b460a0fa8a9c9638174a9433a">size_type</a> <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt;::Deleter_raw::m_buf_sz</td>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Basic__blob.html#a48015fe46d5378c44b32203efb1004da">size_type</a> <a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob</a>&lt; Allocator, SHARING &gt;::Deleter_raw::m_buf_sz</td>
         </tr>
       </table>
   </td>
@@ -325,9 +504,11 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </table>
 </div><div class="memdoc">
 
-<p>See ctor and <a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a83887b57f8a78c0224fd7563210e94ec" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a>: the size of the buffer to deallocate. </p>
+<p>See ctor and <code><a class="el" href="classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#a6a4248fba740dc1c5551199d27c26067" title="Deallocates using Allocator_raw::deallocate(), passing-in the supplied pointer (to value_type) to_del...">operator()()</a></code>: the size of the buffer to deallocate. </p>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01236">1236</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01412">1412</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02893">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw::operator=()</a>.</p>
 
 </div>
 </div>
@@ -337,7 +518,7 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

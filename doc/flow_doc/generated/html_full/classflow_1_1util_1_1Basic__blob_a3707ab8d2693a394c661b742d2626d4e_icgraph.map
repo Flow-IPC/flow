@@ -1,4 +1,0 @@
-<map id="flow::util::Basic_blob::swap" name="flow::util::Basic_blob::swap">
-<area shape="rect" id="node1" title="Swaps the contents of this structure and other, or no&#45;op if this == &amp;other." alt="" coords="188,5,323,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a71eaa4ab6a2673ed34fa8989c47a7bc0" title="Equivalent to blob1.swap(blob2)." alt="" coords="5,5,140,41"/>
-</map>

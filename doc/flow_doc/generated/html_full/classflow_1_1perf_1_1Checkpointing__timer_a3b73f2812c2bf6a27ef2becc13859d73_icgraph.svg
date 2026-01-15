@@ -13,9 +13,9 @@
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title="Sample all currently enabled Clock_types&#39; clocks and return those values, each of which is a time sta...">
-<polygon fill="#bfbfbf" stroke="black" points="656,-173 656,-199 775,-199 775,-173 656,-173"/>
-<text text-anchor="start" x="664" y="-188.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
-<text text-anchor="middle" x="715.5" y="-179.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::now</text>
+<polygon fill="#bfbfbf" stroke="black" points="656,-154 656,-180 775,-180 775,-154 656,-154"/>
+<text text-anchor="start" x="664" y="-169.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
+<text text-anchor="middle" x="715.5" y="-160.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::now</text>
 </a>
 </g>
 </g>
@@ -23,79 +23,79 @@
 <g id="node2" class="node">
 <title>Node2</title>
 <g id="a_node2"><a xlink:href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" target="_top" xlink:title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">
-<polygon fill="white" stroke="black" points="491.5,-229 491.5,-255 610.5,-255 610.5,-229 491.5,-229"/>
-<text text-anchor="start" x="499.5" y="-244.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
-<text text-anchor="middle" x="551" y="-235.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::checkpoint</text>
+<polygon fill="white" stroke="black" points="491.5,-253 491.5,-279 610.5,-279 610.5,-253 491.5,-253"/>
+<text text-anchor="start" x="499.5" y="-268.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
+<text text-anchor="middle" x="551" y="-259.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::checkpoint</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M666.92,-202.4C642.37,-210.86 612.84,-221.03 589.86,-228.95"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="668.09,-205.7 676.4,-199.13 665.81,-199.08 668.09,-205.7"/>
+<path fill="none" stroke="midnightblue" d="M690.5,-186.28C671.91,-200.72 645.17,-220.4 620,-235 608.67,-241.58 595.69,-247.79 584.13,-252.9"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="692.73,-188.99 698.43,-180.06 688.41,-183.48 692.73,-188.99"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="classflow_1_1perf_1_1Checkpointing__timer.html#aa9940d8e87883f9985ba18939f833db9" target="_top" xlink:title="Constructs a new timer and immediately begins measuring time, in that the next checkpoint() call will...">
-<polygon fill="white" stroke="black" points="485.5,-299 485.5,-325 616.5,-325 616.5,-299 485.5,-299"/>
-<text text-anchor="start" x="493.5" y="-314.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
-<text text-anchor="middle" x="551" y="-305.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::Checkpointing_timer</text>
+<polygon fill="white" stroke="black" points="485.5,-199 485.5,-225 616.5,-225 616.5,-199 485.5,-199"/>
+<text text-anchor="start" x="493.5" y="-214.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
+<text text-anchor="middle" x="551" y="-205.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::Checkpointing_timer</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M692.05,-205.77C673.19,-222.12 645.35,-245.71 620,-265 604.24,-276.99 585.71,-289.71 571.98,-298.89"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="694.55,-208.23 699.79,-199.02 689.95,-202.95 694.55,-208.23"/>
+<path fill="none" stroke="midnightblue" d="M657.71,-182.73C638.59,-188.02 617.47,-193.87 599.18,-198.94"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="658.8,-186.06 667.5,-180.02 656.93,-179.31 658.8,-186.06"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="classflow_1_1perf_1_1Checkpointing__timer.html#a019df7b02e8aed1e86002c8a7b40dcf7" target="_top" xlink:title="Based on the passed in which_clocks argument, the current time is returned for the clock types enable...">
-<polygon fill="white" stroke="black" points="491.5,-173 491.5,-199 610.5,-199 610.5,-173 491.5,-173"/>
-<text text-anchor="start" x="499.5" y="-188.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
-<text text-anchor="middle" x="551" y="-179.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::now</text>
+<polygon fill="white" stroke="black" points="491.5,-154 491.5,-180 610.5,-180 610.5,-154 491.5,-154"/>
+<text text-anchor="start" x="499.5" y="-169.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::Checkpointing</text>
+<text text-anchor="middle" x="551" y="-160.6" font-family="Helvetica,sans-Serif" font-size="8.00">_timer::now</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node8 -->
-<g id="edge8" class="edge">
+<g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M645.68,-186C634,-186 621.97,-186 610.58,-186"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="645.83,-189.5 655.83,-186 645.83,-182.5 645.83,-189.5"/>
+<path fill="none" stroke="midnightblue" d="M645.68,-167C634,-167 621.97,-167 610.58,-167"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="645.83,-170.5 655.83,-167 645.83,-163.5 645.83,-170.5"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="namespaceflow_1_1perf.html#a0dee22ec7bf250bbbf556a7e15c1f784" target="_top" xlink:title="Constructs a closure that times and executes void&#45;returning function(), adding the elapsed time with ...">
-<polygon fill="white" stroke="black" points="490,-127.5 490,-144.5 612,-144.5 612,-127.5 490,-127.5"/>
-<text text-anchor="middle" x="551" y="-134.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::timed_function</text>
+<polygon fill="white" stroke="black" points="490,-117.5 490,-134.5 612,-134.5 612,-117.5 490,-117.5"/>
+<text text-anchor="middle" x="551" y="-124.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::timed_function</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node9 -->
-<g id="edge9" class="edge">
+<g id="edge8" class="edge">
 <title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M662.38,-169.96C634.93,-161.52 602.37,-151.5 579.76,-144.54"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="661.64,-173.4 672.23,-172.99 663.7,-166.71 661.64,-173.4"/>
+<path fill="none" stroke="midnightblue" d="M652.75,-151.42C630.1,-145.71 605.3,-139.45 585.98,-134.57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="652.08,-154.86 662.64,-153.91 653.8,-148.07 652.08,-154.86"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
 <g id="a_node19"><a xlink:href="namespaceflow_1_1perf.html#a58d2f7a7fca0c3cfd0a87ae560ce4926" target="_top" xlink:title="Constructs a closure that times and executes non&#45;void&#45;returning function(), adding the elapsed time w...">
-<polygon fill="white" stroke="black" points="482,-91.5 482,-108.5 620,-108.5 620,-91.5 482,-91.5"/>
-<text text-anchor="middle" x="551" y="-98.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::timed_function_nvr</text>
+<polygon fill="white" stroke="black" points="482,-81.5 482,-98.5 620,-98.5 620,-81.5 482,-81.5"/>
+<text text-anchor="middle" x="551" y="-88.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::perf::timed_function_nvr</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node19 -->
-<g id="edge19" class="edge">
+<g id="edge18" class="edge">
 <title>Node1&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M692.14,-166.28C673.87,-151.1 646.78,-130.65 620,-118 611.83,-114.14 602.7,-111.01 593.85,-108.51"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="689.98,-169.04 699.88,-172.83 694.51,-163.7 689.98,-169.04"/>
+<path fill="none" stroke="midnightblue" d="M688.53,-147.81C670.18,-135 644.56,-118.63 620,-108 611.26,-104.22 601.53,-101.07 592.23,-98.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="686.74,-150.83 696.92,-153.77 690.8,-145.12 686.74,-150.83"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -111,8 +111,8 @@
 <!-- Node2&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M517.87,-260.16C497.5,-271.47 470.45,-286.07 446,-298 439.5,-301.17 432.54,-304.39 425.73,-307.44"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="519.71,-263.15 526.74,-255.22 516.3,-257.03 519.71,-263.15"/>
+<path fill="none" stroke="midnightblue" d="M503.58,-282.55C481.79,-290.31 455.81,-299.58 433.69,-307.47"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="505.03,-285.75 513.27,-279.09 502.68,-279.16 505.03,-285.75"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -127,8 +127,8 @@
 <!-- Node2&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M481.16,-255.73C468.52,-258.25 455.43,-260.86 443.13,-263.31"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="482.06,-259.12 491.18,-253.73 480.69,-252.25 482.06,-259.12"/>
+<path fill="none" stroke="midnightblue" d="M481.16,-269.74C468.52,-270.43 455.43,-271.14 443.13,-271.81"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="481.39,-273.24 491.18,-269.2 481.01,-266.25 481.39,-273.24"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -143,8 +143,8 @@
 <!-- Node2&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node2&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M481.16,-237.01C468.52,-236.09 455.43,-235.14 443.13,-234.25"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="480.96,-240.5 491.18,-237.74 481.46,-233.52 480.96,-240.5"/>
+<path fill="none" stroke="midnightblue" d="M481.16,-251.03C468.52,-248.28 455.43,-245.43 443.13,-242.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="480.67,-254.5 491.18,-253.21 482.16,-247.66 480.67,-254.5"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -162,12 +162,6 @@
 <path fill="none" stroke="midnightblue" d="M313.72,-275C303.15,-275 292.33,-275 282.01,-275"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="313.75,-278.5 323.75,-275 313.75,-271.5 313.75,-278.5"/>
 </g>
-<!-- Node7&#45;&gt;Node3 -->
-<g id="edge7" class="edge">
-<title>Node7&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M475.02,-317.89C465.31,-318.65 455.46,-319.43 446,-320.17"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="475.37,-321.37 485.07,-317.1 474.82,-314.39 475.37,-321.37"/>
-</g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
@@ -180,10 +174,10 @@
 </g>
 </g>
 <!-- Node9&#45;&gt;Node10 -->
-<g id="edge10" class="edge">
+<g id="edge9" class="edge">
 <title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M507.89,-147.2C486.41,-152.91 460.06,-159.91 437.24,-165.98"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="508.93,-150.54 517.7,-144.59 507.13,-143.78 508.93,-150.54"/>
+<path fill="none" stroke="midnightblue" d="M507.84,-137.27C499.25,-139.71 490.31,-142.35 482,-145 465.38,-150.3 447.36,-156.61 431.38,-162.4"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="509,-140.58 517.69,-134.52 507.12,-133.84 509,-140.58"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
@@ -197,10 +191,10 @@
 </g>
 </g>
 <!-- Node9&#45;&gt;Node12 -->
-<g id="edge12" class="edge">
+<g id="edge11" class="edge">
 <title>Node9&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M479.52,-131.74C465.27,-130.88 450.52,-129.99 437.02,-129.17"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="479.59,-135.25 489.78,-132.36 480.01,-128.26 479.59,-135.25"/>
+<path fill="none" stroke="midnightblue" d="M479.52,-126C465.27,-126 450.52,-126 437.02,-126"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="479.78,-129.5 489.78,-126 479.78,-122.5 479.78,-129.5"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
@@ -214,10 +208,10 @@
 </g>
 </g>
 <!-- Node9&#45;&gt;Node14 -->
-<g id="edge14" class="edge">
+<g id="edge13" class="edge">
 <title>Node9&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M501.92,-124.74C495.15,-122.73 488.34,-120.48 482,-118 465.15,-111.42 462.29,-106.86 446,-99 439.49,-95.86 432.52,-92.65 425.71,-89.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="501.17,-128.16 511.75,-127.5 503.07,-121.42 501.17,-128.16"/>
+<path fill="none" stroke="midnightblue" d="M505.45,-114.86C497.6,-112.71 489.53,-110.38 482,-108 464.62,-102.51 445.78,-95.74 429.34,-89.57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="504.66,-118.27 515.22,-117.47 506.47,-111.51 504.66,-118.27"/>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
@@ -229,10 +223,10 @@
 </g>
 </g>
 <!-- Node9&#45;&gt;Node16 -->
-<g id="edge16" class="edge">
+<g id="edge15" class="edge">
 <title>Node9&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M489.24,-123C486.69,-121.51 484.26,-119.85 482,-118 454,-95.09 473,-69.07 446,-45 439.4,-39.11 431.11,-34.77 422.78,-31.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="487.78,-126.18 498.29,-127.45 490.86,-119.9 487.78,-126.18"/>
+<path fill="none" stroke="midnightblue" d="M489.95,-113.15C487.16,-111.62 484.49,-109.91 482,-108 456.43,-88.35 470.72,-65.72 446,-45 438.96,-39.1 430.22,-34.73 421.56,-31.51"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="488.67,-116.41 499.22,-117.43 491.61,-110.06 488.67,-116.41"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
@@ -246,7 +240,7 @@
 </g>
 </g>
 <!-- Node10&#45;&gt;Node11 -->
-<g id="edge11" class="edge">
+<g id="edge10" class="edge">
 <title>Node10&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M319.56,-180C303.43,-180 286.34,-180 271.12,-180"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="320,-183.5 330,-180 320,-176.5 320,-183.5"/>
@@ -263,7 +257,7 @@
 </g>
 </g>
 <!-- Node12&#45;&gt;Node13 -->
-<g id="edge13" class="edge">
+<g id="edge12" class="edge">
 <title>Node12&#45;&gt;Node13</title>
 <path fill="none" stroke="midnightblue" d="M319.56,-126C303.43,-126 286.34,-126 271.12,-126"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="320,-129.5 330,-126 320,-122.5 320,-129.5"/>
@@ -280,7 +274,7 @@
 </g>
 </g>
 <!-- Node14&#45;&gt;Node15 -->
-<g id="edge15" class="edge">
+<g id="edge14" class="edge">
 <title>Node14&#45;&gt;Node15</title>
 <path fill="none" stroke="midnightblue" d="M310.41,-72C302.01,-72 293.5,-72 285.26,-72"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="310.57,-75.5 320.57,-72 310.57,-68.5 310.57,-75.5"/>
@@ -297,7 +291,7 @@
 </g>
 </g>
 <!-- Node16&#45;&gt;Node17 -->
-<g id="edge17" class="edge">
+<g id="edge16" class="edge">
 <title>Node16&#45;&gt;Node17</title>
 <path fill="none" stroke="midnightblue" d="M313.63,-20.83C303.81,-20.53 293.78,-20.21 284.14,-19.91"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="313.64,-24.34 323.75,-21.15 313.86,-17.34 313.64,-24.34"/>
@@ -314,7 +308,7 @@
 </g>
 </g>
 <!-- Node17&#45;&gt;Node18 -->
-<g id="edge18" class="edge">
+<g id="edge17" class="edge">
 <title>Node17&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M150.47,-18C141.7,-18 132.79,-18 124.19,-18"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="150.67,-21.5 160.67,-18 150.67,-14.5 150.67,-21.5"/>

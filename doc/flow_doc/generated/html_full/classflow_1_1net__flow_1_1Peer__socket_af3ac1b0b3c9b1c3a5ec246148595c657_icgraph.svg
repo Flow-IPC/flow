@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aa911c498b19cb643f7227ad83fbd9ea3" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 97,-26.5 97,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="48.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::receive</text>

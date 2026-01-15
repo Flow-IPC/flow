@@ -13,11 +13,12 @@ var searchData=
   ['thread_10',['Thread',['../namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5',1,'flow::util']]],
   ['thread_5fid_11',['Thread_id',['../namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de',1,'flow::util']]],
   ['thread_5finit_5ffunc_12',['Thread_init_func',['../classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396',1,'flow::async::Concurrent_task_loop']]],
-  ['time_5faccumulator_13',['Time_accumulator',['../classflow_1_1async_1_1Timed__concurrent__task__loop.html#a979755c94c0f080fb40d23a61c1a0049',1,'flow::async::Timed_concurrent_task_loop']]],
-  ['time_5fpt_14',['Time_pt',['../namespaceflow_1_1perf.html#ace5f154155a7d9d5c112c1a83aa04fb5',1,'flow::perf']]],
-  ['time_5funit_15',['Time_unit',['../classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a1e5e59588c6683d56866e49e5fd2980e',1,'flow::net_flow::Send_bandwidth_estimator']]],
-  ['timer_16',['Timer',['../namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6',1,'flow::util']]],
-  ['timer_5fptr_17',['Timer_ptr',['../classflow_1_1net__flow_1_1Node.html#a44af106f110963a465065a7ea19185a3',1,'flow::net_flow::Node']]],
-  ['timer_5fwait_5fid_5ft_18',['timer_wait_id_t',['../classflow_1_1net__flow_1_1Drop__timer.html#ad9db6f435dfc65b7bd4b539467f1c3ec',1,'flow::net_flow::Drop_timer']]],
-  ['type_19',['Type',['../structflow_1_1cfg_1_1Final__validator__func.html#a5475ab0b6e93f2ccded2aa8690ace0a4',1,'flow::cfg::Final_validator_func']]]
+  ['thread_5flocal_5fstate_13',['Thread_local_state',['../classflow_1_1util_1_1Thread__local__state__registry.html#ae7e3943eb37f5c1373b35d6784b0ef3d',1,'flow::util::Thread_local_state_registry']]],
+  ['time_5faccumulator_14',['Time_accumulator',['../classflow_1_1async_1_1Timed__concurrent__task__loop.html#a979755c94c0f080fb40d23a61c1a0049',1,'flow::async::Timed_concurrent_task_loop']]],
+  ['time_5fpt_15',['Time_pt',['../namespaceflow_1_1perf.html#ace5f154155a7d9d5c112c1a83aa04fb5',1,'flow::perf']]],
+  ['time_5funit_16',['Time_unit',['../classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a1e5e59588c6683d56866e49e5fd2980e',1,'flow::net_flow::Send_bandwidth_estimator']]],
+  ['timer_17',['Timer',['../namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6',1,'flow::util']]],
+  ['timer_5fptr_18',['Timer_ptr',['../classflow_1_1net__flow_1_1Node.html#a44af106f110963a465065a7ea19185a3',1,'flow::net_flow::Node']]],
+  ['timer_5fwait_5fid_5ft_19',['timer_wait_id_t',['../classflow_1_1net__flow_1_1Drop__timer.html#ad9db6f435dfc65b7bd4b539467f1c3ec',1,'flow::net_flow::Drop_timer']]],
+  ['type_20',['Type',['../structflow_1_1cfg_1_1Final__validator__func.html#a5475ab0b6e93f2ccded2aa8690ace0a4',1,'flow::cfg::Final_validator_func']]]
 ];

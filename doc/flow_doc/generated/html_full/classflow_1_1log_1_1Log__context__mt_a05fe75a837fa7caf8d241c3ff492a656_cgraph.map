@@ -1,0 +1,4 @@
+<map id="flow::log::Log_context_mt::swap" name="flow::log::Log_context_mt::swap">
+<area shape="rect" id="node1" title="Identical to Log_context API; but safe against concurrent operations on a *this." alt="" coords="5,29,148,65"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f" title="Log_context_mt ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="196,35,303,59"/>
+</map>

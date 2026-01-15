@@ -1,0 +1,4 @@
+<map id="flow::util::Thread_local_state_registry::nickname" name="flow::util::Thread_local_state_registry::nickname">
+<area shape="rect" id="node1" title="Returns nickname, a brief string suitable for logging." alt="" coords="185,5,317,53"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Thread__local__state__registry.html#a1df2ae2db7c1d7a9e3467d6042f3153f" title="Serializes a Thread_local_state_registry to a standard output stream." alt="" coords="5,5,137,53"/>
+</map>

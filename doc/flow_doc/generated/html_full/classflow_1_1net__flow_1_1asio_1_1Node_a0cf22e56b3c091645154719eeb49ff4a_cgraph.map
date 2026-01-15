@@ -1,11 +1,10 @@
 <map id="flow::net_flow::asio::Node::async_op" name="flow::net_flow::asio::Node::async_op">
-<area shape="rect" id="node1" title="Implementation of core asynchronous transfer methods, namely asio::Peer_socket::async_send(),..." alt="" coords="5,173,133,209"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#ad100464cf0126dbbad39bde1c90a774f" title="Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns ..." alt="" coords="181,87,316,123"/>
-<area shape="rect" id="node7" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="365,146,508,182"/>
-<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e" title="Identical to schedule_task_from_now() except the time is specified in absolute terms." alt="" coords="185,201,312,237"/>
-<area shape="rect" id="node9" href="$namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2" title="Attempts to prevent the execution of a previously scheduled (by schedule_task_from_now() or similar) ..." alt="" coords="181,261,316,297"/>
+<area shape="rect" id="node1" title="Implementation of core asynchronous transfer methods, namely asio::Peer_socket::async_send(),..." alt="" coords="5,114,133,150"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a237c603bbd4845a5fc4b0370b4979b31" title="Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns ..." alt="" coords="181,30,316,66"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="365,86,508,122"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e" title="Identical to schedule_task_from_now() except the time is specified in absolute terms." alt="" coords="185,142,312,178"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2" title="Attempts to prevent the execution of a previously scheduled (by schedule_task_from_now() or similar) ..." alt="" coords="181,202,316,238"/>
 <area shape="rect" id="node3" href="$namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4" title="An extension of boost.asio&#39;s post() and dispatch() free function templates, this free function templa..." alt="" coords="364,26,509,62"/>
-<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Event__set.html#a7b8e6cf7046b6905015301a203cd88f5" title="Constructs object; initializes all values to well&#45;defined but possibly meaningless values (0,..." alt="" coords="369,86,505,122"/>
 <area shape="rect" id="node4" href="$namespaceflow_1_1async.html#a4cce43f39672e80cba5512103c53ae60" title="Returns the 0&#45;based processor logical (not hardware) core index of the core executing the calling thr..." alt="" coords="557,5,691,29"/>
 <area shape="rect" id="node5" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="563,54,685,90"/>
 </map>

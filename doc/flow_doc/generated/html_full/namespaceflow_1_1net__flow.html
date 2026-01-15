@@ -471,7 +471,7 @@ Here is the caller graph for this function:</div>
 <div class="line">Some_class some_instance;</div>
 <div class="line"><a class="code hl_class" href="classflow_1_1Function.html">flow::Function</a>&lt;ostream&amp; (ostream&amp;)&gt; print_something_to_stream</div>
 <div class="line">  = [some_instance](ostream&amp; os) -&gt; ostream&amp; { <span class="keywordflow">return</span> some_instance-&gt;func(os, <span class="keyword">false</span>); };</div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00512">common.hpp:512</a></div></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00501">common.hpp:501</a></div></div>
 </div><!-- fragment --><dl class="section warning"><dt>Warning</dt><dd>It is important for this to be in namespace <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">flow::net_flow</a></code>, not higher (such as <code>flow</code>) or lower. Otherwise the places needing this overload to be used won't, and it will either not compile; or compile but invoke some other, useless overload. Unfortunately placing it into a containing namespace makes it not work from within a contained namespace.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You may note the above technique is not used for argument-bearing <code>std</code> stream manipulators; for example <code>std::setw()</code>. The technique used to make that work is that <code>setw()</code> would return some internal <code>struct</code> (of unknown-to-user type <code>T</code>), in which it has stored the argument to <code>setw()</code>; and an <code>operator&lt;&lt;(ostream, T)</code> overload is defined; this overload would actually set the field width (or whatever <code>setw()</code> is supposed to do) on the <code>ostream</code> &ndash; using the arg value stored in the <code>T</code>. That works, and it may be somewhat more performant than our solution; but our solution is <em>much</em> more elegant and concise; it lets one build stream manipulators out of any function at all, the only requirements on it being that it returns an <code>ostream&amp;</code> and takes same as <em>an</em> argument. The <code>std</code> technique allows the same, but we can do it with a single and expressive <code>bind()</code> call instead of a hidden internal <code>struct type</code>, explicitly storing arguments, documenting that stuff, etc. (We can change individual cases to use the <code>std</code>-style solution, if performance needs call for it, but so far there has been no such needs.) To be fair, the <code>std</code> solution is ALSO easier/more expressive at the actual call site. That is, in the above examples, one could just do: <code>cout &lt;&lt; func(false) &lt;&lt; ":" &lt;&lt; xyz;</code> or <code>cout &lt;&lt; some_instance.func(false) &lt;&lt; ":" &lt;&lt; xyz;</code>, respectively. That's easier to read than the <code>bind()</code> constructs above; but the code elsewhere that makes those <code>func()</code>s work is a huge mess that our solution completely avoids. For us, all that is needed behind the scenes is the present <code>operator&lt;&lt;</code> overload.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -892,7 +892,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00866">866</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00867">867</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -1042,7 +1042,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000124">Todo:</a></b></dt><dd>There are a few guys like this which are marked <code>@internal</code> (Doxygen command) to hide from generated public documentation, and that works, but really they should not be visible in the publicly-exported (not in detail/) header source code; so this should be reorganized for cleanliness. The prototypes like this one can be moved to a detail/ header or maybe directly into .cpp that uses them (for those where it's only one).</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000123">Todo:</a></b></dt><dd>There are a few guys like this which are marked <code>@internal</code> (Doxygen command) to hide from generated public documentation, and that works, but really they should not be visible in the publicly-exported (not in detail/) header source code; so this should be reorganized for cleanliness. The prototypes like this one can be moved to a detail/ header or maybe directly into .cpp that uses them (for those where it's only one).</dd></dl>
 <p >Prints string representation of given socket state to given standard <code>ostream</code> and returns the latter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1093,7 +1093,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00887">887</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00888">888</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 </div>
 </div>
@@ -1212,7 +1212,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>is</code>.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000118">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000117">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="cong__ctl_8cpp_source.html#l00124">124</a> of file <a class="el" href="cong__ctl_8cpp_source.html">cong_ctl.cpp</a>.</p>
 
@@ -1244,7 +1244,7 @@ port," depending on the context. </p>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

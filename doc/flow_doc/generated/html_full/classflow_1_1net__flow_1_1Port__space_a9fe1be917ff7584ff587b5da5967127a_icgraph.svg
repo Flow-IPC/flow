@@ -280,7 +280,7 @@
 <!-- Node20 -->
 <g id="node12" class="node">
 <title>Node20</title>
-<g id="a_node12"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
+<g id="a_node12"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1812e852957c43ccca8712d63c6e3de7" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
 <polygon fill="white" stroke="black" points="444,-94.5 444,-120.5 557,-120.5 557,-94.5 444,-94.5"/>
 <text text-anchor="start" x="452" y="-110.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="500.5" y="-101.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::close_abruptly</text>
@@ -320,7 +320,7 @@
 <!-- Node25 -->
 <g id="node18" class="node">
 <title>Node25</title>
-<g id="a_node18"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
+<g id="a_node18"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
 <polygon fill="white" stroke="black" points="752.5,-0.5 752.5,-26.5 853.5,-26.5 853.5,-0.5 752.5,-0.5"/>
 <text text-anchor="start" x="760.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="803" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::listen</text>

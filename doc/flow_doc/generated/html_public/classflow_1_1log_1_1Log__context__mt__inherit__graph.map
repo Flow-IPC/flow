@@ -1,0 +1,6 @@
+<map id="flow::log::Log_context_mt" name="flow::log::Log_context_mt">
+<area shape="rect" id="node1" title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ..." alt="" coords="196,53,357,77"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Thread__local__state__registry.html" title=" " alt="" coords="407,5,563,53"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built&#45;in lazy&#45;init semantics; and more importantly ..." alt="" coords="405,77,564,125"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="5,53,148,77"/>
+</map>

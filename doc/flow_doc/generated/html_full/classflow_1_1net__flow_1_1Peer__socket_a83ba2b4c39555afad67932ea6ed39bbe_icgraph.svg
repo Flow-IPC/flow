@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a846142aef01f5e9060f39a82dcf5c190" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 97,-26.5 97,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="48.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::send</text>

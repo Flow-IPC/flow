@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ae7c950b1663a58bb4de6d8b48a2fc9a1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 102,-26.5 102,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="51" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::sync_wait</text>

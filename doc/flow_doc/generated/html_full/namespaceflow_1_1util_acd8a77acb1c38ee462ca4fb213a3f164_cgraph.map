@@ -1,0 +1,5 @@
+<map id="flow::util::ostream_op_string" name="flow::util::ostream_op_string">
+<area shape="rect" id="node1" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="5,5,128,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="176,5,299,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="347,5,477,41"/>
+</map>

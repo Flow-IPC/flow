@@ -1,4 +1,4 @@
 <map id="flow::net_flow::Peer_socket::sync_receive_impl" name="flow::net_flow::Peer_socket::sync_receive_impl">
 <area shape="rect" id="node1" title="Same as sync_receive() but uses a Fine_clock&#45;based Fine_duration non&#45;template type for implementation..." alt="" coords="195,5,364,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44" title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout." alt="" coords="5,5,147,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a21c5f1777ae2d672532d99a9547fd367" title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout." alt="" coords="5,5,147,41"/>
 </map>

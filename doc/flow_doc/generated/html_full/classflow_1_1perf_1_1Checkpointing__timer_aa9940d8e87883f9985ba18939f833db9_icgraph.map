@@ -1,4 +1,0 @@
-<map id="flow::perf::Checkpointing_timer::Checkpointing_timer" name="flow::perf::Checkpointing_timer::Checkpointing_timer">
-<area shape="rect" id="node1" title="Constructs a new timer and immediately begins measuring time, in that the next checkpoint() call will..." alt="" coords="220,11,395,47"/>
-<area shape="rect" id="node2" href="$classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#acbacf3b4842b77f542082e7a186f1434" title="Provides programmatic access to the aggregation result that would be logged by log_aggregated_results..." alt="" coords="5,5,172,53"/>
-</map>

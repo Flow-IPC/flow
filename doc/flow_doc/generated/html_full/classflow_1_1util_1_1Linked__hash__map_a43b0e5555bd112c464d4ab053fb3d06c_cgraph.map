@@ -1,0 +1,4 @@
+<map id="flow::util::Linked_hash_map::newest" name="flow::util::Linked_hash_map::newest">
+<area shape="rect" id="node1" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty()." alt="" coords="5,5,136,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__map.html#a585b7d184077a8644d764d104feed76a" title="Synonym of newest()." alt="" coords="184,5,307,41"/>
+</map>

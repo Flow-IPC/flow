@@ -71,7 +71,8 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">util_fwd.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -79,6 +80,7 @@ $(function() {
 <code>#include &lt;boost/asio.hpp&gt;</code><br />
 <code>#include &lt;boost/thread.hpp&gt;</code><br />
 <code>#include &lt;boost/thread/null_mutex.hpp&gt;</code><br />
+<code>#include &lt;boost/core/span.hpp&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 </div>
@@ -175,17 +177,21 @@ Typedefs</h2></td></tr>
 <tr class="memitem:add56211dee74c212c19028f1ded2a785"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#add56211dee74c212c19028f1ded2a785">flow::util::Lock_guard_noop_shared_non_recursive_ex</a> = boost::unique_lock&lt; Mutex_noop_shared_non_recursive &gt;</td></tr>
 <tr class="memdesc:add56211dee74c212c19028f1ded2a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Deprecated given C++1x) Equivalent to <a class="el" href="namespaceflow_1_1util.html#a9df3cc2f3aec0c0353443b9d6c81e638" title="(Deprecated given C++1x) Short-hand for exclusive mode advanced-capability RAII lock guard for Mutex_...">Lock_guard_shared_non_recursive_ex</a> but applied to <a class="el" href="namespaceflow_1_1util.html#aeee121f0277371517fd2f5c3a20d8112" title="Short-hand for a mutex type equivalent to util::Mutex_shared_non_recursive – except that the lock/unl...">Mutex_noop_shared_non_recursive</a>.  <a href="namespaceflow_1_1util.html#add56211dee74c212c19028f1ded2a785">More...</a><br /></td></tr>
 <tr class="separator:add56211dee74c212c19028f1ded2a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memTemplParams" colspan="2">template&lt;typename T , size_t E = DYNAMIC_EXTENT&gt; </td></tr>
+<tr class="memitem:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba">flow::util::Span</a> = boost::span&lt; T, E &gt;</td></tr>
+<tr class="memdesc:a1a4ce7d40de4231a1443bc0c77103cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for <code>std::span</code>-like type; that is contiguous sequence of objects with the first element of the sequence at position zero.  <a href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba">More...</a><br /></td></tr>
+<tr class="separator:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9bec37057b3abab90a9732d293116e5b"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Mapped , typename Hash , typename Pred &gt; </td></tr>
-<tr class="memitem:a9bec37057b3abab90a9732d293116e5b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a9bec37057b3abab90a9732d293116e5b">flow::util::swap</a> (Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt; &amp;val1, Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt; &amp;val2)</td></tr>
-<tr class="memdesc:a9bec37057b3abab90a9732d293116e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#a9bec37057b3abab90a9732d293116e5b">More...</a><br /></td></tr>
-<tr class="separator:a9bec37057b3abab90a9732d293116e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7fd808e839d422a3f74fbea57fe367e"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Hash , typename Pred &gt; </td></tr>
-<tr class="memitem:ac7fd808e839d422a3f74fbea57fe367e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ac7fd808e839d422a3f74fbea57fe367e">flow::util::swap</a> (Linked_hash_set&lt; Key, Hash, Pred &gt; &amp;val1, Linked_hash_set&lt; Key, Hash, Pred &gt; &amp;val2)</td></tr>
-<tr class="memdesc:ac7fd808e839d422a3f74fbea57fe367e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#ac7fd808e839d422a3f74fbea57fe367e">More...</a><br /></td></tr>
-<tr class="separator:ac7fd808e839d422a3f74fbea57fe367e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memTemplParams" colspan="2">template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </td></tr>
+<tr class="memitem:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aaac7b774853aa9a83e2935634fd5e7a6">flow::util::swap</a> (Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;val1, Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;val2)</td></tr>
+<tr class="memdesc:aaac7b774853aa9a83e2935634fd5e7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#aaac7b774853aa9a83e2935634fd5e7a6">More...</a><br /></td></tr>
+<tr class="separator:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9236b0fce20cb81abac3a70360db155"><td class="memTemplParams" colspan="2">template&lt;typename Key_t , typename Hash_t , typename Pred_t &gt; </td></tr>
+<tr class="memitem:af9236b0fce20cb81abac3a70360db155"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af9236b0fce20cb81abac3a70360db155">flow::util::swap</a> (Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt; &amp;val1, Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt; &amp;val2)</td></tr>
+<tr class="memdesc:af9236b0fce20cb81abac3a70360db155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#af9236b0fce20cb81abac3a70360db155">More...</a><br /></td></tr>
+<tr class="separator:af9236b0fce20cb81abac3a70360db155"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92ad411feccf73908abe6ed130d48f5"><td class="memItemLeft" align="right" valign="top">boost::chrono::microseconds&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ad92ad411feccf73908abe6ed130d48f5">flow::util::time_since_posix_epoch</a> ()</td></tr>
 <tr class="memdesc:ad92ad411feccf73908abe6ed130d48f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current POSIX (Unix) time as a duration from the Epoch time point.  <a href="namespaceflow_1_1util.html#ad92ad411feccf73908abe6ed130d48f5">More...</a><br /></td></tr>
 <tr class="separator:ad92ad411feccf73908abe6ed130d48f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,10 +207,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a0f681afaf67a0f917cf43a7ae893a015"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0f681afaf67a0f917cf43a7ae893a015">flow::util::to_mbit_per_sec</a> (N_items items_per_time, size_t bits_per_item=8)</td></tr>
 <tr class="memdesc:a0f681afaf67a0f917cf43a7ae893a015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility that converts a bandwidth in arbitrary units in both numerator and denominator to the same bandwidth in megabits per second.  <a href="namespaceflow_1_1util.html#a0f681afaf67a0f917cf43a7ae893a015">More...</a><br /></td></tr>
 <tr class="separator:a0f681afaf67a0f917cf43a7ae893a015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memTemplParams" colspan="2">template&lt;typename Integer &gt; </td></tr>
-<tr class="memitem:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memTemplItemLeft" align="right" valign="top">Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a6b7316b3ed6d89f54c91e17c2aab101e">flow::util::ceil_div</a> (Integer dividend, Integer divisor)</td></tr>
-<tr class="memdesc:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest integer.  <a href="namespaceflow_1_1util.html#a6b7316b3ed6d89f54c91e17c2aab101e">More...</a><br /></td></tr>
-<tr class="separator:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memTemplParams" colspan="2">template&lt;typename Integer , typename Integer2 &gt; </td></tr>
+<tr class="memitem:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memTemplItemLeft" align="right" valign="top">constexpr Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#afc4ad3399bfdafe880871760e5a9f3a5">flow::util::ceil_div</a> (Integer dividend, Integer2 divisor)</td></tr>
+<tr class="memdesc:afc4ad3399bfdafe880871760e5a9f3a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest integer.  <a href="namespaceflow_1_1util.html#afc4ad3399bfdafe880871760e5a9f3a5">More...</a><br /></td></tr>
+<tr class="separator:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a8c89b1db98238afb33a7185864fa4"><td class="memTemplParams" colspan="2">template&lt;typename Integer , typename Integer2 &gt; </td></tr>
+<tr class="memitem:a44a8c89b1db98238afb33a7185864fa4"><td class="memTemplItemLeft" align="right" valign="top">constexpr Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a44a8c89b1db98238afb33a7185864fa4">flow::util::round_to_multiple</a> (Integer dividend, Integer2 unit)</td></tr>
+<tr class="memdesc:a44a8c89b1db98238afb33a7185864fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the smallest integer &gt;= the given integer <code>dividend</code> such that it is a multiple of the given integer <code>unit</code>.  <a href="namespaceflow_1_1util.html#a44a8c89b1db98238afb33a7185864fa4">More...</a><br /></td></tr>
+<tr class="separator:a44a8c89b1db98238afb33a7185864fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09a032f8e1e77a3afc0b7df115a773e1"><td class="memTemplParams" colspan="2">template&lt;typename Cleanup_func &gt; </td></tr>
 <tr class="memitem:a09a032f8e1e77a3afc0b7df115a773e1"><td class="memTemplItemLeft" align="right" valign="top">Auto_cleanup&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">flow::util::setup_auto_cleanup</a> (const Cleanup_func &amp;func)</td></tr>
 <tr class="memdesc:a09a032f8e1e77a3afc0b7df115a773e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a way to execute arbitrary (cleanup) code at the exit of the current block.  <a href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">More...</a><br /></td></tr>
@@ -245,22 +255,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a0a873d1abeac7a29822e940adf4f06c9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9">flow::util::sequence_to_inverted_lookup_map</a> (Sequence const &amp;src_seq, Map *target_map, const Function&lt; typename Map::mapped_type(size_t)&gt; &amp;idx_to_map_val_func)</td></tr>
 <tr class="memdesc:a0a873d1abeac7a29822e940adf4f06c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to the 2-arg overload of <a class="el" href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9" title="Similar to the 2-arg overload of sequence_to_inverted_lookup_map() but with the ability to store a va...">sequence_to_inverted_lookup_map()</a> but with the ability to store a value based on the index into the input sequence instead of that index itself.  <a href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9">More...</a><br /></td></tr>
 <tr class="separator:a0a873d1abeac7a29822e940adf4f06c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8afd30c50bcd670d45442df49d1da484"><td class="memTemplParams" colspan="2">template&lt;typename ... T&gt; </td></tr>
-<tr class="memitem:a8afd30c50bcd670d45442df49d1da484"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">flow::util::ostream_op_to_string</a> (std::string *target_str, T const &amp;... ostream_args)</td></tr>
-<tr class="memdesc:a8afd30c50bcd670d45442df49d1da484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified string, as if the given arguments were each passed, via <code>&lt;&lt;</code> in sequence, to an <code>ostringstream</code>, and then the result were appended to the aforementioned string variable.  <a href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">More...</a><br /></td></tr>
-<tr class="separator:a8afd30c50bcd670d45442df49d1da484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a685b86585da2fa5186f51854e7ae1561"><td class="memTemplParams" colspan="2">template&lt;typename ... T&gt; </td></tr>
-<tr class="memitem:a685b86585da2fa5186f51854e7ae1561"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">flow::util::ostream_op_string</a> (T const &amp;... ostream_args)</td></tr>
-<tr class="memdesc:a685b86585da2fa5186f51854e7ae1561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>.  <a href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">More...</a><br /></td></tr>
-<tr class="separator:a685b86585da2fa5186f51854e7ae1561"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af92e6183c2071f4166d4b5a91f50d70c"><td class="memTemplParams" colspan="2">template&lt;typename T1 , typename ... T_rest&gt; </td></tr>
-<tr class="memitem:af92e6183c2071f4166d4b5a91f50d70c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c">flow::util::feed_args_to_ostream</a> (std::ostream *os, T1 const &amp;ostream_arg1, T_rest const &amp;... remaining_ostream_args)</td></tr>
-<tr class="memdesc:af92e6183c2071f4166d4b5a91f50d70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Induction step" version of variadic function template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given.  <a href="namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c">More...</a><br /></td></tr>
-<tr class="separator:af92e6183c2071f4166d4b5a91f50d70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a3ce0e3794a3a84dd26b4aa7b013f6276">flow::util::feed_args_to_ostream</a> (std::ostream *os, T const &amp;only_ostream_arg)</td></tr>
-<tr class="memdesc:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Induction base" for a variadic function template, this simply outputs given item to given <code>ostream</code> via <code>&lt;&lt;</code>.  <a href="namespaceflow_1_1util.html#a3ce0e3794a3a84dd26b4aa7b013f6276">More...</a><br /></td></tr>
-<tr class="separator:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">flow::util::ostream_op_to_string</a> (std::string *target_str, T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified string, as if the given arguments were each passed, via <code>&lt;&lt;</code> in sequence, to an <code>ostringstream</code>, and then the result were appended to the aforementioned string variable.  <a href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">More...</a><br /></td></tr>
+<tr class="separator:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">flow::util::ostream_op_string</a> (T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:acd8a77acb1c38ee462ca4fb213a3f164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>.  <a href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">More...</a><br /></td></tr>
+<tr class="separator:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf7064869bb90466477e426b466f7d2"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:a1bf7064869bb90466477e426b466f7d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2">flow::util::feed_args_to_ostream</a> (std::ostream *os, T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:a1bf7064869bb90466477e426b466f7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1Function.html">Function</a> template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given.  <a href="namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2">More...</a><br /></td></tr>
+<tr class="separator:a1bf7064869bb90466477e426b466f7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a29d6a6e65c3b96c52b5cad5971266"><td class="memTemplParams" colspan="2">template&lt;typename Enum &gt; </td></tr>
 <tr class="memitem:a18a29d6a6e65c3b96c52b5cad5971266"><td class="memTemplItemLeft" align="right" valign="top">Enum&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266">flow::util::istream_to_enum</a> (std::istream *is_ptr, Enum enum_default, Enum enum_sentinel, <a class="el" href="classbool.html">bool</a> accept_num_encoding=true, <a class="el" href="classbool.html">bool</a> case_sensitive=false, Enum enum_lowest=Enum(0))</td></tr>
 <tr class="memdesc:a18a29d6a6e65c3b96c52b5cad5971266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes an <code>enum class</code> value from a standard input stream.  <a href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266">More...</a><br /></td></tr>
@@ -271,6 +277,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a418b56a178c07100eef78da5c9d6ee7a"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">flow::util::deep_size</a> (const std::string &amp;val)</td></tr>
 <tr class="memdesc:a418b56a178c07100eef78da5c9d6ee7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Estimate of memory footprint of the given value, including memory allocated on its behalf &ndash; but excluding its shallow <code>sizeof</code>! &ndash; in bytes.  <a href="namespaceflow_1_1util.html#a418b56a178c07100eef78da5c9d6ee7a">More...</a><br /></td></tr>
 <tr class="separator:a418b56a178c07100eef78da5c9d6ee7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memTemplParams" colspan="2">template&lt;typename Thread_local_state_t &gt; </td></tr>
+<tr class="memitem:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1df2ae2db7c1d7a9e3467d6042f3153f">flow::util::operator&lt;&lt;</a> (std::ostream &amp;os, const Thread_local_state_registry&lt; Thread_local_state_t &gt; &amp;val)</td></tr>
+<tr class="memdesc:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes a <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> to a standard output stream.  <a href="namespaceflow_1_1util.html#a1df2ae2db7c1d7a9e3467d6042f3153f">More...</a><br /></td></tr>
+<tr class="separator:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a7f1f10a38eaa8459f02024feb14c850f"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a7f1f10a38eaa8459f02024feb14c850f">flow::util::DYNAMIC_EXTENT</a> = boost::dynamic_extent</td></tr>
+<tr class="memdesc:a7f1f10a38eaa8459f02024feb14c850f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures a <a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba" title="Short-hand for std::span-like type; that is contiguous sequence of objects with the first element of ...">Span</a> at compile-time to have a variable, rather than constant, length (use it as template arg).  <a href="namespaceflow_1_1util.html#a7f1f10a38eaa8459f02024feb14c850f">More...</a><br /></td></tr>
+<tr class="separator:a7f1f10a38eaa8459f02024feb14c850f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a402a1fb61d3fe4ca6767729e38620d6d" name="a402a1fb61d3fe4ca6767729e38620d6d"></a>
@@ -348,7 +364,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Code to be used as the entire definition of a macro whose definition would have been <code>ARG_func_macro_definition</code> if not for the resulting compile error or unexpected flow control effects detailed above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01079">1079</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01129">1129</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -379,7 +395,7 @@ Functions</h2></td></tr>
 <h3>Performance</h3>
 <p >The items <code>&lt;&lt;</code>ed onto the target <code>ostream</code> are each evaluated at compile-time. This includes the expression involving <a class="el" href="namespaceflow_1_1util.html#a13c3363efdf0d04b04b12ca7487d368c" title="Helper for FLOW_UTIL_WHERE_AM_I() that, given a pointer/length of a string in memory containing a pat...">flow::util::get_last_path_segment()</a> which is <code>constexpr</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00951">951</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01001">1001</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,16 +422,16 @@ Functions</h2></td></tr>
 <p>Same as <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> but evaluates to an <code>std::string</code>. </p>
 <p >It's probably a bit slower as well. Update: In fact, it's probably significantly slower as of this writing, as <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> evaluates the <code>&lt;&lt;</code>ed items at compile-time, while this cannot due to how it's implemented.</p>
 <p ><a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> is too clever to become a <code>constexpr</code> function, even if it were radically rewritten, so this macro evaluates to a partially runtime-computed expression. Hence the note just above about perf.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000170">Todo:</a></b></dt><dd>See if <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> can be coaxed into a compile-time expression after all. It is used in quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors. See notes inside <a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> on this as of this writing. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000171">Todo:</a></b></dt><dd>See if <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> can be coaxed into a compile-time expression after all. It is used in quite a lot of frequently executed code, namely at the top of most Flow (and Flow-like) APIs that can emit errors. See notes inside <a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc" title="Helper for FLOW_UTIL_WHERE_AM_I(), etc., that, given values for source code file name,...">flow::util::get_where_am_i_str()</a> on this as of this writing. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00971">971</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l01021">1021</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,8 +1,7 @@
 <map id="flow::cfg::value_set_member_id_to_opt_name_keyed" name="flow::cfg::value_set_member_id_to_opt_name_keyed">
-<area shape="rect" id="node1" title="Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() i..." alt="" coords="5,91,205,127"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="273,60,396,96"/>
-<area shape="rect" id="node6" href="$namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i..." alt="" coords="253,120,416,156"/>
-<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="464,60,587,96"/>
-<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="635,29,765,65"/>
-<area shape="rect" id="node5" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="645,89,755,125"/>
+<area shape="rect" id="node1" title="Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() i..." alt="" coords="5,36,205,72"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="273,5,396,41"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i..." alt="" coords="253,65,416,101"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="464,5,587,41"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="635,5,765,41"/>
 </map>

@@ -12,7 +12,7 @@ var searchData=
   ['serial_5ffile_5flogger_2ecpp_9',['serial_file_logger.cpp',['../serial__file__logger_8cpp.html',1,'']]],
   ['serial_5ffile_5flogger_2ehpp_10',['serial_file_logger.hpp',['../serial__file__logger_8hpp.html',1,'']]],
   ['server_5fsocket_2ecpp_11',['server_socket.cpp',['../asio_2server__socket_8cpp.html',1,'(Global Namespace)'],['../server__socket_8cpp.html',1,'(Global Namespace)']]],
-  ['server_5fsocket_2ehpp_12',['server_socket.hpp',['../asio_2server__socket_8hpp.html',1,'(Global Namespace)'],['../server__socket_8hpp.html',1,'(Global Namespace)']]],
+  ['server_5fsocket_2ehpp_12',['server_socket.hpp',['../server__socket_8hpp.html',1,'(Global Namespace)'],['../asio_2server__socket_8hpp.html',1,'(Global Namespace)']]],
   ['shared_5fptr_5falias_5fholder_2ehpp_13',['shared_ptr_alias_holder.hpp',['../shared__ptr__alias__holder_8hpp.html',1,'']]],
   ['simple_5fostream_5flogger_2ecpp_14',['simple_ostream_logger.cpp',['../simple__ostream__logger_8cpp.html',1,'']]],
   ['simple_5fostream_5flogger_2ehpp_15',['simple_ostream_logger.hpp',['../simple__ostream__logger_8hpp.html',1,'']]],

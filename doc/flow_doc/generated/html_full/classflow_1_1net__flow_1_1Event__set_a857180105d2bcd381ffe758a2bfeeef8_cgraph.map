@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Event_set::emit_result_sockets" name="flow::net_flow::Event_set::emit_result_sockets">
+<area shape="rect" id="node1" title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait." alt="" coords="5,96,164,132"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__set.html#a1ef8bdeefef5cd79dac28b6a4098f149" title="Makes it so that size() == 0." alt="" coords="242,5,355,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a8e16d91f81860eb2a6c971863548e466" title="Helper that ensures the state of *this is such that one may modify the m_can and m_want socket sets." alt="" coords="212,65,385,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#a494cbbb586ceb41455f3c1e830a969c1" title="Returns number of elements stored." alt="" coords="242,125,355,161"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Linked__hash__set.html#a15f73c0627f8b37f233afa9827af3009" title="Swaps the contents of this structure and other." alt="" coords="242,185,355,221"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util.html#af9236b0fce20cb81abac3a70360db155" title="Equivalent to val1.swap(val2)." alt="" coords="433,191,540,215"/>
+</map>

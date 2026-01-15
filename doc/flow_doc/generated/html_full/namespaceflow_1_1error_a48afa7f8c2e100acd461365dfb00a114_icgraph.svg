@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a9ae292072a84d07c867536e3de3b878e" target="_top" xlink:title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ac00ce0bdf34af4a6d3ed2d54dd641912" target="_top" xlink:title="Clears all stored resources (any desired events, result events, and any handler saved by async_wait()...">
 <polygon fill="white" stroke="black" points="310.5,-234.5 310.5,-260.5 412.5,-260.5 412.5,-234.5 310.5,-234.5"/>
 <text text-anchor="start" x="318.5" y="-250.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="361.5" y="-241.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::close</text>
@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
+<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1812e852957c43ccca8712d63c6e3de7" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
 <polygon fill="white" stroke="black" points="305,-171.5 305,-197.5 418,-197.5 418,-171.5 305,-171.5"/>
 <text text-anchor="start" x="313" y="-187.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="361.5" y="-178.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::close_abruptly</text>
@@ -54,7 +54,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a1124027c715d674f113f2d961e4c6861" target="_top" xlink:title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8" target="_top" xlink:title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo...">
 <polygon fill="white" stroke="black" points="311,-126.5 311,-152.5 412,-152.5 412,-126.5 311,-126.5"/>
 <text text-anchor="start" x="319" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="361.5" y="-133.1" font-family="Helvetica,sans-Serif" font-size="8.00">::interrupt_all_waits</text>
@@ -120,7 +120,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classflow_1_1async_1_1Segregated__thread__task__loop.html#a55fcb2e9f5410174c69cb1b9053a6ffd" target="_top" xlink:title="Implements superclass API.">
+<g id="a_node6"><a xlink:href="classflow_1_1async_1_1Segregated__thread__task__loop.html#af19377b924d1598a3ad59f0fba89bfee" target="_top" xlink:title="Implements superclass API.">
 <polygon fill="white" stroke="black" points="151,-99.5 151,-125.5 268,-125.5 268,-99.5 151,-99.5"/>
 <text text-anchor="start" x="159" y="-115.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Segregated</text>
 <text text-anchor="middle" x="209.5" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>
@@ -136,7 +136,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1async_1_1Cross__thread__task__loop.html#a5705e34163dec8463a30361bdb2fa83f" target="_top" xlink:title="Implements superclass API.">
+<g id="a_node7"><a xlink:href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" target="_top" xlink:title="Implements superclass API.">
 <polygon fill="white" stroke="black" points="152,-54.5 152,-80.5 267,-80.5 267,-54.5 152,-54.5"/>
 <text text-anchor="start" x="160" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Cross</text>
 <text text-anchor="middle" x="209.5" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>
@@ -152,7 +152,7 @@
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" target="_top" xlink:title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">
+<g id="a_node8"><a xlink:href="classflow_1_1async_1_1Single__thread__task__loop.html#a0047f013a3a9a05b9368666690cf4db8" target="_top" xlink:title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">
 <polygon fill="white" stroke="black" points="0,-54.5 0,-80.5 115,-80.5 115,-54.5 0,-54.5"/>
 <text text-anchor="start" x="8" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Single</text>
 <text text-anchor="middle" x="57.5" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>

@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html" title="An internal&#45;use dictionary for fast lookup of small Cfg values keyed by type_info objects,..." alt="" coords="5,5,192,53"/>
+<area shape="rect" id="node1" href="$classflow_1_1log_1_1Component__payload__type__dict__by__val__via__array.html" title="Exactly equivalent to Component_payload_type_dict_by_val_via_map but with impl = array with linear se..." alt="" coords="5,5,153,53"/>
 </map>

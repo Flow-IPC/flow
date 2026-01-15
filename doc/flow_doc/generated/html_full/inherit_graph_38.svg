@@ -12,10 +12,10 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="structflow_1_1net__flow_1_1Node__options.html" target="_top" xlink:title="A set of low&#45;level options affecting a single Flow Node, including Peer_socket objects and other obje...">
+<g id="a_node1"><a xlink:href="structflow_1_1net__flow_1_1Node_1_1Socket__id.html" target="_top" xlink:title="The data nugget uniquely identifying a peer&#45;to&#45;peer connection from a remote endpoint to a port in th...">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 101,-26.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
-<text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_options</text>
+<text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Socket_id</text>
 </a>
 </g>
 </g>

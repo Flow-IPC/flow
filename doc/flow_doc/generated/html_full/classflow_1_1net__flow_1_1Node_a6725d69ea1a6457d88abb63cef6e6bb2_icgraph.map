@@ -1,4 +1,0 @@
-<map id="flow::net_flow::Node::sync_connect_with_metadata" name="flow::net_flow::Node::sync_connect_with_metadata">
-<area shape="rect" id="node1" title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata..." alt="" coords="188,5,379,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#aba2e6fc905dbeef3ea9e31bf844f8da5" title="The blocking (synchronous) version of connect()." alt="" coords="5,5,140,41"/>
-</map>

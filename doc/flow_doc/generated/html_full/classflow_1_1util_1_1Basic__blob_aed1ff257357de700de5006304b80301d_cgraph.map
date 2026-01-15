@@ -1,0 +1,4 @@
+<map id="flow::util::Basic_blob::swap_impl" name="flow::util::Basic_blob::swap_impl">
+<area shape="rect" id="node1" title="The body of swap(), except for the part that swaps (or decides not to swap) alloc_raw()." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a9bf5004897129150111e57f3521341cb" title="Equivalent to blob1.swap(blob2)." alt="" coords="188,11,295,35"/>
+</map>

@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#ae742005a701eea47c2f0c514e2bc9bdc" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 101,-26.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::set_options</text>

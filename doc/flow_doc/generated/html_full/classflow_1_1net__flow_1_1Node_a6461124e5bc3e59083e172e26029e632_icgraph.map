@@ -1,4 +1,4 @@
 <map id="flow::net_flow::Node::close_abruptly" name="flow::net_flow::Node::close_abruptly">
 <area shape="rect" id="node1" title="Implementation of non&#45;blocking sock&#45;&gt;close_abruptly() for socket sock in all cases except when sock&#45;&gt;..." alt="" coords="204,29,339,65"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection." alt="" coords="5,29,156,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a1812e852957c43ccca8712d63c6e3de7" title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection." alt="" coords="5,29,156,65"/>
 </map>

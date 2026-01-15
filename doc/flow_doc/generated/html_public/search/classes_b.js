@@ -4,5 +4,6 @@ var searchData=
   ['peer_5fsocket_5finfo_1',['Peer_socket_info',['../structflow_1_1net__flow_1_1Peer__socket__info.html',1,'flow::net_flow']]],
   ['peer_5fsocket_5foptions_2',['Peer_socket_options',['../structflow_1_1net__flow_1_1Peer__socket__options.html',1,'flow::net_flow']]],
   ['peer_5fsocket_5freceive_5fstats_3',['Peer_socket_receive_stats',['../structflow_1_1net__flow_1_1Peer__socket__receive__stats.html',1,'flow::net_flow']]],
-  ['peer_5fsocket_5fsend_5fstats_4',['Peer_socket_send_stats',['../classflow_1_1net__flow_1_1Peer__socket__send__stats.html',1,'flow::net_flow']]]
+  ['peer_5fsocket_5fsend_5fstats_4',['Peer_socket_send_stats',['../classflow_1_1net__flow_1_1Peer__socket__send__stats.html',1,'flow::net_flow']]],
+  ['polled_5fshared_5fstate_5',['Polled_shared_state',['../classflow_1_1util_1_1Polled__shared__state.html',1,'flow::util']]]
 ];

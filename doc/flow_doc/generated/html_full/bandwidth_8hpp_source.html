@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * ### Units ###</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * bandwidth_bytes_per_time() returns the current bandwidth estimate per unit time U, as an</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * *integer* number of bytes (rounded down).  What is U?  U is given as `Time_unit(1)`, where</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * *integer* number of bytes (rounded down).  What is U?  U is given as `Time_unit{1}`, where</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> * #Time_unit is a public alias of a boost.chrono duration type.  Be careful in any arithmetic done</span></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * with the value returned; both overflow and underflow can occur, if one does not take care to</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> * sanity-check the arithmetic.  The justification for the value of the #Time_unit alias is given</span></div>
@@ -208,7 +208,7 @@ $(function() {
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">  /**</span></div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">   * The primary time unit over which this class reports bandwidth.  So when</span></div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="comment">   * bandwidth_bytes_per_time() return the number N, that means its bandwidth estimate is N bytes</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment">   * per `Time_unit(1)` time.</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="comment">   * per `Time_unit{1}` time.</span></div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="comment">   *</span></div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">   * ### Implementation notes ###</span></div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">   * Why choose milliseconds?  There are two conflicting constraints on</span></div>
@@ -261,7 +261,7 @@ $(function() {
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"></span> </div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment">  /**</span></div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment">   * Returns the current estimate of the available outgoing bandwidth per unit time for the</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">   * containing socket&#39;s connection, in units of bytes per `Time_unit(1)`.  This value may be zero if</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">   * containing socket&#39;s connection, in units of bytes per `Time_unit{1}`.  This value may be zero if</span></div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment">   * either there is not enough information to make a reasonable estimate, or if the estimated</span></div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment">   * bandwidth is less than a certain low threshold.</span></div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">   *</span></div>
@@ -312,7 +312,7 @@ $(function() {
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">  /**</span></div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment">   * Applies the low-pass filter that takes the given previous result of the filter and blends in</span></div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment">   * the given new sample.  The values should be in the same units, which are presumably bytes per</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">   * `Time_unit(1)`.</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment">   * `Time_unit{1}`.</span></div>
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment">   *</span></div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment">   * @param prev_val_per_time</span></div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">   *        Previous result of this filter.</span></div>
@@ -380,8 +380,8 @@ $(function() {
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}; <span class="comment">// class Send_bandwidth_estimator</span></div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>} <span class="comment">// namespace flow::net_flow</span></div>
-<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01609">log.hpp:1610</a></div></div>
-<div class="ttc" id="aclassflow_1_1log_1_1Logger_html"><div class="ttname"><a href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a></div><div class="ttdoc">Interface that the user should implement, passing the implementing Logger into logging classes (Flow'...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01280">log.hpp:1284</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html">flow::log::Log_context</a></div><div class="ttdoc">Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01637">log.hpp:1638</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Logger_html"><div class="ttname"><a href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a></div><div class="ttdoc">Interface that the user should implement, passing the implementing Logger into logging classes (Flow'...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01282">log.hpp:1286</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Send__bandwidth__estimator_html"><div class="ttname"><a href="classflow_1_1net__flow_1_1Send__bandwidth__estimator.html">flow::net_flow::Send_bandwidth_estimator</a></div><div class="ttdoc">A per-Peer_socket module that tries to estimate the bandwidth available to the outgoing flow.</div><div class="ttdef"><b>Definition:</b> <a href="bandwidth_8hpp_source.html#l00122">bandwidth.hpp:125</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Send__bandwidth__estimator_html_a0bf439f5cfe98fb1d4d6d55ae605d278"><div class="ttname"><a href="classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a0bf439f5cfe98fb1d4d6d55ae605d278">flow::net_flow::Send_bandwidth_estimator::m_bytes_this_sample</a></div><div class="ttdeci">n_bytes_t m_bytes_this_sample</div><div class="ttdoc">The number of bytes acknowledged by receiver since m_this_sample_start_time (the time when the curren...</div><div class="ttdef"><b>Definition:</b> <a href="bandwidth_8hpp_source.html#l00295">bandwidth.hpp:295</a></div></div>
 <div class="ttc" id="aclassflow_1_1net__flow_1_1Send__bandwidth__estimator_html_a135f0a46b34063e10abfb16de057cbb3"><div class="ttname"><a href="classflow_1_1net__flow_1_1Send__bandwidth__estimator.html#a135f0a46b34063e10abfb16de057cbb3">flow::net_flow::Send_bandwidth_estimator::bandwidth_bytes_per_time</a></div><div class="ttdeci">n_bytes_t bandwidth_bytes_per_time() const</div><div class="ttdoc">Returns the current estimate of the available outgoing bandwidth per unit time for the containing soc...</div><div class="ttdef"><b>Definition:</b> <a href="bandwidth_8cpp_source.html#l00038">bandwidth.cpp:38</a></div></div>
@@ -400,12 +400,12 @@ $(function() {
 <div class="ttc" id="aclassflow_1_1util_1_1Shared__ptr__alias__holder_html_aef7998db71c60eeb5d1e3d1a97c14886"><div class="ttname"><a href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aef7998db71c60eeb5d1e3d1a97c14886">flow::util::Shared_ptr_alias_holder&lt; boost::shared_ptr&lt; Peer_socket &gt; &gt;::Const_ptr</a></div><div class="ttdeci">Const_target_ptr Const_ptr</div><div class="ttdoc">Short-hand for ref-counted pointer to immutable values of type Target_type::element_type (a-la T cons...</div><div class="ttdef"><b>Definition:</b> <a href="shared__ptr__alias__holder_8hpp_source.html#l00127">shared_ptr_alias_holder.hpp:127</a></div></div>
 <div class="ttc" id="adetail_2net__flow__fwd_8hpp_html"><div class="ttname"><a href="detail_2net__flow__fwd_8hpp.html">net_flow_fwd.hpp</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1net__flow_html"><div class="ttname"><a href="namespaceflow_1_1net__flow.html">flow::net_flow</a></div><div class="ttdoc">Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...</div><div class="ttdef"><b>Definition:</b> <a href="asio_2node_8cpp_source.html#l00024">node.cpp:25</a></div></div>
-<div class="ttc" id="anamespaceflow_html_a9d9cc2eeb10d398cff5591d446b763b8"><div class="ttname"><a href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">flow::Fine_time_pt</a></div><div class="ttdeci">Fine_clock::time_point Fine_time_pt</div><div class="ttdoc">A high-res time point as returned by Fine_clock::now() and suitable for precise time math in general.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00413">common.hpp:413</a></div></div>
+<div class="ttc" id="anamespaceflow_html_a9d9cc2eeb10d398cff5591d446b763b8"><div class="ttname"><a href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">flow::Fine_time_pt</a></div><div class="ttdeci">Fine_clock::time_point Fine_time_pt</div><div class="ttdoc">A high-res time point as returned by Fine_clock::now() and suitable for precise time math in general.</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00402">common.hpp:402</a></div></div>
 <div class="ttc" id="apeer__socket_8hpp_html"><div class="ttname"><a href="peer__socket_8hpp.html">peer_socket.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

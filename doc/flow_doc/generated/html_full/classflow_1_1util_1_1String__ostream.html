@@ -95,9 +95,9 @@ Collaboration diagram for flow::util::String_ostream:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a555fa9e2f764b9599fa7027f9d3a0051"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#a555fa9e2f764b9599fa7027f9d3a0051">String_ostream</a> (std::string *target_str=0)</td></tr>
-<tr class="memdesc:a555fa9e2f764b9599fa7027f9d3a0051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps either the given <code>std::string</code> or a newly created empty string if a null pointer is passed.  <a href="classflow_1_1util_1_1String__ostream.html#a555fa9e2f764b9599fa7027f9d3a0051">More...</a><br /></td></tr>
-<tr class="separator:a555fa9e2f764b9599fa7027f9d3a0051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30327c1ce9333222de95cf7274904066"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#a30327c1ce9333222de95cf7274904066">String_ostream</a> (std::string *target_str=nullptr)</td></tr>
+<tr class="memdesc:a30327c1ce9333222de95cf7274904066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps either the given <code>std::string</code> or a newly created empty string if a null pointer is passed.  <a href="classflow_1_1util_1_1String__ostream.html#a30327c1ce9333222de95cf7274904066">More...</a><br /></td></tr>
+<tr class="separator:a30327c1ce9333222de95cf7274904066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e64b069ae0e221952068c13fdc0f080"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080">os</a> ()</td></tr>
 <tr class="memdesc:a7e64b069ae0e221952068c13fdc0f080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to stream that will write to owned string.  <a href="classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080">More...</a><br /></td></tr>
 <tr class="separator:a7e64b069ae0e221952068c13fdc0f080"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +136,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p >Similar to <code>ostringstream</code> but allows fast read-only access directly into the <code>std::string</code> being written; and some limited write access to that string. </p>
 <p >Also it can take over an existing <code>std::string</code>.</p>
 <p ><code>ostringstream</code> is fine, except for the giant flaw that is the fact that the essentially only way to read the string is to call <code>ostringstream::str()</code> which returns a copy, not a reference.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000157">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000156">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
 <h3>Thread safety</h3>
 <p >This provides the same level of thread safety as <code>ostringstream</code>. That is, you should use a mutex if planning concurrent read/write access to the same object. </p>
 
@@ -169,8 +169,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a555fa9e2f764b9599fa7027f9d3a0051" name="a555fa9e2f764b9599fa7027f9d3a0051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a555fa9e2f764b9599fa7027f9d3a0051">&#9670;&nbsp;</a></span>String_ostream()</h2>
+<a id="a30327c1ce9333222de95cf7274904066" name="a30327c1ce9333222de95cf7274904066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30327c1ce9333222de95cf7274904066">&#9670;&nbsp;</a></span>String_ostream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,7 +182,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">flow::util::String_ostream::String_ostream </td>
           <td>(</td>
           <td class="paramtype">std::string *&#160;</td>
-          <td class="paramname"><em>target_str</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"><em>target_str</em> = <code>nullptr</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -228,11 +228,11 @@ Private Attributes</h2></td></tr>
 
 <p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00126">m_target_appender_ostream</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">flow::log::Thread_local_string_appender::appender_ostream()</a>, <a class="el" href="util_2util_8hpp_source.html#l00506">flow::util::buffers_dump_string()</a>, <a class="el" href="util_2util_8hpp_source.html#l00367">flow::util::ostream_op_to_string()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev()</a>, and <a class="el" href="option__set_8hpp_source.html#l01611">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">flow::log::Thread_local_string_appender::appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev()</a>, and <a class="el" href="option__set_8hpp_source.html#l01612">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1String__ostream_a7e64b069ae0e221952068c13fdc0f080_icgraph.svg" width="1710" height="1674"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1String__ostream_a7e64b069ae0e221952068c13fdc0f080_icgraph.svg" width="1000" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -447,7 +447,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

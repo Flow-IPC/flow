@@ -1,6 +1,6 @@
-<map id="flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;" name="flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;">
-<area shape="rect" id="node1" title="An object of this class is a map that combines the lookup speed of a boost::unordered_map&lt;&gt; and order..." alt="" coords="54,185,221,233"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,123,119"/>
+<map id="flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;" name="flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;">
+<area shape="rect" id="node1" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an..." alt="" coords="52,197,225,245"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,101,123,125"/>
 <area shape="rect" id="node3" title=" " alt="" coords="38,5,90,29"/>
-<area shape="rect" id="node4" title=" " alt="" coords="147,89,274,125"/>
+<area shape="rect" id="node4" href="$classLinked__hash__key__set_3_01Key_00_01Iterator_00_01Hash_00_01Pred_00_01true_01_4.html" title=" " alt="" coords="147,89,283,137"/>
 </map>

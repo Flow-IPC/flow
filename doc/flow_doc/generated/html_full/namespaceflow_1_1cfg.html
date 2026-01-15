@@ -390,7 +390,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02154">2154</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02155">2155</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -461,7 +461,7 @@ template&lt;typename Value_set &gt; </div>
 <p>Utility, used by <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> internally but made available as a public API in case it is useful, that converts a string containing a conventionally formatted data member name into the corresponding auto-determined config option name. </p>
 <dl class="section note"><dt>Note</dt><dd>An example for convenience, accurate as of the time of this writing: <code>m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy.m_cool_option_name</code> transforms to <code>cool-object.cool-sub-object.badass-sub-guy.cool-option-name</code>.</dd></dl>
 <p>The format for the contents of <code>member_id</code> shall be as follows: It shall consist of one or more identifiers following the Flow coding guide, each starting with <code>m_</code>, concatenated with C++ object separator sequences, each sequence chosen to be either <code>.</code> (object dereference) or <code>-&gt;</code> (pointer dereference). <code>m_</code> for each identifier is optional for this function &ndash; though the coding guide requires it as of this writing anyway.</p>
-<p >Note that boost.program_options allows config files (when used as config sources, e.g, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a4ca1b50ec692a98865e4afde76d04128" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">Option_set::parse_config_file()</a>) to declare a <code>[config-section]</code> which results in each <code>option-name</code> listed in that section to be treated as-if named <code>config-section.option-name</code>. This has synergy with nested objects within a config value set being separated by dots also (or <code>-&gt;</code> if desired for orthogonal reasons, such as if a smart pointer is used).</p>
+<p >Note that boost.program_options allows config files (when used as config sources, e.g, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#abe8fe72cae80d20e0a07d4732f15d57b" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">Option_set::parse_config_file()</a>) to declare a <code>[config-section]</code> which results in each <code>option-name</code> listed in that section to be treated as-if named <code>config-section.option-name</code>. This has synergy with nested objects within a config value set being separated by dots also (or <code>-&gt;</code> if desired for orthogonal reasons, such as if a smart pointer is used).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">member_id</td><td>Identifier, perhaps obtained via the preprocessor <code>#feature</code> from an argument to a functional macro. </td></tr>
@@ -472,7 +472,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="option__set_8cpp_source.html#l00038">38</a> of file <a class="el" href="option__set_8cpp_source.html">option_set.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02237">value_set_member_id_to_opt_name_keyed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02238">value_set_member_id_to_opt_name_keyed()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -528,13 +528,13 @@ template&lt;typename Key &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02237">2237</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02238">2238</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, <a class="el" href="option__set_8cpp_source.html#l00038">value_set_member_id_to_opt_name()</a>, and <a class="el" href="namespaceflow_1_1cfg.html#ac2f99fdb8f743e12d8f92553292dc8d6">VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_aafaf432a612183beab72175831aaa960_cgraph.svg" width="771" height="162"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_aafaf432a612183beab72175831aaa960_cgraph.svg" width="771" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -585,13 +585,13 @@ template&lt;typename Rep , typename Period &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02166">2166</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02167">2167</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_ac3782f31b7c020d7b08e250e89198ad4_cgraph.svg" width="654" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_ac3782f31b7c020d7b08e250e89198ad4_cgraph.svg" width="654" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -640,7 +640,7 @@ template&lt;typename Element &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02222">2222</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02223">2223</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -689,9 +689,9 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02160">2160</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02161">2161</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01640">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_help()</a>, <a class="el" href="option__set_8hpp_source.html#l01669">flow::cfg::Option_set_base::declare_option_for_output()</a>, <a class="el" href="option__set_8hpp_source.html#l01565">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_parsing()</a>, and <a class="el" href="option__set_8hpp_source.html#l01611">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01641">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_help()</a>, <a class="el" href="option__set_8hpp_source.html#l01670">flow::cfg::Option_set_base::declare_option_for_output()</a>, <a class="el" href="option__set_8hpp_source.html#l01566">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_parsing()</a>, and <a class="el" href="option__set_8hpp_source.html#l01612">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -704,7 +704,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,15 @@
+<map id="flow::util::swap" name="flow::util::swap">
+<area shape="rect" id="node1" title="Equivalent to blob1.swap(blob2)." alt="" coords="423,192,529,216"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob_1_1Deleter__raw.html#afb0405bc4d95f24d4aabaeced22f72fa" title="Move&#45;assignment which is required when we are used in unique_ptr." alt="" coords="13,85,172,121"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Linked__hash__map.html#ad08522b4af94f87b543649e367afd643" title="Overwrites this object making it identical to the given source, while the given source becomes as&#45;if ..." alt="" coords="228,35,375,71"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__set.html#a16960d867315b173fff1c0bf4336f94c" title="Overwrites this object making it identical to the given source, while the given source becomes as&#45;if ..." alt="" coords="231,95,371,131"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Basic__blob.html#a460191bd2541002b6668ce6c08489099" title="Swaps the contents of this structure and other, or no&#45;op if this == &amp;other." alt="" coords="234,155,369,191"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1Blob__with__log__context.html#a3878d7f0066ace618d60b59404f7d410" title="On top of the similar Basic_blob method, logs using the stored log context." alt="" coords="237,215,366,251"/>
+<area shape="rect" id="node7" href="$classflow_1_1util_1_1Linked__hash__map.html#ac8393b9576ef14102a467e317f443471" title="Swaps the contents of this structure and other." alt="" coords="241,275,361,311"/>
+<area shape="rect" id="node9" href="$classflow_1_1util_1_1Linked__hash__set.html#a15f73c0627f8b37f233afa9827af3009" title="Swaps the contents of this structure and other." alt="" coords="245,335,358,371"/>
+<area shape="rect" id="node13" href="$classflow_1_1util_1_1Basic__blob.html#aed1ff257357de700de5006304b80301d" title="The body of swap(), except for the part that swaps (or decides not to swap) alloc_raw()." alt="" coords="234,395,369,431"/>
+<area shape="rect" id="node8" href="$classflow_1_1util_1_1Linked__hash__map.html#aaac7b774853aa9a83e2935634fd5e7a6" title="Equivalent to val1.swap(val2)." alt="" coords="33,221,153,257"/>
+<area shape="rect" id="node10" href="$classflow_1_1net__flow_1_1Event__set.html#a857180105d2bcd381ffe758a2bfeeef8" title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait." alt="" coords="13,305,172,341"/>
+<area shape="rect" id="node11" href="$classflow_1_1util_1_1Linked__hash__set.html#af9236b0fce20cb81abac3a70360db155" title="Equivalent to val1.swap(val2)." alt="" coords="36,365,149,401"/>
+<area shape="rect" id="node12" href="$classflow_1_1net__flow_1_1Event__set.html#a6e47fc394c09acf4d100a640e090a7aa" title="Efficiently exchanges the current set of sockets we want to know are &quot;ready&quot; by the definiton of the ..." alt="" coords="5,449,180,485"/>
+</map>

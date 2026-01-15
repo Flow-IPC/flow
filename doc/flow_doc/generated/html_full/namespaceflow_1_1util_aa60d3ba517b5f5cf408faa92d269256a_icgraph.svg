@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a6725d69ea1a6457d88abb63cef6e6bb2" target="_top" xlink:title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a0f28017130b120b9ceaff481d06c86e4" target="_top" xlink:title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata...">
 <polygon fill="white" stroke="black" points="137,-45.5 137,-71.5 280,-71.5 280,-45.5 137,-45.5"/>
 <text text-anchor="start" x="145" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="208.5" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sync_connect_with_metadata</text>
@@ -38,7 +38,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ae7c950b1663a58bb4de6d8b48a2fc9a1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
 <polygon fill="white" stroke="black" points="157.5,-0.5 157.5,-26.5 259.5,-26.5 259.5,-0.5 157.5,-0.5"/>
 <text text-anchor="start" x="165.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="208.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::sync_wait</text>
@@ -54,7 +54,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aba2e6fc905dbeef3ea9e31bf844f8da5" target="_top" xlink:title="The blocking (synchronous) version of connect().">
+<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a3b95bb1d76b82c856e86dbcab7353642" target="_top" xlink:title="The blocking (synchronous) version of connect().">
 <polygon fill="white" stroke="black" points="0,-45.5 0,-71.5 101,-71.5 101,-45.5 0,-45.5"/>
 <text text-anchor="start" x="8" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="50.5" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sync_connect</text>

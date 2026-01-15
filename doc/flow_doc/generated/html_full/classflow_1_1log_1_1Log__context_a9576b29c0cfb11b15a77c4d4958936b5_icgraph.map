@@ -1,0 +1,4 @@
+<map id="flow::log::Log_context::set_logger" name="flow::log::Log_context::set_logger">
+<area shape="rect" id="node1" title="Sets the value to be returned by the next get_logger() call; returns get_logger() from before the cha..." alt="" coords="196,5,339,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this." alt="" coords="5,5,148,41"/>
+</map>

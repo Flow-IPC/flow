@@ -1,5 +1,0 @@
-<map id="flow::util::Basic_blob::capacity" name="flow::util::Basic_blob::capacity">
-<area shape="rect" id="node1" title="Returns the number of elements in the internally allocated buffer, which is 1 or more; or 0 if no buf..." alt="" coords="371,5,505,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#adc0bb760b5f2f36147d128e2e5fbe95f" title="The body of swap(), except for the part that swaps (or decides not to swap) m_alloc_raw." alt="" coords="188,5,323,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__blob.html#a477ff0db26f79989d75da4dbe4bf4982" title="Move constructor, constructing a blob exactly internally equal to pre&#45;call moved_src,..." alt="" coords="5,5,140,41"/>
-</map>

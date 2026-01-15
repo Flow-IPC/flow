@@ -1,0 +1,4 @@
+<map id="flow::util::Basic_blob::size" name="flow::util::Basic_blob::size">
+<area shape="rect" id="node1" title="Returns number of elements stored, namely end() &#45; begin()." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#afe0538a883af59877a877b1021391c2c" title="Constructs blob with size() and capacity() equal to the given size, and start() == 0." alt="" coords="5,5,140,41"/>
+</map>

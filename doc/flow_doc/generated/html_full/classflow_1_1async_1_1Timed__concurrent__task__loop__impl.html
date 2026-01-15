@@ -96,11 +96,11 @@ Collaboration diagram for flow::async::Timed_concurrent_task_loop_impl&lt; Time_
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a881d40bcfea87884f6f5e9ee4a90c578"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a> = <a class="el" href="classflow_1_1Function.html">Function</a>&lt; <a class="el" href="namespaceflow_1_1perf.html#a75b06c669e720c60621f3c68c3d34408">perf::duration_rep_t</a>(Time_accumulator *)&gt;</td></tr>
-<tr class="memdesc:a881d40bcfea87884f6f5e9ee4a90c578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the exhanger function taken by the ctor.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">More...</a><br /></td></tr>
+<tr class="memdesc:a881d40bcfea87884f6f5e9ee4a90c578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the exchanger function taken by the ctor.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">More...</a><br /></td></tr>
 <tr class="separator:a881d40bcfea87884f6f5e9ee4a90c578"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classflow_1_1async_1_1Concurrent__task__loop')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html">flow::async::Concurrent_task_loop</a></td></tr>
 <tr class="memitem:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> = <a class="el" href="classflow_1_1Function.html">Function</a>&lt; void(size_t thread_idx)&gt;</td></tr>
-<tr class="memdesc:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the thread-initializer-function optional arg type to <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#afff5e62840791b309e178c5ddc26e594" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a>.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">More...</a><br /></td></tr>
+<tr class="memdesc:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the thread-initializer-function optional arg type to <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a>.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">More...</a><br /></td></tr>
 <tr class="separator:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -108,9 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aedbd4d34c2bdd56fdcf93ed43c714f70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#aedbd4d34c2bdd56fdcf93ed43c714f70">Timed_concurrent_task_loop_impl</a> (<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html">Concurrent_task_loop</a> *loop, <a class="el" href="namespaceflow_1_1perf.html#ad61fb186191e4bb824d14601d11a2eb0">perf::Clock_type</a> clock_type, <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a> &amp;&amp;exchanger_func_moved)</td></tr>
 <tr class="memdesc:aedbd4d34c2bdd56fdcf93ed43c714f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a time-accumulating version of existing loop <code>*loop</code>.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#aedbd4d34c2bdd56fdcf93ed43c714f70">More...</a><br /></td></tr>
 <tr class="separator:aedbd4d34c2bdd56fdcf93ed43c714f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6659220efe57750c9d8cd8e185d3299a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a6659220efe57750c9d8cd8e185d3299a">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>(), const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>()) override</td></tr>
-<tr class="memdesc:a6659220efe57750c9d8cd8e185d3299a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a6659220efe57750c9d8cd8e185d3299a">More...</a><br /></td></tr>
-<tr class="separator:a6659220efe57750c9d8cd8e185d3299a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b397df08539c7e82bef8c985c19a58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#aa6b397df08539c7e82bef8c985c19a58">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{}) override</td></tr>
+<tr class="memdesc:aa6b397df08539c7e82bef8c985c19a58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#aa6b397df08539c7e82bef8c985c19a58">More...</a><br /></td></tr>
+<tr class="separator:aa6b397df08539c7e82bef8c985c19a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0ee24a26236098dfd67b68da120ff69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#ad0ee24a26236098dfd67b68da120ff69">stop</a> () override</td></tr>
 <tr class="memdesc:ad0ee24a26236098dfd67b68da120ff69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#ad0ee24a26236098dfd67b68da120ff69">More...</a><br /></td></tr>
 <tr class="separator:ad0ee24a26236098dfd67b68da120ff69"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,14 +155,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a7b9123d43e1cfae899b0e1bb52bb6dde">~Concurrent_task_loop</a> () override</td></tr>
 <tr class="memdesc:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any implementing subclass's destructor shall execute <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1" title="Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such ...">stop()</a> &ndash; see its doc header please &ndash; and then clean up any resources.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a7b9123d43e1cfae899b0e1bb52bb6dde">More...</a><br /></td></tr>
 <tr class="separator:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afff5e62840791b309e178c5ddc26e594 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#afff5e62840791b309e178c5ddc26e594">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>(), const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>())=0</td></tr>
-<tr class="memdesc:afff5e62840791b309e178c5ddc26e594 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts all threads in the thread pool; any queued <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>ed (and similar) tasks may begin executing immediately; and any future posted work may execute in these threads.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#afff5e62840791b309e178c5ddc26e594">More...</a><br /></td></tr>
-<tr class="separator:afff5e62840791b309e178c5ddc26e594 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{})=0</td></tr>
+<tr class="memdesc:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts all threads in the thread pool; any queued <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>ed (and similar) tasks may begin executing immediately; and any future posted work may execute in these threads.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">More...</a><br /></td></tr>
+<tr class="separator:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1">stop</a> ()=0</td></tr>
 <tr class="memdesc:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such tasks from running; then gracefully stops/joins all threads in pool; and then returns.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1">More...</a><br /></td></tr>
 <tr class="separator:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">n_threads</a> () const =0</td></tr>
-<tr class="memdesc:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many threads does <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#afff5e62840791b309e178c5ddc26e594" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a> start?  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">More...</a><br /></td></tr>
+<tr class="memdesc:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many threads does <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a> start?  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">More...</a><br /></td></tr>
 <tr class="separator:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ee1c5f5785af0bcc6aed0757981ffe3 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949">Op</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a4ee1c5f5785af0bcc6aed0757981ffe3">create_op</a> ()=0</td></tr>
 <tr class="memdesc:a4ee1c5f5785af0bcc6aed0757981ffe3 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a new Op which can bundle together an arbitrary set of <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>s that would result in the provided task functions executing non-concurrently.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a4ee1c5f5785af0bcc6aed0757981ffe3">More...</a><br /></td></tr>
@@ -204,9 +204,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0b2bafdbd93df6beff37e10534487e23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html">Concurrent_task_loop</a> *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a0b2bafdbd93df6beff37e10534487e23">m_loop</a></td></tr>
 <tr class="memdesc:a0b2bafdbd93df6beff37e10534487e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">See constructor.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a0b2bafdbd93df6beff37e10534487e23">More...</a><br /></td></tr>
 <tr class="separator:a0b2bafdbd93df6beff37e10534487e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f4dacf3f29653acfcef44a6f3f9845a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a1f4dacf3f29653acfcef44a6f3f9845a">m_exhanger_func</a></td></tr>
-<tr class="memdesc:a1f4dacf3f29653acfcef44a6f3f9845a"><td class="mdescLeft">&#160;</td><td class="mdescRight">See constructor.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a1f4dacf3f29653acfcef44a6f3f9845a">More...</a><br /></td></tr>
-<tr class="separator:a1f4dacf3f29653acfcef44a6f3f9845a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40de9eea12bf9983e76fce1897e424db"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a40de9eea12bf9983e76fce1897e424db">m_exchanger_func</a></td></tr>
+<tr class="memdesc:a40de9eea12bf9983e76fce1897e424db"><td class="mdescLeft">&#160;</td><td class="mdescRight">See constructor.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a40de9eea12bf9983e76fce1897e424db">More...</a><br /></td></tr>
+<tr class="separator:a40de9eea12bf9983e76fce1897e424db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55aa9c680221d64b44715256713a5bee"><td class="memItemLeft" align="right" valign="top">Time_accumulator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a55aa9c680221d64b44715256713a5bee">m_time_accumulator</a></td></tr>
 <tr class="memdesc:a55aa9c680221d64b44715256713a5bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accumulates time ticks, of clock type <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a2296c02f66d6d49dcf8ed19cb3e68803" title="See constructor.">m_clock_type</a>, spent in tasks posted onto <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a0b2bafdbd93df6beff37e10534487e23" title="See constructor.">m_loop</a>.  <a href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a55aa9c680221d64b44715256713a5bee">More...</a><br /></td></tr>
 <tr class="separator:a55aa9c680221d64b44715256713a5bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,7 +250,7 @@ template&lt;typename Time_accumulator &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Short-hand for the exhanger function taken by the ctor. </p>
+<p>Short-hand for the exchanger function taken by the ctor. </p>
 
 <p class="definition">Definition at line <a class="el" href="timed__concurrent__task__loop_8hpp_source.html#l00057">57</a> of file <a class="el" href="timed__concurrent__task__loop_8hpp_source.html">timed_concurrent_task_loop.hpp</a>.</p>
 
@@ -899,8 +899,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a6659220efe57750c9d8cd8e185d3299a" name="a6659220efe57750c9d8cd8e185d3299a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6659220efe57750c9d8cd8e185d3299a">&#9670;&nbsp;</a></span>start()</h2>
+<a id="aa6b397df08539c7e82bef8c985c19a58" name="aa6b397df08539c7e82bef8c985c19a58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6b397df08539c7e82bef8c985c19a58">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -914,13 +914,13 @@ template&lt;typename Time_accumulator &gt; </div>
           <td class="memname">void <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html">flow::async::Timed_concurrent_task_loop_impl</a>&lt; Time_accumulator &gt;::start </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>init_task_or_empty</em> = <code><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>()</code>, </td>
+          <td class="paramname"><em>init_task_or_empty</em> = <code><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;&#160;</td>
-          <td class="paramname"><em>thread_init_func_or_empty</em> = <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>()</code>&#160;</td>
+          <td class="paramname"><em>thread_init_func_or_empty</em> = <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -944,7 +944,7 @@ template&lt;typename Time_accumulator &gt; </div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#afff5e62840791b309e178c5ddc26e594">flow::async::Concurrent_task_loop</a>.</p>
+<p>Implements <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">flow::async::Concurrent_task_loop</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="timed__concurrent__task__loop_8hpp_source.html#l00301">301</a> of file <a class="el" href="timed__concurrent__task__loop_8hpp_source.html">timed_concurrent_task_loop.hpp</a>.</p>
 
@@ -1040,8 +1040,8 @@ template&lt;typename Time_accumulator &gt; </div>
 
 </div>
 </div>
-<a id="a1f4dacf3f29653acfcef44a6f3f9845a" name="a1f4dacf3f29653acfcef44a6f3f9845a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f4dacf3f29653acfcef44a6f3f9845a">&#9670;&nbsp;</a></span>m_exhanger_func</h2>
+<a id="a40de9eea12bf9983e76fce1897e424db" name="a40de9eea12bf9983e76fce1897e424db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40de9eea12bf9983e76fce1897e424db">&#9670;&nbsp;</a></span>m_exchanger_func</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1052,7 +1052,7 @@ template&lt;typename Time_accumulator &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a> <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html">flow::async::Timed_concurrent_task_loop_impl</a>&lt; Time_accumulator &gt;::m_exhanger_func</td>
+          <td class="memname">const <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html#a881d40bcfea87884f6f5e9ee4a90c578">Exchanger_func</a> <a class="el" href="classflow_1_1async_1_1Timed__concurrent__task__loop__impl.html">flow::async::Timed_concurrent_task_loop_impl</a>&lt; Time_accumulator &gt;::m_exchanger_func</td>
         </tr>
       </table>
   </td>
@@ -1131,7 +1131,7 @@ template&lt;typename Time_accumulator &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

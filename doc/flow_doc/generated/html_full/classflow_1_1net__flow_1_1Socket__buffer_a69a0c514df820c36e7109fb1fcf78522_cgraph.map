@@ -1,7 +1,6 @@
 <map id="flow::net_flow::Socket_buffer::feed_bufs_copy" name="flow::net_flow::Socket_buffer::feed_bufs_copy">
-<area shape="rect" id="node1" title="Feeds (adds to the back of the byte buffer) the contents of the byte stream composed of the bytes in ..." alt="" coords="5,65,157,101"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="219,35,334,71"/>
-<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="205,95,348,131"/>
+<area shape="rect" id="node1" title="Feeds (adds to the back of the byte buffer) the contents of the byte stream composed of the bytes in ..." alt="" coords="5,36,157,72"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="219,5,334,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="205,65,348,101"/>
 <area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf" title="Writes a multi&#45; or single&#45;line string representation of the provided binary data to an output stream,..." alt="" coords="396,5,511,41"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="399,65,508,101"/>
 </map>

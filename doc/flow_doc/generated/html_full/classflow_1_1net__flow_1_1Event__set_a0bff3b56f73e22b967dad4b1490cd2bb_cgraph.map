@@ -1,0 +1,8 @@
+<map id="flow::net_flow::Event_set::events_detected" name="flow::net_flow::Event_set::events_detected">
+<area shape="rect" id="node1" title="Returns true if and only if the last wait, if any, detected at least one event." alt="" coords="5,47,148,83"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#aed9505b886c78169fe35b527f4e01855" title="Functional helper that checks whether a given pair in an Ev_type_to_socks_map contains an empty set o..." alt="" coords="196,5,343,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a19e241ae4dfe1ea54de6027052bc2135" title="Helper that returns a loggable string summarizing the sizes of the socket sets, by type,..." alt="" coords="196,77,343,125"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="391,41,513,77"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1Linked__hash__map.html#a97ea7121aa85856c9d977777f6c7c510" title="Returns number of elements stored." alt="" coords="395,125,509,161"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="561,41,692,77"/>
+</map>

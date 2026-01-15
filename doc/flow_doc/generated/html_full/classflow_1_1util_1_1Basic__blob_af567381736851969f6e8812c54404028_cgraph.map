@@ -1,6 +1,0 @@
-<map id="flow::util::Basic_blob::blobs_sharing" name="flow::util::Basic_blob::blobs_sharing">
-<area shape="rect" id="node1" title="Returns true if and only if both given objects are not zero() == true, and they either co&#45;own a commo..." alt="" coords="5,65,140,101"/>
-<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a9daa427a42c8a8c24b585f96c37d277a" title="Returns pointer to mutable first element; or end() if empty()." alt="" coords="188,5,323,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer." alt="" coords="188,65,323,101"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1Basic__blob.html#a1a64646d656ec125fa8973ccf843c1be" title="Returns false if a buffer is allocated and owned; true otherwise." alt="" coords="188,125,323,161"/>
-</map>

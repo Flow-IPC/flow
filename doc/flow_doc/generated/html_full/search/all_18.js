@@ -1,8 +1,8 @@
 var searchData=
 [
   ['_7easync_5ffile_5flogger_0',['~Async_file_logger',['../classflow_1_1log_1_1Async__file__logger.html#ae48ec685cc9951a37bb670dd92fe1f4e',1,'flow::log::Async_file_logger']]],
-  ['_7ebasic_5fblob_1',['~Basic_blob',['../classflow_1_1util_1_1Basic__blob.html#ae9fc395523fae83128888d9bb1c90726',1,'flow::util::Basic_blob']]],
-  ['_7eblob_5fwith_5flog_5fcontext_2',['~Blob_with_log_context',['../classflow_1_1util_1_1Blob__with__log__context.html#afc6581eabf5c93320c098d8ea6c806b2',1,'flow::util::Blob_with_log_context']]],
+  ['_7ebasic_5fblob_1',['~Basic_blob',['../classflow_1_1util_1_1Basic__blob.html#ac5a3803c59b8229214884bc85e284ad3',1,'flow::util::Basic_blob']]],
+  ['_7eblob_5fwith_5flog_5fcontext_2',['~Blob_with_log_context',['../classflow_1_1util_1_1Blob__with__log__context.html#ad4cd2ffc524be5b654a995b79ed2a285',1,'flow::util::Blob_with_log_context']]],
   ['_7econcurrent_5ftask_5floop_3',['~Concurrent_task_loop',['../classflow_1_1async_1_1Concurrent__task__loop.html#a7b9123d43e1cfae899b0e1bb52bb6dde',1,'flow::async::Concurrent_task_loop']]],
   ['_7ecross_5fthread_5ftask_5floop_4',['~Cross_thread_task_loop',['../classflow_1_1async_1_1Cross__thread__task__loop.html#a1bdaa64396435066a41857e3c5f6c6cb',1,'flow::async::Cross_thread_task_loop']]],
   ['_7edrop_5ftimer_5',['~Drop_timer',['../classflow_1_1net__flow_1_1Drop__timer.html#a60e386c24490bd5880e9e8700e59ca6d',1,'flow::net_flow::Drop_timer']]],
@@ -16,5 +16,6 @@ var searchData=
   ['_7eserial_5ffile_5flogger_13',['~Serial_file_logger',['../classflow_1_1log_1_1Serial__file__logger.html#a5f69b780548ed452dfbd047a99c6809a',1,'flow::log::Serial_file_logger']]],
   ['_7eserver_5fsocket_14',['~Server_socket',['../classflow_1_1net__flow_1_1asio_1_1Server__socket.html#a2e4fc3f1516d1e3af68eb669aace3704',1,'flow::net_flow::asio::Server_socket::~Server_socket()'],['../classflow_1_1net__flow_1_1Server__socket.html#acafb67ed1f81b90f3b2ab923de4e0525',1,'flow::net_flow::Server_socket::~Server_socket()']]],
   ['_7esingle_5fthread_5ftask_5floop_15',['~Single_thread_task_loop',['../classflow_1_1async_1_1Single__thread__task__loop.html#a74f7b9eabdfc366e0a6fa46abbcf5047',1,'flow::async::Single_thread_task_loop']]],
-  ['_7etask_5fqing_5fthread_16',['~Task_qing_thread',['../classflow_1_1async_1_1Task__qing__thread.html#abd3046b2dee9df486ba2710cb0d6b2e3',1,'flow::async::Task_qing_thread']]]
+  ['_7etask_5fqing_5fthread_16',['~Task_qing_thread',['../classflow_1_1async_1_1Task__qing__thread.html#abd3046b2dee9df486ba2710cb0d6b2e3',1,'flow::async::Task_qing_thread']]],
+  ['_7ethread_5flocal_5fstate_5fregistry_17',['~Thread_local_state_registry',['../classflow_1_1util_1_1Thread__local__state__registry.html#a1d90136ea6dae2acd8e01709e2d589a8',1,'flow::util::Thread_local_state_registry']]]
 ];

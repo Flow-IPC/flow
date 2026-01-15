@@ -1,4 +1,4 @@
 <map id="flow::net_flow::Peer_socket::sync_receive_reactor_pattern_impl" name="flow::net_flow::Peer_socket::sync_receive_reactor_pattern_impl">
 <area shape="rect" id="node1" title="Helper similar to sync_receive_impl() but for the nullptr_t versions of sync_receive()." alt="" coords="195,29,336,77"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#a34cc9ad4501bb8cefe2c4e946be88232" title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ..." alt="" coords="5,35,147,71"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Peer__socket.html#ac9f0416a6263eb3a87e4b196e090f2dc" title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ..." alt="" coords="5,35,147,71"/>
 </map>

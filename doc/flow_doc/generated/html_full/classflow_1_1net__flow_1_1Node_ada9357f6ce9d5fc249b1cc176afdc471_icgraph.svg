@@ -247,7 +247,7 @@
 <!-- Node20 -->
 <g id="node12" class="node">
 <title>Node20</title>
-<g id="a_node12"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
+<g id="a_node12"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1812e852957c43ccca8712d63c6e3de7" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
 <polygon fill="white" stroke="black" points="444,-60.5 444,-86.5 557,-86.5 557,-60.5 444,-60.5"/>
 <text text-anchor="start" x="452" y="-76.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="500.5" y="-67.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::close_abruptly</text>

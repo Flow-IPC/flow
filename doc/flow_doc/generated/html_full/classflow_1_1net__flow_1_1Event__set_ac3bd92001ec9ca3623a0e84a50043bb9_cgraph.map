@@ -1,5 +1,0 @@
-<map id="flow::net_flow::Event_set::remove_wanted_socket" name="flow::net_flow::Event_set::remove_wanted_socket">
-<area shape="rect" id="node1" title="Opposite of add_wanted_socket()." alt="" coords="5,36,185,72"/>
-<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__set.html#a4b63c73e7c2d6092331cb7bd3267b830" title="Erases the element pointed to by the given valid iterator." alt="" coords="263,5,377,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a8e16d91f81860eb2a6c971863548e466" title="Helper that ensures the state of *this is such that one may modify the m_can and m_want socket sets." alt="" coords="233,65,407,101"/>
-</map>

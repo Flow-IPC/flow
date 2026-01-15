@@ -260,7 +260,7 @@ $(function() {
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>{</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>  <span class="comment">// This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.</span></div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>  <span class="keyword">auto</span> <span class="keyword">const</span> raw_ptr_post_cast = <span class="keyword">static_cast&lt;</span>typename Target_ptr::element_type*<span class="keyword">&gt;</span>(ptr_to_cast.get());</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keywordflow">return</span> Target_ptr(ptr_to_cast, raw_ptr_post_cast);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  <span class="keywordflow">return</span> Target_ptr{ptr_to_cast, raw_ptr_post_cast};</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>}</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Target_ptr, <span class="keyword">typename</span> Const_target_ptr&gt;</div>
@@ -270,7 +270,7 @@ $(function() {
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>{</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="comment">// This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.</span></div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  <span class="keyword">auto</span> <span class="keyword">const</span> raw_ptr_post_cast = <span class="keyword">static_cast&lt;</span>typename Target_ptr::element_type <span class="keyword">const </span>*<span class="keyword">&gt;</span>(ptr_to_cast.get());</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordflow">return</span> Const_target_ptr(ptr_to_cast, raw_ptr_post_cast);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keywordflow">return</span> Const_target_ptr{ptr_to_cast, raw_ptr_post_cast};</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Target_ptr, <span class="keyword">typename</span> Const_target_ptr&gt;</div>
@@ -280,8 +280,8 @@ $(function() {
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>{</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  <span class="comment">// This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.</span></div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>  <span class="keyword">auto</span> <span class="keyword">const</span> raw_ptr_post_cast = <span class="keyword">dynamic_cast&lt;</span>typename Target_ptr::element_type*<span class="keyword">&gt;</span>(ptr_to_cast.get());</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keywordflow">return</span> raw_ptr_post_cast ? Target_ptr(ptr_to_cast, raw_ptr_post_cast)</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                           : Target_ptr();</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keywordflow">return</span> raw_ptr_post_cast ? Target_ptr{ptr_to_cast, raw_ptr_post_cast}</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                           : Target_ptr{};</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Target_ptr, <span class="keyword">typename</span> Const_target_ptr&gt;</div>
@@ -291,8 +291,8 @@ $(function() {
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>{</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>  <span class="comment">// This was taken, conceptually, from the `{static|dynamic|...}_pointer_cast` page of cppreference.com.</span></div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>  <span class="keyword">auto</span> <span class="keyword">const</span> raw_ptr_post_cast = <span class="keyword">dynamic_cast&lt;</span>typename Target_ptr::element_type <span class="keyword">const </span>*<span class="keyword">&gt;</span>(ptr_to_cast.get());</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  <span class="keywordflow">return</span> raw_ptr_post_cast ? Const_target_ptr(ptr_to_cast, raw_ptr_post_cast)</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                           : Const_target_ptr();</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>  <span class="keywordflow">return</span> raw_ptr_post_cast ? Const_target_ptr{ptr_to_cast, raw_ptr_post_cast}</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                           : Const_target_ptr{};</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>} <span class="comment">// namespace flow::util</span></div>
@@ -303,12 +303,12 @@ $(function() {
 <div class="ttc" id="aclassflow_1_1util_1_1Shared__ptr__alias__holder_html_aa4f1af88393042e60159a3a67f0accbc"><div class="ttname"><a href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aa4f1af88393042e60159a3a67f0accbc">flow::util::Shared_ptr_alias_holder::Ptr</a></div><div class="ttdeci">Target_ptr Ptr</div><div class="ttdoc">Short-hand for ref-counted pointer to mutable values of type Target_type::element_type (a-la T*).</div><div class="ttdef"><b>Definition:</b> <a href="shared__ptr__alias__holder_8hpp_source.html#l00125">shared_ptr_alias_holder.hpp:125</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Shared__ptr__alias__holder_html_ac242f13a290877e84e44165e00a5905c"><div class="ttname"><a href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#ac242f13a290877e84e44165e00a5905c">flow::util::Shared_ptr_alias_holder::dynamic_ptr_cast</a></div><div class="ttdeci">static Ptr dynamic_ptr_cast(const From_ptr &amp;ptr_to_cast)</div><div class="ttdoc">Equivalent to ptr_cast() but a dynamic_pointer_cast instead of static.</div><div class="ttdef"><b>Definition:</b> <a href="shared__ptr__alias__holder_8hpp_source.html#l00207">shared_ptr_alias_holder.hpp:207</a></div></div>
 <div class="ttc" id="aclassflow_1_1util_1_1Shared__ptr__alias__holder_html_aef7998db71c60eeb5d1e3d1a97c14886"><div class="ttname"><a href="classflow_1_1util_1_1Shared__ptr__alias__holder.html#aef7998db71c60eeb5d1e3d1a97c14886">flow::util::Shared_ptr_alias_holder::Const_ptr</a></div><div class="ttdeci">Const_target_ptr Const_ptr</div><div class="ttdoc">Short-hand for ref-counted pointer to immutable values of type Target_type::element_type (a-la T cons...</div><div class="ttdef"><b>Definition:</b> <a href="shared__ptr__alias__holder_8hpp_source.html#l00127">shared_ptr_alias_holder.hpp:127</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html"><div class="ttname"><a href="namespaceflow_1_1util.html">flow::util</a></div><div class="ttdoc">Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l00028">basic_blob.hpp:29</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html"><div class="ttname"><a href="namespaceflow_1_1util.html">flow::util</a></div><div class="ttdoc">Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module...</div><div class="ttdef"><b>Definition:</b> <a href="basic__blob_8hpp_source.html#l00030">basic_blob.hpp:31</a></div></div>
 <div class="ttc" id="autil__fwd_8hpp_html"><div class="ttname"><a href="util__fwd_8hpp.html">util_fwd.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

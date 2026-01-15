@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a43dfb881ab3a9488a6a60dd83ad21c85" target="_top" xlink:title="Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#aee530ac79ddb0d73752757e77c5475a6" target="_top" xlink:title="Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,...">
 <polygon fill="white" stroke="black" points="1243,-273.5 1243,-299.5 1345,-299.5 1345,-273.5 1243,-273.5"/>
 <text text-anchor="start" x="1251" y="-289.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1294" y="-280.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::async_wait</text>
@@ -88,7 +88,7 @@
 <!-- Node40 -->
 <g id="node24" class="node">
 <title>Node40</title>
-<g id="a_node24"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a314635daf8fdf3805868baff8b42cfc9" target="_top" xlink:title="Returns true if and only if the last wait, if any, detected at least one event.">
+<g id="a_node24"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a0bff3b56f73e22b967dad4b1490cd2bb" target="_top" xlink:title="Returns true if and only if the last wait, if any, detected at least one event.">
 <polygon fill="white" stroke="black" points="1240.5,-63.5 1240.5,-89.5 1347.5,-89.5 1347.5,-63.5 1240.5,-63.5"/>
 <text text-anchor="start" x="1248.5" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1294" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::events_detected</text>
@@ -104,7 +104,7 @@
 <!-- Node41 -->
 <g id="node25" class="node">
 <title>Node41</title>
-<g id="a_node25"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a976144f6e525190344eb4e51620f9fd9" target="_top" xlink:title="Returns true if and only if at least one wanted event for at least one socket is registered (via add_...">
+<g id="a_node25"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a82b739e9ee180ef543069a142e61fdc9" target="_top" xlink:title="Returns true if and only if at least one wanted event for at least one socket is registered (via add_...">
 <polygon fill="white" stroke="black" points="1243,-0.5 1243,-26.5 1345,-26.5 1345,-0.5 1243,-0.5"/>
 <text text-anchor="start" x="1251" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1294" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::events_wanted</text>
@@ -132,7 +132,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ae7c950b1663a58bb4de6d8b48a2fc9a1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
 <polygon fill="white" stroke="black" points="895,-390.5 895,-416.5 997,-416.5 997,-390.5 895,-390.5"/>
 <text text-anchor="start" x="903" y="-406.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="946" y="-397.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::sync_wait</text>

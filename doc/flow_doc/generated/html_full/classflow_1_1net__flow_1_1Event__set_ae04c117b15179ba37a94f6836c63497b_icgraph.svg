@@ -381,7 +381,7 @@
 <!-- Node37 -->
 <g id="node21" class="node">
 <title>Node37</title>
-<g id="a_node21"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a412214de6a4f3a1ff1e86ddb1975f47b" target="_top" xlink:title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res...">
+<g id="a_node21"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a97257afcbac1d060e965bddbf5cdcdd1" target="_top" xlink:title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res...">
 <polygon fill="white" stroke="black" points="1070,-0.5 1070,-26.5 1172,-26.5 1172,-0.5 1070,-0.5"/>
 <text text-anchor="start" x="1078" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1121" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::poll</text>
@@ -419,7 +419,7 @@
 <!-- Node39 -->
 <g id="node23" class="node">
 <title>Node39</title>
-<g id="a_node23"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a7272a3b8975ff72edd3db3f777e930f1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
+<g id="a_node23"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ae7c950b1663a58bb4de6d8b48a2fc9a1" target="_top" xlink:title="Same as the other sync_wait() but will stop waiting if the timeout given as argument expires.">
 <polygon fill="white" stroke="black" points="745,-0.5 745,-26.5 847,-26.5 847,-0.5 745,-0.5"/>
 <text text-anchor="start" x="753" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="796" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::sync_wait</text>

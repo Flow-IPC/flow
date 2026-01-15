@@ -1,4 +1,4 @@
 <map id="flow::log::Logger::set_thread_info_in_msg_metadata" name="flow::log::Logger::set_thread_info_in_msg_metadata">
 <area shape="rect" id="node1" title="Loads msg_metadata&#45;&gt;m_call_thread_nickname (if set) or else msg_metadata&#45;&gt;m_call_thread_id,..." alt="" coords="5,5,155,53"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html#a1ea9da10a13d3b422ba7162a13d7eeb1" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met..." alt="" coords="203,11,325,47"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html#aea02011a3aa505087397c8d9984e0659" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met..." alt="" coords="203,11,325,47"/>
 </map>

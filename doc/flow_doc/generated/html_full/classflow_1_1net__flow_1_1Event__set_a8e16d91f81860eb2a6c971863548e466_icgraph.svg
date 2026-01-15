@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a496b760adb19356b4aee9a17ca13b523" target="_top" xlink:title="Adds the given socket to the set of sockets we want to know are &quot;ready&quot; by the definition of the give...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a33df7be2ca8c098d9c393c730efb96db" target="_top" xlink:title="Adds the given socket to the set of sockets we want to know are &quot;ready&quot; by the definition of the give...">
 <polygon fill="white" stroke="black" points="7.5,-360.5 7.5,-386.5 127.5,-386.5 127.5,-360.5 7.5,-360.5"/>
 <text text-anchor="start" x="15.5" y="-376.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-367.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::add_wanted_socket</text>
@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ab64e128595b701e37256ff79d782c146" target="_top" xlink:title="Forgets all sockets stored in this object in any fashion.">
+<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ad3016a5a6e6909d1096e366f430397d0" target="_top" xlink:title="Forgets all sockets stored in this object in any fashion.">
 <polygon fill="white" stroke="black" points="16.5,-297.5 16.5,-323.5 118.5,-323.5 118.5,-297.5 16.5,-297.5"/>
 <text text-anchor="start" x="24.5" y="-313.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-304.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::clear</text>
@@ -54,7 +54,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#afb6379c7fe127c26fd4cdc9752ccf9e2" target="_top" xlink:title="Identical to emit_result_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#aea26a17c0d75523c1b32ad800cb93fab" target="_top" xlink:title="Identical to emit_result_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ...">
 <polygon fill="white" stroke="black" points="6.5,-234.5 6.5,-260.5 128.5,-260.5 128.5,-234.5 6.5,-234.5"/>
 <text text-anchor="start" x="14.5" y="-250.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-241.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::clear_result_sockets</text>
@@ -70,7 +70,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a86ddd6fb8874d85869157bae2ffda69b" target="_top" xlink:title="Identical to swap_wanted_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ...">
+<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a977da2bdabf74f0f83839ddefe802876" target="_top" xlink:title="Identical to swap_wanted_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ...">
 <polygon fill="white" stroke="black" points="3,-171.5 3,-197.5 132,-197.5 132,-171.5 3,-171.5"/>
 <text text-anchor="start" x="11" y="-187.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-178.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::clear_wanted_sockets</text>
@@ -86,7 +86,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a72b26f25a2e76e3c61b4760b59de5b25" target="_top" xlink:title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait.">
+<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a857180105d2bcd381ffe758a2bfeeef8" target="_top" xlink:title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait.">
 <polygon fill="white" stroke="black" points="8,-108.5 8,-134.5 127,-134.5 127,-108.5 8,-108.5"/>
 <text text-anchor="start" x="16" y="-124.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-115.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::emit_result_sockets</text>
@@ -102,7 +102,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ac3bd92001ec9ca3623a0e84a50043bb9" target="_top" xlink:title="Opposite of add_wanted_socket().">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a9df8ee7f0b6fc8add47e2381a1fc69eb" target="_top" xlink:title="Opposite of add_wanted_socket().">
 <polygon fill="white" stroke="black" points="0,-63.5 0,-89.5 135,-89.5 135,-63.5 0,-63.5"/>
 <text text-anchor="start" x="8" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="67.5" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::remove_wanted_socket</text>

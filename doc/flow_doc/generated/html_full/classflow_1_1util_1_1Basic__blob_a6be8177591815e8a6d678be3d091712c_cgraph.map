@@ -1,0 +1,5 @@
+<map id="flow::util::Basic_blob::Basic_blob" name="flow::util::Basic_blob::Basic_blob">
+<area shape="rect" id="node1" title="Copy constructor, constructing a blob logically equal to src." alt="" coords="5,36,140,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a770438e824467e6dac1c7c0b060acfb8" title="Replaces logical contents with a copy of the given non&#45;overlapping area anywhere in memory." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__blob.html#a7c7e0aef110c4ab5f335d633e9a96abb" title="Convenience accessor returning an immutable boost.asio buffer &quot;view&quot; into the entirety of the blob." alt="" coords="188,65,323,101"/>
+</map>

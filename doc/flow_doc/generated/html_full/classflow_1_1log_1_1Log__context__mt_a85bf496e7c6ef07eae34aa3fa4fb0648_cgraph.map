@@ -1,0 +1,4 @@
+<map id="flow::log::Log_context_mt::get_log_component" name="flow::log::Log_context_mt::get_log_component">
+<area shape="rect" id="node1" title="Identical to Log_context API." alt="" coords="5,5,161,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="209,5,352,41"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tl_context" name="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tl_context">
+<area shape="rect" id="node1" title="The actual user Thread_local_state stored per thread as lazily&#45;created in this_thread_state(); plus a..." alt="" coords="289,30,436,90"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,156,53"/>
+<area shape="rect" id="node3" title=" " alt="" coords="14,77,147,101"/>
+</map>

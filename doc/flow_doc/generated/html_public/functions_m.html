@@ -73,6 +73,7 @@ $(function() {
 <li>m_called_when&#160;:&#160;<a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a11e04fcee8409b76adb9aaa3108f90e1">flow::log::Msg_metadata</a></li>
 <li>m_compare_parsed_vals_args&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a4d18a90df12e3c632a2fd25fdc23224e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args</a></li>
 <li>m_config&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Async__file__logger.html#a4b6dcf5c791e32c517c41c935fba29a4">flow::log::Async_file_logger</a>, <a class="el" href="classflow_1_1log_1_1Buffer__logger.html#a873e584f2c024fb2717115790b0d207a">flow::log::Buffer_logger</a>, <a class="el" href="classflow_1_1log_1_1Simple__ostream__logger.html#a57abde2223144cdec0f1f4edc35fdc88">flow::log::Simple_ostream_logger</a></li>
+<li>m_create_state_func&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#a3e1d258850df00cabc9f56892145a1b7">flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;</a></li>
 <li>m_current_pending_acks_count&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a947c1ef859093cc52c257f006c687571">flow::net_flow::Peer_socket_receive_stats</a></li>
 <li>m_d_value_set_idx&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Config__manager_1_1On__dynamic__change__func__handle.html#a555e60805c7ba2326892ef270171caa7">flow::cfg::Config_manager&lt; S_d_value_set &gt;::On_dynamic_change_func_handle</a></li>
 <li>m_delayed_acks_count&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a4ce8a80316f19b960ce99a92d8c43e92">flow::net_flow::Peer_socket_receive_stats</a></li>
@@ -213,6 +214,8 @@ $(function() {
 <li>m_st_snd_pacing_enabled&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad7cbcdd64a4366740ff9e55b39c977ba">flow::net_flow::Peer_socket_options</a></li>
 <li>m_st_timer_min_period&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Node__options.html#abef8889be34024b07eff3211a3213d5f">flow::net_flow::Node_options</a></li>
 <li>m_target_opts&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a94df262d2c85c677916cb5f57f9c1559">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args</a></li>
+<li>m_thread_id&#160;:&#160;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Metadata.html#acb3b420145c4ced1703a7b9bd9c7de2b">flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata</a></li>
+<li>m_thread_nickname&#160;:&#160;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Metadata.html#a6a7eb70f1765960cb5a126631c4e6c65">flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata</a></li>
 <li>m_total_data_count&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a893ca5129ab56fd57de0cdee92e59bd7">flow::net_flow::Peer_socket_receive_stats</a></li>
 <li>m_total_data_size&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a132cb2a966ede1bf5fe363e5885a0f64">flow::net_flow::Peer_socket_receive_stats</a></li>
 <li>m_total_to_send_acks_count&#160;:&#160;<a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html#a66c7d92f84d1a1f7b1039a926b1a8f00">flow::net_flow::Peer_socket_receive_stats</a></li>
@@ -227,18 +230,19 @@ $(function() {
 <li>m_values_default_no_acc&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#adc8e05f6d6528755712280a812a6ad4d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args</a></li>
 <li>m_values_to_load&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a838e0b0c1f25e167a102e11de272de4e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args</a></li>
 <li>m_values_to_validate&#160;:&#160;<a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a75ab66920b874488bed052a90bc716d5">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args</a></li>
-<li>make_zero()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#acf4d5acf2bdde5e602dd2f9d305adebf">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</a>, <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html#a024fdd8b9f0389201c25b6601af2c3d4">flow::util::Blob_with_log_context&lt; S_SHARING_ALLOWED &gt;</a></li>
-<li>mapped_type&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#add4b2bf1d3c8c99b5b6667ace94c8ff2">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;</a></li>
+<li>make_zero()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a69df8d881b78c282f4d9d20898009b5e">flow::util::Basic_blob&lt; Allocator, SHARING &gt;</a>, <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html#a71f06631b5b39efb8741555e424de180">flow::util::Blob_with_log_context&lt; SHARING &gt;</a></li>
+<li>Mapped&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</a></li>
+<li>mapped_type&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1e9995f0c063e81317c64e3f1a9924f7">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</a></li>
 <li>max_block_size()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Node.html#a4bd7b471dd6cd3e3570930b48d30e577">flow::net_flow::Node</a>, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa1f821dde38a7aa572651730744edbd8">flow::net_flow::Peer_socket</a></li>
-<li>max_size()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a2b07a93e11051e1cdb17ee9478b61321">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html#ac1bfed582b7ee057afe92be2bbabb422">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;</a></li>
-<li>mutable_buffer()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a2bd3cb0b6b3f304fb6fb771c1b76ec66">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</a></li>
+<li>max_size()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a059c278705edc45e9b2660f17a295837">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html#aaa38e11188ee81d15fa8b66910af70f4">flow::util::Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt;</a></li>
+<li>mutable_buffer()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#af72a747faa93798e39e26e4ff9c5dd60">flow::util::Basic_blob&lt; Allocator, SHARING &gt;</a></li>
 <li>mutable_values_copy()&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#a45eebf6c9d7384bcc95c10ff7c934e1f">flow::cfg::Option_set&lt; Value_set &gt;</a></li>
 <li>Mutable_values_ptr&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#a03ec172ee1f15c091ca78102faa55987">flow::cfg::Option_set&lt; Value_set &gt;</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:33 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

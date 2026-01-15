@@ -86,7 +86,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a3c2cd6a6c328a2d5381308258d35d95d" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
 <polygon fill="white" stroke="black" points="0,-126.5 0,-152.5 101,-152.5 101,-126.5 0,-126.5"/>
 <text text-anchor="start" x="8" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="50.5" y="-133.1" font-family="Helvetica,sans-Serif" font-size="8.00">::listen</text>
@@ -108,7 +108,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a7d31cf18a3c075873de1c46c0176e41f" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
+<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#ae742005a701eea47c2f0c514e2bc9bdc" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
 <polygon fill="white" stroke="black" points="0,-63.5 0,-89.5 101,-89.5 101,-63.5 0,-63.5"/>
 <text text-anchor="start" x="8" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="50.5" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::set_options</text>
@@ -136,7 +136,7 @@
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a2779cc2429651696df1bca8de73534f3" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
+<g id="a_node8"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ad85166fbe9a4e7c81ad167e53672142c" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 101,-26.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::set_options</text>

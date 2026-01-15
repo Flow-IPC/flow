@@ -24,7 +24,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Sequence__number.html#a77ce8cf348e93caa8bb03f22f7b7d120" target="_top" xlink:title="Updates the full set of metadata (used at least for convenient convention&#45;based logging but not actua...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Sequence__number.html#ad70753a4a64f89692a5166cfd9d23261" target="_top" xlink:title="Updates the full set of metadata (used at least for convenient convention&#45;based logging but not actua...">
 <polygon fill="white" stroke="black" points="155,-45.5 155,-71.5 275,-71.5 275,-45.5 155,-45.5"/>
 <text text-anchor="start" x="163" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Sequence</text>
 <text text-anchor="middle" x="215" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_number::set_metadata</text>

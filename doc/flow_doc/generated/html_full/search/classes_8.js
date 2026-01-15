@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['linked_5fhash_5fmap_0',['Linked_hash_map',['../classflow_1_1util_1_1Linked__hash__map.html',1,'flow::util']]],
-  ['linked_5fhash_5fmap_3c_20event_5ftype_2c_20sockets_20_3e_1',['Linked_hash_map&lt; Event_type, Sockets &gt;',['../classflow_1_1util_1_1Linked__hash__map.html',1,'flow::util']]],
-  ['linked_5fhash_5fmap_3c_20sequence_5fnumber_2c_20boost_3a_3ashared_5fptr_3c_20sent_5fpacket_20_3e_20_3e_2',['Linked_hash_map&lt; Sequence_number, boost::shared_ptr&lt; Sent_packet &gt; &gt;',['../classflow_1_1util_1_1Linked__hash__map.html',1,'flow::util']]],
-  ['linked_5fhash_5fset_3',['Linked_hash_set',['../classflow_1_1util_1_1Linked__hash__set.html',1,'flow::util']]],
-  ['linked_5fhash_5fset_3c_20peer_5fsocket_5fptr_20_3e_4',['Linked_hash_set&lt; Peer_socket_ptr &gt;',['../classflow_1_1util_1_1Linked__hash__set.html',1,'flow::util']]],
-  ['log_5fcontext_5',['Log_context',['../classflow_1_1log_1_1Log__context.html',1,'flow::log']]],
-  ['log_5frequest_6',['Log_request',['../structflow_1_1log_1_1Async__file__logger_1_1Log__request.html',1,'flow::log::Async_file_logger']]],
-  ['logger_7',['Logger',['../classflow_1_1log_1_1Logger.html',1,'flow::log']]],
-  ['low_5flvl_5fpacket_8',['Low_lvl_packet',['../structflow_1_1net__flow_1_1Low__lvl__packet.html',1,'flow::net_flow']]]
+  ['individual_5fack_0',['Individual_ack',['../structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html',1,'flow::net_flow::Ack_packet::Individual_ack'],['../structflow_1_1net__flow_1_1Peer__socket_1_1Individual__ack.html',1,'flow::net_flow::Peer_socket::Individual_ack']]],
+  ['individual_5fack_5frexmit_5foff_1',['Individual_ack_rexmit_off',['../structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html',1,'flow::net_flow::Ack_packet']]],
+  ['individual_5fack_5frexmit_5fon_2',['Individual_ack_rexmit_on',['../structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__on.html',1,'flow::net_flow::Ack_packet']]],
+  ['is_5ferror_5fcode_5fenum_3c_3a_3aflow_3a_3anet_5fflow_3a_3aerror_3a_3acode_20_3e_3',['is_error_code_enum&lt;::flow::net_flow::error::Code &gt;',['../structboost_1_1system_1_1is__error__code__enum_3_1_1flow_1_1net__flow_1_1error_1_1Code_01_4.html',1,'boost::system']]]
 ];

@@ -433,7 +433,7 @@ template&lt;typename Value_set &gt; </div>
 <p>Utility, used by <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> internally but made available as a public API in case it is useful, that converts a string containing a conventionally formatted data member name into the corresponding auto-determined config option name. </p>
 <dl class="section note"><dt>Note</dt><dd>An example for convenience, accurate as of the time of this writing: <code>m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy.m_cool_option_name</code> transforms to <code>cool-object.cool-sub-object.badass-sub-guy.cool-option-name</code>.</dd></dl>
 <p>The format for the contents of <code>member_id</code> shall be as follows: It shall consist of one or more identifiers following the Flow coding guide, each starting with <code>m_</code>, concatenated with C++ object separator sequences, each sequence chosen to be either <code>.</code> (object dereference) or <code>-&gt;</code> (pointer dereference). <code>m_</code> for each identifier is optional for this function &ndash; though the coding guide requires it as of this writing anyway.</p>
-<p >Note that boost.program_options allows config files (when used as config sources, e.g, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a4ca1b50ec692a98865e4afde76d04128" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">Option_set::parse_config_file()</a>) to declare a <code>[config-section]</code> which results in each <code>option-name</code> listed in that section to be treated as-if named <code>config-section.option-name</code>. This has synergy with nested objects within a config value set being separated by dots also (or <code>-&gt;</code> if desired for orthogonal reasons, such as if a smart pointer is used).</p>
+<p >Note that boost.program_options allows config files (when used as config sources, e.g, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#abe8fe72cae80d20e0a07d4732f15d57b" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">Option_set::parse_config_file()</a>) to declare a <code>[config-section]</code> which results in each <code>option-name</code> listed in that section to be treated as-if named <code>config-section.option-name</code>. This has synergy with nested objects within a config value set being separated by dots also (or <code>-&gt;</code> if desired for orthogonal reasons, such as if a smart pointer is used).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">member_id</td><td>Identifier, perhaps obtained via the preprocessor <code>#feature</code> from an argument to a functional macro. </td></tr>
@@ -634,7 +634,7 @@ template&lt;typename Value &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

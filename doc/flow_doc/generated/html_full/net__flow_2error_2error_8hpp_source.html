@@ -108,7 +108,7 @@ $(function() {
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment"> *   std::cout &lt;&lt; &quot;General error value = [&quot; &lt;&lt; code.value() &lt;&lt; &quot;]; msg = [&quot; &lt;&lt; code.message() &lt;&lt; &quot;].\n&quot;;</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment"> *   // And we can throw an std::exception (`catch{}` can log the exception&#39;s .what() which will contain</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"> *   // the numeric value, the human message, and the optional context string).</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> *   throw flow::error::Runtime_error(code, &quot;Additional context info here!&quot;);</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"> *   throw flow::error::Runtime_error{code, &quot;Additional context info here!&quot;};</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment"> *   ~~~</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment"> * ### Discussion ###</span></div>
@@ -353,11 +353,11 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1net__flow_1_1error_html_a18e13de77b119ea0f2be411490859482ae90ff1c87f2393dd6b14232b159f02b2"><div class="ttname"><a href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482ae90ff1c87f2393dd6b14232b159f02b2">flow::net_flow::error::Code::S_INTERNAL_ERROR_PORT_COLLISION</a></div><div class="ttdeci">@ S_INTERNAL_ERROR_PORT_COLLISION</div><div class="ttdoc">Internal error: Ephemeral port double reservation allowed.</div></div>
 <div class="ttc" id="anamespaceflow_1_1net__flow_1_1error_html_a18e13de77b119ea0f2be411490859482affac5d80b4e72f2e55bbbfadce2efd2e"><div class="ttname"><a href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482affac5d80b4e72f2e55bbbfadce2efd2e">flow::net_flow::error::Code::S_NODE_NOT_RUNNING</a></div><div class="ttdeci">@ S_NODE_NOT_RUNNING</div><div class="ttdoc">Node not running.</div></div>
 <div class="ttc" id="anamespaceflow_1_1net__flow_1_1error_html_a6d35c37eb70a494bb27aa807c41de176"><div class="ttname"><a href="namespaceflow_1_1net__flow_1_1error.html#a6d35c37eb70a494bb27aa807c41de176">flow::net_flow::error::make_error_code</a></div><div class="ttdeci">Error_code make_error_code(Code err_code)</div><div class="ttdoc">Given a Code enum value, creates a lightweight flow::Error_code (a/k/a boost.system error_code) repre...</div><div class="ttdef"><b>Definition:</b> <a href="net__flow_2error_2error_8cpp_source.html#l00093">error.cpp:93</a></div></div>
-<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00508">common.hpp:508</a></div></div>
+<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00497">common.hpp:497</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

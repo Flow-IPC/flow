@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a6725d69ea1a6457d88abb63cef6e6bb2" target="_top" xlink:title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a0f28017130b120b9ceaff481d06c86e4" target="_top" xlink:title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata...">
 <polygon fill="white" stroke="black" points="137,-0.5 137,-26.5 280,-26.5 280,-0.5 137,-0.5"/>
 <text text-anchor="start" x="145" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="208.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sync_connect_with_metadata</text>
@@ -38,7 +38,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aba2e6fc905dbeef3ea9e31bf844f8da5" target="_top" xlink:title="The blocking (synchronous) version of connect().">
+<g id="a_node3"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a3b95bb1d76b82c856e86dbcab7353642" target="_top" xlink:title="The blocking (synchronous) version of connect().">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 101,-26.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sync_connect</text>

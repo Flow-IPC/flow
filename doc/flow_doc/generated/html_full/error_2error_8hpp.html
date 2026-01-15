@@ -148,13 +148,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a> \</div>
 <div class="line">  ( \</div>
-<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_EMIT_ERR_val(ARG_val); \</div>
+<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_EMIT_ERR_val{ARG_val}; \</div>
 <div class="line">    FLOW_LOG_WARNING(<span class="stringliteral">&quot;Error code emitted: [&quot;</span> &lt;&lt; FLOW_ERROR_EMIT_ERR_val &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> \</div>
 <div class="line">                     <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; FLOW_ERROR_EMIT_ERR_val.message() &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>); \</div>
 <div class="line">    *err_code = FLOW_ERROR_EMIT_ERR_val; \</div>
 <div class="line">  )</div>
-<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00508">common.hpp:508</a></div></div>
-<div class="ttc" id="autil__fwd_8hpp_html_a402a1fb61d3fe4ca6767729e38620d6d"><div class="ttname"><a href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a></div><div class="ttdeci">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition)</div><div class="ttdoc">Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at ...</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l01079">util_fwd.hpp:1079</a></div></div>
+<div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00497">common.hpp:497</a></div></div>
+<div class="ttc" id="autil__fwd_8hpp_html_a402a1fb61d3fe4ca6767729e38620d6d"><div class="ttname"><a href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a></div><div class="ttdeci">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition)</div><div class="ttdoc">Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at ...</div><div class="ttdef"><b>Definition:</b> <a href="util__fwd_8hpp_source.html#l01129">util_fwd.hpp:1129</a></div></div>
 </div><!-- fragment -->
 <p>Sets <code>*err_code</code> to <code>ARG_val</code> and logs a warning about the error using <a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a>. </p>
 <p >An <code>err_code</code> variable of type that is pointer to <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> must be declared at the point where the macro is invoked.</p>
@@ -186,7 +186,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a> \</div>
 <div class="line">  ( \</div>
-<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_EMIT_ERR_LOG_val(ARG_val); \</div>
+<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_EMIT_ERR_LOG_val{ARG_val}; \</div>
 <div class="line">    FLOW_LOG_INFO(<span class="stringliteral">&quot;Error code emitted: [&quot;</span> &lt;&lt; FLOW_ERROR_EMIT_ERR_LOG_val &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> \</div>
 <div class="line">                  <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; FLOW_ERROR_EMIT_ERR_LOG_val.message() &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>); \</div>
 <div class="line">    *err_code = FLOW_ERROR_EMIT_ERR_LOG_val; \</div>
@@ -268,7 +268,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><span class="comment">// Example API.  In this one, there&#39;s a 4th argument that happens to follow the standard Error_code* one.</span></div>
 <div class="line"><span class="comment">// arg2 is a (const) reference, as opposed to a pointer or scalar, and is most efficiently handled by adding</span></div>
 <div class="line"><span class="comment">// cref() to avoid copying it.</span></div>
-<div class="line">T f(AT1 arg1, <span class="keyword">const</span> AT2&amp; arg2, <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a>* err_code = 0, AT3 arg3 = 0)</div>
+<div class="line">T f(AT1 arg1, <span class="keyword">const</span> AT2&amp; arg2, <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">Error_code</a>* err_code = <span class="keyword">nullptr</span>, AT3 arg3 = 0)</div>
 <div class="line">{</div>
 <div class="line">  <a class="code hl_define" href="error_2error_8hpp.html#a636b2d30a8785df6e84646b568bce9b5">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>(T, <span class="comment">// Provide the return type of the API.</span></div>
 <div class="line">                                        <span class="comment">// Forward all the args into the macro, but replace `err_code` =&gt; `_1`.</span></div>
@@ -313,7 +313,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <a class="code hl_define" href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a> \</div>
 <div class="line">  ( \</div>
-<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_LOG_ERR_val(ARG_val); \</div>
+<div class="line">    <a class="code hl_typedef" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">::flow::Error_code</a> FLOW_ERROR_LOG_ERR_val{ARG_val}; \</div>
 <div class="line">    FLOW_LOG_WARNING(<span class="stringliteral">&quot;Error occurred: [&quot;</span> &lt;&lt; FLOW_ERROR_LOG_ERR_val &lt;&lt; <span class="stringliteral">&quot;] &quot;</span> \</div>
 <div class="line">                     <span class="stringliteral">&quot;[&quot;</span> &lt;&lt; FLOW_ERROR_LOG_ERR_val.message() &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>); \</div>
 <div class="line">  )</div>
@@ -415,7 +415,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -86,7 +86,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ae9a0e5492b9ea005cc12c20c8e7cec9a" target="_top" xlink:title="Same as connect() but sends, as part of the connection handshake, the user&#45;supplied metadata,...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a5dbd8c3b12fa035c56396a4f7263a8e6" target="_top" xlink:title="Same as connect() but sends, as part of the connection handshake, the user&#45;supplied metadata,...">
 <polygon fill="white" stroke="black" points="660.5,-488.5 660.5,-514.5 780.5,-514.5 780.5,-488.5 660.5,-488.5"/>
 <text text-anchor="start" x="668.5" y="-504.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="720.5" y="-495.1" font-family="Helvetica,sans-Serif" font-size="8.00">::connect_with_metadata</text>
@@ -102,7 +102,7 @@
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a102b78eaac9c8add512238ec5f26fcfc" target="_top" xlink:title="Returns the smallest multiple of max_block_size() that is &gt;= the given option value,...">
+<g id="a_node8"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#abb4bf5fcd52fb468d48b46f5762958f1" target="_top" xlink:title="Returns the smallest multiple of max_block_size() that is &gt;= the given option value,...">
 <polygon fill="white" stroke="black" points="662.5,-579 662.5,-614 778.5,-614 778.5,-579 662.5,-579"/>
 <text text-anchor="start" x="670.5" y="-603.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="start" x="670.5" y="-594.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::max_block_size</text>
@@ -135,7 +135,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Node.html#a97d21b9a18651cd234589f3b0b6d2971" target="_top" xlink:title="The boost.asio asynchronous version of sync_connect(), performing any necessary wait and connection i...">
+<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Node.html#a9d722f4c2d7708a78c3e48615acd245d" target="_top" xlink:title="The boost.asio asynchronous version of sync_connect(), performing any necessary wait and connection i...">
 <polygon fill="white" stroke="black" points="310.5,-597.5 310.5,-623.5 421.5,-623.5 421.5,-597.5 310.5,-597.5"/>
 <text text-anchor="start" x="318.5" y="-613.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="middle" x="366" y="-604.1" font-family="Helvetica,sans-Serif" font-size="8.00">::Node::async_connect</text>
@@ -151,7 +151,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Node.html#af8ae97d499f6de21140b89218e52fc4c" target="_top" xlink:title="A combination of async_connect() and connect_with_metadata() (asynchronously blocking connect,...">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1asio_1_1Node.html#a413bf3647485000a013b416a5b729ffb" target="_top" xlink:title="A combination of async_connect() and connect_with_metadata() (asynchronously blocking connect,...">
 <polygon fill="white" stroke="black" points="310.5,-543 310.5,-578 421.5,-578 421.5,-543 310.5,-543"/>
 <text text-anchor="start" x="318.5" y="-567.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::asio</text>
 <text text-anchor="start" x="318.5" y="-558.6" font-family="Helvetica,sans-Serif" font-size="8.00">::Node::async_connect</text>

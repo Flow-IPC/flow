@@ -190,7 +190,7 @@
 <!-- Node14 -->
 <g id="node7" class="node">
 <title>Node14</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aa911c498b19cb643f7227ad83fbd9ea3" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
 <polygon fill="white" stroke="black" points="471,-312 471,-338 568,-338 568,-312 471,-312"/>
 <text text-anchor="start" x="479" y="-327.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="519.5" y="-318.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::receive</text>
@@ -222,7 +222,7 @@
 <!-- Node16 -->
 <g id="node9" class="node">
 <title>Node16</title>
-<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44" target="_top" xlink:title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout.">
+<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a21c5f1777ae2d672532d99a9547fd367" target="_top" xlink:title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout.">
 <polygon fill="white" stroke="black" points="312,-267 312,-293 418,-293 418,-267 312,-267"/>
 <text text-anchor="start" x="320" y="-282.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="365" y="-273.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>
@@ -306,7 +306,7 @@
 <!-- Node7 -->
 <g id="node16" class="node">
 <title>Node7</title>
-<g id="a_node16"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
+<g id="a_node16"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a846142aef01f5e9060f39a82dcf5c190" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
 <polygon fill="white" stroke="black" points="471,-138 471,-164 568,-164 568,-138 471,-138"/>
 <text text-anchor="start" x="479" y="-153.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="519.5" y="-144.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::send</text>

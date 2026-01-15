@@ -71,7 +71,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
+<g id="a_node4"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aa911c498b19cb643f7227ad83fbd9ea3" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
 <polygon fill="white" stroke="black" points="157,-118 157,-144 254,-144 254,-118 157,-118"/>
 <text text-anchor="start" x="165" y="-133.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="205.5" y="-124.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::receive</text>
@@ -120,7 +120,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#af5143886b33b4f16e4fbfbe3a4e91e44" target="_top" xlink:title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout.">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a21c5f1777ae2d672532d99a9547fd367" target="_top" xlink:title="Equivalent to sync_receive(target, duration::max(), err_code); i.e., sync_receive() with no timeout.">
 <polygon fill="white" stroke="black" points="0,-73 0,-99 106,-99 106,-73 0,-73"/>
 <text text-anchor="start" x="8" y="-88.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-79.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>
@@ -142,7 +142,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a34cc9ad4501bb8cefe2c4e946be88232" target="_top" xlink:title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ...">
+<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#ac9f0416a6263eb3a87e4b196e090f2dc" target="_top" xlink:title="sync_receive() operating in nullptr_t mode, wherein – if Readable state is reached – the actual data ...">
 <polygon fill="white" stroke="black" points="0,-5 0,-31 106,-31 106,-5 0,-5"/>
 <text text-anchor="start" x="8" y="-20.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="53" y="-11.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::sync_receive</text>

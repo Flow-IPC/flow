@@ -1,5 +1,4 @@
 <map id="flow::net_flow::Drop_timer::create_drop_timer" name="flow::net_flow::Drop_timer::create_drop_timer">
-<area shape="rect" id="node1" title="Constructs Drop_timer and returns a ref&#45;counted pointer wrapping it." alt="" coords="5,36,167,72"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Drop__timer.html#a9c94b0191a80afb98b6da4a2d0b47a46" title="Constructs Drop_timer as described in the factory constructor create_drop_timer()." alt="" coords="215,5,345,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Drop__timer.html#a40029643f0a6c7a2a6b20499ca4c5a67" title="Called by boost.asio after we post it, in the event of some timer error." alt="" coords="215,65,345,101"/>
+<area shape="rect" id="node1" title="Constructs Drop_timer and returns a ref&#45;counted pointer wrapping it." alt="" coords="5,5,167,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Drop__timer.html#a40029643f0a6c7a2a6b20499ca4c5a67" title="Called by boost.asio after we post it, in the event of some timer error." alt="" coords="215,5,345,41"/>
 </map>

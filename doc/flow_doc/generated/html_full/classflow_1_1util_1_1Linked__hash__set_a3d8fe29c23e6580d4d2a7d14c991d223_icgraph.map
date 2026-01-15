@@ -1,0 +1,4 @@
+<map id="flow::util::Linked_hash_set::erase" name="flow::util::Linked_hash_set::erase">
+<area shape="rect" id="node1" title="Erases the element pointed to by the given valid iterator." alt="" coords="233,5,348,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#a9df8ee7f0b6fc8add47e2381a1fc69eb" title="Opposite of add_wanted_socket()." alt="" coords="5,5,185,41"/>
+</map>

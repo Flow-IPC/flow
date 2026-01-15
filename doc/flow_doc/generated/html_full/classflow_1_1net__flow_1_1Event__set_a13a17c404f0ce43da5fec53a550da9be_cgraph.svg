@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a43dfb881ab3a9488a6a60dd83ad21c85" target="_top" xlink:title="Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#aee530ac79ddb0d73752757e77c5475a6" target="_top" xlink:title="Moves object to State::S_WAITING state, saves the given handler to be executed later (in a different,...">
 <polygon fill="white" stroke="black" points="142,-171.5 142,-197.5 244,-197.5 244,-171.5 142,-171.5"/>
 <text text-anchor="start" x="150" y="-187.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="193" y="-178.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::async_wait</text>
@@ -55,7 +55,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a3122100c044da08495fac737998f60db" target="_top" xlink:title="Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(...">
+<g id="a_node6"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ab099f0dd6d9d6b149d45c9d4a845b40e" target="_top" xlink:title="Moves object from State::S_WAITING to State::S_INACTIVE, and forgets any handler saved by async_wait(...">
 <polygon fill="white" stroke="black" points="138,-108.5 138,-134.5 248,-134.5 248,-108.5 138,-108.5"/>
 <text text-anchor="start" x="146" y="-124.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="193" y="-115.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::async_wait_finish</text>
@@ -71,7 +71,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a412214de6a4f3a1ff1e86ddb1975f47b" target="_top" xlink:title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res...">
+<g id="a_node7"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a97257afcbac1d060e965bddbf5cdcdd1" target="_top" xlink:title="Checks for all previously described events that currently hold, saves them for retrieval via emit_res...">
 <polygon fill="white" stroke="black" points="142,-45.5 142,-71.5 244,-71.5 244,-45.5 142,-45.5"/>
 <text text-anchor="start" x="150" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="193" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::poll</text>
@@ -166,7 +166,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="classflow_1_1util_1_1Linked__hash__set.html#a048a8d78c4ae3bc45c8bcede6b0e2dc6" target="_top" xlink:title="Returns true if and only if container is empty.">
+<g id="a_node9"><a xlink:href="classflow_1_1util_1_1Linked__hash__set.html#a1fbcb5f6a387904e11c413aa60539365" target="_top" xlink:title="Returns true if and only if container is empty.">
 <polygon fill="white" stroke="black" points="462.5,-90.5 462.5,-116.5 551.5,-116.5 551.5,-90.5 462.5,-90.5"/>
 <text text-anchor="start" x="470.5" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Linked</text>
 <text text-anchor="middle" x="507" y="-97.1" font-family="Helvetica,sans-Serif" font-size="8.00">_hash_set::empty</text>
@@ -182,7 +182,7 @@
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="classflow_1_1util_1_1Linked__hash__set.html#a517b9b0ac9d6ab2c56e27ba380f87180" target="_top" xlink:title="Attempts to insert the given key into the set.">
+<g id="a_node10"><a xlink:href="classflow_1_1util_1_1Linked__hash__set.html#a3553fc2a52e6d2a265c7c05a5489d8a4" target="_top" xlink:title="Attempts to insert (copying it) the given keyinto the map; if key already in *this makes no change.">
 <polygon fill="white" stroke="black" points="464,-45.5 464,-71.5 550,-71.5 550,-45.5 464,-45.5"/>
 <text text-anchor="start" x="472" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Linked</text>
 <text text-anchor="middle" x="507" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_hash_set::insert</text>
@@ -214,7 +214,7 @@
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" target="_top" xlink:title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">
+<g id="a_node12"><a xlink:href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" target="_top" xlink:title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">
 <polygon fill="white" stroke="red" points="601,-0.5 601,-26.5 693,-26.5 693,-0.5 601,-0.5"/>
 <text text-anchor="start" x="609" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::ostream</text>
 <text text-anchor="middle" x="647" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_op_to_string</text>

@@ -79,11 +79,11 @@ $(function() {
 <p >Caveat 1: I don't know why, but in the aforementioned clang, <code>using util::bind_ns::cref</code> makes <code>cref()</code> become ambiguous with some <code>std::cref</code>; it's quite unclear why the same complaint then doesn't happen for <code>bind()</code> itself. In that case, when an error is encountered, get rid of the <code>using</code> and instead qualify it as <code>util::bind_ns::cref()</code>. It sucks, but at least it's clear.</p>
 <p >Caveat 2: I haven't built in MS Visual Studio in quite a while (though it did use to work at one point), but back then I remember some VC++-specific trouble with <code>bind()</code> resolution. Possibly it's related to the above. Anyway, use <code><a class="el" href="namespaceflow_1_1util_1_1bind__ns.html" title="Hack namespace alias to enable use of bind and related utilities like cref in the face of strange obs...">bind_ns</a></code> as needed to get around any such compile errors.</p>
 <p >Note: Knowing of this phantom <code>bind()</code> that's magically available sans qualification, I also tried to use unqualified <code>cout</code> and <code>endl</code> in the same context but thankfully got the expected errors in clang saying these identifiers do not exist but suggesting the use of <code>std::cout</code> and <code>std::endl</code>. So, at least it's not all of <code>std</code> being forced on the code.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000149">Todo:</a></b></dt><dd>Investigate deeply the cause of the strange behavior with unqualified <code>bind()</code> and others described above this line in the source code. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000148">Todo:</a></b></dt><dd>Investigate deeply the cause of the strange behavior with unqualified <code>bind()</code> and others described above this line in the source code. </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <map id="flow::async::optimal_worker_thread_count_per_pool" name="flow::async::optimal_worker_thread_count_per_pool">
 <area shape="rect" id="node1" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX&#45;affecting (in particul..." alt="" coords="612,30,753,78"/>
 <area shape="rect" id="node2" href="$namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),..." alt="" coords="411,36,564,72"/>
-<area shape="rect" id="node3" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a55fcb2e9f5410174c69cb1b9053a6ffd" title="Implements superclass API." alt="" coords="207,5,363,41"/>
-<area shape="rect" id="node4" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#a5705e34163dec8463a30361bdb2fa83f" title="Implements superclass API." alt="" coords="208,65,361,101"/>
-<area shape="rect" id="node5" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a0886e7f19d0c8b19f74851578802a5e5" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,65,159,101"/>
+<area shape="rect" id="node3" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#af19377b924d1598a3ad59f0fba89bfee" title="Implements superclass API." alt="" coords="207,5,363,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API." alt="" coords="208,65,361,101"/>
+<area shape="rect" id="node5" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a0047f013a3a9a05b9368666690cf4db8" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,65,159,101"/>
 </map>

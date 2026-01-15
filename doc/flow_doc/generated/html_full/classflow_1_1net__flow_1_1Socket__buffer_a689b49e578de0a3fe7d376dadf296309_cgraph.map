@@ -1,8 +1,7 @@
 <map id="flow::net_flow::Socket_buffer::feed_buf_move" name="flow::net_flow::Socket_buffer::feed_buf_move">
-<area shape="rect" id="node1" title="Feeds (adds to the back of the byte buffer) the byte sequence equal to the given byte sequence *data,..." alt="" coords="5,79,156,115"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="418,36,533,72"/>
-<area shape="rect" id="node5" href="$classflow_1_1net__flow_1_1Socket__buffer.html#a69a0c514df820c36e7109fb1fcf78522" title="Feeds (adds to the back of the byte buffer) the contents of the byte stream composed of the bytes in ..." alt="" coords="204,79,356,115"/>
-<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="404,109,547,145"/>
+<area shape="rect" id="node1" title="Feeds (adds to the back of the byte buffer) the byte sequence equal to the given byte sequence *data,..." alt="" coords="5,48,156,84"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="418,5,533,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Socket__buffer.html#a69a0c514df820c36e7109fb1fcf78522" title="Feeds (adds to the back of the byte buffer) the contents of the byte stream composed of the bytes in ..." alt="" coords="204,48,356,84"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="404,79,547,115"/>
 <area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf" title="Writes a multi&#45; or single&#45;line string representation of the provided binary data to an output stream,..." alt="" coords="595,5,709,41"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="597,65,707,101"/>
 </map>

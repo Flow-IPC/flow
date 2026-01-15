@@ -1,0 +1,4 @@
+<map id="flow::util::Linked_hash_map::past_newest" name="flow::util::Linked_hash_map::past_newest">
+<area shape="rect" id="node1" title="Returns one past last, a/k/a &quot;newest,&quot; element&#39;s reverse iterator." alt="" coords="5,5,165,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__map.html#a84a797e0ff66fe4044f5a551bee4540e" title="Synonym of past_newest()." alt="" coords="213,5,329,41"/>
+</map>

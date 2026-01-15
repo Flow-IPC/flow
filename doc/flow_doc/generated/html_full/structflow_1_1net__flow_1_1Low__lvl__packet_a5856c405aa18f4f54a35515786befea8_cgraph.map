@@ -1,9 +1,8 @@
 <map id="flow::net_flow::Low_lvl_packet::serialize_to_raw_data_and_log" name="flow::net_flow::Low_lvl_packet::serialize_to_raw_data_and_log">
-<area shape="rect" id="node1" title="Identical to serialize_to_raw_data() but adds log&#45;level&#45;appropriate logging after the operation." alt="" coords="5,119,147,167"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="209,35,323,71"/>
-<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="195,95,337,131"/>
-<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="195,155,337,191"/>
-<area shape="rect" id="node7" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,..." alt="" coords="199,215,333,263"/>
+<area shape="rect" id="node1" title="Identical to serialize_to_raw_data() but adds log&#45;level&#45;appropriate logging after the operation." alt="" coords="5,90,147,138"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="209,5,323,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="195,65,337,101"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="195,125,337,161"/>
+<area shape="rect" id="node6" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#aa2b4697824bd3ca88970c67d9a1f3e76" title="Serializes the current logical packet data from *this into the given Const_buffer_sequence,..." alt="" coords="199,186,333,234"/>
 <area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf" title="Writes a multi&#45; or single&#45;line string representation of the provided binary data to an output stream,..." alt="" coords="385,5,500,41"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="388,65,497,101"/>
 </map>

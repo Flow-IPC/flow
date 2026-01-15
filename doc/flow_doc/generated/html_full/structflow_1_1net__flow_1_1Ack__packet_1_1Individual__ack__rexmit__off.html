@@ -98,7 +98,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a8952017a9b9267971a8d79eaa82f358a"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a1d027f817b86cc377d76bc38434229a4" title="Sequence number of first datum in packet that we acknowledge.">Individual_ack::m_seq_num</a> and <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#ac18fe030885b2ed3dfa290d8eec8c501" title="Provides the raw sequence number.">Sequence_number::raw_num_ref()</a>.  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a8952017a9b9267971a8d79eaa82f358a">More...</a><br /></td></tr>
 <tr class="separator:a8952017a9b9267971a8d79eaa82f358a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e2f29fb25f50cfb98779eba356882d8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structflow_1_1net__flow_1_1Ack__packet.html#a374da5eef60c7d8a4085b41cf7b2adfe">ack_delay_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a9e2f29fb25f50cfb98779eba356882d8">m_delay</a></td></tr>
-<tr class="memdesc:a9e2f29fb25f50cfb98779eba356882d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a6027b17d0ef0aa619c4dedb42d74e1a6" title="The delay between when we received the acknowledged packet and when decided to send this ack.">Individual_ack::m_delay</a>; this is in <code>Ack_delay_time_unit(1)</code> multiples.  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a9e2f29fb25f50cfb98779eba356882d8">More...</a><br /></td></tr>
+<tr class="memdesc:a9e2f29fb25f50cfb98779eba356882d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a6027b17d0ef0aa619c4dedb42d74e1a6" title="The delay between when we received the acknowledged packet and when decided to send this ack.">Individual_ack::m_delay</a>; this is in <code>Ack_delay_time_unit{1}</code> multiples.  <a href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a9e2f29fb25f50cfb98779eba356882d8">More...</a><br /></td></tr>
 <tr class="separator:a9e2f29fb25f50cfb98779eba356882d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -146,7 +146,7 @@ Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">seq_num</td><td><code>seq_num.raw_num_ref()</code> is copied to <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a8952017a9b9267971a8d79eaa82f358a" title="See Individual_ack::m_seq_num and Sequence_number::raw_num_ref().">m_seq_num_raw</a>. </td></tr>
-    <tr><td class="paramname">delay</td><td><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a9e2f29fb25f50cfb98779eba356882d8" title="See Individual_ack::m_delay; this is in Ack_delay_time_unit(1) multiples.">m_delay</a>. </td></tr>
+    <tr><td class="paramname">delay</td><td><a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack__rexmit__off.html#a9e2f29fb25f50cfb98779eba356882d8" title="See Individual_ack::m_delay; this is in Ack_delay_time_unit{1} multiples.">m_delay</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -168,7 +168,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a6027b17d0ef0aa619c4dedb42d74e1a6" title="The delay between when we received the acknowledged packet and when decided to send this ack.">Individual_ack::m_delay</a>; this is in <code>Ack_delay_time_unit(1)</code> multiples. </p>
+<p>See <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#a6027b17d0ef0aa619c4dedb42d74e1a6" title="The delay between when we received the acknowledged packet and when decided to send this ack.">Individual_ack::m_delay</a>; this is in <code>Ack_delay_time_unit{1}</code> multiples. </p>
 
 <p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01258">1258</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
@@ -199,7 +199,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

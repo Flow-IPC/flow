@@ -86,7 +86,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
+<g id="a_node5"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a846142aef01f5e9060f39a82dcf5c190" target="_top" xlink:title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">
 <polygon fill="white" stroke="black" points="16,-118 16,-144 113,-144 113,-118 16,-118"/>
 <text text-anchor="start" x="24" y="-133.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="64.5" y="-124.6" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::send</text>

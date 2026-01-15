@@ -143,7 +143,7 @@ $(function() {
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keyword">constexpr</span> <span class="keywordtype">char</span> SEP_REPLACED = <span class="charliteral">&#39;_&#39;</span>; <span class="comment">// From this...</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  <span class="keyword">constexpr</span> <span class="keywordtype">char</span> SEP_REPLACEMENT = <span class="charliteral">&#39;-&#39;</span>; <span class="comment">// ...to this.</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordtype">string</span> opt_name(member_id);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordtype">string</span> opt_name{member_id};</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <span class="comment">/* Nuke space-y chars.</span></div>
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">   * Am paranoid about locales; and also didn&#39;t feel like using &lt;locale&gt; std::isspace(..., std::locale(&quot;C&quot;)). */</span></div>
@@ -161,7 +161,7 @@ $(function() {
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  replace_all(opt_name, CONCAT_REPLACED, CONCAT_OK);</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="comment">// Now any leading M_PFX gone; and object separators normalized to CONCAT_OK.  Can eliminate remaining M_PFX:</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  replace_all(opt_name, <span class="keywordtype">string</span>(CONCAT_OK) + <span class="keywordtype">string</span>(M_PFX), CONCAT_OK);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  replace_all(opt_name, <span class="keywordtype">string</span>{CONCAT_OK} + <span class="keywordtype">string</span>{M_PFX}, CONCAT_OK);</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  <span class="comment">// Lastly transform the word-separators.</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  replace(opt_name.begin(), opt_name.end(), SEP_REPLACED, SEP_REPLACEMENT);</div>
@@ -180,7 +180,7 @@ $(function() {
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <span class="comment">// Read our doc header for all background.  Hence only light comments below.</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <span class="keyword">using </span><a class="code hl_class" href="classflow_1_1error_1_1Runtime__error.html">flow::error::Runtime_error</a>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <span class="keyword">using </span><a class="code hl_function" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">flow::util::ostream_op_string</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <span class="keyword">using </span><a class="code hl_function" href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">flow::util::ostream_op_string</a>;</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keyword">namespace </span>opts = <a class="code hl_namespace" href="namespaceflow_1_1cfg_1_1opts.html">flow::cfg::opts</a>;</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <span class="keyword">using </span>boost::any;</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  <span class="keyword">using </span>boost::lexical_cast;</div>
@@ -204,9 +204,9 @@ $(function() {
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">catch</span> (<span class="keyword">const</span> bad_lexical_cast&amp; exc)</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      <span class="keywordflow">throw</span> Runtime_error(<a class="code hl_function" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">ostream_op_string</a></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      <span class="keywordflow">throw</span> Runtime_error{<a class="code hl_function" href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">ostream_op_string</a></div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                            (<span class="stringliteral">&quot;Error converting [&quot;</span>, user_string,</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                             <span class="stringliteral">&quot;] to boost::filesystem path.  Is there something strange in that string?&quot;</span>));</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                             <span class="stringliteral">&quot;] to boost::filesystem path.  Is there something strange in that string?&quot;</span>)};</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  }</div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>  <span class="comment">// else { Leave result_path at empty.  lexical_cast&lt;path&gt;(&quot;&quot;) would have yielded bad_lexical_cast, but we allow it. }</span></div>
@@ -222,13 +222,13 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1cfg_html"><div class="ttname"><a href="namespaceflow_1_1cfg.html">flow::cfg</a></div><div class="ttdoc">Flow module that facilitates configuring modules, such as applications and APIs, via statically and/o...</div><div class="ttdef"><b>Definition:</b> <a href="cfg__fwd_8hpp_source.html#l00111">cfg_fwd.hpp:112</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_a696eee859b6e3f0fc0b6473a1d2836b0"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0">flow::cfg::value_set_member_id_to_opt_name</a></div><div class="ttdeci">std::string value_set_member_id_to_opt_name(util::String_view member_id)</div><div class="ttdoc">Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8cpp_source.html#l00038">option_set.cpp:38</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_ac2f99fdb8f743e12d8f92553292dc8d6"><div class="ttname"><a href="namespaceflow_1_1cfg.html#ac2f99fdb8f743e12d8f92553292dc8d6">flow::cfg::VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX</a></div><div class="ttdeci">const boost::regex VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX</div><div class="ttdoc">An internal constant for value_set_member_id_to_opt_name_keyed().</div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a685b86585da2fa5186f51854e7ae1561"><div class="ttname"><a href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">flow::util::ostream_op_string</a></div><div class="ttdeci">std::string ostream_op_string(T const &amp;... ostream_args)</div><div class="ttdoc">Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00381">util.hpp:381</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_acd8a77acb1c38ee462ca4fb213a3f164"><div class="ttname"><a href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">flow::util::ostream_op_string</a></div><div class="ttdeci">std::string ostream_op_string(T &amp;&amp;... ostream_args)</div><div class="ttdoc">Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00381">util.hpp:381</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_ae4dc52186797094b3040379ff19124c9"><div class="ttname"><a href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">flow::util::String_view</a></div><div class="ttdeci">Basic_string_view&lt; char &gt; String_view</div><div class="ttdoc">Commonly used char-based Basic_string_view. See its doc header.</div><div class="ttdef"><b>Definition:</b> <a href="string__view_8hpp_source.html#l00191">string_view.hpp:191</a></div></div>
 <div class="ttc" id="aoption__set_8hpp_html"><div class="ttname"><a href="option__set_8hpp.html">option_set.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:35 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:01 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

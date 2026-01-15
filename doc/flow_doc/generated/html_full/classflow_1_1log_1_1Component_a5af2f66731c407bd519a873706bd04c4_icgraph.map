@@ -9,5 +9,5 @@
 <area shape="rect" id="node5" href="$classflow_1_1log_1_1Ostream__log__msg__writer.html#a53d47232844dc7060ee95b4d831bbe29" title="log() implementation with time stamp = date/time with microsecond+ resolution/time zone,..." alt="" coords="14,78,175,138"/>
 <area shape="rect" id="node8" href="$classflow_1_1log_1_1Config.html#af2d963a6e1e9e0fc5809764d5718e938" title="Given a component in the form user provides it at log call sites, returns its index in the flat compo..." alt="" coords="633,161,791,197"/>
 <area shape="rect" id="node9" href="$classflow_1_1log_1_1Config.html#adfde40890c0dc1fa8956451f44251dc8" title="Sets the per&#45;component verbosity for the given component to the given value, to be used by subsequent..." alt="" coords="429,117,570,165"/>
-<area shape="rect" id="node10" href="$classflow_1_1log_1_1Config.html#a146a60d96256dbaed4f5f0e7dcd8f529" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="425,190,573,226"/>
+<area shape="rect" id="node10" href="$classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ..." alt="" coords="425,190,573,226"/>
 </map>

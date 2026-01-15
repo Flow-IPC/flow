@@ -1,6 +1,0 @@
-<map id="flow::util::Basic_blob::swap_impl" name="flow::util::Basic_blob::swap_impl">
-<area shape="rect" id="node1" title="The body of swap(), except for the part that swaps (or decides not to swap) m_alloc_raw." alt="" coords="5,65,140,101"/>
-<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a719e5c04e4bdc65c31976fc385fd7f24" title="Returns the number of elements in the internally allocated buffer, which is 1 or more; or 0 if no buf..." alt="" coords="188,5,323,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="194,65,317,101"/>
-<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0" title="Equivalent to blob1.swap(blob2)." alt="" coords="202,126,309,150"/>
-</map>

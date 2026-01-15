@@ -1,9 +1,8 @@
 <map id="flow::net_flow::Low_lvl_packet::create_from_raw_data_packet" name="flow::net_flow::Low_lvl_packet::create_from_raw_data_packet">
-<area shape="rect" id="node1" title="Constructs packet on the heap with values determined by the given raw binary data as presumably recei..." alt="" coords="5,119,155,167"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="217,35,331,71"/>
-<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="203,95,345,131"/>
-<area shape="rect" id="node6" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="213,155,335,191"/>
-<area shape="rect" id="node7" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a6b3de1eb7a337002440ecd1ab0ad058f" title="Helper that looks up the Packet_type_info::m_raw_type_id value for the given typeid(p),..." alt="" coords="210,215,338,263"/>
+<area shape="rect" id="node1" title="Constructs packet on the heap with values determined by the given raw binary data as presumably recei..." alt="" coords="5,90,155,138"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2" title="Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream." alt="" coords="217,5,331,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="203,65,345,101"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="213,125,335,161"/>
+<area shape="rect" id="node6" href="$structflow_1_1net__flow_1_1Low__lvl__packet.html#a6b3de1eb7a337002440ecd1ab0ad058f" title="Helper that looks up the Packet_type_info::m_raw_type_id value for the given typeid(p),..." alt="" coords="210,186,338,234"/>
 <area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa132928b364caefca5c3821e019924bf" title="Writes a multi&#45; or single&#45;line string representation of the provided binary data to an output stream,..." alt="" coords="393,5,508,41"/>
-<area shape="rect" id="node4" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="396,65,505,101"/>
 </map>

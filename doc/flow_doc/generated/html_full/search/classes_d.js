@@ -1,13 +1,14 @@
 var searchData=
 [
-  ['received_5fpacket_0',['Received_packet',['../structflow_1_1net__flow_1_1Peer__socket_1_1Received__packet.html',1,'flow::net_flow::Peer_socket']]],
-  ['remote_5fendpoint_1',['Remote_endpoint',['../structflow_1_1net__flow_1_1Remote__endpoint.html',1,'flow::net_flow']]],
-  ['rnd_5fgen_5funiform_5frange_2',['Rnd_gen_uniform_range',['../classflow_1_1util_1_1Rnd__gen__uniform__range.html',1,'flow::util']]],
-  ['rnd_5fgen_5funiform_5frange_3c_20peer_5fsocket_3a_3asecurity_5ftoken_5ft_20_3e_3',['Rnd_gen_uniform_range&lt; Peer_socket::security_token_t &gt;',['../classflow_1_1util_1_1Rnd__gen__uniform__range.html',1,'flow::util']]],
-  ['rnd_5fgen_5funiform_5frange_3c_20std_3a_3asize_5ft_20_3e_4',['Rnd_gen_uniform_range&lt; std::size_t &gt;',['../classflow_1_1util_1_1Rnd__gen__uniform__range.html',1,'flow::util']]],
-  ['rnd_5fgen_5funiform_5frange_5fbase_5',['Rnd_gen_uniform_range_base',['../classflow_1_1util_1_1Rnd__gen__uniform__range__base.html',1,'flow::util']]],
-  ['rnd_5fgen_5funiform_5frange_5fmt_6',['Rnd_gen_uniform_range_mt',['../classflow_1_1util_1_1Rnd__gen__uniform__range__mt.html',1,'flow::util']]],
-  ['rnd_5fgen_5funiform_5frange_5fmt_3c_20std_3a_3asize_5ft_20_3e_7',['Rnd_gen_uniform_range_mt&lt; std::size_t &gt;',['../classflow_1_1util_1_1Rnd__gen__uniform__range__mt.html',1,'flow::util']]],
-  ['rst_5fpacket_8',['Rst_packet',['../structflow_1_1net__flow_1_1Rst__packet.html',1,'flow::net_flow']]],
-  ['runtime_5ferror_9',['Runtime_error',['../classflow_1_1error_1_1Runtime__error.html',1,'flow::error']]]
+  ['packet_5ftype_5finfo_0',['Packet_type_info',['../structflow_1_1net__flow_1_1Low__lvl__packet_1_1Packet__type__info.html',1,'flow::net_flow::Low_lvl_packet']]],
+  ['peer_5fsocket_1',['Peer_socket',['../classflow_1_1net__flow_1_1asio_1_1Peer__socket.html',1,'flow::net_flow::asio::Peer_socket'],['../classflow_1_1net__flow_1_1Peer__socket.html',1,'flow::net_flow::Peer_socket']]],
+  ['peer_5fsocket_5finfo_2',['Peer_socket_info',['../structflow_1_1net__flow_1_1Peer__socket__info.html',1,'flow::net_flow']]],
+  ['peer_5fsocket_5foptions_3',['Peer_socket_options',['../structflow_1_1net__flow_1_1Peer__socket__options.html',1,'flow::net_flow']]],
+  ['peer_5fsocket_5freceive_5fstats_4',['Peer_socket_receive_stats',['../structflow_1_1net__flow_1_1Peer__socket__receive__stats.html',1,'flow::net_flow']]],
+  ['peer_5fsocket_5freceive_5fstats_5faccumulator_5',['Peer_socket_receive_stats_accumulator',['../classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html',1,'flow::net_flow']]],
+  ['peer_5fsocket_5fsend_5fstats_6',['Peer_socket_send_stats',['../classflow_1_1net__flow_1_1Peer__socket__send__stats.html',1,'flow::net_flow']]],
+  ['peer_5fsocket_5fsend_5fstats_5faccumulator_7',['Peer_socket_send_stats_accumulator',['../classflow_1_1net__flow_1_1Peer__socket__send__stats__accumulator.html',1,'flow::net_flow']]],
+  ['polled_5fshared_5fstate_8',['Polled_shared_state',['../classflow_1_1util_1_1Polled__shared__state.html',1,'flow::util']]],
+  ['port_5fspace_9',['Port_space',['../classflow_1_1net__flow_1_1Port__space.html',1,'flow::net_flow']]],
+  ['pred_10',['Pred',['../classPred.html',1,'']]]
 ];

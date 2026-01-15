@@ -54,7 +54,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561" target="_top" xlink:title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">
+<g id="a_node4"><a xlink:href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164" target="_top" xlink:title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call...">
 <polygon fill="white" stroke="black" points="180.5,-45.5 180.5,-71.5 272.5,-71.5 272.5,-45.5 180.5,-45.5"/>
 <text text-anchor="start" x="188.5" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::ostream</text>
 <text text-anchor="middle" x="226.5" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_op_string</text>
@@ -67,19 +67,19 @@
 <path fill="none" stroke="midnightblue" d="M131.17,-71.55C144.2,-69.75 157.77,-67.87 170.43,-66.12"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="170.94,-69.58 180.36,-64.75 169.98,-62.65 170.94,-69.58"/>
 </g>
-<!-- Node8 -->
-<g id="node8" class="node">
-<title>Node8</title>
-<g id="a_node8"><a xlink:href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" target="_top" xlink:title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">
+<!-- Node7 -->
+<g id="node7" class="node">
+<title>Node7</title>
+<g id="a_node7"><a xlink:href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" target="_top" xlink:title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">
 <polygon fill="white" stroke="black" points="180.5,-0.5 180.5,-26.5 272.5,-26.5 272.5,-0.5 180.5,-0.5"/>
 <text text-anchor="start" x="188.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Logger::</text>
 <text text-anchor="middle" x="226.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">should_log</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node8 -->
-<g id="edge9" class="edge">
-<title>Node1&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge7" class="edge">
+<title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M95.4,-67.5C115.42,-58.58 142.73,-46.58 167,-36.5 171.85,-34.48 176.95,-32.41 182.02,-30.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="183.69,-33.48 191.69,-26.54 181.11,-26.98 183.69,-33.48"/>
 </g>
@@ -92,7 +92,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" target="_top" xlink:title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">
+<g id="a_node5"><a xlink:href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" target="_top" xlink:title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">
 <polygon fill="white" stroke="black" points="322,-45.5 322,-71.5 414,-71.5 414,-45.5 322,-45.5"/>
 <text text-anchor="start" x="330" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::ostream</text>
 <text text-anchor="middle" x="368" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_op_to_string</text>
@@ -108,40 +108,18 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" target="_top" xlink:title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the...">
-<polygon fill="white" stroke="black" points="450,-68.5 450,-94.5 548,-94.5 548,-68.5 450,-68.5"/>
-<text text-anchor="start" x="458" y="-84.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::feed_args</text>
-<text text-anchor="middle" x="499" y="-75.1" font-family="Helvetica,sans-Serif" font-size="8.00">_to_ostream</text>
+<g id="a_node6"><a xlink:href="namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" target="_top" xlink:title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given.">
+<polygon fill="white" stroke="black" points="450,-45.5 450,-71.5 548,-71.5 548,-45.5 450,-45.5"/>
+<text text-anchor="start" x="458" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::feed_args</text>
+<text text-anchor="middle" x="499" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">_to_ostream</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge6" class="edge">
 <title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M414.12,-66.54C422.37,-68.02 431.09,-69.57 439.66,-71.1"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="439.16,-74.56 449.62,-72.87 440.38,-67.67 439.16,-74.56"/>
-</g>
-<!-- Node7 -->
-<g id="node7" class="node">
-<title>Node7</title>
-<g id="a_node7"><a xlink:href="classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" target="_top" xlink:title="Access to stream that will write to owned string.">
-<polygon fill="white" stroke="black" points="458,-23.5 458,-49.5 540,-49.5 540,-23.5 458,-23.5"/>
-<text text-anchor="start" x="466" y="-39.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::String</text>
-<text text-anchor="middle" x="499" y="-30.1" font-family="Helvetica,sans-Serif" font-size="8.00">_ostream::os</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node7 -->
-<g id="edge8" class="edge">
-<title>Node5&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M414.12,-50.81C425.02,-48.95 436.74,-46.95 447.86,-45.05"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="448.59,-48.48 457.86,-43.35 447.41,-41.58 448.59,-48.48"/>
-</g>
-<!-- Node6&#45;&gt;Node6 -->
-<g id="edge7" class="edge">
-<title>Node6&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M477.01,-94.77C470.34,-103.96 477.67,-113 499,-113 512,-113 519.8,-109.64 522.4,-104.94"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="525.83,-104.2 520.99,-94.77 518.89,-105.16 525.83,-104.2"/>
+<path fill="none" stroke="midnightblue" d="M414.12,-58.5C422.28,-58.5 430.9,-58.5 439.38,-58.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="439.62,-62 449.62,-58.5 439.62,-55 439.62,-62"/>
 </g>
 </g>
 </svg>

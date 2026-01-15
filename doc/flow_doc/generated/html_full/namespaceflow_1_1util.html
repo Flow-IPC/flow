@@ -71,7 +71,8 @@ $(function() {
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">flow::util Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -99,6 +100,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> that works in regular heap (and is itself placed in heap or stack) and memorizes a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">log::Logger</a>, enabling easier logging albeit with a small perf trade-off.  <a href="classflow_1_1util_1_1Blob__with__log__context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Clear__on__alloc.html">Clear_on_alloc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag type used at least in <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> and <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> to specify that an allocated buffer be zeroed.  <a href="structflow_1_1util_1_1Clear__on__alloc.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Container__traits.html">Container_traits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Properties of various container types.  <a href="classflow_1_1util_1_1Container__traits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,25 +116,37 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits of <code>std::set</code>.  <a href="classflow_1_1util_1_1Container__traits_3_01std_1_1set_3_01T_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__map_3_01K_00_01V_01_4_01_4.html">Container_traits&lt; util::Linked_hash_map&lt; K, V &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of a boost::unordered_map&lt;&gt; and order...">flow::util::Linked_hash_map</a>.  <a href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__map_3_01K_00_01V_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">flow::util::Linked_hash_map</a>.  <a href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__map_3_01K_00_01V_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__set_3_01T_00_01Hash_00_01Pred_01_4_01_4.html">Container_traits&lt; util::Linked_hash_set&lt; T, Hash, Pred &gt; &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits of <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">flow::util::Linked_hash_set</a>.  <a href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__set_3_01T_00_01Hash_00_01Pred_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits of <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">flow::util::Linked_hash_set</a>.  <a href="classflow_1_1util_1_1Container__traits_3_01util_1_1Linked__hash__set_3_01T_00_01Hash_00_01Pred_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Duration__units__beautified.html">Duration_units_beautified</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internally used class that enables some of the activities of <a class="el" href="namespaceflow_1_1util.html#a0955a29930075ac1fe393896c089b911" title="Sets certain chrono-related formatting on the given ostream that results in a consistent,...">beautify_chrono_ostream()</a> API.  <a href="classflow_1_1util_1_1Duration__units__beautified.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key.html">Linked_hash_key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal-use key/iterator-wrapper, used as the key type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>.  <a href="classflow_1_1util_1_1Linked__hash__key.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html">Linked_hash_key_hash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal-use <code><a class="el" href="classHash.html">Hash</a></code> functor wrapper, used as the hasher type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>.  <a href="classflow_1_1util_1_1Linked__hash__key__hash.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__pred.html">Linked_hash_key_pred</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal-use <code><a class="el" href="classPred.html">Pred</a></code> functor wrapper, used as the key-equality-determiner type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>.  <a href="classflow_1_1util_1_1Linked__hash__key__pred.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of this class is a map that combines the lookup speed of a <code>boost::unordered_map&lt;&gt;</code> and ordering and iterator stability capabilities of an <code>std::list&lt;&gt;</code>.  <a href="classflow_1_1util_1_1Linked__hash__map.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of this class is a map that combines the lookup speed of an <code>unordered_map&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>.  <a href="classflow_1_1util_1_1Linked__hash__map.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of this class is a set that combines the lookup speed of an <code>unordered_set&lt;&gt;</code> and ordering and iterator stability capabilities of an <code>std::list&lt;&gt;</code>.  <a href="classflow_1_1util_1_1Linked__hash__set.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An object of this class is a map that combines the lookup speed of an <code>unordered_set&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>.  <a href="classflow_1_1util_1_1Linked__hash__set.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Noncopyable.html">Noncopyable</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Useful as a no-unique-address private member to make a type noncopyable while keeping that type an aggregate (can be direct-initialized).  <a href="structflow_1_1util_1_1Noncopyable.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Null__interface.html">Null_interface</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An empty interface, consisting of nothing but a default <code>virtual</code> destructor, intended as a boiler-plate-reducing base for any other (presumably <code>virtual</code>-method-having) class that would otherwise require a default <code>virtual</code> destructor.  <a href="classflow_1_1util_1_1Null__interface.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html">Polled_shared_state</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional-use companion to <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> that enables the <code>Polled_share_state</code> pattern wherein from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate on/using locked shared state, with the no-op fast-path being gated by a high-performance-low-strictness atomic-flag being <code>false</code>.  <a href="classflow_1_1util_1_1Polled__shared__state.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Rnd__gen__uniform__range.html">Rnd_gen_uniform_range</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple, non-thread-safe uniform-range random number generator.  <a href="classflow_1_1util_1_1Rnd__gen__uniform__range.html#details">More...</a><br /></td></tr>
@@ -153,6 +169,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html">String_ostream</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <code>ostringstream</code> but allows fast read-only access directly into the <code>std::string</code> being written; and some limited write access to that string.  <a href="classflow_1_1util_1_1String__ostream.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html">Thread_local_state_registry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <code>boost::thread_specific_ptr&lt;T&gt;</code> but with built-in lazy-init semantics; and more importantly on destruction deletes any outstanding <code>T</code>s belonging to threads that are still up; plus allows iteration through all per-thread data.  <a href="classflow_1_1util_1_1Thread__local__state__registry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html">Unique_id_holder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from all other objects of the same class ever constructed, across all time from program start to end.  <a href="classflow_1_1util_1_1Unique__id__holder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,11 +185,15 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a0edd9dd6bf51e7457477123b419f5bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="namespaceflow_1_1util.html#a2c085aa47872fe7e4dbba0703e23923c" title="Short-hand for a Basic_blob that allocates/deallocates in regular heap and is itself assumed to be st...">Blob_sans_log_context</a> but with sharing feature compile-time-enabled.  <a href="namespaceflow_1_1util.html#a0edd9dd6bf51e7457477123b419f5bf6">More...</a><br /></td></tr>
 <tr class="separator:a0edd9dd6bf51e7457477123b419f5bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af09888b3a8feaff209b6625e493bc338"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">Blob</a> = <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt;&gt;</td></tr>
-<tr class="memdesc:af09888b3a8feaff209b6625e493bc338"><td class="mdescLeft">&#160;</td><td class="mdescRight">A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-disables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it.  <a href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">More...</a><br /></td></tr>
+<tr class="memdesc:af09888b3a8feaff209b6625e493bc338"><td class="mdescLeft">&#160;</td><td class="mdescRight">A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-disables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it.  <a href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338">More...</a><br /></td></tr>
 <tr class="separator:af09888b3a8feaff209b6625e493bc338"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a164f043f9edc5e5ec8fc99a0e4eb9064"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064">Sharing_blob</a> = <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; true &gt;</td></tr>
-<tr class="memdesc:a164f043f9edc5e5ec8fc99a0e4eb9064"><td class="mdescLeft">&#160;</td><td class="mdescRight">A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-enables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it.  <a href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064">More...</a><br /></td></tr>
+<tr class="memdesc:a164f043f9edc5e5ec8fc99a0e4eb9064"><td class="mdescLeft">&#160;</td><td class="mdescRight">A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-enables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it.  <a href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064">More...</a><br /></td></tr>
 <tr class="separator:a164f043f9edc5e5ec8fc99a0e4eb9064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Iterator , typename <a class="el" href="classHash.html">Hash</a> , typename <a class="el" href="classPred.html">Pred</a> , <a class="el" href="classbool.html">bool</a> IS_ITER_TO_PAIR&gt; </td></tr>
+<tr class="memitem:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">Linked_hash_key_set</a> = boost::unordered_set&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html">Linked_hash_key</a>&lt; Key, Iterator, IS_ITER_TO_PAIR &gt;, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html">Linked_hash_key_hash</a>&lt; <a class="el" href="classHash.html">Hash</a> &gt;, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__pred.html">Linked_hash_key_pred</a>&lt; <a class="el" href="classPred.html">Pred</a> &gt; &gt;</td></tr>
+<tr class="memdesc:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The lookup structure used inside <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>.  <a href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">More...</a><br /></td></tr>
+<tr class="separator:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0d10f5a906b3229f48979aa43e9ff7e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a> = boost::shared_ptr&lt; <a class="el" href="structflow_1_1util_1_1Scheduled__task__handle__state.html">Scheduled_task_handle_state</a> &gt;</td></tr>
 <tr class="memdesc:aa0d10f5a906b3229f48979aa43e9ff7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Black-box type that represents a handle to a scheduled task as scheduled by <a class="el" href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e" title="Identical to schedule_task_from_now() except the time is specified in absolute terms.">schedule_task_at()</a> or <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> or similar, which can be (optionally) used to control the scheduled task after it has been thus scheduled.  <a href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">More...</a><br /></td></tr>
 <tr class="separator:aa0d10f5a906b3229f48979aa43e9ff7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,21 +271,25 @@ Typedefs</h2></td></tr>
 <tr class="memitem:add56211dee74c212c19028f1ded2a785"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#add56211dee74c212c19028f1ded2a785">Lock_guard_noop_shared_non_recursive_ex</a> = boost::unique_lock&lt; <a class="el" href="namespaceflow_1_1util.html#aeee121f0277371517fd2f5c3a20d8112">Mutex_noop_shared_non_recursive</a> &gt;</td></tr>
 <tr class="memdesc:add56211dee74c212c19028f1ded2a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Deprecated given C++1x) Equivalent to <a class="el" href="namespaceflow_1_1util.html#a9df3cc2f3aec0c0353443b9d6c81e638" title="(Deprecated given C++1x) Short-hand for exclusive mode advanced-capability RAII lock guard for Mutex_...">Lock_guard_shared_non_recursive_ex</a> but applied to <a class="el" href="namespaceflow_1_1util.html#aeee121f0277371517fd2f5c3a20d8112" title="Short-hand for a mutex type equivalent to util::Mutex_shared_non_recursive – except that the lock/unl...">Mutex_noop_shared_non_recursive</a>.  <a href="namespaceflow_1_1util.html#add56211dee74c212c19028f1ded2a785">More...</a><br /></td></tr>
 <tr class="separator:add56211dee74c212c19028f1ded2a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memTemplParams" colspan="2">template&lt;typename T , size_t E = DYNAMIC_EXTENT&gt; </td></tr>
+<tr class="memitem:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba">Span</a> = boost::span&lt; T, E &gt;</td></tr>
+<tr class="memdesc:a1a4ce7d40de4231a1443bc0c77103cba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for <code>std::span</code>-like type; that is contiguous sequence of objects with the first element of the sequence at position zero.  <a href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba">More...</a><br /></td></tr>
+<tr class="separator:a1a4ce7d40de4231a1443bc0c77103cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </td></tr>
-<tr class="memitem:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">swap</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2, <a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr=0)</td></tr>
-<tr class="memdesc:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>blob1.swap(blob2)</code>.  <a href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">More...</a><br /></td></tr>
-<tr class="separator:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af567381736851969f6e8812c54404028"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </td></tr>
-<tr class="memitem:af567381736851969f6e8812c54404028"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af567381736851969f6e8812c54404028">blobs_sharing</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2)</td></tr>
-<tr class="memdesc:af567381736851969f6e8812c54404028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if and only if both given objects are not <code>zero() == true</code>, and they either co-own a common underlying buffer, or <em>are</em> the same object.  <a href="namespaceflow_1_1util.html#af567381736851969f6e8812c54404028">More...</a><br /></td></tr>
-<tr class="separator:af567381736851969f6e8812c54404028"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3835e26994f760a6324280d3a646b91"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </td></tr>
-<tr class="memitem:ae3835e26994f760a6324280d3a646b91"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ae3835e26994f760a6324280d3a646b91">swap</a> (<a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; S_SHARING_ALLOWED &gt; &amp;blob1, <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; S_SHARING_ALLOWED &gt; &amp;blob2)</td></tr>
-<tr class="memdesc:ae3835e26994f760a6324280d3a646b91"><td class="mdescLeft">&#160;</td><td class="mdescRight">On top of the similar <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> related function, logs using the stored log context of <code>blob1</code>.  <a href="namespaceflow_1_1util.html#ae3835e26994f760a6324280d3a646b91">More...</a><br /></td></tr>
-<tr class="separator:ae3835e26994f760a6324280d3a646b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bf5004897129150111e57f3521341cb"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </td></tr>
+<tr class="memitem:a9bf5004897129150111e57f3521341cb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a9bf5004897129150111e57f3521341cb">swap</a> (<a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;blob1, <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;blob2, <a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr=nullptr) noexcept</td></tr>
+<tr class="memdesc:a9bf5004897129150111e57f3521341cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>blob1.swap(blob2)</code>.  <a href="namespaceflow_1_1util.html#a9bf5004897129150111e57f3521341cb">More...</a><br /></td></tr>
+<tr class="separator:a9bf5004897129150111e57f3521341cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25c63cd23dd19d7899c773f257d0f397"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </td></tr>
+<tr class="memitem:a25c63cd23dd19d7899c773f257d0f397"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a25c63cd23dd19d7899c773f257d0f397">blobs_sharing</a> (const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;blob1, const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;blob2)</td></tr>
+<tr class="memdesc:a25c63cd23dd19d7899c773f257d0f397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if and only if both given objects are not <code>zero() == true</code>, and they either co-own a common underlying buffer, or <em>are</em> the same object.  <a href="namespaceflow_1_1util.html#a25c63cd23dd19d7899c773f257d0f397">More...</a><br /></td></tr>
+<tr class="separator:a25c63cd23dd19d7899c773f257d0f397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980e8e41c7712dad67aff940e07fd8d6"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="classbool.html">bool</a> SHARING&gt; </td></tr>
+<tr class="memitem:a980e8e41c7712dad67aff940e07fd8d6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a980e8e41c7712dad67aff940e07fd8d6">swap</a> (<a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; SHARING &gt; &amp;blob1, <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; SHARING &gt; &amp;blob2) noexcept</td></tr>
+<tr class="memdesc:a980e8e41c7712dad67aff940e07fd8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">On top of the similar <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> related function, logs using the stored log context of <code>blob1</code>.  <a href="namespaceflow_1_1util.html#a980e8e41c7712dad67aff940e07fd8d6">More...</a><br /></td></tr>
+<tr class="separator:a980e8e41c7712dad67aff940e07fd8d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a33fa903d51cbe124781544eaf0c4bc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc">get_where_am_i_str</a> (<a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">String_view</a> file, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">String_view</a> function, unsigned int line)</td></tr>
 <tr class="memdesc:a3a33fa903d51cbe124781544eaf0c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a>, etc., that, given values for source code file name, function, and line number, returns an <code>std::string</code> equal to what <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> would place into an <code>ostream</code>.  <a href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc">More...</a><br /></td></tr>
 <tr class="separator:a3a33fa903d51cbe124781544eaf0c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -277,14 +304,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a13c3363efdf0d04b04b12ca7487d368c"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">String_view</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a13c3363efdf0d04b04b12ca7487d368c">get_last_path_segment</a> (<a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">String_view</a> path)</td></tr>
 <tr class="memdesc:a13c3363efdf0d04b04b12ca7487d368c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> that, given a pointer/length of a string in memory containing a path, returns a pointer/length into that same buffer that comprises the postfix just past the last directory separator or (if none exists) to all of it.  <a href="namespaceflow_1_1util.html#a13c3363efdf0d04b04b12ca7487d368c">More...</a><br /></td></tr>
 <tr class="separator:a13c3363efdf0d04b04b12ca7487d368c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bec37057b3abab90a9732d293116e5b"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Mapped , typename Hash , typename Pred &gt; </td></tr>
-<tr class="memitem:a9bec37057b3abab90a9732d293116e5b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a9bec37057b3abab90a9732d293116e5b">swap</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key, Mapped, Hash, Pred &gt; &amp;val1, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key, Mapped, Hash, Pred &gt; &amp;val2)</td></tr>
-<tr class="memdesc:a9bec37057b3abab90a9732d293116e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#a9bec37057b3abab90a9732d293116e5b">More...</a><br /></td></tr>
-<tr class="separator:a9bec37057b3abab90a9732d293116e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7fd808e839d422a3f74fbea57fe367e"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Hash , typename Pred &gt; </td></tr>
-<tr class="memitem:ac7fd808e839d422a3f74fbea57fe367e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ac7fd808e839d422a3f74fbea57fe367e">swap</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key, Hash, Pred &gt; &amp;val1, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key, Hash, Pred &gt; &amp;val2)</td></tr>
-<tr class="memdesc:ac7fd808e839d422a3f74fbea57fe367e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#ac7fd808e839d422a3f74fbea57fe367e">More...</a><br /></td></tr>
-<tr class="separator:ac7fd808e839d422a3f74fbea57fe367e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memTemplParams" colspan="2">template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </td></tr>
+<tr class="memitem:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aaac7b774853aa9a83e2935634fd5e7a6">swap</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;val1, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;val2)</td></tr>
+<tr class="memdesc:aaac7b774853aa9a83e2935634fd5e7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#aaac7b774853aa9a83e2935634fd5e7a6">More...</a><br /></td></tr>
+<tr class="separator:aaac7b774853aa9a83e2935634fd5e7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9236b0fce20cb81abac3a70360db155"><td class="memTemplParams" colspan="2">template&lt;typename Key_t , typename Hash_t , typename Pred_t &gt; </td></tr>
+<tr class="memitem:af9236b0fce20cb81abac3a70360db155"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af9236b0fce20cb81abac3a70360db155">swap</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key_t, Hash_t, Pred_t &gt; &amp;val1, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key_t, Hash_t, Pred_t &gt; &amp;val2)</td></tr>
+<tr class="memdesc:af9236b0fce20cb81abac3a70360db155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1util.html#af9236b0fce20cb81abac3a70360db155">More...</a><br /></td></tr>
+<tr class="separator:af9236b0fce20cb81abac3a70360db155"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92e68a1b22556f2625292098c0036a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2">scheduled_task_cancel</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a> task)</td></tr>
 <tr class="memdesc:ad92e68a1b22556f2625292098c0036a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to prevent the execution of a previously scheduled (by <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> or similar) task.  <a href="namespaceflow_1_1util.html#ad92e68a1b22556f2625292098c0036a2">More...</a><br /></td></tr>
 <tr class="separator:ad92e68a1b22556f2625292098c0036a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -308,6 +335,10 @@ Functions</h2></td></tr>
 <tr class="memitem:aad8c8f7335eb892350dc386cb4be397e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e">Scheduled_task_handle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">schedule_task_at</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, const <a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">Fine_time_pt</a> &amp;at, <a class="el" href="classbool.html">bool</a> single_threaded, <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4">Task_engine</a> *task_engine, Scheduled_task_handler &amp;&amp;task_body_moved)</td></tr>
 <tr class="memdesc:aad8c8f7335eb892350dc386cb4be397e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> except the time is specified in absolute terms.  <a href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e">More...</a><br /></td></tr>
 <tr class="separator:aad8c8f7335eb892350dc386cb4be397e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memTemplParams" colspan="2">template&lt;typename Thread_local_state_t &gt; </td></tr>
+<tr class="memitem:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1df2ae2db7c1d7a9e3467d6042f3153f">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html">Thread_local_state_registry</a>&lt; Thread_local_state_t &gt; &amp;val)</td></tr>
+<tr class="memdesc:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes a <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> to a standard output stream.  <a href="namespaceflow_1_1util.html#a1df2ae2db7c1d7a9e3467d6042f3153f">More...</a><br /></td></tr>
+<tr class="separator:a1df2ae2db7c1d7a9e3467d6042f3153f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92ad411feccf73908abe6ed130d48f5"><td class="memItemLeft" align="right" valign="top">boost::chrono::microseconds&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ad92ad411feccf73908abe6ed130d48f5">time_since_posix_epoch</a> ()</td></tr>
 <tr class="memdesc:ad92ad411feccf73908abe6ed130d48f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current POSIX (Unix) time as a duration from the Epoch time point.  <a href="namespaceflow_1_1util.html#ad92ad411feccf73908abe6ed130d48f5">More...</a><br /></td></tr>
 <tr class="separator:ad92ad411feccf73908abe6ed130d48f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -321,10 +352,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a0f681afaf67a0f917cf43a7ae893a015"><td class="memTemplItemLeft" align="right" valign="top">double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0f681afaf67a0f917cf43a7ae893a015">to_mbit_per_sec</a> (N_items items_per_time, size_t bits_per_item=8)</td></tr>
 <tr class="memdesc:a0f681afaf67a0f917cf43a7ae893a015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility that converts a bandwidth in arbitrary units in both numerator and denominator to the same bandwidth in megabits per second.  <a href="namespaceflow_1_1util.html#a0f681afaf67a0f917cf43a7ae893a015">More...</a><br /></td></tr>
 <tr class="separator:a0f681afaf67a0f917cf43a7ae893a015"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memTemplParams" colspan="2">template&lt;typename Integer &gt; </td></tr>
-<tr class="memitem:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memTemplItemLeft" align="right" valign="top">Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a6b7316b3ed6d89f54c91e17c2aab101e">ceil_div</a> (Integer dividend, Integer divisor)</td></tr>
-<tr class="memdesc:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest integer.  <a href="namespaceflow_1_1util.html#a6b7316b3ed6d89f54c91e17c2aab101e">More...</a><br /></td></tr>
-<tr class="separator:a6b7316b3ed6d89f54c91e17c2aab101e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memTemplParams" colspan="2">template&lt;typename Integer , typename Integer2 &gt; </td></tr>
+<tr class="memitem:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memTemplItemLeft" align="right" valign="top">constexpr Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#afc4ad3399bfdafe880871760e5a9f3a5">ceil_div</a> (Integer dividend, Integer2 divisor)</td></tr>
+<tr class="memdesc:afc4ad3399bfdafe880871760e5a9f3a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest integer.  <a href="namespaceflow_1_1util.html#afc4ad3399bfdafe880871760e5a9f3a5">More...</a><br /></td></tr>
+<tr class="separator:afc4ad3399bfdafe880871760e5a9f3a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44a8c89b1db98238afb33a7185864fa4"><td class="memTemplParams" colspan="2">template&lt;typename Integer , typename Integer2 &gt; </td></tr>
+<tr class="memitem:a44a8c89b1db98238afb33a7185864fa4"><td class="memTemplItemLeft" align="right" valign="top">constexpr Integer&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a44a8c89b1db98238afb33a7185864fa4">round_to_multiple</a> (Integer dividend, Integer2 unit)</td></tr>
+<tr class="memdesc:a44a8c89b1db98238afb33a7185864fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the smallest integer &gt;= the given integer <code>dividend</code> such that it is a multiple of the given integer <code>unit</code>.  <a href="namespaceflow_1_1util.html#a44a8c89b1db98238afb33a7185864fa4">More...</a><br /></td></tr>
+<tr class="separator:a44a8c89b1db98238afb33a7185864fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab10bc9e8bef148f875aa743fe0852743"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ab10bc9e8bef148f875aa743fe0852743"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ab10bc9e8bef148f875aa743fe0852743">in_closed_range</a> (T const &amp;min_val, T const &amp;val, T const &amp;max_val)</td></tr>
 <tr class="memdesc:ab10bc9e8bef148f875aa743fe0852743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if and only if the given value is within the given range, inclusive.  <a href="namespaceflow_1_1util.html#ab10bc9e8bef148f875aa743fe0852743">More...</a><br /></td></tr>
@@ -357,22 +392,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a67eecb5096dabfaff3d02c419b304540"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a67eecb5096dabfaff3d02c419b304540">size_unit_convert</a> (From num_froms)</td></tr>
 <tr class="memdesc:a67eecb5096dabfaff3d02c419b304540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Answers the question <em>what's the smallest integer number of <code>To</code>s sufficient to verbatim store the given number of <code>From</code>s?</em>, where <code>From</code> and <code>To</code> are POD types.  <a href="namespaceflow_1_1util.html#a67eecb5096dabfaff3d02c419b304540">More...</a><br /></td></tr>
 <tr class="separator:a67eecb5096dabfaff3d02c419b304540"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af92e6183c2071f4166d4b5a91f50d70c"><td class="memTemplParams" colspan="2">template&lt;typename T1 , typename ... T_rest&gt; </td></tr>
-<tr class="memitem:af92e6183c2071f4166d4b5a91f50d70c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c">feed_args_to_ostream</a> (std::ostream *os, T1 const &amp;ostream_arg1, T_rest const &amp;... remaining_ostream_args)</td></tr>
-<tr class="memdesc:af92e6183c2071f4166d4b5a91f50d70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Induction step" version of variadic function template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given.  <a href="namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c">More...</a><br /></td></tr>
-<tr class="separator:af92e6183c2071f4166d4b5a91f50d70c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a3ce0e3794a3a84dd26b4aa7b013f6276">feed_args_to_ostream</a> (std::ostream *os, T const &amp;only_ostream_arg)</td></tr>
-<tr class="memdesc:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Induction base" for a variadic function template, this simply outputs given item to given <code>ostream</code> via <code>&lt;&lt;</code>.  <a href="namespaceflow_1_1util.html#a3ce0e3794a3a84dd26b4aa7b013f6276">More...</a><br /></td></tr>
-<tr class="separator:a3ce0e3794a3a84dd26b4aa7b013f6276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8afd30c50bcd670d45442df49d1da484"><td class="memTemplParams" colspan="2">template&lt;typename ... T&gt; </td></tr>
-<tr class="memitem:a8afd30c50bcd670d45442df49d1da484"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">ostream_op_to_string</a> (std::string *target_str, T const &amp;... ostream_args)</td></tr>
-<tr class="memdesc:a8afd30c50bcd670d45442df49d1da484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified string, as if the given arguments were each passed, via <code>&lt;&lt;</code> in sequence, to an <code>ostringstream</code>, and then the result were appended to the aforementioned string variable.  <a href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484">More...</a><br /></td></tr>
-<tr class="separator:a8afd30c50bcd670d45442df49d1da484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a685b86585da2fa5186f51854e7ae1561"><td class="memTemplParams" colspan="2">template&lt;typename ... T&gt; </td></tr>
-<tr class="memitem:a685b86585da2fa5186f51854e7ae1561"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">ostream_op_string</a> (T const &amp;... ostream_args)</td></tr>
-<tr class="memdesc:a685b86585da2fa5186f51854e7ae1561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>.  <a href="namespaceflow_1_1util.html#a685b86585da2fa5186f51854e7ae1561">More...</a><br /></td></tr>
-<tr class="separator:a685b86585da2fa5186f51854e7ae1561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf7064869bb90466477e426b466f7d2"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:a1bf7064869bb90466477e426b466f7d2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2">feed_args_to_ostream</a> (std::ostream *os, T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:a1bf7064869bb90466477e426b466f7d2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1Function.html">Function</a> template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given.  <a href="namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2">More...</a><br /></td></tr>
+<tr class="separator:a1bf7064869bb90466477e426b466f7d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">ostream_op_to_string</a> (std::string *target_str, T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes to the specified string, as if the given arguments were each passed, via <code>&lt;&lt;</code> in sequence, to an <code>ostringstream</code>, and then the result were appended to the aforementioned string variable.  <a href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">More...</a><br /></td></tr>
+<tr class="separator:aa079e37d8ddc1b8f76b792e377dd80bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memTemplParams" colspan="2">template&lt;typename... T&gt; </td></tr>
+<tr class="memitem:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">ostream_op_string</a> (T &amp;&amp;... ostream_args)</td></tr>
+<tr class="memdesc:acd8a77acb1c38ee462ca4fb213a3f164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>.  <a href="namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164">More...</a><br /></td></tr>
+<tr class="separator:acd8a77acb1c38ee462ca4fb213a3f164"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a873d1abeac7a29822e940adf4f06c9"><td class="memTemplParams" colspan="2">template&lt;typename Map , typename Sequence &gt; </td></tr>
 <tr class="memitem:a0a873d1abeac7a29822e940adf4f06c9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9">sequence_to_inverted_lookup_map</a> (Sequence const &amp;src_seq, Map *target_map, const <a class="el" href="classflow_1_1Function.html">Function</a>&lt; typename Map::mapped_type(size_t)&gt; &amp;idx_to_map_val_func)</td></tr>
 <tr class="memdesc:a0a873d1abeac7a29822e940adf4f06c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to the 2-arg overload of <a class="el" href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9" title="Similar to the 2-arg overload of sequence_to_inverted_lookup_map() but with the ability to store a va...">sequence_to_inverted_lookup_map()</a> but with the ability to store a value based on the index into the input sequence instead of that index itself.  <a href="namespaceflow_1_1util.html#a0a873d1abeac7a29822e940adf4f06c9">More...</a><br /></td></tr>
@@ -393,6 +424,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a18a29d6a6e65c3b96c52b5cad5971266"><td class="memTemplItemLeft" align="right" valign="top">Enum&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266">istream_to_enum</a> (std::istream *is_ptr, Enum enum_default, Enum enum_sentinel, <a class="el" href="classbool.html">bool</a> accept_num_encoding=true, <a class="el" href="classbool.html">bool</a> case_sensitive=false, Enum enum_lowest=Enum(0))</td></tr>
 <tr class="memdesc:a18a29d6a6e65c3b96c52b5cad5971266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deserializes an <code>enum class</code> value from a standard input stream.  <a href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266">More...</a><br /></td></tr>
 <tr class="separator:a18a29d6a6e65c3b96c52b5cad5971266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad2ab789927de51b4f2fd1d448aff0ab3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structflow_1_1util_1_1Clear__on__alloc.html">Clear_on_alloc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ad2ab789927de51b4f2fd1d448aff0ab3">CLEAR_ON_ALLOC</a></td></tr>
+<tr class="memdesc:ad2ab789927de51b4f2fd1d448aff0ab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag value indicating init-with-zeroes-on-alloc policy.  <a href="namespaceflow_1_1util.html#ad2ab789927de51b4f2fd1d448aff0ab3">More...</a><br /></td></tr>
+<tr class="separator:ad2ab789927de51b4f2fd1d448aff0ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f1f10a38eaa8459f02024feb14c850f"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a7f1f10a38eaa8459f02024feb14c850f">DYNAMIC_EXTENT</a> = boost::dynamic_extent</td></tr>
+<tr class="memdesc:a7f1f10a38eaa8459f02024feb14c850f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures a <a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba" title="Short-hand for std::span-like type; that is contiguous sequence of objects with the first element of ...">Span</a> at compile-time to have a variable, rather than constant, length (use it as template arg).  <a href="namespaceflow_1_1util.html#a7f1f10a38eaa8459f02024feb14c850f">More...</a><br /></td></tr>
+<tr class="separator:a7f1f10a38eaa8459f02024feb14c850f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module. </p>
@@ -413,7 +453,7 @@ Functions</h2></td></tr>
 
 <p>Helper type for <a class="el" href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">setup_auto_cleanup()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00205">205</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00217">217</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -429,11 +469,11 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-disables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it. </p>
+<p>A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-disables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it. </p>
 <p >It is likely the user will refer to <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">Blob</a> (or <a class="el" href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064" title="A concrete Blob_with_log_context that compile-time-enables Basic_blob::share() and the sharing API de...">Sharing_blob</a>) rather than <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a>.</p>
 <dl class="section see"><dt>See also</dt><dd>Also consider <a class="el" href="namespaceflow_1_1util.html#a2c085aa47872fe7e4dbba0703e23923c" title="Short-hand for a Basic_blob that allocates/deallocates in regular heap and is itself assumed to be st...">Blob_sans_log_context</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00060">60</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00062">62</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -452,7 +492,7 @@ Functions</h2></td></tr>
 <p>Short-hand for a <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> that allocates/deallocates in regular heap and is itself assumed to be stored in heap or on stack; sharing feature compile-time-disabled (with perf boost as a result). </p>
 <dl class="section see"><dt>See also</dt><dd>Consider also <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">Blob</a> which takes a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">log::Logger</a> at construction and stores it; so it is not necessary to provide one to each individual API one wants to <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">log</a>. It also adds logging where it is normally not possible (as of this writing at least the dtor). See <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> doc header "Logging" section for brief discussion of trade-offs. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00044">44</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00046">46</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +510,7 @@ Functions</h2></td></tr>
 
 <p>Short-hand for the IPv4 address type. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00210">210</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00222">222</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -488,7 +528,38 @@ Functions</h2></td></tr>
 
 <p>Short-hand for the IPv6 address type. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00212">212</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00224">224</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acb68e7985082dd9cbe7b1c67dd3b54a1" name="acb68e7985082dd9cbe7b1c67dd3b54a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb68e7985082dd9cbe7b1c67dd3b54a1">&#9670;&nbsp;</a></span>Linked_hash_key_set</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Key , typename Iterator , typename <a class="el" href="classHash.html">Hash</a> , typename <a class="el" href="classPred.html">Pred</a> , <a class="el" href="classbool.html">bool</a> IS_ITER_TO_PAIR&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">flow::util::Linked_hash_key_set</a> = typedef boost::unordered_set&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__key.html">Linked_hash_key</a>&lt;Key, Iterator, IS_ITER_TO_PAIR&gt;, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html">Linked_hash_key_hash</a>&lt;<a class="el" href="classHash.html">Hash</a>&gt;, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__pred.html">Linked_hash_key_pred</a>&lt;<a class="el" href="classPred.html">Pred</a>&gt; &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The lookup structure used inside <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </p>
+<p >See the former's doc header(s).</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Key</td><td>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </td></tr>
+    <tr><td class="paramname">Iterator</td><td><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Linked_hash_map::Iterator</a> or <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html#a8ee77d3405116b26e39f70ef8b44697b" title="Type for iterator pointing into a mutable structure of this type but actually that is not possible; s...">Linked_hash_set::Iterator</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classHash.html">Hash</a></td><td>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classPred.html">Pred</a></td><td>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </td></tr>
+    <tr><td class="paramname">IS_ITER_TO_PAIR</td><td><code>true</code> for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a>, <code>false</code> for <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="detail_2util__fwd_8hpp_source.html#l00121">121</a> of file <a class="el" href="detail_2util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -516,7 +587,7 @@ template&lt;typename Mutex &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00265">265</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00277">277</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -535,7 +606,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Short-hand for advanced-capability RAII lock guard for <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626" title="Short-hand for non-reentrant, exclusive mutex. (&quot;Reentrant&quot; = one can lock an already-locked-in-that-...">Mutex_non_recursive</a> mutexes. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000162">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a9495b3e37e9d27bcc7767a4b6ce87ff4" title="(Deprecated given C++1x) Short-hand for advanced-capability RAII lock guard for Mutex_non_recursive m...">Lock_guard_non_recursive</a> is deprecated, now that C++1x made the more flexible <code>Lock_guard&lt;Mutex_non_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00283">283</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00295">295</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +625,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Equivalent to <a class="el" href="namespaceflow_1_1util.html#a9df3cc2f3aec0c0353443b9d6c81e638" title="(Deprecated given C++1x) Short-hand for exclusive mode advanced-capability RAII lock guard for Mutex_...">Lock_guard_shared_non_recursive_ex</a> but applied to <a class="el" href="namespaceflow_1_1util.html#aeee121f0277371517fd2f5c3a20d8112" title="Short-hand for a mutex type equivalent to util::Mutex_shared_non_recursive – except that the lock/unl...">Mutex_noop_shared_non_recursive</a>. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000167">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#add56211dee74c212c19028f1ded2a785" title="(Deprecated given C++1x) Equivalent to Lock_guard_shared_non_recursive_ex but applied to Mutex_noop_s...">Lock_guard_noop_shared_non_recursive_ex</a> is deprecated, now that C++1x made the more flexible <code>Lock_guard&lt;Mutex_noop_shared_non_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00327">327</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00339">339</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -573,7 +644,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Equivalent to <a class="el" href="namespaceflow_1_1util.html#a689388b6eb7e760933d99381d65cacca" title="(Deprecated given C++1x) Short-hand for shared mode advanced-capability RAII lock guard for Mutex_sha...">Lock_guard_shared_non_recursive_sh</a> but applied to <a class="el" href="namespaceflow_1_1util.html#aeee121f0277371517fd2f5c3a20d8112" title="Short-hand for a mutex type equivalent to util::Mutex_shared_non_recursive – except that the lock/unl...">Mutex_noop_shared_non_recursive</a>. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000166">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a9e5fae573be960434c4c9dacd48c9c11" title="(Deprecated given C++1x) Equivalent to Lock_guard_shared_non_recursive_sh but applied to Mutex_noop_s...">Lock_guard_noop_shared_non_recursive_sh</a> is deprecated, now that C++1x made the more flexible <code>Shared_lock_guard&lt;Mutex_noop_shared_non_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00318">318</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00330">330</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -592,7 +663,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Short-hand for advanced-capability RAII lock guard for <a class="el" href="namespaceflow_1_1util.html#a9c7a5df07c2e86c788de9e6bbaee77d5" title="Short-hand for reentrant, exclusive mutex.">Mutex_recursive</a> mutexes. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000163">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a015b84cfa3076b8e75d16ec44a5514a3" title="(Deprecated given C++1x) Short-hand for advanced-capability RAII lock guard for Mutex_recursive mutex...">Lock_guard_recursive</a> is deprecated, now that C++1x made the more flexible <code>Lock_guard&lt;Mutex_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00291">291</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00303">303</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -611,7 +682,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Short-hand for <em>exclusive mode</em> advanced-capability RAII lock guard for <a class="el" href="namespaceflow_1_1util.html#a62b5ba6d6a549ac20e2c055e72bef421" title="Short-hand for non-reentrant, shared-or-exclusive mutex.">Mutex_shared_non_recursive</a> mutexes. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000165">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a9df3cc2f3aec0c0353443b9d6c81e638" title="(Deprecated given C++1x) Short-hand for exclusive mode advanced-capability RAII lock guard for Mutex_...">Lock_guard_shared_non_recursive_ex</a> is deprecated, now that C++1x made the more flexible <code>Lock_guard&lt;Mutex_shared_non_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00309">309</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00321">321</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -630,7 +701,7 @@ template&lt;typename Mutex &gt; </div>
 <p>(Deprecated given C++1x) Short-hand for <em>shared mode</em> advanced-capability RAII lock guard for <a class="el" href="namespaceflow_1_1util.html#a62b5ba6d6a549ac20e2c055e72bef421" title="Short-hand for non-reentrant, shared-or-exclusive mutex.">Mutex_shared_non_recursive</a> mutexes. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000164">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a689388b6eb7e760933d99381d65cacca" title="(Deprecated given C++1x) Short-hand for shared mode advanced-capability RAII lock guard for Mutex_sha...">Lock_guard_shared_non_recursive_sh</a> is deprecated, now that C++1x made the more flexible <code>Shared_lock_guard&lt;Mutex_shared_non_recursive&gt;</code> possible. Remove it and all (outside) uses eventually. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00300">300</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00312">312</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -648,7 +719,7 @@ template&lt;typename Mutex &gt; </div>
 
 <p>Short-hand for non-reentrant, exclusive mutex. ("Reentrant" = one can lock an already-locked-in-that-thread mutex.) </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00215">215</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00227">227</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -667,7 +738,7 @@ template&lt;typename Mutex &gt; </div>
 <p>Short-hand for a mutex type equivalent to <a class="el" href="namespaceflow_1_1util.html#a62b5ba6d6a549ac20e2c055e72bef421" title="Short-hand for non-reentrant, shared-or-exclusive mutex.">util::Mutex_shared_non_recursive</a> &ndash; except that the lock/unlock mutex ops all do nothing. </p>
 <p >One can parameterize templates accordingly; so that an algorithm can be generically written to work in both single- and multi-threaded contexts without branching into 2 code paths, yet avoid the unnecessary actual locking in the former case. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00251">251</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00263">263</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -685,7 +756,7 @@ template&lt;typename Mutex &gt; </div>
 
 <p>Short-hand for reentrant, exclusive mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00218">218</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00230">230</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -707,7 +778,7 @@ template&lt;typename Mutex &gt; </div>
 <h3>When to use versus <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626" title="Short-hand for non-reentrant, exclusive mutex. (&quot;Reentrant&quot; = one can lock an already-locked-in-that-...">Mutex_non_recursive</a></h3>
 <p >Experts suggest fairly strongly that one should be very wary about using a shared mutex, over a simple non-recursive exclusive mutex, in almost any practical application. The reason there's a trade-off at all is that a <a class="el" href="namespaceflow_1_1util.html#add6ade273326f27eaf9bfd170a909626" title="Short-hand for non-reentrant, exclusive mutex. (&quot;Reentrant&quot; = one can lock an already-locked-in-that-...">Mutex_non_recursive</a> is extremely fast to lock and unlock; the entire perf cost is in waiting for another thread to unlock first; so without contention it's almost <em>free</em>. In contrast apparently any real impl of <a class="el" href="namespaceflow_1_1util.html#a62b5ba6d6a549ac20e2c055e72bef421" title="Short-hand for non-reentrant, shared-or-exclusive mutex.">Mutex_shared_non_recursive</a> is much slower to lock/unlock. The trade-off is against allowing reads to proceed in parallel; but experts say this is "worth it" only when these read critical sections are lengthy and very frequently invoked. So, for example, if the lock/unlock is around an <code>unordered_map</code> lookup with a quick hashing function, it would be quite difficult to induce enough lock contention to make a shared mutex better than an exclusive one. (Note this is assuming even no perf issue with <code>boost::shared_mutex</code> specifically.) </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00243">243</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00255">255</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -762,7 +833,7 @@ template&lt;typename Mutex &gt; </div>
 </div><div class="memdoc">
 
 <p>Black-box type that represents a handle to a scheduled task as scheduled by <a class="el" href="namespaceflow_1_1util.html#aad8c8f7335eb892350dc386cb4be397e" title="Identical to schedule_task_from_now() except the time is specified in absolute terms.">schedule_task_at()</a> or <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> or similar, which can be (optionally) used to control the scheduled task after it has been thus scheduled. </p>
-<p >Special value <code><a class="el" href="namespaceflow_1_1util.html#aa0d10f5a906b3229f48979aa43e9ff7e" title="Black-box type that represents a handle to a scheduled task as scheduled by schedule_task_at() or sch...">Scheduled_task_handle()</a></code> represents an invalid task and can be used as a sentinel, as with a null pointer.</p>
+<p >Special value <code>Scheduled_task_handle{}</code> represents an invalid task and can be used as a sentinel, as with a null pointer.</p>
 <p >Values of this type are to be passed around by value, not reference. They are light-weight. Officially, passing it by reference results in undefined behavior. Unofficially, it will probably work (just haven't thought super-hard about it to make sure) but will bring no performance benefit. </p>
 
 <p class="definition">Definition at line <a class="el" href="sched__task__fwd_8hpp_source.html#l00045">45</a> of file <a class="el" href="sched__task__fwd_8hpp_source.html">sched_task_fwd.hpp</a>.</p>
@@ -791,7 +862,7 @@ template&lt;typename Shared_mutex &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00275">275</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00287">287</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -807,11 +878,11 @@ template&lt;typename Shared_mutex &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-enables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it. </p>
+<p>A concrete <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> that compile-time-enables <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> and the sharing API derived from it. </p>
 <p >It is likely the user will refer to <a class="el" href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064" title="A concrete Blob_with_log_context that compile-time-enables Basic_blob::share() and the sharing API de...">Sharing_blob</a> (or <a class="el" href="namespaceflow_1_1util.html#af09888b3a8feaff209b6625e493bc338" title="A concrete Blob_with_log_context that compile-time-disables Basic_blob::share() and the sharing API d...">Blob</a>) rather than <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a>.</p>
 <dl class="section see"><dt>See also</dt><dd>Also consider <a class="el" href="namespaceflow_1_1util.html#a0edd9dd6bf51e7457477123b419f5bf6" title="Identical to Blob_sans_log_context but with sharing feature compile-time-enabled.">Sharing_blob_sans_log_context</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00068">68</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00070">70</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -831,7 +902,35 @@ template&lt;typename Shared_mutex &gt; </div>
 <p >The latter fact implies a small perf hit; see details in <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> doc header.</p>
 <dl class="section see"><dt>See also</dt><dd>Consider also <a class="el" href="namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064" title="A concrete Blob_with_log_context that compile-time-enables Basic_blob::share() and the sharing API de...">Sharing_blob</a>; and see <a class="el" href="namespaceflow_1_1util.html#a2c085aa47872fe7e4dbba0703e23923c" title="Short-hand for a Basic_blob that allocates/deallocates in regular heap and is itself assumed to be st...">Blob_sans_log_context</a> similar "See" note for more info as to why. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00052">52</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="blob__fwd_8hpp_source.html#l00054">54</a> of file <a class="el" href="blob__fwd_8hpp_source.html">blob_fwd.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1a4ce7d40de4231a1443bc0c77103cba" name="a1a4ce7d40de4231a1443bc0c77103cba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a4ce7d40de4231a1443bc0c77103cba">&#9670;&nbsp;</a></span>Span</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , size_t E = DYNAMIC_EXTENT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba">flow::util::Span</a> = typedef boost::span&lt;T, E&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Short-hand for <code>std::span</code>-like type; that is contiguous sequence of objects with the first element of the sequence at position zero. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000168">Todo:</a></b></dt><dd>Once we switch to C++20 (from C++17), <a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba" title="Short-hand for std::span-like type; that is contiguous sequence of objects with the first element of ...">Span</a> can be pointed at <code>std::span</code> instead of <code>boost::span</code>.</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Element type. </td></tr>
+    <tr><td class="paramname">E</td><td>Compile-time constant length of a span of this type; or <code>DYNAMIC_EXTENT</code> for it to be variable. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00353">353</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -849,7 +948,7 @@ template&lt;typename Shared_mutex &gt; </div>
 
 <p>Short-hand for boost.asio strand, an ancillary class that works with <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">Task_engine</a> for advanced task scheduling. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00138">138</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00150">150</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -901,7 +1000,7 @@ template&lt;typename Shared_mutex &gt; </div>
 </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00135">135</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00147">147</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -920,7 +1019,7 @@ template&lt;typename Shared_mutex &gt; </div>
 <p>Short-hand for standard thread class. </p>
 <p >We use/encourage use of boost.thread threads (and other boost.thread facilities) over std.thread counterparts &ndash; simply because it tends to be more full-featured. However, reminder: boost.thread IS (API-wise at least) std.thread, plus more (advanced?) stuff. Generally, boost.thread-using code can be converted to std.thread with little pain, unless one of the "advanced?" features is used. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00078">78</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00090">90</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -938,7 +1037,7 @@ template&lt;typename Shared_mutex &gt; </div>
 
 <p>Short-hand for an OS-provided ID of a <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00090">90</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00102">102</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -974,7 +1073,7 @@ about" to fire at <code>cancel()</code> time, so the handler will run with no er
 <dd>
 <code>b_w_t&lt;Fine_clock&gt;</code> happens to equal <code>boost::asio::high_resolution_timer</code>. We chose to alias in terms of <a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00" title="Clock used for delicate time measurements, such that the now() method gets the current time relative ...">Fine_clock</a> merely to ensure that <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79" title="A high-res time duration as computed from two Fine_time_pts.">Fine_duration</a> is one-to-one compatible with it, as it is defined in terms of <a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00" title="Clock used for delicate time measurements, such that the now() method gets the current time relative ...">Fine_clock</a> also. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00202">202</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00214">214</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -992,7 +1091,7 @@ about" to fire at <code>cancel()</code> time, so the handler will run with no er
 
 <p>Short-hand for the UDP endpoint (IP/port) type. </p>
 
-<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00208">208</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00220">220</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
@@ -1029,7 +1128,7 @@ about" to fire at <code>cancel()</code> time, so the handler will run with no er
 
 <p class="reference">References <a class="el" href="util_8cpp_source.html#l00116">flow::util::Duration_units_beautified::beautified_locale()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00271">flow::log::beautify_chrono_logger_this_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00413">flow::log::beautify_chrono_logger_this_thread()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1045,24 +1144,24 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="af567381736851969f6e8812c54404028" name="af567381736851969f6e8812c54404028"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af567381736851969f6e8812c54404028">&#9670;&nbsp;</a></span>blobs_sharing()</h2>
+<a id="a25c63cd23dd19d7899c773f257d0f397" name="a25c63cd23dd19d7899c773f257d0f397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25c63cd23dd19d7899c773f257d0f397">&#9670;&nbsp;</a></span>blobs_sharing()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classbool.html">bool</a> blobs_sharing </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob2</em>&#160;</td>
         </tr>
         <tr>
@@ -1074,8 +1173,8 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </div><div class="memdoc">
 
 <p>Returns <code>true</code> if and only if both given objects are not <code>zero() == true</code>, and they either co-own a common underlying buffer, or <em>are</em> the same object. </p>
-<p >Note: by the nature of <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a>, a <code>true</code> returned value is orthogonal to whether <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a64ea173065830ef1a744458a7d05b833" title="Returns the offset between begin() and the start of the internally allocated buffer.">Basic_blob::start()</a> and <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a8c04d217b83800f818c794da17dc8e4b" title="Returns number of elements stored, namely end() - begin().">Basic_blob::size()</a> values are respectively equal; <code>true</code> may be returned even if their [<code>begin()</code>, <code>end()</code>) ranges don't overlap at all &ndash; as long as the allocated buffer is co-owned by the 2 <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a></code>s.</p>
-<p >If <code>&amp;blob1 != &amp;blob2</code>, <code>true</code> indicates <code>blob1</code> was obtained from <code>blob2</code> via a chain of <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a0044410b7d1f541978a309f02b2739d3" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> (or wrapper thereof) calls, or vice versa.</p>
+<p >Note: by the nature of <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a>, a <code>true</code> returned value is orthogonal to whether <a class="el" href="classflow_1_1util_1_1Basic__blob.html#ad31de2c03648cd51b05c0d2a823ca0e3" title="Returns the offset between begin() and the start of the internally allocated buffer.">Basic_blob::start()</a> and <a class="el" href="classflow_1_1util_1_1Basic__blob.html#af7a474024d9fdef67dfc5c0f5f5bd69e" title="Returns number of elements stored, namely end() - begin().">Basic_blob::size()</a> values are respectively equal; <code>true</code> may be returned even if their [<code>begin()</code>, <code>end()</code>) ranges don't overlap at all &ndash; as long as the allocated buffer is co-owned by the 2 <code><a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a></code>s.</p>
+<p >If <code>&amp;blob1 != &amp;blob2</code>, <code>true</code> indicates <code>blob1</code> was obtained from <code>blob2</code> via a chain of <a class="el" href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co-owns) *this allocat...">Basic_blob::share()</a> (or wrapper thereof) calls, or vice versa.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">blob1</td><td>Object. </td></tr>
@@ -1085,13 +1184,13 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether <code>blob1</code> and <code>blob2</code> both operate on the same underlying buffer. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01826">1826</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l02070">2070</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01468">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::assign()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l01728">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::assign()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_af567381736851969f6e8812c54404028_icgraph.svg" width="347" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a25c63cd23dd19d7899c773f257d0f397_icgraph.svg" width="347" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1149,15 +1248,15 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result string. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00506">506</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00505">505</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00413">buffers_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00413">buffers_to_ostream()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="socket__buffer_8cpp_source.html#l00103">flow::net_flow::Socket_buffer::consume_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00548">flow::net_flow::Socket_buffer::consume_bufs_copy()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00380">flow::net_flow::Low_lvl_packet::create_from_raw_data_packet()</a>, <a class="el" href="socket__buffer_8cpp_source.html#l00039">flow::net_flow::Socket_buffer::feed_buf_move()</a>, <a class="el" href="socket__buffer_8hpp_source.html#l00395">flow::net_flow::Socket_buffer::feed_bufs_copy()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00130">flow::net_flow::Low_lvl_packet::serialize_to_raw_data_and_log()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a16357344c21456b86b7de3085e2661a2_cgraph.svg" width="288" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a16357344c21456b86b7de3085e2661a2_cgraph.svg" width="288" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
@@ -1244,9 +1343,9 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 <div class="line">              &lt;&lt; <a class="code hl_function" href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">buffers_dump_string</a>(boost::asio::buffer(bytes), <span class="stringliteral">&quot;  &quot;</span>) <span class="comment">// Intermediate+copy, slow....</span></div>
 <div class="line">              &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>);</div>
 <div class="line"><span class="comment">// flow::util::ostream_op_string() is a bit of an improvement but still. :-)</span></div>
-<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00512">common.hpp:512</a></div></div>
+<div class="ttc" id="aclassflow_1_1Function_html"><div class="ttname"><a href="classflow_1_1Function.html">flow::Function</a></div><div class="ttdef"><b>Definition:</b> <a href="common_8hpp_source.html#l00501">common.hpp:501</a></div></div>
 <div class="ttc" id="alog_8hpp_html_a325fdd4b5cf0be49b37d3b7b7c29070d"><div class="ttname"><a href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d">FLOW_LOG_INFO</a></div><div class="ttdeci">#define FLOW_LOG_INFO(ARG_stream_fragment)</div><div class="ttdoc">Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00197">log.hpp:197</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a16357344c21456b86b7de3085e2661a2"><div class="ttname"><a href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">flow::util::buffers_dump_string</a></div><div class="ttdeci">std::string buffers_dump_string(const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00506">util.hpp:506</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a16357344c21456b86b7de3085e2661a2"><div class="ttname"><a href="namespaceflow_1_1util.html#a16357344c21456b86b7de3085e2661a2">flow::util::buffers_dump_string</a></div><div class="ttdeci">std::string buffers_dump_string(const Const_buffer_sequence &amp;data, const std::string &amp;indentation, size_t bytes_per_line)</div><div class="ttdoc">Identical to buffers_to_ostream() but returns an std::string instead of writing to a given ostream.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00505">util.hpp:505</a></div></div>
 </div><!-- fragment --><h3>Rationale</h3>
 <p >The reason it returns <code>os</code> and takes a reference-to-mutable instead of the customary (for this project's style, to indicate modification potential at call sites) pointer-to-mutable is in order to be <code>bind()</code>able in such a way as to make an <code>ostream</code> manipulator. In the example above we use a lambda instead of <code>bind()</code> however.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -1268,7 +1367,7 @@ template&lt;typename Const_buffer_sequence &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00413">413</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00506">buffers_dump_string()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00924">flow::net_flow::Syn_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00967">flow::net_flow::Data_packet::to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00505">buffers_dump_string()</a>, <a class="el" href="low__lvl__packet_8cpp_source.html#l00924">flow::net_flow::Syn_packet::to_ostream()</a>, and <a class="el" href="low__lvl__packet_8cpp_source.html#l00967">flow::net_flow::Data_packet::to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1278,16 +1377,19 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a6b7316b3ed6d89f54c91e17c2aab101e" name="a6b7316b3ed6d89f54c91e17c2aab101e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b7316b3ed6d89f54c91e17c2aab101e">&#9670;&nbsp;</a></span>ceil_div()</h2>
+<a id="afc4ad3399bfdafe880871760e5a9f3a5" name="afc4ad3399bfdafe880871760e5a9f3a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4ad3399bfdafe880871760e5a9f3a5">&#9670;&nbsp;</a></span>ceil_div()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Integer &gt; </div>
+template&lt;typename Integer , typename Integer2 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Integer flow::util::ceil_div </td>
+          <td class="memname">constexpr Integer flow::util::ceil_div </td>
           <td>(</td>
           <td class="paramtype">Integer&#160;</td>
           <td class="paramname"><em>dividend</em>, </td>
@@ -1295,7 +1397,7 @@ template&lt;typename Integer &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Integer&#160;</td>
+          <td class="paramtype">Integer2&#160;</td>
           <td class="paramname"><em>divisor</em>&#160;</td>
         </tr>
         <tr>
@@ -1304,32 +1406,40 @@ template&lt;typename Integer &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the result of the given non-negative integer divided by a positive integer, rounded up to the nearest integer. </p>
 <p >Internally, it avoids floating-point math for performance.</p>
+<dl class="section note"><dt>Note</dt><dd><code>constexpr</code>: can be used in compile-time expressions. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1util.html#a44a8c89b1db98238afb33a7185864fa4" title="Returns the smallest integer &gt;= the given integer dividend such that it is a multiple of the given in...">round_to_multiple()</a> which is essentially <code>return b * ceil_div(a, b)</code>.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Integer</td><td>A signed or unsigned integral type. </td></tr>
+    <tr><td class="paramname">Integer2</td><td>Ditto. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dividend</td><td>Dividend; non-negative or assertion trips. </td></tr>
-    <tr><td class="paramname">divisor</td><td>Divisor; positive or assertion trips. </td></tr>
+    <tr><td class="paramname">dividend</td><td>Dividend; non-negative (else results undefined). </td></tr>
+    <tr><td class="paramname">divisor</td><td>Divisor; positive (else results undefined). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Ceiling of <code>(dividend / divisor)</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00258">258</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00259">259</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00348">flow::net_flow::Peer_socket::max_block_size_multiple()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00348">flow::net_flow::Peer_socket::max_block_size_multiple()</a>, and <a class="el" href="util_2util_8hpp_source.html#l00274">round_to_multiple()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a6b7316b3ed6d89f54c91e17c2aab101e_icgraph.svg" width="331" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_afc4ad3399bfdafe880871760e5a9f3a5_icgraph.svg" width="331" height="120"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1354,7 +1464,7 @@ template&lt;typename Rep , typename Period &gt; </div>
 </div><div class="memdoc">
 
 <p>Helper that takes a non-negative duration of arbitrary precision/period and converts it to <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79" title="A high-res time duration as computed from two Fine_time_pts.">Fine_duration</a>, rounding up; then adds it to <code>Fine_clock::now()</code> and returns the result. </p>
-<p >Also, the input type's <code>max()</code> is translated to <code><a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8" title="A high-res time point as returned by Fine_clock::now() and suitable for precise time math in general.">Fine_time_pt()</a></code> (Epoch-valued &ndash; i.e., zero-valued &ndash; time point).</p>
+<p >Also, the input type's <code>max()</code> is translated to <code>Fine_time_pt{}</code> (Epoch-valued &ndash; i.e., zero-valued &ndash; time point).</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Rep</td><td>See <code>boost::chrono::duration</code> documentation. </td></tr>
@@ -1456,7 +1566,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="util_8cpp_source.html#l00186">186</a> of file <a class="el" href="util_8cpp_source.html">util.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00281">flow::log::deep_size()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00423">flow::log::deep_size()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1466,13 +1576,13 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a3ce0e3794a3a84dd26b4aa7b013f6276" name="a3ce0e3794a3a84dd26b4aa7b013f6276"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ce0e3794a3a84dd26b4aa7b013f6276">&#9670;&nbsp;</a></span>feed_args_to_ostream() <span class="overload">[1/2]</span></h2>
+<a id="a1bf7064869bb90466477e426b466f7d2" name="a1bf7064869bb90466477e426b466f7d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bf7064869bb90466477e426b466f7d2">&#9670;&nbsp;</a></span>feed_args_to_ostream()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename... T&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void flow::util::feed_args_to_ostream </td>
@@ -1483,8 +1593,8 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T const &amp;&#160;</td>
-          <td class="paramname"><em>only_ostream_arg</em>&#160;</td>
+          <td class="paramtype">T &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>ostream_args</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1494,101 +1604,28 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>"Induction base" for a variadic function template, this simply outputs given item to given <code>ostream</code> via <code>&lt;&lt;</code>. </p>
+<p><a class="el" href="classflow_1_1Function.html">Function</a> template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>See each of <code>...T</code> in <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
+    <tr><td class="paramname">T</td><td>See <code>T</code> in <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">os</td><td>Pointer to stream to which to sequentially send arguments for output. </td></tr>
-    <tr><td class="paramname">only_ostream_arg</td><td>See each of <code>ostream_args</code> in <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00360">360</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af92e6183c2071f4166d4b5a91f50d70c" name="af92e6183c2071f4166d4b5a91f50d70c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af92e6183c2071f4166d4b5a91f50d70c">&#9670;&nbsp;</a></span>feed_args_to_ostream() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T1 , typename ... T_rest&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void flow::util::feed_args_to_ostream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream *&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T1 const &amp;&#160;</td>
-          <td class="paramname"><em>ostream_arg1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T_rest const &amp;...&#160;</td>
-          <td class="paramname"><em>remaining_ostream_args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>"Induction step" version of variadic function template that simply outputs arguments 2+ via <code>&lt;&lt;</code> to the given <code>ostream</code>, in the order given. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...T_rest</td><td>See <code>...T</code> in <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">remaining_ostream_args</td><td>See <code>ostream_args</code> in <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T1</td><td>Same as each of <code>...T_rest</code>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ostream_arg1</td><td>Same as each of <code>remaining_ostream_args</code>. </td></tr>
+    <tr><td class="paramname">ostream_args</td><td>See <code>ostream_args</code> in <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
     <tr><td class="paramname">os</td><td>Pointer to stream to which to sequentially send arguments for output. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00352">352</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00361">361</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>, and <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_af92e6183c2071f4166d4b5a91f50d70c_cgraph.svg" width="142" height="71"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="reference">Referenced by <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_af92e6183c2071f4166d4b5a91f50d70c_icgraph.svg" width="1242" height="1284"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a1bf7064869bb90466477e426b466f7d2_icgraph.svg" width="1242" height="1284"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1687,7 +1724,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a3a33fa903d51cbe124781544eaf0c4bc_cgraph.svg" width="495" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a3a33fa903d51cbe124781544eaf0c4bc_cgraph.svg" width="495" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1744,9 +1781,9 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in [<code>min_val</code>, <code>max_val</code>), i.e., <code>min_val</code> &lt;= <code>val</code> &lt; <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00287">287</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00296">296</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02438">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::derefable_iterator()</a>, <a class="el" href="port__space_8cpp_source.html#l00067">flow::net_flow::Port_space::is_service_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">flow::net_flow::Port_space::return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02757">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::derefable_iterator()</a>, <a class="el" href="port__space_8cpp_source.html#l00067">flow::net_flow::Port_space::is_service_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">flow::net_flow::Port_space::return_port()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1807,9 +1844,9 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in [<code>min_val</code>, <code>max_val</code>]. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00271">271</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00280">280</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02431">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::valid_iterator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l02750">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::valid_iterator()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1870,7 +1907,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in (<code>min_val</code>, <code>max_val</code>], i.e., <code>min_val</code> &lt; <code>val</code> &lt;= <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00279">279</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00288">288</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 <div class="dynheader">
@@ -1933,7 +1970,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>val</code> is in (<code>min_val</code>, <code>max_val</code>), i.e., <code>min_val</code> &lt; <code>val</code> &lt; <code>max_val</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00295">295</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00304">304</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02501">flow::net_flow::Node::categorize_individual_ack()</a>.</p>
 <div class="dynheader">
@@ -2024,9 +2061,9 @@ template&lt;typename Enum &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00523">523</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00522">522</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00262">flow::log::operator&gt;&gt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00404">flow::log::operator&gt;&gt;()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2080,9 +2117,9 @@ template&lt;typename Container &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00301">301</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00310">310</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02042">flow::cfg::Option_set&lt; Value_set &gt;::canonicalize_candidate()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03957">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00118">flow::net_flow::Drop_timer::end_contemporaneous_events()</a>, <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="server__socket_8cpp_source.html#l00430">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="config_8hpp_source.html#l01142">flow::log::Config::init_component_names()</a>, <a class="el" href="server__socket_8cpp_source.html#l00215">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00072">flow::net_flow::Drop_timer::on_ack()</a>, and <a class="el" href="option__set_8hpp_source.html#l01784">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02043">flow::cfg::Option_set&lt; Value_set &gt;::canonicalize_candidate()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03957">flow::net_flow::Node::connect_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00118">flow::net_flow::Drop_timer::end_contemporaneous_events()</a>, <a class="el" href="event__set_8cpp_source.html#l01127">flow::net_flow::Node::event_set_all_check_delta()</a>, <a class="el" href="server__socket_8cpp_source.html#l00431">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="config_8hpp_source.html#l01142">flow::log::Config::init_component_names()</a>, <a class="el" href="server__socket_8cpp_source.html#l00215">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="drop__timer_8cpp_source.html#l00072">flow::net_flow::Drop_timer::on_ack()</a>, and <a class="el" href="option__set_8hpp_source.html#l01785">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2092,36 +2129,78 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a685b86585da2fa5186f51854e7ae1561" name="a685b86585da2fa5186f51854e7ae1561"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a685b86585da2fa5186f51854e7ae1561">&#9670;&nbsp;</a></span>ostream_op_string()</h2>
+<a id="a1df2ae2db7c1d7a9e3467d6042f3153f" name="a1df2ae2db7c1d7a9e3467d6042f3153f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df2ae2db7c1d7a9e3467d6042f3153f">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ... T&gt; </div>
+template&lt;typename Thread_local_state_t &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html">Thread_local_state_registry</a>&lt; Thread_local_state_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>val</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Serializes a <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> to a standard output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Stream to which to serialize. </td></tr>
+    <tr><td class="paramname">val</td><td>Value to serialize. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l01182">1182</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acd8a77acb1c38ee462ca4fb213a3f164" name="acd8a77acb1c38ee462ca4fb213a3f164"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd8a77acb1c38ee462ca4fb213a3f164">&#9670;&nbsp;</a></span>ostream_op_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... T&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::string flow::util::ostream_op_string </td>
           <td>(</td>
-          <td class="paramtype">T const &amp;...&#160;</td>
+          <td class="paramtype">T &amp;&amp;...&#160;</td>
           <td class="paramname"><em>ostream_args</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Equivalent to <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>. </p>
+<p>Equivalent to <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a> but returns a new <code>string</code> by value instead of writing to the caller's <code>string</code>. </p>
 <p >This is useful at least in constructor initializers, where it is not possible to first declare a stack variable.</p>
-<p >With the C++11-y use of move semantics in STL it should be no slower than using <code><a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a></code> &ndash; meaning, it is no slower, period, as this library now requires C++11.</p>
+<p >With the C++11-y use of move semantics in STL it should be no slower than using <code><a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a></code> &ndash; meaning, it is no slower, period, as this library now requires C++11.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">...T</td><td>See <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
+    <tr><td class="paramname">T</td><td>See <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ostream_args</td><td>See <a class="el" href="namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
+    <tr><td class="paramname">ostream_args</td><td>See <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2131,29 +2210,29 @@ template&lt;typename ... T&gt; </div>
 
 <p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00367">ostream_op_to_string()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="verbosity__config_8cpp_source.html#l00157">flow::log::Verbosity_config::apply_to_config()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>, <a class="el" href="concurrent__task__loop_8cpp_source.html#l00080">flow::async::optimize_pinning_in_thread_pool()</a>, <a class="el" href="verbosity__config_8cpp_source.html#l00044">flow::log::Verbosity_config::parse()</a>, <a class="el" href="option__set_8hpp_source.html#l01784">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="segregated__thread__task__loop_8cpp_source.html#l00098">flow::async::Segregated_thread_task_loop::start()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">flow::async::Cross_thread_task_loop::start()</a>, <a class="el" href="log_8cpp_source.html#l00036">flow::log::Logger::this_thread_set_logged_nickname()</a>, <a class="el" href="option__set_8cpp_source.html#l00106">boost::filesystem::validate()</a>, <a class="el" href="option__set_8hpp_source.html#l02237">flow::cfg::value_set_member_id_to_opt_name_keyed()</a>, and <a class="el" href="option__set_8hpp_source.html#l02166">flow::cfg::value_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="verbosity__config_8cpp_source.html#l00157">flow::log::Verbosity_config::apply_to_config()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00029">flow::perf::Checkpointing_timer::Checkpointing_timer()</a>, <a class="el" href="cfg__manager_8hpp_source.html#l01471">flow::cfg::Config_manager&lt; S_d_value_set &gt;::Config_manager()</a>, <a class="el" href="concurrent__task__loop_8cpp_source.html#l00080">flow::async::optimize_pinning_in_thread_pool()</a>, <a class="el" href="verbosity__config_8cpp_source.html#l00044">flow::log::Verbosity_config::parse()</a>, <a class="el" href="option__set_8hpp_source.html#l01785">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="segregated__thread__task__loop_8cpp_source.html#l00098">flow::async::Segregated_thread_task_loop::start()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">flow::async::Cross_thread_task_loop::start()</a>, <a class="el" href="log_8cpp_source.html#l00036">flow::log::Logger::this_thread_set_logged_nickname()</a>, <a class="el" href="option__set_8cpp_source.html#l00106">boost::filesystem::validate()</a>, <a class="el" href="option__set_8hpp_source.html#l02238">flow::cfg::value_set_member_id_to_opt_name_keyed()</a>, and <a class="el" href="option__set_8hpp_source.html#l02167">flow::cfg::value_to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a685b86585da2fa5186f51854e7ae1561_cgraph.svg" width="483" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_acd8a77acb1c38ee462ca4fb213a3f164_cgraph.svg" width="483" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a685b86585da2fa5186f51854e7ae1561_icgraph.svg" width="798" height="728"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_acd8a77acb1c38ee462ca4fb213a3f164_icgraph.svg" width="787" height="728"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a8afd30c50bcd670d45442df49d1da484" name="a8afd30c50bcd670d45442df49d1da484"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8afd30c50bcd670d45442df49d1da484">&#9670;&nbsp;</a></span>ostream_op_to_string()</h2>
+<a id="aa079e37d8ddc1b8f76b792e377dd80bd" name="aa079e37d8ddc1b8f76b792e377dd80bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa079e37d8ddc1b8f76b792e377dd80bd">&#9670;&nbsp;</a></span>ostream_op_to_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ... T&gt; </div>
+template&lt;typename... T&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void flow::util::ostream_op_to_string </td>
@@ -2164,7 +2243,7 @@ template&lt;typename ... T&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">T const &amp;...&#160;</td>
+          <td class="paramtype">T &amp;&amp;...&#160;</td>
           <td class="paramname"><em>ostream_args</em>&#160;</td>
         </tr>
         <tr>
@@ -2180,7 +2259,7 @@ template&lt;typename ... T&gt; </div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">log::Thread_local_string_appender</a> for an even more efficient version of this for some applications that can also enable a continuous stream across multiple stream-writing statements over time.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">...T</td><td>Each type <code>T</code> is such that <code>os &lt;&lt; t</code>, with types <code>T const &amp; t</code> and <code>ostream&amp; os</code>, builds and writes <code>t</code> to <code>os</code>, returning lvalue <code>os</code>. Usually in practice this means the existence of <code>ostream&amp; operator&lt;&lt;(ostream&amp;, T const &amp;)</code> or <code>ostream&amp; operator&lt;&lt;(ostream&amp;, T)</code> overload, the latter usually for basic types <code>T</code>. See also tip above, if compiler is unable to deduce a given <code>T</code> (even when it <em>would</em> deduce it in <code>os &lt;&lt; t</code>). </td></tr>
+    <tr><td class="paramname">T</td><td>Each type <code>T</code> is such that <code>os &lt;&lt; t</code>, with types <code>T const &amp; t</code> and <code>ostream&amp; os</code>, builds and writes <code>t</code> to <code>os</code>, returning lvalue <code>os</code>. Usually in practice this means the existence of <code>ostream&amp; operator&lt;&lt;(ostream&amp;, T const &amp;)</code> or <code>ostream&amp; operator&lt;&lt;(ostream&amp;, T)</code> overload, the latter usually for basic types <code>T</code>. See also tip above, if compiler is unable to deduce a given <code>T</code> (even when it <em>would</em> deduce it in <code>os &lt;&lt; t</code>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -2194,19 +2273,87 @@ template&lt;typename ... T&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00367">367</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00352">feed_args_to_ostream()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00361">feed_args_to_ostream()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00759">flow::net_flow::Event_set::ev_type_to_socks_map_sizes_to_str()</a>, <a class="el" href="detail_2util_8cpp_source.html#l00027">get_where_am_i_str()</a>, <a class="el" href="peer__socket_8cpp_source.html#l01860">flow::net_flow::Node::log_rcv_window()</a>, <a class="el" href="peer__socket_8cpp_source.html#l03591">flow::net_flow::Node::log_snd_window()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, <a class="el" href="clock__type_8cpp_source.html#l00093">flow::perf::Duration_set::operator&lt;&lt;()</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">ostream_op_string()</a>, <a class="el" href="event__set_8cpp_source.html#l00775">flow::net_flow::Event_set::sock_as_any_to_str()</a>, and <a class="el" href="node_8cpp_source.html#l00113">flow::net_flow::Node::this_thread_init_logger_setup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a8afd30c50bcd670d45442df49d1da484_cgraph.svg" width="312" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_aa079e37d8ddc1b8f76b792e377dd80bd_cgraph.svg" width="312" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a8afd30c50bcd670d45442df49d1da484_icgraph.svg" width="1668" height="1270"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_aa079e37d8ddc1b8f76b792e377dd80bd_icgraph.svg" width="1668" height="1286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a44a8c89b1db98238afb33a7185864fa4" name="a44a8c89b1db98238afb33a7185864fa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a8c89b1db98238afb33a7185864fa4">&#9670;&nbsp;</a></span>round_to_multiple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Integer , typename Integer2 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr Integer flow::util::round_to_multiple </td>
+          <td>(</td>
+          <td class="paramtype">Integer&#160;</td>
+          <td class="paramname"><em>dividend</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Integer2&#160;</td>
+          <td class="paramname"><em>unit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the smallest integer &gt;= the given integer <code>dividend</code> such that it is a multiple of the given integer <code>unit</code>. </p>
+<p >Essentialy that is: <code>unit * ceil_div(dividend, unit)</code>.</p>
+<p >For example: 0 in 1024s =&gt; 0; 1 in 1024s =&gt; 1024; 1024 in 1024s =&gt; 1024; 1025 in 1024s =&gt; 2048.</p>
+<dl class="section note"><dt>Note</dt><dd><code>constexpr</code>: can be used in compile-time expressions.</dd></dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Integer</td><td>A signed or unsigned integral type. </td></tr>
+    <tr><td class="paramname">Integer2</td><td>Ditto. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dividend</td><td>Dividend; non-negative (else results undefined). </td></tr>
+    <tr><td class="paramname">unit</td><td>Divisor; positive (else results undefined). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00274">274</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00259">ceil_div()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a44a8c89b1db98238afb33a7185864fa4_cgraph.svg" width="302" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -2379,14 +2526,13 @@ template&lt;typename Scheduled_task_handler &gt; </div>
 <li>However, we provide one special case of this: the timer can be fired ASAP, a/k/a short-fired, via <a class="el" href="namespaceflow_1_1util.html#abe8d04de7ba9ac770112ee585b77cd20" title="Attempts to reschedule a previously scheduled (by schedule_task_from_now() or similar) task to fire i...">scheduled_task_short_fire()</a>.</li>
 </ul>
 </li>
-<li>One can (incrementally) schedule 2+ tasks to fire at the scheduled time on one <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a>; this facility only takes exactly 1 task, up-front. (We could provide such an API, but again this feels like it defeats the point.)</li>
-<li><p class="startli"><a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> has certain informational accessors (like one that returns the scheduled firing time) that we lack. (Again, we could provide this also &ndash; but why?)</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000152">Todo:</a></b></dt><dd>We could eliminate <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> potential limitation versus <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> wherein each call constructs (internally) a new <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a>. A pool of <code>Timer</code>s can be internally maintained to implement this. This may or may not be worth the complexity, but if the API can remain identically simple while cleanly eliminating the one perf-related reason to choose <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> over this simpler facility, then that is a clean win from the API user's point of view. By comparison, other possible improvements mentioned <em>complicate</em> the API which makes them less attractive.</dd></dl>
+<li><p class="startli">One can (incrementally) schedule 2+ tasks to fire at the scheduled time on one <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a>; this facility only takes exactly 1 task, up-front. (We could provide such an API, but again this feels like it defeats the point.)</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000151">Todo:</a></b></dt><dd>We could eliminate <a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> potential limitation versus <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> wherein each call constructs (internally) a new <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a>. A pool of <code>Timer</code>s can be internally maintained to implement this. This may or may not be worth the complexity, but if the API can remain identically simple while cleanly eliminating the one perf-related reason to choose <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> over this simpler facility, then that is a clean win from the API user's point of view. By comparison, other possible improvements mentioned <em>complicate</em> the API which makes them less attractive.</dd></dl>
 </li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> doc header for native <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> resolution limitations (which apply to quite-low <code>from_now</code> values). </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Design note: This is a small, somewhat C-style set of functions &ndash; C-style in that it returns a handle on which to potentially call more functions as opposed to just being a class with methods. This is intentional, because <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a> already provides the stateful <code>class</code>. The picture is slightly muddled because we DO provide some "methods" &ndash; so why not make it a <code>class</code> after all, just a simpler one than <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">Timer</a>? Answer: I believe this keeps the API simple: Step 1: Schedule it. Step 2 (optional): Short-fire or cancel it. There are no corner cases introduced as might have been via increased potential statefulness inherent with a class. But see the following to-do.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000153">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> and surrounding API provides an easy way to schedule a thing into the future, but it is built on top of boost.asio <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> directly; an intermediate wrapper class around this would be quite useful in its own right so that all boost.asio features including its perf-friendliness would be retained along with eliminating its annoyances (around canceling-but-not-really and similar). Then scheduled_task_from_now() would be internally even simpler, while a non-annoying <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> would become available for more advanced use cases. echan may have such a class (in a different project) ready to adapt (called <code>Serial_task_timer</code>). I believe it internally uses integer "task ID" to distinguish between scheduled tasks issued in some chronological order, so that boost.asio firing a task after it has been canceled/pre-fired can be easily detected.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000152">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi...">schedule_task_from_now()</a> and surrounding API provides an easy way to schedule a thing into the future, but it is built on top of boost.asio <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> directly; an intermediate wrapper class around this would be quite useful in its own right so that all boost.asio features including its perf-friendliness would be retained along with eliminating its annoyances (around canceling-but-not-really and similar). Then scheduled_task_from_now() would be internally even simpler, while a non-annoying <a class="el" href="namespaceflow_1_1util.html#ae7416d64d2989051104bb396e28e15e6" title="boost.asio timer.">util::Timer</a> would become available for more advanced use cases. echan may have such a class (in a different project) ready to adapt (called <code>Serial_task_timer</code>). I believe it internally uses integer "task ID" to distinguish between scheduled tasks issued in some chronological order, so that boost.asio firing a task after it has been canceled/pre-fired can be easily detected.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">logger_ptr</td><td>Logging, if any &ndash; including in the background &ndash; will be done via this logger. </td></tr>
@@ -2814,8 +2960,8 @@ template&lt;typename Cleanup_func &gt; </div>
 <div class="line">  <span class="comment">// Now delete_x(x) will be called no matter how the current { block } exits.</span></div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">}</div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a09a032f8e1e77a3afc0b7df115a773e1"><div class="ttname"><a href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">flow::util::setup_auto_cleanup</a></div><div class="ttdeci">Auto_cleanup setup_auto_cleanup(const Cleanup_func &amp;func)</div><div class="ttdoc">Provides a way to execute arbitrary (cleanup) code at the exit of the current block.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00307">util.hpp:307</a></div></div>
-</div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000169">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">setup_auto_cleanup()</a> should take a function via move semantics.</dd></dl>
+<div class="ttc" id="anamespaceflow_1_1util_html_a09a032f8e1e77a3afc0b7df115a773e1"><div class="ttname"><a href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1">flow::util::setup_auto_cleanup</a></div><div class="ttdeci">Auto_cleanup setup_auto_cleanup(const Cleanup_func &amp;func)</div><div class="ttdoc">Provides a way to execute arbitrary (cleanup) code at the exit of the current block.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00316">util.hpp:316</a></div></div>
+</div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000170">Todo:</a></b></dt><dd><a class="el" href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">setup_auto_cleanup()</a> should take a function via move semantics.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Cleanup_func</td><td>Any type such that given an instance <code>Cleanup_func f</code>, the expression <code>f()</code> is valid. </td></tr>
@@ -2830,7 +2976,7 @@ template&lt;typename Cleanup_func &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A light-weight object that, when it goes out of scope, will cause <code>func()</code> to be called. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00307">307</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00316">316</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l02017">flow::net_flow::Node::handle_accumulated_acks()</a>, <a class="el" href="peer__socket_8cpp_source.html#l04144">flow::net_flow::Node::sync_connect_impl()</a>, and <a class="el" href="node_8hpp_source.html#l03935">flow::net_flow::Node::sync_op()</a>.</p>
 <div class="dynheader">
@@ -2878,7 +3024,7 @@ template&lt;typename From , typename To &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>How many <code>To</code>s are sufficient to encode <code>num_from</code> <code>From</code>s verbatim? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00346">346</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00355">355</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 </div>
 </div>
@@ -2924,11 +3070,11 @@ template&lt;typename Minuend , typename Subtrahend &gt; </div>
 <div class="line"><a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, x) &amp;&amp;</div>
 <div class="line">  <a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, long_computation()) &amp;&amp;</div>
 <div class="line">  <a class="code hl_function" href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">subtract_with_floor</a>(&amp;t, another_long_computation());</div>
-<div class="ttc" id="anamespaceflow_1_1util_html_a34ed70fa4de81a4fdb9234bfb5a3a914"><div class="ttname"><a href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">flow::util::subtract_with_floor</a></div><div class="ttdeci">bool subtract_with_floor(Minuend *minuend, const Subtrahend &amp;subtrahend, const Minuend &amp;floor)</div><div class="ttdoc">Performs *minuend -= subtrahend, subject to a floor of floor.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00324">util.hpp:324</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_a34ed70fa4de81a4fdb9234bfb5a3a914"><div class="ttname"><a href="namespaceflow_1_1util.html#a34ed70fa4de81a4fdb9234bfb5a3a914">flow::util::subtract_with_floor</a></div><div class="ttdeci">bool subtract_with_floor(Minuend *minuend, const Subtrahend &amp;subtrahend, const Minuend &amp;floor)</div><div class="ttdoc">Performs *minuend -= subtrahend, subject to a floor of floor.</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00333">util.hpp:333</a></div></div>
 </div><!-- fragment --><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Minuend</td><td>Numeric type. </td></tr>
-    <tr><td class="paramname">Subtrahend</td><td>Numeric type, such that given <code>Subtrahend s</code>, <code>Minuend(s)</code> is something reasonable for all <code>s</code> involved. </td></tr>
+    <tr><td class="paramname">Subtrahend</td><td>Numeric type, such that given <code>Subtrahend s</code>, <code>Minuend{s}</code> is something reasonable for all <code>s</code> involved. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2942,7 +3088,7 @@ template&lt;typename Minuend , typename Subtrahend &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>*minuend == floor</code> at function exit; <code>false</code> if <code>*minuend &gt; floor</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00324">324</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00333">333</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01305">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
 <div class="dynheader">
@@ -2954,31 +3100,34 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a71eaa4ab6a2673ed34fa8989c47a7bc0" name="a71eaa4ab6a2673ed34fa8989c47a7bc0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71eaa4ab6a2673ed34fa8989c47a7bc0">&#9670;&nbsp;</a></span>swap() <span class="overload">[1/4]</span></h2>
+<a id="a9bf5004897129150111e57f3521341cb" name="a9bf5004897129150111e57f3521341cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf5004897129150111e57f3521341cb">&#9670;&nbsp;</a></span>swap() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void swap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">Basic_blob</a>&lt; Allocator, SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *&#160;</td>
-          <td class="paramname"><em>logger_ptr</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>logger_ptr</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -2986,6 +3135,11 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Equivalent to <code>blob1.swap(blob2)</code>. </p>
@@ -2998,36 +3152,39 @@ template&lt;typename Allocator , <a class="el" href="classbool.html">bool</a> S_
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01666">1666</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basic__blob_8hpp_source.html#l01910">1910</a> of file <a class="el" href="basic__blob_8hpp_source.html">basic_blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00749">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;::operator=()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00579">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::operator=()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01642">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap()</a>, <a class="el" href="blob_8hpp_source.html#l00406">flow::util::Blob_with_log_context&lt; S_SHARING_ALLOWED &gt;::swap()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00933">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;::swap()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01605">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;::swap_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basic__blob_8hpp_source.html#l02850">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::Deleter_raw::operator=()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00778">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator=()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00549">flow::util::Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt;::operator=()</a>, <a class="el" href="basic__blob_8hpp_source.html#l01886">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::swap()</a>, <a class="el" href="blob_8hpp_source.html#l00465">flow::util::Blob_with_log_context&lt; SHARING &gt;::swap()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00789">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>, <a class="el" href="linked__hash__set_8hpp_source.html#l00560">flow::util::Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt;::swap()</a>, and <a class="el" href="basic__blob_8hpp_source.html#l01834">flow::util::Basic_blob&lt; Allocator, SHARING &gt;::swap_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a71eaa4ab6a2673ed34fa8989c47a7bc0_icgraph.svg" width="535" height="575"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a9bf5004897129150111e57f3521341cb_icgraph.svg" width="535" height="491"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="ae3835e26994f760a6324280d3a646b91" name="ae3835e26994f760a6324280d3a646b91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3835e26994f760a6324280d3a646b91">&#9670;&nbsp;</a></span>swap() <span class="overload">[2/4]</span></h2>
+<a id="a980e8e41c7712dad67aff940e07fd8d6" name="a980e8e41c7712dad67aff940e07fd8d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980e8e41c7712dad67aff940e07fd8d6">&#9670;&nbsp;</a></span>swap() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;<a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; </div>
+template&lt;<a class="el" href="classbool.html">bool</a> SHARING&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void swap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; S_SHARING_ALLOWED &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html">Blob_with_log_context</a>&lt; SHARING &gt; &amp;&#160;</td>
           <td class="paramname"><em>blob2</em>&#160;</td>
         </tr>
         <tr>
@@ -3036,6 +3193,11 @@ template&lt;<a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; <
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>On top of the similar <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> related function, logs using the stored log context of <code>blob1</code>. </p>
@@ -3047,36 +3209,36 @@ template&lt;<a class="el" href="classbool.html">bool</a> S_SHARING_ALLOWED&gt; <
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="blob_8hpp_source.html#l00419">419</a> of file <a class="el" href="blob_8hpp_source.html">blob.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="blob_8hpp_source.html#l00478">478</a> of file <a class="el" href="blob_8hpp_source.html">blob.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="blob_8hpp_source.html#l00406">flow::util::Blob_with_log_context&lt; S_SHARING_ALLOWED &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="blob_8hpp_source.html#l00465">flow::util::Blob_with_log_context&lt; SHARING &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_ae3835e26994f760a6324280d3a646b91_icgraph.svg" width="472" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a980e8e41c7712dad67aff940e07fd8d6_icgraph.svg" width="295" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="a9bec37057b3abab90a9732d293116e5b" name="a9bec37057b3abab90a9732d293116e5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bec37057b3abab90a9732d293116e5b">&#9670;&nbsp;</a></span>swap() <span class="overload">[3/4]</span></h2>
+<a id="aaac7b774853aa9a83e2935634fd5e7a6" name="aaac7b774853aa9a83e2935634fd5e7a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac7b774853aa9a83e2935634fd5e7a6">&#9670;&nbsp;</a></span>swap() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Mapped , typename Hash , typename Pred &gt; </div>
+template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void swap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key, Mapped, Hash, Pred &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>val1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key, Mapped, Hash, Pred &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>val2</em>&#160;</td>
         </tr>
         <tr>
@@ -3096,36 +3258,36 @@ template&lt;typename Key , typename Mapped , typename Hash , typename Pred &gt; 
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01089">1089</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01114">1114</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00933">flow::util::Linked_hash_map&lt; Key, Mapped, Hash, Pred &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00789">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_a9bec37057b3abab90a9732d293116e5b_icgraph.svg" width="454" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_aaac7b774853aa9a83e2935634fd5e7a6_icgraph.svg" width="454" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="ac7fd808e839d422a3f74fbea57fe367e" name="ac7fd808e839d422a3f74fbea57fe367e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7fd808e839d422a3f74fbea57fe367e">&#9670;&nbsp;</a></span>swap() <span class="overload">[4/4]</span></h2>
+<a id="af9236b0fce20cb81abac3a70360db155" name="af9236b0fce20cb81abac3a70360db155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9236b0fce20cb81abac3a70360db155">&#9670;&nbsp;</a></span>swap() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Hash , typename Pred &gt; </div>
+template&lt;typename Key_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">void swap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key, Hash, Pred &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key_t, Hash_t, Pred_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>val1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key, Hash, Pred &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">Linked_hash_set</a>&lt; Key_t, Hash_t, Pred_t &gt; &amp;&#160;</td>
           <td class="paramname"><em>val2</em>&#160;</td>
         </tr>
         <tr>
@@ -3145,13 +3307,13 @@ template&lt;typename Key , typename Hash , typename Pred &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__set_8hpp_source.html#l00871">871</a> of file <a class="el" href="linked__hash__set_8hpp_source.html">linked_hash_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__set_8hpp_source.html#l00829">829</a> of file <a class="el" href="linked__hash__set_8hpp_source.html">linked_hash_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__set_8hpp_source.html#l00729">flow::util::Linked_hash_set&lt; Key, Hash, Pred &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__set_8hpp_source.html#l00560">flow::util::Linked_hash_set&lt; Key_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_ac7fd808e839d422a3f74fbea57fe367e_icgraph.svg" width="502" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1util_af9236b0fce20cb81abac3a70360db155_icgraph.svg" width="502" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -3219,7 +3381,7 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 </div><div class="memdoc">
 
 <p>Utility that converts a bandwidth in arbitrary units in both numerator and denominator to the same bandwidth in megabits per second. </p>
-<p >The input bandwidth is given in "items" per <code>Time_unit(1)</code>; where <code>Time_unit</code> is an arbitrary boost.chrono <code>duration</code> type that must be explicitly provided as input; and an "item" is defined as <code>bits_per_item</code> bits. Useful at least for logging. It's probably easiest to understand by example; see below; rather than by parsing that description I just wrote.</p>
+<p >The input bandwidth is given in "items" per <code>Time_unit{1}</code>; where <code>Time_unit</code> is an arbitrary boost.chrono <code>duration</code> type that must be explicitly provided as input; and an "item" is defined as <code>bits_per_item</code> bits. Useful at least for logging. It's probably easiest to understand by example; see below; rather than by parsing that description I just wrote.</p>
 <p >To be clear (as C++ syntax is not super-expressive in this case) &ndash; the template parameter <code>Time_unit</code> is an explicit input to the function template, essentially instructing it as to in what units <code>items_per_time</code> is. Thus all uses of this function should look similar to:</p>
 <div class="fragment"><div class="line"><span class="comment">// These are all equal doubles, because the (value, unit represented by value) pair is logically same in each case.</span></div>
 <div class="line"> </div>
@@ -3242,7 +3404,7 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> mbps_from_b_per_30fps_frame</div>
 <div class="line">  = flow::util::to_mbit_per_sec&lt;chrono::duration&lt;int, ratio&lt;1, 30&gt;&gt;(MB_PER_SEC * 1024 * 1024 / 30);</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Megabit (1000 x 1000 = 10^6 bits) =/= mebibit (1024 x 1024 = 2^20 bits); but the latter is only about 5% more. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000168">Todo:</a></b></dt><dd>boost.unit "feels" like it would do this for us in some amazingly pithy and just-as-fast way. Because Boost. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000169">Todo:</a></b></dt><dd>boost.unit "feels" like it would do this for us in some amazingly pithy and just-as-fast way. Because Boost. </dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Time_unit</td><td><code>boost::chrono::duration&lt;Rep, Period&gt;</code> for some specific <code>Rep</code> and <code>Period</code>. See <code>boost::chrono::duration</code> documentation. Example types: <code>boost::chrono::milliseconds</code>; <code>boost::chrono::seconds</code>; see example use code above. </td></tr>
@@ -3252,21 +3414,66 @@ template&lt;typename Time_unit , typename N_items &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">items_per_time</td><td>The value, in items per <code>Time_unit(1)</code> (where there are <code>bits_per_item</code> bits in 1 item) to convert to megabits per second. Note this need not be an integer. </td></tr>
+    <tr><td class="paramname">items_per_time</td><td>The value, in items per <code>Time_unit{1}</code> (where there are <code>bits_per_item</code> bits in 1 item) to convert to megabits per second. Note this need not be an integer. </td></tr>
     <tr><td class="paramname">bits_per_item</td><td>Number of bits in an item, where <code>items_per_time</code> is given as a number of items. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00237">237</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00238">238</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ad2ab789927de51b4f2fd1d448aff0ab3" name="ad2ab789927de51b4f2fd1d448aff0ab3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ab789927de51b4f2fd1d448aff0ab3">&#9670;&nbsp;</a></span>CLEAR_ON_ALLOC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structflow_1_1util_1_1Clear__on__alloc.html">Clear_on_alloc</a> flow::util::CLEAR_ON_ALLOC</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tag value indicating init-with-zeroes-on-alloc policy. </p>
+
+<p class="definition">Definition at line <a class="el" href="blob_8cpp_source.html#l00027">27</a> of file <a class="el" href="blob_8cpp_source.html">blob.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f1f10a38eaa8459f02024feb14c850f" name="a7f1f10a38eaa8459f02024feb14c850f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f1f10a38eaa8459f02024feb14c850f">&#9670;&nbsp;</a></span>DYNAMIC_EXTENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr size_t flow::util::DYNAMIC_EXTENT = boost::dynamic_extent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configures a <a class="el" href="namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba" title="Short-hand for std::span-like type; that is contiguous sequence of objects with the first element of ...">Span</a> at compile-time to have a variable, rather than constant, length (use it as template arg). </p>
+
+<p class="definition">Definition at line <a class="el" href="util__fwd_8hpp_source.html#l00046">46</a> of file <a class="el" href="util__fwd_8hpp_source.html">util_fwd.hpp</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

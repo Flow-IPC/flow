@@ -1,4 +1,7 @@
 <map id="flow::log::Log_context::operator=" name="flow::log::Log_context::operator=">
-<area shape="rect" id="node1" title="Assignment operator that behaves similarly to the copy constructor." alt="" coords="196,5,339,41"/>
+<area shape="rect" id="node1" title="Assignment operator that behaves similarly to the copy constructor." alt="" coords="196,96,339,132"/>
 <area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a3d4e624833d96bdafa1485ffff472509" title="Move constructor that makes this equal to src, while the latter becomes as&#45;if default&#45;constructed." alt="" coords="5,5,148,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context__mt.html#a622b9dbf4d015cbbd80fb77fceeb9d46" title="Identical to Log_context API." alt="" coords="5,65,148,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context__mt.html#a31ea950dbd7cf6db76641e22dd80516d" title="Identical to Log_context API; but safe against concurrent operations on a *this." alt="" coords="5,125,148,161"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Log__context.html#aae857197aecba8606c32296bc7bec308" title="Move assignment operator that behaves similarly to the move constructor." alt="" coords="5,185,148,221"/>
 </map>

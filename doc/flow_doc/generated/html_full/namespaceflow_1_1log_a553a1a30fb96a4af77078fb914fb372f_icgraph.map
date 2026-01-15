@@ -1,0 +1,8 @@
+<map id="flow::log::swap" name="flow::log::swap">
+<area shape="rect" id="node1" title="Log_context_mt ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="387,71,493,95"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context__mt.html#a4e9d72d7d054cb8092466701ddf55f94" title="Identical to Log_context API." alt="" coords="5,5,148,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context__mt.html#a62b1da7d2f770c2b01bad747ce8362ea" title="Identical to Log_context API; but safe against concurrent operations on a *this." alt="" coords="5,103,148,139"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Log__context.html#aa6bb8e4250586425631ef80063caf155" title="Swaps Logger pointers and Component objects held by *this and other." alt="" coords="196,201,339,237"/>
+<area shape="rect" id="node6" href="$classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656" title="Identical to Log_context API; but safe against concurrent operations on a *this." alt="" coords="196,65,339,101"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1log.html#a1b475cd2cc2e476aa96c002927bf1690" title="Log_context ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="23,207,130,231"/>
+</map>

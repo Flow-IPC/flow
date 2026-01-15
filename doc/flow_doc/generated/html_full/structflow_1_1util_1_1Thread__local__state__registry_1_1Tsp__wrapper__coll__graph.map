@@ -1,0 +1,4 @@
+<map id="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper" name="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper">
+<area shape="rect" id="node1" title="Simply wraps a boost::thread_specific_ptr&lt;Tl_context&gt;, adding absolutely no data or algorithms,..." alt="" coords="5,125,152,185"/>
+<area shape="rect" id="node2" title=" " alt="" coords="13,5,145,65"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="flow::util::Basic_blob::const_buffer" name="flow::util::Basic_blob::const_buffer">
+<area shape="rect" id="node1" title="Convenience accessor returning an immutable boost.asio buffer &quot;view&quot; into the entirety of the blob." alt="" coords="188,36,323,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a9a7e43fd524a64b2e5a01c44c13772bb" title="Copy assignment: assuming (this != &amp;src) &amp;&amp; (!blobs_sharing(*this, src)), makes *this logically equal..." alt="" coords="5,5,140,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__blob.html#a6be8177591815e8a6d678be3d091712c" title="Copy constructor, constructing a blob logically equal to src." alt="" coords="5,65,140,101"/>
+</map>

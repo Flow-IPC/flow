@@ -111,20 +111,20 @@ class flow::util::Scoped_setter&lt; Value &gt;</div><p >A simple RAII-pattern cl
 <div class="fragment"><div class="line"><span class="keyword">thread_local</span> <span class="keywordtype">int</span> s_this_thread_val;</div>
 <div class="line">...</div>
 <div class="line">{</div>
-<div class="line">  <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">Scoped_setter&lt;int&gt;</a> setter(&amp;s_this_thread_val, 75); <span class="comment">// Set it to 75 and memorize (whatever).</span></div>
+<div class="line">  <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">Scoped_setter&lt;int&gt;</a> setter{&amp;s_this_thread_val, 75}; <span class="comment">// Set it to 75 and memorize (whatever).</span></div>
 <div class="line">  ...</div>
 <div class="line">  {</div>
-<div class="line">    <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">Scoped_setter&lt;int&gt;</a> setter(&amp;s_this_thread_val, 125); <span class="comment">// Set it to 125 and memorize 75.</span></div>
+<div class="line">    <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">Scoped_setter&lt;int&gt;</a> setter{&amp;s_this_thread_val, 125}; <span class="comment">// Set it to 125 and memorize 75.</span></div>
 <div class="line">    ...</div>
 <div class="line">  } <span class="comment">// Restored from 125 to 75.</span></div>
 <div class="line">  ...</div>
 <div class="line">} <span class="comment">// Restored from (probably) 75 to (whatever).</span></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Scoped__setter_html"><div class="ttname"><a href="classflow_1_1util_1_1Scoped__setter.html">flow::util::Scoped_setter</a></div><div class="ttdoc">A simple RAII-pattern class template that, at construction, sets the specified location in memory to ...</div><div class="ttdef"><b>Definition:</b> util.hpp:145</div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Scoped__setter_html"><div class="ttname"><a href="classflow_1_1util_1_1Scoped__setter.html">flow::util::Scoped_setter</a></div><div class="ttdoc">A simple RAII-pattern class template that, at construction, sets the specified location in memory to ...</div><div class="ttdef"><b>Definition:</b> util.hpp:146</div></div>
 </div><!-- fragment --><p >The object is movable, not copyable (which is similar to <code>unique_ptr</code>) to prevent "double-restore." Related: one can easily return customized auto-setter/restorers:</p>
 <div class="fragment"><div class="line"><span class="keyword">thread_local</span> Widget s_widget;</div>
 <div class="line"><span class="keyword">auto</span> widget_setter_auto(Widget&amp;&amp; widget_moved)</div>
 <div class="line">{</div>
-<div class="line">  <span class="keywordflow">return</span> <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">flow::util::Scoped_setter&lt;Widget&gt;</a>(&amp;s_widget, std::move(widget_moved));</div>
+<div class="line">  <span class="keywordflow">return</span> <a class="code hl_class" href="classflow_1_1util_1_1Scoped__setter.html">flow::util::Scoped_setter&lt;Widget&gt;</a>{&amp;s_widget, std::move(widget_moved)};</div>
 <div class="line">}</div>
 <div class="line">...</div>
 <div class="line">  { <span class="comment">// Later, some block: Set s_widget.  Code here doesn&#39;t even know/care a Scoped_setter is involved.</span></div>
@@ -223,7 +223,7 @@ template&lt;typename Value &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

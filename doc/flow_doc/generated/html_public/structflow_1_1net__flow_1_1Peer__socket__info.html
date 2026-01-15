@@ -448,7 +448,7 @@ template&lt;typename Key , typename Value &gt; </div>
 </div><div class="memdoc">
 
 <p>The number of bytes in the internal Receive buffer. </p>
-<p >These are the bytes intended for the application layer's consumption that the application layer has not yet claimed with <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">Peer_socket::receive()</a> or similar method. When this exceeds the Receive buffer max size, incoming bytes will be dropped (which will cause at least the slowdown of traffic).</p>
+<p >These are the bytes intended for the application layer's consumption that the application layer has not yet claimed with <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#aa911c498b19cb643f7227ad83fbd9ea3" title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">Peer_socket::receive()</a> or similar method. When this exceeds the Receive buffer max size, incoming bytes will be dropped (which will cause at least the slowdown of traffic).</p>
 <p >Same reminder as for <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__info.html#a636e783090aee4ca8770a9f85f35dd21" title="The internal state of the socket, rendered into string (e.g., &quot;SYN_RECEIVED&quot; or &quot;ESTABLISHED&quot;).">m_int_state_str</a> applies here. </p>
 
 </div>
@@ -484,7 +484,7 @@ template&lt;typename Key , typename Value &gt; </div>
 
 <p>The number of bytes in the internal Send buffer. </p>
 <p >These are the bytes provided by the application layer to send that have not yet been "sent over the network," for some definition of "sent over the network." The latter definition is not entirely unambiguous, but that should not matter to the library user.</p>
-<p >When this exceeds the Send buffer max size, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#af90b656d7e0b7e746b8beb4e24717cec" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">Peer_socket::send()</a> and similar methods will return 0 (meaning, cannot accept more bytes to send at this time). That should happen only if some aspect of networking is preventing <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> from sending more data over network at this time.</p>
+<p >When this exceeds the Send buffer max size, <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a846142aef01f5e9060f39a82dcf5c190" title="Sends (adds to the Send buffer) the given bytes of data up to a maximum internal buffer size; and asy...">Peer_socket::send()</a> and similar methods will return 0 (meaning, cannot accept more bytes to send at this time). That should happen only if some aspect of networking is preventing <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> from sending more data over network at this time.</p>
 <p >Same reminder as for <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__info.html#a636e783090aee4ca8770a9f85f35dd21" title="The internal state of the socket, rendered into string (e.g., &quot;SYN_RECEIVED&quot; or &quot;ESTABLISHED&quot;).">m_int_state_str</a> applies here. </p>
 
 </div>
@@ -531,7 +531,7 @@ template&lt;typename Key , typename Value &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

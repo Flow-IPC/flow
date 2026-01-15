@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1log_1_1Logger.html#a1ea9da10a13d3b422ba7162a13d7eeb1" target="_top" xlink:title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">
+<g id="a_node2"><a xlink:href="classflow_1_1log_1_1Logger.html#aea02011a3aa505087397c8d9984e0659" target="_top" xlink:title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">
 <polygon fill="white" stroke="black" points="148,-5 148,-31 240,-31 240,-5 148,-5"/>
 <text text-anchor="start" x="156" y="-20.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Logger::</text>
 <text text-anchor="middle" x="194" y="-11.6" font-family="Helvetica,sans-Serif" font-size="8.00">set_thread_info</text>

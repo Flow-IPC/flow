@@ -105,7 +105,7 @@
 <title>Node6&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M306.33,-63.06C335.89,-66.61 370.07,-70.96 401,-75.5 406.73,-76.34 412.7,-77.27 418.65,-78.22"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="306.42,-59.55 296.08,-61.84 305.59,-66.5 306.42,-59.55"/>
-<text text-anchor="middle" x="357.5" y="-78.1" font-family="Helvetica,sans-Serif" font-size="8.00"> m_exhanger_func</text>
+<text text-anchor="middle" x="357.5" y="-78.1" font-family="Helvetica,sans-Serif" font-size="8.00"> m_exchanger_func</text>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">

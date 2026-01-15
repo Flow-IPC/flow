@@ -489,7 +489,7 @@
 <title>Node35&#45;&gt;Node33</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M819.32,-80.07C821.91,-80.05 824.48,-80.02 827,-80 870.09,-79.62 918.96,-79.36 954.98,-79.2"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="819.21,-76.57 809.24,-80.17 819.28,-83.57 819.21,-76.57"/>
-<text text-anchor="middle" x="882" y="-82.6" font-family="Helvetica,sans-Serif" font-size="8.00"> m_exhanger_func</text>
+<text text-anchor="middle" x="882" y="-82.6" font-family="Helvetica,sans-Serif" font-size="8.00"> m_exchanger_func</text>
 </g>
 <!-- Node36 -->
 <g id="node28" class="node">

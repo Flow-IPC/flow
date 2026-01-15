@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ab64e128595b701e37256ff79d782c146" target="_top" xlink:title="Forgets all sockets stored in this object in any fashion.">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#ad3016a5a6e6909d1096e366f430397d0" target="_top" xlink:title="Forgets all sockets stored in this object in any fashion.">
 <polygon fill="white" stroke="black" points="1243,-125.5 1243,-151.5 1345,-151.5 1345,-125.5 1243,-125.5"/>
 <text text-anchor="start" x="1251" y="-141.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1294" y="-132.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::clear</text>
@@ -55,7 +55,7 @@
 <!-- Node37 -->
 <g id="node21" class="node">
 <title>Node37</title>
-<g id="a_node21"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a314635daf8fdf3805868baff8b42cfc9" target="_top" xlink:title="Returns true if and only if the last wait, if any, detected at least one event.">
+<g id="a_node21"><a xlink:href="classflow_1_1net__flow_1_1Event__set.html#a0bff3b56f73e22b967dad4b1490cd2bb" target="_top" xlink:title="Returns true if and only if the last wait, if any, detected at least one event.">
 <polygon fill="white" stroke="black" points="1240.5,-17.5 1240.5,-43.5 1347.5,-43.5 1347.5,-17.5 1240.5,-17.5"/>
 <text text-anchor="start" x="1248.5" y="-33.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Event</text>
 <text text-anchor="middle" x="1294" y="-24.1" font-family="Helvetica,sans-Serif" font-size="8.00">_set::events_detected</text>

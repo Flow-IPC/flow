@@ -1,5 +1,4 @@
 <map id="flow::log::Log_context::operator=" name="flow::log::Log_context::operator=">
-<area shape="rect" id="node1" title="Move assignment operator that behaves similarly to the move constructor." alt="" coords="5,57,148,93"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#aa6bb8e4250586425631ef80063caf155" title="Swaps Logger pointers and Component objects held by *this and other." alt="" coords="196,29,339,65"/>
-<area shape="rect" id="node3" href="$namespaceflow_1_1log.html#a1b475cd2cc2e476aa96c002927bf1690" title="Log_context ADL&#45;friendly swap: Equivalent to val1.swap(val2)." alt="" coords="387,35,493,59"/>
+<area shape="rect" id="node1" title="Move assignment operator that behaves similarly to the move constructor." alt="" coords="5,5,148,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e" title="Assignment operator that behaves similarly to the copy constructor." alt="" coords="196,5,339,41"/>
 </map>

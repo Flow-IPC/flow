@@ -2,9 +2,8 @@
 <area shape="rect" id="node1" title="Logs TRACE or DATA messages thats show the detailed state of the sending sequence number space." alt="" coords="5,96,140,132"/>
 <area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect." alt="" coords="188,5,331,41"/>
 <area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="188,65,331,101"/>
-<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a8afd30c50bcd670d45442df49d1da484" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="198,125,321,161"/>
-<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#a89d852e3722532d75006b024714a5cef" title="Whether retransmission is enabled on this connection." alt="" coords="195,185,324,221"/>
-<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#af92e6183c2071f4166d4b5a91f50d70c" title="&quot;Induction step&quot; version of variadic function template that simply outputs arguments 2+ via &lt;&lt; to the..." alt="" coords="379,65,509,101"/>
-<area shape="rect" id="node6" href="$classflow_1_1util_1_1String__ostream.html#a7e64b069ae0e221952068c13fdc0f080" title="Access to stream that will write to owned string." alt="" coords="389,125,499,161"/>
-<area shape="rect" id="node8" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="379,185,509,221"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="198,125,321,161"/>
+<area shape="rect" id="node6" href="$classflow_1_1net__flow_1_1Peer__socket.html#a89d852e3722532d75006b024714a5cef" title="Whether retransmission is enabled on this connection." alt="" coords="195,185,324,221"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="379,125,509,161"/>
+<area shape="rect" id="node7" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="379,185,509,221"/>
 </map>

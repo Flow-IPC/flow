@@ -1,6 +1,0 @@
-<map id="flow::util::Linked_hash_set::clear" name="flow::util::Linked_hash_set::clear">
-<area shape="rect" id="node1" title="Makes it so that size() == 0." alt="" coords="225,113,339,149"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Event__set.html#afb6379c7fe127c26fd4cdc9752ccf9e2" title="Identical to emit_result_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ..." alt="" coords="10,29,173,65"/>
-<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Event__set.html#a86ddd6fb8874d85869157bae2ffda69b" title="Identical to swap_wanted_sockets(&amp;sockets, ev_type, err_code), where originally sockets is empty and ..." alt="" coords="5,113,177,149"/>
-<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Event__set.html#a72b26f25a2e76e3c61b4760b59de5b25" title="Gets the sockets that satisfy the condition of the given Event_type detected during the last wait." alt="" coords="12,197,171,233"/>
-</map>

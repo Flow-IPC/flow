@@ -1,4 +1,0 @@
-<map id="flow::util::Basic_blob::reserve" name="flow::util::Basic_blob::reserve">
-<area shape="rect" id="node1" title="Ensures that an internal buffer of at least capacity elements is allocated and owned; disallows growi..." alt="" coords="5,5,140,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b..." alt="" coords="188,5,311,41"/>
-</map>

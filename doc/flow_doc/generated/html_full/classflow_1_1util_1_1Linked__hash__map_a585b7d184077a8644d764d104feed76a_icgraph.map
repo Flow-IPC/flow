@@ -1,0 +1,6 @@
+<map id="flow::util::Linked_hash_map::begin" name="flow::util::Linked_hash_map::begin">
+<area shape="rect" id="node1" title="Synonym of newest()." alt="" coords="224,65,347,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0" title="Helper that modifies m_value_list and m_value_iter_set so that key_and_mapped&#39;s copy is inserted into..." alt="" coords="15,5,166,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Linked__hash__map.html#a2f16297dae7c3f384e833e5ce22fd86e" title="Similar to insert_impl(), except key_and_mapped components are move()d into *this instead of being co..." alt="" coords="5,65,176,101"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty()." alt="" coords="25,125,156,161"/>
+</map>

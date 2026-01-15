@@ -136,7 +136,7 @@ Public Member Functions</h2></td></tr>
 <p>Constructs <a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">Runtime_error</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">err_code_or_success</td><td>The <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> describing the error if available; or the success value (<code><a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code()</a></code>) if an error code is unavailable or inapplicable to this error. In the latter case <a class="el" href="classflow_1_1error_1_1Runtime__error.html#a97483cadd78d55c6ac8c192d6433f598" title="Returns a message describing the exception.">what()</a> will omit anything to do with error codes and feature only <code>context</code>. </td></tr>
+    <tr><td class="paramname">err_code_or_success</td><td>The <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">Error_code</a> describing the error if available; or the success value (<code>Error_code{}</code>) if an error code is unavailable or inapplicable to this error. In the latter case <a class="el" href="classflow_1_1error_1_1Runtime__error.html#a97483cadd78d55c6ac8c192d6433f598" title="Returns a message describing the exception.">what()</a> will omit anything to do with error codes and feature only <code>context</code>. </td></tr>
     <tr><td class="paramname">context</td><td>String describing the context, i.e., where/in what circumstances the error occurred/what happened. For example: "Peer_socket::receive()" or "Server_socket::accept() while checking
        state," or a string with line number and file info. Try to keep it brief but informative. <a class="el" href="util__fwd_8hpp.html#a0cc4c82ac54e53b7a8a2431b66ff30df" title="Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an std::string.">FLOW_UTIL_WHERE_AM_I_STR()</a> may be helpful. </td></tr>
   </table>
@@ -170,7 +170,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs <a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">Runtime_error</a>, when one only has a context string and no applicable/known error code. </p>
-<p >Formally it's equivalent to <code>Runtime_error(Error_code(), context)</code>: it is syntactic sugar only.</p>
+<p >Formally it's equivalent to <code><a class="el" href="classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code.">Runtime_error</a>(Error_code{}, context)</code>: it is syntactic sugar only.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">context</td><td>See the other ctor. </td></tr>
@@ -220,7 +220,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

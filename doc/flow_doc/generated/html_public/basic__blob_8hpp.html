@@ -77,7 +77,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Clear__on__alloc.html">flow::util::Clear_on_alloc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag type used at least in <a class="el" href="classflow_1_1util_1_1Basic__blob.html" title="A hand-optimized and API-tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all...">Basic_blob</a> and <a class="el" href="classflow_1_1util_1_1Blob__with__log__context.html" title="Basic_blob that works in regular heap (and is itself placed in heap or stack) and memorizes a log::Lo...">Blob_with_log_context</a> to specify that an allocated buffer be zeroed.  <a href="structflow_1_1util_1_1Clear__on__alloc.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Basic__blob.html">flow::util::Basic_blob&lt; Allocator, SHARING &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hand-optimized and API-tweaked replacement for <code>vector&lt;uint8_t&gt;</code>, i.e., buffer of bytes inside an allocated area of equal or larger size; also optionally supports limited garbage-collected memory pool functionality and SHM-friendly custom-allocator support.  <a href="classflow_1_1util_1_1Basic__blob.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -92,19 +95,19 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , bool S_SHARING_ALLOWED&gt; </td></tr>
-<tr class="memitem:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">flow::util::swap</a> (Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2, log::Logger *logger_ptr=0)</td></tr>
-<tr class="memdesc:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>blob1.swap(blob2)</code>.  <a href="namespaceflow_1_1util.html#a71eaa4ab6a2673ed34fa8989c47a7bc0">More...</a><br /></td></tr>
-<tr class="separator:a71eaa4ab6a2673ed34fa8989c47a7bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af567381736851969f6e8812c54404028"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , bool S_SHARING_ALLOWED&gt; </td></tr>
-<tr class="memitem:af567381736851969f6e8812c54404028"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#af567381736851969f6e8812c54404028">flow::util::blobs_sharing</a> (const Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob1, const Basic_blob&lt; Allocator, S_SHARING_ALLOWED &gt; &amp;blob2)</td></tr>
-<tr class="memdesc:af567381736851969f6e8812c54404028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if and only if both given objects are not <code>zero() == true</code>, and they either co-own a common underlying buffer, or <em>are</em> the same object.  <a href="namespaceflow_1_1util.html#af567381736851969f6e8812c54404028">More...</a><br /></td></tr>
-<tr class="separator:af567381736851969f6e8812c54404028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bf5004897129150111e57f3521341cb"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , bool SHARING&gt; </td></tr>
+<tr class="memitem:a9bf5004897129150111e57f3521341cb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a9bf5004897129150111e57f3521341cb">flow::util::swap</a> (Basic_blob&lt; Allocator, SHARING &gt; &amp;blob1, Basic_blob&lt; Allocator, SHARING &gt; &amp;blob2, log::Logger *logger_ptr=nullptr) noexcept</td></tr>
+<tr class="memdesc:a9bf5004897129150111e57f3521341cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>blob1.swap(blob2)</code>.  <a href="namespaceflow_1_1util.html#a9bf5004897129150111e57f3521341cb">More...</a><br /></td></tr>
+<tr class="separator:a9bf5004897129150111e57f3521341cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25c63cd23dd19d7899c773f257d0f397"><td class="memTemplParams" colspan="2">template&lt;typename Allocator , bool SHARING&gt; </td></tr>
+<tr class="memitem:a25c63cd23dd19d7899c773f257d0f397"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a25c63cd23dd19d7899c773f257d0f397">flow::util::blobs_sharing</a> (const Basic_blob&lt; Allocator, SHARING &gt; &amp;blob1, const Basic_blob&lt; Allocator, SHARING &gt; &amp;blob2)</td></tr>
+<tr class="memdesc:a25c63cd23dd19d7899c773f257d0f397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if and only if both given objects are not <code>zero() == true</code>, and they either co-own a common underlying buffer, or <em>are</em> the same object.  <a href="namespaceflow_1_1util.html#a25c63cd23dd19d7899c773f257d0f397">More...</a><br /></td></tr>
+<tr class="separator:a25c63cd23dd19d7899c773f257d0f397"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:32 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:48:58 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

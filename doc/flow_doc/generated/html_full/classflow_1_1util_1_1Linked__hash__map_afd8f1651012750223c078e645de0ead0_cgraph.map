@@ -1,0 +1,4 @@
+<map id="flow::util::Linked_hash_map::insert_impl" name="flow::util::Linked_hash_map::insert_impl">
+<area shape="rect" id="node1" title="Helper that modifies m_value_list and m_value_iter_set so that key_and_mapped&#39;s copy is inserted into..." alt="" coords="5,5,156,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Linked__hash__map.html#a585b7d184077a8644d764d104feed76a" title="Synonym of newest()." alt="" coords="204,5,327,41"/>
+</map>

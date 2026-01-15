@@ -28,7 +28,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a2779cc2429651696df1bca8de73534f3" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ad85166fbe9a4e7c81ad167e53672142c" target="_top" xlink:title="Dynamically replaces the current options set (options()) with the given options set.">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-26.5 101,-26.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="50.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::set_options</text>

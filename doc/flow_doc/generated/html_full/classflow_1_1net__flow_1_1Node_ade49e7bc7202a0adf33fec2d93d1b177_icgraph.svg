@@ -198,7 +198,7 @@
 <!-- Node11 -->
 <g id="node9" class="node">
 <title>Node11</title>
-<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aeb88e9253cc3f52269cb762c8e57e6d0" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
+<g id="a_node9"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#aa911c498b19cb643f7227ad83fbd9ea3" target="_top" xlink:title="Receives (consumes from the Receive buffer) bytes of data, up to a given maximum cumulative number of...">
 <polygon fill="white" stroke="black" points="471,-2.5 471,-28.5 568,-28.5 568,-2.5 471,-2.5"/>
 <text text-anchor="start" x="479" y="-18.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="519.5" y="-9.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::receive</text>
@@ -302,7 +302,7 @@
 <!-- Node19 -->
 <g id="node15" class="node">
 <title>Node19</title>
-<g id="a_node15"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a9ab710704237f912eb219f9b8d574afc" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
+<g id="a_node15"><a xlink:href="classflow_1_1net__flow_1_1Peer__socket.html#a1812e852957c43ccca8712d63c6e3de7" target="_top" xlink:title="Acts as if fatal error error::Code::S_USER_CLOSED_ABRUPTLY has been discovered on the connection.">
 <polygon fill="white" stroke="black" points="628,-138.5 628,-164.5 741,-164.5 741,-138.5 628,-138.5"/>
 <text text-anchor="start" x="636" y="-154.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Peer</text>
 <text text-anchor="middle" x="684.5" y="-145.1" font-family="Helvetica,sans-Serif" font-size="8.00">_socket::close_abruptly</text>

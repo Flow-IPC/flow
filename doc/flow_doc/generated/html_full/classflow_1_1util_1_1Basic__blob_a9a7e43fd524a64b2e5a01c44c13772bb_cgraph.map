@@ -1,0 +1,6 @@
+<map id="flow::util::Basic_blob::assign" name="flow::util::Basic_blob::assign">
+<area shape="rect" id="node1" title="Copy assignment: assuming (this != &amp;src) &amp;&amp; (!blobs_sharing(*this, src)), makes *this logically equal..." alt="" coords="5,60,140,96"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#af6bdf2ee9e562400a0476282c8c66ff0" title="For convenience/expressiveness, the allocator object for *this." alt="" coords="197,5,332,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#a25c63cd23dd19d7899c773f257d0f397" title="Returns true if and only if both given objects are not zero() == true, and they either co&#45;own a commo..." alt="" coords="188,66,341,90"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Basic__blob.html#a7c7e0aef110c4ab5f335d633e9a96abb" title="Convenience accessor returning an immutable boost.asio buffer &quot;view&quot; into the entirety of the blob." alt="" coords="197,115,332,151"/>
+</map>

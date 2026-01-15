@@ -1,0 +1,7 @@
+<map id="flow::net_flow::Node::sync_connect" name="flow::net_flow::Node::sync_connect">
+<area shape="rect" id="node1" title="The blocking (synchronous) version of connect()." alt="" coords="5,36,140,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1Node.html#a0f28017130b120b9ceaff481d06c86e4" title="A combination of sync_connect() and connect_with_metadata() (blocking connect, with supplied metadata..." alt="" coords="188,36,379,72"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa60d3ba517b5f5cf408faa92d269256a" title="Helper that takes a non&#45;negative duration of arbitrary precision/period and converts it to Fine_durat..." alt="" coords="427,5,593,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a49e2786f5d1eeb068a828902a631a39a" title="Implementation core of sync_connect*() that gets rid of templated or missing arguments thereof." alt="" coords="443,65,577,101"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block." alt="" coords="641,65,780,101"/>
+</map>

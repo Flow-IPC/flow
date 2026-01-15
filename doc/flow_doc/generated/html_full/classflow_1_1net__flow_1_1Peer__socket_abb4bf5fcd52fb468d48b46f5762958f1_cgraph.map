@@ -1,0 +1,6 @@
+<map id="flow::net_flow::Peer_socket::max_block_size_multiple" name="flow::net_flow::Peer_socket::max_block_size_multiple">
+<area shape="rect" id="node1" title="Returns the smallest multiple of max_block_size() that is &gt;= the given option value,..." alt="" coords="5,21,160,69"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#afc4ad3399bfdafe880871760e5a9f3a5" title="Returns the result of the given non&#45;negative integer divided by a positive integer,..." alt="" coords="227,5,344,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Peer__socket.html#aa1f821dde38a7aa572651730744edbd8" title="The maximum number of bytes of user data per received or sent packet on this connection." alt="" coords="208,54,363,90"/>
+<area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per&#45;socket options." alt="" coords="411,54,540,90"/>
+</map>

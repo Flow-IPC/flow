@@ -93,10 +93,10 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >An empty interface, consisting of nothing but a default <code>virtual</code> destructor, intended as a boiler-plate-reducing base for any other (presumably <code>virtual</code>-method-having) class that would otherwise require a default <code>virtual</code> destructor. </p>
-<p >Usually, if you have a base class <code>C</code> at the top of a <code>virtual</code>-method-having hierarchy, then it needs a <code>virtual</code> destructor, even if it is <code>= default</code> or <code>{}</code>. Otherwise, trying to delete an object of subclass <code>C2 : public C</code> via a <code>C*</code> pointer will fail to call destructor <code>~C2()</code> &ndash; which may not be empty, causing leaks and so on. Declaring <code>~C()</code> and its empty implementation is surprisingly verbose. So, instead, don't; and <code>public</code>ly derive from <a class="el" href="classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler-plat...">Null_interface</a> instead.</p>
+<p >Usually, if you have a base class <code>C</code> at the top of a <code>virtual</code>-method-having hierarchy, then it needs a <code>virtual</code> destructor, even if it is <code>= default</code> or <code>{}</code>. Otherwise, trying to delete an object of subclass <code>C2 : public C</code> via a <code>C*</code> pointer will fail to call destructor <code>~C2()</code> &ndash; which may not be empty, causing leaks and so on. Declaring <code>~C()</code> and its empty implementation is surprisingly verbose. So, instead, don't; and <code>public</code>ly derive from <a class="el" href="classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler-plat...">Null_interface</a>.</p>
 <p >It is particularly useful for interface classes. </p>
 
-<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00044">44</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="util_2util_8hpp_source.html#l00045">45</a> of file <a class="el" href="util_2util_8hpp_source.html">util.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5916282577627e424a09884347eddbba" name="a5916282577627e424a09884347eddbba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5916282577627e424a09884347eddbba">&#9670;&nbsp;</a></span>~Null_interface()</h2>
@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 28 2025 22:55:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <map id="flow::log::beautify_chrono_logger_this_thread" name="flow::log::beautify_chrono_logger_this_thread">
 <area shape="rect" id="node1" title="Sets certain chrono&#45;related formatting on the given Logger in the current thread that results in a co..." alt="" coords="425,30,556,78"/>
-<area shape="rect" id="node2" href="$classflow_1_1async_1_1Task__qing__thread.html#abb03d1b5f50a2b6148da27139a2391da" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th..." alt="" coords="200,5,365,41"/>
-<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#aa894fd58b246c2a8d6c7c7d25a8748cb" title="Helper to invoke for each thread in which this Node executes, whether or not it starts that thread,..." alt="" coords="188,65,377,101"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th..." alt="" coords="200,5,365,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1net__flow_1_1Node.html#a11780a79ed759f6d78d30ff2c77469f2" title="Helper to invoke for each thread in which this Node executes, whether or not it starts that thread,..." alt="" coords="188,65,377,101"/>
 <area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#a5b056ed753b832458f44f537acfe86d7" title="Worker thread W (main event loop) body." alt="" coords="5,65,140,101"/>
 </map>
