@@ -42,7 +42,7 @@ Node::Node(log::Logger* logger_ptr, const util::Udp_endpoint& low_lvl_endpoint, 
   log::Log_context(this_thread_init_logger_setup("", logger_ptr),
                    Flow_log_component::S_NET_FLOW),
   /* Take the given Node_options set and copy it into our stored global options.  (Note the default
-   * is Node_options().)  The default is safe, but if they actually are providing a custom set of
+   * is Node_options{}.)  The default is safe, but if they actually are providing a custom set of
    * options, then we must validate before accepting.  This may result in a validation error.
    * If !err_code, then it'll throw exception right here.  If err_code, then it will set *err_code,
    * so we check for it inside the constructor body and exit. */
@@ -339,7 +339,7 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
     while (!m_event_sets.empty()) // As above.
     {
       const Event_set::Ptr event_set = *m_event_sets.begin();
-      Event_set::Lock_guard lock(event_set->m_mutex); // Pre-condition for event_set_close_worker().
+      Event_set::Lock_guard lock{event_set->m_mutex}; // Pre-condition for event_set_close_worker().
       event_set_close_worker(event_set);
     }
 

@@ -456,8 +456,7 @@ bool Event_set::sync_wait_impl(const Fine_duration& max_wait, Error_code* err_co
 
 bool Event_set::sync_wait(Error_code* err_code)
 {
-  using boost::chrono::microseconds;
-  return sync_wait(microseconds(microseconds::max()), err_code); // Wait indefinitely.  May throw.
+  return sync_wait(boost::chrono::microseconds::max(), err_code); // Wait indefinitely.  May throw.
 }
 
 void Event_set::close(Error_code* err_code)
@@ -736,9 +735,9 @@ Event_set::Ev_type_to_socks_map Event_set::empty_ev_type_to_socks_map() // Stati
   return Ev_type_to_socks_map
          {{
             // Linked_hash_map order is significant.  Iteration will occur in this canonical order in logs, etc.
-            { Event_type::S_PEER_SOCKET_READABLE, Sockets() },
-            { Event_type::S_PEER_SOCKET_WRITABLE, Sockets() },
-            { Event_type::S_SERVER_SOCKET_ACCEPTABLE, Sockets() }
+            { Event_type::S_PEER_SOCKET_READABLE, Sockets{} },
+            { Event_type::S_PEER_SOCKET_WRITABLE, Sockets{} },
+            { Event_type::S_SERVER_SOCKET_ACCEPTABLE, Sockets{} }
           }};
 }
 
@@ -1425,7 +1424,7 @@ void Node::interrupt_all_waits_worker()
   for (Event_set::Ptr event_set : m_event_sets)
   {
     // Work on one Event_set at a time.  Lock it.
-    Event_set::Lock_guard lock(event_set->m_mutex);
+    Event_set::Lock_guard lock{event_set->m_mutex};
 
     if (event_set->m_state == Event_set::State::S_WAITING)
     {

@@ -26,7 +26,7 @@ namespace flow::util
 {
 
 /**
- * An object of this class is a map that combines the lookup speed of an `unordered_set<>` and ordering and
+ * An object of this class is a set that combines the lookup speed of an `unordered_set<>` and ordering and
  * iterator stability capabilities of a `list<>`.
  *
  * This is just like Linked_hash_map, except it only stores keys -- no mapped values.  All comments, except for
@@ -39,7 +39,7 @@ namespace flow::util
  *   - `x.insert(std::move(a_key))`;
  *   - `x.insert(Key{...})`.
  *
- * The iterators are, really, `list<Key>` const-iterators; and as such are not invalidated except
+ * The iterators are, really, `list<Key>` `const`-iterators; and as such are not invalidated except
  * due to direct erasure of a given pointee.
  *
  * @internal

@@ -382,7 +382,7 @@ protected:
  *
  * ### Recommended conventions ###
  * Firstly, it is recommended to store all durations in your `Value_set` as util::Fine_duration instead of using
- * coarser units like `chrono::seconds()` or even `chrono::milliseconds()`.  This tends to lead to more consistent
+ * coarser units like `chrono::seconds` or even `chrono::milliseconds`.  This tends to lead to more consistent
  * and maintainable code, in the author's (ygoldfel) opinion, as util::Fine_duration *can* store durations expressed
  * in essentially any units, without losing precision; *does* use the same underlying storage type -- `int64_t` --
  * and hence presents no performance or overflow difficulties (usually); and changing the desired units of a duration

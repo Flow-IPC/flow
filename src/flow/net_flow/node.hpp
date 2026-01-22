@@ -4044,7 +4044,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
      * in fact this mode is indicated by non_blocking_func.empty(). */
 
     {
-      typename Socket::Lock_guard lock(sock->m_mutex);
+      typename Socket::Lock_guard lock{sock->m_mutex};
       if (sock->m_state == Socket::State::S_CLOSED) // As in the invoker of this method....
       {
         assert(sock->m_disconnect_cause);

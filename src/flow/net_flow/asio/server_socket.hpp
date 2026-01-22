@@ -275,7 +275,7 @@ void Server_socket::async_accept(const Handler& on_result)
 template<typename Handler>
 void Server_socket::async_accept(bool reactor_pattern, const Handler& on_result)
 {
-  async_accept_impl(Handler_func(on_result), Fine_time_pt{}, reactor_pattern);
+  async_accept_impl(Handler_func{on_result}, Fine_time_pt{}, reactor_pattern);
 }
 
 template<typename Rep, typename Period, typename Handler>

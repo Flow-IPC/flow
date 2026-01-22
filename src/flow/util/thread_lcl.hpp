@@ -685,7 +685,7 @@ private:
 }; // class Thread_local_state_registry
 
 /**
- * Optional-use companion to Thread_local_state_registry that enables the `Polled_share_state` pattern wherein
+ * Optional-use companion to Thread_local_state_registry that enables the `Polled_shared_state` pattern wherein
  * from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate
  * on/using locked shared state, with the no-op fast-path being gated by a high-performance-low-strictness
  * atomic-flag being `false`.
@@ -792,11 +792,34 @@ private:
  * In the above example that would have been enough -- if not for the requirement to `report_success()`,
  * when the last missile is launched.
  *
+ * ### Caution: When is it unsafe to check poll_armed()? ###
+ * It is specifically unsafe to check poll_armed() (that is to say to access the per-thread atomic flag state, whose
+ * address is given to poll_armed() as an arg) during thread/program exit -- specifically in the `~T()` destructor.
+ * (Reminder: in the pattern, one maintains a `Thread_local_state_registry<T>`, and `~T()` dtor runs when a
+ * per-thread `T` object goes away, most notably when its corresponding thread exits.)
+ *
+ * Why is it unsafe?  Answer: Unfortunately as of this writing Polled_shared_state cannot guarantee that the
+ * per-thread atomic flag-state is destroyed not-before the per-thread state `T` is destroyed.  (It is hard to
+ * predict given the difficult rules of thread-local cleanup ordering.)  Therefore trying to do this might access
+ * freshly-invalid memory.
+ *
+ * Is it a problem?  Answer: Yes, in that this rule might be tempting/easy to forget.  (It "feels" like it should
+ * be safe, since `Polled_shared_state` is declared just ahead of `Thread_local_state_registry<T>`; and hence the
+ * `Polled_shared_state`-y flag state "feels" like it should still be around when a `T` is going away.)  Assuming
+ * one remembers to follow the rule, though, we ask again:
+ *
+ * ...Is it *really* a problem?  Answer: *No*; it is okay; because accessing the flag at that point
+ * should not be necessary in the 1st place.  It is not a frequent event that a thread ends, and at that stage your code
+ * can do something specifically appropriate to the thread exiting.  E.g., it could "just" assume the flag is
+ * armed and do whatever is needed as a result.  Alternatively -- if that's unacceptable -- it can perform a
+ * slower check as-to whether the action is really required; since the situation is infrequent, there is no need for
+ * atomic-check speed, probably.
+ *
  * ### Performance ###
  * The fast-path reasoning is that (1) the arming event occurs rarely and therefore is not part of any fast-path;
  * and (2) thread-local logic can detect `poll_armed() == false` first-thing and do nothing further.
  * Internally we facilitate speed further by poll_armed() using an `atomic<bool>` with an optimized memory-ordering
- * setting that is nevertheless safe (impl details omitted here).  Point is, `if (!....poll_armed()) { return }` shall
+ * setting that is nevertheless safe (impl details omitted here).  Point is, `if (!....poll_armed()) { return; }` shall
  * be a quite speedy check.
  *
  * Last but not least: If #Shared_state is empty (formally: `is_empty_v<Shared_state> == true`; informally:
