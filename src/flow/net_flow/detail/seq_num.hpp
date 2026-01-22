@@ -152,7 +152,7 @@ public:
   // Constructors/destructor.
 
   /// Constructs sequence number that is zero (not a valid sequence number; less than all others).
-  explicit Sequence_number();
+  Sequence_number();
 
   /**
    * Copy constructor.  Identical to calling: `operator=(source);`.

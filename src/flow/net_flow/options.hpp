@@ -461,7 +461,7 @@ struct Node_options
    * Constructs a Node_options with values equal to those used by Node when the Node
    * creator chooses not to supply custom options.
    */
-  explicit Node_options();
+  Node_options();
 
   // Methods.
 
