@@ -143,7 +143,7 @@ void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
 
   for (unsigned int thread_idx = 0; thread_idx != n_pool_threads; ++thread_idx)
   {
-    Thread* thread = threads_in_pool[thread_idx];
+    Thread* const thread = threads_in_pool[thread_idx];
     const auto native_pthread_thread_id = thread->native_handle();
 
 #if FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX

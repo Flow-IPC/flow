@@ -154,7 +154,7 @@ public:
    * @param hasher
    *        See above.
    */
-  Linked_hash_key_hash(const Hash& hasher = Hash{});
+  Linked_hash_key_hash(const Hash& hasher = {});
 
   // Methods.
 
@@ -195,7 +195,7 @@ public:
    * @param pred
    *        See above.
    */
-  Linked_hash_key_pred(const Pred& pred = Pred{});
+  Linked_hash_key_pred(const Pred& pred = {});
 
   // Methods
 

@@ -87,8 +87,7 @@ public:
    * @param thread_init_func_or_empty
    *        See superclass API.
    */
-  void start(Task&& init_task_or_empty = Task{},
-             const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) override;
+  void start(Task&& init_task_or_empty = {}, const Thread_init_func& thread_init_func_or_empty = {}) override;
 
   /// Implements superclass API.
   void stop() override;

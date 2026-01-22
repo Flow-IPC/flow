@@ -142,8 +142,8 @@ public:
    *        only if the `Key`s are equal by value).
    */
   Linked_hash_set(size_type n_buckets = size_type(-1),
-                  const Hash& hasher_obj = Hash{},
-                  const Pred& pred = Pred{});
+                  const Hash& hasher_obj = {},
+                  const Pred& pred = {});
 
   /**
    * Constructs structure with some basic parameters, and values initialized from initializer list.
@@ -166,8 +166,8 @@ public:
    */
   explicit Linked_hash_set(std::initializer_list<Value> values,
                            size_type n_buckets = size_type(-1),
-                           const Hash& hasher_obj = Hash{},
-                           const Pred& pred = Pred{});
+                           const Hash& hasher_obj = {},
+                           const Pred& pred = {});
 
   /**
    * Constructs object that is a copy of the given source.  Equivalent to default-ction followed by `operator=(src)`.

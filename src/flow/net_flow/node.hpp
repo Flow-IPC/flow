@@ -1008,7 +1008,7 @@ public:
    */
   explicit Node(log::Logger* logger, const util::Udp_endpoint& low_lvl_endpoint,
                 Net_env_simulator* net_env_sim = nullptr, Error_code* err_code = nullptr,
-                const Node_options& opts = Node_options{});
+                const Node_options& opts = {});
 
   /**
    * Destroys Node.  Closes all Peer_socket objects as if by `sock->close_abruptly()`.  Then closes all
@@ -2826,7 +2826,7 @@ private:
    *        ESTABLISHED state: `operation_aborted` => NOOP; success or any other error => attempt to
    *        send ACK(s).
    */
-  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code{});
+  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = {});
 
   /**
    * Return `true` if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of `sock` (if

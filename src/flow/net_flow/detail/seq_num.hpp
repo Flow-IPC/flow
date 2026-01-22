@@ -332,7 +332,7 @@ public:
    *        be such multiples" or "unknown"; this is the default at construction.
    */
   void set_metadata(char num_line_id = 0,
-                    const Sequence_number& zero_point = Sequence_number{},
+                    const Sequence_number& zero_point = {},
                     seq_num_delta_t multiple_size = 0);
 
 private:

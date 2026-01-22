@@ -408,8 +408,7 @@ public:
    *        in each thread, for all `thread_idx` in [0, n_threads()).  start() will return no sooner than
    *        when each such callback has finished.
    */
-  virtual void start(Task&& init_task_or_empty = Task{},
-                     const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) = 0;
+  virtual void start(Task&& init_task_or_empty = {}, const Thread_init_func& thread_init_func_or_empty = {}) = 0;
 
   /**
    * Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such tasks

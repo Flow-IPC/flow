@@ -177,7 +177,7 @@ public:
   explicit Task_qing_thread(flow::log::Logger* logger_ptr, util::String_view nickname,
                             const Task_engine_ptr& task_engine, bool own_task_engine,
                             boost::promise<void>* done_promise_else_block = nullptr,
-                            Task&& init_func_or_empty = Task{});
+                            Task&& init_func_or_empty = {});
 
   /**
    * stop(), followed by forgetting the `Task_engine` returned by task_engine(); the latter action may
