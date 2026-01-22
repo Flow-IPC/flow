@@ -883,7 +883,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
 
     *dupe = true;
     *slide = false;
-    return Error_code{};
+    return {};
   } // if (seq_num < rcv_next_seq_num)
   // else if (seq_num >= rcv_next_seq_num)
 
@@ -919,7 +919,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     *slide = true;
     *slide_size = size_t(seq_num_end - seq_num);
     assert(*slide_size == data.size());
-    return Error_code{};
+    return {};
   }
 
   // else if:
@@ -1010,7 +1010,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     }
 
     *dupe = false;
-    return Error_code{};
+    return {};
   } // if (next_packet does not exist)
   // else if (next_packet exists at the same or later sequence number as seq_num)
 
@@ -1047,7 +1047,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                    "sequence numbers [" << seq_num << ", " << seq_num_end << ").");
 
     *dupe = true;
-    return Error_code{};
+    return {};
   } // if (seq_num_next_start == seq_num)
   // else if:
   assert(seq_num_next_start > seq_num); // lower_bound() is not horrifically broken.
@@ -1084,7 +1084,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     FLOW_LOG_TRACE("New packet partially fills first gap without sliding window; "
                    "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                    "first unreceived packet [" << rcv_next_seq_num << "].");
-    return Error_code{}; // There are none. We're good.
+    return {}; // There are none. We're good.
   }
 
   const Peer_socket::Recvd_pkt_const_iter prev_packet = prior(next_packet);
@@ -1112,7 +1112,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                  "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                  "first unreceived packet [" << rcv_next_seq_num << "].");
 
-  return Error_code{};
+  return {};
 } // Node::sock_categorize_data_to_established()
 
 bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,

@@ -143,7 +143,7 @@ bool Verbosity_config::parse(std::istream& is)
   {
     result_pairs.insert
       (result_pairs.begin(),
-       make_pair<string, Sev>(string(), Sev{Config::S_MOST_VERBOSE_SEV_DEFAULT}));
+       make_pair<string, Sev>(string{}, Sev{Config::S_MOST_VERBOSE_SEV_DEFAULT}));
   }
 
   // Finalize only if all succeeded only (as promised).
