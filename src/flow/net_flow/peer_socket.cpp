@@ -3720,7 +3720,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
   const Peer_socket::Sent_pkt_by_seq_num_map& flying_packets = sock->m_snd_flying_pkts_by_seq_num;
   if (flying_packets.empty())
   {
-    return Sequence_number{}; // Default value.  Less than all others.
+    return {}; // Default value.  Less than all others.
   }
   // else
 

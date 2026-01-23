@@ -417,7 +417,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet is too small: "
                      "[" << raw_buf_size << "] bytes.");
-    return Ptr{};
+    return {};
   }
 
   /* We'll advance this as we keep reading off values from raw buffer.
@@ -467,7 +467,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   if (reserved2 != 0)
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet format is unknown.");
-    return Ptr{};
+    return {};
   }
   // else
 
@@ -490,7 +490,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   // Low_lvl_packet part is filled out.  The sub-type part has junk.  This will fill that part out.
   if (!packet->deserialize_type_specific_data_from_raw_data_packet(&raw_buf, prefer_no_move, raw_packet))
   {
-    return Ptr{}; // Error.  It logged.
+    return {}; // Error.  It logged.
   }
   // else
 

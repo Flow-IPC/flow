@@ -183,7 +183,7 @@ Time_pt Checkpointing_timer::now(Clock_type clock_type)
   }
 
   assert(false && "Bug?  now() forgot to handle a Clock_type, yet compiler did not warn in switch()?");
-  return Time_pt{};
+  return {};
 } // Checkpointing_timer::now(Clock_type)
 
 Time_pt_set Checkpointing_timer::now(const Clock_types_subset& which_clocks) // Static.
