@@ -20,6 +20,7 @@
 #include "flow/util/util.hpp"
 #include "flow/error/error.hpp"
 #include <boost/random.hpp>
+#include <boost/random/random_device.hpp>
 #include <limits>
 
 namespace flow::net_flow

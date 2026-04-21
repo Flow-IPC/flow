@@ -20,6 +20,7 @@
 #include "flow/util/random.hpp"
 #include <boost/functional/hash/hash.hpp>
 #include <boost/random.hpp>
+#include <boost/random/random_device.hpp>
 #include <limits>
 #include <cmath>
 
