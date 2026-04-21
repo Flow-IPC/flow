@@ -25,7 +25,6 @@
 #include "flow/util/random.hpp"
 #include <boost/dynamic_bitset.hpp>
 #include <boost/utility.hpp>
-#include <boost/random.hpp>
 #include <queue>
 
 namespace flow::net_flow
@@ -163,9 +162,6 @@ private:
   /// Short-hand for bit set of arbitary length, representing a port set (each bit is a port; 1 open, 0 reserved).
   using Bit_set = boost::dynamic_bitset<>;
 
-  /// Random number generator.
-  using Random_generator = util::Rnd_gen_uniform_range_base::Random_generator;
-
   /// A type same as #flow_port_t but larger, useful when doing arithmetic that might hit overflow in corner cases.
   using flow_port_sans_overflow_t = uint32_t;
 
@@ -241,9 +237,6 @@ private:
    * oldest recently used port) and use that.  If emptied, there are simply no more ports left.
    */
   std::queue<flow_port_t> m_recent_ephemeral_ports;
-
-  /// Random number generator for picking ports.
-  Random_generator m_rnd_generator;
 }; // class Port_space
 
 } // namespace flow::net_flow

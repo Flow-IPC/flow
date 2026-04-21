@@ -19,6 +19,7 @@
 #include "flow/net_flow/detail/seq_num.hpp"
 #include "flow/util/random.hpp"
 #include <boost/functional/hash/hash.hpp>
+#include <boost/random.hpp>
 #include <limits>
 #include <cmath>
 
@@ -33,9 +34,6 @@ namespace flow::net_flow
  * byte it would take many centuries for the sequence numbers to overflow seq_num_t. */
 const Sequence_number::seq_num_t Sequence_number::Generator::S_MAX_INIT_SEQ_NUM
   = std::numeric_limits<seq_num_t>::max() / 2;
-const Fine_duration Sequence_number::Generator::S_TIME_PER_SEQ_NUM = boost::chrono::microseconds{4}; // From RFC 793.
-const Fine_duration Sequence_number::Generator::S_MIN_DELAY_BETWEEN_ISN
-  = boost::chrono::milliseconds{500}; // From TCP/IP Illustrated Vol. 2: The Implementation (BSD Net/3).
 
 // Implementations.
 
@@ -47,50 +45,28 @@ Sequence_number::Generator::Generator(log::Logger* logger_ptr) :
 
 Sequence_number Sequence_number::Generator::generate_init_seq_num()
 {
-  using std::abs;
-  using util::Rnd_gen_uniform_range;
+  using boost::random::random_device;
+  using boost::random::uniform_int_distribution;
 
-  const Fine_time_pt& now = Fine_clock::now();
+  /* Generate each ISN independently from a CSPRNG.
+   *
+   * Historically (RFC 793: original TCP spec) this was done with a clock-based scheme (new sequence number every N
+   * usec, with N defined by the RC).  This code formerly (written circa 2011) implemented this; however
+   * clock-based ISN generation is predictable to off-path attackers.  Hence for a full-on secure implementation
+   * we'd perhaps want the full RFC 6528 keyed-hash scheme used by modern production TCP stacks.  @todo Do that.
+   *
+   * For the time being (2026), we will do a per-call CSPRNG pull instead.  This is simpler and equally
+   * unpredictable for this context. */
 
-  if (m_last_init_seq_num.m_num == 0)
-  {
-    /* First call to this.  Just pick a random-ish ISN from the entire allowed range.  Seed on current time.
-     * We only generate one random number ever (for this `this`), so it's fine to just seed it here and use once.
-     * @todo Could use a `static` data member RNG.  Good randomness across multiple `this`s isn't required, so the
-     * various considerations this would introduce -- multi-threadedness, for instance -- might be too much to worry
-     * about given our modest, non-cryptographic needs here. */
+  random_device rnd_dev;
+  uniform_int_distribution<seq_num_t> range{1, S_MAX_INIT_SEQ_NUM}; // 0 is a reserved number; do not use.
 
-    Rnd_gen_uniform_range<seq_num_t> rnd_single_use{1, S_MAX_INIT_SEQ_NUM}; // 0 is a reserved number; do not use.
-    m_last_init_seq_num.m_num = rnd_single_use();
-  }
-  else
-  {
-    // All subsequent calls.
+  Sequence_number result;
+  result.m_num = range(rnd_dev);
 
-    /* For now basically follow RFC 793 (original TCP spec): new sequence number every N
-     * microseconds, with N defined by the RFC.  Additionally, add a large constant M, as if another
-     * 0.5 seconds had passed (as BSD did at least in 1995, as documented in TCP/IP Illustrated:
-     * Vol. 2).  abs() should not be necessary with Fine_clock, but just in case.... */
+  FLOW_LOG_TRACE("Generated ISN [" << result << "].");
 
-    m_last_init_seq_num.m_num +=
-      seq_num_t((now - m_last_isn_generation + S_MIN_DELAY_BETWEEN_ISN) / S_TIME_PER_SEQ_NUM);
-
-    /* It's incredibly unlikely that overflowed seq_num_t given the times involved, but even if it
-     * did, so be it.  In that case pretty much any random ISN is still OK.  So just assume no
-     * overflow.... */
-
-    // Wrap ISN if needed.  (It's perfectly possible, e.g., if original ISN was right near the end of allowed range.)
-    if (m_last_init_seq_num.m_num > S_MAX_INIT_SEQ_NUM)
-    {
-      // 0 is a reserved number; do not use.
-      m_last_init_seq_num.m_num = m_last_init_seq_num.m_num - S_MAX_INIT_SEQ_NUM;
-    }
-  }
-
-  FLOW_LOG_TRACE("Generated ISN [" << m_last_init_seq_num << "].");
-
-  m_last_isn_generation = now;
-  return m_last_init_seq_num;
+  return result;
 } // Sequence_number::Generator::generate_init_seq_num()
 
 Sequence_number::Sequence_number() :
