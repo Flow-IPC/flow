@@ -6212,7 +6212,6 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
       VALIDATE_CHECK(opts.m_st_connect_retransmit_timeout.count() > 0) &&
       VALIDATE_CHECK(opts.m_st_snd_buf_max_size >= 4 * opts.m_st_max_block_size) &&
       VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size) &&
-      VALIDATE_CHECK(opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size >= 0) &&
       VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u)) &&
       VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100) &&
       VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1}) &&
