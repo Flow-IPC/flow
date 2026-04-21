@@ -52,7 +52,9 @@ Node_options::Node_options() :
   // default max_block_size + a SMALL overhead.
   m_dyn_low_lvl_max_packet_size(1124),
   // This default is explained in the option description (as of this writing): it's faster.
-  m_dyn_guarantee_one_low_lvl_in_buf_per_socket(true)
+  m_dyn_guarantee_one_low_lvl_in_buf_per_socket(true),
+  // For TCP these days values like ~500 are not-atypical, but let's be modest by default.
+  m_dyn_accept_backlog_limit(64)
 {
   // Nothing.
 }
@@ -136,6 +138,15 @@ void Node_options::setup_config_parsing_helper(Options_description* opts_desc,
        "faster, especially if low-lvl-max-packet-size is unnecessarily large; but arguably the zero-copy behavior "
        "may become faster if some implementation details related to this change.  So this switch seemed worth "
        "keeping.");
+  ADD_CONFIG_OPTION
+    (m_dyn_accept_backlog_limit,
+     "Maximum backlog size for each `Server_socket` subsequently created via `Node::listen()`.  The backlog "
+     "(for a given `Server_socket`) is defined as the total number of connections either in SYN_RCVD state "
+     "(SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via "
+     "`Server_socket::*accept()`.  When a SYN arrives while the backlog is full, it is rejected with an RST "
+     "response.  This value is captured at `Node::listen()` time and fixed for the resulting `Server_socket`'s "
+     "lifetime; subsequent changes affect only `Server_socket`s created by later `listen()` calls.  "
+     "It *is* dynamic at the `Node` level, but does *not* dynamically affect existing listening `Server_socket`s.");
 
   Peer_socket_options::setup_config_parsing_helper(opts_desc,
                                                    &target->m_dyn_sock_opts,

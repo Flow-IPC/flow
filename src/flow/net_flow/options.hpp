@@ -568,6 +568,19 @@ struct Node_options
   bool m_dyn_guarantee_one_low_lvl_in_buf_per_socket;
 
   /**
+   * Maximum backlog size for each `Server_socket` subsequently created via `Node::listen()`.  The backlog
+   * (for a given `Server_socket`) is defined as the total number of connections either in SYN_RCVD state
+   * (SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via
+   * `Server_socket::*accept()`.  When a SYN arrives while the backlog is full, it is rejected with an RST response.
+   *
+   * This value is captured at `Node::listen()` time and fixed for the resulting `Server_socket`'s
+   * lifetime; subsequent changes affect only `Server_socket`s created by later `listen()` calls.
+   *
+   * It *is* dynamic at the `Node` level, but does *not* dynamically affect existing listening `Server_socket`s.
+   */
+  unsigned int m_dyn_accept_backlog_limit;
+
+  /**
    * The set of per-Peer_socket options in this per-Node set of options.  This represents the
    * per-socket options each subsequent socket generated in the corresponding Node will get, unless
    * user specifies a custom set of such options.

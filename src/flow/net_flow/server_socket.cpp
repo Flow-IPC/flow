@@ -37,7 +37,8 @@ Server_socket::Server_socket(log::Logger* logger_ptr, const Peer_socket_options*
   m_child_sock_opts(child_sock_opts ? new Peer_socket_options{*child_sock_opts} : nullptr),
   m_state(State::S_CLOSED), // Incorrect; set explicitly.
   m_node(nullptr), // Incorrect; set explicitly.
-  m_local_port(S_PORT_ANY) // Incorrect; set explicitly.
+  m_local_port(S_PORT_ANY), // Incorrect; set explicitly.
+  m_backlog_limit(0) // Incorrect; set explicitly.
 {
   // Only print pointer value, because most members are garbage at this point.
   FLOW_LOG_TRACE("Server_socket [" << static_cast<void*>(this) << "] created.");
@@ -267,7 +268,12 @@ void Node::listen_worker(flow_port_t local_port, const Peer_socket_options* chil
   // else
   local_port = serv->m_local_port; // If they'd specified S_PORT_ANY, this is now a random port.
 
-  FLOW_LOG_INFO("NetFlow worker thread listening for passive-connects on [" << serv << "].");
+  /* Save backlog limit.  Note it is dynamic at the Node level (thus future listen()s can set different values here),
+   * but that does not (in and of itself anyway) mean it can be subsequently changed for the `serv` we are returning. */
+  serv->m_backlog_limit = opt(m_opts.m_dyn_accept_backlog_limit);
+
+  FLOW_LOG_INFO("NetFlow worker thread listening for passive-connects on [" << serv << "]; "
+                "backlog limit [" << serv->m_backlog_limit << "].");
 
   if (util::key_exists(m_servs, local_port))
   {
@@ -440,7 +446,25 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   // We are in thread W.
 
   /* We just got SYN (an overture from the other side).  Create a peer-to-peer socket to track that
-   * connection being established. */
+   * connection being established.  Though, if we are the backlog limit, then there's no point: reject immediately
+   * without even temporarily taking the memory for the Peer_socket. */
+  {
+    const auto backlog_sz = serv->m_unaccepted_socks.size() + serv->m_connecting_socks.size();
+    if (backlog_sz >= static_cast<size_t>(serv->m_backlog_limit))
+      // As of this writing `==` is sufficient, but just in case it becomes mutable someday: use `>=`.
+    {
+      /* (Let's not use INFO or WARNING here; if there's a SYN-flood going on then no need to fill up the logs.
+       * After all it's not *that* interesting of a message, on balance.  One could argue that logging rate-limiting
+       * is the `Logger`'s job -- and indeed it is -- but in this case we can defensibly avoid this
+       * difficulty altogether.) */
+      FLOW_LOG_TRACE("NetFlow worker thread, on receipt of [" << syn->m_type_ostream_manip << "] was about to "
+                     "start passive-connect on [" << serv << "], but the backlog would then exceed the "
+                     "limit [" << serv->m_backlog_limit << "]; resetting connection.");
+      async_no_sock_low_lvl_rst_send(Low_lvl_packet::const_ptr_cast(syn), low_lvl_remote_endpoint);
+      return Peer_socket::Ptr{};
+    }
+    // else OK; do create that peer-to-peer socket.
+  }
 
   Peer_socket::Ptr sock;
   if (serv->m_child_sock_opts)
