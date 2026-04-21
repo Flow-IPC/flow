@@ -21,6 +21,7 @@
 #include "flow/net_flow/detail/stats/bandwidth.hpp"
 #include "flow/net_flow/detail/cong_ctl.hpp"
 #include "flow/async/util.hpp"
+#include <boost/random/random_device.hpp>
 
 namespace flow::net_flow
 {
@@ -433,7 +434,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
                                                       const util::Udp_endpoint& low_lvl_remote_endpoint)
 {
   using util::Blob;
-  using boost::random::uniform_int_distribution;
+  using boost::random::random_device;
 
   // We are in thread W.
 
@@ -542,8 +543,19 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   init_seq_num.set_metadata('L',init_seq_num + 1, sock->max_block_size());
   // Sequence number of first bit of actual data.
   sock->m_snd_next_seq_num = init_seq_num + 1;
-  // Security token.  Random number from entire numeric range.  Remember it for later verification.
-  sock->m_security_token = m_rnd_security_tokens();
+
+  /* Security token.  Random number from entire numeric range.  Remember it for later verification.
+   * Use a CSPRNG (not the general-purpose mt19937-based Rnd_gen_uniform_range) because this token
+   * must be unpredictable to off-path attackers attempting to forge SYN_ACK_ACK packets. */
+  random_device rnd_dev;
+  static_assert((random_device::min() == 0) && (random_device::max() == 0xFFFF'FFFF),
+                "The following statement assumes full 32-bit range of random_device.");
+  static_assert(sizeof(decltype(Peer_socket::m_security_token)) == (64 / 8),
+                "The following statement assumes 64-bit security tokens.");
+  sock->m_security_token = ((static_cast<security_token_t>(rnd_dev()) << 32)
+                            |
+                            static_cast<security_token_t>(rnd_dev()));
+
   // Initial receive window is simply the entire empty Receive buffer.
   sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
 
