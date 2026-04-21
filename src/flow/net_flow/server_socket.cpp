@@ -435,6 +435,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
 {
   using util::Blob;
   using boost::random::random_device;
+  using security_token_t = Peer_socket::security_token_t;
 
   // We are in thread W.
 
