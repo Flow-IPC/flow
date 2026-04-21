@@ -141,6 +141,13 @@ struct Peer_socket_options
   size_t m_st_rcv_buf_max_size;
 
   /**
+   * Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK;
+   * any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.
+   * The value 0 will drop all such DATA packets.
+   */
+  size_t m_st_rcv_sync_rcvd_data_q_cumulative_max_size;
+
+  /**
    * Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  If this is
    * disabled, an infinite rcv_wnd will always be advertised to the sender; so if the Receive buffer
    * is exceeded packets are dropped as normal, but the sender will not know it should stop sending

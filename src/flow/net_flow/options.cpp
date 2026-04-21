@@ -206,6 +206,9 @@ Peer_socket_options::Peer_socket_options() :
   m_st_snd_buf_max_size(6 * 1024 * 1024),
   // @todo Ditto.
   m_st_rcv_buf_max_size(m_st_snd_buf_max_size),
+  /* If not for SYN-flood-like possibility, this could be ~= m_st_rcv_buf_max_size.  Instead let's keep it modest.
+   * It would after all be strange to receive a large number of DATAs without a single retried SYN_ACK_ACK. */
+  m_st_rcv_sync_rcvd_data_q_cumulative_max_size(64 * 1024),
   // Disabling flow control is an emergency measure only.
   m_st_rcv_flow_control_on(true),
   // Seems reasonable.  Should be a few hundred KB typically.
@@ -334,6 +337,11 @@ void Peer_socket_options::setup_config_parsing_helper(Options_description* opts_
      "Maximum number of bytes that the Receive buffer can hold.  This determines how many bytes "
        "can be received in the background by the Node without user doing any receive()s.  "
        "It is also rounded up to to the nearest multiple of max-block-size.");
+  ADD_CONFIG_OPTION
+    (m_st_rcv_sync_rcvd_data_q_cumulative_max_size,
+     "Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; "
+       "any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  "
+       "The value 0 will drop all such DATA packets.");
   ADD_CONFIG_OPTION
     (m_st_rcv_flow_control_on,
      "Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  If this is "

@@ -751,7 +751,11 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
    * empty until ESTABLISHED, it seems natural to limit this queue's cumulative byte size
    * according to the limit imposed on Receive buffer.  (There is some extra overhead to store the
    * packet header info, but it's close enough.)  After that, as when the Receive buffer fills up,
-   * we drop packets. */
+   * we drop packets.
+   *
+   * Update (leaving preceding paragraph there for posterity): On 2nd thought, that is probably too
+   * generous given the possibility of SYN-flood-like attacks.  Therefore we now use a separate option-knob to limit
+   * this queue's size. */
 
   assert(sock->m_int_state == Peer_socket::Int_state::S_SYN_RCVD);
   const bool first_time = sock->m_rcv_syn_rcvd_data_q.empty();
@@ -769,12 +773,15 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
     sock->m_rcv_syn_rcvd_data_cumulative_size = 0; // It's garbage at the moment.
   }
   else if ((sock->m_rcv_syn_rcvd_data_cumulative_size + packet->m_data.size())
-           > sock->opt(sock->m_opts.m_st_snd_buf_max_size))
+           > sock->opt(sock->m_opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size))
   {
-    // Not a WARNING, because we didn't do anything wrong; could be network conditions.
-    FLOW_LOG_INFO("NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
-                  "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
-                  "dropping because Receive queue full at [" << sock->m_rcv_syn_rcvd_data_cumulative_size << "].");
+    /* Not a WARNING, because we didn't do anything wrong; could be network conditions.
+     * Not INFO either: a SYN-flood-like (DATA-flood?) attempt may not overfill the logs, given the limit, but generally
+     * logging on a per-packet basis (for one connection/connection-to-be) is not great.
+     * @todo An INFO-log the first time this happens would be nice. */
+    FLOW_LOG_TRACE("NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
+                   "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
+                   "dropping because Receive queue full at [" << sock->m_rcv_syn_rcvd_data_cumulative_size << "].");
     return;
   }
   // else
