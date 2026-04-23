@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout VERSION file and tag history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           sparse-checkout: VERSION
           fetch-depth: 0 # Get all history regarding tags.  We'll need that for VERSION checking below.
@@ -474,7 +474,7 @@ jobs:
       run: pip install 'conan<2'
 
     - name: Checkout `flow` repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Add custom settings for Conan packages
       if: |
@@ -713,7 +713,7 @@ jobs:
       run: pip install 'conan<2'
 
     - name: Checkout `flow` repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     # See comments in Flow-IPC workflow counterpart.  We use same techniques.
     - name: (On release creation only) Signal Pages about release (web site should update)
