@@ -48,7 +48,7 @@ TEST(Net_flow_backlog, default_value)
 {
   const Node_options defaults;
   using lim_t = decltype(Node_options::m_dyn_accept_backlog_limit);
-  EXPECT_TRUE(flow::util::is_in_closed_range(lim_t(32), defaults.m_dyn_accept_backlog_limit, lim_t(128)))
+  EXPECT_TRUE(flow::util::in_closed_range(lim_t(32), defaults.m_dyn_accept_backlog_limit, lim_t(128)))
     << "Default should be something sane; [" << defaults.m_dyn_accept_backlog_limit << "] is not what "
        "what we had envisioned -- so just look into it, and then fix the test or the default.";
 
