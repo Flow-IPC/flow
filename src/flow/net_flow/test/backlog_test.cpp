@@ -23,8 +23,8 @@
 #include "flow/net_flow/error/error.hpp"
 #include "flow/test/test_logger.hpp"
 #include "flow/util/util.hpp"
+#include "flow/common.hpp"
 #include <gtest/gtest.h>
-#include <boost/chrono.hpp>
 #include <vector>
 
 /* Tests for the per-Server_socket accept-backlog limit.  This limit protects a listening server against a SYN-flood
@@ -53,13 +53,17 @@ TEST(Net_flow_backlog, default_value)
        "what we had envisioned -- so just look into it, and then fix the test or the default.";
 
   Test_logger logger;
-  ASSERT_NO_THROW
-  ({
+  try
+  {
     Node node{&logger, Udp_endpoint{Ip_address_v4::loopback(), 0}};
     EXPECT_EQ(defaults.m_dyn_accept_backlog_limit, node.options().m_dyn_accept_backlog_limit)
       << "This is pretty paranoid, but we're briefly checking that indeed Node::options() defaults to Node_options{}, "
          "for this setting at least."; // Not a substitute for testing the options submodule of NetFlow.
-  });
+  }
+  catch (const std::exception& exc)
+  {
+    FAIL() << "Unexpected exception: [" << exc.what() << "].";
+  }
 }
 
 /* End-to-end exercise of the backlog limit.
@@ -111,9 +115,10 @@ TEST(Net_flow_backlog, excess_syns_rejected)
   Node_options srv_opts;
   srv_opts.m_dyn_accept_backlog_limit = BACKLOG;
 
-  // nullptr/omitted Error_code* => throw.  Nothing should throw until we start getting the RSTs on reaching BACKLOG.
-  ASSERT_NO_THROW
-  ({
+  /* nullptr/omitted Error_code* => throw.  Nothing should throw until we start getting the RSTs on reaching BACKLOG,
+   * and those we handle inline below.  Hence: one outer try/catch with FAIL() in the catch for unexpected throws. */
+  try
+  {
     Node srv{&logger, Udp_endpoint{Ip_address_v4::loopback(), 0}, nullptr, nullptr, srv_opts};
     ASSERT_TRUE(srv.running());
 
@@ -157,7 +162,11 @@ TEST(Net_flow_backlog, excess_syns_rejected)
       EXPECT_LT(round<milliseconds>(elapsed_period), REJECT_MAX_PERIOD)
         << "Rejection took [" << round<milliseconds>(elapsed_period) << "] (expected < [" << REJECT_MAX_PERIOD << "]).";
     }
-  }); // ASSERT_NO_THROW
+  } // try
+  catch (const std::exception& exc)
+  {
+    FAIL() << "Unexpected exception: [" << exc.what() << "].";
+  }
 } // TEST(Net_flow_backlog, excess_syns_rejected)
 
 } // namespace flow::net_flow::test
