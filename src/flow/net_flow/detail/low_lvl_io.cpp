@@ -383,8 +383,11 @@ void Node::async_low_lvl_packet_send_impl(const util::Udp_endpoint& low_lvl_remo
   const size_t bytes_to_send = packet->serialize_to_raw_data_and_log(&raw_bufs);
   assert(bytes_to_send != 0);
 
-  // Count an actual UDP stack send() call.
-  sock->m_snd_stats.low_lvl_packet_xfer_called(packet_type_id, delayed_by_pacing, bytes_to_send);
+  // Count an actual UDP stack send() call (if a socket was actually opened; else can't charge stats to one).
+  if (sock)
+  {
+    sock->m_snd_stats.low_lvl_packet_xfer_called(packet_type_id, delayed_by_pacing, bytes_to_send);
+  }
 
   const size_t limit = opt(m_opts.m_dyn_low_lvl_max_packet_size);
   if (bytes_to_send > limit)
@@ -399,6 +402,7 @@ void Node::async_low_lvl_packet_send_impl(const util::Udp_endpoint& low_lvl_remo
                   "[\n" << packet->m_verbose_ostream_manip << "].");
 
     // Short-circuit this, since no send occurred.
+    assert(sock && "Really?  A giant low-level packet that is not even DATA?  Bug.");
     sock->m_snd_stats.low_lvl_packet_xfer_completed(packet_type_id, bytes_to_send, 0);
     return;
   }
