@@ -267,7 +267,7 @@ size_t Port_space::find_available_port_bit_idx(const Bit_set& ports)
   /* Pick a random bit in bit field.  Use a CSPRNG (not the general-purpose mt19937-based
    * Random_generator in flow::util) because ephemeral port selection must be unpredictable to off-path
    * attackers attempting to guess the tuple of an established connection (cf. RFC 6056). */
-  random_device rnd_dev;
+  random_device rnd_dev; // Setting this up, in Linux at least, is ~microseconds per new endpoint.  No prob.
   uniform_int_distribution<size_t> range{0, ports.size() - 1};
   size_t port_bit_idx = range(rnd_dev);
 

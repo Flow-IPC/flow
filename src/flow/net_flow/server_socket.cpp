@@ -446,7 +446,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   // We are in thread W.
 
   /* We just got SYN (an overture from the other side).  Create a peer-to-peer socket to track that
-   * connection being established.  Though, if we are the backlog limit, then there's no point: reject immediately
+   * connection being established.  Though, if we are at the backlog limit, then there's no point: reject immediately
    * without even temporarily taking the memory for the Peer_socket. */
   {
     const auto backlog_sz = serv->m_unaccepted_socks.size() + serv->m_connecting_socks.size();
@@ -572,7 +572,7 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   /* Security token.  Random number from entire numeric range.  Remember it for later verification.
    * Use a CSPRNG (not the general-purpose mt19937-based Rnd_gen_uniform_range) because this token
    * must be unpredictable to off-path attackers attempting to forge SYN_ACK_ACK packets. */
-  random_device rnd_dev;
+  random_device rnd_dev; // Setting this up, in Linux at least, is microseconds per connection.  No prob.
   static_assert((random_device::min() == 0) && (random_device::max() == 0xFFFF'FFFF),
                 "The following statement assumes full 32-bit range of random_device.");
   static_assert(sizeof(decltype(Peer_socket::m_security_token)) == (64 / 8),

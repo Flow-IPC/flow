@@ -373,7 +373,7 @@ private:
  * It could be replaced by a `static` function in Sequence_number, for example.
  *
  * However, historically, it used to be more complex (with a clock-based ISN-generation scheme RFC 793 from 1981)
- * and thus did have state.  While eventually we deemed this oudated and unnecessary (hence the simple current
+ * and thus did have state.  While eventually we deemed this outdated and unnecessary (hence the simple current
  * impl), there is also a to-do (not high-priority) inside generate_init_seq_num() for a more
  * advanced approach which would require state.  All in all we found it prudent to keep this encapsulated as
  * an object class.

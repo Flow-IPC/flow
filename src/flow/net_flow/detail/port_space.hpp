@@ -22,7 +22,6 @@
 #include "flow/net_flow/net_flow_fwd.hpp"
 #include "flow/net_flow/error/error.hpp"
 #include "flow/log/log.hpp"
-#include "flow/util/random.hpp"
 #include <boost/dynamic_bitset.hpp>
 #include <boost/utility.hpp>
 #include <queue>

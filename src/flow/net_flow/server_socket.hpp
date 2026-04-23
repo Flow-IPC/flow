@@ -353,7 +353,7 @@ private:
 
   /**
    * The immutable limit on `m_unaccepted_socks.size() + m_connecting_socks.size()`, such that excess SYNs
-   * beyond this limit shall be rejected with RST.  Should be set before user gets acces to `*this` and not
+   * beyond this limit shall be rejected with RST.  Should be set before user gets access to `*this` and not
    * changed afterwards.
    * @todo Make #m_backlog_limit `const`?
    */

@@ -52,14 +52,14 @@ Sequence_number Sequence_number::Generator::generate_init_seq_num()
   /* Generate each ISN independently from a CSPRNG.
    *
    * Historically (RFC 793: original TCP spec) this was done with a clock-based scheme (new sequence number every N
-   * usec, with N defined by the RC).  This code formerly (written circa 2011) implemented this; however
+   * usec, with N defined by the RFC).  This code formerly (written circa 2011) implemented this; however
    * clock-based ISN generation is predictable to off-path attackers.  Hence for a full-on secure implementation
    * we'd perhaps want the full RFC 6528 keyed-hash scheme used by modern production TCP stacks.  @todo Do that.
    *
    * For the time being (2026), we will do a per-call CSPRNG pull instead.  This is simpler and equally
    * unpredictable for this context. */
 
-  random_device rnd_dev;
+  random_device rnd_dev; // Setting this up, in Linux at least, is microseconds per connection.  No prob.
   uniform_int_distribution<seq_num_t> range{1, S_MAX_INIT_SEQ_NUM}; // 0 is a reserved number; do not use.
 
   Sequence_number result;
