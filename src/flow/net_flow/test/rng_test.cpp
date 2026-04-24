@@ -28,7 +28,6 @@
 #include "flow/util/util.hpp"
 #include "flow/common.hpp"
 #include <gtest/gtest.h>
-#include <boost/chrono.hpp>
 #include <boost/regex.hpp>
 #include <set>
 #include <string>
