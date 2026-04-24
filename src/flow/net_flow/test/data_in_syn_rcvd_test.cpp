@@ -34,6 +34,7 @@
 #include <boost/regex.hpp>
 #include <cstdint>
 #include <vector>
+#include <iostream>
 
 /* Guardrail for the server-side DATA-in-SYN_RCVD buffer limit.  Background:
  *
@@ -78,13 +79,15 @@ namespace chrono = boost::chrono;
 using boost::regex;
 using boost::regex_search;
 using std::vector;
+using std::cerr;
+using std::flush;
 } // namespace (anon)
 
 TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
 {
   constexpr flow_port_t LOCAL_FLOW_PORT = 50;
   constexpr size_t CAP = 1000; // Server SYN_RCVD-buffer byte cap.
-  constexpr size_t CHUNK = 500; // Per sync_send() -- two fit under CAP, rest overflow.
+  constexpr size_t CHUNK_SZ = 500; // Per sync_send() -- two fit under CAP, rest overflow.
   constexpr unsigned int N_CHUNKS = 5;
   constexpr auto RETX_PERIOD = chrono::milliseconds{500}; // Server's SYN_ACK retransmit pause.
   constexpr auto CONNECT_TIMEOUT = chrono::seconds{10};
@@ -97,6 +100,15 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
     (100, Config::standard_component_payload_enum_sparse_length<Flow_log_component>(), true);
   log_cfg.init_component_names<Flow_log_component>(S_FLOW_LOG_COMPONENT_NAME_MAP, false, "flow-");
   Buffer_logger logger{&log_cfg};
+
+  // Any return (including failed ASSERT()s) will run the thing (very helpful to figure out what happened).
+  const auto cleanup = util::setup_auto_cleanup([&]()
+  {
+    if (::testing::Test::HasFailure())
+    {
+      cerr << "=== Buffered log follows ===\n" << logger.buffer_str() << '\n' << flush;
+    }
+  });
 
   Node_options srv_opts;
   srv_opts.m_dyn_sock_opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size = CAP;
@@ -133,7 +145,7 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
       ASSERT_TRUE(cli_sock);
       // Client thinks ESTABLISHED; server is in SYN_RCVD (simulator dropped its SYN_ACK_ACK).
 
-      const vector<uint8_t> payload(CHUNK, uint8_t{0xAB});
+      const vector<uint8_t> payload(CHUNK_SZ, uint8_t{0xAB});
       for (unsigned int idx = 0; idx != N_CHUNKS; ++idx)
       {
         FLOW_TEST_TRACE_CTX("Chunk [", idx, "].");
@@ -160,7 +172,7 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
   EXPECT_LE(n_total_bytes, CAP)
     << "SYN_RCVD data-buffer byte count [" << n_total_bytes << "] exceeded configured cap [" << CAP << "].";
   // Some DATA must have been buffered -- otherwise the test didn't actually exercise the path.
-  EXPECT_GE(n_total_bytes, CHUNK)
+  EXPECT_GE(n_total_bytes, CHUNK_SZ)
     << "No DATA buffered (cumulative = [" << n_total_bytes << "]); "
        "server probably was not in SYN_RCVD when DATA arrived.";
   // Not *all* chunks were queued -- otherwise cap was not enforced.
@@ -177,6 +189,8 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
   EXPECT_TRUE(regex_search(logger.buffer_str(), first_data_in_syn_rcvd))
     << "Log did not contain the expected 'first DATA in SYN_RCVD' INFO line -- server may not have actually been "
        "in SYN_RCVD when DATAs arrived.  Log format may have changed; update the regex.";
+
+
 } // TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
 
 } // namespace flow::net_flow::test
