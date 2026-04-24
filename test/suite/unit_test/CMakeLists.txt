@@ -27,6 +27,7 @@ set(SRCS
     ${PROJECT_SOURCE_DIR}/src/flow/log/detail/test/component_cfg_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/log/test/log_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/net_flow/test/backlog_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/net_flow/test/data_in_syn_rcvd_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/net_flow/test/rng_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/linked_hash_test.cpp
