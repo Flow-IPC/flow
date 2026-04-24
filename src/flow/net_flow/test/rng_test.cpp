@@ -96,18 +96,15 @@ TEST(Net_flow_rng, Port_space_ephemeral)
 
   vector<flow_port_t> ports;
   ports.reserve(N);
-  try
+  for (unsigned int idx = 0; idx != N; ++idx)
   {
-    for (unsigned int idx = 0; idx != N; ++idx)
-    {
-      Port_space port_spc{&logger};
-      // nullptr => throw on error; a fresh Port_space has ~60K free ports, so no error expected.
-      ports.push_back(port_spc.reserve_ephemeral_port(nullptr));
-    }
-  }
-  catch (const std::exception& exc)
-  {
-    FAIL() << "Unexpected exception: [" << exc.what() << "].";
+    Port_space port_spc{&logger};
+    /* A fresh Port_space has ~60K free ports, so no error expected.
+     * Per documentation, as an internal API this one expects non-null Error_code; it won't throw. */
+    Error_code err_code;
+    ports.push_back(port_spc.reserve_ephemeral_port(&err_code));
+    ASSERT_FALSE(err_code) << "reserve_ephemeral_port() must succeed; failed: "
+                              "[" << err_code << "] [" << err_code.message() << "].";
   }
 
   // Port space is only 16-bit; tolerate 1 dup in N=10 -- see file-level comment for probability analysis.

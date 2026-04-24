@@ -124,6 +124,9 @@ public:
    * Reserve the specified service port, or reserve_ephemeral_port() if the specified port is
    * #S_PORT_ANY.
    *
+   * @warning As an internal API, this one assumes `err_code` is not null.  Passing null won't throw;
+   *          undefined behavior results.
+   *
    * @param port
    *        A valid and still available service port number, or #S_PORT_ANY.
    * @param err_code
@@ -137,6 +140,9 @@ public:
   /**
    * Reserve a randomly chosen available ephemeral port.
    *
+   * @warning As an internal API, this one assumes `err_code` is not null.  Passing null won't throw;
+   *          undefined behavior results.
+   *
    * @param err_code
    *        See flow::Error_code docs for error reporting semantics.  error::Code generated:
    *        error::Code::S_OUT_OF_PORTS.
@@ -146,6 +152,9 @@ public:
 
   /**
    * Return a previously reserved port (of any type).
+   *
+   * @warning As an internal API, this one assumes `err_code` is not null.  Passing null won't throw;
+   *          undefined behavior results.
    *
    * @param port
    *        A previously reserved port.
