@@ -15,6 +15,8 @@
  * See the License for the specific language governing
  * permissions and limitations under the License. */
 
+#include "flow/test/test_logger.hpp"
+#include "flow/test/test_common_util.hpp"
 #include "flow/net_flow/detail/port_space.hpp"
 #include "flow/net_flow/detail/seq_num.hpp"
 #include "flow/net_flow/node.hpp"
@@ -24,7 +26,6 @@
 #include "flow/net_flow/error/error.hpp"
 #include "flow/log/buffer_logger.hpp"
 #include "flow/log/config.hpp"
-#include "flow/test/test_logger.hpp"
 #include "flow/util/util.hpp"
 #include "flow/common.hpp"
 #include <gtest/gtest.h>
