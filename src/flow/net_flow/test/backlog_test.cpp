@@ -21,6 +21,7 @@
 #include "flow/net_flow/peer_socket.hpp"
 #include "flow/net_flow/server_socket.hpp"
 #include "flow/net_flow/error/error.hpp"
+#include "flow/test/test_common_util.hpp"
 #include "flow/test/test_logger.hpp"
 #include "flow/util/util.hpp"
 #include "flow/common.hpp"
@@ -44,7 +45,7 @@ namespace chrono = boost::chrono;
 } // Anonymous namespace
 
 // A trivial guard against silently huge changes to the default; basically we don't want it to be something massive.
-TEST(Net_flow_backlog, default_value)
+TEST(Net_flow_backlog, Default_value)
 {
   const Node_options defaults;
   using lim_t = decltype(Node_options::m_dyn_accept_backlog_limit);
@@ -92,7 +93,7 @@ TEST(Net_flow_backlog, default_value)
  * loss sequence, transitioning the server out of SYN_RCVD and defeating the setup).  The `BACKLOG + 1`st SYN should
  * still be RSTed identically to the current test.  As above, we're going for a pragmatic check here, not an
  * exhaustive blackbox-stressing thing for the time being. */
-TEST(Net_flow_backlog, excess_syns_rejected)
+TEST(Net_flow_backlog, Excess_syns_rejected)
 {
   using chrono::milliseconds;
   using chrono::seconds;
@@ -139,14 +140,14 @@ TEST(Net_flow_backlog, excess_syns_rejected)
 
     for (unsigned int idx = 0; idx != BACKLOG; ++idx)
     {
-      SCOPED_TRACE("Connect [" + std::to_string(idx) + "] (within backlog).");
+      FLOW_TEST_TRACE_CTX("Connect [", idx, "] (within backlog).");
       accepted.emplace_back(cli.sync_connect(target, CONNECT_USER_TIMEOUT));
       ASSERT_TRUE(accepted.back());
     }
 
     for (unsigned int idx = 0; idx != EXTRA; ++idx)
     {
-      SCOPED_TRACE("Connect [" + std::to_string(BACKLOG + idx) + "] (beyond backlog).");
+      FLOW_TEST_TRACE_CTX("Connect [", BACKLOG + idx, "] (beyond backlog).");
       const auto from_when = Fine_clock::now();
       try
       {
