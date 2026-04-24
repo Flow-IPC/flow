@@ -51,12 +51,18 @@
  * arrives at the server-in-SYN_RCVD.  Once we've delivered enough DATA to overflow the cap, the
  * server's SYN_ACK retransmit (bumped to ~500ms to give us comfortable headroom) prompts a fresh
  * SYN_ACK_ACK from the client; the Net_env_simulator loss-sequence is exhausted by then, so that 2nd one
- * passes, the handshake completes, and the socket becomes acceptable.  We then read Peer_socket_info off the
- * accepted server-side socket: m_rcv_syn_rcvd_data_cumulative_size (byte count) and
- * m_rcv_syn_rcvd_data_q_size (packet count) persist past the SYN_RCVD->ESTABLISHED transition and
- * tell us exactly how much was buffered.  Precondition witness: an INFO log line from
- * handle_data_to_syn_rcvd() ("first time? = [1]") confirms DATA really did arrive in SYN_RCVD --
- * without this, a too-fast handshake would silently invalidate the whole test.
+ * passes, the handshake completes, and the socket becomes acceptable.
+ *
+ * Post-accept, we read Peer_socket_info::m_rcv.m_total_data_{size|count} off the server socket.
+ * DATA dropped by the SYN_RCVD cap never reaches that accounting; DATA that fit in
+ * the queue is replayed into the rcv pipeline on the
+ * SYN_RCVD=>ESTABLISHED transition and counted once there.  So m_total_data_size measures
+ * precisely "bytes that survived the cap" -- must be <= CAP if the cap is working, and > 0 if the
+ * SYN_RCVD path was actually exercised.
+ *
+ * Precondition witness: an INFO log line from handle_data_to_syn_rcvd() ("first time? = [1]")
+ * confirms DATA really did arrive in SYN_RCVD -- without this, a too-fast handshake would silently
+ * invalidate the whole test.
  *
  * Depends on a specific INFO log line for the precondition check; if that line's format
  * changes, it'll fail and encourage updating the regex.
@@ -126,8 +132,8 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
   // @todo Some unwise design in 2011 by me (ygoldfel).  Make it take unique_ptr&&, or make Net_env_simulator movable.
   const auto srv_sim = new Net_env_simulator{&logger, 0, 0.0, loss_seq};
 
-  size_t n_total_bytes = 0;
-  size_t n_qd_pkts = 0;
+  size_t n_delivered_bytes = 0;
+  size_t n_delivered_pkts = 0;
 
   try
   {
@@ -158,9 +164,12 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
       auto srv_sock = listener->sync_accept(ACCEPT_TIMEOUT);
       ASSERT_TRUE(srv_sock);
 
+      /* info().m_rcv.m_total_data_{size|count} = bytes/packets that survived the cap (replayed from the
+       * queue into the rcv pipeline).  Dropped-by-cap DATA never reaches this accumulator; see top comment
+       * comment for why this is what we want. */
       const auto info = srv_sock->info();
-      n_total_bytes = info.m_rcv_syn_rcvd_data_cumulative_size;
-      n_qd_pkts = info.m_rcv_syn_rcvd_data_q_size;
+      n_delivered_bytes = info.m_rcv.m_total_data_size;
+      n_delivered_pkts = info.m_rcv.m_total_data_count;
     } // Both Nodes destroyed; worker threads joined => buffer_str() safe below.
   }
   catch (const std::exception& exc)
@@ -168,17 +177,17 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
     FAIL() << "Unexpected exception: [" << exc.what() << "].";
   }
 
-  // Cap is hard: cumulative bytes buffered during SYN_RCVD must never exceed it.
-  EXPECT_LE(n_total_bytes, CAP)
-    << "SYN_RCVD data-buffer byte count [" << n_total_bytes << "] exceeded configured cap [" << CAP << "].";
-  // Some DATA must have been buffered -- otherwise the test didn't actually exercise the path.
-  EXPECT_GE(n_total_bytes, CHUNK_SZ)
-    << "No DATA buffered (cumulative = [" << n_total_bytes << "]); "
-       "server probably was not in SYN_RCVD when DATA arrived.";
-  // Not *all* chunks were queued -- otherwise cap was not enforced.
-  EXPECT_LT(n_qd_pkts, N_CHUNKS)
-    << "All [" << N_CHUNKS << "] chunks ended up in the SYN_RCVD queue (q_size = [" << n_qd_pkts << "]); "
+  // Cap is hard: bytes that survived the cap (= everything the server's rcv pipeline ultimately accepted) must not exceed it.
+  EXPECT_LE(n_delivered_bytes, CAP)
+    << "Bytes delivered through the server rcv pipeline [" << n_delivered_bytes << "] exceed cap [" << CAP << "]; "
        "cap was not enforced.";
+  // Some DATA must have made it through -- otherwise the test didn't actually exercise the SYN_RCVD path.
+  EXPECT_GE(n_delivered_bytes, CHUNK_SZ)
+    << "No DATA delivered (total = [" << n_delivered_bytes << "]); "
+       "server probably was not in SYN_RCVD when DATA arrived.";
+  // Not *all* chunks got through -- otherwise cap was not enforced.
+  EXPECT_LT(n_delivered_pkts, N_CHUNKS)
+    << "All [" << N_CHUNKS << "] chunks were delivered (count = [" << n_delivered_pkts << "]); cap was not enforced.";
 
   /* Precondition witness: the INFO-level line from handle_data_to_syn_rcvd() fired with
    * `first time? = [1|true]`, confirming DATA really did hit SYN_RCVD (and not, e.g., ESTABLISHED
