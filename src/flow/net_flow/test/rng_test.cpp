@@ -127,12 +127,13 @@ TEST(Net_flow_rng, Isn_generator)
   expect_mostly_distinct(isns);
 }
 
-/* End-to-end check of the security token and ISN (as used during a real handshake) via log-scraping.
+/* End-to-end check of the security token (as used during a real handshake) via log-scraping.
  *
  * Security token is not exposed via any public accessor; it is logged at INFO on the active-connect side
- * on receipt of SYN_ACK.  That same line carries the ISN as seen end-to-end (from the SYN_ACK), so we grab
- * both with one regex, getting seed-diversity coverage for the security-token path and a bonus end-to-end
- * check of the ISN path in one shot.
+ * on receipt of SYN_ACK.
+ *
+ * Raw ISNs are not prominently logged, so we don't check them end-to-end; the direct
+ * Sequence_number::Generator check in Net_flow_rng.Isn_generator should be sufficient.
  *
  * We use one Buffer_logger per session (not a shared one) so the regex only ever sees output from the pair under
  * test -- avoids cross-pair contamination and races on buffer_str() across Node threads (which would keep logging
@@ -140,7 +141,7 @@ TEST(Net_flow_rng, Isn_generator)
  *
  * @warning This depends on the exact log format, so test could break, if someone changes the line.  Usually that
  * stuff is self-explanatory to fix. */
-TEST(Net_flow_rng, Security_token_and_isn_via_logs)
+TEST(Net_flow_rng, Security_token_via_logs)
 {
   constexpr flow_port_t LOCAL_FLOW_PORT = 50;
   constexpr auto CONNECT_USER_TIMEOUT = chrono::seconds{1};
@@ -150,16 +151,15 @@ TEST(Net_flow_rng, Security_token_and_isn_via_logs)
     (100, Config::standard_component_payload_enum_sparse_length<Flow_log_component>(), true);
   log_cfg.init_component_names<Flow_log_component>(S_FLOW_LOG_COMPONENT_NAME_MAP, false, "flow-");
 
-  /* Match the single active-connect-continuation INFO line, capturing ISN (group 1) and security token (group 2).
-   * Anchored on "continuing active-connect" so we don't accidentally match the passive-connect line (which has an
-   * ISN but no security token) or any unrelated [...]-bracketed substring. */
+  /* Match the single active-connect-continuation INFO line, capturing the security token.  Anchored on
+   * "continuing active-connect" (not just "security token") so we don't accidentally match any unrelated
+   * [...]-bracketed substring; passive-connect also has a "security token" field but no "continuing
+   * active-connect". */
   const regex line_re
-    {R"(continuing active-connect of [^\n]*?ISN \[([^\]]+)\]; security token \[([^\]]+)\])"};
+    {R"(continuing active-connect of [^\n]*?security token \[([^\]]+)\])"};
 
   vector<string> tokens;
-  vector<string> isns;
   tokens.reserve(N);
-  isns.reserve(N);
 
   try
   {
@@ -189,10 +189,9 @@ TEST(Net_flow_rng, Security_token_and_isn_via_logs)
       const auto& log = logger.buffer_str();
       smatch m;
       ASSERT_TRUE(regex_search(log, m, line_re))
-        << "Log did not contain the expected active-connect-continuation line with ISN + security token.  "
+        << "Log did not contain the expected active-connect-continuation line with security token.  "
            "Log format may have changed; update the regex.";
-      isns.emplace_back(m[1].str());
-      tokens.emplace_back(m[2].str());
+      tokens.emplace_back(m[1].str());
     }
   }
   catch (const std::exception& exc)
@@ -200,14 +199,7 @@ TEST(Net_flow_rng, Security_token_and_isn_via_logs)
     FAIL() << "Unexpected exception: [" << exc.what() << "]."; // Connection failures, etc.
   }
 
-  {
-    FLOW_TEST_TRACE_CTX("Security tokens (end-to-end).");
-    expect_mostly_distinct(tokens);
-  }
-  {
-    FLOW_TEST_TRACE_CTX("ISNs (end-to-end).");
-    expect_mostly_distinct(isns);
-  }
-} // TEST(Net_flow_rng, Security_token_and_isn_via_logs)
+  expect_mostly_distinct(tokens);
+} // TEST(Net_flow_rng, Security_token_via_logs)
 
 } // namespace flow::net_flow::test
