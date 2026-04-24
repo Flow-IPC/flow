@@ -4340,7 +4340,7 @@ void Node::handle_connection_rexmit_timer_event(const Socket_id& socket_id, Peer
   // We are in thread W.
 
   assert((sock->m_int_state == Peer_socket::Int_state::S_SYN_SENT)
-         || (sock->m_int_state != Peer_socket::Int_state::S_SYN_RCVD));
+         || (sock->m_int_state == Peer_socket::Int_state::S_SYN_RCVD));
 
   // Not an error (so not WARNING), but it's rare and interesting enough for INFO.
   FLOW_LOG_INFO("Connection handshake retransmit timer [" << sock << "] triggered; was on "
