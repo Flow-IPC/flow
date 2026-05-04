@@ -19,6 +19,8 @@
 #include "flow/net_flow/detail/port_space.hpp"
 #include "flow/util/util.hpp"
 #include "flow/error/error.hpp"
+#include <boost/random.hpp>
+#include <boost/random/random_device.hpp>
 #include <limits>
 
 namespace flow::net_flow
@@ -47,8 +49,7 @@ Port_space::Port_space(log::Logger* logger_ptr) :
   // Set the bit fields to their permanent widths.
   m_service_ports(S_NUM_SERVICE_PORTS),
   m_ephemeral_ports(S_NUM_EPHEMERAL_PORTS),
-  m_ephemeral_and_recent_ephemeral_ports(S_NUM_EPHEMERAL_PORTS),
-  m_rnd_generator(Random_generator::result_type(util::time_since_posix_epoch().count()))
+  m_ephemeral_and_recent_ephemeral_ports(S_NUM_EPHEMERAL_PORTS)
 {
   // All 1s = all ports available.
   m_service_ports.set();
@@ -261,10 +262,14 @@ void Port_space::return_port(flow_port_t port, Error_code* err_code)
 size_t Port_space::find_available_port_bit_idx(const Bit_set& ports)
 {
   using boost::random::uniform_int_distribution;
+  using boost::random::random_device;
 
-  // Pick a random bit in bit field.
+  /* Pick a random bit in bit field.  Use a CSPRNG (not the general-purpose mt19937-based
+   * Random_generator in flow::util) because ephemeral port selection must be unpredictable to off-path
+   * attackers attempting to guess the tuple of an established connection (cf. RFC 6056). */
+  random_device rnd_dev; // Setting this up, in Linux at least, is ~microseconds per new endpoint.  No prob.
   uniform_int_distribution<size_t> range{0, ports.size() - 1};
-  size_t port_bit_idx = range(m_rnd_generator);
+  size_t port_bit_idx = range(rnd_dev);
 
   // If that bit is 0, go right until you find a 1.
   if (!ports.test(port_bit_idx))

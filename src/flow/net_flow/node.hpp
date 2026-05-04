@@ -3738,12 +3738,6 @@ private:
   Sequence_number::Generator m_seq_num_generator;
 
   /**
-   * Random number generator for picking security tokens; seeded on time at Node construction and generates
-   * integers from the entire range.  (Not thread-safe.  Use only in thread W.)
-   */
-  util::Rnd_gen_uniform_range<Peer_socket::security_token_t> m_rnd_security_tokens;
-
-  /**
    * The peer-to-peer connections this Node is currently tracking.  Their states are not Peer_socket::State::S_CLOSED.
    * Only thread W can access this.
    */

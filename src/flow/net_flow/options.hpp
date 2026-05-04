@@ -141,6 +141,13 @@ struct Peer_socket_options
   size_t m_st_rcv_buf_max_size;
 
   /**
+   * Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK;
+   * any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.
+   * The value 0 will drop all such DATA packets.
+   */
+  size_t m_st_rcv_sync_rcvd_data_q_cumulative_max_size;
+
+  /**
    * Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  If this is
    * disabled, an infinite rcv_wnd will always be advertised to the sender; so if the Receive buffer
    * is exceeded packets are dropped as normal, but the sender will not know it should stop sending
@@ -566,6 +573,19 @@ struct Node_options
    * keeping.
    */
   bool m_dyn_guarantee_one_low_lvl_in_buf_per_socket;
+
+  /**
+   * Maximum backlog size for each `Server_socket` subsequently created via `Node::listen()`.  The backlog
+   * (for a given `Server_socket`) is defined as the total number of connections either in SYN_RCVD state
+   * (SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via
+   * `Server_socket::*accept()`.  When a SYN arrives while the backlog is full, it is rejected with an RST response.
+   *
+   * This value is captured at `Node::listen()` time and fixed for the resulting `Server_socket`'s
+   * lifetime; subsequent changes affect only `Server_socket`s created by later `listen()` calls.
+   *
+   * It *is* dynamic at the `Node` level, but does *not* dynamically affect existing listening `Server_socket`s.
+   */
+  unsigned int m_dyn_accept_backlog_limit;
 
   /**
    * The set of per-Peer_socket options in this per-Node set of options.  This represents the

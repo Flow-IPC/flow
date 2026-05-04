@@ -352,6 +352,14 @@ private:
   flow_port_t m_local_port;
 
   /**
+   * The immutable limit on `m_unaccepted_socks.size() + m_connecting_socks.size()`, such that excess SYNs
+   * beyond this limit shall be rejected with RST.  Should be set before user gets access to `*this` and not
+   * changed afterwards.
+   * @todo Make #m_backlog_limit `const`?
+   */
+  unsigned int m_backlog_limit;
+
+  /**
    * Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have not yet been
    * claimed by the user via `*accept()`.  `back()` is the next socket to be accepted (i.e., the one
    * that established connection longest ago).  This is not the more restricted `queue<>`,

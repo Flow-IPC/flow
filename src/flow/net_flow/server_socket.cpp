@@ -21,6 +21,7 @@
 #include "flow/net_flow/detail/stats/bandwidth.hpp"
 #include "flow/net_flow/detail/cong_ctl.hpp"
 #include "flow/async/util.hpp"
+#include <boost/random/random_device.hpp>
 
 namespace flow::net_flow
 {
@@ -36,7 +37,8 @@ Server_socket::Server_socket(log::Logger* logger_ptr, const Peer_socket_options*
   m_child_sock_opts(child_sock_opts ? new Peer_socket_options{*child_sock_opts} : nullptr),
   m_state(State::S_CLOSED), // Incorrect; set explicitly.
   m_node(nullptr), // Incorrect; set explicitly.
-  m_local_port(S_PORT_ANY) // Incorrect; set explicitly.
+  m_local_port(S_PORT_ANY), // Incorrect; set explicitly.
+  m_backlog_limit(0) // Incorrect; set explicitly.
 {
   // Only print pointer value, because most members are garbage at this point.
   FLOW_LOG_TRACE("Server_socket [" << static_cast<void*>(this) << "] created.");
@@ -266,7 +268,12 @@ void Node::listen_worker(flow_port_t local_port, const Peer_socket_options* chil
   // else
   local_port = serv->m_local_port; // If they'd specified S_PORT_ANY, this is now a random port.
 
-  FLOW_LOG_INFO("NetFlow worker thread listening for passive-connects on [" << serv << "].");
+  /* Save backlog limit.  Note it is dynamic at the Node level (thus future listen()s can set different values here),
+   * but that does not (in and of itself anyway) mean it can be subsequently changed for the `serv` we are returning. */
+  serv->m_backlog_limit = opt(m_opts.m_dyn_accept_backlog_limit);
+
+  FLOW_LOG_INFO("NetFlow worker thread listening for passive-connects on [" << serv << "]; "
+                "backlog limit [" << serv->m_backlog_limit << "].");
 
   if (util::key_exists(m_servs, local_port))
   {
@@ -433,12 +440,31 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
                                                       const util::Udp_endpoint& low_lvl_remote_endpoint)
 {
   using util::Blob;
-  using boost::random::uniform_int_distribution;
+  using boost::random::random_device;
+  using security_token_t = Peer_socket::security_token_t;
 
   // We are in thread W.
 
   /* We just got SYN (an overture from the other side).  Create a peer-to-peer socket to track that
-   * connection being established. */
+   * connection being established.  Though, if we are at the backlog limit, then there's no point: reject immediately
+   * without even temporarily taking the memory for the Peer_socket. */
+  {
+    const auto backlog_sz = serv->m_unaccepted_socks.size() + serv->m_connecting_socks.size();
+    if (backlog_sz >= static_cast<size_t>(serv->m_backlog_limit))
+      // As of this writing `==` is sufficient, but just in case it becomes mutable someday: use `>=`.
+    {
+      /* (Let's not use INFO or WARNING here; if there's a SYN-flood going on then no need to fill up the logs.
+       * After all it's not *that* interesting of a message, on balance.  One could argue that logging rate-limiting
+       * is the `Logger`'s job -- and indeed it is -- but in this case we can defensibly avoid this
+       * difficulty altogether.) */
+      FLOW_LOG_TRACE("NetFlow worker thread, on receipt of [" << syn->m_type_ostream_manip << "] was about to "
+                     "start passive-connect on [" << serv << "], but the backlog would then exceed the "
+                     "limit [" << serv->m_backlog_limit << "]; resetting connection.");
+      async_no_sock_low_lvl_rst_send(Low_lvl_packet::const_ptr_cast(syn), low_lvl_remote_endpoint);
+      return Peer_socket::Ptr{};
+    }
+    // else OK; do create that peer-to-peer socket.
+  }
 
   Peer_socket::Ptr sock;
   if (serv->m_child_sock_opts)
@@ -542,8 +568,19 @@ Peer_socket::Ptr Node::handle_syn_to_listening_server(Server_socket::Ptr serv,
   init_seq_num.set_metadata('L',init_seq_num + 1, sock->max_block_size());
   // Sequence number of first bit of actual data.
   sock->m_snd_next_seq_num = init_seq_num + 1;
-  // Security token.  Random number from entire numeric range.  Remember it for later verification.
-  sock->m_security_token = m_rnd_security_tokens();
+
+  /* Security token.  Random number from entire numeric range.  Remember it for later verification.
+   * Use a CSPRNG (not the general-purpose mt19937-based Rnd_gen_uniform_range) because this token
+   * must be unpredictable to off-path attackers attempting to forge SYN_ACK_ACK packets. */
+  random_device rnd_dev; // Setting this up, in Linux at least, is microseconds per connection.  No prob.
+  static_assert((random_device::min() == 0) && (random_device::max() == 0xFFFF'FFFF),
+                "The following statement assumes full 32-bit range of random_device.");
+  static_assert(sizeof(decltype(Peer_socket::m_security_token)) == (64 / 8),
+                "The following statement assumes 64-bit security tokens.");
+  sock->m_security_token = ((static_cast<security_token_t>(rnd_dev()) << 32)
+                            |
+                            static_cast<security_token_t>(rnd_dev()));
+
   // Initial receive window is simply the entire empty Receive buffer.
   sock->m_rcv_last_sent_rcv_wnd = sock_rcv_wnd(sock);
 
@@ -714,7 +751,11 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
    * empty until ESTABLISHED, it seems natural to limit this queue's cumulative byte size
    * according to the limit imposed on Receive buffer.  (There is some extra overhead to store the
    * packet header info, but it's close enough.)  After that, as when the Receive buffer fills up,
-   * we drop packets. */
+   * we drop packets.
+   *
+   * Update (leaving preceding paragraph there for posterity): On 2nd thought, that is probably too
+   * generous given the possibility of SYN-flood-like attacks.  Therefore we now use a separate option-knob to limit
+   * this queue's size. */
 
   assert(sock->m_int_state == Peer_socket::Int_state::S_SYN_RCVD);
   const bool first_time = sock->m_rcv_syn_rcvd_data_q.empty();
@@ -732,12 +773,15 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
     sock->m_rcv_syn_rcvd_data_cumulative_size = 0; // It's garbage at the moment.
   }
   else if ((sock->m_rcv_syn_rcvd_data_cumulative_size + packet->m_data.size())
-           > sock->opt(sock->m_opts.m_st_snd_buf_max_size))
+           > sock->opt(sock->m_opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size))
   {
-    // Not a WARNING, because we didn't do anything wrong; could be network conditions.
-    FLOW_LOG_INFO("NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
-                  "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
-                  "dropping because Receive queue full at [" << sock->m_rcv_syn_rcvd_data_cumulative_size << "].");
+    /* Not a WARNING, because we didn't do anything wrong; could be network conditions.
+     * Not INFO either: a SYN-flood-like (DATA-flood?) attempt may not overfill the logs, given the limit, but generally
+     * logging on a per-packet basis (for one connection/connection-to-be) is not great.
+     * @todo An INFO-log the first time this happens would be nice. */
+    FLOW_LOG_TRACE("NetFlow worker thread received [" << packet->m_type_ostream_manip << "] packet while "
+                   "in [" << Peer_socket::Int_state::S_SYN_RCVD << "] state for [" << sock << "]; "
+                   "dropping because Receive queue full at [" << sock->m_rcv_syn_rcvd_data_cumulative_size << "].");
     return;
   }
   // else

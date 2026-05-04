@@ -52,7 +52,9 @@ Node_options::Node_options() :
   // default max_block_size + a SMALL overhead.
   m_dyn_low_lvl_max_packet_size(1124),
   // This default is explained in the option description (as of this writing): it's faster.
-  m_dyn_guarantee_one_low_lvl_in_buf_per_socket(true)
+  m_dyn_guarantee_one_low_lvl_in_buf_per_socket(true),
+  // For TCP these days values like ~500 are not-atypical, but let's be modest by default.
+  m_dyn_accept_backlog_limit(64)
 {
   // Nothing.
 }
@@ -136,6 +138,15 @@ void Node_options::setup_config_parsing_helper(Options_description* opts_desc,
        "faster, especially if low-lvl-max-packet-size is unnecessarily large; but arguably the zero-copy behavior "
        "may become faster if some implementation details related to this change.  So this switch seemed worth "
        "keeping.");
+  ADD_CONFIG_OPTION
+    (m_dyn_accept_backlog_limit,
+     "Maximum backlog size for each `Server_socket` subsequently created via `Node::listen()`.  The backlog "
+     "(for a given `Server_socket`) is defined as the total number of connections either in SYN_RCVD state "
+     "(SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via "
+     "`Server_socket::*accept()`.  When a SYN arrives while the backlog is full, it is rejected with an RST "
+     "response.  This value is captured at `Node::listen()` time and fixed for the resulting `Server_socket`'s "
+     "lifetime; subsequent changes affect only `Server_socket`s created by later `listen()` calls.  "
+     "It *is* dynamic at the `Node` level, but does *not* dynamically affect existing listening `Server_socket`s.");
 
   Peer_socket_options::setup_config_parsing_helper(opts_desc,
                                                    &target->m_dyn_sock_opts,
@@ -195,6 +206,9 @@ Peer_socket_options::Peer_socket_options() :
   m_st_snd_buf_max_size(6 * 1024 * 1024),
   // @todo Ditto.
   m_st_rcv_buf_max_size(m_st_snd_buf_max_size),
+  /* If not for SYN-flood-like possibility, this could be ~= m_st_rcv_buf_max_size.  Instead let's keep it modest.
+   * It would after all be strange to receive a large number of DATAs without a single retried SYN_ACK_ACK. */
+  m_st_rcv_sync_rcvd_data_q_cumulative_max_size(64 * 1024),
   // Disabling flow control is an emergency measure only.
   m_st_rcv_flow_control_on(true),
   // Seems reasonable.  Should be a few hundred KB typically.
@@ -323,6 +337,11 @@ void Peer_socket_options::setup_config_parsing_helper(Options_description* opts_
      "Maximum number of bytes that the Receive buffer can hold.  This determines how many bytes "
        "can be received in the background by the Node without user doing any receive()s.  "
        "It is also rounded up to to the nearest multiple of max-block-size.");
+  ADD_CONFIG_OPTION
+    (m_st_rcv_sync_rcvd_data_q_cumulative_max_size,
+     "Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; "
+       "any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  "
+       "The value 0 will drop all such DATA packets.");
   ADD_CONFIG_OPTION
     (m_st_rcv_flow_control_on,
      "Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  If this is "

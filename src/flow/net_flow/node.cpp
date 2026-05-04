@@ -1031,7 +1031,8 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
   const bool checks_ok
     = VALIDATE_CHECK(opts.m_st_low_lvl_max_buf_size >= 128 * 1024) &&
       VALIDATE_CHECK(opts.m_st_timer_min_period.count() >= 0) &&
-      VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512);
+      VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512) &&
+      VALIDATE_CHECK(opts.m_dyn_accept_backlog_limit > 0);
 
   if (!checks_ok)
   {

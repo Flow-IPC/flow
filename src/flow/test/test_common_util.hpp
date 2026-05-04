@@ -17,11 +17,29 @@
 
 #pragma once
 
+#include <flow/util/util_fwd.hpp>
 #include <gtest/gtest.h>
 #include <functional>
 #include <iostream>
 #include <regex>
 #include <type_traits>
+
+/**
+ * Adds the caller's source location (file:line) to any gtest assertion failure within the enclosing
+ * `{ }` block, via `SCOPED_TRACE("")`.  Use when file:line is enough context; otherwise see
+ * FLOW_TEST_TRACE_CTX() or plain `SCOPED_TRACE("something useful")`.
+ *
+ * Typical usage:
+ *   `{ FLOW_TEST_TRACE(); some_checking_helper(args); }`
+ */
+#define FLOW_TEST_TRACE() SCOPED_TRACE("")
+
+/**
+ * Like FLOW_TEST_TRACE() but also prepends arbitrary context built from the given `<<`-streamable arguments.
+ *
+ * Example: `FLOW_TEST_TRACE_CTX("Session idx [", idx, "].");`.
+ */
+#define FLOW_TEST_TRACE_CTX(...) SCOPED_TRACE(::flow::util::ostream_op_string(__VA_ARGS__))
 
 namespace flow::test
 {

@@ -365,7 +365,18 @@ private:
  * initialize its state and then call generate_init_seq_num() whenever an ISN is needed.
  *
  * ### Thread safety ###
- * Not safe to read/write or write/write one object simultaneously.
+ * Safe to read/write or write/write one object simultaneously.
+ *
+ * ### Impl notes ###
+ * As it stands as of this writing a `Generator` holds no non-`static` data other than the logging context;
+ * for good randomness it uses `random_device` a-la `/dev/urandom` which requires no state.
+ * It could be replaced by a `static` function in Sequence_number, for example.
+ *
+ * However, historically, it used to be more complex (with a clock-based ISN-generation scheme RFC 793 from 1981)
+ * and thus did have state.  While eventually we deemed this outdated and unnecessary (hence the simple current
+ * impl), there is also a to-do (not high-priority) inside generate_init_seq_num() for a more
+ * advanced approach which would require state.  All in all we found it prudent to keep this encapsulated as
+ * an object class.
  */
 class Sequence_number::Generator :
   public log::Log_context,
@@ -403,23 +414,6 @@ private:
    * remove the need to worry about wrapping as well.
    */
   static const seq_num_t S_MAX_INIT_SEQ_NUM;
-
-  /// The ISN given out at a given time should increment every N; this is the value of  N.
-  static const Fine_duration S_TIME_PER_SEQ_NUM;
-
-  /**
-   * In addition to the actual time passed between two ISN generations, pretend this much additional
-   * time has also passed.
-   */
-  static const Fine_duration S_MIN_DELAY_BETWEEN_ISN;
-
-  // Data.
-
-  /// The last initial sequence number returned by generate_init_seq_num() (or zero if never called).
-  Sequence_number m_last_init_seq_num;
-
-  /// #Fine_clock time of the last invocation of generate_init_seq_num() (or default if never called).
-  Fine_time_pt m_last_isn_generation;
 }; // class Sequence_number::Generator
 
 // Free functions: in *_fwd.hpp.
