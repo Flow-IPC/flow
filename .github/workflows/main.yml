@@ -714,6 +714,7 @@ jobs:
 
     - name: Checkout `flow` repository
       uses: actions/checkout@v6
+      with:
         # Avoids the duplicate-authorization-error in (not-frequently-invoked) doc_check_in step later down.
         persist-credentials: false
 
