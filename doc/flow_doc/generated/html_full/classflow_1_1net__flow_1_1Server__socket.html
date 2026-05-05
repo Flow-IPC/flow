@@ -94,7 +94,7 @@ Inheritance diagram for flow::net_flow::Server_socket:</div>
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Server_socket:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Server__socket__coll__graph.svg" width="2460" height="2342"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Server__socket__coll__graph.svg" width="2343" height="2622"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -216,6 +216,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac36eb28d50496b3f8f1b9790194e825e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1net__flow.html#a079d8cd87a68d1c5f04c6bce71f0061d">flow_port_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#ac36eb28d50496b3f8f1b9790194e825e">m_local_port</a></td></tr>
 <tr class="memdesc:ac36eb28d50496b3f8f1b9790194e825e"><td class="mdescLeft">&#160;</td><td class="mdescRight">See <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#acd7b6b9c66eee2f3bbf35ac1068b1cb1" title="The local Flow-protocol port on which this server is or was listening.">local_port()</a>.  <a href="classflow_1_1net__flow_1_1Server__socket.html#ac36eb28d50496b3f8f1b9790194e825e">More...</a><br /></td></tr>
 <tr class="separator:ac36eb28d50496b3f8f1b9790194e825e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f036527525235785e712f45dd9a661"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#ae8f036527525235785e712f45dd9a661">m_backlog_limit</a></td></tr>
+<tr class="memdesc:ae8f036527525235785e712f45dd9a661"><td class="mdescLeft">&#160;</td><td class="mdescRight">The immutable limit on <code>m_unaccepted_socks.size() + m_connecting_socks.size()</code>, such that excess SYNs beyond this limit shall be rejected with RST.  <a href="classflow_1_1net__flow_1_1Server__socket.html#ae8f036527525235785e712f45dd9a661">More...</a><br /></td></tr>
+<tr class="separator:ae8f036527525235785e712f45dd9a661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ba32040008ffe0637d3a1847deb76c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Linked__hash__set.html">util::Linked_hash_set</a>&lt; <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a3bc28900b6854a425ea33a192eda8252">Peer_socket_ptr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5">m_unaccepted_socks</a></td></tr>
 <tr class="memdesc:a7ba32040008ffe0637d3a1847deb76c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queue of passively opened sockets in <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a9537860c2c2a7380a45a525e5121880fa16fdfce85d7bca9386378acd29eb7202" title="Public state is OPEN+CONNECTED; in our opinion the connection is established.">Peer_socket::Int_state::S_ESTABLISHED</a> internal state that have not yet been claimed by the user via <code>*accept()</code>.  <a href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5">More...</a><br /></td></tr>
 <tr class="separator:a7ba32040008ffe0637d3a1847deb76c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -442,7 +445,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Boring <code>virtual</code> destructor. Note that deletion is to be handled exclusively via <code>shared_ptr</code>, never explicitly. </p>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00045">45</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00047">47</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="server__socket_8hpp_source.html#l00337">m_child_sock_opts</a>.</p>
 
@@ -491,11 +494,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00030">30</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00031">31</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -534,11 +537,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> <code>sock</code> with <code>sock-&gt;<a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#ab2683ecde1fac2b0a79a957de1a2a8ff" title="Current State of the socket.">state()</a> == <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a6a9bb727c8982f24bcf978c10c2c7345a02dcbe46a8dfde95b9776744dacae189" title="Future reads or writes may be possible. A socket in this state may be Writable or Readable.">Peer_socket::State::S_OPEN</a></code>. If no connections are available (including if <code>bool(*err_code) == true</code>), returns null pointer. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00075">75</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00077">77</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00075">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00297">flow::net_flow::Node::accept()</a>, <a class="el" href="node_8hpp_source.html#l04099">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="server__socket_8hpp_source.html#l00397">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00077">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00304">flow::net_flow::Node::accept()</a>, <a class="el" href="node_8hpp_source.html#l04093">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="server__socket_8hpp_source.html#l00405">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00075">accept()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00077">accept()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -573,9 +576,9 @@ Here is the caller graph for this function:</div>
 <p >Note that once it returns non-success, the returned value subsequently will always be the same.</p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00064">64</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00066">66</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00390">m_disconnect_cause</a>, and <a class="el" href="server__socket_8hpp_source.html#l00397">m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00398">m_disconnect_cause</a>, and <a class="el" href="server__socket_8hpp_source.html#l00405">m_mutex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="asio_2server__socket_8cpp_source.html#l00060">flow::net_flow::asio::Server_socket::async_accept_impl()</a>.</p>
 <div class="dynheader">
@@ -606,11 +609,11 @@ Here is the caller graph for this function:</div>
 <p >For a given <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>, this will always return the same value, even if CLOSED. However, when CLOSED, the port may be unused or taken by another socket.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00070">70</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00072">72</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00352">m_local_port</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00867">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00911">operator&lt;&lt;()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -638,9 +641,9 @@ Here is the caller graph for this function:</div>
 <p><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> that produced this <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to (guaranteed valid) <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>; null if state is S_CLOSED. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00058">58</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00060">60</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00397">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00405">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="asio_2server__socket_8cpp_source.html#l00060">flow::net_flow::asio::Server_socket::async_accept_impl()</a>.</p>
 <div class="dynheader">
@@ -670,9 +673,9 @@ Here is the caller graph for this function:</div>
 <p>Current State of the socket. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current state of the socket. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00052">52</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00054">54</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00397">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00340">m_state</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8hpp_source.html#l00405">m_mutex</a>, and <a class="el" href="server__socket_8hpp_source.html#l00340">m_state</a>.</p>
 
 </div>
 </div>
@@ -712,9 +715,9 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a6bd0680839499e709e041651106e72c8" title="Blocking (synchronous) version of accept().">sync_accept()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00095">95</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00097">97</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -787,9 +790,9 @@ template&lt;typename Rep , typename Period &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference-counted pointer to new <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>; or an empty pointer (essentially null). Reminder that in <code>reactor_pattern</code> mode this may be null, yet indeed a socket is Acceptable (the presence or lack of an error indicates whether that's the case). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00434">434</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00442">442</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">References <a class="el" href="util_2detail_2util_8hpp_source.html#l00042">flow::util::chrono_duration_from_now_to_fine_time_pt()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -850,11 +853,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a6bd0680839499e709e041651106e72c8" title="Blocking (synchronous) version of accept().">sync_accept()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00100">100</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00102">102</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00297">flow::net_flow::Node::accept()</a>, <a class="el" href="node_8hpp_source.html#l04099">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="server__socket_8hpp_source.html#l00397">m_mutex</a>, <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71afb218b0110d3f9f26ee089bad2e0eba2">flow::net_flow::Event_set::S_SERVER_SOCKET_ACCEPTABLE</a>, <a class="el" href="server__socket_8cpp_source.html#l00030">Server_socket()</a>, <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>, and <a class="el" href="node_8hpp_source.html#l03935">flow::net_flow::Node::sync_op()</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00304">flow::net_flow::Node::accept()</a>, <a class="el" href="node_8hpp_source.html#l04093">flow::net_flow::Node::ensure_sock_open()</a>, <a class="el" href="error_2error_8hpp_source.html#l00363">FLOW_ERROR_EXEC_AND_THROW_ON_ERROR</a>, <a class="el" href="server__socket_8hpp_source.html#l00405">m_mutex</a>, <a class="el" href="server__socket_8hpp_source.html#l00346">m_node</a>, <a class="el" href="classflow_1_1net__flow_1_1Event__set.html#a19cc3a286c8a11c986d2a59ec1e39a71afb218b0110d3f9f26ee089bad2e0eba2">flow::net_flow::Event_set::S_SERVER_SOCKET_ACCEPTABLE</a>, <a class="el" href="server__socket_8cpp_source.html#l00031">Server_socket()</a>, <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>, and <a class="el" href="node_8hpp_source.html#l03929">flow::net_flow::Node::sync_op()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00095">sync_accept()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00097">sync_accept()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -944,9 +947,9 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00867">867</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00911">911</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00070">local_port()</a>.</p>
+<p class="reference">References <a class="el" href="server__socket_8cpp_source.html#l00072">local_port()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1000,11 +1003,38 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00888">888</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8cpp_source.html#l00932">932</a> of file <a class="el" href="server__socket_8cpp_source.html">server_socket.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae8f036527525235785e712f45dd9a661" name="ae8f036527525235785e712f45dd9a661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f036527525235785e712f45dd9a661">&#9670;&nbsp;</a></span>m_backlog_limit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int flow::net_flow::Server_socket::m_backlog_limit</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The immutable limit on <code>m_unaccepted_socks.size() + m_connecting_socks.size()</code>, such that excess SYNs beyond this limit shall be rejected with RST. </p>
+<p >Should be set before user gets access to <code>*this</code> and not changed afterwards. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000142">Todo:</a></b></dt><dd>Make <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#ae8f036527525235785e712f45dd9a661" title="The immutable limit on m_unaccepted_socks.size() + m_connecting_socks.size(), such that excess SYNs b...">m_backlog_limit</a> <code>const</code>? </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00360">360</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a771900a26d8774a88f1f65b8910cf9d2" name="a771900a26d8774a88f1f65b8910cf9d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a771900a26d8774a88f1f65b8910cf9d2">&#9670;&nbsp;</a></span>m_child_sock_opts</h2>
 
@@ -1031,7 +1061,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00337">337</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00045">~Server_socket()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00047">~Server_socket()</a>.</p>
 
 </div>
 </div>
@@ -1060,7 +1090,7 @@ Here is the call graph for this function:</div>
 <p >Once a socket is acceptable (ESTABLISHED), it is moved from this to <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5" title="Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have n...">m_unaccepted_socks</a>, where it can be claimed by the user. Thus the user never accesses this, and it is maintained by thread W only.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5629d810d2c7252eaa2243e076dde83f" title="For sockets that come a Server_socket, this is the inverse of Server_socket::m_connecting_socks: it i...">Peer_socket::m_originating_serv</a> for the closely related inverse. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00410">410</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00418">418</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1092,9 +1122,9 @@ Here is the call graph for this function:</div>
 <h3>Thread safety</h3>
 <p >Since user threads will access this at least via <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a1d9ef1bb6e3a9c9a9ae339251fd55f4d" title="Non-blocking accept: obtain socket for the least recently established not-yet-obtained peer connectio...">accept()</a>, while thread W may set it when implementing the server socket close, this must be protected by a mutex. </p>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00390">390</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00398">398</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00064">disconnect_cause()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00066">disconnect_cause()</a>.</p>
 
 </div>
 </div>
@@ -1123,7 +1153,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00352">352</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00070">local_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00072">local_port()</a>.</p>
 
 </div>
 </div>
@@ -1150,9 +1180,9 @@ Here is the call graph for this function:</div>
 <p>This object's mutex. </p>
 <p >The protected items are <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a783f81f10b50f62a638aa26b72d49e36" title="See state(). Should be set before user gets access to *this. Must not be modified by non-W threads.">m_state</a>, <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a8e8e3363803b2fe2c862b9fac1dfbb77" title="See node().">m_node</a>, <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5" title="Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have n...">m_unaccepted_socks</a>, <code>sock-&gt;m_originating_serv</code> for each <code>sock</code> in <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a7ba32040008ffe0637d3a1847deb76c5" title="Queue of passively opened sockets in Peer_socket::Int_state::S_ESTABLISHED internal state that have n...">m_unaccepted_socks</a>, and <a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#ae87a97dcfaa0909789b76ef4462d6a0b" title="The Error_code causing this server&#39;s move from LISTENING state (if this has occurred); otherwise a cl...">m_disconnect_cause</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00397">397</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00405">405</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00075">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00064">disconnect_cause()</a>, <a class="el" href="server__socket_8cpp_source.html#l00058">node()</a>, <a class="el" href="server__socket_8cpp_source.html#l00052">state()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00077">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00066">disconnect_cause()</a>, <a class="el" href="server__socket_8cpp_source.html#l00060">node()</a>, <a class="el" href="server__socket_8cpp_source.html#l00054">state()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 
 </div>
 </div>
@@ -1181,7 +1211,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00346">346</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00075">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00058">node()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00100">sync_accept_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00077">accept()</a>, <a class="el" href="server__socket_8cpp_source.html#l00060">node()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00102">sync_accept_impl()</a>.</p>
 
 </div>
 </div>
@@ -1209,7 +1239,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00340">340</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00052">state()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00054">state()</a>.</p>
 
 </div>
 </div>
@@ -1238,7 +1268,7 @@ Here is the call graph for this function:</div>
 <p >Write-accessible from thread W and user threads (in <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html#a1d9ef1bb6e3a9c9a9ae339251fd55f4d" title="Non-blocking accept: obtain socket for the least recently established not-yet-obtained peer connectio...">accept()</a></code>) and must be protected by a mutex.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a5629d810d2c7252eaa2243e076dde83f" title="For sockets that come a Server_socket, this is the inverse of Server_socket::m_connecting_socks: it i...">Peer_socket::m_originating_serv</a> for the closely related inverse. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00366">366</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="server__socket_8hpp_source.html#l00374">374</a> of file <a class="el" href="server__socket_8hpp_source.html">server_socket.hpp</a>.</p>
 
 </div>
 </div>
@@ -1250,7 +1280,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:25 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

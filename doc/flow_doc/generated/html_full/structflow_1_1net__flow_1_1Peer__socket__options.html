@@ -130,6 +130,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a171480324f26432928738532cb3c8556"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">m_st_rcv_buf_max_size</a></td></tr>
 <tr class="memdesc:a171480324f26432928738532cb3c8556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of bytes that the Receive buffer can hold.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">More...</a><br /></td></tr>
 <tr class="separator:a171480324f26432928738532cb3c8556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbea38a7d97f54614c15921435d2106"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">m_st_rcv_sync_rcvd_data_q_cumulative_max_size</a></td></tr>
+<tr class="memdesc:aabbea38a7d97f54614c15921435d2106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">More...</a><br /></td></tr>
+<tr class="separator:aabbea38a7d97f54614c15921435d2106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">m_st_rcv_flow_control_on</a></td></tr>
 <tr class="memdesc:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">More...</a><br /></td></tr>
 <tr class="separator:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -333,7 +336,7 @@ Related Functions</h2></td></tr>
 
 <p>Constructs a <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low-level options affecting a single Peer_socket.">Peer_socket_options</a> with values equal to those used by <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> when the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> creator chooses not to supply custom options. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00184">184</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00195">195</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
 </div>
 </div>
@@ -363,9 +366,9 @@ Related Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00478">478</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00497">497</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">References <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -433,11 +436,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00271">271</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00285">285</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="cong__ctl_8cpp_source.html#l00115">flow::net_flow::Congestion_control_selector::get_ids()</a>, <a class="el" href="options_8hpp_source.html#l00325">m_dyn_drop_timeout_backoff_factor</a>, <a class="el" href="options_8hpp_source.html#l00317">m_dyn_drop_timeout_ceiling</a>, <a class="el" href="options_8hpp_source.html#l00339">m_dyn_rcv_wnd_recovery_max_period</a>, <a class="el" href="options_8hpp_source.html#l00333">m_dyn_rcv_wnd_recovery_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00314">m_st_cong_ctl_classic_wnd_decay_percent</a>, <a class="el" href="options_8hpp_source.html#l00306">m_st_cong_ctl_cong_avoidance_increment_blocks</a>, <a class="el" href="options_8hpp_source.html#l00299">m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks</a>, <a class="el" href="options_8hpp_source.html#l00277">m_st_cong_ctl_init_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00296">m_st_cong_ctl_max_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00270">m_st_cong_ctl_strategy</a>, <a class="el" href="options_8hpp_source.html#l00121">m_st_connect_retransmit_period</a>, <a class="el" href="options_8hpp_source.html#l00124">m_st_connect_retransmit_timeout</a>, <a class="el" href="options_8hpp_source.html#l00191">m_st_delayed_ack_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00240">m_st_drop_all_on_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00233">m_st_drop_packet_exactly_after_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00226">m_st_init_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00114">m_st_max_block_size</a>, <a class="el" href="options_8hpp_source.html#l00198">m_st_max_full_blocks_before_ack_send</a>, <a class="el" href="options_8hpp_source.html#l00220">m_st_max_rexmissions_per_packet</a>, <a class="el" href="options_8hpp_source.html#l00248">m_st_out_of_order_ack_restarts_drop_timer</a>, <a class="el" href="options_8hpp_source.html#l00141">m_st_rcv_buf_max_size</a>, <a class="el" href="options_8hpp_source.html#l00160">m_st_rcv_buf_max_size_slack_percent</a>, <a class="el" href="options_8hpp_source.html#l00171">m_st_rcv_buf_max_size_to_advertise_percent</a>, <a class="el" href="options_8hpp_source.html#l00150">m_st_rcv_flow_control_on</a>, <a class="el" href="options_8hpp_source.html#l00183">m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent</a>, <a class="el" href="options_8hpp_source.html#l00214">m_st_rexmit_on</a>, <a class="el" href="options_8hpp_source.html#l00267">m_st_snd_bandwidth_est_sample_period_floor</a>, <a class="el" href="options_8hpp_source.html#l00134">m_st_snd_buf_max_size</a>, and <a class="el" href="options_8hpp_source.html#l00258">m_st_snd_pacing_enabled</a>.</p>
+<p class="reference">References <a class="el" href="cong__ctl_8cpp_source.html#l00115">flow::net_flow::Congestion_control_selector::get_ids()</a>, <a class="el" href="options_8hpp_source.html#l00332">m_dyn_drop_timeout_backoff_factor</a>, <a class="el" href="options_8hpp_source.html#l00324">m_dyn_drop_timeout_ceiling</a>, <a class="el" href="options_8hpp_source.html#l00346">m_dyn_rcv_wnd_recovery_max_period</a>, <a class="el" href="options_8hpp_source.html#l00340">m_dyn_rcv_wnd_recovery_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00321">m_st_cong_ctl_classic_wnd_decay_percent</a>, <a class="el" href="options_8hpp_source.html#l00313">m_st_cong_ctl_cong_avoidance_increment_blocks</a>, <a class="el" href="options_8hpp_source.html#l00306">m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks</a>, <a class="el" href="options_8hpp_source.html#l00284">m_st_cong_ctl_init_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00303">m_st_cong_ctl_max_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00277">m_st_cong_ctl_strategy</a>, <a class="el" href="options_8hpp_source.html#l00121">m_st_connect_retransmit_period</a>, <a class="el" href="options_8hpp_source.html#l00124">m_st_connect_retransmit_timeout</a>, <a class="el" href="options_8hpp_source.html#l00198">m_st_delayed_ack_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00247">m_st_drop_all_on_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00240">m_st_drop_packet_exactly_after_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00233">m_st_init_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00114">m_st_max_block_size</a>, <a class="el" href="options_8hpp_source.html#l00205">m_st_max_full_blocks_before_ack_send</a>, <a class="el" href="options_8hpp_source.html#l00227">m_st_max_rexmissions_per_packet</a>, <a class="el" href="options_8hpp_source.html#l00255">m_st_out_of_order_ack_restarts_drop_timer</a>, <a class="el" href="options_8hpp_source.html#l00141">m_st_rcv_buf_max_size</a>, <a class="el" href="options_8hpp_source.html#l00167">m_st_rcv_buf_max_size_slack_percent</a>, <a class="el" href="options_8hpp_source.html#l00178">m_st_rcv_buf_max_size_to_advertise_percent</a>, <a class="el" href="options_8hpp_source.html#l00157">m_st_rcv_flow_control_on</a>, <a class="el" href="options_8hpp_source.html#l00190">m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent</a>, <a class="el" href="options_8hpp_source.html#l00148">m_st_rcv_sync_rcvd_data_q_cumulative_max_size</a>, <a class="el" href="options_8hpp_source.html#l00221">m_st_rexmit_on</a>, <a class="el" href="options_8hpp_source.html#l00274">m_st_snd_bandwidth_est_sample_period_floor</a>, <a class="el" href="options_8hpp_source.html#l00134">m_st_snd_buf_max_size</a>, and <a class="el" href="options_8hpp_source.html#l00265">m_st_snd_pacing_enabled</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00478">setup_config_parsing()</a>, and <a class="el" href="options_8cpp_source.html#l00080">flow::net_flow::Node_options::setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00497">setup_config_parsing()</a>, and <a class="el" href="options_8cpp_source.html#l00082">flow::net_flow::Node_options::setup_config_parsing_helper()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -477,7 +480,7 @@ Here is the caller graph for this function:</div>
 <p>The two <code>struct</code>s work together (since <a class="el" href="structflow_1_1net__flow_1_1Node__options.html" title="A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...">Node_options</a> contains an instance of us). </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1net__flow_1_1Node__options.html" title="A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...">Node_options</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00348">348</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00355">355</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
 </div>
 </div>
@@ -525,7 +528,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00484">484</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00503">503</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
 </div>
 </div>
@@ -644,9 +647,9 @@ Here is the caller graph for this function:</div>
 <p>Whenever the Drop Timer fires, upon the requisite Dropping of packet(s), the DTO (Drop Timeout) is set to its current value times this factor, and then the timer is rescheduled accordingly. </p>
 <p >RFC 6298 recommends 2. Another value might be 1 (disable feature). The lower the more aggressive. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00325">325</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00332">332</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -664,9 +667,9 @@ Here is the caller graph for this function:</div>
 
 <p>Ceiling to impose on the Drop Timeout. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00317">317</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00324">324</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -684,9 +687,9 @@ Here is the caller graph for this function:</div>
 
 <p>Approximate amount of time since the beginning of rcv_wnd recovery due to rcv-buf-max-size-to-advertise-percent until we give up and end that phase. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00339">339</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00346">346</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -704,9 +707,9 @@ Here is the caller graph for this function:</div>
 
 <p>When the mode triggered by rcv-buf-max-size-to-advertise-percent being exceeded is in effect, to counteract the possibility of ACK loss the receive window is periodically advertised subsequently &ndash; with the period given by this option &ndash; until either some new data arrive or rcv-wnd-recovery-max-period is exceeded. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00333">333</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00340">340</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -725,9 +728,9 @@ Here is the caller graph for this function:</div>
 <p>In classic congestion control, RFC 5681 specifies the window should be halved on loss; this option allows one to use a custom percentage instead. </p>
 <p >This should be a value in [1, 100] to have the window decay to that percentage of its previous value, or 0 to use the RFC 5681-recommended constant (50). </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00314">314</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00321">321</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -746,9 +749,9 @@ Here is the caller graph for this function:</div>
 <p>The multiple of max-block-size by which to increment CWND in congestion avoidance mode after receiving at least a full CWND's worth of clean acknowledgments. </p>
 <p >RFC 5681 (classic Reno) mandates this is set to 1, but we allow it to be overridden. The special value 0 causes the RFC value to be used. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00306">306</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00313">313</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -766,9 +769,9 @@ Here is the caller graph for this function:</div>
 
 <p>On Drop Timeout, set congestion window to this value times max-block-size. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00299">299</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00306">306</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -787,9 +790,9 @@ Here is the caller graph for this function:</div>
 <p>The initial size of the congestion window, given in units of max-block-size-sized blocks. </p>
 <p >The special value 0 means RFC 5681's automatic max-block-size-based computation should be used instead. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00277">277</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00284">284</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -813,9 +816,9 @@ Here is the caller graph for this function:</div>
 </ul>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000119">Todo:</a></b></dt><dd>Reconsider this value after Receive window feature is implemented. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00296">296</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00303">303</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -833,9 +836,9 @@ Here is the caller graph for this function:</div>
 
 <p>The congestion control algorithm to use for the connection or connections. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00270">270</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00277">277</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -856,7 +859,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00121">121</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -876,7 +879,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00124">124</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -895,9 +898,9 @@ Here is the caller graph for this function:</div>
 <p>The maximum amount of time to delay sending ACK with individual packet's acknowledgment since receiving that individual packet. </p>
 <p >If set to zero duration, any given individual acknowledgment is sent within a non-blocking amount of time of its DATA packet being read. Inspired by RFC 1122-4.2.3.2. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00191">191</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00198">198</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -916,9 +919,9 @@ Here is the caller graph for this function:</div>
 <p>If <code>true</code>, when the Drop Timer fires, all In-flight packets are to be considered Dropped (and thus the timer is to be disabled). </p>
 <p >If <code>false</code>, only the earliest In-flight packet is to be considered Dropped (and thus the timer is to restart). RFC 6298 recommends <code>false</code>. <code>true</code> is more aggressive. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00240">240</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00247">247</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -937,9 +940,9 @@ Here is the caller graph for this function:</div>
 <p>If <code>true</code>, when scheduling Drop Timer, schedule it for Drop Timeout relative to the send time of the earliest In-flight packet at the time. </p>
 <p >If <code>false</code>, also schedule DTO relative to the time of scheduling. The latter is less aggressive and is recommended by RFC 6298. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00233">233</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00240">240</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -957,9 +960,9 @@ Here is the caller graph for this function:</div>
 
 <p>Once socket enters ESTABLISHED state, this is the value for <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a2d8aded3761028967fd3abb464e64936" title="The Drop Timeout: Time period between the next time m_snd_drop_timer schedules a Drop Timer and that ...">Peer_socket::m_snd_drop_timeout</a> until the first RTT measurement is made (the first valid acknowledgment arrives). </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00226">226</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00233">233</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -982,7 +985,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00114">114</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l01111">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00343">flow::net_flow::Peer_socket::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00348">flow::net_flow::Peer_socket::max_block_size_multiple()</a>, <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l01112">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00343">flow::net_flow::Peer_socket::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00348">flow::net_flow::Peer_socket::max_block_size_multiple()</a>, <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1001,9 +1004,9 @@ Here is the caller graph for this function:</div>
 <p>If there are at least this many TIMES max-block-size bytes' worth of individual acknowledgments to be sent, then the delayed ACK timer is to be short-circuited, and the accumulated acknowledgments are to be sent as soon as possible. </p>
 <p >Inspired by RFC 5681. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00198">198</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00205">205</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1022,9 +1025,9 @@ Here is the caller graph for this function:</div>
 <p>If retransmission is enabled and a given packet is retransmitted this many times and has to be retransmitted yet again, the connection is reset. </p>
 <p >Should be positive. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00220">220</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00227">227</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1043,9 +1046,9 @@ Here is the caller graph for this function:</div>
 <p>If an In-flight packet is acknowledged, but it is not the earliest In-flight packet (i.e., it's an out-of-order acknowledgment), and this is <code>true</code>, the timer is restarted. </p>
 <p >Otherwise the timer continues to run. The former is less aggressive. RFC 6298 wording is ambiguous on what it recommends (not clear if cumulative ACK only, or if SACK also qualifies). </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00248">248</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00255">255</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1066,7 +1069,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00141">141</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1085,9 +1088,9 @@ Here is the caller graph for this function:</div>
 <p>% of rcv-buf-max-size such that if Receive buffer stores up to (100 + this many) % of rcv-buf-max-size bytes, the bytes will still be accepted. </p>
 <p >In other words, this allows the max Receive buffer to hold slightly more than rcv-buf-max-size bytes. However, the current Receive buffer capacity advertised to the other side of the connection will be based on the non-inflated rcv-buf-max-size. This option provides some protection against the fact that the receive window value sent to the other side will lag behind reality somewhat. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00160">160</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00167">167</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1106,9 +1109,9 @@ Here is the caller graph for this function:</div>
 <p>% of rcv-buf-max-size that has to be freed, since the last receive window advertisement, via user popping data from Receive buffer, before we must send a receive window advertisement. </p>
 <p >Normally we send rcv_wnd to the other side opportunistically in every ACK; but there can be situations when there is no packet to acknowledge, and hence we must specifically make a packet just to send over rcv_wnd. Typically we should only need to do this if the buffer was exceeded and is now significantly freed. This value must be in [1, 100], but anything over 50 is probably pushing it. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00171">171</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00178">178</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1127,9 +1130,9 @@ Here is the caller graph for this function:</div>
 <p>Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled. </p>
 <p >If this is disabled, an infinite rcv_wnd will always be advertised to the sender; so if the Receive buffer is exceeded packets are dropped as normal, but the sender will not know it should stop sending until Receive buffer space is freed. If this is enabled, we keep the sender informed of how much Receive buffer space is available, so it can suspend the flow as necessary. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00150">150</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00157">157</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1151,9 +1154,30 @@ Here is the caller graph for this function:</div>
 <dd>
 <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#a48320d96118a37626f1852626965e6ed" title="The queue of DATA packets received while in Int_state::S_SYN_RCVD state before the Syn_ack_ack_packet...">Peer_socket::m_rcv_syn_rcvd_data_q</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00183">183</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00190">190</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+
+</div>
+</div>
+<a id="aabbea38a7d97f54614c15921435d2106" name="aabbea38a7d97f54614c15921435d2106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabbea38a7d97f54614c15921435d2106">&#9670;&nbsp;</a></span>m_st_rcv_sync_rcvd_data_q_cumulative_max_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::net_flow::Peer_socket_options::m_st_rcv_sync_rcvd_data_q_cumulative_max_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped. </p>
+<p >The value 0 will drop all such DATA packets. </p>
+
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00148">148</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1173,9 +1197,9 @@ Here is the caller graph for this function:</div>
 <p >If <code>false</code>, a detected lost packet may have implications on congestion control (speed at which further data are sent) but will not cause that packet to be resent; receiver application code either has to be OK with missing packets or must implement its own reliability (e.g., FEC). Packets may also be delivered in an order different from the way they were sent. If <code>true</code>, the receiver need not worry about it, as any lost packets will be retransmitted with no participation from the application code on either side, as in TCP. Also as in TCP, this adds order preservation, so that the stream of bytes sent will be exactly equal to the stream of bytes received. Retransmission removes the requirement for the very exacting block-based way in which <code>send()</code> and friends must be called.</p>
 <p >This option must have the same value on both sides of the connection, or the server will refuse the connection. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00214">214</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00221">221</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00364">flow::net_flow::Peer_socket::rexmit_on()</a>, and <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00364">flow::net_flow::Peer_socket::rexmit_on()</a>, and <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1194,9 +1218,9 @@ Here is the caller graph for this function:</div>
 <p>When estimating the available send bandwidth, each sample must be compiled over at least this long of a time period, even if the SRTT is lower. </p>
 <p >Normally a sample is collected over at least an SRTT, but computing a bandwidth sample over a quite short time period can produce funky results, hence this floor. Send bandwidth estimation is used at least for some forms of congestion control. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00267">267</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00274">274</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1217,7 +1241,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00134">134</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1236,9 +1260,9 @@ Here is the caller graph for this function:</div>
 <p>Enables or disables packet pacing, which attempts to spread out, without sacrificing overall send throughput, outgoing low-level packets to prevent loss. </p>
 <p >If disabled, any packet that is allowed by congestion/flow control to be sent over the wire is immediately sent to the UDP net-stack; so for example if 200 packets are ready to send and are allowed to be sent, they're sent at the same time. If enabled, they will be spread out over a reasonable time period instead. Excessive burstiness can lead to major packet drops, so this can really help. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00258">258</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00265">265</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00271">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1249,7 +1273,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:25 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

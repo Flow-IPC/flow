@@ -69,7 +69,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::net_flow::Sequence_number::Generator Class Reference</div></div>
@@ -89,7 +88,7 @@ Inheritance diagram for flow::net_flow::Sequence_number::Generator:</div>
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Sequence_number::Generator:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Sequence__number_1_1Generator__coll__graph.svg" width="1610" height="448"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Sequence__number_1_1Generator__coll__graph.svg" width="1343" height="350"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -134,34 +133,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8a5fef42dc2cedf3c0d1a6e83beb2948 inherit pub_methods_classflow_1_1log_1_1Log__context"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns reference to the stored <a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a> object, particularly as many <code>FLOW_LOG_*()</code> macros expect.  <a href="classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948">More...</a><br /></td></tr>
 <tr class="separator:a8a5fef42dc2cedf3c0d1a6e83beb2948 inherit pub_methods_classflow_1_1log_1_1Log__context"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a280938c90324ee29507c14e51afea1d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html">Sequence_number</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a280938c90324ee29507c14e51afea1d9">m_last_init_seq_num</a></td></tr>
-<tr class="memdesc:a280938c90324ee29507c14e51afea1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The last initial sequence number returned by <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> (or zero if never called).  <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a280938c90324ee29507c14e51afea1d9">More...</a><br /></td></tr>
-<tr class="separator:a280938c90324ee29507c14e51afea1d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a5d72155fe52f9b72860dd69fec6b9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">Fine_time_pt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a8a5d72155fe52f9b72860dd69fec6b9e">m_last_isn_generation</a></td></tr>
-<tr class="memdesc:a8a5d72155fe52f9b72860dd69fec6b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00" title="Clock used for delicate time measurements, such that the now() method gets the current time relative ...">Fine_clock</a> time of the last invocation of <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> (or default if never called).  <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a8a5d72155fe52f9b72860dd69fec6b9e">More...</a><br /></td></tr>
-<tr class="separator:a8a5d72155fe52f9b72860dd69fec6b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
 <tr class="memitem:a94493589766b7ae9340a31807bdf4710"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#ab307e12c0cf8cefbe7fb1ec8588af2a8">seq_num_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a94493589766b7ae9340a31807bdf4710">S_MAX_INIT_SEQ_NUM</a> = std::numeric_limits&lt;<a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#ab307e12c0cf8cefbe7fb1ec8588af2a8">seq_num_t</a>&gt;::max() / 2</td></tr>
 <tr class="memdesc:a94493589766b7ae9340a31807bdf4710"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum allowed value for the initial sequence number (ISN) for a given Flow-protocol connection (<a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>).  <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a94493589766b7ae9340a31807bdf4710">More...</a><br /></td></tr>
 <tr class="separator:a94493589766b7ae9340a31807bdf4710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aed10ea9740d60e1fd4de5de05b485b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a9aed10ea9740d60e1fd4de5de05b485b">S_TIME_PER_SEQ_NUM</a> = boost::chrono::microseconds{4}</td></tr>
-<tr class="memdesc:a9aed10ea9740d60e1fd4de5de05b485b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ISN given out at a given time should increment every N; this is the value of N.  <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a9aed10ea9740d60e1fd4de5de05b485b">More...</a><br /></td></tr>
-<tr class="separator:a9aed10ea9740d60e1fd4de5de05b485b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a585fba13c0fc74e626313ba61a725413"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a585fba13c0fc74e626313ba61a725413">S_MIN_DELAY_BETWEEN_ISN</a> = boost::chrono::milliseconds{500}</td></tr>
-<tr class="memdesc:a585fba13c0fc74e626313ba61a725413"><td class="mdescLeft">&#160;</td><td class="mdescRight">In addition to the actual time passed between two ISN generations, pretend this much additional time has also passed.  <a href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a585fba13c0fc74e626313ba61a725413">More...</a><br /></td></tr>
-<tr class="separator:a585fba13c0fc74e626313ba61a725413"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >An object of this type generates a series of initial sequence numbers (ISN) that are meant to be sufficiently secure to protect against ISN attacks and confusion among different connections between the same endpoints occurring in series. </p>
 <p >The basic use case is to construct a <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html" title="An object of this type generates a series of initial sequence numbers (ISN) that are meant to be suff...">Generator</a> at the beginning of a <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>'s operation to initialize its state and then call <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> whenever an ISN is needed.</p>
 <h3>Thread safety</h3>
-<p >Not safe to read/write or write/write one object simultaneously. </p>
+<p >Safe to read/write or write/write one object simultaneously.</p>
+<h3>Impl notes</h3>
+<p >As it stands as of this writing a <code><a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html" title="An object of this type generates a series of initial sequence numbers (ISN) that are meant to be suff...">Generator</a></code> holds no non-<code>static</code> data other than the logging context; for good randomness it uses <code>random_device</code> a-la <code>/dev/urandom</code> which requires no state. It could be replaced by a <code>static</code> function in <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html" title="An internal net_flow sequence number identifying a piece of data.">Sequence_number</a>, for example.</p>
+<p >However, historically, it used to be more complex (with a clock-based ISN-generation scheme RFC 793 from 1981) and thus did have state. While eventually we deemed this outdated and unnecessary (hence the simple current impl), there is also a to-do (not high-priority) inside <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> for a more advanced approach which would require state. All in all we found it prudent to keep this encapsulated as an object class. </p>
 
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00370">370</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00381">381</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8c0005053088c63c912655222791dd7d" name="a8c0005053088c63c912655222791dd7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c0005053088c63c912655222791dd7d">&#9670;&nbsp;</a></span>Generator()</h2>
@@ -195,7 +182,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="seq__num_8cpp_source.html#l00042">42</a> of file <a class="el" href="seq__num_8cpp_source.html">seq_num.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="seq__num_8cpp_source.html#l00041">41</a> of file <a class="el" href="seq__num_8cpp_source.html">seq_num.cpp</a>.</p>
 
 </div>
 </div>
@@ -218,11 +205,11 @@ Static Private Attributes</h2></td></tr>
 <p>Returns an initial sequence number (ISN) for use in a new connection. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="seq__num_8cpp_source.html#l00048">48</a> of file <a class="el" href="seq__num_8cpp_source.html">seq_num.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="seq__num_8cpp_source.html#l00047">47</a> of file <a class="el" href="seq__num_8cpp_source.html">seq_num.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="seq__num_8hpp_source.html#l00347">flow::net_flow::Sequence_number::m_num</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00431">flow::net_flow::Node::handle_syn_to_listening_server()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00438">flow::net_flow::Node::handle_syn_to_listening_server()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -233,58 +220,6 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a280938c90324ee29507c14e51afea1d9" name="a280938c90324ee29507c14e51afea1d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a280938c90324ee29507c14e51afea1d9">&#9670;&nbsp;</a></span>m_last_init_seq_num</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html">Sequence_number</a> flow::net_flow::Sequence_number::Generator::m_last_init_seq_num</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The last initial sequence number returned by <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> (or zero if never called). </p>
-
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00419">419</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8a5d72155fe52f9b72860dd69fec6b9e" name="a8a5d72155fe52f9b72860dd69fec6b9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a5d72155fe52f9b72860dd69fec6b9e">&#9670;&nbsp;</a></span>m_last_isn_generation</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceflow.html#a9d9cc2eeb10d398cff5591d446b763b8">Fine_time_pt</a> flow::net_flow::Sequence_number::Generator::m_last_isn_generation</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="namespaceflow.html#a8f2e48761f9ca3ffcaa29872078bbf00" title="Clock used for delicate time measurements, such that the now() method gets the current time relative ...">Fine_clock</a> time of the last invocation of <a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d" title="Returns an initial sequence number (ISN) for use in a new connection.">generate_init_seq_num()</a> (or default if never called). </p>
-
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00422">422</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
-
-</div>
-</div>
 <a id="a94493589766b7ae9340a31807bdf4710" name="a94493589766b7ae9340a31807bdf4710"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a94493589766b7ae9340a31807bdf4710">&#9670;&nbsp;</a></span>S_MAX_INIT_SEQ_NUM</h2>
 
@@ -308,59 +243,7 @@ Here is the caller graph for this function:</div>
 <p>The maximum allowed value for the initial sequence number (ISN) for a given Flow-protocol connection (<a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>). </p>
 <p >This should be high enough to allow a huge range of possible initial sequence numbers (to guard against ISN attacks, for example); but low enough to ensure that sequence numbers following the ISN within the given connection would take an extremely huge amount of time to wrap (i.e., overflow Sequence_numer::seq_num_t). If such a value is chosen, the ISN can be secure and remove the need to worry about wrapping as well. </p>
 
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00405">405</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a585fba13c0fc74e626313ba61a725413" name="a585fba13c0fc74e626313ba61a725413"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a585fba13c0fc74e626313ba61a725413">&#9670;&nbsp;</a></span>S_MIN_DELAY_BETWEEN_ISN</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a> flow::net_flow::Sequence_number::Generator::S_MIN_DELAY_BETWEEN_ISN = boost::chrono::milliseconds{500}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>In addition to the actual time passed between two ISN generations, pretend this much additional time has also passed. </p>
-
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00414">414</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9aed10ea9740d60e1fd4de5de05b485b" name="a9aed10ea9740d60e1fd4de5de05b485b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aed10ea9740d60e1fd4de5de05b485b">&#9670;&nbsp;</a></span>S_TIME_PER_SEQ_NUM</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespaceflow.html#a48799f1263cdeedec125be51a3db2b79">Fine_duration</a> flow::net_flow::Sequence_number::Generator::S_TIME_PER_SEQ_NUM = boost::chrono::microseconds{4}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The ISN given out at a given time should increment every N; this is the value of N. </p>
-
-<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00408">408</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="seq__num_8hpp_source.html#l00416">416</a> of file <a class="el" href="seq__num_8hpp_source.html">seq_num.hpp</a>.</p>
 
 </div>
 </div>
@@ -371,7 +254,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:25 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -85,7 +85,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Node_options:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Node__options__coll__graph.svg" width="1030" height="431"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1net__flow_1_1Node__options__coll__graph.svg" width="1028" height="431"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -127,6 +127,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad041b807fddff912fd6f302abeb88a2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#ad041b807fddff912fd6f302abeb88a2f">m_dyn_guarantee_one_low_lvl_in_buf_per_socket</a></td></tr>
 <tr class="memdesc:ad041b807fddff912fd6f302abeb88a2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This very inside-baseball setting controls the allocation/copy behavior of the UDP receive-deserialize operation sequence.  <a href="structflow_1_1net__flow_1_1Node__options.html#ad041b807fddff912fd6f302abeb88a2f">More...</a><br /></td></tr>
 <tr class="separator:ad041b807fddff912fd6f302abeb88a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0775ef7cb729562adf410533bfa0a20d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#a0775ef7cb729562adf410533bfa0a20d">m_dyn_accept_backlog_limit</a></td></tr>
+<tr class="memdesc:a0775ef7cb729562adf410533bfa0a20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum backlog size for each <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code> subsequently created via <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code>.  <a href="structflow_1_1net__flow_1_1Node__options.html#a0775ef7cb729562adf410533bfa0a20d">More...</a><br /></td></tr>
+<tr class="separator:a0775ef7cb729562adf410533bfa0a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71b56a75a4b6dba57daeef79b0b880f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html">Peer_socket_options</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#a71b56a75a4b6dba57daeef79b0b880f7">m_dyn_sock_opts</a></td></tr>
 <tr class="memdesc:a71b56a75a4b6dba57daeef79b0b880f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set of per-Peer_socket options in this per-Node set of options.  <a href="structflow_1_1net__flow_1_1Node__options.html#a71b56a75a4b6dba57daeef79b0b880f7">More...</a><br /></td></tr>
 <tr class="separator:a71b56a75a4b6dba57daeef79b0b880f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -186,7 +189,7 @@ Friends</h2></td></tr>
 <li>Use the option. EVERY read of the option should be performed through <a class="el" href="classflow_1_1net__flow_1_1Node.html#a43c42121d48a55a43a48e3a84bd10595" title="Obtain a copy of the value of a given option in a thread-safe manner.">Node::opt()</a> or <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#accf6d724ed1f145716ae3d4567f582f3" title="Analogous to Node::opt() but for per-socket options.">Peer_socket::opt()</a>, for thread safety. The only exception is if you manually lock Node::m_opt_mutex or Peer_socket::m_opt_mutex, respectively. </li>
 </ol>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00448">448</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00455">455</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a6733e4efbec3ed97b2460bf50d7cc67c" name="a6733e4efbec3ed97b2460bf50d7cc67c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6733e4efbec3ed97b2460bf50d7cc67c">&#9670;&nbsp;</a></span>Fine_duration</h2>
@@ -202,7 +205,7 @@ Friends</h2></td></tr>
 
 <p>A time duration, with fine precision. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00456">456</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00463">463</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +223,7 @@ Friends</h2></td></tr>
 
 <p>Short-hand for boost.program_options config options description. See <a class="el" href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1" title="Modifies a boost.program_options options description object to enable subsequent parsing of a command...">setup_config_parsing()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00453">453</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00460">460</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
 </div>
 </div>
@@ -334,9 +337,9 @@ template&lt;typename Opt_type &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00061">61</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00063">63</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="options_8cpp_source.html#l00160">opt_id_to_str()</a>.</p>
+<p class="reference">References <a class="el" href="options_8cpp_source.html#l00171">opt_id_to_str()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -380,9 +383,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00160">160</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00171">171</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00061">add_config_option()</a>, and <a class="el" href="node_8hpp_source.html#l04119">flow::net_flow::Node::validate_static_option()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00063">add_config_option()</a>, and <a class="el" href="node_8hpp_source.html#l04113">flow::net_flow::Node::validate_static_option()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -422,8 +425,8 @@ Here is the caller graph for this function:</div>
 <div class="line">opts::variables_map cfg_vars;</div>
 <div class="line">opts::store(opts::parse_config_file(F, *opts_desc), cfg_vars);</div>
 <div class="line">opts::notify(cfg_vars);</div>
-<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html">flow::net_flow::Node_options</a></div><div class="ttdoc">A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...</div><div class="ttdef"><b>Definition:</b> <a href="options_8hpp_source.html#l00448">options.hpp:449</a></div></div>
-<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html_a5819e60ed58aafb496e39962c89215f1"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">flow::net_flow::Node_options::setup_config_parsing</a></div><div class="ttdeci">void setup_config_parsing(Options_description *opts_desc)</div><div class="ttdoc">Modifies a boost.program_options options description object to enable subsequent parsing of a command...</div><div class="ttdef"><b>Definition:</b> <a href="options_8cpp_source.html#l00146">options.cpp:146</a></div></div>
+<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html">flow::net_flow::Node_options</a></div><div class="ttdoc">A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...</div><div class="ttdef"><b>Definition:</b> <a href="options_8hpp_source.html#l00455">options.hpp:456</a></div></div>
+<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html_a5819e60ed58aafb496e39962c89215f1"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">flow::net_flow::Node_options::setup_config_parsing</a></div><div class="ttdeci">void setup_config_parsing(Options_description *opts_desc)</div><div class="ttdoc">Modifies a boost.program_options options description object to enable subsequent parsing of a command...</div><div class="ttdef"><b>Definition:</b> <a href="options_8cpp_source.html#l00157">options.cpp:157</a></div></div>
 </div><!-- fragment --><p >Note the default values will come from the current values inside <code>*this</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -432,9 +435,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00146">146</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00157">157</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>.</p>
+<p class="reference">References <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -506,11 +509,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00080">80</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00082">82</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="options_8hpp_source.html#l00568">m_dyn_guarantee_one_low_lvl_in_buf_per_socket</a>, <a class="el" href="options_8hpp_source.html#l00553">m_dyn_low_lvl_max_packet_size</a>, <a class="el" href="options_8hpp_source.html#l00545">m_dyn_max_packets_per_main_loop_iteration</a>, <a class="el" href="options_8hpp_source.html#l00580">m_dyn_sock_opts</a>, <a class="el" href="options_8hpp_source.html#l00517">m_st_capture_interrupt_signals_internally</a>, <a class="el" href="options_8hpp_source.html#l00525">m_st_low_lvl_max_buf_size</a>, <a class="el" href="options_8hpp_source.html#l00534">m_st_timer_min_period</a>, and <a class="el" href="options_8cpp_source.html#l00271">flow::net_flow::Peer_socket_options::setup_config_parsing_helper()</a>.</p>
+<p class="reference">References <a class="el" href="options_8hpp_source.html#l00588">m_dyn_accept_backlog_limit</a>, <a class="el" href="options_8hpp_source.html#l00575">m_dyn_guarantee_one_low_lvl_in_buf_per_socket</a>, <a class="el" href="options_8hpp_source.html#l00560">m_dyn_low_lvl_max_packet_size</a>, <a class="el" href="options_8hpp_source.html#l00552">m_dyn_max_packets_per_main_loop_iteration</a>, <a class="el" href="options_8hpp_source.html#l00600">m_dyn_sock_opts</a>, <a class="el" href="options_8hpp_source.html#l00524">m_st_capture_interrupt_signals_internally</a>, <a class="el" href="options_8hpp_source.html#l00532">m_st_low_lvl_max_buf_size</a>, <a class="el" href="options_8hpp_source.html#l00541">m_st_timer_min_period</a>, and <a class="el" href="options_8cpp_source.html#l00285">flow::net_flow::Peer_socket_options::setup_config_parsing_helper()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00146">setup_config_parsing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00157">setup_config_parsing()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -550,7 +553,7 @@ Here is the caller graph for this function:</div>
 <p><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> needs <a class="el" href="structflow_1_1net__flow_1_1Node__options.html#aacfe6175ac39447c107413853e578459" title="Helper that, for a given option m_blah, takes something like &quot;m_blah_blah&quot; and returns the similar mo...">opt_id_to_str()</a>. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00594">594</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00614">614</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
 </div>
 </div>
@@ -598,7 +601,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00152">152</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00163">163</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
 </div>
 </div>
@@ -625,11 +628,34 @@ Here is the caller graph for this function:</div>
 <p>The two <code>struct</code>s work together (since <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low-level options affecting a single Peer_socket.">Peer_socket_options</a> needs <a class="el" href="structflow_1_1net__flow_1_1Node__options.html#aa27ce9852b67581b0171b716289bea60" title="A helper that adds a single option to a given Options_description, for use either in printing out the...">add_config_option()</a>). </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html" title="A set of low-level options affecting a single Peer_socket.">Peer_socket_options</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00589">589</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00609">609</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0775ef7cb729562adf410533bfa0a20d" name="a0775ef7cb729562adf410533bfa0a20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0775ef7cb729562adf410533bfa0a20d">&#9670;&nbsp;</a></span>m_dyn_accept_backlog_limit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int flow::net_flow::Node_options::m_dyn_accept_backlog_limit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum backlog size for each <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code> subsequently created via <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code>. </p>
+<p >The backlog (for a given <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>) is defined as the total number of connections either in SYN_RCVD state (SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>::*accept()</code>. When a SYN arrives while the backlog is full, it is rejected with an RST response.</p>
+<p >This value is captured at <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code> time and fixed for the resulting <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>'s lifetime; subsequent changes affect only <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>s created by later <code>listen()</code> calls.</p>
+<p >It <em>is</em> dynamic at the <code><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a></code> level, but does <em>not</em> dynamically affect existing listening <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>s. </p>
+
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00588">588</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00217">flow::net_flow::Node::listen_worker()</a>, <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
+
+</div>
+</div>
 <a id="ad041b807fddff912fd6f302abeb88a2f" name="ad041b807fddff912fd6f302abeb88a2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad041b807fddff912fd6f302abeb88a2f">&#9670;&nbsp;</a></span>m_dyn_guarantee_one_low_lvl_in_buf_per_socket</h2>
 
@@ -645,9 +671,9 @@ Here is the caller graph for this function:</div>
 <p>This very inside-baseball setting controls the allocation/copy behavior of the UDP receive-deserialize operation sequence. </p>
 <p >When enabled, there is exactly one input buffer large enough to hold any one serialized incoming packet; any deserialized data (including DATA and ACK payloads) are stored in separately allocated per-packet buffers; and and the input buffer is repeatedly reused without reallocation. When disabled, however, at least some packet types (most notably DATA) will use the zero-copy principle, having the deserializer take ownership of the input buffer and access pieces inside it as post-deserialization values (most notably the DATA payload); in this case the input buffer has to be reallocated between UDP reads. As of this writing the former behavior seems to be somewhat faster, especially if low-lvl-max-packet-size is unnecessarily large; but arguably the zero-copy behavior may become faster if some implementation details related to this change. So this switch seemed worth keeping. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00568">568</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00575">575</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l00426">flow::net_flow::Node::handle_incoming()</a>, and <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l00426">flow::net_flow::Node::handle_incoming()</a>, and <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -666,9 +692,9 @@ Here is the caller graph for this function:</div>
 <p>Any incoming low-level (UDP) packet will be truncated to this size. </p>
 <p >This should be well above per-socket max-block-size (# of bytes of user payload per DATA packet). There will only be one buffer of this size in memory at a time, so no need to be too stingy, but on the other hand certain allocation/deallocation behavior may cause performance drops if this unnecessarily large. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00553">553</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00560">560</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00315">flow::net_flow::Node::async_low_lvl_packet_send_impl()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00040">flow::net_flow::Node::low_lvl_recv_and_handle()</a>, <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00997">flow::net_flow::Node::sync_sock_low_lvl_rst_send()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00315">flow::net_flow::Node::async_low_lvl_packet_send_impl()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00040">flow::net_flow::Node::low_lvl_recv_and_handle()</a>, <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l01001">flow::net_flow::Node::sync_sock_low_lvl_rst_send()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
 
 </div>
 </div>
@@ -687,9 +713,9 @@ Here is the caller graph for this function:</div>
 <p>The UDP net-stack may deliver 2 or more datagrams to the Flow <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> at the same time. </p>
 <p >To lower overhead and increase efficiency, Flow will process all such datagrams &ndash; and any more that may arrive during this processing &ndash; before preparing any resulting outgoing messages, such as acknowledgments or more data packets. In high-speed conditions this may result in excessive burstiness of outgoing traffic. This option's value places a limit on the number of datagrams to process before constructing and sending any resulting outgoing messages to prevent this burstiness. If 0, there is no limit. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00545">545</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00552">552</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00040">flow::net_flow::Node::low_lvl_recv_and_handle()</a>, and <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="low__lvl__io_8cpp_source.html#l00040">flow::net_flow::Node::low_lvl_recv_and_handle()</a>, and <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -709,9 +735,9 @@ Here is the caller graph for this function:</div>
 <p >This represents the per-socket options each subsequent socket generated in the corresponding <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> will get, unless user specifies a custom set of such options.</p>
 <p >Note that, in the context of the per-Node options set, this is dynamic; any per-socket option (even a static one) must be changeable in the global per-Node options set, as otherwise it would just be a regular per-Node data member in <a class="el" href="structflow_1_1net__flow_1_1Node__options.html" title="A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...">Node_options</a>, as it could never change anyway, so no point in having it be per-Peer_socket. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00580">580</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00600">600</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00431">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="node_8cpp_source.html#l01111">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00438">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="node_8cpp_source.html#l01112">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
 
 </div>
 </div>
@@ -730,9 +756,9 @@ Here is the caller graph for this function:</div>
 <p>If and only if this is <code>true</code>, the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> will detect SIGINT and SIGTERM (or your OS's version thereof); upon seeing such a signal, it will fire <a class="el" href="classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo...">Node::interrupt_all_waits()</a>, which will interrupt all blocking operations, conceptually similarly to POSIX's <code>EINTR</code>. </p>
 <p >If this is <code>true</code>, the user may register their own signal handler(s) (for any purpose whatsoever) using <code>boost::asio::signal_set</code>. However, behavior is undefined if the program registers signal handlers via any other API, such as <code>sigaction()</code> or <code>signal()</code>. If you need to set up such a non-<code>signal_set</code> signal handler, AND you require <code>EINTR</code>-like behavior, then (1) set this option to <code>false</code>; (2) trap SIGINT and SIGTERM yourself; (3) in your handlers for the latter, simply call <a class="el" href="classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo...">Node::interrupt_all_waits()</a>. Similarly, if you want custom behavior regarding <a class="el" href="classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo...">Node::interrupt_all_waits()</a>, feel free to call it whenever you want (not necessarily even from a signal handler), and set this to <code>false</code>. However, if a typical, common-sense behavior is what you're after &ndash; and either don't need additional signal handling or are OK with using <code>signal_set</code> for it &ndash; then setting this to <code>true</code> is a good option. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00517">517</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00524">524</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
 
 </div>
 </div>
@@ -751,9 +777,9 @@ Here is the caller graph for this function:</div>
 <p>The max size to ask the OS to set our UDP socket's receive buffer to in order to minimize loss if we can't process datagrams fast enough. </p>
 <p >This should be as high as possible while being "acceptable" in terms of memory. However, the OS will probably have its own limit and may well pick a limit that is the minimum of that limit and this value. </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00525">525</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00532">532</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>, <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>, and <a class="el" href="node_8cpp_source.html#l00151">flow::net_flow::Node::worker_run()</a>.</p>
 
 </div>
 </div>
@@ -772,9 +798,9 @@ Here is the caller graph for this function:</div>
 <p>A time period such that the boost.asio timer implementation for this platform is able to accurately able to schedule events within this time period or greater. </p>
 <p >If you select 0, the code will decide what this value is based on the platform, but its logic for this may or may not be correct (actually it will probably be correct but possibly too conservative [large], causing timer coarseness in mechanisms like the rather critical packet pacing). </p>
 
-<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00534">534</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00541">541</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00080">setup_config_parsing_helper()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00757">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, <a class="el" href="low__lvl__io_8cpp_source.html#l00761">flow::net_flow::Node::sock_pacing_new_time_slice()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
 
 </div>
 </div>
@@ -785,7 +811,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:25 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

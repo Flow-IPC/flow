@@ -93,7 +93,7 @@ Inheritance diagram for flow::net_flow::Port_space:</div>
 <div class="dynheader">
 Collaboration diagram for flow::net_flow::Port_space:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Port__space__coll__graph.svg" width="1487" height="471"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1net__flow_1_1Port__space__coll__graph.svg" width="1487" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -167,9 +167,6 @@ Private Types</h2></td></tr>
 <tr class="memitem:a729dc0add1c98ebde5b3549d3ec132e2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a729dc0add1c98ebde5b3549d3ec132e2">Bit_set</a> = boost::dynamic_bitset&lt;&gt;</td></tr>
 <tr class="memdesc:a729dc0add1c98ebde5b3549d3ec132e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for bit set of arbitary length, representing a port set (each bit is a port; 1 open, 0 reserved).  <a href="classflow_1_1net__flow_1_1Port__space.html#a729dc0add1c98ebde5b3549d3ec132e2">More...</a><br /></td></tr>
 <tr class="separator:a729dc0add1c98ebde5b3549d3ec132e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4690f25a42ebb61561f91c9187bcc30"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#af4690f25a42ebb61561f91c9187bcc30">Random_generator</a> = <a class="el" href="classflow_1_1util_1_1Rnd__gen__uniform__range__base.html#a519fc83fd1c52a82618cd85f3a089668">util::Rnd_gen_uniform_range_base::Random_generator</a></td></tr>
-<tr class="memdesc:af4690f25a42ebb61561f91c9187bcc30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random number generator.  <a href="classflow_1_1net__flow_1_1Port__space.html#af4690f25a42ebb61561f91c9187bcc30">More...</a><br /></td></tr>
-<tr class="separator:af4690f25a42ebb61561f91c9187bcc30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb17ac5ea9708262d0c374dc246a7244"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#afb17ac5ea9708262d0c374dc246a7244">flow_port_sans_overflow_t</a> = uint32_t</td></tr>
 <tr class="memdesc:afb17ac5ea9708262d0c374dc246a7244"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type same as <a class="el" href="namespaceflow_1_1net__flow.html#a079d8cd87a68d1c5f04c6bce71f0061d" title="Logical Flow port type (analogous to a UDP/TCP port in spirit but in no way relevant to UDP/TCP).">flow_port_t</a> but larger, useful when doing arithmetic that might hit overflow in corner cases.  <a href="classflow_1_1net__flow_1_1Port__space.html#afb17ac5ea9708262d0c374dc246a7244">More...</a><br /></td></tr>
 <tr class="separator:afb17ac5ea9708262d0c374dc246a7244"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,9 +197,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae401e02d49ce557bbc5474e049eb5455"><td class="memItemLeft" align="right" valign="top">std::queue&lt; <a class="el" href="namespaceflow_1_1net__flow.html#a079d8cd87a68d1c5f04c6bce71f0061d">flow_port_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ae401e02d49ce557bbc5474e049eb5455">m_recent_ephemeral_ports</a></td></tr>
 <tr class="memdesc:ae401e02d49ce557bbc5474e049eb5455"><td class="mdescLeft">&#160;</td><td class="mdescRight">A FIFO of recently used but currently available ephemeral ports.  <a href="classflow_1_1net__flow_1_1Port__space.html#ae401e02d49ce557bbc5474e049eb5455">More...</a><br /></td></tr>
 <tr class="separator:ae401e02d49ce557bbc5474e049eb5455"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4714945b23e588b1554240fa590560a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#af4690f25a42ebb61561f91c9187bcc30">Random_generator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ae4714945b23e588b1554240fa590560a">m_rnd_generator</a></td></tr>
-<tr class="memdesc:ae4714945b23e588b1554240fa590560a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Random number generator for picking ports.  <a href="classflow_1_1net__flow_1_1Port__space.html#ae4714945b23e588b1554240fa590560a">More...</a><br /></td></tr>
-<tr class="separator:ae4714945b23e588b1554240fa590560a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
@@ -225,7 +219,7 @@ ports" and <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a06fb0
 <p ><code>bit_set</code> objects are used to represent the set of reserved vs. available ports of a given type (0 means taken, 1 means available). This is not only quick and memory-compact but also allows a convenient search for a random available port (random bit -&gt; <code>find_next()</code> if not open -&gt; <code>find_first()</code> if still not found -&gt; no ports available if even still not found).</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>While the ephemeral port reuse avoidance works well within a single <a class="el" href="classflow_1_1net__flow_1_1Port__space.html" title="Internal net_flow class that maintains the available Flow-protocol port space, somewhat similarly to ...">Port_space</a> lifetime, it does not carry over across different Port_spaces. I.e., if <a class="el" href="classflow_1_1net__flow_1_1Port__space.html" title="Internal net_flow class that maintains the available Flow-protocol port space, somewhat similarly to ...">Port_space</a> is destructed and then constructed, the container of recently used ports starts out empty, so a port may (with some low but sizable probability) be reused. This could be avoided by persisting (e.g., via boost.serialization) those structures to disk (perhaps at a user-supplied <code>boost::filesystem::path</code>) in <code>~Port_space()</code>. This wouldn't work if <a class="el" href="classflow_1_1net__flow_1_1Port__space.html" title="Internal net_flow class that maintains the available Flow-protocol port space, somewhat similarly to ...">Port_space</a> crashed, however. To solve that, we could easily start a thread in <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ad02a2c57aa6854659621af98b64d3638" title="Constructs the Port_space with all ports available.">Port_space()</a> (and join it in <code>~Port_space()</code>) that would save that state every N seconds. If that's not enough, we can instead have that thread run a boost.asio <code>io_context::run()</code> event loop and <code>post(io_context&amp;)</code> the save operation onto it (from arbitrary threads) each time a new ephemeral port is reserved (with some kind of protection against incessant disk writing built into this worker thread; e.g., don't save if saved in the last N msec). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00091">91</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00089">89</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a729dc0add1c98ebde5b3549d3ec132e2" name="a729dc0add1c98ebde5b3549d3ec132e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a729dc0add1c98ebde5b3549d3ec132e2">&#9670;&nbsp;</a></span>Bit_set</h2>
@@ -249,7 +243,7 @@ ports" and <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a06fb0
 
 <p>Short-hand for bit set of arbitary length, representing a port set (each bit is a port; 1 open, 0 reserved). </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00164">164</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00171">171</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
 </div>
 </div>
@@ -275,33 +269,7 @@ ports" and <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a06fb0
 
 <p>A type same as <a class="el" href="namespaceflow_1_1net__flow.html#a079d8cd87a68d1c5f04c6bce71f0061d" title="Logical Flow port type (analogous to a UDP/TCP port in spirit but in no way relevant to UDP/TCP).">flow_port_t</a> but larger, useful when doing arithmetic that might hit overflow in corner cases. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00170">170</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af4690f25a42ebb61561f91c9187bcc30" name="af4690f25a42ebb61561f91c9187bcc30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4690f25a42ebb61561f91c9187bcc30">&#9670;&nbsp;</a></span>Random_generator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#af4690f25a42ebb61561f91c9187bcc30">flow::net_flow::Port_space::Random_generator</a> =  <a class="el" href="classflow_1_1util_1_1Rnd__gen__uniform__range__base.html#a519fc83fd1c52a82618cd85f3a089668">util::Rnd_gen_uniform_range_base::Random_generator</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Random number generator. </p>
-
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00167">167</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00174">174</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
 </div>
 </div>
@@ -338,9 +306,9 @@ ports" and <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a06fb0
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00045">45</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00047">47</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="port__space_8hpp_source.html#l00234">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00219">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00213">m_service_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00111">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00108">S_FIRST_SERVICE_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00105">S_NUM_EPHEMERAL_PORTS</a>, <a class="el" href="port__space_8hpp_source.html#l00102">S_NUM_SERVICE_PORTS</a>, and <a class="el" href="port__space_8cpp_source.html#l00033">flow::net_flow::S_PORT_ANY</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="port__space_8hpp_source.html#l00238">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00223">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00217">m_service_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00109">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00106">S_FIRST_SERVICE_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00103">S_NUM_EPHEMERAL_PORTS</a>, <a class="el" href="port__space_8hpp_source.html#l00100">S_NUM_SERVICE_PORTS</a>, and <a class="el" href="port__space_8cpp_source.html#l00035">flow::net_flow::S_PORT_ANY</a>.</p>
 
 </div>
 </div>
@@ -378,11 +346,9 @@ ports" and <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a06fb0
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The bit index of a random available port, or <code>Bit_set::npos</code> if all are taken. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00261">261</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00262">262</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="port__space_8hpp_source.html#l00246">m_rnd_generator</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -425,11 +391,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00067">67</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00068">68</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00296">flow::util::in_closed_open_range()</a>, <a class="el" href="port__space_8hpp_source.html#l00108">S_FIRST_SERVICE_PORT</a>, and <a class="el" href="port__space_8hpp_source.html#l00102">S_NUM_SERVICE_PORTS</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00296">flow::util::in_closed_open_range()</a>, <a class="el" href="port__space_8hpp_source.html#l00106">S_FIRST_SERVICE_PORT</a>, and <a class="el" href="port__space_8hpp_source.html#l00100">S_NUM_SERVICE_PORTS</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00075">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00076">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -462,6 +428,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Reserve a randomly chosen available ephemeral port. </p>
+<dl class="section warning"><dt>Warning</dt><dd>As an internal API, this one assumes <code>err_code</code> is not null. Passing null won't throw; undefined behavior results.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">err_code</td><td>See <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> docs for error reporting semantics. <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482" title="All possible errors returned (via flow::Error_code arguments) by flow::net_flow functions/methods.">error::Code</a> generated: <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a1975df7ed76c42660cbdc6039d5c70c5" title="No more ephemeral Flow ports available.">error::Code::S_OUT_OF_PORTS</a>. </td></tr>
@@ -470,11 +437,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>On success, the reserved port; on failure, <a class="el" href="namespaceflow_1_1net__flow.html#a9dd0c9d8de00fab78d8b0a3f50dad2a9" title="Special Flow port value used to indicate &quot;invalid port&quot; or &quot;please pick a random available ephemeral ...">S_PORT_ANY</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00112">112</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00113">113</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="port__space_8cpp_source.html#l00261">find_available_port_bit_idx()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="port__space_8hpp_source.html#l00234">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00219">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00243">m_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00111">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00105">S_NUM_EPHEMERAL_PORTS</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a1975df7ed76c42660cbdc6039d5c70c5">flow::net_flow::error::S_OUT_OF_PORTS</a>, and <a class="el" href="port__space_8cpp_source.html#l00033">flow::net_flow::S_PORT_ANY</a>.</p>
+<p class="reference">References <a class="el" href="port__space_8cpp_source.html#l00262">find_available_port_bit_idx()</a>, <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="port__space_8hpp_source.html#l00238">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00223">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00247">m_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00109">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00103">S_NUM_EPHEMERAL_PORTS</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a1975df7ed76c42660cbdc6039d5c70c5">flow::net_flow::error::S_OUT_OF_PORTS</a>, and <a class="el" href="port__space_8cpp_source.html#l00035">flow::net_flow::S_PORT_ANY</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00075">reserve_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00076">reserve_port()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -517,6 +484,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Reserve the specified service port, or <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a65dbe99c7c4433e6c090f26c92ab3f78" title="Reserve a randomly chosen available ephemeral port.">reserve_ephemeral_port()</a> if the specified port is <a class="el" href="namespaceflow_1_1net__flow.html#a9dd0c9d8de00fab78d8b0a3f50dad2a9" title="Special Flow port value used to indicate &quot;invalid port&quot; or &quot;please pick a random available ephemeral ...">S_PORT_ANY</a>. </p>
+<dl class="section warning"><dt>Warning</dt><dd>As an internal API, this one assumes <code>err_code</code> is not null. Passing null won't throw; undefined behavior results.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td>A valid and still available service port number, or <a class="el" href="namespaceflow_1_1net__flow.html#a9dd0c9d8de00fab78d8b0a3f50dad2a9" title="Special Flow port value used to indicate &quot;invalid port&quot; or &quot;please pick a random available ephemeral ...">S_PORT_ANY</a>. </td></tr>
@@ -526,11 +494,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>On success, the reserved port; on failure, <a class="el" href="namespaceflow_1_1net__flow.html#a9dd0c9d8de00fab78d8b0a3f50dad2a9" title="Special Flow port value used to indicate &quot;invalid port&quot; or &quot;please pick a random available ephemeral ...">S_PORT_ANY</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00075">75</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00076">76</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="port__space_8cpp_source.html#l00067">is_service_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00213">m_service_ports</a>, <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00108">S_FIRST_SERVICE_PORT</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482abb79e941df00b67a8631a9361ee5a4d1">flow::net_flow::error::S_INVALID_SERVICE_PORT_NUMBER</a>, <a class="el" href="port__space_8cpp_source.html#l00033">flow::net_flow::S_PORT_ANY</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a2c42b01b60ebe4834e9be3933ce94cb6">flow::net_flow::error::S_PORT_TAKEN</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="port__space_8cpp_source.html#l00068">is_service_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00217">m_service_ports</a>, <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00106">S_FIRST_SERVICE_PORT</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482abb79e941df00b67a8631a9361ee5a4d1">flow::net_flow::error::S_INVALID_SERVICE_PORT_NUMBER</a>, <a class="el" href="port__space_8cpp_source.html#l00035">flow::net_flow::S_PORT_ANY</a>, and <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a2c42b01b60ebe4834e9be3933ce94cb6">flow::net_flow::error::S_PORT_TAKEN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00215">flow::net_flow::Node::listen_worker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00217">flow::net_flow::Node::listen_worker()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -573,6 +541,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Return a previously reserved port (of any type). </p>
+<dl class="section warning"><dt>Warning</dt><dd>As an internal API, this one assumes <code>err_code</code> is not null. Passing null won't throw; undefined behavior results.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">port</td><td>A previously reserved port. </td></tr>
@@ -581,11 +550,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00175">175</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8cpp_source.html#l00176">176</a> of file <a class="el" href="port__space_8cpp_source.html">port_space.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="util_2util_8hpp_source.html#l00296">flow::util::in_closed_open_range()</a>, <a class="el" href="port__space_8cpp_source.html#l00067">is_service_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00234">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00219">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00243">m_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00213">m_service_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00111">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00108">S_FIRST_SERVICE_PORT</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a0eac39cc62ef841927a2f69a3c04db4e">flow::net_flow::error::S_INTERNAL_ERROR_PORT_NOT_TAKEN</a>, <a class="el" href="port__space_8hpp_source.html#l00205">S_MAX_RECENT_EPHEMERAL_PORTS</a>, and <a class="el" href="port__space_8hpp_source.html#l00105">S_NUM_EPHEMERAL_PORTS</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00202">FLOW_ERROR_EMIT_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="util_2util_8hpp_source.html#l00296">flow::util::in_closed_open_range()</a>, <a class="el" href="port__space_8cpp_source.html#l00068">is_service_port()</a>, <a class="el" href="port__space_8hpp_source.html#l00238">m_ephemeral_and_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00223">m_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00247">m_recent_ephemeral_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00217">m_service_ports</a>, <a class="el" href="port__space_8hpp_source.html#l00109">S_FIRST_EPHEMERAL_PORT</a>, <a class="el" href="port__space_8hpp_source.html#l00106">S_FIRST_SERVICE_PORT</a>, <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482a0eac39cc62ef841927a2f69a3c04db4e">flow::net_flow::error::S_INTERNAL_ERROR_PORT_NOT_TAKEN</a>, <a class="el" href="port__space_8hpp_source.html#l00209">S_MAX_RECENT_EPHEMERAL_PORTS</a>, and <a class="el" href="port__space_8hpp_source.html#l00103">S_NUM_EPHEMERAL_PORTS</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05600">flow::net_flow::Node::close_connection_immediately()</a>, <a class="el" href="server__socket_8cpp_source.html#l00362">flow::net_flow::Node::close_empty_server_immediately()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00215">flow::net_flow::Node::listen_worker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05600">flow::net_flow::Node::close_connection_immediately()</a>, <a class="el" href="server__socket_8cpp_source.html#l00369">flow::net_flow::Node::close_empty_server_immediately()</a>, and <a class="el" href="server__socket_8cpp_source.html#l00217">flow::net_flow::Node::listen_worker()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -630,9 +599,9 @@ Here is the caller graph for this function:</div>
 <li>All other bits are 1. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00234">234</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00238">238</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -658,9 +627,9 @@ Here is the caller graph for this function:</div>
 
 <p>Current ephemeral port set; indexing analogous to <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a1f8e8e52bf4ec90e0b13d9159c403eae" title="Current service port set.">m_service_ports</a> but starting at <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ab9a614b67638cbd9526eb82033a53352" title="The port number of the lowest ephemeral port.">S_FIRST_EPHEMERAL_PORT</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00219">219</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00223">223</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -687,37 +656,9 @@ Here is the caller graph for this function:</div>
 <p>A FIFO of recently used but currently available ephemeral ports. </p>
 <p >Algorithm: push port onto back of queue when it's returned; pop front of queue if <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ae401e02d49ce557bbc5474e049eb5455" title="A FIFO of recently used but currently available ephemeral ports.">m_recent_ephemeral_ports</a> is beyond <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a0bdaf744b7089027c8d952b67d1f9cc0" title="The maximum size of m_recent_ephemeral_ports.">S_MAX_RECENT_EPHEMERAL_PORTS</a> long. If port is needed and no more non-<a class="el" href="classflow_1_1net__flow_1_1Port__space.html#abc455d9e1b00886f7985c7b5fd115862" title="Set representing the union of the set of current reserved ephemeral ports and the set of the last up-...">m_ephemeral_and_recent_ephemeral_ports</a> ports are available, pop front of queue (i.e., oldest recently used port) and use that. If emptied, there are simply no more ports left. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00243">243</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00247">247</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
-
-</div>
-</div>
-<a id="ae4714945b23e588b1554240fa590560a" name="ae4714945b23e588b1554240fa590560a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4714945b23e588b1554240fa590560a">&#9670;&nbsp;</a></span>m_rnd_generator</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classflow_1_1net__flow_1_1Port__space.html#af4690f25a42ebb61561f91c9187bcc30">Random_generator</a> flow::net_flow::Port_space::m_rnd_generator</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Random number generator for picking ports. </p>
-
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00246">246</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00261">find_available_port_bit_idx()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -744,9 +685,9 @@ Here is the caller graph for this function:</div>
 <p>Current service port set. </p>
 <p >Bit 0 is port <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a6d07833521960b2f90806bfa7728cfd8" title="The port number of the lowest service port.">S_FIRST_SERVICE_PORT</a>, bit 1 is <code>S_FIRST_SERVICE_PORT + 1</code>, etc. In particular, this starts off as all 1s (all ports open). </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00213">213</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00217">217</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00075">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00076">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -772,9 +713,9 @@ Here is the caller graph for this function:</div>
 
 <p>The port number of the lowest ephemeral port. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00111">111</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00109">109</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -800,9 +741,9 @@ Here is the caller graph for this function:</div>
 
 <p>The port number of the lowest service port. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00108">108</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00106">106</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00067">is_service_port()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00075">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00068">is_service_port()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00076">reserve_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -828,9 +769,9 @@ Here is the caller graph for this function:</div>
 
 <p>The maximum size of <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#ae401e02d49ce557bbc5474e049eb5455" title="A FIFO of recently used but currently available ephemeral ports.">m_recent_ephemeral_ports</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00205">205</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00209">209</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -856,9 +797,9 @@ Here is the caller graph for this function:</div>
 
 <p>Total number of "ephemeral" ports (ones reserved at random with <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a65dbe99c7c4433e6c090f26c92ab3f78" title="Reserve a randomly chosen available ephemeral port.">reserve_ephemeral_port()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00105">105</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00103">103</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00112">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00175">return_port()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>, <a class="el" href="port__space_8cpp_source.html#l00113">reserve_ephemeral_port()</a>, and <a class="el" href="port__space_8cpp_source.html#l00176">return_port()</a>.</p>
 
 </div>
 </div>
@@ -884,7 +825,7 @@ Here is the caller graph for this function:</div>
 
 <p>Total number of ports in the port space, including <a class="el" href="namespaceflow_1_1net__flow.html#a9dd0c9d8de00fab78d8b0a3f50dad2a9" title="Special Flow port value used to indicate &quot;invalid port&quot; or &quot;please pick a random available ephemeral ...">S_PORT_ANY</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00099">99</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00097">97</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
 </div>
 </div>
@@ -910,9 +851,9 @@ Here is the caller graph for this function:</div>
 
 <p>Total number of "service" ports (ones that can be reserved by number with <a class="el" href="classflow_1_1net__flow_1_1Port__space.html#a1168841ecd09d3187f9803eac2b8b703" title="Reserve the specified service port, or reserve_ephemeral_port() if the specified port is S_PORT_ANY.">reserve_port()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00102">102</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="port__space_8hpp_source.html#l00100">100</a> of file <a class="el" href="port__space_8hpp_source.html">port_space.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00067">is_service_port()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, and <a class="el" href="port__space_8cpp_source.html#l00045">Port_space()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="port__space_8cpp_source.html#l00068">is_service_port()</a>, <a class="el" href="net__flow_2error_2error_8cpp_source.html#l00107">flow::net_flow::error::Category::message()</a>, and <a class="el" href="port__space_8cpp_source.html#l00047">Port_space()</a>.</p>
 
 </div>
 </div>
@@ -923,7 +864,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:49:02 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:25 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

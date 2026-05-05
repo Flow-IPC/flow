@@ -33,18 +33,20 @@
 <title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M14.89,-193.27C6.14,-159.79 -7.31,-85.68 31,-45 56.3,-18.13 159.98,-13.78 222.49,-13.69"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="11.54,-194.27 17.6,-202.96 18.28,-192.38 11.54,-194.27"/>
-<text text-anchor="start" x="31" y="-160.1" font-family="Helvetica,sans-Serif" font-size="8.00"> m_st_cong_ctl_cong</text>
-<text text-anchor="start" x="31" y="-151.1" font-family="Helvetica,sans-Serif" font-size="8.00">_wnd_on_drop_timeout</text>
-<text text-anchor="middle" x="82" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">_blocks</text>
-<text text-anchor="start" x="31" y="-133.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_cong_ctl_init</text>
-<text text-anchor="middle" x="82" y="-124.1" font-family="Helvetica,sans-Serif" font-size="8.00">_cong_wnd_blocks</text>
-<text text-anchor="start" x="31" y="-115.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_cong_ctl_max_cong</text>
-<text text-anchor="middle" x="82" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">_wnd_blocks</text>
-<text text-anchor="middle" x="82" y="-97.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_block_size</text>
-<text text-anchor="start" x="31" y="-88.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_full_blocks</text>
-<text text-anchor="middle" x="82" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">_before_ack_send</text>
-<text text-anchor="middle" x="82" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_buf_max_size</text>
-<text text-anchor="middle" x="82" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_snd_buf_max_size</text>
+<text text-anchor="start" x="31" y="-169.1" font-family="Helvetica,sans-Serif" font-size="8.00"> m_st_cong_ctl_cong</text>
+<text text-anchor="start" x="31" y="-160.1" font-family="Helvetica,sans-Serif" font-size="8.00">_wnd_on_drop_timeout</text>
+<text text-anchor="middle" x="82" y="-151.1" font-family="Helvetica,sans-Serif" font-size="8.00">_blocks</text>
+<text text-anchor="start" x="31" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_cong_ctl_init</text>
+<text text-anchor="middle" x="82" y="-133.1" font-family="Helvetica,sans-Serif" font-size="8.00">_cong_wnd_blocks</text>
+<text text-anchor="start" x="31" y="-124.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_cong_ctl_max_cong</text>
+<text text-anchor="middle" x="82" y="-115.1" font-family="Helvetica,sans-Serif" font-size="8.00">_wnd_blocks</text>
+<text text-anchor="middle" x="82" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_block_size</text>
+<text text-anchor="start" x="31" y="-97.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_full_blocks</text>
+<text text-anchor="middle" x="82" y="-88.1" font-family="Helvetica,sans-Serif" font-size="8.00">_before_ack_send</text>
+<text text-anchor="middle" x="82" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_buf_max_size</text>
+<text text-anchor="start" x="31" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_sync_rcvd_data</text>
+<text text-anchor="middle" x="82" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">_q_cumulative_max_size</text>
+<text text-anchor="middle" x="82" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_snd_buf_max_size</text>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">

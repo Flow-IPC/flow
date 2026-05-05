@@ -128,6 +128,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ad041b807fddff912fd6f302abeb88a2f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#ad041b807fddff912fd6f302abeb88a2f">m_dyn_guarantee_one_low_lvl_in_buf_per_socket</a></td></tr>
 <tr class="memdesc:ad041b807fddff912fd6f302abeb88a2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This very inside-baseball setting controls the allocation/copy behavior of the UDP receive-deserialize operation sequence.  <a href="structflow_1_1net__flow_1_1Node__options.html#ad041b807fddff912fd6f302abeb88a2f">More...</a><br /></td></tr>
 <tr class="separator:ad041b807fddff912fd6f302abeb88a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0775ef7cb729562adf410533bfa0a20d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#a0775ef7cb729562adf410533bfa0a20d">m_dyn_accept_backlog_limit</a></td></tr>
+<tr class="memdesc:a0775ef7cb729562adf410533bfa0a20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum backlog size for each <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code> subsequently created via <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code>.  <a href="structflow_1_1net__flow_1_1Node__options.html#a0775ef7cb729562adf410533bfa0a20d">More...</a><br /></td></tr>
+<tr class="separator:a0775ef7cb729562adf410533bfa0a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71b56a75a4b6dba57daeef79b0b880f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html">Peer_socket_options</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Node__options.html#a71b56a75a4b6dba57daeef79b0b880f7">m_dyn_sock_opts</a></td></tr>
 <tr class="memdesc:a71b56a75a4b6dba57daeef79b0b880f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set of per-Peer_socket options in this per-Node set of options.  <a href="structflow_1_1net__flow_1_1Node__options.html#a71b56a75a4b6dba57daeef79b0b880f7">More...</a><br /></td></tr>
 <tr class="separator:a71b56a75a4b6dba57daeef79b0b880f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,8 +184,8 @@ Public Attributes</h2></td></tr>
 <div class="line">opts::variables_map cfg_vars;</div>
 <div class="line">opts::store(opts::parse_config_file(F, *opts_desc), cfg_vars);</div>
 <div class="line">opts::notify(cfg_vars);</div>
-<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html">flow::net_flow::Node_options</a></div><div class="ttdoc">A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...</div><div class="ttdef"><b>Definition:</b> options.hpp:449</div></div>
-<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html_a5819e60ed58aafb496e39962c89215f1"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">flow::net_flow::Node_options::setup_config_parsing</a></div><div class="ttdeci">void setup_config_parsing(Options_description *opts_desc)</div><div class="ttdoc">Modifies a boost.program_options options description object to enable subsequent parsing of a command...</div><div class="ttdef"><b>Definition:</b> options.cpp:146</div></div>
+<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html">flow::net_flow::Node_options</a></div><div class="ttdoc">A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...</div><div class="ttdef"><b>Definition:</b> options.hpp:456</div></div>
+<div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html_a5819e60ed58aafb496e39962c89215f1"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">flow::net_flow::Node_options::setup_config_parsing</a></div><div class="ttdeci">void setup_config_parsing(Options_description *opts_desc)</div><div class="ttdoc">Modifies a boost.program_options options description object to enable subsequent parsing of a command...</div><div class="ttdef"><b>Definition:</b> options.cpp:157</div></div>
 </div><!-- fragment --><p >Note the default values will come from the current values inside <code>*this</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -194,6 +197,25 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0775ef7cb729562adf410533bfa0a20d" name="a0775ef7cb729562adf410533bfa0a20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0775ef7cb729562adf410533bfa0a20d">&#9670;&nbsp;</a></span>m_dyn_accept_backlog_limit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int flow::net_flow::Node_options::m_dyn_accept_backlog_limit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum backlog size for each <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code> subsequently created via <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code>. </p>
+<p >The backlog (for a given <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>) is defined as the total number of connections either in SYN_RCVD state (SYN_ACK sent, awaiting SYN_ACK_ACK) or in ESTABLISHED state but not yet user-accepted via <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a>::*accept()</code>. When a SYN arrives while the backlog is full, it is rejected with an RST response.</p>
+<p >This value is captured at <code><a class="el" href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">Node::listen()</a></code> time and fixed for the resulting <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>'s lifetime; subsequent changes affect only <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>s created by later <code>listen()</code> calls.</p>
+<p >It <em>is</em> dynamic at the <code><a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a></code> level, but does <em>not</em> dynamically affect existing listening <code><a class="el" href="classflow_1_1net__flow_1_1Server__socket.html" title="A server socket able to listen on a single Flow port for incoming connections and return peer sockets...">Server_socket</a></code>s. </p>
+
+</div>
+</div>
 <a id="ad041b807fddff912fd6f302abeb88a2f" name="ad041b807fddff912fd6f302abeb88a2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad041b807fddff912fd6f302abeb88a2f">&#9670;&nbsp;</a></span>m_dyn_guarantee_one_low_lvl_in_buf_per_socket</h2>
 
@@ -321,7 +343,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:22 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

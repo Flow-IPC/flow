@@ -125,6 +125,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a171480324f26432928738532cb3c8556"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">m_st_rcv_buf_max_size</a></td></tr>
 <tr class="memdesc:a171480324f26432928738532cb3c8556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of bytes that the Receive buffer can hold.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">More...</a><br /></td></tr>
 <tr class="separator:a171480324f26432928738532cb3c8556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbea38a7d97f54614c15921435d2106"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">m_st_rcv_sync_rcvd_data_q_cumulative_max_size</a></td></tr>
+<tr class="memdesc:aabbea38a7d97f54614c15921435d2106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">More...</a><br /></td></tr>
+<tr class="separator:aabbea38a7d97f54614c15921435d2106"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">m_st_rcv_flow_control_on</a></td></tr>
 <tr class="memdesc:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">More...</a><br /></td></tr>
 <tr class="separator:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -708,6 +711,23 @@ Peer_socket::m_rcv_syn_rcvd_data_q. </dd></dl>
 
 </div>
 </div>
+<a id="aabbea38a7d97f54614c15921435d2106" name="aabbea38a7d97f54614c15921435d2106"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabbea38a7d97f54614c15921435d2106">&#9670;&nbsp;</a></span>m_st_rcv_sync_rcvd_data_q_cumulative_max_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t flow::net_flow::Peer_socket_options::m_st_rcv_sync_rcvd_data_q_cumulative_max_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped. </p>
+<p >The value 0 will drop all such DATA packets. </p>
+
+</div>
+</div>
 <a id="a6c35e6014182ccfcbee6bed4571a8360" name="a6c35e6014182ccfcbee6bed4571a8360"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c35e6014182ccfcbee6bed4571a8360">&#9670;&nbsp;</a></span>m_st_rexmit_on</h2>
 
@@ -784,7 +804,7 @@ Peer_socket::m_rcv_syn_rcvd_data_q. </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 15 2026 00:48:59 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue May 5 2026 01:22:22 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
