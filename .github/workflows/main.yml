@@ -784,7 +784,7 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         git config --local http.https://github.com/.extraheader \
-          "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.GIT_BOT_PAT }} | base64)"
+          "AUTHORIZATION: basic $(echo -n x-access-token:${{ secrets.GIT_BOT_PAT }} | base64 -w 0)"
         # Avoid HTTP/2 network errors.
         git config --local http.version HTTP/1.1
         cd ${{ github.workspace }}/doc/flow_doc
