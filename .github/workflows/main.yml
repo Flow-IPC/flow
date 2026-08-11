@@ -470,6 +470,8 @@ jobs:
     # We get highest 1.x, instead of 2+, essentially to stay even with the Flow-IPC pipeline (and its similar workflow
     # file).  See explanation in that file.  The to-do there applies to us as well (both should be done
     # at ~the same time).
+    # TODO: Upon migrating to Conan 2: also update the Conan-cache steps below -- `path` becomes ~/.conan2/p, and
+    # bump the key prefixes (conan-data- -> conan2-data-) so stale Conan-1 caches cannot be restored.
     - name: Install the latest version of Conan which is less than 2
       run: pip install 'conan<2'
 
@@ -530,6 +532,23 @@ jobs:
         flow:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
+    # Cache the Conan-built dependencies (Boost et al): a fresh runner otherwise rebuilds them from source
+    # every run, which dominates that step's wall clock.  The just-generated conan_profile participates in the
+    # cache key, as it captures everything that determines dep-binary compatibility (compiler, version, cppstd,
+    # build-type, sanitizer); conanfile.py participates, as it names the deps and their versions.  On an exact key
+    # hit the subsequent `conan install` finds every binary present and builds nothing.  On a prefix
+    # (restore-keys) hit -- e.g. after a dep version bump -- it rebuilds only what is missing.  We use the
+    # restore/save split (rather than one `actions/cache` step) with the save placed just after the dep-install
+    # step. Therefore even a run whose later steps fail still primes the cache for subsequent runs.
+    - name: Restore Conan package cache
+      id: conan-cache-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: ~/.conan/data
+        key: conan-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-${{ hashFiles('conan_profile', 'conanfile.py') }}
+        restore-keys: |
+          conan-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-
+
     - name: Install Flow dependencies with Conan using the profile
       run: |
         # Install Flow dependencies with Conan using the profile.
@@ -560,6 +579,15 @@ jobs:
           cp -v "$config_log" "$DST_DIR"
         done
         [ "$FAILED" != yep ]
+
+    # (See comment atop the Restore counterpart above.)  Skipped on an exact-key restore: the cache would be
+    # bit-identical to what is already stored.
+    - name: Save Conan package cache
+      if: steps.conan-cache-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: ~/.conan/data
+        key: ${{ steps.conan-cache-restore.outputs.cache-primary-key }}
 
     - name: Build library and demos/tests with Conan
       run: |
@@ -755,8 +783,26 @@ jobs:
         flow:doc = True
         EOF
 
+    # Cache Conan-built deps (here: mainly Doxygen).  See longer explanation atop the analogous steps in the
+    # build-and-test job.
+    - name: Restore Conan package cache
+      id: conan-cache-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: ~/.conan/data
+        key: conan-data-doc-${{ hashFiles('conan_profile', 'conanfile.py') }}
+        restore-keys: |
+          conan-data-doc-
+
     - name: Install Flow dependencies (like Doxygen) with Conan using the profile
       run: conan install . --profile:build conan_profile --profile:host conan_profile --build missing
+
+    - name: Save Conan package cache
+      if: steps.conan-cache-restore.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: ~/.conan/data
+        key: ${{ steps.conan-cache-restore.outputs.cache-primary-key }}
 
     - name: Generate code documentation using Conan and Doxygen
       run: conan build .

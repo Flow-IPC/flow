@@ -197,7 +197,7 @@ TEST(Util_alignment, Prefix_before_and_after)
   constexpr size_t DATA_SZ = sizeof(Data);
 
   // Use aligned_alloc to guarantee alignment.
-  const size_t total = PFX_SZ + DATA_SZ;
+  const size_t total = round_to_multiple(PFX_SZ + DATA_SZ, ALIGN); // aligned_alloc() requires multiple-of-alignment.
   auto* const buf = static_cast<uint8_t*>(std::aligned_alloc(ALIGN, total));
   ASSERT_NE(buf, nullptr);
 
