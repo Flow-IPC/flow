@@ -205,7 +205,7 @@ Rnd_gen_uniform_range<range_t>::Rnd_gen_uniform_range(range_t min, range_t max) 
 template<typename range_t>
 range_t Rnd_gen_uniform_range_mt<range_t>::operator()()
 {
-  Lock_guard<decltype(m_mutex)> lock(m_mutex);
+  Lock_guard<decltype(m_mutex)> lock{m_mutex};
   return static_cast<Rnd_gen_uniform_range<range_t>&>(*this)();
 }
 

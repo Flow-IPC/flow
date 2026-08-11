@@ -178,23 +178,24 @@ struct Clear_on_alloc {};
  * Note that deallocation occurs regardless of which areas of that pool the relevant `Basic_blob`s represent,
  * and whether they overlap or not (and, for that matter, whether they even together make up the entire pool or
  * leave "gaps" in-between).  The whole pool is deallocated the moment the last of the co-owning `Basic_blob`s
- * performs either make_zero() or ~Basic_blob() -- the values of start() and size() at the time are not relevant.
+ * performs either make_zero() (or an equivalent like `assign({})`) or ~Basic_blob() -- the values of start() and
+ * size() at the time are not relevant.
  *
  * ### Custom allocator (and SHared Memory) support ###
- * Like STL containers this one optionally takes a custom allocator type (#Allocator_raw) as a compile-time parameter
+ * Like STL containers this one optionally takes a custom allocator type (#Allocator) as a compile-time parameter
  * instead of using the regular heap (`std::allocator`).  Unlike many STL container implementations, including
  * at least older `std::vector`, it supports SHM-storing allocators without a constant cross-process vaddr scheme.
  * (Some do support this but with surprising perf flaws when storing raw integers/bytes.  boost.container `vector`
  * has solid support but lacks various other properties of Basic_blob.)  While a detailed discussion is outside
  * our scope here, the main point is internally `*this` stores no raw `value_type*` but rather
- * `Allocator_raw::pointer` -- which in many cases *is* `value_type*`; but for advanced applications like SHM
+ * `Allocator::pointer` -- which in many cases *is* `value_type*`; but for advanced applications like SHM
  * it might be a fancy-pointer like `boost::interprocess::offset_ptr<value_type>`.  For general education
  * check out boost.interprocess docs covering storage of STL containers in SHM.  (However note that the
  * allocators provided by that library are only one option even for SHM storage alone; e.g., they are stateful,
  * and often one would like a stateless -- zero-size -- allocator.  Plus there are other limitations to
  * boost.interprocess SHM support, robust though it is.)
  *
- * @note In the somewhat-exotic case wherein #Allocator_raw is stateful (therefore not `std::allocator` default),
+ * @note In the somewhat-exotic case wherein #Allocator is stateful (therefore not `std::allocator` default),
  *       such that it is possible for two objects of that type to value-compare as not-equal, the following rules
  *       apply.  Propagation of allocators via move-ct, copy-ct, move-assign, copy-assign, or swap follows standard
  *       rules (see cppreference.com or the like for those).  This is normal.  However the following is different
@@ -225,7 +226,7 @@ struct Clear_on_alloc {};
  *     - This isn't a killer.  The original `Blob` (before Basic_blob existed) stored a `Logger*`, and it was fine.
  *       However:
  *   - Storing a `Logger*` is always okay when `*this` itself is stored in regular heap or on the stack.
- *     However, `*this` itself may be stored in SHM; #Allocator_raw parameterization (see above regarding
+ *     However, `*this` itself may be stored in SHM; #Allocator parameterization (see above regarding
  *     "Custom allocator") suggests as much (i.e., if the buffer is stored in SHM, we might be too).
  *     In that case `Logger*` does not, usually, make sense.  As of this writing `Logger` in process 1
  *     has no relationship with any `Logger` in process 2; and even if the `Logger` were stored in SHM itself,
@@ -234,7 +235,7 @@ struct Clear_on_alloc {};
  *     - Therefore, even if we don't care about RAM/perf implications of storing `Logger*` with the blob, at least
  *       in some real applications it makes no sense.
  *
- * #Blob/#Sharing_blob provides this support while ensuring #Allocator_raw (no longer a template parameter in its case)
+ * #Blob/#Sharing_blob provides this support while ensuring #Allocator (no longer a template parameter in its case)
  * is the vanilla `std::allocator`.  The trade-off is as noted just above.
  *
  * ### Thread safety ###
@@ -258,7 +259,22 @@ struct Clear_on_alloc {};
  * and capacity(); rewrite Basic_blob in terms of this `Tight_blob`.  This simple container type has had some demand
  * in practice, and Basic_blob can and should be cleanly built on top of it (perhaps even as an IS-A subclass).
  *
- * @tparam Allocator
+ * @internal
+ * ### Impl notes ###
+ *
+ * flow::util::Basic_blob internals use pointer arithmetic on a buffer of `uint8_t`s; the Flow coding guide
+ * suggests avoiding this and bracketing such math with casts to-from `uintptr_t`; this *arguably* applies here.
+ * We say arguably, because this guy actually *does* store `uint8_t`s formally, and the math is ~usually w/r/t
+ * in-range values, which even formally compilers shall not take for undefined behavior.  There are some spots,
+ * though, that refer to areas outside a `Basic_blob`; and in any case the idea is to remove all doubt in these
+ * situations by working with `uintptr_t` when doing byte arithmetic.  On one hand could just b(y)te the bullet;
+ * on the other this is in practice arguably academic.  Also there is #value_type (as opposed to `uint8_t`
+ * all-over).  A `vector<T>` presumably would not do everything with `uintptr_t`s.  So not a formal to-do here,
+ * but we did want to acknowledge this.
+ *
+ * @endinternal
+ *
+ * @tparam Allocator_t
  *         An allocator, with `value_type` equal to our #value_type, per the standard C++1x `Allocator` concept.
  *         In most uses this shall be left at the default `std::allocator<value_type>` which allocates in
  *         standard heap (`new[]`, `delete[]`).  A custom allocator may be used instead.  SHM-storing allocators,
@@ -271,7 +287,7 @@ struct Clear_on_alloc {};
  *         class will be slightly more performant (internally, a `shared_ptr` becomes instead a `unique_ptr` which
  *         means smaller allocations and no ref-count logic invoked).
  */
-template<typename Allocator, bool SHARING>
+template<typename Allocator_t, bool SHARING>
 class Basic_blob
 {
 public:
@@ -293,8 +309,8 @@ public:
   using Const_iterator = value_type const *;
 
   /// Short-hand for the allocator type specified at compile-time.  Its element type is our #value_type.
-  using Allocator_raw = Allocator;
-  static_assert(std::is_same_v<typename Allocator_raw::value_type, value_type>,
+  using Allocator = Allocator_t;
+  static_assert(std::is_same_v<typename Allocator::value_type, value_type>,
                 "Allocator template param must be of form A<V> where V is our value_type.");
 
   /// For container compliance (hence the irregular capitalization): pointer to element.
@@ -319,7 +335,7 @@ public:
   static constexpr size_type S_UNCHANGED = size_type(-1); // Same trick as std::string::npos.
 
   /**
-   * `true` if #Allocator_raw underlying allocator template is simply `std::allocator`; `false`
+   * `true` if #Allocator underlying allocator template is simply `std::allocator`; `false`
    * otherwise.
    *
    * Note that if this is `true`, it may be worth using #Blob/#Sharing_blob, instead of its `Basic_blob<std::allocator>`
@@ -330,8 +346,8 @@ public:
    * ### Implications of #S_IS_VANILLA_ALLOC being `false` ###
    * This is introduced in our class doc header.  Briefly however:
    *   - The underlying buffer, if any, and possibly some small aux data shall be allocated
-   *     via #Allocator_raw, not simply the regular heap's `new[]` and/or `new`.
-   *     - They shall be deallocated, if needed, via #Allocator_raw, not simply the regular heap's
+   *     via #Allocator, not simply the regular heap's `new[]` and/or `new`.
+   *     - They shall be deallocated, if needed, via #Allocator, not simply the regular heap's
    *       `delete[]` and/or `delete`.
    *   - Because storing a pointer to log::Logger may be meaningless when storing in an area allocated
    *     by some custom allocators (particularly SHM-heap ones), we shall not auto-TRACE-log on dealloc.
@@ -341,7 +357,7 @@ public:
    *   - (If #S_SHARING)
    *     Accordingly the ref-counted buffer pointer buf_ptr() shall be a `boost::interprocess::shared_ptr`
    *     instead of a vanilla `shared_ptr`; the latter may be faster and more full-featured, but it is likely
-   *     to internally store a raw `T*`; we need one that stores an `Allocator_raw::pointer` instead;
+   *     to internally store a raw `T*`; we need one that stores an `Allocator::pointer` instead;
    *     e.g., a fancy-pointer type (like `boost::interprocess::offset_ptr`) when dealing with
    *     SHM-heaps (typically).
    *     - If #S_IS_VANILLA_ALLOC is `true`, then we revert to the faster/more-mature/full-featured
@@ -352,11 +368,11 @@ public:
    *     box) but:
    *       - A custom deleter is necessary similarly to the above.
    *         - Its `pointer` member alias crucially causes the `unique_ptr` to store
-   *           an `Allocator_raw::pointer` instead of a `value_type*`.
+   *           an `Allocator::pointer` instead of a `value_type*`.
    *
    * See #Buf_ptr doc header regarding the latter two bullet points.
    */
-  static constexpr bool S_IS_VANILLA_ALLOC = std::is_same_v<Allocator_raw, std::allocator<value_type>>;
+  static constexpr bool S_IS_VANILLA_ALLOC = std::is_same_v<Allocator, std::allocator<value_type>>;
 
   // Constructors/destructor.
 
@@ -365,10 +381,10 @@ public:
    *
    * @param alloc_raw_src
    *        Allocator to copy and store in `*this` for all buffer allocations/deallocations.
-   *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
-   *        and by definition it is to equal `Allocator_raw{}`.
+   *        If #Allocator is stateless, then this has size zero, so nothing is copied at runtime,
+   *        and by definition it is to equal `Allocator{}`.
    */
-  Basic_blob(const Allocator_raw& alloc_raw_src = {});
+  Basic_blob(const Allocator& alloc_raw_src = {});
 
   /**
    * Constructs blob with size() and capacity() equal to the given `size`, and `start() == 0`.  Performance note:
@@ -389,11 +405,11 @@ public:
    *        in the event of buffer dealloc.  Null allowed.
    * @param alloc_raw_src
    *        Allocator to copy and store in `*this` for all buffer allocations/deallocations.
-   *        If #Allocator_raw is stateless, then this has size zero, so nothing is copied at runtime,
-   *        and by definition it is to equal `Allocator_raw{}`.
+   *        If #Allocator is stateless, then this has size zero, so nothing is copied at runtime,
+   *        and by definition it is to equal `Allocator{}`.
    */
   explicit Basic_blob(size_type size, log::Logger* logger_ptr = nullptr,
-                      const Allocator_raw& alloc_raw_src = {});
+                      const Allocator& alloc_raw_src = {});
 
   /**
    * Identical to similar-sig ctor except, if `size > 0`, all `size` elements are performantly initialized to zero.
@@ -414,7 +430,7 @@ public:
    *        See similar ctor.
    */
   explicit Basic_blob(size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr = nullptr,
-                      const Allocator_raw& alloc_raw_src = {});
+                      const Allocator& alloc_raw_src = {});
 
   /**
    * Move constructor, constructing a blob exactly internally equal to pre-call `moved_src`, while the latter is
@@ -490,7 +506,7 @@ public:
   Basic_blob& assign(Basic_blob&& moved_src, log::Logger* logger_ptr = nullptr) noexcept;
 
   /**
-   * Move assignment operator (no logging): equivalent to `assign(std::move(moved_src), nullptr)`.
+   * Move assignment operator (no logging): equivalent to `assign(std::move(moved_src))`.
    *
    * @note It is important this be `noexcept`, if a copying counterpart to us exists in this class; otherwise
    *       (e.g.) `vector<Basic_blob>` will, on realloc, default to copying `*this`es around instead of moving:
@@ -550,10 +566,10 @@ public:
    * to that practice (even though this case is a bit different from, say, resize() -- since make_zero() here has
    * no chance to deallocate anything, only decrement ref-count).  2 is performant and slick but suggests a special
    * behavior in a corner case; this *feels* slightly ill-advised in a standard copy assignment operator.  Therefore
-   * it seems better to crash-and-burn (choice 1), in the same way an attempt to resize()-higher a non-zero() blob would
-   * crash and burn, forcing the user to explicitly execute what they want.  After all, 3 is done by simply calling
-   * make_zero() first; and 2 is possible with a simple resize() call; and the blobs_sharing() check is both easy
-   * and performant.
+   * it seems better to crash-and-burn (choice 1), in the same way an attempt to resize()-higher a non-`zero()` blob
+   * would crash and burn, forcing the user to explicitly execute what they want.  After all, 3 is done by simply
+   * calling make_zero() first; and 2 is possible with a simple resize() call; and the blobs_sharing() check is both
+   * easy and performant.
    *
    * @warning A post-condition is `start() == 0`; meaning `start()` at entry is ignored and reset to 0; the entire
    *          (co-)owned buffer -- if any -- is potentially used to store the copied values.  In particular, if one
@@ -575,7 +591,7 @@ public:
   Basic_blob& assign(const Basic_blob& src, log::Logger* logger_ptr = nullptr);
 
   /**
-   * Copy assignment operator (no logging): equivalent to `assign(src, nullptr)`.
+   * Copy assignment operator (no logging): equivalent to `assign(src)`.
    *
    * @param src
    *        See assign() (copy overload).
@@ -863,7 +879,7 @@ public:
    * needed to perform the particular task -- no more (and no less).  As such, reserve() policy is key to knowing
    * how the class behaves elsewhere.  See class doc header for discussion in larger context.
    *
-   * Performance/behavior: If zero() is true pre-call, `capacity` sized buffer is allocated.  Otherwise,
+   * Performance/behavior: If zero() is true pre-call, `capacity`-sized buffer is allocated.  Otherwise,
    * no-op if `capacity <= capacity()` pre-call.  Behavior is undefined if `capacity > capacity()` pre-call
    * (again, unless zero(), meaning `capacity() == 0`).  In other words, no deallocation occurs, and an allocation
    * occurs only if necessary.  Growing an existing buffer is disallowed.  However, if you want to intentionally
@@ -1024,7 +1040,7 @@ public:
    * Behavior is undefined in case of positive `prefix_size_inc` that results in overflow.
    *
    * @param prefix_size_inc
-   *        Positive, negative (or zero) increment, so that start() is changed to `start() + prefix_size_inc`.
+   *        Positive or negative (or zero) increment, so that start() is changed to `start() + prefix_size_inc`.
    */
   void start_past_prefix_inc(difference_type prefix_size_inc);
 
@@ -1033,7 +1049,7 @@ public:
    *
    * Note that the value returned by start() will *not* change due to this call.  Only size() (and the corresponding
    * internally stored datum) may change.  If one desires to reset start(), use resize() directly (but if one
-   * plans to work on a sub-Basic_blob of a shared pool -- see class doc header -- please think twice first).
+   * plans to work on a sub-`Basic_blob` of a shared pool -- see class doc header -- please think twice first).
    */
   void clear();
 
@@ -1052,7 +1068,7 @@ public:
    * @return Iterator equal to `first`.  (This matches standard expectation for container `erase()` return value:
    *         iterator to element past the last one erased.  In this contiguous sequence that simply equals `first`,
    *         since everything starting with `past_last` slides left onto `first`.  In particular:
-   *         If `past_last()` equaled `end()` at entry, then the new end() is returned: everything starting with
+   *         If `past_last == this->end()` at entry, then the new end() is returned: everything starting with
    *         `first` was erased and thus `first == end()` now.  If nothing is erased `first` is still returned.)
    */
   Iterator erase(Const_iterator first, Const_iterator past_last);
@@ -1205,12 +1221,12 @@ public:
   boost::asio::mutable_buffer mutable_buffer();
 
   /**
-   * Returns a copy of the internally cached #Allocator_raw as set by a constructor or assign() or
+   * Returns a copy of the internally cached #Allocator as set by a constructor or assign() or
    * assignment-operator, whichever happened last.
    *
    * @return See above.
    */
-  Allocator_raw get_allocator() const;
+  Allocator get_allocator() const;
 
 protected:
   // Constants.
@@ -1263,11 +1279,11 @@ private:
    * (In the `unique_ptr` case there is no ref-count per se; or one can think of it as a ref-count that equals 1.)
    *
    * Note that Deleter_raw is used only to dealloc the buffer actually controlled by the `shared_ptr` group
-   * or `unique_ptr`.  `shared_ptr` will use the #Allocator_raw directly to dealloc aux data.  (We guess Deleter_raw
+   * or `unique_ptr`.  `shared_ptr` will use the #Allocator directly to dealloc aux data.  (We guess Deleter_raw
    * is a separate argument to `shared_ptr` to support array deletion; `boost::interprocess:shared_ptr` does not
    * provide built-in support for `U[]` as the pointee type; but the deleter can do whatever it wants/needs.)
    *
-   * Note: this is not used except with custom #Allocator_raw.  With `std::allocator` the usual default `delete[]`
+   * Note: this is not used except with custom #Allocator.  With `std::allocator` the usual default `delete[]`
    * behavior is fine.
    *
    * ### How to delete using it ###
@@ -1299,7 +1315,7 @@ private:
      * a constant cross-process vaddr scheme it needs to be a fancy-pointer type instead (e.g.,
      * `boost::interprocess::offset_ptr<value_type>`).
      */
-    using Pointer_raw = typename std::allocator_traits<Allocator_raw>::pointer;
+    using Pointer_raw = typename std::allocator_traits<Allocator>::pointer;
 
     /// For `boost::interprocess::shared_ptr` and `unique_ptr` compliance (hence the irregular capitalization).
     using pointer = Pointer_raw;
@@ -1313,10 +1329,10 @@ private:
     Deleter_raw();
 
     /**
-     * Constructs deleter by memorizing the allocator (of zero size if #Allocator_raw is stateless, usually)
+     * Constructs deleter by memorizing the allocator (of zero size if #Allocator is stateless, usually)
      * used to allocate whatever shall be passed-to `operator()()`; and the size (in # of `value_type`s)
      * of the buffer allocated there.  The latter is required, at least technically, because
-     * `Allocator_raw::deallocate()` requires the value count, equal to that when `allocate()` was called,
+     * `Allocator::deallocate()` requires the value count, equal to that when `allocate()` was called,
      * to be passed-in.  Many allocators probably don't really need this, as array size is typically recorded
      * invisibly near the array itself, but formally this is not guaranteed for all allocators.
      *
@@ -1325,7 +1341,7 @@ private:
      * @param buf_sz
      *        See above.
      */
-    explicit Deleter_raw(const Allocator_raw& alloc_raw_src, size_type buf_sz);
+    explicit Deleter_raw(const Allocator& alloc_raw_src, size_type buf_sz);
 
     /**
      * Move-construction which may be required when we are used in `unique_ptr`.  This is equivalent to
@@ -1373,7 +1389,7 @@ private:
     Deleter_raw& operator=(const Deleter_raw& src);
 
     /**
-     * Deallocates using `Allocator_raw::deallocate()`, passing-in the supplied pointer (to `value_type`) `to_delete`
+     * Deallocates using `Allocator::deallocate()`, passing-in the supplied pointer (to `value_type`) `to_delete`
      * and the number of `value_type`s to delete (from ctor).
      *
      * @param to_delete
@@ -1389,7 +1405,7 @@ private:
      * typically has size zero.
      *
      * ### What's with `optional<>`? ###
-     * ...Okay, so actually this has size (whatever `optional` adds, probably a `bool`) + `sizeof(Allocator_raw)`,
+     * ...Okay, so actually this has size (whatever `optional` adds, probably a `bool`) + `sizeof(Allocator)`,
      * the latter being indeed zero for stateless allocators.  Why use `optional<>` though?  Two reasons at least:
      *   - Stateful allocators often cannot be default-cted; and our own default ctor requires that
      *     #m_alloc_raw is initialized to *something*... even though it (by default ctor contract) will never be
@@ -1401,12 +1417,12 @@ private:
      *     Basic_blob::reserve_impl() may need that).
      *     - Yay, `optional<T>` has `.emplace()` which will construct (including copy-construct) a `T`.
      *
-     * It is slightly annoying that we waste the extra space for `optional` internals even when `Allocator_raw`
+     * It is slightly annoying that we waste the extra space for `optional` internals even when `Allocator`
      * is stateless (and it is often stateless!).  Plus, when #Buf_ptr is `shared_ptr` instead of `unique_ptr`
      * these bullet points probably do not apply.  Probably some meta-programming thing could be done to avoid even this
      * overhead, but in my (ygoldfel) opinion the overhead is so minor, it does not even rise to the level of a to-do.
      */
-    std::optional<Allocator_raw> m_alloc_raw;
+    std::optional<Allocator> m_alloc_raw;
 
     /// See ctor and `operator()()`: the size of the buffer to deallocate.
     size_type m_buf_sz;
@@ -1420,7 +1436,7 @@ private:
    * converse case below that.
    *
    * Two things affect how buf_ptr() shall behave:
-   *   - Which type this resolves-to depending on #S_IS_VANILLA_ALLOC (ultimately #Allocator_raw).  This affects
+   *   - Which type this resolves-to depending on #S_IS_VANILLA_ALLOC (ultimately #Allocator).  This affects
    *     many key things but most relevantly how it is dereferenced.  Namely:
    *     - Typical `shared_ptr` (used with vanilla allocator) will internally store simply a raw `value_type*`
    *       and dereference trivially.  This, however, will not work with some custom allocators, particularly
@@ -1432,7 +1448,7 @@ private:
    *         it is assumed to essentially be raw `value_type*`, in that the `shared_ptr` internally stores
    *         a raw pointer.  boost.interprocess refers to this as the impetus for implementing the following:
    *     - `boost::interprocess::shared_ptr` (used with custom allocator) will internally store an
-   *       instance of `Allocator_raw::pointer` (to `value_type`) instead.  To dereference it, its operators
+   *       instance of `Allocator::pointer` (to `value_type`) instead.  To dereference it, its operators
    *       such as `*` and `->` (etc.) will execute to properly translate to a raw `T*`.
    *       The aforementioned `pointer` may simply be `value_type*` again; in which case there is no difference
    *       to the standard `shared_ptr` situation; but it can instead be a fancy-pointer (actual technical term, yes,
@@ -1482,7 +1498,7 @@ private:
    *   - Typical `unique_ptr` already stores `Deleter::pointer` instead of `value_ptr*`.  Therefore
    *     We can use it for both cases; in the vanilla case supplying no `Deleter` template param
    *     (the default `Deleter` has `pointer = value_ptr*`); otherwise supplying Deleter_raw whose
-   *     Deleter_raw::pointer comes from `Allocator_raw::pointer`.  This also, same as with
+   *     Deleter_raw::pointer comes from `Allocator::pointer`.  This also, same as with
    *     `boost::interprocess::shared_ptr`, takes care of the dealloc upon being nullified or destroyed.
    *   - As for initialization:
    *     - With #S_IS_VANILLA_ALLOC at `true`: Similarly to using a special array-friendly `make_shared()` variant,
@@ -1498,7 +1514,7 @@ private:
                                                         boost::movelib::unique_ptr<value_type[]>>,
                                      std::conditional_t<S_SHARING,
                                                         boost::interprocess::shared_ptr
-                                                          <value_type, Allocator_raw, Deleter_raw>,
+                                                          <value_type, Allocator, Deleter_raw>,
                                                         boost::movelib::unique_ptr<value_type, Deleter_raw>>>;
 
   // Methods.
@@ -1540,26 +1556,26 @@ private:
    *
    * ### Documentation for the datum referred-to by the return value ###
    *
-   * Copy of the allocator supplied by the user (though, if #Allocator_raw is stateless,
-   * it is typically defaulted to `Allocator_raw{}`), as set by a constructor or assign() or
+   * Copy of the allocator supplied by the user (though, if #Allocator is stateless,
+   * it is typically defaulted to `Allocator{}`), as set by a constructor or assign() or
    * assignment-operator, whichever happened last.  Used exclusively when allocating and deallocating
    * buf_ptr() in the *next* reserve() (potentially).
    *
    * By the rules of `Allocator_aware_container` (see cppreference.com):
    *   - If `*this` is move-cted: datum move-cted from source datum counterpart.
    *   - If `*this` is move-assigned: datum move-assigned from source datum counterpart if
-   *     `std::allocator_traits<Allocator_raw>::propagate_on_container_move_assignment::value == true` (else untouched).
+   *     `std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value == true` (else untouched).
    *   - If `*this` is copy-cted: datum set to
-   *     `std::allocator_traits<Allocator_raw>::select_on_container_copy_construction()` (pass-in source datum
+   *     `std::allocator_traits<Allocator>::select_on_container_copy_construction()` (pass-in source datum
    *     counterpart).
    *   - If `*this` is copy-assigned: datum copy-assigned if
-   *     `std::allocator_traits<Allocator_raw>::propagate_on_container_copy_assignment::value == true` (else untouched).
+   *     `std::allocator_traits<Allocator>::propagate_on_container_copy_assignment::value == true` (else untouched).
    *   - If `*this` is `swap()`ed: datum ADL-`swap()`ed with source datum counterpart if
-   *     `std::allocator_traits<Allocator_raw>::propagate_on_container_swap::value == true` (else untouched).
+   *     `std::allocator_traits<Allocator>::propagate_on_container_swap::value == true` (else untouched).
    *   - Otherwise this is supplied via a non-copy/move ctor arg by user.
    *
    * ### Specially treated value ###
-   * If #Allocator_raw is `std::allocator<value_type>` (as supposed to `something_else<value_type>`), then
+   * If #Allocator is `std::allocator<value_type>` (as supposed to `something_else<value_type>`), then
    * this datum (while guaranteed set to the zero-sized copy of `std::allocator<value_type>()`) is never
    * in practice touched (outside of the above-mentioned moves/copies/swaps, though they also do nothing in reality
    * for this stateless allocator).  This value by definition means we are to allocate on the regular heap;
@@ -1573,20 +1589,20 @@ private:
    * (This is only applicable if #S_IS_VANILLA_ALLOC is `false`.)
    * buf_ptr() caches this datum internally in its centrally linked data.  Ordinarily, then, they compare as equal.
    * In the corner case where (1) move-assign or copy-assign or swap() was used on `*this`, *and*
-   * (2) #Allocator_raw is stateful and *can* compare unequal (e.g., `boost::interprocess::allocator`):
+   * (2) #Allocator is stateful and *can* compare unequal (e.g., `boost::interprocess::allocator`):
    * they may come to compare as unequal.  It is, however, not (in our case) particularly important:
    * this datum affects the *next* reserve() (potentially); the thing stored in buf_ptr() affects the logic when
    * the underlying buffer is next deallocated.  The two don't depend on each other.
    *
    * @return See above.
    */
-  Allocator_raw& alloc_raw();
+  Allocator& alloc_raw();
 
   /**
    * Ref-to-immutable counterpart to the other overload.
    * @return See above.
    */
-  const Allocator_raw& alloc_raw() const;
+  const Allocator& alloc_raw() const;
 
   /**
    * Implements reserve() overloads.
@@ -1649,7 +1665,7 @@ private:
    * due to an obscure, but perf-affecting, C++ technicality.  The aforementioned ref-returning accessors avoid having
    * to write `m_alloc_and_buf_ptr.second` and `.first` all over the place.
    */
-  boost::compressed_pair<Allocator_raw, Buf_ptr> m_alloc_and_buf_ptr;
+  boost::compressed_pair<Allocator, Buf_ptr> m_alloc_and_buf_ptr;
 
   /// See capacity(); but #m_capacity is meaningless (and containing unknown value) if `!buf_ptr()` (i.e., zero()).
   size_type m_capacity;
@@ -1666,8 +1682,8 @@ private:
 // Template implementations.
 
 // buf_ptr() initialized to null pointer.  n_capacity and m_size remain uninit (meaningless until buf_ptr() changes).
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw_src) :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Basic_blob(const Allocator& alloc_raw_src) :
   m_alloc_and_buf_ptr(alloc_raw_src), // Copy allocator; stateless alloc should have size 0 (no-op for the processor).
   m_capacity(0), // Not necessary, but some compilers will warn in some situations.  Fine; it's cheap enough.
   m_start(0), // Ditto.
@@ -1676,28 +1692,28 @@ Basic_blob<Allocator, SHARING>::Basic_blob(const Allocator_raw& alloc_raw_src) :
   // OK.
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob
-  (size_type size, log::Logger* logger_ptr, const Allocator_raw& alloc_raw_src) :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Basic_blob
+  (size_type size, log::Logger* logger_ptr, const Allocator& alloc_raw_src) :
 
   Basic_blob(alloc_raw_src) // Delegate.
 {
   resize(size, 0, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob
-  (size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr, const Allocator_raw& alloc_raw_src) :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Basic_blob
+  (size_type size, Clear_on_alloc coa_tag, log::Logger* logger_ptr, const Allocator& alloc_raw_src) :
 
   Basic_blob(alloc_raw_src) // Delegate.
 {
   resize(size, coa_tag, 0, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob(const Basic_blob& src, log::Logger* logger_ptr) :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Basic_blob(const Basic_blob& src, log::Logger* logger_ptr) :
   // Follow rules established in alloc_raw() doc header.  This is compatible with the delegated-to ctor.
-  Basic_blob(std::allocator_traits<Allocator_raw>::select_on_container_copy_construction(src.alloc_raw()))
+  Basic_blob(std::allocator_traits<Allocator>::select_on_container_copy_construction(src.alloc_raw()))
 {
   /* What we want to do here, ignoring allocators, is (for concision): `assign(src, logger_ptr);`
    * However copy-assignment also must do something different w/r/t alloc_raw() than what we had to do above
@@ -1707,8 +1723,8 @@ Basic_blob<Allocator, SHARING>::Basic_blob(const Basic_blob& src, log::Logger* l
   assign_copy(src.const_buffer(), logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Basic_blob(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept :
   // Follow rules established in alloc_raw() doc header:
   m_alloc_and_buf_ptr(std::move(moved_src.alloc_raw())),
   m_capacity(0), // See comment in first delegated ctor above.
@@ -1720,12 +1736,12 @@ Basic_blob<Allocator, SHARING>::Basic_blob(Basic_blob&& moved_src, log::Logger* 
   swap_impl(moved_src, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::~Basic_blob() = default;
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::~Basic_blob() = default;
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>&
-  Basic_blob<Allocator, SHARING>::assign(const Basic_blob& src, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>&
+  Basic_blob<Allocator_t, SHARING>::assign(const Basic_blob& src, log::Logger* logger_ptr)
 {
   if (this != &src)
   {
@@ -1736,7 +1752,7 @@ Basic_blob<Allocator, SHARING>&
     }
 
     // For alloc_raw(): Follow rules established in alloc_raw() doc header.
-    if constexpr(std::allocator_traits<Allocator_raw>::propagate_on_container_copy_assignment::value)
+    if constexpr(std::allocator_traits<Allocator>::propagate_on_container_copy_assignment::value)
     {
       alloc_raw() = src.alloc_raw(); // No copy-assignment for some allocators, but then p_o_c_c_a would be false.
     }
@@ -1786,20 +1802,20 @@ Basic_blob<Allocator, SHARING>&
   return *this;
 } // Basic_blob::assign(copy)
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>& Basic_blob<Allocator, SHARING>::operator=(const Basic_blob& src)
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>& Basic_blob<Allocator_t, SHARING>::operator=(const Basic_blob& src)
 {
   return assign(src);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>&
-  Basic_blob<Allocator, SHARING>::assign(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>&
+  Basic_blob<Allocator_t, SHARING>::assign(Basic_blob&& moved_src, log::Logger* logger_ptr) noexcept
 {
   if (this != &moved_src)
   {
     // For alloc_raw(): Follow rules established in alloc_raw() doc header.
-    if constexpr(std::allocator_traits<Allocator_raw>::propagate_on_container_move_assignment::value)
+    if constexpr(std::allocator_traits<Allocator>::propagate_on_container_move_assignment::value)
     {
       alloc_raw() = std::move(moved_src.alloc_raw()); // Similar comment here as for assign() copy overload.
     }
@@ -1823,15 +1839,15 @@ Basic_blob<Allocator, SHARING>&
   return *this;
 } // Basic_blob::assign(move)
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>&
-  Basic_blob<Allocator, SHARING>::operator=(Basic_blob&& moved_src) noexcept
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>&
+  Basic_blob<Allocator_t, SHARING>::operator=(Basic_blob&& moved_src) noexcept
 {
   return assign(std::move(moved_src));
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::swap_impl(Basic_blob& other, log::Logger* logger_ptr) noexcept
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::swap_impl(Basic_blob& other, log::Logger* logger_ptr) noexcept
 {
   using std::swap;
 
@@ -1882,13 +1898,13 @@ void Basic_blob<Allocator, SHARING>::swap_impl(Basic_blob& other, log::Logger* l
   }
 } // Basic_blob::swap_impl()
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::swap(Basic_blob& other, log::Logger* logger_ptr) noexcept
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::swap(Basic_blob& other, log::Logger* logger_ptr) noexcept
 {
   using std::swap;
 
   // For alloc_raw(): Follow rules established in m_alloc_and_buf_ptr doc header.
-  if constexpr(std::allocator_traits<Allocator_raw>::propagate_on_container_swap::value)
+  if constexpr(std::allocator_traits<Allocator>::propagate_on_container_swap::value)
   {
     if (&alloc_raw() != &other.alloc_raw()) // @todo Is this redundant?  Or otherwise unnecessary?
     {
@@ -1906,15 +1922,15 @@ void Basic_blob<Allocator, SHARING>::swap(Basic_blob& other, log::Logger* logger
   swap_impl(other, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-void swap(Basic_blob<Allocator, SHARING>& blob1,
-          Basic_blob<Allocator, SHARING>& blob2, log::Logger* logger_ptr) noexcept
+template<typename Allocator_t, bool SHARING>
+void swap(Basic_blob<Allocator_t, SHARING>& blob1,
+          Basic_blob<Allocator_t, SHARING>& blob2, log::Logger* logger_ptr) noexcept
 {
   return blob1.swap(blob2, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING> Basic_blob<Allocator, SHARING>::share(log::Logger* logger_ptr) const
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING> Basic_blob<Allocator_t, SHARING>::share(log::Logger* logger_ptr) const
 {
   static_assert(S_SHARING,
                 "Do not invoke (and thus instantiate) share() or derived methods unless you set the SHARING "
@@ -1941,9 +1957,9 @@ Basic_blob<Allocator, SHARING> Basic_blob<Allocator, SHARING>::share(log::Logger
   return sharing_blob;
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>
-  Basic_blob<Allocator, SHARING>::share_after_split_left(size_type lt_size, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>
+  Basic_blob<Allocator_t, SHARING>::share_after_split_left(size_type lt_size, log::Logger* logger_ptr)
 {
   if (lt_size > size())
   {
@@ -1965,9 +1981,9 @@ Basic_blob<Allocator, SHARING>
   return sharing_blob;
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>
-  Basic_blob<Allocator, SHARING>::share_after_split_right(size_type rt_size, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>
+  Basic_blob<Allocator_t, SHARING>::share_after_split_right(size_type rt_size, log::Logger* logger_ptr)
 {
   if (rt_size > size())
   {
@@ -1990,9 +2006,9 @@ Basic_blob<Allocator, SHARING>
   return sharing_blob;
 }
 
-template<typename Allocator, bool SHARING>
+template<typename Allocator_t, bool SHARING>
 template<typename Emit_blob_func, typename Share_after_split_left_func>
-void Basic_blob<Allocator, SHARING>::share_after_split_equally_impl
+void Basic_blob<Allocator_t, SHARING>::share_after_split_equally_impl
        (size_type size, bool headless_pool, Emit_blob_func&& emit_blob_func, log::Logger* logger_ptr,
         Share_after_split_left_func&& share_after_split_left_func)
 {
@@ -2019,11 +2035,11 @@ void Basic_blob<Allocator, SHARING>::share_after_split_equally_impl
   }
 } // Basic_blob::share_after_split_equally_impl()
 
-template<typename Allocator, bool SHARING>
+template<typename Allocator_t, bool SHARING>
 template<typename Emit_blob_func>
-void Basic_blob<Allocator, SHARING>::share_after_split_equally(size_type size, bool headless_pool,
-                                                               Emit_blob_func&& emit_blob_func,
-                                                               log::Logger* logger_ptr)
+void Basic_blob<Allocator_t, SHARING>::share_after_split_equally(size_type size, bool headless_pool,
+                                                                 Emit_blob_func&& emit_blob_func,
+                                                                 log::Logger* logger_ptr)
 {
   share_after_split_equally_impl(size, headless_pool, std::move(emit_blob_func), logger_ptr,
                                  [this](size_type lt_size, log::Logger* logger_ptr) -> Basic_blob
@@ -2032,9 +2048,9 @@ void Basic_blob<Allocator, SHARING>::share_after_split_equally(size_type size, b
   });
 }
 
-template<typename Allocator, bool SHARING>
+template<typename Allocator_t, bool SHARING>
 template<typename Blob_container>
-void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_seq
+void Basic_blob<Allocator_t, SHARING>::share_after_split_equally_emit_seq
        (size_type size, bool headless_pool, Blob_container* out_blobs_ptr, log::Logger* logger_ptr)
 {
   // If changing this please see Blob_with_log_context::<same method>().
@@ -2046,12 +2062,12 @@ void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_seq
   }, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
+template<typename Allocator_t, bool SHARING>
 template<typename Blob_ptr_container>
-void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_ptr_seq(size_type size,
-                                                                            bool headless_pool,
-                                                                            Blob_ptr_container* out_blobs_ptr,
-                                                                            log::Logger* logger_ptr)
+void Basic_blob<Allocator_t, SHARING>::share_after_split_equally_emit_ptr_seq(size_type size,
+                                                                              bool headless_pool,
+                                                                              Blob_ptr_container* out_blobs_ptr,
+                                                                              log::Logger* logger_ptr)
 {
   // If changing this please see Blob_with_log_context::<same method>().
 
@@ -2066,9 +2082,9 @@ void Basic_blob<Allocator, SHARING>::share_after_split_equally_emit_ptr_seq(size
   }, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1,
-                   const Basic_blob<Allocator, SHARING>& blob2)
+template<typename Allocator_t, bool SHARING>
+bool blobs_sharing(const Basic_blob<Allocator_t, SHARING>& blob1,
+                   const Basic_blob<Allocator_t, SHARING>& blob2)
 {
   static_assert(SHARING,
                 "blobs_sharing() would only make sense on `Basic_blob`s with SHARING=true.  "
@@ -2082,50 +2098,50 @@ bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1,
   // @todo Maybe throw in assert(blob1.capacity() == blob2.capacity()), if `true` is being returned.
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::size() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::size_type Basic_blob<Allocator_t, SHARING>::size() const
 {
   return zero() ? 0 : m_size; // Note that zero() may or may not be true if we return 0.
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::start() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::size_type Basic_blob<Allocator_t, SHARING>::start() const
 {
   return zero() ? 0 : m_start; // Note that zero() may or may not be true if we return 0.
 }
 
-template<typename Allocator, bool SHARING>
-bool Basic_blob<Allocator, SHARING>::empty() const
+template<typename Allocator_t, bool SHARING>
+bool Basic_blob<Allocator_t, SHARING>::empty() const
 {
   return size() == 0; // Note that zero() may or may not be true if we return true.
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::size_type Basic_blob<Allocator, SHARING>::capacity() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::size_type Basic_blob<Allocator_t, SHARING>::capacity() const
 {
   return zero() ? 0 : m_capacity; // Note that zero() <=> we return non-zero.  (m_capacity >= 1 if !zero().)
 }
 
-template<typename Allocator, bool SHARING>
-bool Basic_blob<Allocator, SHARING>::zero() const
+template<typename Allocator_t, bool SHARING>
+bool Basic_blob<Allocator_t, SHARING>::zero() const
 {
   return !buf_ptr();
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::reserve(size_type new_capacity, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::reserve(size_type new_capacity, log::Logger* logger_ptr)
 {
   reserve_impl(new_capacity, false, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::reserve(size_type new_capacity, Clear_on_alloc, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::reserve(size_type new_capacity, Clear_on_alloc, log::Logger* logger_ptr)
 {
   reserve_impl(new_capacity, true, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool clear_on_alloc, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::reserve_impl(size_type new_capacity, bool clear_on_alloc, log::Logger* logger_ptr)
 {
   using boost::make_shared_noinit;
   using boost::make_shared;
@@ -2155,7 +2171,7 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
     if (new_capacity <= size_type(numeric_limits<difference_type>::max())) // (See explanation near bottom of method.)
     {
       /* Time to (1) allocate the buffer; (2) save the pointer; (3) ensure it is deallocated at the right time
-       * and with the right steps.  Due to Allocator_raw support this is a bit more complex than usual.  Please
+       * and with the right steps.  Due to Allocator support this is a bit more complex than usual.  Please
        * (1) see class doc header "Custom allocator" section; and (2) read Buf_ptr alias doc header for key background;
        * then come back here. */
 
@@ -2212,16 +2228,16 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
         /* Fancy (well, potentially) allocator time.  Again, if you've read the Buf_ptr and Deleter_raw doc headers,
          * you'll know what's going on. */
 
-        // Raw-allocate via Allocator_raw!  No value-init occurs... but see below.
+        // Raw-allocate via Allocator!  No value-init occurs... but see below.
         const auto ptr = alloc_raw().allocate(new_capacity);
 
         if constexpr(S_SHARING)
         {
           buf_ptr().reset(ptr,
 
-                          /* Let them allocate aux data (ref count block) via Allocator_raw::allocate()
-                           * (and dealloc it -- ref count block -- via Allocator_raw::deallocate())!
-                           * Have them store internal ptr bits as `Allocator_raw::pointer`s, not
+                          /* Let them allocate aux data (ref count block) via Allocator::allocate()
+                           * (and dealloc it -- ref count block -- via Allocator::deallocate())!
+                           * Have them store internal ptr bits as `Allocator::pointer`s, not
                            * necessarily raw `value_type*`s! */
                           alloc_raw(),
 
@@ -2255,7 +2271,7 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
         else // if constexpr(!S_SHARING)
         {
           /* Conceptually it's quite similar to the S_SHARING case where we do shared_ptr::reset() above.
-           * However there is an API difference that is subtle yet real (albeit only for stateful Allocator_raw):
+           * However there is an API difference that is subtle yet real (albeit only for stateful Allocator):
            * Current alloc_raw() was used to allocate *(buf_ptr()), so it must be used also to dealloc it.
            * unique_ptr::reset() does *not* take a new Deleter_raw; hence if we used it (alone) here it would retain
            * the alloc_raw() from ction (or possibly last assignment) time -- and if that does not equal current
@@ -2286,16 +2302,16 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
            * then zero it.  The user could even do it themselves, in this case making clear_on_alloc syntactic
            * sugar at best.  So could we do better, like we did in the S_IS_VANILLA_ALLOC=true case above?
            * Answer: Well... I (ygoldfel) think... no, not per se.  Not here at least.  We do have use the
-           * Allocator_raw, and nothing in the C++1x or C++17 Allocator concept docs suggests it is possible to
+           * Allocator, and nothing in the C++1x or C++17 Allocator concept docs suggests it is possible to
            * ask it to allocate-and-clear.  We only did so for S_IS_VANILLA_ALLOC=true, because we know
            * std::allocator by definition does heap new/delete; so we can call such things ourselves and not actually
-           * mention the Allocator_raw; it is used more as a binary determinant of S_IS_VANILLA_ALLOC=true.
+           * mention the Allocator; it is used more as a binary determinant of S_IS_VANILLA_ALLOC=true.
            * So by contract, since there's no way to alloc-and-zero at the same time, if we are told to
            * clear_on_alloc, then we have to memset(); no choice.
            *
            * @todo However the code (as of this writing at least in Flow-IPC's SHM-related code including
            * ipc::transport::struc::shm::Capnp_message_builder) that uses Basic_blob and *can* possibly guarantee
-           * that Allocator_raw::allocate(N) will pre-zero the N bytes as-needed -- such code could
+           * that Allocator::allocate(N) will pre-zero the N bytes as-needed -- such code could
            * (1) specify clear_on_alloc=false and (2) explicitly guarantee .allocate() will alloc-and-zero.
            * As of this writing that is in Flow-IPC (not Flow), a sister/dependent component that shares Flow's DNA;
            * and in particular in that case we've got:
@@ -2328,7 +2344,7 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
      * This occurs due to (among other things) inlining from above our frame down into the boost::movelib call
      * we make (and potentially the other allocating calls in the various branches above);
      * plus allegedly the C++ front-end supplying the huge value during the diagnostics pass.
-     * No such huge value (which is 0xFFFFFFFFFFFFFFF8) is actually passed-in at run-time nor mentioned anywhere
+     * No such huge value (which is 0xFFFF'FFFF'FFFF'FFF8) is actually passed-in at run-time nor mentioned anywhere
      * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
      *
      * The warning is wholly inaccurate.  This situation is known in the gcc issue database; for example
@@ -2357,23 +2373,23 @@ void Basic_blob<Allocator, SHARING>::reserve_impl(size_type new_capacity, bool c
   assert(capacity() >= new_capacity); // Promised post-condition.
 } // Basic_blob::reserve()
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::resize(size_type new_size, size_type new_start_or_unchanged,
-                                            log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::resize(size_type new_size, size_type new_start_or_unchanged,
+                                              log::Logger* logger_ptr)
 {
   resize_impl(new_size, false, new_start_or_unchanged, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::resize(size_type new_size, Clear_on_alloc,
-                                            size_type new_start_or_unchanged, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::resize(size_type new_size, Clear_on_alloc,
+                                              size_type new_start_or_unchanged, log::Logger* logger_ptr)
 {
   resize_impl(new_size, true, new_start_or_unchanged, logger_ptr);
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::resize_impl(size_type new_size, bool clear_on_alloc,
-                                                 size_type new_start_or_unchanged, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::resize_impl(size_type new_size, bool clear_on_alloc,
+                                                   size_type new_start_or_unchanged, log::Logger* logger_ptr)
 {
   auto& new_start = new_start_or_unchanged;
   if (new_start == S_UNCHANGED)
@@ -2402,8 +2418,8 @@ void Basic_blob<Allocator, SHARING>::resize_impl(size_type new_size, bool clear_
   assert(start() == new_start);
 } // Basic_blob::resize()
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::start_past_prefix(size_type prefix_size)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::start_past_prefix(size_type prefix_size)
 {
   resize(((start() + size()) > prefix_size)
            ? (start() + size() - prefix_size)
@@ -2412,23 +2428,23 @@ void Basic_blob<Allocator, SHARING>::start_past_prefix(size_type prefix_size)
   // Sanity check: `prefix_size == 0` translates to: resize(start() + size(), 0), as advertised.
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::start_past_prefix_inc(difference_type prefix_size_inc)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::start_past_prefix_inc(difference_type prefix_size_inc)
 {
   assert((prefix_size_inc >= 0) || (start() >= size_type(-prefix_size_inc)));
   start_past_prefix(start() + prefix_size_inc);
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::clear()
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::clear()
 {
   // Note: start() remains unchanged (as advertised).  resize(0, 0) can be used if that is unacceptable.
   resize(0); // It won't log, as it cannot allocate, so no need to pass-through a Logger*.
   // Note corner case: zero() remains true if was true (and false if was false).
 }
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::make_zero(log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::make_zero(log::Logger* logger_ptr)
 {
   /* Could also write more elegantly: `swap(Basic_blob{});`, but following is a bit optimized (while equivalent);
    * logs better. */
@@ -2454,9 +2470,9 @@ void Basic_blob<Allocator, SHARING>::make_zero(log::Logger* logger_ptr)
   } // if (!zero())
 } // Basic_blob::make_zero()
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::size_type
-  Basic_blob<Allocator, SHARING>::assign_copy(const boost::asio::const_buffer& src, log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::size_type
+  Basic_blob<Allocator_t, SHARING>::assign_copy(const boost::asio::const_buffer& src, log::Logger* logger_ptr)
 {
   const size_type n = src.size();
 
@@ -2473,10 +2489,10 @@ typename Basic_blob<Allocator, SHARING>::size_type
   return n;
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Iterator
-  Basic_blob<Allocator, SHARING>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src,
-                                               log::Logger* logger_ptr)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Iterator
+  Basic_blob<Allocator_t, SHARING>::emplace_copy(Const_iterator dest, const boost::asio::const_buffer& src,
+                                                 log::Logger* logger_ptr)
 {
   using std::memcpy;
 
@@ -2510,7 +2526,7 @@ typename Basic_blob<Allocator, SHARING>::Iterator
      *     exceeds maximum object size 9223372036854775807 [-Werror=stringop-overflow=]
      * This occurs due to (among other things) inlining from above our frame down into the std::memcpy() call
      * we make; plus allegedly the C++ front-end supplying the huge values during the diagnostics pass.
-     * No such huge values (which are 0x800000000000000F, 0xFFFFFFFFFFFFFFFF, 0x7FFFFFFFFFFFFFFF, respectively)
+     * No such huge values (which are 0x8000'0000'0000'000F, 0xFFFF'FFFF'FFFF'FFFF, 0x7FFF'FFFF'FFFF'FFFF, respectively)
      * are actually passed-in at run-time nor mentioned anywhere
      * in our code, here or in the unit-test(s) triggering the auto-inlining triggering the warning.  So:
      *
@@ -2535,10 +2551,10 @@ typename Basic_blob<Allocator, SHARING>::Iterator
   return dest_it + n;
 } // Basic_blob::emplace_copy()
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest,
-                                           log::Logger* logger_ptr) const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::sub_copy(Const_iterator src, const boost::asio::mutable_buffer& dest,
+                                             log::Logger* logger_ptr) const
 {
   // Code similar to emplace_copy().  Therefore keeping comments light.
 
@@ -2577,9 +2593,9 @@ typename Basic_blob<Allocator, SHARING>::Const_iterator
   return src + n;
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Iterator
-  Basic_blob<Allocator, SHARING>::erase(Const_iterator first, Const_iterator past_last)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Iterator
+  Basic_blob<Allocator_t, SHARING>::erase(Const_iterator first, Const_iterator past_last)
 {
   using std::memmove;
 
@@ -2613,62 +2629,62 @@ typename Basic_blob<Allocator, SHARING>::Iterator
   return dest;
 } // Basic_blob::erase()
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type const &
-  Basic_blob<Allocator, SHARING>::const_front() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type const &
+  Basic_blob<Allocator_t, SHARING>::const_front() const
 {
   assert(!empty());
   return *const_begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type
-  const & Basic_blob<Allocator, SHARING>::const_back() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type
+  const & Basic_blob<Allocator_t, SHARING>::const_back() const
 {
   assert(!empty());
   return const_end()[-1];
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type&
-  Basic_blob<Allocator, SHARING>::front()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type&
+  Basic_blob<Allocator_t, SHARING>::front()
 {
   assert(!empty());
   return *begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type&
-  Basic_blob<Allocator, SHARING>::back()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type&
+  Basic_blob<Allocator_t, SHARING>::back()
 {
   assert(!empty());
   return end()[-1];
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type const &
-  Basic_blob<Allocator, SHARING>::front() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type const &
+  Basic_blob<Allocator_t, SHARING>::front() const
 {
   return const_front();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type const &
-  Basic_blob<Allocator, SHARING>::back() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type const &
+  Basic_blob<Allocator_t, SHARING>::back() const
 {
   return const_back();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::const_begin() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::const_begin() const
 {
   return const_cast<Basic_blob*>(this)->begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Iterator
-  Basic_blob<Allocator, SHARING>::begin()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Iterator
+  Basic_blob<Allocator_t, SHARING>::begin()
 {
   if (zero())
   {
@@ -2677,8 +2693,8 @@ typename Basic_blob<Allocator, SHARING>::Iterator
   // else
 
   /* buf_ptr().get() is value_type* when Buf_ptr = regular shared_ptr; but possibly Some_fancy_ptr<value_type>
-   * when Buf_ptr = boost::interprocess::shared_ptr<value_type, Allocator_raw>, namely when
-   * Allocator_raw::pointer = Some_fancy_ptr<value_type> and not simply value_type* again.  We need value_type*.
+   * when Buf_ptr = boost::interprocess::shared_ptr<value_type, Allocator>, namely when
+   * Allocator::pointer = Some_fancy_ptr<value_type> and not simply value_type* again.  We need value_type*.
    * Fancy-pointer is not really an officially-defined concept (offset_ptr<> is an example of one).
    * Anyway the following works for both cases, but there are a bunch of different things we could write.
    * Since it's just this one location where we need to do this, I do not care too much, and the following
@@ -2690,139 +2706,139 @@ typename Basic_blob<Allocator, SHARING>::Iterator
   return &(*raw_or_fancy_buf_ptr) + m_start;
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::const_end() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::const_end() const
 {
   return zero() ? const_begin() : (const_begin() + size());
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Iterator
-  Basic_blob<Allocator, SHARING>::end()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Iterator
+  Basic_blob<Allocator_t, SHARING>::end()
 {
   return zero() ? begin() : (begin() + size());
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::begin() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::begin() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::cbegin() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::cbegin() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::end() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::end() const
 {
   return const_end();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Const_iterator
-  Basic_blob<Allocator, SHARING>::cend() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Const_iterator
+  Basic_blob<Allocator_t, SHARING>::cend() const
 {
   return const_end();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type
-  const * Basic_blob<Allocator, SHARING>::const_data() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type
+  const * Basic_blob<Allocator_t, SHARING>::const_data() const
 {
   return const_begin();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::value_type*
-  Basic_blob<Allocator, SHARING>::data()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::value_type*
+  Basic_blob<Allocator_t, SHARING>::data()
 {
   return begin();
 }
 
-template<typename Allocator, bool SHARING>
-bool Basic_blob<Allocator, SHARING>::valid_iterator(Const_iterator it) const
+template<typename Allocator_t, bool SHARING>
+bool Basic_blob<Allocator_t, SHARING>::valid_iterator(Const_iterator it) const
 {
   return empty() ? (it == const_end())
                  : in_closed_range(const_begin(), it, const_end());
 }
 
-template<typename Allocator, bool SHARING>
-bool Basic_blob<Allocator, SHARING>::derefable_iterator(Const_iterator it) const
+template<typename Allocator_t, bool SHARING>
+bool Basic_blob<Allocator_t, SHARING>::derefable_iterator(Const_iterator it) const
 {
   return empty() ? false
                  : in_closed_open_range(const_begin(), it, const_end());
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Iterator
-  Basic_blob<Allocator, SHARING>::iterator_sans_const(Const_iterator it)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Iterator
+  Basic_blob<Allocator_t, SHARING>::iterator_sans_const(Const_iterator it)
 {
   return const_cast<value_type*>(it); // Can be done without const_cast<> but might as well save some cycles.
 }
 
-template<typename Allocator, bool SHARING>
-boost::asio::const_buffer Basic_blob<Allocator, SHARING>::const_buffer() const
+template<typename Allocator_t, bool SHARING>
+boost::asio::const_buffer Basic_blob<Allocator_t, SHARING>::const_buffer() const
 {
   return boost::asio::const_buffer{const_data(), size()};
 }
 
-template<typename Allocator, bool SHARING>
-boost::asio::mutable_buffer Basic_blob<Allocator, SHARING>::mutable_buffer()
+template<typename Allocator_t, bool SHARING>
+boost::asio::mutable_buffer Basic_blob<Allocator_t, SHARING>::mutable_buffer()
 {
   return boost::asio::mutable_buffer{data(), size()};
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Allocator_raw
-  Basic_blob<Allocator, SHARING>::get_allocator() const
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Allocator
+  Basic_blob<Allocator_t, SHARING>::get_allocator() const
 {
   return alloc_raw();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Buf_ptr& Basic_blob<Allocator, SHARING>::buf_ptr()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Buf_ptr& Basic_blob<Allocator_t, SHARING>::buf_ptr()
 {
   return m_alloc_and_buf_ptr.second();
 }
 
-template<typename Allocator, bool SHARING>
-const typename Basic_blob<Allocator, SHARING>::Buf_ptr&
-  Basic_blob<Allocator, SHARING>::buf_ptr() const
+template<typename Allocator_t, bool SHARING>
+const typename Basic_blob<Allocator_t, SHARING>::Buf_ptr&
+  Basic_blob<Allocator_t, SHARING>::buf_ptr() const
 {
   return const_cast<Basic_blob*>(this)->buf_ptr();
 }
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Allocator_raw& Basic_blob<Allocator, SHARING>::alloc_raw()
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Allocator& Basic_blob<Allocator_t, SHARING>::alloc_raw()
 {
   return m_alloc_and_buf_ptr.first();
 }
 
-template<typename Allocator, bool SHARING>
-const typename Basic_blob<Allocator, SHARING>::Allocator_raw&
-  Basic_blob<Allocator, SHARING>::alloc_raw() const
+template<typename Allocator_t, bool SHARING>
+const typename Basic_blob<Allocator_t, SHARING>::Allocator&
+  Basic_blob<Allocator_t, SHARING>::alloc_raw() const
 {
   return const_cast<Basic_blob*>(this)->alloc_raw();
 }
 
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw() :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Deleter_raw::Deleter_raw() :
   m_buf_sz(0)
 {
   /* It can be left `= default;`, but some gcc versions then complain m_buf_sz may be used uninitialized (not true but
    * such is life). */
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Allocator_raw& alloc_raw_src, size_type buf_sz) :
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Deleter_raw::Deleter_raw(const Allocator& alloc_raw_src, size_type buf_sz) :
   /* Copy allocator; a stateless allocator should have size 0 (no-op for the processor in that case... except
    * the optional<> registering it has-a-value). */
   m_alloc_raw(std::in_place, alloc_raw_src),
@@ -2831,8 +2847,8 @@ Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Allocator_raw& al
   // OK.
 }
 
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(Deleter_raw&& moved_src)
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Deleter_raw::Deleter_raw(Deleter_raw&& moved_src)
 {
   /* We advertised our action is as-if we default-ct, then move-assign.  While we skipped delegating to default-ctor,
    * the only difference is that would've initialized m_buf_sz; but the following will just overwrite it anyway.  So
@@ -2840,14 +2856,14 @@ Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(Deleter_raw&& moved_src
   operator=(std::move(moved_src));
 }
 
-/* Auto-generated copy-ct should be fine; the only conceivable source of trouble might be Allocator_raw copy-ction,
+/* Auto-generated copy-ct should be fine; the only conceivable source of trouble might be Allocator copy-ction,
  * but that must exist for all allocators. */
-template<typename Allocator, bool SHARING>
-Basic_blob<Allocator, SHARING>::Deleter_raw::Deleter_raw(const Deleter_raw&) = default;
+template<typename Allocator_t, bool SHARING>
+Basic_blob<Allocator_t, SHARING>::Deleter_raw::Deleter_raw(const Deleter_raw&) = default;
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Deleter_raw&
-  Basic_blob<Allocator, SHARING>::Deleter_raw::operator=(Deleter_raw&& moved_src)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Deleter_raw&
+  Basic_blob<Allocator_t, SHARING>::Deleter_raw::operator=(Deleter_raw&& moved_src)
 {
   using std::swap;
 
@@ -2888,11 +2904,11 @@ typename Basic_blob<Allocator, SHARING>::Deleter_raw&
   return *this;
 } // Basic_blob::Deleter_raw::operator=(&&)
 
-template<typename Allocator, bool SHARING>
-typename Basic_blob<Allocator, SHARING>::Deleter_raw&
-  Basic_blob<Allocator, SHARING>::Deleter_raw::operator=(const Deleter_raw& src)
+template<typename Allocator_t, bool SHARING>
+typename Basic_blob<Allocator_t, SHARING>::Deleter_raw&
+  Basic_blob<Allocator_t, SHARING>::Deleter_raw::operator=(const Deleter_raw& src)
 {
-  /* Ideally we'd just use `= default;`, but that might not compile, when Allocator_raw has no copy-assignment
+  /* Ideally we'd just use `= default;`, but that might not compile, when Allocator has no copy-assignment
    * (as noted elsewhere this is entirely possible).  So basically perform a simpler version of the move-assignment
    * impl.  Keeping comments light; please see move-assignment impl. */
 
@@ -2909,7 +2925,7 @@ typename Basic_blob<Allocator, SHARING>::Deleter_raw&
       const auto& src_alloc_raw = *src.m_alloc_raw;
       if ((!m_alloc_raw) || (*m_alloc_raw != src_alloc_raw))
       {
-        m_alloc_raw.emplace(src_alloc_raw); // Having to do this for some `Allocator_raw`s is why we can't `= default;`.
+        m_alloc_raw.emplace(src_alloc_raw); // Having to do this for some `Allocator`s is why we can't `= default;`.
       }
     }
   } // if (this != &src)
@@ -2917,10 +2933,10 @@ typename Basic_blob<Allocator, SHARING>::Deleter_raw&
   return *this;
 } // Basic_blob::Deleter_raw::operator=(const&)
 
-template<typename Allocator, bool SHARING>
-void Basic_blob<Allocator, SHARING>::Deleter_raw::operator()(Pointer_raw to_delete)
+template<typename Allocator_t, bool SHARING>
+void Basic_blob<Allocator_t, SHARING>::Deleter_raw::operator()(Pointer_raw to_delete)
 {
-  // No need to invoke dtor: Allocator_raw::value_type is Basic_blob::value_type, a boring int type with no real dtor.
+  // No need to invoke dtor: Allocator::value_type is Basic_blob::value_type, a boring int type with no real dtor.
 
   // Free the raw buffer at location to_delete; which we know is m_buf_sz `value_type`s long.
   m_alloc_raw->deallocate(to_delete, m_buf_sz);

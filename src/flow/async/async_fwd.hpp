@@ -509,7 +509,6 @@ void reset_thread_pinning(log::Logger* logger_ptr = nullptr,
  * This variant exists, so that one can pass it directly to APIs that expect a function object/pointer with
  * signature `void F()`; for example `std::function<void ()>` ctor or Single_thread_task_loop::start().
  *
- *
  * It is unfortunately not possible to, e.g., supply one of the form `void F(some_type some_arg = some_default)`:
  * the compiler doesn't like the presence of any args, even if they all have defaults.
  */

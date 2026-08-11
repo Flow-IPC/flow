@@ -19,6 +19,8 @@
 #pragma once
 
 #include "flow/util/detail/util.hpp"
+// So that this_thread_unique_token() is usable (_fwd.hpp only => incomplete type; but they can #include us at least):
+#include "flow/util/uniq_id_holder.hpp"
 #include "flow/util/string_ostream.hpp"
 #include "flow/util/util_fwd.hpp"
 #include <boost/lexical_cast.hpp>
@@ -125,9 +127,9 @@ struct Noncopyable
  * concurrency protection.  If the memory location can be accessed simultaneously by other threads, watch out.
  *
  * In particular it's a good fit for thread-local locations: `&X`, where `X` is declared `thread_local`, or
- * `X == *(P.get())` where `P` is a `boost::thread_specific_ptr`.
+ * `X == *(P.get())` where `P` is a `boost::thread_specific_ptr` or equivalent.
  *
- * @tparam Value
+ * @tparam Value_t
  *         The stored type, which must be move-assignable and move-constructible.
  *         All `Value` writes are performed using exclusively these operations.
  *         Informally: For best performance when `Value` is a heavy-weight type, these operations should be
@@ -141,10 +143,15 @@ struct Noncopyable
  * the thread-local verbosity override: log::Config::this_thread_verbosity_override_auto().  flow::log is fairly
  * paranoid about performance, in general, although admittedly this particular call isn't necessarily ubiquitous.
  */
-template<typename Value>
+template<typename Value_t>
 class Scoped_setter
 {
 public:
+  // Types.
+
+  /// Alias for template parameter.
+  using Value = Value_t;
+
   // Constructors/destructor.
 
   /**
@@ -199,20 +206,134 @@ private:
   Value m_saved_value;
 }; // class Scoped_setter
 
+/**
+ * A simple locking-proxy class template (execute-around-pointer idiom): at construction locks the given mutex and
+ * provides `->` access to the given target object; at destruction unlocks it.  In typical use one obtains `*this` as
+ * an unnamed temporary in the middle of an expression, so that the mutex is locked for exactly that expression's
+ * duration.  E.g., given `Widget w` and a mutex `m` serializing all access to `w` -- suppose some `w_locked()` returns
+ * `Locked_proxy{&w, &m}`:
+ *
+ *   ~~~
+ *   const auto n = w_locked()->compute_n(); // Lock m; invoke w.compute_n(); save the result; unlock m.
+ *   ~~~
+ *
+ * This is the *execute-around-pointer idiom*.  The typical motivation: some class `C` internally owns both a
+ * mutex-protected object and the mutex, its background/concurrent machinery locking the latter as needed; and
+ * wants to let its user safely invoke methods of that object.  Then `C` can supply a `w_locked()`-style accessor
+ * as sketched above -- instead of writing a delegating, internally-locking method for every operation of
+ * interest.  The set of available operations then maintains itself, as does the correctness of each such call's
+ * locking.
+ *
+ * To grant read-only (`const` methods only) access, simply use a `const`-qualified #Target type: e.g.,
+ * `Locked_proxy<const Widget, ...>`.
+ *
+ * ### Keep it to one expression ###
+ * `*this` existing = the mutex being locked.  The intended use is as an unnamed temporary (see above example):
+ * then the lock is held for a few microseconds, and it is impossible to leak.  If you *do* save a `*this` to
+ * extend the locked section, keep the scope tight: whatever machinery normally locks that mutex is blocked
+ * in the meantime.
+ *
+ * @see `boost::synchronized_value` implements the same idiom but *owns* both the payload and the mutex
+ *      ("wrap your data in me").  `*this`, by contrast, is non-owning: it is for objects whose guarding
+ *      mutex exists independently -- e.g., one that guards more state than just the target object.
+ *
+ * @tparam Target_t
+ *         Type of the object to which `*this` proxies access; possibly `const`-qualified (see above).
+ * @tparam Mutex_t
+ *         A `Lockable`-concept mutex type, e.g. util::Mutex_non_recursive.
+ */
+template<typename Target_t, typename Mutex_t>
+class Locked_proxy
+{
+public:
+  // Types.
+
+  /// Alias for template parameter.
+  using Target = Target_t;
+
+  /// Alias for template parameter.
+  using Mutex = Mutex_t;
+
+  // Constructors/destructor.
+
+  /**
+   * Locks `*mutex` -- blocking as-needed until that is possible -- and makes `*this` proxy `*target`.
+   * The destructor invocation shall unlock it.
+   *
+   * `*this` cannot be copied, but it can be moved.  As a result, it is guaranteed that the aforementioned
+   * unlocking will occur exactly once; however it can occur via the destructor of another Locked_proxy that was
+   * move-constructed from `*this`, our own dtor therefore being a no-op.  (A moved-from `*this` must not be
+   * dereferenced.)
+   *
+   * @param target
+   *        The object to which operator->() shall forward.  Behavior undefined (assertion may trip) if null.
+   * @param mutex
+   *        The mutex to hold for `*this` lifetime: the mutex -- the one and only one -- by which all
+   *        access to `*target` is serialized (see class doc header for the typical setup).
+   *        Must be non-null; must outlive `*this`.
+   */
+  explicit Locked_proxy(Target* target, Mutex* mutex);
+
+  /**
+   * Move constructor: `*this` acts as `src_moved` would-have (in particular its eventual destruction unlocks the
+   * mutex), while `src_moved` becomes a no-op object permanently.
+   *
+   * @param src_moved
+   *        Source object.  Its destructor shall do nothing after this returns; it must not be dereferenced.
+   */
+  Locked_proxy(Locked_proxy&& src_moved);
+
+  /// Prohibit copying: for each `explicit` ctor invocation, there shall be exactly 1 unlocking dtor invocation.
+  Locked_proxy(const Locked_proxy&) = delete;
+
+  // Methods.
+
+  /// Prohibit copying (see `delete`d copy ctor).
+  Locked_proxy& operator=(const Locked_proxy&) = delete;
+
+  /// Prohibit modifying existing `*this`; except that moving-from is enabled via the move ctor.
+  Locked_proxy& operator=(Locked_proxy&&) = delete;
+
+  /**
+   * Returns pointer to the target object, the guarding mutex being locked by `*this` (do not use if moved-from).
+   * @return See above.
+   */
+  Target* operator->() const;
+
+  /**
+   * Returns reference to the target object, the guarding mutex being locked by `*this` (do not use if moved-from).
+   * Useful, e.g., to print the target (`os << *w_locked()`) or to pass it to a function taking a reference --
+   * keeping in mind the mutex is locked only until the end of the full expression (in typical unnamed-temporary
+   * use).
+   *
+   * @return See above.
+   */
+  Target& operator*() const;
+
+private:
+  // Data.
+
+  /// Holds the caller-supplied mutex locked throughout `*this` lifetime (unless moved-from: then holds nothing).
+  Lock_guard<Mutex> m_lock;
+
+  /// The target object to which operator->() forwards.  Meaningless if `*this` is moved-from.
+  Target* m_target;
+}; // class Locked_proxy
+
 // Template implementations.
 
 // Scoped_setter template implementations.
 
-template<typename Value>
-Scoped_setter<Value>::Scoped_setter(Value* target, Value&& val_src_moved) :
+template<typename Value_t>
+Scoped_setter<Value_t>::Scoped_setter(Value* target, Value&& val_src_moved) :
   m_target_or_null(target),
   m_saved_value(std::move(*m_target_or_null))
 {
   *m_target_or_null = std::move(val_src_moved);
 }
 
-template<typename Value>
-Scoped_setter<Value>::Scoped_setter(Scoped_setter&& src_moved) : // =default might work fine but to be clear/certain:
+template<typename Value_t>
+Scoped_setter<Value_t>::Scoped_setter(Scoped_setter&& src_moved) : // =default might work fine but to be clear/certain:
   m_target_or_null(src_moved.m_target_or_null),
   m_saved_value(std::move(src_moved.m_saved_value))
 {
@@ -222,14 +343,39 @@ Scoped_setter<Value>::Scoped_setter(Scoped_setter&& src_moved) : // =default mig
   // As promised: Now src_moved's dtor will no-op.
 }
 
-template<typename Value>
-Scoped_setter<Value>::~Scoped_setter()
+template<typename Value_t>
+Scoped_setter<Value_t>::~Scoped_setter()
 {
   if (m_target_or_null)
   {
     *m_target_or_null = std::move(m_saved_value);
   }
   // else { `*this` must have been moved-from.  No-op. }
+}
+
+// Locked_proxy template implementations.
+
+template<typename Target_t, typename Mutex_t>
+Locked_proxy<Target_t, Mutex_t>::Locked_proxy(Target* target, Mutex* mutex) :
+  m_lock(*mutex), // Locks it (blocking as-needed).
+  m_target(target)
+{
+  assert(target && "Locked_proxy ctor: target must be non-null.");
+}
+
+template<typename Target_t, typename Mutex_t>
+Locked_proxy<Target_t, Mutex_t>::Locked_proxy(Locked_proxy&&) = default;
+
+template<typename Target_t, typename Mutex_t>
+Target_t* Locked_proxy<Target_t, Mutex_t>::operator->() const
+{
+  return m_target;
+}
+
+template<typename Target_t, typename Mutex_t>
+Target_t& Locked_proxy<Target_t, Mutex_t>::operator*() const
+{
+  return *m_target;
 }
 
 // Free function template (and/or constexpr) implementations.
@@ -276,6 +422,59 @@ constexpr Integer round_to_multiple(Integer dividend, Integer2 unit)
   return static_cast<Integer>(unit) * ceil_div(dividend, unit);
 }
 
+template<uint64_t POSITIVE_INT>
+constexpr bool is_power_of_two()
+{
+  static_assert(POSITIVE_INT > 0, "UINT tparam needs to be a positive integer.");
+  return (POSITIVE_INT & (POSITIVE_INT - uint64_t(1))) == uint64_t(0);
+}
+
+constexpr size_t max_align_sz()
+{
+  return alignof(std::max_align_t);
+}
+
+template<typename Data, size_t ALIGN_SZ>
+constexpr size_t aligned_sz_of()
+{
+  static_assert(is_power_of_two<ALIGN_SZ>(), "ALIGN_SZ must be one of 1, 2, 4, 8, ....");
+  return round_to_multiple(sizeof(Data), ALIGN_SZ);
+}
+
+template<typename Prefix, typename Data, size_t ALIGN_SZ>
+Prefix* aligned_prefix_before(Data* data_ptr)
+{
+  const auto data_byte_ptr = reinterpret_cast<uintptr_t>(data_ptr);
+  assert(((data_byte_ptr % ALIGN_SZ) == 0)
+           && "Input ptr is not aligned; output wouldn't be either.");
+
+  return reinterpret_cast<Prefix*>
+           (data_byte_ptr - aligned_sz_of<Prefix, ALIGN_SZ>());
+}
+
+template<typename Prefix, typename Data, size_t ALIGN_SZ>
+const Prefix* aligned_prefix_before(const Data* data_ptr)
+{
+  return aligned_prefix_before<Prefix, Data, ALIGN_SZ>(const_cast<Data*>(data_ptr));
+}
+
+template<typename Data, typename Prefix, size_t ALIGN_SZ>
+Data* after_aligned_prefix(Prefix* prefix_ptr)
+{
+  const auto prefix_byte_ptr = reinterpret_cast<uintptr_t>(prefix_ptr);
+  assert(((prefix_byte_ptr % ALIGN_SZ) == 0)
+           && "Input ptr is not aligned; output wouldn't be either.");
+
+  return reinterpret_cast<Data*>
+           (prefix_byte_ptr + aligned_sz_of<Prefix, ALIGN_SZ>());
+}
+
+template<typename Data, typename Prefix, size_t ALIGN_SZ>
+const Data* after_aligned_prefix(const Prefix* prefix_ptr)
+{
+  return after_aligned_prefix<Data, Prefix, ALIGN_SZ>(const_cast<Prefix*>(prefix_ptr));
+}
+
 template<typename T>
 bool in_closed_range(T const & min_val, T const & val, T const & max_val)
 {
@@ -313,20 +512,13 @@ bool key_exists(const Container& container, const typename Container::key_type& 
 }
 
 template<typename Cleanup_func>
-Auto_cleanup setup_auto_cleanup(const Cleanup_func& func)
+Auto_cleanup setup_auto_cleanup(Cleanup_func&& func)
 {
   /* This trick, from shared_ptr or bind Boost docs (if I recall correctly), uses shared_ptr's deleter feature.  The
    * Auto_cleanup gains "ownership" of null pointer, purely for the purpose of running a deleter on it when the object
-   * goes out of scope sometime later.  Deleting 0 itself would have been useless no-op, and instead we ignore the null
-   * and simply call user's func(), which is what the goal is.
-   *
-   * Subtlety: shared_ptr docs say the passed-in deleter is saved by copy, so we needn't worry about it disappearing
-   * after we return.
-   *
-   * Subtlety: we need to make a copy (via capture) of func, as there's zero guarantee (and low likelihood in practice)
-   * that func is a valid object at the time cleanup is actually needed (sometime after we return). */
-  return Auto_cleanup{static_cast<void*>(nullptr),
-                      [func](void*) { func(); }};
+   * goes out of scope sometime later. */
+  return Auto_cleanup{nullptr,
+                      [func = std::move(func)](auto) { func(); }};
 }
 
 template<typename Minuend, typename Subtrahend>

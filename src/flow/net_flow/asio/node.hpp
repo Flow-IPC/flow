@@ -259,7 +259,7 @@ public:
   explicit Node(log::Logger* logger, util::Task_engine* target_async_task_engine,
                 const util::Udp_endpoint& low_lvl_endpoint,
                 Net_env_simulator* net_env_sim = nullptr, Error_code* err_code = nullptr,
-                const Node_options& opts = Node_options{});
+                const Node_options& opts = {});
 
   // Methods.
 

@@ -81,8 +81,10 @@ set(SRCS
     flow/perf/clock_type.cpp
     flow/util/blob.cpp
     flow/util/detail/sched_task_handle_state.cpp
+    flow/util/detail/thread_lcl_ptr_impl.cpp
     flow/util/detail/util.cpp
     flow/util/sched_task.cpp
+    flow/util/stat/histo.cpp
     flow/util/string_ostream.cpp
     flow/util/uniq_id_holder.cpp
     flow/util/util.cpp)
@@ -157,11 +159,13 @@ set(HDRS
     flow/perf/perf_fwd.hpp
     flow/perf/timed_function.hpp
     flow/perf/timed_handler.hpp
+    flow/util/action_registry.hpp
     flow/util/basic_blob.hpp
     flow/util/blob.hpp
     flow/util/blob_fwd.hpp
     flow/util/detail/linked_hash.hpp
     flow/util/detail/sched_task_handle_state.hpp
+    flow/util/detail/thread_lcl_ptr_impl.hpp
     flow/util/detail/util.hpp
     flow/util/detail/util_fwd.hpp
     flow/util/fmt.hpp
@@ -171,9 +175,15 @@ set(HDRS
     flow/util/sched_task.hpp
     flow/util/sched_task_fwd.hpp
     flow/util/shared_ptr_alias_holder.hpp
+    flow/util/stat/histo.hpp
+    flow/util/stat/stat_fwd.hpp
+    flow/util/stat/stat_set.hpp
+    flow/util/stat/stat_set_list.hpp
     flow/util/string_ostream.hpp
     flow/util/string_view.hpp
     flow/util/thread_lcl.hpp
+    flow/util/thread_lcl_obj.hpp
+    flow/util/thread_lcl_ptr.hpp
     flow/util/traits.hpp
     flow/util/uniq_id_holder.hpp
     flow/util/util.hpp

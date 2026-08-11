@@ -27,21 +27,21 @@ namespace flow::net_flow
 
 const boost::unordered_map<std::type_index, Low_lvl_packet::Packet_type_info>
         Low_lvl_packet::S_NATIVE_TYPE_ID_TO_PACKET_TYPE_INFO
-          ({
+          {{
              // { m_raw_type_id, m_type_id_str } Careful!  The m_raw_type_id values must not conflict.
-             { std::type_index(typeid(Syn_packet)),
+             { std::type_index{typeid(Syn_packet)},
                { 0, "SYN" } },
-             { std::type_index(typeid(Syn_ack_packet)),
+             { std::type_index{typeid(Syn_ack_packet)},
                { 1, "SYN_ACK" } },
-             { std::type_index(typeid(Syn_ack_ack_packet)),
+             { std::type_index{typeid(Syn_ack_ack_packet)},
                { 2, "SYN_ACK_ACK" } },
-             { std::type_index(typeid(Data_packet)),
+             { std::type_index{typeid(Data_packet)},
                { 3, "DATA" } },
-             { std::type_index(typeid(Ack_packet)),
+             { std::type_index{typeid(Ack_packet)},
                { 4, "ACK" } },
-             { std::type_index(typeid(Rst_packet)),
+             { std::type_index{typeid(Rst_packet)},
                { 5, "RST" } }
-           });
+           }};
 
 // Implementations.
 
@@ -417,7 +417,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet is too small: "
                      "[" << raw_buf_size << "] bytes.");
-    return Ptr{};
+    return {};
   }
 
   /* We'll advance this as we keep reading off values from raw buffer.
@@ -467,7 +467,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   if (reserved2 != 0)
   {
     FLOW_LOG_WARNING("Unable to deserialize low-level packet: The packet format is unknown.");
-    return Ptr{};
+    return {};
   }
   // else
 
@@ -490,7 +490,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
   // Low_lvl_packet part is filled out.  The sub-type part has junk.  This will fill that part out.
   if (!packet->deserialize_type_specific_data_from_raw_data_packet(&raw_buf, prefer_no_move, raw_packet))
   {
-    return Ptr{}; // Error.  It logged.
+    return {}; // Error.  It logged.
   }
   // else
 

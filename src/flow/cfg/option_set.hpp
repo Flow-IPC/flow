@@ -167,7 +167,7 @@ protected:
    * constrained config context, and hence we use this type in more specific/constrained ways which we describe
    * here.
    *
-   * We use it in our context in two primary roles; and since storage space and processor cycle are not
+   * We use it in our context in two primary roles; and since storage space and processor cycles are not
    * practically affected, we tend to store separate copies of an `Opt_table` in *each* role (possibly
    * even more than 1, as there can be sub-roles of each).
    * The roles are:
@@ -382,7 +382,7 @@ protected:
  *
  * ### Recommended conventions ###
  * Firstly, it is recommended to store all durations in your `Value_set` as util::Fine_duration instead of using
- * coarser units like `chrono::seconds()` or even `chrono::milliseconds()`.  This tends to lead to more consistent
+ * coarser units like `chrono::seconds` or even `chrono::milliseconds`.  This tends to lead to more consistent
  * and maintainable code, in the author's (ygoldfel) opinion, as util::Fine_duration *can* store durations expressed
  * in essentially any units, without losing precision; *does* use the same underlying storage type -- `int64_t` --
  * and hence presents no performance or overflow difficulties (usually); and changing the desired units of a duration
@@ -469,7 +469,15 @@ public:
      * @internal
      * @todo `union` used inside Option_set implementation should be replaced with the type-safe, equally-fast,
      * more-expressive `std::variant`.  The author was not aware of the latter's existence when originally writing
-     * this.
+     * this.  #Call_type and Option_set_base::Declare_options_func_call_type could be eliminated:
+     * For example #m_fill_parsing_role_opt_table_args could have a named (currently it's anonymous)
+     * type `struct Fill_parsing_role_opt_table`, used as the `variant` selector value for that call-type.  So
+     * when calling the #Declare_options_func callback while desiring that operation, we'd load the variant
+     * with a `struct Fill_parsing_role_opt_table`; and FLOW_CFG_OPTION_SET_DECLARE_OPTION() would
+     * get a non-null `get_if<Fill_parsing_role_opt_table>()` result, indicating that's the desired op; if not
+     * then it would try the others one by one (conceptually a `switch()` statement -- much like today).  A tiny
+     * bit slower, but in this context it's totally fine.  (Or could use an explicit `variant` index and have
+     * an actual `switch()`.)
      */
     union
     {
@@ -499,6 +507,11 @@ public:
         /// `m_option_set->m_values_default`: defaults loaded into `Option_set::m_opts_for_help` will originate here.
         const Values* m_values_default;
       } m_fill_output_help_role_opt_table_args;
+      /* (For the @todo to turn union into variant<>: Could here have
+       * `struct Fill_output_help_role_opt_table { ... };` and have a
+       * `variant<Fill_output_help_role_opt_table, ...the others...>`; and then to determine which one has been
+       * loaded into args: get_if<Fill_output_help_role_opt_table>(); if non-null then that is it; else if null => try
+       * get_if<...each of the other ones>...() (first non-null one = the one).) */
 
       /// Corresponds to Call_type::S_FILL_OUTPUT_CURRENT_ROLE_OPT_TABLE.
       struct
@@ -1125,7 +1138,7 @@ private:
  * `Option_set<Value_set>`.
  *
  * @note The resulting option name, as found in config sources such as config files, will be auto-computed from
- *       the string `#ARG_m_value`.  So if `ARG_m_value` is `m_cool_thing.m_cool_guy`, then the option name
+ *       the string `#ARG_m_value`.  So if `ARG_m_value` is `m_cool_thing.m_cool_duration`, then the option name
  *       might be computed to be, say, `"cool-thing.cool-duration"`, with a config file line:
  *       `"cool-thing.cool-duration=2 milliseconds"`.
  * @note It may be desirable to *not* auto-name a given option; a known use case for this is legacy option names,
@@ -1384,8 +1397,8 @@ private:
         /* Subtlety: Copy input NUL-terminated char* into lambda string capture just in case they give us */ \
         /* not the usual `static` string literal as ARG_opt_name_c_str. */ \
         flow::Function<bool (const Value&)> FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func \
-          = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string(FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str)] \
-              ([[maybe_unused]] const Value& val) -> bool { return ARG_bool_validate_expr; }; \
+          = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string{FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str}] \
+              (const Value&) -> bool { return ARG_bool_validate_expr; }; \
         args.m_args.m_fill_parsing_role_opt_table_args.m_option_set \
           ->declare_option_for_parsing \
               (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
@@ -1435,8 +1448,8 @@ private:
         /* Set up validator func similarly to above; see those comments. */ \
         using Value = decltype(args.m_args.m_validate_stored_vals_args.m_values_to_validate->ARG_m_value); \
         flow::Function<bool (const Value&)> FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func \
-          = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string(FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str)] \
-              ([[maybe_unused]] const Value& val) -> bool { return ARG_bool_validate_expr; }; \
+          = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string{FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str}] \
+              (const Value&) -> bool { return ARG_bool_validate_expr; }; \
         /* Throw if invalid; else no-op. */ \
         ::flow::cfg::Option_set_base::validate_parsed_option \
           (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
@@ -1513,7 +1526,7 @@ void Option_set<Value_set>::values_to_ostream(std::ostream& os, const Values* va
   constexpr unsigned int LINE_LENGTH = 1000;
   constexpr unsigned int DESC_LENGTH = LINE_LENGTH - 1;
 
-  Opt_table opts_for_output(LINE_LENGTH, DESC_LENGTH);
+  Opt_table opts_for_output{LINE_LENGTH, DESC_LENGTH};
 
   Declare_options_func_args args;
   args.m_call_type = Declare_options_func_args::Call_type::S_FILL_OUTPUT_CURRENT_ROLE_OPT_TABLE;
@@ -1619,8 +1632,8 @@ Function<void (const Value& val)> Option_set_base::throw_on_invalid_func
   using std::flush;
 
   return [validator_func = std::move(validator_func_moved),
-          validator_cond_str = string(validator_cond_str_view),
-          name = string(name_view)]
+          validator_cond_str = string{validator_cond_str_view},
+          name = string{name_view}]
            (const Value& val)
   {
     if (!(validator_func(val)))
@@ -1657,11 +1670,11 @@ void Option_set<Value_set>::declare_option_for_help(util::String_view name,
   default_str_os.os() << flush;
 
   m_opts_for_help.add_options()
-    (string(name).c_str(),
+    (string{name}.c_str(),
      // *Output-role* has no target; it does output, not input.
      value<Value>()
        ->default_value(value_default, default_str_os.str()),
-     string(description).c_str());
+     string{description}.c_str());
 
   // No need to log: logs are only interesting when setting up the parsing table.  This'd just be verbose/redundant.
 } // Option_set::declare_option_for_help()
@@ -1702,7 +1715,7 @@ void Option_set_base::declare_option_for_output(util::String_view name, Opt_tabl
   default_str_os.os() << flush;
 
   target_opts->add_options()
-    (string(name).c_str(),
+    (string{name}.c_str(),
      // *Output-role* has no target; it does output, not input.
      value<Value>()
        ->default_value(value_default, default_str_os.str()),
@@ -2244,7 +2257,7 @@ std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, c
   using boost::smatch;
   using std::string;
 
-  // Keep in harmony with value_set_member_id_to_opt_name() of course,
+  // Keep in harmony with value_set_member_id_to_opt_name() of course.
 
   /* <anything, long as possible>[<replaced stuff>]<.blah... or ->blah... though we don't enforce it here>
    *   =>
@@ -2261,7 +2274,7 @@ std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, c
   regex_match(member_id_str, matched_groups, VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX);
   assert(matched_ok && "Member identifier must look like: <longest possible stuff>[<key to replace>]<the rest>");
 
-  constexpr char INDEX_SEP_BEFORE('.');
+  constexpr char INDEX_SEP_BEFORE = '.';
 
   /* Don't post-process or pre-process a single value_set_member_id_to_opt_name() result.
    * The replacer in that function shouldn't run across the substituted-in `key` (which could contain, e.g., "m_..." --

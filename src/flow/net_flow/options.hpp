@@ -125,7 +125,7 @@ struct Peer_socket_options
 
   /**
    * Maximum number of bytes that the Send buffer can hold.  This determines how many bytes user can
-   * `send()` while peer cannot send over network until send() refuses to take any more bytes.  Notew
+   * `send()` while peer cannot send over network until `send()` refuses to take any more bytes.  Note
    * that any value given will be increased, if necessary, to the nearest multiple of
    * max-block-size.  This is important to preserve message boundaries when operating in
    * unreliable mode (guaranteed max-block-size-sized chunks of data will be sent out in their
@@ -135,7 +135,7 @@ struct Peer_socket_options
 
   /**
    * Maximum number of bytes that the Receive buffer can hold.  This determines how many bytes
-   * can be received in the background by the Node without user doing any receive()s.  It is also
+   * can be received in the background by the Node without user doing any `receive()`s.  It is also
    * rounded up to to the nearest multiple of max-block-size.
    */
   size_t m_st_rcv_buf_max_size;
@@ -468,7 +468,7 @@ struct Node_options
    * Constructs a Node_options with values equal to those used by Node when the Node
    * creator chooses not to supply custom options.
    */
-  explicit Node_options();
+  Node_options();
 
   // Methods.
 

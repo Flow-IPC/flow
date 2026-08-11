@@ -883,7 +883,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
 
     *dupe = true;
     *slide = false;
-    return Error_code{};
+    return {};
   } // if (seq_num < rcv_next_seq_num)
   // else if (seq_num >= rcv_next_seq_num)
 
@@ -919,7 +919,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     *slide = true;
     *slide_size = size_t(seq_num_end - seq_num);
     assert(*slide_size == data.size());
-    return Error_code{};
+    return {};
   }
 
   // else if:
@@ -1010,7 +1010,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     }
 
     *dupe = false;
-    return Error_code{};
+    return {};
   } // if (next_packet does not exist)
   // else if (next_packet exists at the same or later sequence number as seq_num)
 
@@ -1047,7 +1047,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                    "sequence numbers [" << seq_num << ", " << seq_num_end << ").");
 
     *dupe = true;
-    return Error_code{};
+    return {};
   } // if (seq_num_next_start == seq_num)
   // else if:
   assert(seq_num_next_start > seq_num); // lower_bound() is not horrifically broken.
@@ -1084,7 +1084,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     FLOW_LOG_TRACE("New packet partially fills first gap without sliding window; "
                    "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                    "first unreceived packet [" << rcv_next_seq_num << "].");
-    return Error_code{}; // There are none. We're good.
+    return {}; // There are none. We're good.
   }
 
   const Peer_socket::Recvd_pkt_const_iter prev_packet = prior(next_packet);
@@ -1112,7 +1112,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                  "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                  "first unreceived packet [" << rcv_next_seq_num << "].");
 
-  return Error_code{};
+  return {};
 } // Node::sock_categorize_data_to_established()
 
 bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
@@ -2041,7 +2041,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
   /* To not put already-handled acknowledgments up for handling again in the next run of this method
    * (which would be wrong), we must clear acked_packets before exiting this method.  To be safe,
    * make sure acked_packets.clear() runs no matter how this method exits. */
-  util::Auto_cleanup cleanup = util::setup_auto_cleanup([&]() { acked_packets.clear(); });
+  const auto cleanup = util::setup_auto_cleanup([&]() { acked_packets.clear(); });
 
   /* Handle all the acknowledgments we've received in this receive handler.  Background on the
    * accumulation tactic is in handle_ack_to_established().  As explained in that method, some
@@ -3720,7 +3720,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
   const Peer_socket::Sent_pkt_by_seq_num_map& flying_packets = sock->m_snd_flying_pkts_by_seq_num;
   if (flying_packets.empty())
   {
-    return Sequence_number{}; // Default value.  Less than all others.
+    return {}; // Default value.  Less than all others.
   }
   // else
 
@@ -4171,7 +4171,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
 
   // We must clean up event_set at any return point below.
   Error_code dummy_prevents_throw;
-  util::Auto_cleanup event_set_cleanup = util::setup_auto_cleanup([&]()
+  const auto event_set_cleanup = util::setup_auto_cleanup([&]()
   {
     // Eat any error when closing Event_set, as it's unlikely and not interesting to user.
     event_set->close(&dummy_prevents_throw);

@@ -311,7 +311,7 @@ private:
    *
    * ### Performance/rationale ###
    * The values are sorted by key, so as to be binary-searched for log-time performance.  As for the constant
-   * factor: a binary search is a higher-level operation, hence realistically lower-level perfomance is mostly
+   * factor: a binary search is a higher-level operation, hence realistically lower-level performance is mostly
    * outside of our control.  So we can just use a vanilla setup: a `vector` with key-value `pair`s +
    * `std::lower_bound()` for binary search.
    *
@@ -453,7 +453,7 @@ private:
    * involve simply searching for a given `type_info*` pointer value: `this->insert(A)` and `this->lookup(B)`
    * can be called with `A == B` and yet `&A != &B`.  So we have no choice but to have the linear-search
    * perform (almost certainly) string `==` on potentially each value (namely on `type_info::name()` most likely),
-   * and lower-level perfomance is mostly
+   * and lower-level performance is mostly
    * outside of our control.  So we can just use a vanilla setup: a `vector` with key-value `pair`s +
    * `std::find_if()` for binary search, with the predicate repeatedly checking `*element.first == type` for
    * each `element` in #m_dict.

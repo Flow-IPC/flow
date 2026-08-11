@@ -17,31 +17,29 @@
 
 /// @file
 #include "flow/log/detail/thread_lcl_str_appender.hpp"
+#include "flow/util/thread_lcl_obj.hpp"
 #include <boost/move/make_unique.hpp>
 
 namespace flow::log
 {
 
-// Static initializations.
-
-boost::thread_specific_ptr<Thread_local_string_appender::Source_obj_to_appender_map>
-  Thread_local_string_appender::s_this_thread_appender_ptrs;
-
 // Implementations.
 
 Thread_local_string_appender*
-  Thread_local_string_appender::get_this_thread_string_appender(const util::Unique_id_holder& source_obj_id) // Static.
+  Thread_local_string_appender::this_thread_string_appender(const util::Unique_id_holder& source_obj_id) // Static.
 {
+  using util::Thread_local_obj_deinit_safe;
+
   /* It's just like an on-demand singleton -- but per thread.  Precisely because it is per thread, this code is
    * thread-safe unlike a regular on-demand singleton.  Then, after the thread lookup, another lookup obtains the
    * particular source object's dedicated appender (for the current thread).  (Reminder: source_obj_id is unique ID
    * of an object that wants to use appenders.  In theory even a mix of different classes can
    * co-exist in this system, since IDs are unique across all objects of all types.)
    *
-   * The crux of it is that the .get() call just below returns a different pointer depending on the current thread;
-   * followed by a presumably quick map lookup.  If the performance of .get() is higher than the performance of creating
-   * a new string, inserter around string, and stream around inserter, then this whole thing is worth it.  Otherwise it
-   * is not.
+   * The crux of it is that the TL-access into *this_thread_appender_ptrs yields a different addr depending on the
+   * current thread; followed by a presumably quick map lookup.  If the performance of TL-access is
+   * higher than the performance of creating a new string, inserter around string, and stream around inserter,
+   * then this whole thing is worth it.  Otherwise it is not.
    *
    * Update: Now it might still be worth it, because the fact that each ostream thus stored maintains a
    * persistent yet independent-from-others formatter state (with the save_formatting_state_and_restore_prev() feature
@@ -53,30 +51,31 @@ Thread_local_string_appender*
    * done for each little stream-writing code snippet is insufficient, even if it were computationally as cheap
    * as the following lookup. */
 
-  Source_obj_to_appender_map* appender_ptrs = s_this_thread_appender_ptrs.get();
-  if (!appender_ptrs)
+  /* Despite the weird look, this is basically almost equivalent to accessing a `static thread_local` member.
+   * See class doc header for a brief introduction to what's happening here.  In short: This contraption allows
+   * us to detect the return-null case. */
+  const auto this_thread_appender_ptrs
+    = Thread_local_obj_deinit_safe<Source_obj_to_appender_map, Thread_local_string_appender>
+        ::this_thread_obj_or_null();
+  if (!this_thread_appender_ptrs)
   {
-    // Uncommon code path.
-
-    appender_ptrs = new Source_obj_to_appender_map;
-    s_this_thread_appender_ptrs.reset(appender_ptrs);
-
-    assert(appender_ptrs == s_this_thread_appender_ptrs.get());
-
-    /* Note about cleanup: `delete appender_ptrs;` will be executed by thread_specific_ptr when thread exits.
-     * Therefore any per-thread memory is not leaked past the thread's lifetime.  However, for a given thread,
-     * per-object-ID memory IS leaked even when the corresponding object disappears; we provide no mechanism
-     * to free this.  See class doc header for discussion. */
+    return nullptr; // As advertised.
   }
+  // else
 
-  Source_obj_to_appender_map& appender_ptrs_map = *appender_ptrs;
+  auto& appender_ptrs_map = *this_thread_appender_ptrs;
 
   const auto& id = source_obj_id.unique_id();
   auto& appender_ptr_ref = appender_ptrs_map[id]; // (Reference to) smart pointer directly in the map.
   if (!appender_ptr_ref)
   {
     /* Uncommon code path.  appender_ptr (inside the map) was just initialized to null smart pointer.  Un-null it.
-     * Because it's a smart pointer, not a raw one, deleting the map will delete the object allocated here. */
+     * Because it's a smart pointer, not a raw one, deleting the map will delete the object allocated here.
+     *
+     * (Note about cleanup: *this_thread_appender_ptrs dtor will be executed when thread exits.
+     * Therefore any per-thread memory is not leaked past the thread's lifetime.  However, for a given thread,
+     * per-object-ID memory IS leaked even when the corresponding object disappears; we provide no mechanism
+     * to free this.  See class doc header for discussion. */
     appender_ptr_ref.reset(new Thread_local_string_appender);
   }
 
@@ -89,7 +88,7 @@ Thread_local_string_appender*
    * when it would be done due to internal implementation details in the first place?  There are other reasons, but
    * that one is enough, even if they didn't exist.) */
   return appender_ptr_ref.get();
-}
+} // Thread_local_string_appender::this_thread_string_appender()
 
 Thread_local_string_appender::Thread_local_string_appender() :
   m_target_appender_ostream_prev_os_state

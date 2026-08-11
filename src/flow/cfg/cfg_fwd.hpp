@@ -68,7 +68,7 @@
  * requirements; for example they hold for ~all built-in scalar types, plus `chrono::duration`, `std::string`,
  * and many more oft-used types; and deriving from `Shared_ptr_alias_holder` is just a line or two.
  *
- * Maintaining a `Value_set` like that is straighforward, but the things one wants to do with with an *entire*
+ * Maintaining a `Value_set` like that is straightforward, but the things one wants to do with with an *entire*
  * `Value_set` -- as opposed to individual members in it -- tend to be laborious, anti-consistent, and error-prone
  * to do.  To wit:
  *   - stream output (tediously list members along with laborious and inconsistent `ostream<<` logic);
@@ -126,7 +126,7 @@ class Option_set;
 
 
 /* (The @namespace and @brief thingies shouldn't be needed, but some Doxygen bug necessitated them.
- * See flow::util::bind_ns for explanation... same thing here.) */
+ * See flow::log::fs for explanation... same thing here.) */
 
 /**
  * @namespace flow::cfg::fs
@@ -161,7 +161,9 @@ std::ostream& operator<<(std::ostream& os, const Option_set<Value_set>& val);
 /**
  * Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API
  * in case it is useful, that converts a string containing a conventionally formatted data member name into the
- * corresponding auto-determined config option name.
+ * corresponding auto-determined config option name.  Can also be used for data members whose names are to be
+ * derived/printed for other purposes.  As of this writing, for example, util::stat uses it when pretty-printing
+ * individual stat data members (counters and gauges and such) near their values: `m_ack_count` => `"ack_count=[5564]"`.
  *
  * @note An example for convenience, accurate as of the time of this writing:
  *       `m_cool_object.m_cool_sub_object->m_badass_sub_guy.m_cool_option_name` transforms to
@@ -180,9 +182,12 @@ std::ostream& operator<<(std::ostream& os, const Option_set<Value_set>& val);
  *
  * @param member_id
  *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.
+ * @param sep_replacement
+ *        Character to replace `_` word-separators with.  Default `'-'` yields config-option-style names
+ *        (e.g., `cool-option-name`); `'_'` yields stats/metric-style names (e.g., `cool_option_name`).
  * @return See above.
  */
-std::string value_set_member_id_to_opt_name(util::String_view member_id);
+std::string value_set_member_id_to_opt_name(util::String_view member_id, char sep_replacement = '-');
 
 /**
  * Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() internally
@@ -201,7 +206,7 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id);
  * @tparam Key
  *         An `ostream<<`able type.  Common: `size_t` and `std::string`.
  * @param member_id
- *        Identifier, perhaps obtained via the preprocessor `#` feature from an argument to a functional macro.
+ *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.
  * @param key
  *        The value to splice in when replacing the key fragment inside `[]` (after the inserted `.`).
  * @return See above.

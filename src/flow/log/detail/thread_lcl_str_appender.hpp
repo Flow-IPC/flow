@@ -52,13 +52,19 @@ namespace flow::log
  * Well, using global structures is not OK: multiple threads will corrupt any such structures by writing and/or
  * reading concurrently to/from them.  However, if one creates a structure per thread -- a/k/a a thread-local
  * structure -- then that danger goes away completely.  That is the principle behind this class.  Firstly, from the
- * class user's perspective, the class itself is a singleton per thread.  Call get_this_thread_string_appender() to
+ * class user's perspective, the class itself is a singleton per thread.  Call this_thread_string_appender() to
  * access the current thread's only instance of Thread_local_string_appender.  Now you have a pointer to that
  * object.  Further use is very simple: fresh_appender_ostream() clears the internally stored target string and
  * returns a pointer to an `ostream` object.  Write to this `ostream` like any other `ostream`.  Once done doing so,
  * call target_contents(), which will return a reference to the read-only string which has been appended to with
  * the aforementioned `ostream` writing.  Repeat each time you'd like to write to a string, and then quickly access
  * that string.
+ *
+ * @warning this_thread_string_appender() may return null.  If this happens, it means we are near thread
+ *          death, and the required thread-local data we keep has been deinitialized (destroyed).  The caller
+ *          must have a contingency plan in this case; the appropriate stream simply no longer exists, nor can
+ *          it reasonably exist.  However, for the contingency, it is possible to directly instantiate a
+ *          `*this` (which is why the ctor is public).
  *
  * Update: A further level of indirection/lookup was added when I realized that, for each thread, it's not desirable
  * that logically separate stream writers (typically each allotted its own writing object, e.g., a Logger) all write
@@ -88,7 +94,7 @@ namespace flow::log
  *   {
  *     ...
  *       // Note lookup by `this`: we are also a Unique_id_holder which means this can get our unique ID.
- *       auto const appender = log::Thread_local_string_appender::get_this_thread_string_appender(*this);
+ *       auto const appender = log::Thread_local_string_appender::this_thread_string_appender(*this);
  *       // Note added explicit `flush`.
  *       *(appender->fresh_appender_ostream()) << "The answer is: [" << std::hex << 42 << "]." << std::flush;
  *       log_string(appender->target_contents());
@@ -98,7 +104,7 @@ namespace flow::log
  *   }
  *   ~~~
  *
- * Note, once again, that because get_this_thread_string_appender() returns a thread-local object, it is by definition
+ * Note, once again, that because this_thread_string_appender() returns a thread-local object, it is by definition
  * impossible to corrupt anything inside it due to multiple threads writing to it.  (That is unless, of course, you
  * try passing that pointer to another thread and writing to it there, but that's basically malicious behavior;
  * so don't do that.)
@@ -126,36 +132,63 @@ namespace flow::log
  * is that of a thread-local singleton per source object.)  For this reason, adding cleanup is not even listed as a
  * to-do.
  *
+ * (Update: util::Thread_local_state_registry now exists and can probably be used to achieve the above.  At any rate
+ * it deals with just such things.  That does not mean it is worthwhile to use it for *this* though.)
+ *
  * Since util::Unique_id_holder is unique over all time, not just at any given time, there is no danger that the reuse
  * of some dead object's ID will cause a collision.  Historically this was a problem when we used `this` pointers
  * as IDs (as once an object is gone, its `this` value can be reused by another, new object).
  *
- * ### Implementation notes ###
- * We use boost.thread's `thread_specific_ptr` to implement a lazily initialized per-thread singleton (in which
- * a per-object-ID sub-table of Thread_local_string_appender objects lies).  An alternative implementation would
- * be C++11's built-in `thread_local` keyword, probably with a `unique_ptr` to wrap each sub-table (to allow for
- * lazy initialization instead of thread-startup initialization).  The main reason I chose to keep `thread_specific_ptr`
- * even upon moving from C++03 to C++1x is that we use `boost::thread` -- not `std::thread`.  Experiments show
- * `thread_local` behaves appropriately (crucially, including cleanup on thread exit) even with
- * `boost::thread`, but I don't see this documented anywhere (which doesn't mean it isn't documented), and without
- * that it could be an implementation coincidence as opposed to a formal guarantee.  A secondary reason -- which can
- * be thought of the straw that broke the camel's back in this case, as it is fairly minor -- is that
- * `thread_specific_ptr` provides lazy initialization by default, without needing a `unique_ptr` wrapper;
- * a given thread's `p.get()` returns null the first time it is invoked; and executes `delete p.get();` at thread exit
- * (one need not supply a deleter function, although one could if more complex cleanup were needed).  This is
- * what a default-constructed `unique_ptr` would give us, but we get it for "free" (in the sense that no added code
- * is necessary to achieve the same behavior) with `thread_specific_ptr`.
+ * ### Where is the `thread_local`? ###
+ * There is no `static thread_local` member for the #Source_obj_to_appender_map, which is the master data
+ * structure, so what's goign on -- one might ask, if one does not dive into the impl functions.  Answer:
+ * We use what is conceptually a `static thread_local`-replacer/augmenter: Thread_local_obj_deinit_safe; so
+ * instead of, like, `s_this_thread_appender_ptrs[so_and_so]...` (where the `s_` would have been a `static thread_local`
+ * member of the class) it is instead:
+ *
+ *   ~~~
+ *   const auto this_thread_appender_ptrs
+ *     = Thread_local_obj_deinit_safe<Source_obj_to_appender_map, Thread_local_string_appender>
+ *         ::this_thread_obj_or_null();
+ *   if (this_thread_appender_ptrs)
+ *   {
+ *      (*this_thread_appender_ptrs)[so_and_so]...
+ *   }
+ *   else
+ *   {
+ *     // No good.  We are near thread death, and our thread_local map has been deinitialized already.
+ *   }
+ *   ~~~
+ *
+ * The latter case <=> this_thread_string_appender() returns null.
  */
 class Thread_local_string_appender :
   private boost::noncopyable
 {
 public:
+  // Constructors/destructor.
+
+  /**
+   * Initializes object with an empty string and the streams machinery available to write to that string.
+   *
+   * @warning It is not intended for direct use in most cases; rather it was made public to help with
+   *          the contingency when this_thread_string_appender() returns null (near thread exit).
+   */
+  explicit Thread_local_string_appender();
+
   // Methods.
 
   /**
    * Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from
-   * the current thread for the given source object.  The source object is given by its ID.  The source object
-   * can store or contain (or be otherwise mapped to) its own util::Unique_id_holder; and thus it can be
+   * the current thread for the given source object; or null if the thread is near death, and this
+   * Thread_local_string_appender facility is no longer available for use.
+   *
+   * @note Be ready for the null return.  In particular it is in danger of occurring if and only if one
+   *       accesses us from a destructor (or some other form of cleanup function) of a `thread_local` or otherwise
+   *       thread-local (Thread_local_ptr, Thread_local_state_registry, `thread_specific_ptr`...) object.
+   *
+   * The source object is given by its ID.  The source object can store or contain (or be otherwise mapped
+   * to) its own util::Unique_id_holder; and thus it can be
    * any object (e.g., a Logger, in original use case) that desires the use of one distinct (from other
    * objects) but continuous (meaning any stream state including characters output will persist over time)
    * `ostream`.  (The `ostream` is not returned directly but rather as the wrapping Thread_local_string_appender
@@ -166,9 +199,9 @@ public:
    * @param source_obj_id
    *        An ID attached in a 1-to-1 (over all time until program exit) fashion to the entity (typically, class
    *        instance of any type, e.g., Logger) desiring its own Thread_local_string_appender.
-   * @return See above.
+   * @return See above.  Again: note that near thread death it may return null.
    */
-  static Thread_local_string_appender* get_this_thread_string_appender(const util::Unique_id_holder& source_obj_id);
+  static Thread_local_string_appender* this_thread_string_appender(const util::Unique_id_holder& source_obj_id);
 
   /**
    * Clears the internally stored string (accessible for reading via target_contents()), and returns an
@@ -186,7 +219,7 @@ public:
    * with any un-flushed data when one subsequently calls fresh_appender_ostream(), clearing the string?
    *
    * Behavior is undefined if you call this from any thread other than the one in which
-   * get_this_thread_string_appender() was called in order to obtain `this`.
+   * this_thread_string_appender() was called in order to obtain `this`.
    *
    * @see save_formatting_state_and_restore_prev() is a valuable technique to enable usability in
    *      user-facing APIs that use Thread_local_string_appender within the implementation (notably logging
@@ -255,7 +288,7 @@ public:
    * method (which clears it).
    *
    * Behavior is undefined if you call this from any thread other than the one in which
-   * get_this_thread_string_appender() was called in order to obtain `this`.
+   * this_thread_string_appender() was called in order to obtain `this`.
    *
    * ### Rationale ###
    * Why return `const string&` instead of util::String_view?  Answer: Same as in doc header of String_ostream::str().
@@ -276,23 +309,9 @@ private:
   using Source_obj_to_appender_map = boost::unordered_map<util::Unique_id_holder::id_t,
                                                           boost::movelib::unique_ptr<Thread_local_string_appender>>;
 
-  // Constructors/destructor.
-
-  /**
-   * Initializes object with an empty string and the streams machinery available to write to that string.
-   * Note this is not publicly accessible.
-   */
-  explicit Thread_local_string_appender();
-
   // Data.
 
-  /**
-   * Thread-local storage for each thread's map storing objects of this class (lazily set to non-null on 1st access).
-   * Recall `delete s_this_thread_appender_ptrs.get();` is executed at each thread's exit; so if that is non-null
-   * for a given thread, this map is freed at that time.  Since smart pointers to Thread_local_string_appender
-   * are stored in the map, the Thread_local_string_appender objects thus stored are also freed at that time.
-   */
-  static boost::thread_specific_ptr<Source_obj_to_appender_map> s_this_thread_appender_ptrs;
+  // (No `static thread_local Source_obj_to_appender_map`: see class doc header for explanation.)
 
   /// The target string wrapped by an `ostream`.  Emptied at construction and in fresh_appender_ostream() *only*.
   util::String_ostream m_target_appender_ostream;

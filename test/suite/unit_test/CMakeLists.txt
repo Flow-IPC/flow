@@ -31,6 +31,7 @@ set(SRCS
     ${PROJECT_SOURCE_DIR}/src/flow/net_flow/test/rng_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/linked_hash_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/util/stat/test/stat_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/thread_lcl_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/util/test/util_test.cpp
     test_main.cpp)

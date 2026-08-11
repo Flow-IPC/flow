@@ -41,7 +41,7 @@ namespace flow::net_flow
  * should inform this module about each such event.  The running bandwidth estimate is then
  * available via bandwidth_bytes_per_time().
  *
- * ### Object life cycle ###
+ * ### Object lifecycle ###
  * There is a strict 1-to-1 relationship between one Send_bandwidth_estimator
  * instance and one Peer_socket.  A Send_bandwidth_estimator is created shortly after Peer_socket
  * is and is saved inside the latter.  Conversely a pointer to the Peer_socket is stored inside the

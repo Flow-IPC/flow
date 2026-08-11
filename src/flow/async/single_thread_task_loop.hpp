@@ -138,7 +138,7 @@ public:
    *        thread started by this method, delaying the method's return to the caller until `init_task_or_empty()`
    *        returns in said spawned thread.
    */
-  void start(Task&& init_task_or_empty = Task{});
+  void start(Task&& init_task_or_empty = {});
 
   /**
    * Waits for the ongoing task/completion handler -- if one is running -- to return; then prevents any further-queued
@@ -289,8 +289,13 @@ private:
   /// See underlying_loop().
   Task_loop_impl m_underlying_loop;
 
-  /// Before start() it is default-cted (not-a-thread); from start() on it's the started thread's ID.
-  util::Thread_id m_started_thread_id_or_none;
+  /**
+   * Before start() it is default-cted ("none"); from start() on it's the started thread's thread-token.
+   *
+   * @warning Do not use util::Thread_id + `this_thread::get_id()`; those IDs can be recycled, and we use it
+   *          at least in in_thread(), where that could lead to trouble.
+   */
+  util::Thread_token m_started_thread_token_or_none;
 }; // class Single_thread_task_loop
 
 /**

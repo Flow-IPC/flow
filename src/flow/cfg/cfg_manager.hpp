@@ -418,7 +418,7 @@ public:
 
   /**
    * Constructs a Config_manager ready to read initial config via `apply_*()` and other setup methods; and further
-   * capable of both static and dynamic config.  See class doc header for class life cycle instructions.
+   * capable of both static and dynamic config.  See class doc header for class lifecycle instructions.
    *
    * ### Logging assumption ###
    * `*logger_ptr` is a standard logging arg.  Note, though, that the class will assume that log verbosity may not have

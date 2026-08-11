@@ -25,6 +25,7 @@
 #include <boost/core/span.hpp>
 #include <iostream>
 #include <memory>
+#include <cstddef>
 
 /**
  * Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module.
@@ -54,6 +55,9 @@ class Linked_hash_map;
 template<typename Key, typename Hash = boost::hash<Key>, typename Pred = std::equal_to<Key>>
 class Linked_hash_set;
 
+template<typename Target_t, typename Mutex_t>
+class Locked_proxy;
+
 class Null_interface;
 
 class Rnd_gen_uniform_range_base;
@@ -62,7 +66,7 @@ class Rnd_gen_uniform_range;
 template<typename range_t>
 class Rnd_gen_uniform_range_mt;
 
-template<typename Value>
+template<typename Value_t>
 class Scoped_setter;
 
 template<typename Target_ptr,
@@ -73,12 +77,20 @@ class Shared_ptr_alias_holder;
 class String_ostream;
 
 template<typename Thread_local_state_t>
+class Thread_local_ptr;
+template<typename Thread_local_state_t>
 class Thread_local_state_registry;
-
+template<typename Obj_t, typename Tag_t = void>
+class Thread_local_obj_deinit_safe;
+class Poll_flag;
 template<typename Shared_state_t>
 class Polled_shared_state;
 
+template<typename Tag, typename... Args>
+class Action_registry;
+
 class Unique_id_holder;
+class Thread_token;
 
 /**
  * Short-hand for standard thread class.
@@ -90,7 +102,7 @@ class Unique_id_holder;
 using Thread = boost::thread;
 
 /* (The @namespace and @brief thingies shouldn't be needed, but some Doxygen bug necessitated them.
- * See flow::util::bind_ns for explanation... same thing here.) */
+ * See flow::log::fs for explanation... same thing here.) */
 
 /**
  * @namespace flow::util::this_thread
@@ -98,7 +110,13 @@ using Thread = boost::thread;
  */
 namespace this_thread = boost::this_thread;
 
-/// Short-hand for an OS-provided ID of a util::Thread.
+/**
+ * Short-hand for an OS-provided ID of a util::Thread.
+ *
+ * @warning Various OS will recycle values, so a #Thread_id is only unique among currently-live threads, not
+ *          across time.  However:
+ * @see util::this_thread_unique_token() which provides a really-unique (for a given process) ID instead.
+ */
 using Thread_id = Thread::id;
 
 /**
@@ -233,7 +251,7 @@ using Mutex_recursive = boost::recursive_mutex;
  * Short-hand for non-reentrant, shared-or-exclusive mutex.
  * When locking one of these, choose one of:
  * `Lock_guard<Mutex_shared_non_recursive>`, `Shared_lock_guard<Mutex_shared_non_recursive>`.
- * The level of locking acquired (shared vs. exclusive) depends on which you chose and is thus highly significant.
+ * The level of locking acquired (shared versus exclusive) depends on which you chose and is thus highly significant.
  *
  * @todo Consider changing util::Mutex_shared_non_recursive from `boost::shared_mutex` to `std::shared_mutex`, as
  * the former has a long-standing unresolved ticket about its impl being slow and/or outdated (as of Boost-1.80).
@@ -353,6 +371,65 @@ template<typename T, size_t E = DYNAMIC_EXTENT>
 using Span = boost::span<T, E>;
 
 // Free functions.
+
+/**
+ * Returns a value conceptually similar to `this_thread::get_id()` -- a thread ID -- but that is never recycled
+ * for another thread, even after this one exits.  In other words:
+ *
+ * Returns a process-wide-unique token identifying the calling thread -- the *thread-token*: a value that no
+ * other thread (past, present, or future, within this process) shall ever receive from this function.
+ *
+ * Contrast with util::Thread_id + `this_thread::get_id()`: the OS may -- and, e.g., in Linux/glibc,
+ * readily does -- reuse a dead thread's ID for a new thread; hence a *stored* `Thread_id`, compared against
+ * the current thread's, answers "is this the same thread that stored it?" with possible false positives, once
+ * the storing thread may have exited.  A stored thread-token never false-matches: tokens are never reused for
+ * the life of the process.  (If cross-time thread identity is not at stake -- e.g., when merely printing --
+ * `Thread_id` remains fine and more informative.)
+ *
+ * Properties:
+ *   - The value never equals a default-constructed ("none") Thread_token.  Hence a stored Thread_token needs
+ *     no separate never-assigned sentinel: its default ctor is that.
+ *   - It is stable: repeated calls in one thread yield one value.
+ *     - Internally each thread's token comes from Unique_id_holder::create_unique_id() (so do not assume any
+ *       relationship *between* the tokens of related threads -- e.g., consecutiveness -- just uniqueness).
+ *   - Perf: past a given thread's first call, a call = a thread-local read (cheaper than
+ *     `this_thread::get_id()`).
+ *   - It is safe to call at any point in a thread's life, including during thread-local-storage teardown
+ *     and static-deinit when exiting program.
+ *
+ * @return See above.
+ */
+Thread_token this_thread_unique_token();
+
+/**
+ * Prints string representation of the given `Thread_token` to the given `ostream`: the *low 32 bits* of the
+ * underlying integer in fixed-width hex -- `0x` followed by exactly N (as of this writing N=8) zero-padded
+ * digits -- a token being an identity, not a quantity.  Why the low bits only?  Tokens come from a monotonic
+ * counter, so the high bits are zeros until the 2^32nd ID is issued process-wide -- i.e., in practice always --
+ * and would print as pure noise; like an abbreviated git hash, the short form identifies uniquely in all but
+ * shocking situations.  (The stored value keeps all 64 bits regardless; print `Thread_token::id_t(val)` for
+ * the full value.)
+ *
+ * @relatesalso Thread_token
+ *
+ * @param os
+ *        Stream to which to write.
+ * @param val
+ *        Object to serialize.
+ * @return `os`.
+ */
+std::ostream& operator<<(std::ostream& os, Thread_token val);
+
+/**
+ * Hashes the given `Thread_token`; making it, e.g., boost.unordered-compatible as a key out of the box.
+ *
+ * @relatesalso Thread_token
+ *
+ * @param val
+ *        Object to hash.
+ * @return The hash.
+ */
+size_t hash_value(Thread_token val);
 
 /**
  * Equivalent to `val1.swap(val2)`.
@@ -603,7 +680,7 @@ constexpr Integer ceil_div(Integer dividend, Integer2 divisor);
 
 /**
  * Returns the smallest integer >= the given integer `dividend` such that it is a multiple
- * of the given integer `unit`.  Essentialy that is: `unit * ceil_div(dividend, unit)`.
+ * of the given integer `unit`.  Essentially that is: `unit * ceil_div(dividend, unit)`.
  *
  * For example: 0 in 1024s => 0; 1 in 1024s => 1024; 1024 in 1024s => 1024; 1025 in 1024s => 2048.
  *
@@ -623,20 +700,136 @@ template<typename Integer, typename Integer2>
 constexpr Integer round_to_multiple(Integer dividend, Integer2 unit);
 
 /**
+ * Compile-time check: `true` if and only if the given positive integer is a power of two: 1, 2, 4, 8, ....
+ * @tparam POSITIVE_INT
+ *         A positive integer.
+ * @return See above.
+ */
+template<uint64_t POSITIVE_INT>
+constexpr bool is_power_of_two();
+
+/**
+ * Compile-time value: the most stringent alignment in the target architecture.  Among other uses,
+ * `malloc()` (et al) shall always return a pointer values that is a multiple of this.
+ *
+ * E.g., in x86-64 this is 16, we've observed.
+ *
+ * @return See above.
+ */
+constexpr size_t max_align_sz();
+
+/**
+ * Compile-time calculation: Given a type `Data` returns the minimum size, in bytes, of a hypothetical buffer that
+ * is able to store 1 `Data` and has the specified alignment.  In other words it is the smallest multiple
+ * of `ALIGN_SZ` that is at least `sizeof(Data)`.
+ *
+ * Among other potential uses: the width of the area reserved for the `Prefix` by
+ * aligned_prefix_before(), after_aligned_prefix().
+ *
+ * @tparam Data
+ *         Hypothetical stored value's type.  Its size can be anything positive, including even an odd number
+ *         (e.g., `Data = array<uint8_t, 3>`).
+ * @tparam ALIGN_SZ
+ *         The desired alignment of the hypothetical area storing `Data` at its start.
+ *         Default is max_align_sz().  `1` would imply no alignment, resulting in the return value `sizeof(Data)`.
+ *
+ * @return The size of the hypothetical aligned area storing `Data` at its start.
+ */
+template<typename Data, size_t ALIGN_SZ = alignof(std::max_align_t)>
+constexpr size_t aligned_sz_of();
+
+/**
+ * Given a pointer to an aligned area, returns the pointer to a *prefix* area that is equally aligned, able
+ * to store a value of the specified type (size), and otherwise minimally sized.  The alignment is specified
+ * via `ALIGN_SZ` compile-time parameter.  The aforementioned minimal size is `aligned_sz_of<Prefix, ALIGN_SZ>()`.
+ *
+ * @todo Maybe aligned_prefix_before() and aligned_prefix_before() should allow "skew," meaning no prohibition
+ *       against an unaligned input vaddr?  Alignment would still be observed within the prefix-and-base
+ *       combined buffer.  At the moment it is formally UB, with an assert guard, which discourages footguns.
+ *       One idea would be to have a "safe" version (like now but throw instead of `assert()`) and a
+ *       "go-with-god" version (no anti-footgun check).
+ *
+ * @tparam Prefix
+ *         Type of item one is hypothetically storing ahead of `*data_ptr`.
+ * @tparam Data
+ *         Any pointee type.  `void` is allowed.  Whatever is convenient for your purposes is fine.
+ * @tparam ALIGN_SZ
+ *         The required and guaranteed alignment.
+ *         Default is max_align_sz().  `1` would imply no alignment, resulting in maximally compact storage.
+ *         (However, in that case generally one should use `memcpy()` or equivalent byte-wise copying ops
+ *         to store or load a `Prefix`-typed value at the returned address.  Otherwise a fault may occur.)
+ * @param data_ptr
+ *        Pointer at the base area.  Must be aligned to `ALIGN_SZ`; otherwise undefined behavior/assert may trip.
+ * @return See above: pointer to an area ahead of `data_ptr`, sized `aligned_sz_of<Prefix, ALIGN_SZ>()`.
+ */
+template<typename Prefix, typename Data, size_t ALIGN_SZ = alignof(std::max_align_t)>
+Prefix* aligned_prefix_before(Data* data_ptr);
+
+/**
+ * Identical to the other aligned_prefix_before() overload but works with immutable memory.
+ * @tparam Prefix
+ *         See above.
+ * @tparam Data
+ *         See above.
+ * @tparam ALIGN_SZ
+ *         See above.
+ * @param data_ptr
+ *        See above.
+ * @return See above.
+ */
+template<typename Prefix, typename Data, size_t ALIGN_SZ = alignof(std::max_align_t)>
+const Prefix* aligned_prefix_before(const Data* data_ptr);
+
+/**
+ * The reverse of aligned_prefix_before(): given a prefix pointer, returns the base area following it.
+ * Hence the following holds:
+ *   ~~~
+ *   T* p = ...;
+ *   assert(p == after_aligned_prefix<T, Prefix, ALIGN_SZ> // 2. Go forward to `p`.
+ *                 (aligned_prefix_before<Prefix, T, ALIGN_SZ>(p))); // 1. Go backward from `p`.
+ *   ~~~
+ *
+ * @tparam Prefix
+ *         See aligned_prefix_before().
+ * @tparam Data
+ *         Any pointee type.  `void` is allowed.  Whatever is convenient for your purposes is fine.
+ * @tparam ALIGN_SZ
+ *         See aligned_prefix_before().
+ * @param prefix_ptr
+ *        Pointer at the prefix area.
+ * @return See above: pointer to an area after `prefix_ptr`, namely `aligned_sz_of<Prefix, ALIGN_SZ>()` bytes past it.
+ */
+template<typename Data, typename Prefix, size_t ALIGN_SZ = alignof(std::max_align_t)>
+Data* after_aligned_prefix(Prefix* prefix_ptr);
+
+/**
+ * Identical to the other after_aligned_prefix() overload but works with immutable memory.
+ * @tparam Prefix
+ *         See above.
+ * @tparam Data
+ *         See above.
+ * @tparam ALIGN_SZ
+ *         See above.
+ * @param prefix_ptr
+ *        See above.
+ * @return See above.
+ */
+template<typename Data, typename Prefix, size_t ALIGN_SZ = alignof(std::max_align_t)>
+const Data* after_aligned_prefix(const Prefix* prefix_ptr);
+
+/**
  * Provides a way to execute arbitrary (cleanup) code at the exit of the current block.  Simply
  * save the returned object into a local variable that will go out of scope when your code block
  * exits.  Example:
  *
  *   ~~~
  *   {
- *     X* x = create_x();
- *     auto cleanup = util::setup_auto_cleanup([&]() { delete_x(x); });
- *     // Now delete_x(x) will be called no matter how the current { block } exits.
+ *     auto resource_handle = create_huge_resource();
+ *     const auto cleanup = util::setup_auto_cleanup([&]() { delete_huge_resource(resource_handle); });
+ *     // Now `delete_huge_resource(resource_handle)` will be called no matter how the current { block } exits.
  *     // ...
  *   }
  *   ~~~
- *
- * @todo setup_auto_cleanup() should take a function via move semantics.
  *
  * @tparam Cleanup_func
  *         Any type such that given an instance `Cleanup_func f`, the expression `f()` is valid.
@@ -645,7 +838,7 @@ constexpr Integer round_to_multiple(Integer dividend, Integer2 unit);
  * @return A light-weight object that, when it goes out of scope, will cause `func()` to be called.
  */
 template<typename Cleanup_func>
-Auto_cleanup setup_auto_cleanup(const Cleanup_func& func);
+Auto_cleanup setup_auto_cleanup(Cleanup_func&& func);
 
 /**
  * Returns `true` if and only if the given value is within the given range, inclusive.
@@ -1003,6 +1196,7 @@ std::ostream& operator<<(std::ostream& os, const Thread_local_state_registry<Thr
                                    (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \
                                  ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \
                                  __LINE__)
+// ^-- Using String_view{} instead of String_view() there creates macro problems.  Not worth it.
 
 /**
  * Same as FLOW_UTIL_WHERE_AM_I() but evaluates to an `std::string`.  It's probably a bit slower as
@@ -1023,6 +1217,7 @@ std::ostream& operator<<(std::ostream& os, const Thread_local_state_registry<Thr
                                      (::flow::util::String_view(__FILE__, sizeof(__FILE__) - 1)), \
                                    ::flow::util::String_view(__FUNCTION__, sizeof(__FUNCTION__) - 1), \
                                    __LINE__)
+// ^-- Using String_view{} instead of String_view() there creates macro problems.  Not worth it.
 
 /**
  * Use this to create a semicolon-safe version of a "void" functional macro definition consisting of at least two

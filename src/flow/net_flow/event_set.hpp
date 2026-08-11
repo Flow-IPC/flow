@@ -1022,7 +1022,7 @@ bool Event_set::add_wanted_socket(typename Socket::Ptr sock, Event_type ev_type,
   // We are in thread U != W.
 
   // Accessing m_state, socket sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   FLOW_LOG_TRACE("Object [" << sock << "] wanted for event type [" << ev_type << "] in Event_set [" << this << "].");
 
@@ -1059,7 +1059,7 @@ bool Event_set::remove_wanted_socket(typename Socket::Ptr sock, Event_type ev_ty
   // We are in thread U != W.
 
   // Accessing m_state, the sets, etc. which may be written by other threads at any time.  Must lock.
-  Lock_guard lock(m_mutex);
+  Lock_guard lock{m_mutex};
 
   FLOW_LOG_TRACE("Object [" << sock << "] no longer wanted for event type [" << ev_type << "] in "
                  "Event_set [" << this << "].");

@@ -23,7 +23,7 @@ namespace flow::util
 {
 
 String_ostream::String_ostream(std::string* target_str) :
-  m_target(target_str ? target_str : (&m_own_target_str)), // m_own_target_str blank/ignored if target_str not null.
+  m_target(target_str ? target_str : &m_own_target_str), // m_own_target_str blank/ignored if target_str not null.
   m_target_inserter(*m_target),
   m_target_appender_ostream(m_target_inserter)
 {

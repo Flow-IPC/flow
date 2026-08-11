@@ -471,12 +471,11 @@ TEST(Component_cfg_test, Dict_internals_interface)
    * layer which uses the compoung Component_payload_type_dict. */
 }
 
-#ifdef NDEBUG // These "deaths" occur only if assert()s enabled; else these are guaranteed failures.
-TEST(Component_cfg_DeathTest, DISABLED_Dict_internals)
-#else
 TEST(Component_cfg_DeathTest, Dict_internals)
-#endif
 {
+#ifdef NDEBUG
+  GTEST_SKIP() << "Death tests rely on assert()s which are disabled in this (NDEBUG) build.";
+#endif
   // Only the map guys have dupe-insert checking.
   dict_map_death_test<Dict_ptr_tree_map, Dict_ptr_s_hash_map, Dict_ptr_b_hash_map,
                       Dict_val_tree_map, Dict_val_s_hash_map, Dict_val_b_hash_map>();

@@ -66,7 +66,7 @@ void Simple_ostream_logger::do_log(Msg_metadata* metadata, util::String_view msg
    * line, for example.  So it still seems best to avoid any interleaving even when it's further away from our control,
    * as in that latter situation.  So just don't mess with it and always use one mutex to avoid as much interleaving
    * as we can. */
-  util::Lock_guard<decltype(m_log_mutex)> lock(m_log_mutex);
+  util::Lock_guard<decltype(m_log_mutex)> lock{m_log_mutex};
 
   /* This next part will block calling thread for however long the writing takes.
    * This is likely not an issue with cout/cerr but can be a significant issue with ofstream.  Hence why

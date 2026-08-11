@@ -27,6 +27,9 @@
 #include <chrono>
 #include <string>
 #include <typeinfo>
+#include <type_traits>
+#include <algorithm>
+#include <optional>
 
 // Macros.  These (conceptually) belong to the flow::log namespace (hence the prefix for each macro).
 
@@ -243,6 +246,67 @@
   FLOW_LOG_WITH_CHECKING(::flow::log::Sev::S_DATA, ARG_stream_fragment)
 
 /**
+ * Equivalent to FLOW_LOG_WARNING() but performed either in a log::Log_context_mt sub-class method body or
+ * with such context previously set using FLOW_LOG_SET_LOCKED_CONTEXT() or equivalent technique
+ * (a naked `log_while_locked(F)` expression must do the proper thing).
+ *
+ * @see Log_context_mt::log_while_locked() doc header.
+ *
+ * @param ARG_stream_fragment
+ *        See base macro.
+ */
+#define FLOW_LOG_WARNING_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_WARNING(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_FATAL_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_FATAL(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_ERROR_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_ERROR(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_INFO_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_INFO(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_DEBUG_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_DEBUG(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_TRACE_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_TRACE(ARG_stream_fragment); })
+
+/**
+ * A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.
+ * @param ARG_stream_fragment
+ *        See above.
+ */
+#define FLOW_LOG_DATA_LOCKED(ARG_stream_fragment) \
+  log_while_locked([&](auto&& get_logger, auto&& get_log_component) { FLOW_LOG_DATA(ARG_stream_fragment); })
+
+/**
  * Logs a WARNING message into flow::log::Logger `*get_logger()` with
  * flow::log::Component `get_log_component()` regardless of
  * whether such logging is enabled by the flow::log::Logger.  Analogous to FLOW_LOG_WARNING() but without checking for
@@ -457,6 +521,23 @@
   }
 
 /**
+ * It is to FLOW_LOG_SET_CONTEXT() what `FLOW_LOG_(sev)_LOCKED` is to plain `FLOW_LOG_(sev)`:
+ * given a `const Log_context_mt*` -- without a `Log_context_mt`-sub-classing `*this` in-scope -- sets up a naked
+ * `log_while_locked` functor, so that the `FLOW_LOG_(sev)_LOCKED()` become usable subsequently in this block.
+ *
+ * @see Log_context_mt::log_while_locked().
+ *
+ * @param ARG_log_ctx_mt_ptr
+ *        Pointer to Log_context_mt whose context to set; the pointee is handled as `const`.
+ */
+#define FLOW_LOG_SET_LOCKED_CONTEXT(ARG_log_ctx_mt_ptr) \
+  [[maybe_unused]] \
+    const auto log_while_locked \
+      = [log_ctx_mt_ptr_copy = static_cast<const ::flow::log::Log_context_mt*>(ARG_log_ctx_mt_ptr)] \
+          (auto&& logging_task) \
+          { log_ctx_mt_ptr_copy->log_while_locked(logging_task); }
+
+/**
  * Logs a message of the specified severity into flow::log::Logger `*get_logger()` with flow::log::Component
  * `get_log_component()` if such logging is enabled by said flow::log::Logger.  The behavior is identical
  * to that by FLOW_LOG_WARNING() and similar, but one specifies the severity as an argument instead of it being
@@ -538,7 +619,6 @@
     using ::flow::util::String_view; \
     using ::flow::util::get_last_path_segment; \
     using ::std::chrono::system_clock; \
-    using ::std::string; \
     Logger* const FLOW_LOG_WO_CHK_logger = get_logger(); \
     if (!FLOW_LOG_WO_CHK_logger) /* Usually a preceding filter/should_log() check would've eliminated this but.... */ \
     { \
@@ -546,7 +626,7 @@
     } \
     /* else */ \
     /* Important: This is from the time-of-day/calendar clock, which is not steady, monotonic, etc.; *but* it is */ \
-    /* convertible to a UTC time with cosmic meaning to humands; that is invaluable. */ \
+    /* convertible to a UTC time with cosmic meaning to humans; that is invaluable. */ \
     auto const& FLOW_LOG_WO_CHK_time_stamp = system_clock::now(); \
     /* See Msg_metadata::m_msg_src_file doc. */ \
     /* @todo The __FILE/FUNCTION__ stuff was far more inlined, but gcc 5.4 hit an internal compiler error (bug)! */ \
@@ -566,13 +646,12 @@
     /* Minor: Using {} instead of () here leads to some macro trouble; not worth the pain to fix it. */ \
     constexpr String_view FLOW_LOG_WO_CHK_func_str(FLOW_LOG_WO_CHK_func_ptr, FLOW_LOG_WO_CHK_func_sz); \
     const Component& FLOW_LOG_WO_CHK_component = get_log_component(); \
-    string FLOW_LOG_WO_CHK_call_thread_nickname; \
+    String_view FLOW_LOG_WO_CHK_call_thread_nickname; \
     Thread_id FLOW_LOG_WO_CHK_call_thread_id; \
     Logger::set_thread_info(&FLOW_LOG_WO_CHK_call_thread_nickname, &FLOW_LOG_WO_CHK_call_thread_id); \
     FLOW_LOG_DO_LOG(FLOW_LOG_WO_CHK_logger, FLOW_LOG_WO_CHK_component, ARG_sev, FLOW_LOG_WO_CHK_file_str, __LINE__, \
                     FLOW_LOG_WO_CHK_func_str, FLOW_LOG_WO_CHK_time_stamp, FLOW_LOG_WO_CHK_call_thread_nickname, \
                     FLOW_LOG_WO_CHK_call_thread_id, ARG_stream_fragment); \
-    /* FLOW_LOG_WO_CHK_call_thread_nickname is now hosed. */ \
   ) /* FLOW_UTIL_SEMICOLON_SAFE() */
 
 /**
@@ -609,8 +688,11 @@
  *        See Msg_metadata (`String_view` copied into it).  Reminder: Same as for `ARG_file_view`.
  * @param ARG_time_stamp
  *        See Msg_metadata (scalar copied into it).
- * @param ARG_call_thread_nickname_str_moved
- *        See Msg_metadata (this `std::string` is *moved* into it and thus made empty).
+ * @param ARG_call_thread_nickname_str_view
+ *        See Msg_metadata (this string-view-like's string is *copied* into it).
+ *        `ARG_call_thread_nickname_str_view` can be anything string-view-like in that its `.size()` must contain
+ *        nickname length; and if not zero then `.data()` must point at its first character.
+ *        Types util::String_view, `std::string` -- among others -- work.
  * @param ARG_call_thread_id
  *        See Msg_metadata (scalar copied into it).
  * @param ARG_stream_fragment
@@ -684,16 +766,18 @@
  */
 #define FLOW_LOG_DO_LOG(ARG_logger_ptr, \
                         ARG_component, ARG_sev, ARG_file_view, ARG_line, ARG_func_view, \
-                        ARG_time_stamp, ARG_call_thread_nickname_str_moved, \
+                        ARG_time_stamp, ARG_call_thread_nickname_str_view, \
                         ARG_call_thread_id, ARG_stream_fragment) \
   FLOW_UTIL_SEMICOLON_SAFE \
   ( \
     using ::flow::log::Thread_local_string_appender; \
-    using ::flow::log::this_thread_sync_msg_metadata_ptr; \
+    using ::flow::log::this_thread_sync_msg_metadata; \
     using ::flow::log::Logger; \
     using ::flow::log::Msg_metadata; \
+    using ::flow::log::Fixed_string; \
     using ::flow::util::String_view; \
     using ::std::flush; \
+    using ::std::optional; \
     Logger* const FLOW_LOG_DO_LOG_logger = ARG_logger_ptr; /* Note: As advertised, it must NOT be null. */ \
     /* If first use this thread/logger combo, create necessary structures for writing stream fragment to a string. */ \
     /* If subsequent use with that combo, reuse already created structures to save cycles. */ \
@@ -703,34 +787,39 @@
     /* write to an existing stream adapter, which would have been necessary regardless.  The alternative */ \
     /* would involve creating the string and the adapter machinery { locally } first -- every time. */ \
     /* Update: Also, this way we get the continuous but distinct ostream state as documented in class Logger doc. */ \
-    /* Update 2: See to-do in FLOW_LOG_WITHOUT_CHECKING() doc header. */ \
-    auto& FLOW_LOG_DO_LOG_appender \
-      = *(Thread_local_string_appender::get_this_thread_string_appender(*FLOW_LOG_DO_LOG_logger)); \
-    auto& FLOW_LOG_DO_LOG_os = *(FLOW_LOG_DO_LOG_appender.fresh_appender_ostream()); \
+    /* Update 2: See to-do in FLOW_LOG_WITH_CHECKING() doc header. */ \
+    /* Lastly: If logging near thread death, the thread-local *FLOW_LOG_DO_LOG_appender may have been destroyed; */ \
+    /* in which case we create a fresh one and use that.  As a result functionality during this (presumably brief) */ \
+    /* time period is slightly degraded; ignoring the perf aspect, it just means the stream state (formatting and */ \
+    /* such) is fresh in each logged message: no carry-over per Logger per thread. */ \
+    auto FLOW_LOG_DO_LOG_appender \
+      = Thread_local_string_appender::this_thread_string_appender(*FLOW_LOG_DO_LOG_logger); \
+    optional<Thread_local_string_appender> FLOW_LOG_DO_LOG_local_appender_or_none; /* Cheap and untouched normally. */ \
+    if (!FLOW_LOG_DO_LOG_appender) /* It's the aforementioned near-thread-death corner case. */ \
+    { \
+      FLOW_LOG_DO_LOG_local_appender_or_none.emplace(); \
+      FLOW_LOG_DO_LOG_appender = &*FLOW_LOG_DO_LOG_local_appender_or_none; \
+    } \
+    auto& FLOW_LOG_DO_LOG_os = *(FLOW_LOG_DO_LOG_appender->fresh_appender_ostream()); \
     FLOW_LOG_DO_LOG_os << ARG_stream_fragment << flush; \
     /* They gave us all the pieces of Msg_metadata, so we just put the object together. */ \
-    Msg_metadata* FLOW_LOG_DO_LOG_msg_metadata_ptr; \
-    if (FLOW_LOG_DO_LOG_logger->logs_asynchronously()) \
-    { \
-      /* () used to avoid nested-macro-comma trouble. */ \
-      (FLOW_LOG_DO_LOG_msg_metadata_ptr \
-         = new Msg_metadata{ ARG_component, ARG_sev, ARG_file_view, ARG_line, ARG_func_view, \
-                             ARG_time_stamp, std::move(ARG_call_thread_nickname_str_moved), ARG_call_thread_id }); \
-      /* FLOW_LOG_DO_LOG_msg_metadata_ptr will be async-deleted by Logger (see below). */ \
-    } \
-    else \
-    { \
-      FLOW_LOG_DO_LOG_msg_metadata_ptr = this_thread_sync_msg_metadata_ptr.get(); \
-      if (!FLOW_LOG_DO_LOG_msg_metadata_ptr) \
-      { /* This happens once per thread at most. */ \
-        this_thread_sync_msg_metadata_ptr.reset(FLOW_LOG_DO_LOG_msg_metadata_ptr = new Msg_metadata); \
-      } \
-      /* () used to avoid nested-macro-comma trouble. */ \
-      ((*FLOW_LOG_DO_LOG_msg_metadata_ptr) \
-         = { ARG_component, ARG_sev, ARG_file_view, ARG_line, ARG_func_view, \
-             ARG_time_stamp, std::move(ARG_call_thread_nickname_str_moved), ARG_call_thread_id }); \
-      /* *FLOW_LOG_DO_LOG_msg_metadata_ptr will be overwritten next time in this thread, and again and again. */ \
-    } \
+    const auto FLOW_LOG_DO_LOG_msg_metadata_ptr \
+      = FLOW_LOG_DO_LOG_logger->logs_asynchronously() \
+          /* () used to avoid nested-macro-comma trouble. */ \
+          ? (new Msg_metadata{ ARG_component, ARG_sev, ARG_file_view, ARG_line, ARG_func_view, \
+                               ARG_time_stamp, \
+                               {ARG_call_thread_nickname_str_view.data(), \
+                                /* Do not forget to truncate if needed.  Same just below. */ \
+                                ::std::min(Fixed_string::static_capacity, ARG_call_thread_nickname_str_view.size())}, \
+                               ARG_call_thread_id }) \
+          /* *FLOW_LOG_DO_LOG_msg_metadata_ptr will be overwritten next time in this thread, and again and again. */ \
+          : &(this_thread_sync_msg_metadata = \
+                { ARG_component, ARG_sev, ARG_file_view, ARG_line, ARG_func_view, \
+                  ARG_time_stamp, \
+                  {ARG_call_thread_nickname_str_view.data(), \
+                   /* Do not forget to truncate if needed.  Same just above. */ \
+                   ::std::min(Fixed_string::static_capacity, ARG_call_thread_nickname_str_view.size())}, \
+                  ARG_call_thread_id }); \
     /* Time to log it finally and (if applicable) clean up. */ \
     /* Asynchronous path (see above `if`): */ \
     /*   target_contents() returns const reference that we pass through without copying. */ \
@@ -744,7 +833,7 @@
     /*   However, for an alleged perf bump (@todo verify!) we use a */ \
     /*   thread-local Msg_metadata to avoid making this thing on the stack and then destroying almost immediately. */ \
     FLOW_LOG_DO_LOG_logger->do_log(FLOW_LOG_DO_LOG_msg_metadata_ptr, \
-                                   String_view{FLOW_LOG_DO_LOG_appender.target_contents()}); \
+                                   String_view{FLOW_LOG_DO_LOG_appender->target_contents()}); \
   ) /* FLOW_UTIL_SEMICOLON_SAFE() */
 
 namespace flow::log
@@ -1028,16 +1117,31 @@ private:
 /**
  * Simple data store containing all of the information generated at every logging call site by flow::log, except
  * the message itself, which is passed to Logger::do_log() assuming Logger::should_log() had returned `true`.
- * User only need to worry about this when dealing with the internals of a Logger implementation.  Copying is to be
- * avoided, as there are some non-trivial data stored here; though it is not too bad.
+ * User only needs to worry about this when dealing with the internals of a Logger implementation.  Copying is
+ * cheap: all members are scalars, views, or array-backed strings; no heap involvement.  (Formally it is still not
+ * trivially copyable -- #Fixed_string has a user-provided copy ctor -- merely trivially destructible.)
  *
- * @warning If changing the insides of Msg_metadata, ensure free function `deep_copy(const Msg_metadata&)`
+ * @warning If changing the insides of Msg_metadata, ensure free function `deep_size(const Msg_metadata&)`
  *          remains accurate.
  *
  * @todo Add support in Msg_metadata for a message ID which could more straightforwardly help the human log reader
  * to map a log line to the originating log call site in source code.  One approach, then, might be to output
  * that message ID when available; else output #m_msg_src_file, #m_msg_src_line, #m_msg_src_function; or maybe
  * both.
+ *
+ * ### No heap / trivial destructor ###
+ * Msg_metadata has a trivial destructor; its members do not have a heap component.  We want it to be this way,
+ * so that even if declared `thread_local` a `*this` is valid to any C++ code in its thread including during
+ * `thread_local` deinit at thread end.  The trade-off is mainly that any would-be `string` -- as of this writing
+ * it is #m_call_thread_nickname -- must use #Fixed_string or equivalent instead, imposing a length limit on it.
+ *
+ * ### Note regarding thread IDs ###
+ * As noted in the docs for the actual members: We store the user-set nickname (if set) or else the classic #Thread_id
+ * `this_thread::get_id()` thread-ID.  We also considered storing a Flow Thread_token (see this_thread_unique_token())
+ * which is similar to a `Thread_id` but unique over time (for a given process).  However, while extremely useful
+ * for algorithmic purposes in some cases, it is not universally recognized in the context of
+ * logging/monitoring/debugging.  Therefore we decided to leave it out as such; it can still be set as
+ * the #m_call_thread_nickname (after stringification) if desired.
  */
 struct Msg_metadata
 {
@@ -1116,28 +1220,26 @@ struct Msg_metadata
   /**
    * Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the
    * log call was invoked; or an empty string if the thread had no such nickname set at the time.
+   * An array-backed string type is used -- see `struct` doc header for rationale (short: we want to be a simple type
+   * for max `thread_local`-friendliness) -- so if necessary (which is probably not very common) truncation
+   * must occur when setting this.
    *
    * @see #m_call_thread_id
-   *
-   * ### Perf note ###
-   * Setting this involves an `std::string` copy; the cost of this is worth considering given that this is done
-   * for every single log call site, if the nickname is indeed set.  See performance note in doc header of
-   * Logger::this_thread_set_logged_nickname() for the recommendation and details.  (Long story short, if you keep
-   * it at N `char`s or fewer, the cost of a non-empty #m_call_thread_nickname becomes equal to that of an
-   * empty one.  N might be 15 in gcc 5.)
    */
-  std::string m_call_thread_nickname;
+  Fixed_string m_call_thread_nickname;
 
   /**
    * Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) such
    * thread ID if the thread has a nickname, meaning `!m_call_thread_nickname.empty()`.  The working assumption is
-   * that (1) both members are met for direct log output only and no other logic; and (2) the nickname is preferable
+   * that (1) both members are meant for direct log output only and no other logic; and (2) the nickname is preferable
    * when set, the thread ID being the fallback.  (If this sounds meh, consider that it's entirely reasonable to make
-   * the nickname contain some nice info *and* the original thread ID as well in string form.  However, mind
-   * the length -- the Performance Note in #m_call_thread_nickname doc header.)
+   * the nickname contain some nice info *and* the original thread ID as well in string form.  One could also
+   * easily stuff Thread_token from this_thread_unique_token() in here.  However, mind the length.)
    */
   util::Thread_id m_call_thread_id;
 }; // struct Msg_metadata
+static_assert(std::is_trivially_destructible_v<Msg_metadata>, // See Msg_metadata doc header.
+              "Using all-simple members, including array-backed string(s), so Msg_metadata is maximally TL-friendly.");
 
 /**
  * Interface that the user should implement, passing the implementing Logger into logging classes
@@ -1479,7 +1581,7 @@ public:
   static std::ostream& this_thread_logged_name_os_manip(std::ostream& os);
 
   /**
-   * Loads `msg_metadata->m_call_thread_nickname` (if set) or else `msg_metadata->m_call_thread_id`, based
+   * Sets `msg_metadata->m_call_thread_nickname` (if set) or else `msg_metadata->m_call_thread_id`, based
    * on whether/how this_thread_set_logged_nickname() was last called in the current thread.
    * The two members should be set to ther default-constructed values on entry to the present function.
    *
@@ -1496,22 +1598,48 @@ public:
    * Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a
    * Msg_metadata.
    *
-   * @todo It would be more consistent to rename set_thread_info() to
-   * this_thread_set_info(), since it operates in thread-local fashion.
-   * This was a naming convention oversight.
-   *
    * @param call_thread_nickname
    *        Non-null pointer to value to modify.  See above.
    * @param call_thread_id
    *        Non-null pointer to value to modify.  See above.
    */
-  static void set_thread_info(std::string* call_thread_nickname,
-                              util::Thread_id* call_thread_id);
+  static void set_thread_info(Fixed_string* call_thread_nickname, util::Thread_id* call_thread_id);
+
+  /**
+   * Same as the first overload but targets a regular dynamic-size `string` instead of an
+   * array-backed `Fixed_string` w/r/t the thread-nickname.
+   *
+   * @todo It would be more consistent to rename set_thread_info() to
+   * this_thread_set_info(), since it operates in thread-local fashion.
+   * This was a naming convention oversight.
+   *
+   * @param call_thread_nickname
+   *        See above.
+   * @param call_thread_id
+   *        See above.
+   */
+  static void set_thread_info(std::string* call_thread_nickname, util::Thread_id* call_thread_id);
+
+  /**
+   * Same as the first overload but targets a `String_view` w/r/t the thread-nickname.
+   *
+   * @warning The resulting view aliases thread-local storage: it is valid only in the calling thread and only
+   *          until the next this_thread_set_logged_nickname() in that thread.  Copy from it before either
+   *          boundary; do not store it.
+   *
+   * @param call_thread_nickname
+   *        See above.
+   * @param call_thread_id
+   *        See above.
+   */
+  static void set_thread_info(util::String_view* call_thread_nickname, util::Thread_id* call_thread_id);
 
   /**
    * Returns the stream dedicated to the executing thread and `this` Logger, so that the caller can apply
-   * state-setting formatters to it.  If you write characters to it, or otherwise do anything othen than set
-   * formatting state, or try to affect buffering behavior, behavior is undefined.  Usage example:
+   * state-setting formatters to it; or null if this is near thread exit, and the dedicated-streams facility for
+   * this thread has already been torn down.  If not null: If you write characters to it, or otherwise do
+   * anything other than set formatting state, or try to affect buffering behavior, behavior is undefined.
+   * Usage example (assumes non-null case):
    *
    *   ~~~
    *   get_logger()->this_thread_ostream()->setf(std::fixed | std::right);
@@ -1543,15 +1671,31 @@ public:
    * targeted at `std::cout`, the above snippet would in no way touch `std::cout` formatting.  In fact, Logger may
    * not even use streams for output; that is an orthogonal implementation detail.
    *
+   * ### What if it returns null? ###
+   * If it returns null, then there *is* no stream to affect; so just don't.  A related question -- not really
+   * in our direct purview, but we mention it anyway for convenience -- is what happens to logging at this
+   * near-thread-death point.  Answer: Logging continues to work, all else being equal, but the normal behavior wherein
+   * stream state (formatting and such) carries over between log-calls, per Logger, for this thread stops;
+   * a fresh stream/stream state is established per log-call.
+   *
    * @return Pointer to stream; always the same value for a given thread and different among all distinct threads.
+   *         Null if we are near thread exit, and that facility has been torn down already.
    */
   std::ostream* this_thread_ostream() const;
 
 private:
   // Data.
 
-  /// Thread-local storage for each thread's logged name (null pointer, which is default, means no nickname stored).
-  static boost::thread_specific_ptr<std::string> s_this_thread_nickname_ptr;
+  /**
+   * Thread-local storage for each thread's logged name (empty, which is default, means no nickname stored).
+   *
+   * ### Choice of string type: No heap / trivial destructor ###
+   * Unlike `std::string` Fixed_string has a trivial destructor; it has no heap component.  We want it to be
+   * this way, so that it is valid in -- and therefore set_thread_info() et al shall work from -- any C++ code
+   * in its thread including during `thread_local` deinit (so, from destructors of various `thread_local`s) at
+   * thread end.  We want logging to work even then, all else being equal.
+   */
+  static thread_local Fixed_string s_this_thread_nickname;
 }; // class Logger
 
 /**
@@ -1754,20 +1898,52 @@ private:
 }; // class Log_context
 
 /**
- * Identical to Log_context but is safe w/r/t to set_logger(), assignment, and `swap()` done concurrently to
- * ops (especially get_logger()) on the same `*this`.
+ * Similar mission to Log_context but enables one to safely log under the possibility of a concurrent
+ * set_logger() (et al) that adds/replaces/removes active `Logger*` (et al).  Specifically:
+ *   - set_logger(), assignment, swap() act identically but are safe under concurrent (w/r/t themselves
+ *     and accessors -- next bullet(s)) invocation on the same `*this`.
+ *   - There is no get_logger() or get_log_component(), so as to discourage a potential anti-pattern.  Instead:
+ *     - Use `log_while_locked(F)`, where you provide `F()` that performs work, including logging work,
+ *       with certainty that the `Logger*` and `Component` stores in `*this` cannot change.
+ *       If used as prescribed (see log_while_locked() doc header), then anything depending on `get_logger` and/or
+ *       `get_log_component` -- including `FLOW_LOG_INFO()`, `FLOW_LOG_TRACE()`, etc. -- will work properly.
+ *     - The direct use of log_while_locked() is somewhat wordy; therefore we've provided
+ *       `FLOW_LOG_INFO_LOCKED()`, `FLOW_LOG_TRACE_LOCKED()`, etc., each of which is equivalent to
+ *       its non-`_LOCKED` counterpart but as-if executed inside log_while_locked().
+ *
+ * We restate: As there is no `get_logger()/get_log_component()`, actual logging work now must use
+ * log_while_locked() to make them (safely) available.  And: we recommend the use of `FLOW_LOG_..._LOCKED()`
+ * macros in order to make that happen with reduced boiler-plate.
  *
  * @see Log_context doc header section "Setting the logger / thready safety."
  *
  * There is a perf trade-off: essentially all operations will lock an internal mutex, proceed, then unlock.
- * This will have a small cost when there is no lock contention (no simultaneous logging -- get_logger() calls);
- * and a larger cost when there is (when indeed there is simultaneous logging -- therefore get_logger() calls).
+ * This will have a small cost when there is no lock contention (no simultaneous logging -- log_while_locked() calls);
+ * and a larger cost when there is (when indeed there is simultaneous logging -- therefore log_while_locked() calls).
  * Informally: in our experience, as noted in the aforementioned doc header discussion, set_logger() is mainly
  * used when the sub-class is instantiated `static`ally or globally; and usually it is possible to simply avoid
- * logging along fast-paths of such classes.
+ * logging along fast-paths of such classes.  By the time one has decided to actually `FLOW_LOG_...()` in those
+ * situations, it is usually stipulated that performance (in *that specific place*) is of lower concern.
  *
- * Still: it requires care.  If you need to provide/use set_logger(), be mindful of this potential source of
- * slow-down.
+ * Still: it requires care.  If you need to provide/use set_logger(), with automatic concurrency support, be
+ * mindful of this potential source of slow-down in using Log_context_mt.
+ *
+ * @note In some cases perf is of such high concern that even `FLOW_LOG_TRACE*()` (or more verbose) is too costly
+ *       to perform along a fast-path; even the `should_log()` check -- generally coded to be quite speedy --
+ *       is best avoided.  Adding a log_while_locked() setup (whether explicitly or via `..._LOCKED()`) would
+ *       certainly not help matters.  So what to do?  Answer: There are various bespoke little tricks to use.
+ *       One we have found to be acceptable is this: Maintaining an extra flag, something like
+ *       `m_skip_fast_path_verbose_logging`, that is set to `true` or `false` whenever executing set_logger();
+ *       specifically to `true` if and only if Sev::S_TRACE results in `Logger::should_log() == false` at that time.
+ *       Then bracket any `FLOW_LOG_TRACE()` (or higher verbosity log-call-site) with an
+ *       `if (!m_skip_fast_path_verbose_logging) {}`.  A single flag-check in the fast-path, when TRACE logging
+ *       is disabled (by convention the case in production), is fast-enough -- and it'll skip both
+ *       the repeated `should_log()` checks -- and, relevantly here, the now-also-required log_while_locked() setup.
+ *       The downside is simply that *enabling* TRACE-logging (in debug/test scenarios) requires (for these
+ *       hot-spot singletons/globals/whatever -- not generally!), `set_logger()` in order to take effect.
+ *       (Worst-case that means restart application; but other triggers could be added if desired.)  We've found
+ *       in practice it can be worthwhile (but only in *very* perf-sensitive contexts).
+ *
  */
 class Log_context_mt :
   private Log_context
@@ -1836,12 +2012,6 @@ public:
 
   /**
    * Identical to Log_context API; but safe against concurrent operations on a `*this`.
-   * @return See above.
-   */
-  Logger* get_logger() const;
-
-  /**
-   * Identical to Log_context API; but safe against concurrent operations on a `*this`.
    * @param logger
    *        See above.
    * @return See above.
@@ -1849,10 +2019,100 @@ public:
   Logger* set_logger(Logger* logger);
 
   /**
-   * Identical to Log_context API.
-   * @return See above.
+   * Locks `*this` to be immutable, and under this lock executes user's `logging_task()`, providing it
+   * `get_logger` and `get_log_component` functions as arguments, so it can use them for logging operations
+   * without worry of the returned values becoming concurrently obsolete (potentially invalid).
+   *
+   * @see FLOW_LOG_INFO_LOCKED(), FLOW_LOG_TRACE_LOCKED(), et al: They use log_while_locked() enabling its use
+   *      pithily and safely.
+   * @see FLOW_LOG_SET_LOCKED_CONTEXT(), reminiscent of FLOW_LOG_SET_CONTEXT() (explained below).
+   * @note You can also declare your own method `log_while_locked()` that forwards to a Log_context_mt of choice.
+   *
+   * @warning `logging_task()` must be careful not to invoke anything that would lock `*this`; this includes
+   *          set_logger(), assignment, swap, and log_while_locked() -- and
+   *          `FLOW_LOG_..._LOCKED()` which calls the latter.  For this reason, it is typically better
+   *          to not use log_while_locked() directly but rather `FLOW_LOG_..._LOCKED()` (and don't do anything
+   *          similarly-illegal inside the args to `..._LOCKED()` either).
+   * @warning Along those lines, it also possible to deadlock if `logging_task()` locks another `Log_context_mt`,
+   *          while in another thread the two are locked in the opposite order (AB/BA deadlock).  If all threads
+   *          stick to `FLOW_LOG_..._LOCKED()` (without illegal stuff inside the `()`), then this bad thing
+   *          cannot happen.
+   *
+   * An example of what is safe:
+   *   ~~~
+   *   // Thread 1: main():
+   *   std::optional<Async_file_logger> lgr{std::in_place, ...};
+   *   // s_concurrently_logging_guy derives from Log_context_mt.
+   *   s_concurrently_logging_guy.set_logger(&*lgr);
+   *   ...
+   *   s_concurrently_logging_guy.set_logger(nullptr);
+   *   // s_concurrently_logging_guy is fine logging as shown below; by now its Logger* is null, so
+   *   // *lgr disappearing does not affect it.
+   *   lgr.reset();
+   *   // main() exits here, even while s_concurrently_logging_guy is still potentially logging for a bit.
+   *
+   *   // Thread 2: inside s_concurrently_logging_guy:
+   *     ...
+   *     FLOW_LOG_INFO_LOCKED("Periodic logging of something interesting [" << ... << "].");
+   *     // ^-- This did basically: log_while_locked([&](auto&& get_logger, auto&& get_log_component)
+   *     //                                            { FLOW_LOG_INFO("Periodic logging of ...."); });
+   *     // So either get_logger() is null, or get_logger() is &*lgr, inside the lambda.
+   *   ~~~
+   *
+   * An example of what would not compile:
+   *   ~~~
+   *   // Thread 2: inside s_concurrently_logging_guy:
+   *     ...
+   *     // Compile error: No get_logger() or get_log_component() available.
+   *     FLOW_LOG_INFO("Periodic logging of something interesting [" << ... << "].");
+   *   ~~~
+   *
+   * ### Use outside a Log_context_mt sub-class / Whether to save `Logger*` past lock ###
+   * Just as sometimes one needs to log in a `static` (etc.) function and, without concurrency concerns,
+   * would use FLOW_LOG_SET_CONTEXT() giving it a known `Logger*` and `Component`, you may want to do a similar
+   * thing -- but now you've got concurrency concerns.  In this case a `const Log_context_mt*` -- perhaps
+   * `log_ctx_mt_ptr` -- is required by definition.  How to actually use it though?
+   *
+   * It is *possible*, but usually not recommended/possibly an anti-pattern, to grab `get_logger()`'s value and use
+   * it outside the lock.  You might be tempted to do something like this:
+   *   ~~~
+   *   Logger* logger_ptr;
+   *   log_ctx_mt_ptr->log_while_locked([&](auto&& get_logger, auto&&) { logger_ptr = get_logger(); });
+   *   FLOW_LOG_SET_CONTEXT(logger_ptr, ...); // ... could be, say, a hard-coded Component.  That is fine.
+   *   FLOW_LOG_INFO("Let's log."); // Not fine: *logger_ptr might be wrong -- or even destroyed -- here.
+   *   ~~~
+   *
+   * Usually don't do that ("that" = use a `Logger*` outside the lock, having grabbed it inside the lock).
+   *
+   * @note It is not disallowed, and *if* you can guarantee that `*logger_ptr` will remain in-existence and
+   *       generally-OK-to-use throughout such a snippet, then it is well-defined behavior and not dangerous.
+   *       In our experience we've found cases where it was okay and unavoidable, such as
+   *       `Thread_local_state_registry<T>` distributing `Logger*` to individual per-thread `T` objects:
+   *       (1) as-needed pull (constructing new `T{}`) or (2) via user-triggered push
+   *       (Thread_local_state_registry::set_logger() that updates each existing `T`).
+   *
+   * As for the original premise here -- lacking a Log_context_mt super-class -- consider using
+   * FLOW_LOG_SET_LOCKED_CONTEXT() instead.  This would be fine:
+   *   ~~~
+   *   FLOW_LOG_SET_LOCKED_CONTEXT(log_ctx_mt_ptr);
+   *   // Now naked `log_while_locked` is available, so you can just:
+   *   FLOW_LOG_INFO_LOCKED("Let's log.");
+   *   ~~~
+   *
+   * You can also always use `log_ctx_mt_ptr->log_while_locked(F)` directly in that situation.  In general at
+   * that point, though, it becomes tempting to do something complex in `F()`, and the aforementioned warnings
+   * come into play.  Informally we suggest using `FLOW_LOG_..._LOCKED()` when possible; FLOW_LOG_SET_LOCKED_CONTEXT()
+   * makes that reasonably easy in this situation.
+   *
+   * @tparam Logging_task
+   *         Recommended signature in your code: verbatim: `void (auto&& get_logger, auto&& get_log_component)`.
+   *         If the args are named literally `get_logger` and `get_log_component`, then `FLOW_LOG_...()`s inside
+   *         will compile and work properly.
+   * @param logging_task
+   *        See above.
    */
-  const Component& get_log_component() const;
+  template<typename Logging_task>
+  void log_while_locked(Logging_task&& logging_task) const;
 
 private:
   // Data.
@@ -1907,6 +2167,16 @@ Log_context_mt::Log_context_mt(Logger* logger, Component_payload component_paylo
   Log_context(logger, component_payload)
 {
   // Nothing.
+}
+
+template<typename Logging_task>
+void Log_context_mt::log_while_locked(Logging_task&& logging_task) const
+{
+  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
+  logging_task([logger_ptr = Log_context::get_logger()]
+                 () -> Logger* { return logger_ptr; },
+               [&component_ref = Log_context::get_log_component()]
+                 () -> const Component& { return component_ref; });
 }
 
 } // namespace flow::log

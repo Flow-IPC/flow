@@ -109,11 +109,7 @@ private:
 
   // Data.
 
-  /**
-   * Underlying string to use if user chooses not to pass in their own in constructor.  Otherwise unused.
-   * (Could use `unique_ptr` to avoid even allocating it if not needed; but the memory use of an empty
-   * string is negligible, and this is otherwise equally fast or faster and leads to simpler code.)
-   */
+  /// Underlying string to use if user chooses not to pass in their own in constructor.  Otherwise unused.
   std::string m_own_target_str;
 
   /// Pointer to the target string.  Emptied at construction and in str_clear() *only*.

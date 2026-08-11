@@ -55,7 +55,7 @@ namespace flow::util
  * SHM-friendly) unlike Basic_blob; and (2) stored a log context from construction unlike Basic_blob.
  * Then when those 2 changes became required by some use cases, Basic_blob took the vast majority of what used to
  * be `Blob` and added those 2 changes.  Meanwhile `Blob` was rewritten in terms of Basic_blob in a way that
- * exactly preserved its behavior (so that no call-site changes for Blob-using code were needed).
+ * exactly preserved its behavior (so that no call-site changes for `Blob`-using code were needed).
  * Lastly, when #S_SHARING template param was added to Basic_blob, `Blob` became a template
  * Blob_with_log_context, while #Blob aliased to `Blob_with_log_context<false>` thus staying functionally
  * exactly the same as before, minus the share() feature.  (`Sharing_blob` was added, aliasing to
@@ -98,7 +98,7 @@ public:
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
   using Const_iterator = typename Base::Const_iterator;
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
-  using Allocator_raw = typename Base::Allocator_raw;
+  using Allocator = typename Base::Allocator;
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).
   using pointer = typename Base::pointer;
   /// Short-hand for base member (needed because base access to a template must be qualified otherwise).

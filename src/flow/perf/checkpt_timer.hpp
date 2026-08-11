@@ -81,13 +81,13 @@ namespace flow::perf
  *   }
  *   sum_timer.checkpoint("total"); // Mark down the total time taken.
  *   // Log the total duration(s), one per clock type!
- *   flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer(sum_timer, n_samples, false);
+ *   flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer(logger, sum_timer, n_samples, false);
  *   // And/or: Log mean duration(s), times N_SAMPLES_SCALE_CONVENIENCE, one per clock type!
  *   {
  *     // Just make a copy of the raw sum, then scale it x N_SAMPLES_SCALE_CONVENIENCE / n_samples.
  *     auto mean_scaled_timer = sum_timer;
  *     mean_scaled_timer.scale(N_SAMPLES_SCALE_CONVENIENCE, n_samples);
- *     flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer(mean_scaled_timer, n_samples,
+ *     flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer(logger, mean_scaled_timer, n_samples,
  *                                                                                 true, N_SAMPLES_SCALE_CONVENIENCE);
  *   }
  *   ~~~
@@ -187,7 +187,6 @@ class Checkpointing_timer :
   public log::Log_context
 {
 public:
-
   // Types.
 
   class Aggregator; // Fwd.
@@ -246,7 +245,7 @@ public:
    * @param src
    *        Object to copy.
    */
-  explicit Checkpointing_timer(const Checkpointing_timer& src) = default; // Yes, do allow EXPLICIT copy construction.
+  explicit Checkpointing_timer(const Checkpointing_timer& src) = default; // Yes, do allow *explicit* copy construction.
 
   /// For now at least there's no reason for move-construction.
   Checkpointing_timer(Checkpointing_timer&&) = delete;
@@ -490,7 +489,7 @@ private:
   friend class Aggregator;
 
   /**
-   * Internally useful constructor that initializes an ill-formed `*this` without almost no meaningful member values,
+   * Internally useful constructor that initializes an ill-formed `*this` with almost no meaningful member values,
    * specifically useful at least when creating the aggregated Checkpointing_timer from multiple "real" timers,
    * by Aggregator.  Take care to initialize all fields properly before making
    * `*this` publicly available.
@@ -533,7 +532,7 @@ private:
    * reserved to contain a buffer at least `max_n_checkpoints` (see ctor) elements long.
    */
   std::vector<Checkpoint> m_checkpoints;
-};
+}; // class Checkpointing_timer
 
 /**
  * This companion/inner class of Checkpointing_timer provides aggregation of results from many `Checkpointing_timer`s

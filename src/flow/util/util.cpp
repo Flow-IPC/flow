@@ -17,6 +17,7 @@
 
 /// @file
 #include "flow/util/util.hpp"
+#include "flow/util/uniq_id_holder.hpp"
 
 namespace flow::util
 {

@@ -37,7 +37,7 @@ namespace flow::error
  * ### Rationale ###
  * It is questionable whether Runtime_error is really necessary.  One can equally well simply throw
  * `boost::system::system_error(err_code, context)` when `bool(err_code) == true`, and
- * `std::runtime_error(context)` otherwise.  Indeed the user should feel 100% free to do that if desired.
+ * `std::runtime_error{context}` otherwise.  Indeed the user should feel 100% free to do that if desired.
  * flow::error::Runtime_error is mere syntactic sugar for code brevity, when one indeed has an `err_code` that may
  * or may not be falsy: they can just construct+throw a Runtime_error and not worry about the bifurcation.
  * In the end one likely just catches `std::exception exc` and logs/prints `exc.what()`: how precisely it was thrown

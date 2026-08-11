@@ -27,15 +27,18 @@ namespace flow::cfg
 /// @cond
 // -^- Doxygen, please ignore the following.  It gets confused thinking this is a macro (@todo fix whenever).
 
-// Just see the guy that uses it.  I wish it could be a local `constexpr`.  @todo Maybe it can?
-const boost::regex VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX("(.+)\\[[^]]+\\](.+)");
+/* Just see the guy that uses it.  I wish it could be a local `constexpr`.  Apparently it cannot.
+ * @todo Use form R"(<literal regex, backslashes are backslashes, not C-string escapes>)":
+ *   const boost::regex VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX{R"((.+)\[[^]]+\](.+))"};
+ * Leaving it alone for now; need to test first. */
+const boost::regex VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX{"(.+)\\[[^]]+\\](.+)"};
 
 // -v- Doxygen, please stop ignoring.
 /// @endcond
 
 // Implementations.
 
-std::string value_set_member_id_to_opt_name(util::String_view member_id)
+std::string value_set_member_id_to_opt_name(util::String_view member_id, char sep_replacement)
 {
   using util::String_view;
   using std::string;
@@ -46,7 +49,8 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id)
   using std::replace;
 
   /* E.g. m_cool_object.m_cool_sub_object->m_badass_sub_guy.m_cool_option_name
-   *   => cool-object.cool-sub-object.badass-sub-guy.cool-option-name.
+   *   => cool-object.cool-sub-object.badass-sub-guy.cool-option-name (with sep_replacement == '-');
+   *   => cool_object.cool_sub_object.badass_sub_guy.cool_option_name (with sep_replacement == '_').
    * Note, by the way, that in config files as parsed by boost.program_options, one can declare a section like:
    *   [cool-object]
    *   cool-option-1
@@ -65,11 +69,11 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id)
    *
    * Other activity involves auto-escaping string/char literals inside `blah`, but that doesn't apply to us. */
 
-  constexpr String_view M_PFX("m_");
-  constexpr String_view CONCAT_OK("."); // Dots remain (but if followed by m_, get rid of m_).
-  constexpr String_view CONCAT_REPLACED("->"); // -> become dots (and again if m_ follows, get rid of it).
+  constexpr String_view M_PFX{"m_"};
+  constexpr String_view CONCAT_OK{"."}; // Dots remain (but if followed by m_, get rid of m_).
+  constexpr String_view CONCAT_REPLACED{"->"}; // -> become dots (and again if m_ follows, get rid of it).
   constexpr char SEP_REPLACED = '_'; // From this...
-  constexpr char SEP_REPLACEMENT = '-'; // ...to this.
+  // ...to sep_replacement (default '-' for config options; '_' for stats/metrics).
 
   string opt_name{member_id};
 
@@ -92,7 +96,10 @@ std::string value_set_member_id_to_opt_name(util::String_view member_id)
   replace_all(opt_name, string{CONCAT_OK} + string{M_PFX}, CONCAT_OK);
 
   // Lastly transform the word-separators.
-  replace(opt_name.begin(), opt_name.end(), SEP_REPLACED, SEP_REPLACEMENT);
+  if (sep_replacement != SEP_REPLACED) // No-op if caller wants underscores retained.
+  {
+    replace(opt_name.begin(), opt_name.end(), SEP_REPLACED, sep_replacement);
+  }
 
   return opt_name;
 } // value_set_member_id_to_opt_name()

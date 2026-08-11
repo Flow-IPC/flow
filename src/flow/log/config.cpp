@@ -258,10 +258,6 @@ Sev* Config::this_thread_verbosity_override() // Static.
 {
   thread_local Sev verbosity_override = Sev::S_END_SENTINEL; // Initialized 1st time through this line in this thread.
   return &verbosity_override;
-
-  /* Also considered using boost::thread_specific_ptr<Sev> and/or making it a class-static member/file-static variable.
-   * But this seems like it has the highest chance to be optimized to the max, being as local as possible and skipping
-   * any library (like Boost) that could add overhead with user-space associative lookups.  Details omitted. */
 }
 
 util::Scoped_setter<Sev> Config::this_thread_verbosity_override_auto(Sev most_verbose_sev_or_none) // Static.

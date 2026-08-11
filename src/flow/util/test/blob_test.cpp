@@ -17,6 +17,7 @@
 
 #include "flow/util/blob.hpp"
 #include "flow/log/buffer_logger.hpp"
+#include "flow/test/test_common_util.hpp"
 #include <gtest/gtest.h>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include <boost/interprocess/managed_shared_memory.hpp>
@@ -78,9 +79,6 @@ Blob_t make_blob([[maybe_unused]] const Allocator_t* alloc_if_applicable,
 
 } // Anonymous namespace
 
-// Yes... this is very cheesy... but this is a test, so I don't really care.
-#define CTX ostream_op_string("Caller context [", FLOW_UTIL_WHERE_AM_I_STR(), "].")
-
 TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=true and fancy-allocator support.
 {
   using std::swap; // This enables proper ADL.
@@ -123,7 +121,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
     constexpr bool SHARING = Blob_t::S_SHARING;
     [[maybe_unused]] constexpr bool HAS_LOG_CTX = std::is_same_v<Blob_t, Blob_with_log_context<SHARING>>;
     constexpr bool SHM_ALLOC = !Blob_t::S_IS_VANILLA_ALLOC;
-    using Allocator = typename Blob_t::Allocator_raw;
+    using Allocator = typename Blob_t::Allocator;
 
     cout << "Testing type [" << typeid(Blob_t).name() << "].\n" << flush;
 
@@ -630,32 +628,33 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
        * std::allocator to be used regardless of anything.  (As of this writing internally there are ~3 possible
        * smart-pointer types used inside; we could have chosen the wrong one, misused allocator APIs, etc.) */
       {
-        const auto check_alloc = [&](const Blob_t& b, const string& ctx)
+        const auto check_alloc = [&](const Blob_t& b)
         {
           const auto p = b.const_data();
-          EXPECT_TRUE(p) << ctx;
+          EXPECT_TRUE(p);
           if constexpr(SHM_ALLOC)
           {
-            ASSERT_EQ(b.get_allocator(), *alloc) << "Sanity-check selves.  " << ctx;
-            ASSERT_EQ(alloc->get_segment_manager(), shm_pool.get_segment_manager()) << "Sanity-check selves.  " << ctx;
+            ASSERT_EQ(b.get_allocator(), *alloc) << "Sanity-check selves.";
+            ASSERT_EQ(alloc->get_segment_manager(), shm_pool.get_segment_manager()) << "Sanity-check selves.";
 
             const auto pool_base = static_cast<const uint8_t*>(shm_pool.get_address());
-            EXPECT_TRUE((p >= pool_base) && (p < (pool_base + shm_pool.get_size()))) << ctx;
+            EXPECT_TRUE((p >= pool_base) && (p < (pool_base + shm_pool.get_size())));
           }
           // else { Not much we can check when it's just std::allocator. }
         };
 
-        auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM); check_alloc(b1, CTX); b1.make_zero();
-        b1.reserve(N_SM); check_alloc(b1, CTX); b1.make_zero();
-        b1.resize(N_SM); check_alloc(b1, CTX); b1.make_zero();
+        auto b1 = make_blob<Blob_t>(alloc, &logger, N_SM); { FLOW_TEST_TRACE(); check_alloc(b1); } b1.make_zero();
+        b1.reserve(N_SM); { FLOW_TEST_TRACE(); check_alloc(b1); } b1.make_zero();
+        b1.resize(N_SM); { FLOW_TEST_TRACE(); check_alloc(b1); } b1.make_zero();
 
-        auto b2 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC); check_alloc(b2, CTX); b2.make_zero();
-        b2.reserve(N_SM, CLEAR_ON_ALLOC); check_alloc(b2, CTX); b2.make_zero();
-        b2.resize(N_SM, CLEAR_ON_ALLOC); check_alloc(b2, CTX); b2.make_zero();
+        auto b2 = make_blob<Blob_t>(alloc, &logger, N_SM, CLEAR_ON_ALLOC);
+        { FLOW_TEST_TRACE(); check_alloc(b2); } b2.make_zero();
+        b2.reserve(N_SM, CLEAR_ON_ALLOC); { FLOW_TEST_TRACE(); check_alloc(b2); } b2.make_zero();
+        b2.resize(N_SM, CLEAR_ON_ALLOC); { FLOW_TEST_TRACE(); check_alloc(b2); } b2.make_zero();
 
         b1.resize(N_SM);
-        Blob_t b3{std::move(b1)}; check_alloc(b3, CTX);
-        Blob_t b4{b3}; check_alloc(b4, CTX);
+        Blob_t b3{std::move(b1)}; { FLOW_TEST_TRACE(); check_alloc(b3); }
+        Blob_t b4{b3}; { FLOW_TEST_TRACE(); check_alloc(b4); }
       }
 
       if constexpr(SHM_ALLOC)
@@ -789,30 +788,30 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
         n_base = shm_pool.get_free_memory();
       }
 
-      const auto check_alloc_sz = [&]([[maybe_unused]] size_t n_or_0, [[maybe_unused]] const string& ctx)
+      const auto check_alloc_sz = [&]([[maybe_unused]] size_t n_or_0)
       {
         if constexpr(SHM_ALLOC)
         {
           if (n_or_0 == 0)
           {
-            EXPECT_EQ(shm_pool.get_free_memory(), n_base) << ctx;
+            EXPECT_EQ(shm_pool.get_free_memory(), n_base);
           }
           else
           {
-            ASSERT_GE(n_base, shm_pool.get_free_memory()) << ctx;
+            ASSERT_GE(n_base, shm_pool.get_free_memory());
             const auto n_diff = static_cast<size_t>(n_base - shm_pool.get_free_memory());
             // Should be buf-size x N, plus some possibly some alloc slack.
-            EXPECT_GE(n_diff, n_or_0 * N) << ctx;
-            EXPECT_LT(n_diff, (n_or_0 + 1) * N) << ctx;
+            EXPECT_GE(n_diff, n_or_0 * N);
+            EXPECT_LT(n_diff, (n_or_0 + 1) * N);
           }
         }
         // else { We cannot check anything about this.  Oh well. }
       };
 
-      check_alloc_sz(0, CTX); // Sanity-check.
-      b1->reserve(N); check_alloc_sz(1, CTX);
-      b1->make_zero(); check_alloc_sz(0, CTX);
-      b1->resize(N); check_alloc_sz(1, CTX);
+      { FLOW_TEST_TRACE(); check_alloc_sz(0); } // Sanity-check.
+      b1->reserve(N); { FLOW_TEST_TRACE(); check_alloc_sz(1); }
+      b1->make_zero(); { FLOW_TEST_TRACE(); check_alloc_sz(0); }
+      b1->resize(N); { FLOW_TEST_TRACE(); check_alloc_sz(1); }
 
       if constexpr(SHARING)
       {
@@ -820,13 +819,13 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
         const auto p = b1->const_data();
 
-        auto b2 = make_shared<Blob_t>(b1->share()); check_alloc_sz(1, CTX); // No extra alloc.
+        auto b2 = make_shared<Blob_t>(b1->share()); { FLOW_TEST_TRACE(); check_alloc_sz(1); } // No extra alloc.
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
         EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
         EXPECT_EQ(b2->size(), N); EXPECT_EQ(b2->start(), size_t(0));
 
-        auto b3 = make_shared<Blob_t>(b2->share_after_split_left(INC)); check_alloc_sz(1, CTX);
+        auto b3 = make_shared<Blob_t>(b2->share_after_split_left(INC)); { FLOW_TEST_TRACE(); check_alloc_sz(1); }
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
         EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
@@ -834,7 +833,7 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
         EXPECT_EQ(b3->data() - b3->start(), p); EXPECT_EQ(b3->capacity(), N);
         EXPECT_EQ(b3->size(), INC); EXPECT_EQ(b3->start(), size_t(0));
 
-        auto b4 = make_shared<Blob_t>(b2->share_after_split_right(INC)); check_alloc_sz(1, CTX);
+        auto b4 = make_shared<Blob_t>(b2->share_after_split_right(INC)); { FLOW_TEST_TRACE(); check_alloc_sz(1); }
         EXPECT_EQ(b1->data() - b1->start(), p); EXPECT_EQ(b1->capacity(), N);
         EXPECT_EQ(b1->size(), N); EXPECT_EQ(b1->start(), size_t(0));
         EXPECT_EQ(b2->data() - b2->start(), p); EXPECT_EQ(b2->capacity(), N);
@@ -844,11 +843,13 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
         EXPECT_EQ(b4->data() - b4->start(), p); EXPECT_EQ(b4->capacity(), N);
         EXPECT_EQ(b4->size(), INC); EXPECT_EQ(b4->start(), N - INC);
 
-        b2->make_zero(); check_alloc_sz(1, CTX); // Still alive.
-        b3.reset(); check_alloc_sz(1, CTX); // Ditto.
-        b1.reset(); check_alloc_sz(1, CTX); // Ditto!  Even after killing the original.
-        b4->clear(); ASSERT_EQ(b4->capacity(), N); check_alloc_sz(1, CTX); // Doesn't even dec the ref-count.
-        *b4 = make_blob<Blob_t>(alloc, &logger, ZERO); check_alloc_sz(0, CTX); // Now the ref-count got to zero.
+        b2->make_zero(); { FLOW_TEST_TRACE(); check_alloc_sz(1); } // Still alive.
+        b3.reset(); { FLOW_TEST_TRACE(); check_alloc_sz(1); } // Ditto.
+        b1.reset(); { FLOW_TEST_TRACE(); check_alloc_sz(1); } // Ditto!  Even after killing the original.
+        // Doesn't even dec the ref-count.
+        b4->clear(); ASSERT_EQ(b4->capacity(), N); { FLOW_TEST_TRACE(); check_alloc_sz(1); }
+        // Now the ref-count got to zero.
+        *b4 = make_blob<Blob_t>(alloc, &logger, ZERO); { FLOW_TEST_TRACE(); check_alloc_sz(0); }
 
         /* Avoid tedium slightly; use one form of share_after_split_equally*().  We use another elsewhere in this
          * test.  @todo Technically should go through them all (~3), but they're all built on one core (cheating
@@ -863,15 +864,15 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
 
           N = CAP; // Soooo hacky... @todo Come on... this is sad.
 
-          check_alloc_sz(0, CTX);
+          { FLOW_TEST_TRACE(); check_alloc_sz(0); }
           auto b5 = make_shared<Blob_t>(make_blob<Blob_t>(alloc, &logger, CAP, CLEAR_ON_ALLOC));
-          check_alloc_sz(1, CTX);
+          { FLOW_TEST_TRACE(); check_alloc_sz(1); }
 
           const auto p = b5->const_data();
           b5->share_after_split_equally_emit_ptr_seq(N_PER_CT, headless, &blob_vec);
 
           EXPECT_EQ(blob_vec.size(), COUNT + 1);
-          check_alloc_sz(1, CTX);
+          { FLOW_TEST_TRACE(); check_alloc_sz(1); }
 
           auto rem_blob = std::move(blob_vec.back()); blob_vec.pop_back();
           size_t start = 0;
@@ -885,18 +886,18 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
           EXPECT_EQ(rem_blob->data() - rem_blob->start(), p); EXPECT_EQ(rem_blob->capacity(), CAP);
           EXPECT_EQ(rem_blob->size(), REM); EXPECT_EQ(rem_blob->start(), start);
 
-          check_alloc_sz(1, CTX);
+          { FLOW_TEST_TRACE(); check_alloc_sz(1); }
           blob_vec.clear();
           rem_blob.reset();
 
           EXPECT_TRUE(b5->empty());
           if (!headless)
           {
-            check_alloc_sz(1, CTX);
+            { FLOW_TEST_TRACE(); check_alloc_sz(1); }
             b5->make_zero();
           }
           EXPECT_TRUE(b5->zero());
-          check_alloc_sz(0, CTX);
+          { FLOW_TEST_TRACE(); check_alloc_sz(0); }
         } // for (auto headless : headless_v)
       } // if constexpr(SHARING)
     } // Dealloc; sharing.

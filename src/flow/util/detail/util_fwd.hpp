@@ -45,55 +45,6 @@ namespace flow::util
 
 // Types.
 
-/* (The @namespace line shouldn't be needed, but there must be some Doxygen bug causing that doc header to get
- * merged into the succeeding function's.  Who knows?  @todo Look into it more in copious spare time.
- *
- * Update: That was with Doxygen 1.8.11 through 1.8.15.  In 1.8.16, it's still true; plus another bug appeared:
- * The first sentence (up to the first period) is supposed to interpreted, with certain Doxygen config,
- * as @brief, meaning the brief summary of the namespace; this feature is used constantly, not just in this
- * spot.  Well, for some reason that Doxygen version took the @brief to be blank (shows up as blank in the
- * namespaces list page and the namespace page itself), whereas before it was fine.  Since it's not happening
- * for anything else I made it an explicit @brief here and called it a day; I guess the Doxygen parser is
- * getting doubly confused; not sure.  @todo Sigh, untangle this at some point; maybe Doxygen gets fixed;
- * file bug against Doxygen.  This is the only (documented) namespace alias in the code, as of this writing, so
- * maybe that is why it is "special.") */
-
-/**
- * @namespace flow::util::bind_ns
- *
- * @brief Hack namespace alias to enable use of `bind` and related utilities like `cref` in the face of strange observed
- * compiler behavior.
- *
- * The code in the past used `bind` and its helpers `cref` and `ref` fairly extensively.  (Vast majority of `bind`s are
- * now replaced with superior uses of lambdas, with the upgrade to C++1x.  So it's far less extensive than in past.)
- * However, there is something odd going on with namespace resolution for
- * these guys.  At least in the clang version used as of this writing, `bind` somehow
- * works without qualification, as does `cref` (and thus probably `ref`); I really don't know why.  I'd like to use
- * the `boost::` versions, though, specifically (for stylistic reasons explained elsewhere).  More importantly, I don't
- * want to use something that mysteriously works without qualification -- is `std::` somehow being forced with some
- * phantom `using namespace` from some evil header somewhere?  I am not sure as of this writing.  In any case,
- * this allows one to just say `using util::bind_ns::bind` and then use `bind()` without qualification in that
- * block (typically function/method) without worrying that some weird unqualified guy will be used.
- *
- * Caveat 1: I don't know why, but in the aforementioned clang, `using util::bind_ns::cref` makes `cref()` become
- * ambiguous with some `std::cref`; it's quite unclear why the same complaint then doesn't happen for `bind()` itself.
- * In that case, when an error is encountered, get rid of the `using` and instead qualify it as `util::bind_ns::cref()`.
- * It sucks, but at least it's clear.
- *
- * Caveat 2: I haven't built in MS Visual Studio in quite a while (though it did use to work at one point), but back
- * then I remember some VC++-specific trouble with `bind()` resolution.  Possibly it's related to the above.
- * Anyway, use `bind_ns` as needed to get around any such compile errors.
- *
- * Note: Knowing of this phantom `bind()` that's magically available sans qualification, I also tried to use
- * unqualified `cout` and `endl` in the same context but thankfully got the expected errors in clang saying
- * these identifiers do not exist but suggesting the use of `std::cout` and `std::endl`.  So, at least it's not
- * all of `std` being forced on the code.
- *
- * @todo Investigate deeply the cause of the strange behavior with unqualified `bind()` and others described
- * above this line in the source code.
- */
-namespace bind_ns = boost;
-
 // Find doc headers near the bodies of these compound types.
 
 template<typename Key, typename Iterator, bool IS_ITER_TO_PAIR>
@@ -102,6 +53,7 @@ template<typename Hash>
 class Linked_hash_key_hash;
 template<typename Pred>
 class Linked_hash_key_pred;
+class Thread_local_ptr_cache;
 
 /**
  * The lookup structure used inside Linked_hash_map and Linked_hash_set.  See the former's doc header(s).

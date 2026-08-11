@@ -27,9 +27,9 @@ namespace flow::log
 
 // Static initializations.
 
-const std::vector<util::String_view> Ostream_log_msg_writer::S_SEV_STRS({ "null", // Never used (sentinel).
+const std::vector<util::String_view> Ostream_log_msg_writer::S_SEV_STRS{{ "null", // Never used (sentinel).
                                                                           "fatl", "eror", "warn",
-                                                                          "info", "debg", "trce", "data" });
+                                                                          "info", "debg", "trce", "data" }};
 const boost::chrono::system_clock::time_point Ostream_log_msg_writer::S_POSIX_EPOCH
   = boost::chrono::system_clock::from_time_t(0);
 
@@ -112,7 +112,7 @@ void Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp(const Msg_met
   // See background in class doc header Impl section; then come back here.
 
   // Keep consistent with S_HUMAN_FRIENDLY_TIME_STAMP_*_SZ_TEMPLATE values.
-  constexpr String_view TIME_STAMP_FORMAT("{0:%Y-%m-%d %H:%M:}{1:%S} {0:%z} ");
+  constexpr String_view TIME_STAMP_FORMAT{"{0:%Y-%m-%d %H:%M:}{1:%S} {0:%z} "};
   // Offset from start of human-friendly time stamp output, where the seconds.subseconds output begins.
   constexpr size_t SECONDS_START = S_HUMAN_FRIENDLY_TIME_STAMP_MIN_SZ_TEMPLATE.size();
 

@@ -27,7 +27,7 @@ namespace flow::util
 
 // Find doc headers near the bodies of these compound types.
 
-template<typename Allocator = std::allocator<uint8_t>, bool SHARING = false>
+template<typename Allocator_t = std::allocator<uint8_t>, bool SHARING = false>
 class Basic_blob;
 template<bool SHARING = false>
 class Blob_with_log_context;
@@ -93,8 +93,8 @@ extern const Clear_on_alloc CLEAR_ON_ALLOC;
  *        Object.
  * @return Whether `blob1` and `blob2` both operate on the same underlying buffer.
  */
-template<typename Allocator, bool SHARING>
-bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1, const Basic_blob<Allocator, SHARING>& blob2);
+template<typename Allocator_t, bool SHARING>
+bool blobs_sharing(const Basic_blob<Allocator_t, SHARING>& blob1, const Basic_blob<Allocator_t, SHARING>& blob2);
 
 /**
  * Equivalent to `blob1.swap(blob2)`.
@@ -107,9 +107,9 @@ bool blobs_sharing(const Basic_blob<Allocator, SHARING>& blob1, const Basic_blob
  * @param logger_ptr
  *        The Logger implementation to use in *this* routine (synchronously) only.  Null allowed.
  */
-template<typename Allocator, bool SHARING>
-void swap(Basic_blob<Allocator, SHARING>& blob1,
-          Basic_blob<Allocator, SHARING>& blob2, log::Logger* logger_ptr = nullptr) noexcept;
+template<typename Allocator_t, bool SHARING>
+void swap(Basic_blob<Allocator_t, SHARING>& blob1,
+          Basic_blob<Allocator_t, SHARING>& blob2, log::Logger* logger_ptr = nullptr) noexcept;
 
 /**
  * On top of the similar Basic_blob related function, logs using the stored log context of `blob1`.

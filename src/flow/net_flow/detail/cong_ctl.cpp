@@ -79,21 +79,21 @@ Peer_socket::Const_ptr Congestion_control_strategy::socket() const
 
 const std::map<std::string, Congestion_control_selector::Strategy_choice>
         Congestion_control_selector::S_ID_TO_STRATEGY_MAP
-          ({
+          {{
              { "classic",
                Strategy_choice::S_CLASSIC },
              { "classic_with_bandwidth_est",
                Strategy_choice::S_CLASSIC_BANDWIDTH_ESTIMATED }
-           });
+           }};
 // Annoying we have to copy/paste/flip S_ID_TO_STRATEGY_MAP, but it's not that bad.
 const std::map<Congestion_control_selector::Strategy_choice, std::string>
         Congestion_control_selector::S_STRATEGY_TO_ID_MAP
-          ({
+          {{
              { Strategy_choice::S_CLASSIC,
                "classic" },
              { Strategy_choice::S_CLASSIC_BANDWIDTH_ESTIMATED,
                "classic_with_bandwidth_est" }
-           });
+           }};
 
 // Methods.
 

@@ -24,6 +24,7 @@
 /// @endcond
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
+#include <boost/static_string.hpp>
 
 /**
  * Flow module providing logging functionality.  While originally intended to
@@ -148,15 +149,37 @@ struct Msg_metadata;
 class Ostream_log_msg_writer;
 class Simple_ostream_logger;
 
-
-/* (The @namespace and @brief thingies shouldn't be needed, but some Doxygen bug necessitated them.
- * See flow::util::bind_ns for explanation... same thing here.) */
+/* (The @namespace line shouldn't be needed, but there must be some Doxygen bug causing that doc header to get
+ * merged into the succeeding item's.  Who knows?  @todo Look into it more in copious spare time.
+ *
+ * Update: That was with Doxygen 1.8.11 through 1.8.15.  In 1.8.16, it's still true; plus another bug appeared:
+ * The first sentence (up to the first period) is supposed to be interpreted, with certain Doxygen config,
+ * as @brief, meaning the brief summary of the namespace; this feature is used constantly, not just in this
+ * spot.  Well, for some reason that Doxygen version took the @brief to be blank (shows up as blank in the
+ * namespaces list page and the namespace page itself), whereas before it was fine.  Since it's not happening
+ * for anything else, I made it an explicit @brief here and called it a day; I guess the Doxygen parser is
+ * getting doubly confused; not sure.  @todo Sigh, untangle this at some point; maybe Doxygen gets fixed;
+ * file bug against Doxygen.) */
 
 /**
  * @namespace flow::log::fs
  * @brief Short-hand for `namespace boost::filesystem`.
  */
 namespace fs = boost::filesystem;
+
+/**
+ * Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings
+ * in flow::log.  The precipitating reason for introducing this to flow::log is that certain things, like
+ * string in Msg_metadata, in a thread-local context would be destroyed by a non-trivial destructor; but ideally
+ * we want logging to work -- all else being equal -- even during `thread_local` deinit.
+ *
+ * The width was chosen so as to be big enough to handle all or most payloads for all flow::log use-cases
+ * (truncation naturally is used when required).  For the record, as of this writing, the longest known real
+ * payloads are ~40 -- let us say 64 -- characters; typical loop/thread nicknames are usually shorter; and the
+ * OS-thread-name sink alongside truncates at 15.  So 128 gives ample headroom, and truncation is cosmetic-only
+ * when it does occur.
+ */
+using Fixed_string = boost::static_string<128>;
 
 /**
  * Enumeration containing one of several message severity levels, ordered from highest to
@@ -341,7 +364,7 @@ enum class Sev : size_t
  * @return `is`.
  */
 std::istream& operator>>(std::istream& is, Sev& val);
-// @todo - `@relatesalso Sev` makes Doxygen complain; maybe it doesn't work with `enum class`es like Sev.
+// @todo `@relatesalso Sev` makes Doxygen complain; maybe it doesn't work with `enum class`es like Sev.
 
 /**
  * Serializes a log::Sev to a standard output stream.  The output string is compatible with the reverse
@@ -354,7 +377,7 @@ std::istream& operator>>(std::istream& is, Sev& val);
  * @return `os`.
  */
 std::ostream& operator<<(std::ostream& os, Sev val);
-// @todo - `@relatesalso Sev` makes Doxygen complain; maybe it doesn't work with `enum class`es like Sev.
+// @todo `@relatesalso Sev` makes Doxygen complain; maybe it doesn't work with `enum class`es like Sev.
 
 /**
  * Log_context ADL-friendly swap: Equivalent to `val1.swap(val2)`.

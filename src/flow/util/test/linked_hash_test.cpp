@@ -18,6 +18,7 @@
 #include "flow/util/linked_hash_map.hpp"
 #include "flow/util/linked_hash_set.hpp"
 #include "flow/util/util.hpp"
+#include "flow/test/test_common_util.hpp"
 #include <gtest/gtest.h>
 
 namespace flow::util::test
@@ -48,9 +49,6 @@ size_t hash_value(const Obj& obj) { return boost::hash_value(obj.m_str); };
 
 } // Anonymous namespace
 
-// Yes... this is very cheesy... but this is a test, so I don't really care.
-#define CTX ostream_op_string("Caller context [", FLOW_UTIL_WHERE_AM_I_STR(), "].")
-
 TEST(Linked_hash, Interface)
 {
   /* @todo I am sure there's more stuff to torture in Linked_hash_* for complete coverage; like custom
@@ -59,59 +57,59 @@ TEST(Linked_hash, Interface)
 
   using std::swap; // This enables proper ADL.
 
-  const auto n_copies_check = [&](uint n, const string& ctx)
+  const auto n_copies_check = [&](uint n)
   {
-    EXPECT_EQ(s_n_copies, n) << ctx;
+    EXPECT_EQ(s_n_copies, n);
     s_n_copies = 0;
   };
 
-  const auto keys_check_set = [](const auto& vals, const vector<string>& exp, const string& ctx)
+  const auto keys_check_set = [](const auto& vals, const vector<string>& exp)
   {
-    ASSERT_EQ(vals.size(), exp.size()) << ctx;
-    ASSERT_EQ(vals.size() == 0, vals.empty()) << ctx;
+    ASSERT_EQ(vals.size(), exp.size());
+    ASSERT_EQ(vals.size() == 0, vals.empty());
     size_t idx = 0;
     for (const auto& val : vals)
     {
-      EXPECT_EQ(val.m_str, exp[idx]) << ctx;
+      EXPECT_EQ(val.m_str, exp[idx]);
       ++idx;
     }
     for (auto rit = vals.crbegin(); rit != vals.crend(); ++rit)
     {
       --idx;
-      EXPECT_EQ(rit->m_str, exp[idx]) << ctx;
+      EXPECT_EQ(rit->m_str, exp[idx]);
     }
   };
 
-  const auto keys_check_map = [](const auto& vals, const vector<string>& exp, const string& ctx)
+  const auto keys_check_map = [](const auto& vals, const vector<string>& exp)
   {
-    ASSERT_EQ(vals.size(), exp.size()) << ctx;
-    ASSERT_EQ(vals.size() == 0, vals.empty()) << ctx;
+    ASSERT_EQ(vals.size(), exp.size());
+    ASSERT_EQ(vals.size() == 0, vals.empty());
     size_t idx = 0;
     for (const auto& val : vals)
     {
-      EXPECT_EQ(val.first, exp[idx]) << ctx;
+      EXPECT_EQ(val.first, exp[idx]);
       ++idx;
     }
     for (auto rit = vals.crbegin(); rit != vals.crend(); ++rit)
     {
       --idx;
-      EXPECT_EQ(rit->first, exp[idx]) << ctx;
+      EXPECT_EQ(rit->first, exp[idx]);
     }
   };
 
-  const auto vals_check_map = [](const auto& vals, const vector<string>& exp, const string& ctx)
+  const auto vals_check_map = [](const auto& vals, const vector<string>& exp)
   {
-    ASSERT_EQ(vals.size(), exp.size()) << ctx;
+    ASSERT_EQ(vals.size(), exp.size());
     size_t idx = 0;
     for (const auto& val : vals)
     {
-      EXPECT_EQ(val.second.m_str, exp[idx]) << ctx;
+      EXPECT_EQ(val.second.m_str, exp[idx]);
       ++idx;
     }
     for (auto rit = vals.crbegin(); rit != vals.crend(); ++rit)
     {
       --idx;
-      EXPECT_EQ(rit->second.m_str, exp[idx]) << ctx;
+      EXPECT_EQ(rit->second.m_str, exp[idx]);
     }
   };
 
@@ -123,36 +121,36 @@ TEST(Linked_hash, Interface)
 
     s_n_copies = 0;
     map1.insert(Map::Value_movable{"b", "X"});
-    n_copies_check(0, CTX); // Move-cting .insert() should be chosen => no Obj{"X"} copy.
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // Move-cting .insert() should be chosen => no Obj{"X"} copy.
 
     map1["a"] = "A"; // Becomes newest (first) because inserted.
     /* Inserting operator[] should internally avoid copying even the default-cted Obj{}.
      * Then the assignment to the Obj& should also be move-assignment of Obj{"A"} temporary (sanity-check of Obj code;
      * not really checking anything inside Linked_hash_map).
      * Anyway no copies => counter should be 0. */
-    n_copies_check(0, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
 
     map1["b"] = "B"; // Does not become newest (first) because already present (but mapped-value is replaced, X->B).
-    n_copies_check(0, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
 
     Map map2{{ { "a", "A" }, { "b", "B" } }};
 
-    keys_check_map(map1, { "a", "b" }, CTX);
-    vals_check_map(map1, { "A", "B" }, CTX);
-    keys_check_map(map2, { "a", "b" }, CTX);
-    vals_check_map(map2, { "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { "A", "B" }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map2, { "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map2, { "A", "B" }); }
 
     Map::Value_movable val_pair1{"c", "C"};
     Map::Value val_pair2{"d", "D"};
     s_n_copies = 0;
     map2.insert(std::move(val_pair1));
-    n_copies_check(0, CTX); // "C" should not be copied b/c move() -- .insert(&&) should be chosen.
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // "C" should not be copied b/c move() -- .insert(&&) should be chosen.
     EXPECT_EQ(val_pair1.first, ""); // String key got destroyed too via move.
     EXPECT_EQ(val_pair1.second.m_str, "");
     map2.insert(val_pair2);
-    n_copies_check(1, CTX); // "D" should be copied b/c no move() -- .insert(const&) should be chosen.
-    keys_check_map(map2, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map2, { "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(1); } // "D" should be copied b/c no move() -- .insert(const&) should be chosen.
+    { FLOW_TEST_TRACE(); keys_check_map(map2, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map2, { "D", "C", "A", "B" }); }
     EXPECT_EQ(val_pair2.first, "d"); // String key got destroyed too via move.
     EXPECT_EQ(val_pair2.second.m_str, "D");
 
@@ -174,61 +172,63 @@ TEST(Linked_hash, Interface)
 
     s_n_copies = 0;
     swap(map1, map2);
-    n_copies_check(0, CTX); // Not a single copy of `Obj`s.  @todo Somehow ensure other stuff (`string`s?) not copied?
-    keys_check_map(map1, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map1, { "D", "C", "A", "B" }, CTX);
-    keys_check_map(map2, { "a", "b" }, CTX);
-    vals_check_map(map2, { "A", "B" }, CTX);
+    // Not a single copy of `Obj`s.  @todo Somehow ensure other stuff (`string`s?) not copied?
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { "D", "C", "A", "B" }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map2, { "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map2, { "A", "B" }); }
 
     s_n_copies = 0;
     map2 = map1;
-    n_copies_check(4, CTX); // All `Obj`s did get copied.  @todo Could also check post-copy independence of map1 vs map2.
-    keys_check_map(map1, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map1, { "D", "C", "A", "B" }, CTX);
-    keys_check_map(map2, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map2, { "D", "C", "A", "B" }, CTX);
+    // All `Obj`s did get copied.  @todo Could also check post-copy independence of map1 vs map2.
+    { FLOW_TEST_TRACE(); n_copies_check(4); }
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { "D", "C", "A", "B" }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map2, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map2, { "D", "C", "A", "B" }); }
 
     s_n_copies = 0;
     map1 = std::move(map2);
-    n_copies_check(0, CTX); // Nothing should be copied.
-    keys_check_map(map1, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map1, { "D", "C", "A", "B" }, CTX);
-    keys_check_map(map2, { }, CTX);
-    vals_check_map(map2, { }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // Nothing should be copied.
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { "D", "C", "A", "B" }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map2, { }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map2, { }); }
 
     // Same deal but construct instead of assigning.
 
     s_n_copies = 0;
     const auto map4 = map1;
-    n_copies_check(4, CTX);
-    keys_check_map(map1, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map1, { "D", "C", "A", "B" }, CTX);
-    keys_check_map(map4, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map4, { "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(4); }
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { "D", "C", "A", "B" }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map4, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map4, { "D", "C", "A", "B" }); }
 
     s_n_copies = 0;
     const auto map5 = std::move(map1);
-    n_copies_check(0, CTX);
-    keys_check_map(map1, { }, CTX);
-    vals_check_map(map1, { }, CTX);
-    keys_check_map(map5, { "d", "c", "a", "b" }, CTX);
-    vals_check_map(map5, { "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
+    { FLOW_TEST_TRACE(); keys_check_map(map1, { }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map1, { }); }
+    { FLOW_TEST_TRACE(); keys_check_map(map5, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map5, { "D", "C", "A", "B" }); }
 
     auto map6 = std::move(map5);
     auto ret = map6.insert(Map::Value{"e", "E"});
     EXPECT_TRUE(ret.second);
-    keys_check_map(map6, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map6, { "E", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map6, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map6, { "E", "D", "C", "A", "B" }); }
     ret.first->second = "X"; // Note: ret.first is iterator; ret.first->first is key (which is const).
-    keys_check_map(map6, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map6, { "X", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map6, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map6, { "X", "D", "C", "A", "B" }); }
     ret = map6.insert(Map::Value{"e", "E"});
     EXPECT_FALSE(ret.second);
-    keys_check_map(map6, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map6, { "X", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map6, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map6, { "X", "D", "C", "A", "B" }); }
     ret.first->second = "E";
-    keys_check_map(map6, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map6, { "E", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map6, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map6, { "E", "D", "C", "A", "B" }); }
 
     /* @todo Repeat, tediously, the insert() tests as on map6 above, but with the copying-insert instead of moving-insert.
      * We did already test copying-insert, and the fact that it in facts inserts and moves, but we haven't tested its
@@ -267,29 +267,29 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(it4->second, "E");
     EXPECT_EQ(it4, map10.const_newest());
     it4->second = "Z";
-    keys_check_map(map10, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "Z", "D", "X", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "Z", "D", "X", "A", "B" }); }
     it4 = --map10.end();
     EXPECT_EQ(it4->first, "b");
     EXPECT_EQ(it4->second, "B");
     EXPECT_EQ(it4, --map10.past_oldest());
     EXPECT_EQ(it4, --map10.const_past_oldest());
     it4->second = "Y";
-    keys_check_map(map10, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "Z", "D", "X", "A", "Y" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "Z", "D", "X", "A", "Y" }); }
 
     // Note: reverse-iterator accessors are tested OK in *_check_map().  @todo Test the non-const varieties also though.
 
     EXPECT_FALSE(map10.touch("x"));
     EXPECT_TRUE(map10.touch("a"));
-    keys_check_map(map10, { "a", "e", "d", "c", "b" }, CTX);
-    vals_check_map(map10, { "A", "Z", "D", "X", "Y" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "a", "e", "d", "c", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "A", "Z", "D", "X", "Y" }); }
     map10.touch(map10.find("b"));
-    keys_check_map(map10, { "b", "a", "e", "d", "c" }, CTX);
-    vals_check_map(map10, { "Y", "A", "Z", "D", "X" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "b", "a", "e", "d", "c" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "Y", "A", "Z", "D", "X" }); }
     map10.touch(map10.find("b"));
-    keys_check_map(map10, { "b", "a", "e", "d", "c" }, CTX);
-    vals_check_map(map10, { "Y", "A", "Z", "D", "X" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "b", "a", "e", "d", "c" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "Y", "A", "Z", "D", "X" }); }
 
     EXPECT_EQ(map10.erase("x"), size_t(0));
     EXPECT_EQ(map10.erase("c"), size_t(1));
@@ -298,31 +298,31 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(map10.erase("a"), size_t(0));
     EXPECT_EQ(map10.erase("b"), size_t(1));
     EXPECT_EQ(map10.erase("b"), size_t(0));
-    keys_check_map(map10, { "e", "d" }, CTX);
-    vals_check_map(map10, { "Z", "D" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "Z", "D" }); }
     map10.clear();
-    keys_check_map(map10, { }, CTX);
-    vals_check_map(map10, { }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { }); }
     map10 = map7;
-    keys_check_map(map10, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "E", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "E", "D", "C", "A", "B" }); }
     auto it5 = map10.erase(map10.begin(), map10.find("c"));
-    keys_check_map(map10, { "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "C", "A", "B" }); }
     EXPECT_EQ(it5, map10.begin());
     map10 = map7;
-    keys_check_map(map10, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "E", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "E", "D", "C", "A", "B" }); }
     it5 = map10.erase(map10.find("c"), map10.end());
-    keys_check_map(map10, { "e", "d" }, CTX);
-    vals_check_map(map10, { "E", "D" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "E", "D" }); }
     EXPECT_EQ(it5, map10.end());
     map10 = map7;
-    keys_check_map(map10, { "e", "d", "c", "a", "b" }, CTX);
-    vals_check_map(map10, { "E", "D", "C", "A", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "E", "D", "C", "A", "B" }); }
     it5 = map10.erase(map10.find("d"), map10.find("b"));
-    keys_check_map(map10, { "e", "b" }, CTX);
-    vals_check_map(map10, { "E", "B" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_map(map10, { "e", "b" }); }
+    { FLOW_TEST_TRACE(); vals_check_map(map10, { "E", "B" }); }
     EXPECT_EQ(it5, --map10.end());
     EXPECT_EQ(it5->first, "b");
     EXPECT_EQ(it5->second, "B");
@@ -346,68 +346,70 @@ TEST(Linked_hash, Interface)
 
     s_n_copies = 0;
     set1.insert("b");
-    n_copies_check(0, CTX); // Move-cting .insert() should be chosen => no Obj{"b"} copy.
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // Move-cting .insert() should be chosen => no Obj{"b"} copy.
 
     set1.insert(Obj{"a"}); // Becomes newest (first) because inserted.
-    n_copies_check(0, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
 
     Set set2{{ "a", "b" }};
 
-    keys_check_set(set1, { "a", "b" }, CTX);
-    keys_check_set(set2, { "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { "a", "b" }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set2, { "a", "b" }); }
 
     Obj val1{"c"};
     Obj val2{"d"};
     s_n_copies = 0;
     set2.insert(std::move(val1));
-    n_copies_check(0, CTX); // "c" should not be copied b/c move() -- .insert(&&) should be chosen.
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // "c" should not be copied b/c move() -- .insert(&&) should be chosen.
     EXPECT_EQ(val1.m_str, ""); // String key got destroyed too via move.
     set2.insert(val2);
-    n_copies_check(1, CTX); // "d" should be copied b/c no move() -- .insert(const&) should be chosen.
-    keys_check_set(set2, { "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(1); } // "d" should be copied b/c no move() -- .insert(const&) should be chosen.
+    { FLOW_TEST_TRACE(); keys_check_set(set2, { "d", "c", "a", "b" }); }
     EXPECT_EQ(val2.m_str, "d"); // String key got destroyed too via move.
 
     s_n_copies = 0;
     swap(set1, set2);
-    n_copies_check(0, CTX); // Not a single copy of `Obj`s.  @todo Somehow ensure other stuff (`string`s?) not copied?
-    keys_check_set(set1, { "d", "c", "a", "b" }, CTX);
-    keys_check_set(set2, { "a", "b" }, CTX);
+    // Not a single copy of `Obj`s.  @todo Somehow ensure other stuff (`string`s?) not copied?
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set2, { "a", "b" }); }
 
     s_n_copies = 0;
     set2 = set1;
-    n_copies_check(4, CTX); // All `Obj`s did get copied.  @todo Could also check post-copy independence of set1 vs set2.
-    keys_check_set(set1, { "d", "c", "a", "b" }, CTX);
-    keys_check_set(set2, { "d", "c", "a", "b" }, CTX);
+    // All `Obj`s did get copied.  @todo Could also check post-copy independence of set1 vs set2.
+    { FLOW_TEST_TRACE(); n_copies_check(4); }
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set2, { "d", "c", "a", "b" }); }
 
     s_n_copies = 0;
     set1 = std::move(set2);
-    n_copies_check(0, CTX); // Nothing should be copied.
-    keys_check_set(set1, { "d", "c", "a", "b" }, CTX);
-    keys_check_set(set2, { }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); } // Nothing should be copied.
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set2, { }); }
 
     // Same deal but construct instead of assigning.
 
     s_n_copies = 0;
     const auto set4 = set1;
-    n_copies_check(4, CTX);
-    keys_check_set(set1, { "d", "c", "a", "b" }, CTX);
-    keys_check_set(set4, { "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(4); }
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { "d", "c", "a", "b" }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set4, { "d", "c", "a", "b" }); }
 
     s_n_copies = 0;
     const auto set5 = std::move(set1);
-    n_copies_check(0, CTX);
-    keys_check_set(set1, { }, CTX);
-    keys_check_set(set5, { "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); n_copies_check(0); }
+    { FLOW_TEST_TRACE(); keys_check_set(set1, { }); }
+    { FLOW_TEST_TRACE(); keys_check_set(set5, { "d", "c", "a", "b" }); }
 
     auto set6 = std::move(set5);
     auto ret = set6.insert("e");
     EXPECT_TRUE(ret.second);
     EXPECT_EQ(ret.first->m_str, "e");
-    keys_check_set(set6, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set6, { "e", "d", "c", "a", "b" }); }
     ret = set6.insert("e");
     EXPECT_FALSE(ret.second);
     EXPECT_EQ(ret.first->m_str, "e");
-    keys_check_set(set6, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set6, { "e", "d", "c", "a", "b" }); }
 
     /* @todo Repeat, tediously, the insert() tests as on set6 above, but with the copying-insert instead of
      * moving-insert.
@@ -441,22 +443,22 @@ TEST(Linked_hash, Interface)
     auto it4 = set10.begin();
     EXPECT_EQ(it4->m_str, "e");
     EXPECT_EQ(it4, set10.const_newest());
-    keys_check_set(set10, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d", "c", "a", "b" }); }
     it4 = --set10.end();
     EXPECT_EQ(it4->m_str, "b");
     EXPECT_EQ(it4, --set10.past_oldest());
     EXPECT_EQ(it4, --set10.const_past_oldest());
-    keys_check_set(set10, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d", "c", "a", "b" }); }
 
     // Note: reverse-iterator accessors are tested OK in *_check_set().  @todo Test the non-const varieties also though.
 
     EXPECT_FALSE(set10.touch("x"));
     EXPECT_TRUE(set10.touch("a"));
-    keys_check_set(set10, { "a", "e", "d", "c", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "a", "e", "d", "c", "b" }); }
     set10.touch(set10.find("b"));
-    keys_check_set(set10, { "b", "a", "e", "d", "c" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "b", "a", "e", "d", "c" }); }
     set10.touch(set10.find("b"));
-    keys_check_set(set10, { "b", "a", "e", "d", "c" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "b", "a", "e", "d", "c" }); }
 
     EXPECT_EQ(set10.erase("x"), size_t(0));
     EXPECT_EQ(set10.erase("c"), size_t(1));
@@ -465,23 +467,23 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(set10.erase("a"), size_t(0));
     EXPECT_EQ(set10.erase("b"), size_t(1));
     EXPECT_EQ(set10.erase("b"), size_t(0));
-    keys_check_set(set10, { "e", "d" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d" }); }
     set10.clear();
-    keys_check_set(set10, { }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { }); }
     set10 = set7;
-    keys_check_set(set10, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d", "c", "a", "b" }); }
     auto it5 = set10.erase(set10.begin(), set10.find("c"));
-    keys_check_set(set10, { "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "c", "a", "b" }); }
     EXPECT_EQ(it5, set10.begin());
     set10 = set7;
-    keys_check_set(set10, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d", "c", "a", "b" }); }
     it5 = set10.erase(set10.find("c"), set10.end());
-    keys_check_set(set10, { "e", "d" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d" }); }
     EXPECT_EQ(it5, set10.end());
     set10 = set7;
-    keys_check_set(set10, { "e", "d", "c", "a", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "d", "c", "a", "b" }); }
     it5 = set10.erase(set10.find("d"), set10.find("b"));
-    keys_check_set(set10, { "e", "b" }, CTX);
+    { FLOW_TEST_TRACE(); keys_check_set(set10, { "e", "b" }); }
     EXPECT_EQ(it5, --set10.end());
     EXPECT_EQ(it5->m_str, "b");
 
