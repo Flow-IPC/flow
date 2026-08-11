@@ -341,7 +341,7 @@ TEST(Util_this_thread_unique_token, Uniqueness)
      * Also: stream formatting must be restored (42 must not print in hex).  Yes, o_o_s() uses an ostream; the
      * commas become <<es, so to speak, is all. */
     const auto str = ostream_op_string(token, '|', 42);
-    EXPECT_EQ(str.size(), 2 + 8 + 1 + 2);
+    EXPECT_EQ(str.size(), 2u + 8 + 1 + 2);
     EXPECT_EQ(str.rfind("0x", 0), 0u);
     EXPECT_EQ(str.substr(2 + 8), "|42");
     cout << "Token looks like this: [" << token << "].\n" << flush;
