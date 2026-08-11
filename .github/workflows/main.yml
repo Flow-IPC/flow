@@ -32,6 +32,15 @@ on:
     tags:
       - v*
   workflow_dispatch:
+    inputs:
+      job-filter:
+        description: >-
+          If not blank: only jobs whose name contains this substring shall really run (e.g.:
+          "clang-15-relwithdebinfo-asan-cxx17" = 1 cell; "asan" = the ASAN cells; "doc" = the doc job).
+          Others complete ~instantly with all steps skipped.
+        required: false
+        default: ''
+        type: string
 
 jobs:
   # See comments in Flow-IPC workflow counterpart.  We use same techniques.
@@ -391,6 +400,11 @@ jobs:
     name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
 
     env:
+      # Whether this matrix cell shall really run, per the workflow_dispatch job-filter input (blank input, or
+      # non-dispatch trigger: all cells run).  Every step below is gated on this; hence a filtered-out cell
+      # completes green in seconds, all steps skipped.  (Why not one job-level `if`?  The `matrix` context is
+      # unavailable there -- but is available here.  The below mirrors this job's `name`.)
+      cell-selected: ${{ (github.event.inputs.job-filter || '') == '' || contains(format('{0}-{1}-{2}', matrix.compiler.id, matrix.build-test-cfg.id, matrix.cxx-std.id), github.event.inputs.job-filter) }}
       build-dir: ${{ github.workspace }}/build/${{ matrix.build-test-cfg.conan-profile-build-type }}
       install-root-dir: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}
       # (Unfortunately cannot refer to earlier-assigned `env.` entries within subsequent ones.)
@@ -446,11 +460,13 @@ jobs:
 
     steps:
     - name: Update available software list for apt-get
+      if: env.cell-selected == 'true'
       run: sudo apt-get update
 
     - name: Install clang compiler
       if: |
-        matrix.compiler.install && (matrix.compiler.name == 'clang')
+        (env.cell-selected == 'true')
+          && matrix.compiler.install && (matrix.compiler.name == 'clang')
       run: |
         # Install clang compiler.
         wget https://apt.llvm.org/llvm.sh
@@ -459,7 +475,8 @@ jobs:
 
     - name: Install gcc compiler
       if: |
-        matrix.compiler.install && (matrix.compiler.name == 'gcc')
+        (env.cell-selected == 'true')
+          && matrix.compiler.install && (matrix.compiler.name == 'gcc')
       run: |
         # Install gcc compiler.
         sudo apt-get install -y software-properties-common
@@ -473,14 +490,17 @@ jobs:
     # TODO: Upon migrating to Conan 2: also update the Conan-cache steps below -- `path` becomes ~/.conan2/p, and
     # bump the key prefixes (conan-data- -> conan2-data-) so stale Conan-1 caches cannot be restored.
     - name: Install the latest version of Conan which is less than 2
+      if: env.cell-selected == 'true'
       run: pip install 'conan<2'
 
     - name: Checkout `flow` repository
+      if: env.cell-selected == 'true'
       uses: actions/checkout@v6
 
     - name: Add custom settings for Conan packages
       if: |
-        matrix.build-test-cfg.conan-custom-settings-defs
+        (env.cell-selected == 'true')
+          && matrix.build-test-cfg.conan-custom-settings-defs
       run: |
         # Add custom settings for Conan packages.
         conan config init
@@ -500,6 +520,7 @@ jobs:
         "
 
     - name: Create Conan profile
+      if: env.cell-selected == 'true'
       run: |
         # Create Conan profile.
         cat <<'EOF' > conan_profile
@@ -541,6 +562,7 @@ jobs:
     # restore/save split (rather than one `actions/cache` step) with the save placed just after the dep-install
     # step. Therefore even a run whose later steps fail still primes the cache for subsequent runs.
     - name: Restore Conan package cache
+      if: env.cell-selected == 'true'
       id: conan-cache-restore
       uses: actions/cache/restore@v4
       with:
@@ -550,6 +572,7 @@ jobs:
           conan-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-
 
     - name: Install Flow dependencies with Conan using the profile
+      if: env.cell-selected == 'true'
       run: |
         # Install Flow dependencies with Conan using the profile.
         ${{ env.setup-run-env }}
@@ -583,13 +606,16 @@ jobs:
     # (See comment atop the Restore counterpart above.)  Skipped on an exact-key restore: the cache would be
     # bit-identical to what is already stored.
     - name: Save Conan package cache
-      if: steps.conan-cache-restore.outputs.cache-hit != 'true'
+      if: |
+        (env.cell-selected == 'true')
+          && (steps.conan-cache-restore.outputs.cache-hit != 'true')
       uses: actions/cache/save@v4
       with:
         path: ~/.conan/data
         key: ${{ steps.conan-cache-restore.outputs.cache-primary-key }}
 
     - name: Build library and demos/tests with Conan
+      if: env.cell-selected == 'true'
       run: |
         # Build libraries and demos/tests with Conan.
         ${{ env.setup-run-env }}
@@ -597,6 +623,7 @@ jobs:
         $BUILT_CMD_PREFIX conan build .
 
     - name: Install built targets with Makefile
+      if: env.cell-selected == 'true'
       run: |
         make install \
           --directory ${{ env.build-dir }} DESTDIR=${{ env.install-root-dir }}
@@ -615,7 +642,8 @@ jobs:
 
     - name: Run test/demo [NetFlow echo]
       if: |
-        !cancelled()
+        (env.cell-selected == 'true')
+          && (!cancelled())
       run: |
         # Run test/demo [NetFlow echo].
         cd ${{ env.install-dir }}/bin
@@ -642,7 +670,8 @@ jobs:
 
     - name: Run unit tests
       if: |
-        !cancelled()
+        (env.cell-selected == 'true')
+          && (!cancelled())
       run: |
         # Run unit tests.
         cd ${{ env.install-dir }}/bin
@@ -670,7 +699,8 @@ jobs:
 
     - name: Check test/demo logs for non-fatal sanitizer error(s)
       if: |
-        (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
+        (env.cell-selected == 'true')
+          && (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
       run: |
         # Check test/demo logs for non-fatal sanitizer error(s)
         cd ${{ env.install-dir }}/bin/logs
@@ -691,7 +721,8 @@ jobs:
 
     - name: Package test/demo logs tarball
       if: |
-        always()
+        (env.cell-selected == 'true')
+          && always()
       run: |
         # Package test/demo logs tarball.
         cd ${{ env.install-dir }}/bin
@@ -700,7 +731,8 @@ jobs:
 
     - name: Upload test/demo logs (please inspect if failure(s) seen above)
       if: |
-        always()
+        (env.cell-selected == 'true')
+          && always()
       uses: actions/upload-artifact@v7
       with:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
@@ -708,8 +740,12 @@ jobs:
 
   doc-and-release:
     needs: [setup, set-vars]
+    # Re. job-filter: this job's matrix has exactly 1 cell, so we can just use its (constant) name directly --
+    # and at job level, unlike in build-and-test.  (Keep the literal in sync with `name` below.)
     if: |
-      needs.setup.outputs.proceed-else-not == 'true'
+      (needs.setup.outputs.proceed-else-not == 'true')
+        && (((github.event.inputs.job-filter || '') == '')
+            || contains('doc-clang-15-release', github.event.inputs.job-filter))
 
     strategy:
       fail-fast: false
