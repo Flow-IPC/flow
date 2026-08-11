@@ -564,7 +564,7 @@ jobs:
     - name: Restore Conan package cache
       if: env.cell-selected == 'true'
       id: conan-cache-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v6
       with:
         path: ~/.conan/data
         key: conan-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-${{ hashFiles('conan_profile', 'conanfile.py') }}
@@ -613,7 +613,7 @@ jobs:
       if: |
         (env.cell-selected == 'true')
           && (steps.conan-cache-restore.outputs.cache-hit != 'true')
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v6
       with:
         path: ~/.conan/data
         key: ${{ steps.conan-cache-restore.outputs.cache-primary-key }}
@@ -827,7 +827,7 @@ jobs:
     # build-and-test job.
     - name: Restore Conan package cache
       id: conan-cache-restore
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@v6
       with:
         path: ~/.conan/data
         key: conan-data-doc-${{ hashFiles('conan_profile', 'conanfile.py') }}
@@ -842,7 +842,7 @@ jobs:
 
     - name: Save Conan package cache
       if: steps.conan-cache-restore.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@v6
       with:
         path: ~/.conan/data
         key: ${{ steps.conan-cache-restore.outputs.cache-primary-key }}
