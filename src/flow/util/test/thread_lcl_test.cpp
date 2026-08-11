@@ -588,7 +588,7 @@ TEST(Thread_local_state_registry, While_locked)
   const auto& const_reg = reg;
   const_reg.while_locked([&](const auto& state_per_thread) // (On a const registry, note.)
   {
-    EXPECT_EQ(state_per_thread.size(), 3);
+    EXPECT_EQ(state_per_thread.size(), 3u);
     for (const auto& [state, mdt] : state_per_thread)
     {
       const auto it = owner_by_state.find(state);
@@ -611,14 +611,14 @@ TEST(Thread_local_state_registry, While_locked)
 
   // while_locked() is callable from any thread, not only the main/registry-creating one.
   post_wait(&t1, [&]() { reg.while_locked([](const auto& state_per_thread)
-                                            { EXPECT_EQ(state_per_thread.size(), 3); }); });
+                                            { EXPECT_EQ(state_per_thread.size(), 3u); }); });
 
   // The listing tracks thread exits, naturally.
   t1.stop();
   t2.stop();
   reg.while_locked([&](const auto& state_per_thread)
   {
-    ASSERT_EQ(state_per_thread.size(), 1);
+    ASSERT_EQ(state_per_thread.size(), 1u);
     EXPECT_EQ(state_per_thread.begin()->first, s_main);
   });
   EXPECT_EQ(s_n_state_dtors.load(), 2);
@@ -724,7 +724,7 @@ TEST(Polled_shared_state, Pattern)
   // The arming side, per the doc: load the shared state first, arm after, all within registry.while_locked().
   reg.while_locked([&](const auto& state_per_thread)
   {
-    EXPECT_EQ(state_per_thread.size(), 3);
+    EXPECT_EQ(state_per_thread.size(), 3u);
     pss.while_locked([&](set<State*>* threads_to_launch)
     {
       for (const auto& [state, nil] : state_per_thread)
@@ -1359,7 +1359,7 @@ TEST(Thread_local_ptr, Benchmark)
                                 [&, flip = false]() mutable
                                   { boosts.reset(flip ? &payload_a : &payload_b); flip = !flip; });
 
-    EXPECT_NE(sink, 0); // (Also keeps `sink` -- hence the loops -- honest.)
+    EXPECT_NE(sink, 0u); // (Also keeps `sink` -- hence the loops -- honest.)
 
     /* Attn!  If the benchmark checks prove difficult to get a handle on in some environments, FAIL_*_OK -- if used
      * responsibly (*not* to avoid having to deal with potential real T_l_p perf flaws) -- are at our disposal.

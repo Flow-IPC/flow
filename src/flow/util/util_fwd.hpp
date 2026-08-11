@@ -90,7 +90,7 @@ template<typename Tag, typename... Args>
 class Action_registry;
 
 class Unique_id_holder;
-class Thread_token;
+struct Thread_token;
 
 /**
  * Short-hand for standard thread class.

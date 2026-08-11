@@ -73,7 +73,7 @@ TEST(Stats_histogram_counter_test, Interface)
     EXPECT_DEATH((Histogram_counter{1, 1}), "n_buckets > 1");
     { // Check the count_for_bucket() bad-arg real-quick too.
       Histogram_counter histo{2, 1, 1, 0};
-      EXPECT_EQ(histo.size(), 2);
+      EXPECT_EQ(histo.size(), 2u);
       EXPECT_DEATH(histo.count_for_bucket(2), "idx < size\\(\\)");
       EXPECT_DEATH(histo.count_for_bucket(20000), "idx < size\\(\\)");
       [[maybe_unused]] auto ct = histo.count_for_bucket(0);
@@ -81,7 +81,7 @@ TEST(Stats_histogram_counter_test, Interface)
     }
     { // Same w/ default args.
       Histogram_counter histo{2, 1};
-      EXPECT_EQ(histo.size(), 2);
+      EXPECT_EQ(histo.size(), 2u);
       EXPECT_DEATH(histo.count_for_bucket(2), "idx < size\\(\\)");
       EXPECT_DEATH(histo.count_for_bucket(20000), "idx < size\\(\\)");
       [[maybe_unused]] auto ct = histo.count_for_bucket(0);
@@ -448,7 +448,7 @@ TEST(Stats_histogram_counter_test, General_scale)
 {
   // Buckets: <(-inf)..-14|-13..-7|-6..0|1..17|18..27|28..29|30..128|129..135|136..143|144..149+(inf)>
   Histogram_counter h{{-15, -13, -6, 1, 18, 28, 30, 129, 136, 144}, 6};
-  EXPECT_EQ(h.size(), 10);
+  EXPECT_EQ(h.size(), 10u);
   EXPECT_EQ(load_counts(h), (Counts{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
 
   // Bucket-0 = its range plus all underflow.
@@ -504,10 +504,10 @@ TEST(Stats_histogram_counter_test, Aux_interface)
   EXPECT_EQ(load_counts(h_copy), load_counts(h));
   Histogram_counter h_assigned{2, 1}; // Different structure entirely; assignment replaces it wholesale.
   h_assigned = h;
-  EXPECT_EQ(h_assigned.size(), 6);
+  EXPECT_EQ(h_assigned.size(), 6u);
   EXPECT_EQ(load_counts(h_assigned), load_counts(h));
   h_copy.record_value(3);
-  EXPECT_EQ(h.count_for_bucket(2), 0); // Original unaffected.
+  EXPECT_EQ(h.count_for_bucket(2), 0u); // Original unaffected.
 
   // operator-=: per-bucket subtraction (the stats_since_reset_state() workhorse).
   Histogram_counter h_base{6, 1, 1, 1};
@@ -521,9 +521,9 @@ TEST(Stats_histogram_counter_test, Aux_interface)
   EXPECT_EQ(load_counts(h), (Counts{1, 1, 42, 0, 0, 0}));
 
   // count_for_bucket_containing_outcome(): the value-indexed read of the same counts.
-  EXPECT_EQ(h.count_for_bucket_containing_outcome(3), 42);
-  EXPECT_EQ(h.count_for_bucket_containing_outcome(-50), 1); // Underflow => bucket 0.
-  EXPECT_EQ(h.count_for_bucket_containing_outcome(1000), 0); // Overflow => last bucket.
+  EXPECT_EQ(h.count_for_bucket_containing_outcome(3), 42u);
+  EXPECT_EQ(h.count_for_bucket_containing_outcome(-50), 1u); // Underflow => bucket 0.
+  EXPECT_EQ(h.count_for_bucket_containing_outcome(1000), 0u); // Overflow => last bucket.
 
   // record_period(): converts (rounding to nearest) to the histogram's declared time-unit, then records.
   Histogram_counter ht{4, 100, 100, 0}; // Millisecond-scale: <..99|100..199|200..299|300..>.
@@ -753,7 +753,7 @@ TEST(Stats_stat_set_test, Reset_and_assign)
   // stats_assign() first (while `a` is interesting): everything copies, element-wise.
   Atomic_stats b{{}};
   stats_assign(&b, a);
-  EXPECT_EQ(load(b.m_acc), 7);
+  EXPECT_EQ(load(b.m_acc), 7u);
   EXPECT_EQ(load(b.m_gauge), 3);
   EXPECT_EQ(load(b.m_hwm), 12);
   EXPECT_EQ(load_counts(b.m_histo), (Counts{0, 1, 0, 0, 0, 0}));
@@ -766,7 +766,7 @@ TEST(Stats_stat_set_test, Reset_and_assign)
   store(&fresh.m_acc, 100); // Nonzero fresh ACC: legal, copied.
   fresh.m_histo.record_value(5); // Bait: must be ignored.
   stats_reset(&a, fresh);
-  EXPECT_EQ(load(a.m_acc), 100);
+  EXPECT_EQ(load(a.m_acc), 100u);
   EXPECT_EQ(load(a.m_gauge), 3);
   EXPECT_EQ(load(a.m_hwm), 3); // Decreased from 12: correct (max-since-reset, and the reset is now).
   EXPECT_EQ(load_counts(a.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
@@ -796,7 +796,7 @@ TEST(Stats_stat_set_test, Aggregate_and_sum)
     Atomic_stats t{{}};
     stats_assign(&t, s1);
     stats_aggregate_one(&t, s2);
-    EXPECT_EQ(load(t.m_acc), 40);
+    EXPECT_EQ(load(t.m_acc), 40u);
     EXPECT_EQ(load(t.m_gauge), 12);
     EXPECT_EQ(load(t.m_hwm), 9);
     EXPECT_EQ(load_counts(t.m_histo), (Counts{1, 1, 0, 1, 0, 0}));
@@ -804,7 +804,7 @@ TEST(Stats_stat_set_test, Aggregate_and_sum)
   { // stats_aggregate(): as above across the range -- then GAUGE /= n: the mean.
     Atomic_stats t{{}};
     stats_aggregate(&t, srcs.begin(), srcs.end());
-    EXPECT_EQ(load(t.m_acc), 40);
+    EXPECT_EQ(load(t.m_acc), 40u);
     EXPECT_EQ(load(t.m_gauge), 6); // (4 + 8) / 2.
     EXPECT_EQ(load(t.m_hwm), 9);
     EXPECT_EQ(load_counts(t.m_histo), (Counts{1, 1, 0, 1, 0, 0}));
@@ -812,14 +812,14 @@ TEST(Stats_stat_set_test, Aggregate_and_sum)
   { // stats_aggregate() over a 1-element range: assign + the (here-trivial) /= 1.
     Atomic_stats t{{}};
     stats_aggregate(&t, srcs.begin(), std::next(srcs.begin()));
-    EXPECT_EQ(load(t.m_acc), 10);
+    EXPECT_EQ(load(t.m_acc), 10u);
     EXPECT_EQ(load(t.m_gauge), 4);
     EXPECT_EQ(load(t.m_hwm), 9);
   }
   { // stats_sum(): += for *everything* -- notably the HWMs too (peers' maxima add, not max).
     Atomic_stats t{{}};
     stats_sum(&t, srcs.begin(), srcs.end());
-    EXPECT_EQ(load(t.m_acc), 40);
+    EXPECT_EQ(load(t.m_acc), 40u);
     EXPECT_EQ(load(t.m_gauge), 12);
     EXPECT_EQ(load(t.m_hwm), 14); // 9 + 5: the sum/aggregate distinction, asserted exactly.
     EXPECT_EQ(load_counts(t.m_histo), (Counts{1, 1, 0, 1, 0, 0}));
@@ -847,12 +847,12 @@ TEST(Stats_stat_set_test, Aggregate_shards)
   s2.m_histo.record_value(2);
   s2.m_histo.record_value(4);
 
-  ASSERT_EQ(agg.m_acc, 0); ASSERT_EQ(agg.m_gauge, 0); ASSERT_EQ(agg.m_hwm, 0);
+  ASSERT_EQ(agg.m_acc, 0u); ASSERT_EQ(agg.m_gauge, 0); ASSERT_EQ(agg.m_hwm, 0);
   ASSERT_EQ(load_counts(agg.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
 
   stats_aggregate_shards<Atomic_stats>(&agg, shards.begin(), shards.end(), nullptr);
   cout << "\n[" << print(s1) << "]\n +\n[" << print(s2) << "]\n =>\n[" << print(agg) << "].\nHWM init-set.\n" << flush;
-  EXPECT_EQ(agg.m_acc, 56) << "ACC summed."; EXPECT_EQ(agg.m_gauge, 5) << "GAUGE also summed (shards)";
+  EXPECT_EQ(agg.m_acc, 56u) << "ACC summed."; EXPECT_EQ(agg.m_gauge, 5) << "GAUGE also summed (shards)";
   EXPECT_EQ(agg.m_hwm, 5) << "HWM<GAUGE, prev value 0, now 5.";
   EXPECT_EQ(load_counts(agg.m_histo), (Counts{1, 1, 0, 2, 0, 0})) << "HISTO also summed.";
 
@@ -866,7 +866,7 @@ TEST(Stats_stat_set_test, Aggregate_shards)
   s2.m_histo.record_value(4);
 
   stats_aggregate_shards<Atomic_stats>(&agg, shards.begin(), shards.end(), nullptr);
-  EXPECT_EQ(agg.m_acc, 54) << "ACC re-summed."; EXPECT_EQ(agg.m_gauge, 3) << "GAUGE also re-summed (shards)";
+  EXPECT_EQ(agg.m_acc, 54u) << "ACC re-summed."; EXPECT_EQ(agg.m_gauge, 3) << "GAUGE also re-summed (shards)";
   EXPECT_EQ(agg.m_hwm, 5) << "HWM>=GAUGE, prev value 5, stays 5.";
   EXPECT_EQ(load_counts(agg.m_histo), (Counts{2, 2, 0, 4, 0, 0})) << "HISTO inc-ed; also re-summed.";
 
@@ -880,7 +880,7 @@ TEST(Stats_stat_set_test, Aggregate_shards)
   s2.m_histo.record_value(4);
 
   stats_aggregate_shards<Atomic_stats>(&agg, shards.begin(), shards.end(), nullptr);
-  EXPECT_EQ(agg.m_acc, 54) << "ACC re-re-summed."; EXPECT_EQ(agg.m_gauge, 7) << "GAUGE also re-re-summed (shards)";
+  EXPECT_EQ(agg.m_acc, 54u) << "ACC re-re-summed."; EXPECT_EQ(agg.m_gauge, 7) << "GAUGE also re-re-summed (shards)";
   EXPECT_EQ(agg.m_hwm, 7) << "HWM<GAUGE, prev value 5, now 7.";
   EXPECT_EQ(load_counts(agg.m_histo), (Counts{2, 4, 0, 6, 0, 0})) << "HISTO re-inc-ed; also re-re-summed.";
 
@@ -892,7 +892,7 @@ TEST(Stats_stat_set_test, Aggregate_shards)
   store(&s1.m_gauge, -3);
   stats_reset_shard_aggregate(&agg, shards.begin(), shards.end(), Atomic_stats{{}});
   cout << "\n[" << print(s1) << "]\n +\n[" << print(s2) << "]\n =>\n[" << print(agg) << "].\nDid reset.\n" << flush;
-  EXPECT_EQ(s1.m_acc, 0); EXPECT_EQ(s2.m_acc, 0);
+  EXPECT_EQ(s1.m_acc, 0u); EXPECT_EQ(s2.m_acc, 0u);
   EXPECT_EQ(load_counts(s1.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
   EXPECT_EQ(load_counts(s2.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
   EXPECT_EQ(s1.m_gauge, -3); EXPECT_EQ(s2.m_gauge, 9);
@@ -901,7 +901,7 @@ TEST(Stats_stat_set_test, Aggregate_shards)
 
   // And the consume after the reset: everything fresh, gauges live on.
   stats_aggregate_shards<Atomic_stats>(&agg, shards.begin(), shards.end(), nullptr);
-  EXPECT_EQ(agg.m_acc, 0);
+  EXPECT_EQ(agg.m_acc, 0u);
   EXPECT_EQ(agg.m_gauge, 6);
   EXPECT_EQ(agg.m_hwm, 6);
   EXPECT_EQ(load_counts(agg.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
@@ -920,7 +920,7 @@ TEST(Stats_stat_set_test, Aggregate_shards)
   store(&t.m_hwm, 100);
   t.m_histo.record_value(1);
   stats_aggregate_shards<Atomic_stats>(&t, shards.end(), shards.end(), &fresh);
-  EXPECT_EQ(t.m_acc, 5);
+  EXPECT_EQ(t.m_acc, 5u);
   EXPECT_EQ(t.m_gauge, 2);
   EXPECT_EQ(t.m_hwm, 100) << "Prior HWM higher than gauge: persists.";
   EXPECT_EQ(load_counts(t.m_histo), (Counts{0, 0, 0, 0, 0, 0}));
@@ -954,12 +954,12 @@ TEST(Stats_stat_set_test, Since_reset_state)
     tgt.m_histo.overwrite_count_for_bucket(2, 22);
     tgt.m_histo.overwrite_count_for_bucket(4, 33);
     stats_since_reset_state(&tgt, &rst);
-    EXPECT_EQ(load(tgt.m_acc), 50);
+    EXPECT_EQ(load(tgt.m_acc), 50u);
     EXPECT_EQ(load(tgt.m_gauge), 150);
     EXPECT_EQ(load(tgt.m_hwm), 150);
     EXPECT_EQ(load_counts(tgt.m_histo), (Counts{11, 0, 22, 0, 33, 0}));
     EXPECT_EQ(load(rst.m_hwm), 150);
-    EXPECT_EQ(load(rst.m_acc), 0); // The baseline is caller-managed; untouched.
+    EXPECT_EQ(load(rst.m_acc), 0u); // The baseline is caller-managed; untouched.
   }
   { // Consume 2: higher gauge => HWM rises (and sticks in the induction).
     Atomic_stats tgt{{}};
@@ -991,7 +991,7 @@ TEST(Stats_stat_set_test, Since_reset_state)
   rst.m_histo.overwrite_count_for_bucket(4, 36);
   stats_mark_reset_state(&rst);
   EXPECT_EQ(load(rst.m_hwm), 101) << "mark: HWM := own gauge; nothing else touched.";
-  EXPECT_EQ(load(rst.m_acc), 56);
+  EXPECT_EQ(load(rst.m_acc), 56u);
 
   { // Consume 4: ACCs (including histogram) now relative to the baseline; HWM inducts from the mark.
     Atomic_stats tgt{{}};
@@ -1002,7 +1002,7 @@ TEST(Stats_stat_set_test, Since_reset_state)
     tgt.m_histo.overwrite_count_for_bucket(2, 25);
     tgt.m_histo.overwrite_count_for_bucket(4, 39);
     stats_since_reset_state(&tgt, &rst);
-    EXPECT_EQ(load(tgt.m_acc), 3); // 59 - 56.
+    EXPECT_EQ(load(tgt.m_acc), 3u); // 59 - 56.
     EXPECT_EQ(load(tgt.m_gauge), 100);
     EXPECT_EQ(load(tgt.m_hwm), 101) << "Marked-at gauge still the max.";
     EXPECT_EQ(load_counts(tgt.m_histo), (Counts{6, 0, 0, 0, 3, 0})); // Per-bucket minus baseline.
@@ -1017,7 +1017,7 @@ TEST(Stats_stat_set_test, Since_reset_state)
     tgt.m_histo.overwrite_count_for_bucket(2, 26);
     tgt.m_histo.overwrite_count_for_bucket(4, 39);
     stats_since_reset_state(&tgt, &rst);
-    EXPECT_EQ(load(tgt.m_acc), 3);
+    EXPECT_EQ(load(tgt.m_acc), 3u);
     EXPECT_EQ(load(tgt.m_hwm), 190);
     EXPECT_EQ(load_counts(tgt.m_histo), (Counts{6, 0, 1, 0, 3, 0}));
     EXPECT_EQ(load(rst.m_hwm), 190);
@@ -1050,9 +1050,9 @@ TEST(Stats_stat_set_test, Plain_members)
   { // assign; aggregate_one.
     Plain_stats t;
     stats_assign(&t, p1);
-    EXPECT_EQ(t.m_acc, 4);
+    EXPECT_EQ(t.m_acc, 4u);
     stats_aggregate_one(&t, p2);
-    EXPECT_EQ(t.m_acc, 10);
+    EXPECT_EQ(t.m_acc, 10u);
     EXPECT_EQ(t.m_gauge, 6);
     EXPECT_EQ(t.m_hwm, 6);
     EXPECT_EQ(load_counts(t.m_histo), (Counts{1, 0, 0, 1}));
@@ -1070,14 +1070,14 @@ TEST(Stats_stat_set_test, Plain_members)
   { // aggregate_shards + reset_shard_aggregate, non-degenerate and empty-range.
     Plain_stats t;
     stats_aggregate_shards<Plain_stats>(&t, srcs.begin(), srcs.end(), nullptr);
-    EXPECT_EQ(t.m_acc, 10);
+    EXPECT_EQ(t.m_acc, 10u);
     EXPECT_EQ(t.m_gauge, 6);
     EXPECT_EQ(t.m_hwm, 6);
     EXPECT_EQ(load_counts(t.m_histo), (Counts{1, 0, 0, 1}));
 
     stats_reset_shard_aggregate(&t, srcs.begin(), srcs.end(), Plain_stats{});
-    EXPECT_EQ(p1.m_acc, 0);
-    EXPECT_EQ(p2.m_acc, 0);
+    EXPECT_EQ(p1.m_acc, 0u);
+    EXPECT_EQ(p2.m_acc, 0u);
     EXPECT_EQ(load_counts(p1.m_histo), (Counts{0, 0, 0, 0}));
     EXPECT_EQ(t.m_gauge, 6);
     EXPECT_EQ(t.m_hwm, 6);
@@ -1088,7 +1088,7 @@ TEST(Stats_stat_set_test, Plain_members)
     Plain_stats t2;
     t2.m_hwm = 8;
     stats_aggregate_shards<Plain_stats>(&t2, srcs.end(), srcs.end(), &fresh);
-    EXPECT_EQ(t2.m_acc, 9);
+    EXPECT_EQ(t2.m_acc, 9u);
     EXPECT_EQ(t2.m_gauge, 5);
     EXPECT_EQ(t2.m_hwm, 8);
     stats_reset_shard_aggregate(&t2, srcs.end(), srcs.end(), fresh);
@@ -1101,7 +1101,7 @@ TEST(Stats_stat_set_test, Plain_members)
     a.m_hwm = 12;
     a.m_histo.record_value(2);
     stats_reset(&a, Plain_stats{});
-    EXPECT_EQ(a.m_acc, 0);
+    EXPECT_EQ(a.m_acc, 0u);
     EXPECT_EQ(a.m_gauge, 3);
     EXPECT_EQ(a.m_hwm, 3);
     EXPECT_EQ(load_counts(a.m_histo), (Counts{0, 0, 0, 0}));
@@ -1113,7 +1113,7 @@ TEST(Stats_stat_set_test, Plain_members)
     tgt.m_histo.record_value(1);
     tgt.m_histo.record_value(1);
     stats_since_reset_state(&tgt, &rst);
-    EXPECT_EQ(tgt.m_acc, 20);
+    EXPECT_EQ(tgt.m_acc, 20u);
     EXPECT_EQ(tgt.m_hwm, 7);
     EXPECT_EQ(load_counts(tgt.m_histo), (Counts{2, 0, 0, 0}));
     EXPECT_EQ(rst.m_hwm, 7);
@@ -1164,12 +1164,12 @@ TEST(Stats_stat_set_test, Composition)
     vector<Compo_stats> srcs{a, b};
     Compo_stats t;
     stats_aggregate(&t, srcs.begin(), srcs.end());
-    EXPECT_EQ(t.m_nested.m_n_events, 6);
-    EXPECT_EQ(t.m_plain_leaf.m_leaf_acc, 12);
+    EXPECT_EQ(t.m_nested.m_n_events, 6u);
+    EXPECT_EQ(t.m_plain_leaf.m_leaf_acc, 12u);
     EXPECT_EQ(t.m_plain_leaf.m_leaf_gauge, 6); // (4 + 8) / 2.
-    EXPECT_EQ(t.m_sub_leaf.m_leaf_acc, 23);
+    EXPECT_EQ(t.m_sub_leaf.m_leaf_acc, 23u);
     EXPECT_EQ(t.m_sub_leaf.m_leaf_gauge, 8); // (6 + 10) / 2.
-    EXPECT_EQ(t.m_direct_acc, 7);
+    EXPECT_EQ(t.m_direct_acc, 7u);
     EXPECT_EQ(t.m_untracked, 7); // Undeclared: untouched -- still its initial value, 42s and 99s notwithstanding.
   }
 } // TEST(Stats_stat_set_test, Composition)
@@ -1182,7 +1182,7 @@ struct Test_tag_two {};
 TEST(Stats_stat_set_list_test, Interface)
 {
   Stat_set_list<Plain_stats, 3> list;
-  EXPECT_EQ(list.S_N, 3);
+  EXPECT_EQ(list.S_N, 3u);
 
   // All accessor forms address the same storage.
   EXPECT_EQ(&list.stats_default(), &list.stats<0>());
@@ -1194,14 +1194,14 @@ TEST(Stats_stat_set_list_test, Interface)
   list.stats_mutable_default().m_acc = 10;
   list.stats_mutable<1>().m_acc = 20;
   list.stats_mutable_at(2).m_acc = 30;
-  EXPECT_EQ(list.stats<0>().m_acc, 10);
-  EXPECT_EQ(list.stats_at(1).m_acc, 20);
-  EXPECT_EQ(list.stats<2>().m_acc, 30);
+  EXPECT_EQ(list.stats<0>().m_acc, 10u);
+  EXPECT_EQ(list.stats_at(1).m_acc, 20u);
+  EXPECT_EQ(list.stats<2>().m_acc, 30u);
 
   // It really is an array: copyable iff Stat_set is; and the copy is independent.
   auto list2 = list;
   list.stats_mutable<1>().m_acc = 21;
-  EXPECT_EQ(list2.stats<1>().m_acc, 20);
+  EXPECT_EQ(list2.stats<1>().m_acc, 20u);
 
   // reset() = stats_reset(&s, {}) per slot: ACCs to fresh-zero, GAUGEs persist, HWMs re-seed to gauges.
   auto& s0 = list.stats_mutable_default();
@@ -1209,8 +1209,8 @@ TEST(Stats_stat_set_list_test, Interface)
   s0.m_hwm = 9;
   s0.m_histo.record_value(2);
   list.reset();
-  EXPECT_EQ(list.stats<0>().m_acc, 0);
-  EXPECT_EQ(list.stats<1>().m_acc, 0);
+  EXPECT_EQ(list.stats<0>().m_acc, 0u);
+  EXPECT_EQ(list.stats<1>().m_acc, 0u);
   EXPECT_EQ(list.stats<0>().m_gauge, 3);
   EXPECT_EQ(list.stats<0>().m_hwm, 3);
   EXPECT_EQ(load_counts(list.stats<0>().m_histo), (Counts{0, 0, 0, 0}));
@@ -1230,8 +1230,8 @@ TEST(Stats_stat_set_list_test, Global_singletons)
 
   // Mutations persist across get()s (it is the same object; also: independent from other-tag singletons).
   g1.stats_mutable_default().m_acc = 42;
-  EXPECT_EQ((Global_stats<Test_tag_one, Plain_stats, 2>::get().stats_default().m_acc), 42);
-  EXPECT_EQ((Global_stats<Test_tag_two, Plain_stats, 2>::get().stats_default().m_acc), 0);
+  EXPECT_EQ((Global_stats<Test_tag_one, Plain_stats, 2>::get().stats_default().m_acc), 42u);
+  EXPECT_EQ((Global_stats<Test_tag_two, Plain_stats, 2>::get().stats_default().m_acc), 0u);
 } // TEST(Stats_stat_set_list_test, Global_singletons)
 
 } // namespace flow::util::stat::test

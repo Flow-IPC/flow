@@ -1136,11 +1136,11 @@ private:
  * it is #m_call_thread_nickname -- must use #Fixed_string or equivalent instead, imposing a length limit on it.
  *
  * ### Note regarding thread IDs ###
- * As noted in the docs for the actual members: We store the user-set nickname (if set) or else the classic #Thread_id
- * `this_thread::get_id()` thread-ID.  We also considered storing a Flow Thread_token (see this_thread_unique_token())
- * which is similar to a `Thread_id` but unique over time (for a given process).  However, while extremely useful
- * for algorithmic purposes in some cases, it is not universally recognized in the context of
- * logging/monitoring/debugging.  Therefore we decided to leave it out as such; it can still be set as
+ * As noted in the docs for the actual members: We store the user-set nickname (if set) or else the classic
+ * util::Thread_id `this_thread::get_id()` thread-ID.  We also considered storing a Flow Thread_token
+ * (see this_thread_unique_token()) which is similar to a `Thread_id` but unique over time (for a given process).
+ * However, while extremely useful for algorithmic purposes in some cases, it is not universally recognized in the
+ * context of logging/monitoring/debugging.  Therefore we decided to leave it out as such; it can still be set as
  * the #m_call_thread_nickname (after stringification) if desired.
  */
 struct Msg_metadata

@@ -156,27 +156,27 @@ TEST(Util_alignment, Aligned_sz_of)
   EXPECT_EQ((aligned_sz_of<uint64_t, 1>()), sizeof(uint64_t));
 
   // Alignment to own size: trivial for fundamental types.
-  EXPECT_EQ((aligned_sz_of<uint8_t, 1>()), 1);
-  EXPECT_EQ((aligned_sz_of<uint16_t, 2>()), 2);
-  EXPECT_EQ((aligned_sz_of<uint32_t, 4>()), 4);
-  EXPECT_EQ((aligned_sz_of<uint64_t, 8>()), 8);
+  EXPECT_EQ((aligned_sz_of<uint8_t, 1>()), 1u);
+  EXPECT_EQ((aligned_sz_of<uint16_t, 2>()), 2u);
+  EXPECT_EQ((aligned_sz_of<uint32_t, 4>()), 4u);
+  EXPECT_EQ((aligned_sz_of<uint64_t, 8>()), 8u);
 
   // Padding scenarios.
-  EXPECT_EQ((aligned_sz_of<uint8_t, 4>()), 4);  // 1 byte rounded up to 4.
-  EXPECT_EQ((aligned_sz_of<uint8_t, 16>()), 16); // 1 byte rounded up to 16.
-  EXPECT_EQ((aligned_sz_of<uint32_t, 16>()), 16); // 4 bytes rounded up to 16.
+  EXPECT_EQ((aligned_sz_of<uint8_t, 4>()), 4u);  // 1 byte rounded up to 4.
+  EXPECT_EQ((aligned_sz_of<uint8_t, 16>()), 16u); // 1 byte rounded up to 16.
+  EXPECT_EQ((aligned_sz_of<uint32_t, 16>()), 16u); // 4 bytes rounded up to 16.
 
   // Exact fit: sizeof already a multiple.
-  EXPECT_EQ((aligned_sz_of<uint64_t, 4>()), 8); // 8 is already a multiple of 4.
+  EXPECT_EQ((aligned_sz_of<uint64_t, 4>()), 8u); // 8 is already a multiple of 4.
 
   // struct with odd size: array<uint8_t, 3> has size 3.
   using Three_bytes = std::array<uint8_t, 3>;
   static_assert(sizeof(Three_bytes) == 3, "");
-  EXPECT_EQ((aligned_sz_of<Three_bytes, 1>()), 3);
-  EXPECT_EQ((aligned_sz_of<Three_bytes, 2>()), 4);
-  EXPECT_EQ((aligned_sz_of<Three_bytes, 4>()), 4);
-  EXPECT_EQ((aligned_sz_of<Three_bytes, 8>()), 8);
-  EXPECT_EQ((aligned_sz_of<Three_bytes, 16>()), 16);
+  EXPECT_EQ((aligned_sz_of<Three_bytes, 1>()), 3u);
+  EXPECT_EQ((aligned_sz_of<Three_bytes, 2>()), 4u);
+  EXPECT_EQ((aligned_sz_of<Three_bytes, 4>()), 4u);
+  EXPECT_EQ((aligned_sz_of<Three_bytes, 8>()), 8u);
+  EXPECT_EQ((aligned_sz_of<Three_bytes, 16>()), 16u);
 
   // Default ALIGN_SZ (max_align_sz()).
   EXPECT_EQ((aligned_sz_of<uint8_t>()), max_align_sz());
@@ -335,14 +335,14 @@ TEST(Util_this_thread_unique_token, Uniqueness)
   // Stable and non-"none" within a given thread.
   const auto token = this_thread_unique_token();
   EXPECT_NE(token, flow::util::Thread_token{});
-  EXPECT_NE(token, 0); // Same thing, via the implicit int conversion.
+  EXPECT_NE(token, 0u); // Same thing, via the implicit int conversion.
   EXPECT_EQ(this_thread_unique_token(), token);
   { /* And the fixed-width-hex printing: "0x" + 8 zero-padded digits (low 32 bits only), always.
      * Also: stream formatting must be restored (42 must not print in hex).  Yes, o_o_s() uses an ostream; the
      * commas become <<es, so to speak, is all. */
     const auto str = ostream_op_string(token, '|', 42);
     EXPECT_EQ(str.size(), 2 + 8 + 1 + 2);
-    EXPECT_EQ(str.rfind("0x", 0), 0);
+    EXPECT_EQ(str.rfind("0x", 0), 0u);
     EXPECT_EQ(str.substr(2 + 8), "|42");
     cout << "Token looks like this: [" << token << "].\n" << flush;
   }
@@ -393,7 +393,7 @@ TEST(Util_this_thread_unique_token, Uniqueness)
     }};
     thread.join();
     n_thread_id_reuses += (thread_ids.insert(thread_id).second ? 0 : 1);
-    EXPECT_NE(seq_token, 0);
+    EXPECT_NE(seq_token, 0u);
     EXPECT_TRUE(uniques.insert(seq_token).second); // Never seen before -- across all the threads above, too.
   }
   cout << "thread-token: sequential create-join threads = [" << N_SEQUENTIAL << "]; "
