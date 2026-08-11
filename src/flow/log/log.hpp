@@ -252,6 +252,10 @@
  *
  * @see Log_context_mt::log_while_locked() doc header.
  *
+ * @warning In current impl `ARG_stream_fragment` is evaluated inside a lambda; in C++17, it must not name a structured
+ *          binding: lambdas cannot capture those until C++20.  Alias any needed binding into a plain variable
+ *          first and name that instead.  (Remove this warning once Flow requires C++20.)
+ *
  * @param ARG_stream_fragment
  *        See base macro.
  */
