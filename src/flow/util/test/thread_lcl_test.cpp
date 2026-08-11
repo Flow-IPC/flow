@@ -1236,7 +1236,7 @@ TEST(Thread_local_ptr, Exit_skips_cleanup)
   ({
      /* Note: in ASAN builds LeakSanitizer runs its check at this child's exit() and reports the one glibc
       * thread_local-registration node that the verified-here cleanups-skipped-at-exit() behavior leaves
-      * allocated; the LSAN suppressions cfg (unit_test's sanitize/asan/) covers it -- see explanation there. */
+      * allocated; the LSAN suppressions cfg (src/sanitize/asan/) covers it -- see explanation there. */
      static int s_thread_val = 7;
      static int s_main_val = 9;
      Thread_local_ptr<int> tlp{&tlp_test::exit_probe_cleanup};
