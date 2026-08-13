@@ -149,35 +149,9 @@ jobs:
     strategy:
       fail-fast: false
 
-      # Our basic matrix is compiler-version x build-test-config.  The latter is the usual possibilities namely
-      # Debug, Release, ..., plus a few runtime-sanitizer-oriented variations.  Generally we want to run the entire
-      # cross-product AxB of possibilities; but for various reasons we exclude some specific combinations from the
-      # matrix. So far, then: specify full matrix, specify certain combos to remove from it.
-      #
-      # There is however another variable: the C++ standard to specify.  In actual practice -- as explained in
-      # FlowLikeCodeGenerate.cmake, but we *very* briefly recap -- the min required standard is 17, and it is indeed
-      # *the* standard we use, never taking advantage (via conditional compilation, etc.) of 20-or-higher.  So,
-      # the main matrix shall built with std=17.  In addition, though, we *allow* C++20 or higher.  In practice, 99.999%
-      # C++17 code shall build equivalently with C++20 (as for C++23, we haven't looked into it as of this writing);
-      # but not 100%, and indeed for business reasons we found it is worthwhile to *test* with C++20 as well, so
-      # as to ensure code will (at least) build (and thus not mess-over C++20 users; it is now 2025 as of this writing).
-      # However, loosely speaking, we need only hit a few basic setups likeliest to trigger problems (usually warnings)
-      # which we'd then fix in the code.  Long story short then: in addition to the aforementioned matrix (w/ 17),
-      # minus exclusions, we would *add* a few specific configs with std=20.
-      #
-      # Delightfully that's just how GitHub Actions matrix specs work: The matrix, then remove `exclude`s, then
-      # add `include`s.  ...Unfortunately, nope, the `include`s cannot simply refer to earlier-defined things in
-      # the matrix, so for example all the properties of a given compiler (e.g. gcc-13: name, version, c-path, cpp-path,
-      # install) would need to be copy/pasted (stylistically awful/error-prone).  (TODO: Perhaps there's some way
-      # to predefine each compiler's "stuff" in some earlier variable type thing and then just refer to it -- maybe
-      # something with outputs and fromJSON()... I (ygoldfel) was unable to find clean solid docs/example(s) thereof,
-      # but a real Actions+YAML badass could probably figure it out.  Maybe.  OH!  And YAML anchors/aliases would be
-      # *perfect* for this... but Actions guys have somehow not implemented them; it is a long-standing
-      # request [https://github.com/actions/runner/issues/1182#issuecomment-2317953582].)  Hence, for now, we are
-      # forced to express these post-exclude-includes as simply more excludes.  E.g., instead of saying "for C++20
-      # do just gcc-13" say "do the full matrix but exclude C++20 + gcc-9,10,11."
-      #
-      # So now do all that.
+      # Please read notes in the similar place in Flow-IPC workflow counterpart regarding the matrix's setup,
+      # especially the bulk of it that discusses how the C++ standard setting (17, 20, etc.) is handled.
+      # We omit that large comment here.  (The shorter inline comments are simply repeated.)
       matrix:
         # First axis in basic 3D matrix is the 2 possible C++ standards.
         # For simplicity the Conan-profile-configuring script step simply keys off the `id` instead of our defining
@@ -347,31 +321,7 @@ jobs:
             compiler: { id: clang-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           # Now the exclusions from the C++20 sub-matrix.
-          # The basic strategy is noted above; but specifically release-oriented builds tend to go down different
-          # paths/produce different warnings vs debug-oriented builds -- so we want to try both; and as for which
-          # compilers to use, on one hand we'll definitely want at least 1 of gcc and clang each, but beyond that
-          # just the highest version of each is sufficient.  TODO: Revisit, especially if users report C++20 problems
-          # in other environments, and therefore we will have had to fix them; hence test coverage should increase.
-          #
-          # So, we essentially want something like:
-          #   include:
-          #   # gcc-<highest> x (2 build-configs).
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: gcc-13 }
-          #     build-test-cfg: { id: debug }
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: gcc-13 }
-          #     build-test-cfg: { id: relwithdebinfo }
-          #   # clang-<highest> x (2 build-configs).
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: clang-17 }
-          #     build-test-cfg: { id: debug }
-          #   - cxx-std: { id: cxx20 }
-          #     compiler: { id: clang-17 }
-          #     build-test-cfg: { id: relwithdebinfo }
-          # Sadly, as mentioned in the large-ish comment nearer the top, `include` does not let us refer to
-          # earlier-defined things simply by their `id`s.  So we choose to express the inclusions as exclusions
-          # instead:
+          # Again, these exclusions are explained in Flow-IPC workflow counterpart.
           #   - First, simply exclude all gccs but gcc-13 and all clangs but clang-17.
           - cxx-std: { id: cxx20 }
             compiler: { id: gcc-9 }
@@ -400,27 +350,19 @@ jobs:
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
 
+    # The GitHub default job timeout is 6 hours -- extreme.  Bound it to something reasonable, just in case
+    # something hangs.
+    timeout-minutes: 120
+
     name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
 
     env:
-      # Whether this matrix cell shall really run, per the workflow_dispatch job-filter input (blank input, or
-      # non-dispatch trigger: all cells run).  Every step below is gated on this; hence a filtered-out cell
-      # completes green in seconds, all steps skipped.  (Why not one job-level `if`?  The `matrix` context is
-      # unavailable there -- but is available here.  The below mirrors this job's `name`.)
+      # Whether this matrix cell shall really run, per the workflow_dispatch job-filter input.  See comments in
+      # Flow-IPC workflow counterpart.  We use same techniques.
       cell-selected: ${{ (github.event.inputs.job-filter || '') == '' || contains(format('{0}-{1}-{2}', matrix.compiler.id, matrix.build-test-cfg.id, matrix.cxx-std.id), github.event.inputs.job-filter) }}
       build-dir: ${{ github.workspace }}/build/${{ matrix.build-test-cfg.conan-profile-build-type }}
       install-dir: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local
       # For the remaining env entries please see comments in Flow-IPC workflow counterpart.  We use same techniques.
-      # Update: (As of this writing this is only here, not in Flow-IPC counterpart, but that'll change; might want to
-      # move the comment there then.)  ASAN is somewhat different from the others, as it's really two sanitizers with
-      # separate suppression files -- ASAN (actual safety checks) and LSAN (leak checks).  So far we do *not* need
-      # any suppressed ASAN warnings (ASAN false positives are known to be rare, so that makes sense), but there are
-      # at least a couple minor, intentional mem-leaks, so we *do* need to suppress LSAN warnings at times.  Therefore,
-      # until/unless this changes, we will essentially treat LSAN-suppression as *the* suppression for our ASAN runs,
-      # thus only requiring one suppression file type still.  If/when that changes, the below will need to be made
-      # more complicated, so that 2 suppression types per sanitizer are supported as opposed to just 1.  Until then,
-      # it's still simple.  So that's why $ASAN_OPTIONS does not mention suppression, but $LSAN_OPTIONS does... and
-      # it is the suppression file(s) (if any) under various `asan/` dirs in the source tree.
       san-suppress-cfg-file: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local/bin/san_suppressions.cfg
       san-suppress-cfg-in-file1: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}.cfg
       san-suppress-cfg-in-file2: sanitize/${{ matrix.build-test-cfg.sanitizer-name }}/suppressions_${{ matrix.compiler.name }}_${{ matrix.compiler.version }}.cfg
@@ -462,7 +404,10 @@ jobs:
     steps:
     - name: Update available software list for apt-get
       if: env.cell-selected == 'true'
-      run: sudo apt-get update
+      run: |
+        # Update available software list for apt-get.
+        lsb_release -a
+        sudo apt-get update
 
     - name: Install clang compiler
       if: |
@@ -493,9 +438,7 @@ jobs:
       if: env.cell-selected == 'true'
       run: |
         # Prepare Python virtual environment containing Conan.
-        # This gets us Conan (plus other Python deps, like PyYAML)
-        # at the versions specified in requirements.in, without touching the runner's global Python setup.
-        # Note: Each subsequent Conan-wrangling step must first source the venv to have `conan` available.
+        # (See comments in Flow-IPC workflow counterpart's analogous step.  We use same techniques.)
         pip install virtualenv
         virtualenv ${{ github.workspace }}/conan_virtual_env
         source ${{ github.workspace }}/conan_virtual_env/bin/activate
@@ -521,6 +464,9 @@ jobs:
           yaml.dump(data, file)
         "
 
+    # Note: The C[XX]FLAGS and linker-flags supplied via ${{ matrix.build-test-cfg.conan-profile-custom-conf }}
+    # affect not just our objects/libs/executables but also 3rd party dependency builds.  For the interesting
+    # implications please see notes atop the analogous step in Flow-IPC workflow counterpart.
     - name: Create Conan profile
       if: env.cell-selected == 'true'
       run: |
@@ -554,14 +500,11 @@ jobs:
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
 
-    # Cache the Conan-built dependencies (Boost et al): a fresh runner otherwise rebuilds them from source
-    # every run, which dominates that step's wall clock.  The just-generated conan_profile participates in the
-    # cache key, as it captures everything that determines dep-binary compatibility (compiler, version, cppstd,
-    # build-type, sanitizer); conanfile.py participates, as it names the deps and their versions.  On an exact key
-    # hit the subsequent `conan install` finds every binary present and builds nothing.  On a prefix
-    # (restore-keys) hit -- e.g. after a dep version bump -- it rebuilds only what is missing.  We use the
-    # restore/save split (rather than one `actions/cache` step) with the save placed just after the dep-install
-    # step. Therefore even a run whose later steps fail still primes the cache for subsequent runs.
+    # Cache the Conan-built dependencies (Boost et al): a fresh runner otherwise rebuilds them from source every
+    # run.  See explanatory comments atop the analogous steps in Flow-IPC workflow counterpart.  We use same
+    # techniques (including the restore/save split, with the save placed right after the dep-install step, so
+    # even a run whose later steps fail still primes the cache; and the flag-snapshot guard in the dep-install
+    # step, which makes the restore-keys fallback safe -- see the Caution comment there).
     - name: Restore Conan package cache
       if: env.cell-selected == 'true'
       id: conan-cache-restore
@@ -578,7 +521,17 @@ jobs:
         # Install Flow dependencies with Conan using the profile.
         source ${{ github.workspace }}/conan_virtual_env/bin/activate
         ${{ env.setup-run-env }}
-        # At least `configure` mini-programs are built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        # Flag-snapshot guard.  For explanation see comments in Flow-IPC workflow counterpart -- both in its
+        # analogous step and atop its conan-cache-restore step.  We use same techniques.
+        if [ '${{ steps.conan-cache-restore.outputs.cache-hit }}' != 'true' ]; then
+          flag_sections() { awk '/^\[/{on=0} /^\[(conf|buildenv)\]/{on=1} on' "$1"; }
+          SNAPSHOT=~/.conan2/p/.profile-snapshot
+          if [ ! -f $SNAPSHOT ] || ! diff <(flag_sections conan_profile) <(flag_sections $SNAPSHOT); then
+            echo 'Restored cache (if any) lacks a flag-match guarantee; evicting its packages (they will rebuild).'
+            conan remove '*' -c 2> /dev/null || true
+          fi
+        fi
+        # At least `configure` mini-programs are built with our build-settings, so $BUILT_CMD_PREFIX is required.
         $BUILT_CMD_PREFIX conan install . -pr:a ./conan_profile --build=missing || FAILED=yep
         # Dep build failure is easy to diagnose from stdout/err, unless it happens during a `configure`;
         # then it'll often print something insane like "checking size of void *... 0" and suggest looking at
@@ -601,6 +554,10 @@ jobs:
         # built packages and recipes are needed by this (or later) runs.  Keeps cache size down in next step;
         # cache is LRU-based but limited enough to matter in practice as of this writing.
         conan cache clean '*' --source --build
+        if [ "$FAILED" != yep ]; then
+          # Record the flags this cache's contents were built under, for the flag-snapshot guard (see above).
+          cp conan_profile ~/.conan2/p/.profile-snapshot
+        fi
         [ "$FAILED" != yep ]
 
     # (See comment atop the Restore counterpart above.)  Skipped on an exact-key restore: the cache would be
@@ -620,7 +577,8 @@ jobs:
         # Build libraries and demos/tests with Conan.
         source ${{ github.workspace }}/conan_virtual_env/bin/activate
         ${{ env.setup-run-env }}
-        # At least capnp compiler binary is built with our build-settings, so $BUILD_CMD_PREFIX is required.
+        # Prefixing with $BUILT_CMD_PREFIX here too, in case the build ends up running some binary built with our
+        # build-settings.  (In Flow-IPC workflow counterpart it definitely does -- the capnp compiler binary.)
         # (`conan build` recomputes the dep-graph and hence needs the profile, just like `conan install`.)
         $BUILT_CMD_PREFIX conan build . -pr:a ./conan_profile
 
@@ -641,6 +599,9 @@ jobs:
     # We use the same techniques and reasoning.  Those may seem overkill given the small number
     # of tests/demos below and their small amount of output (as of this writing); but this can
     # and will grow.  The techniques will still apply.
+
+    # Here, as in the other test below, we assemble a suppressions file in case this is a sanitized run.
+    # See comments in Flow-IPC workflow counterpart (atop its first test step).  We use same techniques.
 
     - name: Run test/demo [NetFlow echo]
       if: |
@@ -704,7 +665,7 @@ jobs:
         (env.cell-selected == 'true')
           && (!cancelled()) && (matrix.build-test-cfg.sanitizer-name == 'ubsan')
       run: |
-        # Check test/demo logs for non-fatal sanitizer error(s)
+        # Check test/demo logs for non-fatal sanitizer error(s).
         cd ${{ env.install-dir }}/bin/logs
         # grep returns 0 if 1+ found, 1 if none found, 2+ on error.  So check results explicitly instead of -e.
         # Namely, for us, the only OK result is an empty stdout and empty stderr.
@@ -739,6 +700,9 @@ jobs:
       with:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
         path: ${{ env.install-dir }}/bin/logs.tgz
+
+# TODO: See the crash-debuggability TODO at the analogous spot in Flow-IPC workflow counterpart; it applies
+# here equally.
 
   doc-and-release:
     needs: [setup, set-vars]
@@ -829,7 +793,8 @@ jobs:
         EOF
 
     # Cache Conan-built deps (here: mainly Doxygen).  See longer explanation atop the analogous steps in the
-    # build-and-test job.
+    # build-and-test job.  (Its flag-snapshot guard is deliberately not replicated here; see reasoning in
+    # Flow-IPC workflow counterpart's analogous spot.)
     - name: Restore Conan package cache
       id: conan-cache-restore
       uses: actions/cache/restore@v6
