@@ -503,7 +503,7 @@ void Peer_socket_options::setup_config_parsing(Options_description* opts_desc)
 std::ostream& operator<<(std::ostream& os, const Peer_socket_options& opts)
 {
   Peer_socket_options sink;
-  Peer_socket_options::Options_description opts_desc("Per-net_flow::Peer_socket option values");
+  Peer_socket_options::Options_description opts_desc{"Per-net_flow::Peer_socket option values"};
   Peer_socket_options::setup_config_parsing_helper(&opts_desc, &sink, opts, true);
   return os << opts_desc;
 }

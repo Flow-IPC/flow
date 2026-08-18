@@ -149,7 +149,7 @@ size_t Peer_socket::node_sync_send(const Function<size_t (size_t max_data_size)>
   using boost::adopt_lock;
 
   // Everything is locked.  (See sync_send() template.)
-  Lock_guard lock(m_mutex, adopt_lock); // Adopt already-locked mutex.
+  Lock_guard lock{m_mutex, adopt_lock}; // Adopt already-locked mutex.
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -230,7 +230,7 @@ size_t Peer_socket::node_sync_receive(const Function<size_t ()>& rcv_buf_consume
   using boost::adopt_lock;
 
   // Everything is locked.  (See sync_send() template.)
-  Lock_guard lock(m_mutex, adopt_lock); // Adopt already-locked mutex.
+  Lock_guard lock{m_mutex, adopt_lock}; // Adopt already-locked mutex.
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -977,7 +977,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     {
       const Peer_socket::Recvd_pkt_const_iter last_packet = prior(rcv_packets_with_gaps.end());
       Sequence_number seq_num_last_end;
-      get_seq_num_range(last_packet, 0, &seq_num_last_end);
+      get_seq_num_range(last_packet, nullptr, &seq_num_last_end);
 
       if (seq_num_last_end > seq_num) // (Corner case check: == means it contiguously precedes `packet`; no straddle.)
       {
@@ -1258,7 +1258,8 @@ void Node::sock_track_new_data_after_gap_rexmit_off(Peer_socket::Ptr sock,
 #endif
     rcv_packets_with_gaps.insert
       (make_pair(seq_num,
-                 Peer_socket::Received_packet::Ptr{new Peer_socket::Received_packet{get_logger(), data_size, 0}}));
+                 Peer_socket::Received_packet::Ptr
+                   {new Peer_socket::Received_packet{get_logger(), data_size, nullptr}}));
   // m_rcv_reassembly_q_data_size untouched because !rexmit_on.
   assert(!sock->rexmit_on());
   assert(insert_result.second); // If was already there, there's some serious bug in above logic.
@@ -2737,7 +2738,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
   const Peer_socket::Sent_packet& acked_pkt = *((*acked_pkt_it)->second);
   const unsigned int acked_rexmit_id = rexmit_on ? acked_pkt.m_packet->m_rexmit_id : 0;
   Sequence_number seq_num_end; // Get sequence number just past last datum in packet.
-  get_seq_num_range(*acked_pkt_it, 0, &seq_num_end);
+  get_seq_num_range(*acked_pkt_it, nullptr, &seq_num_end);
 
   // Note that both rexmit_id and acked_rexmit_id are guaranteed 0 at this point if !rexmit_on.
 
@@ -6254,7 +6255,7 @@ Peer_socket_info Node::sock_info(Peer_socket::Const_ptr sock)
     /* WARNING!!!  sock->m_mutex is locked, but WE must unlock it before returning!  Can't leave that
      * to the caller, because we must unlock at a specific point below, right before post()ing
      * sock_info_worker() onto thread W.  Use a Lock_guard that adopts an already-locked mutex. */
-    Peer_socket::Lock_guard lock(sock->m_mutex, adopt_lock);
+    Peer_socket::Lock_guard lock{sock->m_mutex, adopt_lock};
 
     if (!running())
     {

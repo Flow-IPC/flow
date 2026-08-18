@@ -484,7 +484,7 @@ void Peer_socket_info::output_pkt_count_value(std::ostream* os,
                                               const std::map<Xfer_op_result, uint64_t>& value_by_op_result) // Static.
 {
   // This value is itself a map, so use recursion, in a manner of speaking.
-  output_map_of_pkt_counts<Xfer_op_result, uint64_t>(os, value_by_op_result, 0);
+  output_map_of_pkt_counts<Xfer_op_result, uint64_t>(os, value_by_op_result, nullptr);
 }
 
 void Peer_socket_info::output_pkt_count_key(std::ostream* os, const std::type_index& type_id) // Static.

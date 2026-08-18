@@ -1289,7 +1289,7 @@ void Node::event_set_close(Event_set::Ptr event_set, Error_code* err_code)
      * leave that to the caller, because we must unlock at a specific point below, right before
      * post()ing event_set_close_worker() onto thread W.  Use a Lock_guard that adopts an
      * already-locked mutex. */
-    Event_set::Lock_guard lock(event_set->m_mutex, adopt_lock);
+    Event_set::Lock_guard lock{event_set->m_mutex, adopt_lock};
 
     /* Put the rest of the work into thread W.  For justification, see big comment in listen().
      * Addendum regarding performance: close_abruptly() is probably called more frequently than
