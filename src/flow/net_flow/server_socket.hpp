@@ -156,7 +156,7 @@ public:
 
   /**
    * Node that produced this Server_socket.
-   * @return Pointer to (guaranteed valid) Node; null if state is S_CLOSED.
+   * @return Pointer to (guaranteed valid) Node; null if state is `S_CLOSED`.
    */
   Node* node() const;
 
@@ -225,9 +225,9 @@ public:
    *
    * @see The version of sync_accept() with no timeout.
    * @tparam Rep
-   *         See boost::chrono::duration documentation (and see above tip).
+   *         See `boost::chrono::duration` documentation (and see above tip).
    * @tparam Period
-   *         See boost::chrono::duration documentation (and see above tip).
+   *         See `boost::chrono::duration` documentation (and see above tip).
    * @param max_wait
    *        The maximum amount of time from now to wait before giving up on the wait and returning.
    *        `"duration<Rep, Period>::max()"` will eliminate the time limit and cause indefinite wait
@@ -341,7 +341,7 @@ private:
 
   /**
    * See node().  Should be set before user gets access to `*this` and not changed, except to null when
-   * state is S_CLOSED.  Must not be modified by non-W threads.
+   * state is `S_CLOSED`.  Must not be modified by non-W threads.
    */
   Node* m_node;
 

@@ -104,7 +104,7 @@ public:
 private:
   // Types.
 
-  /// Short-hand for an `ostream` writing to which will append to an std::string it is adapting.
+  /// Short-hand for an `ostream` writing to which will append to an `std::string` it is adapting.
   using String_appender_ostream = boost::iostreams::stream<boost::iostreams::back_insert_device<std::string>>;
 
   // Data.

@@ -408,7 +408,7 @@ class Some_class
 
 // Types.
 
-/// Short-hand for boost::any.  Any ordering is fine within the //Types grouping.
+/// Short-hand for `boost::any`.  Any ordering is fine within the //Types grouping.
 using Cool_type = boost::any;
 
 /**

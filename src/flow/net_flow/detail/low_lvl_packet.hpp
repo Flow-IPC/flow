@@ -1025,7 +1025,7 @@ struct Ack_packet : public Low_lvl_packet
    * Type used to store the ACK delay for a given individual acknowledged packet.  The value
    * specifies the number of multiples of `Ack_delay_time_unit{1}` comprised by a packet's ACK delay.
    *
-   * An earlier version of `net_flow` used the unit milliseconds and the encoding type uint16_t.  The
+   * An earlier version of `net_flow` used the unit milliseconds and the encoding type `uint16_t`.  The
    * reasoning was that this allowed a maximum ACK delay of ~65 sec which should be plenty; and that
    * the 1-millisecond finegrainedness was acceptable.  However when implementing queue delay-based
    * congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK

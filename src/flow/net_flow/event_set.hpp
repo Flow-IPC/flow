@@ -296,7 +296,7 @@ public:
    * In terms of extending this `enum`, which seems unlikely, the following would be involved.  Add a value for
    * the `enum`; then add clauses for it in Socket_as_any_hash::operator(), Socket_as_any_equals::operator(),
    * Event_set::sock_as_any_to_str().  Extend the structures in Event_set::empty_ev_type_to_socks_map() and
-   * S_EV_TYPE_TO_IS_ACTIVE_NODE_MTD.  The latter will need a new method written in Node that checks for
+   * `S_EV_TYPE_TO_IS_ACTIVE_NODE_MTD`.  The latter will need a new method written in Node that checks for
    * whether the condition of this type currently holds for the given socket -- whose type, by the way, you will
    * need to decide and document in the doc header for the new `enum` value.  Finally, you'll need to find all
    * situations throughout the code where the condition may change from not holding to holding and possibly
@@ -403,7 +403,7 @@ public:
    * Node that produced this Event_set.  Note that this may change the moment the method returns
    * (but only to null).
    *
-   * @return Pointer to (guaranteed valid) Node; null if state() is S_CLOSED.
+   * @return Pointer to (guaranteed valid) Node; null if state() is `S_CLOSED`.
    */
   Node* node() const;
 

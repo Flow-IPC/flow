@@ -212,7 +212,7 @@ enum class Code
  * Given a `Code` `enum` value, creates a lightweight flow::Error_code (a/k/a boost.system `error_code`)
  * representing that error.  This is needed to make the
  * `boost::system::error_code::error_code<Code>()` template implementation work.  Or, slightly more in English,
- * it glues the (completely general) flow::Error_code to the (net_flow-specific) error code set
+ * it glues the (completely general) flow::Error_code to the (`net_flow`-specific) error code set
  * flow::net_flow::error::Code, so that one can implicitly covert from the latter to the former.
  *
  * @param err_code

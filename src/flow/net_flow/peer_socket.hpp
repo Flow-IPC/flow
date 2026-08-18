@@ -241,7 +241,7 @@ public:
      * This Peer_socket was created through an active connect (Node::connect() and the like), and
      * the connection to the remote Node is currently being negotiated by this socket's Node.
      * A socket in this state may be Writable but cannot be Readable.  However, except for
-     * diagnostic purposes, this state should generally be treated the same as S_CONNECTED.
+     * diagnostic purposes, this state should generally be treated the same as `S_CONNECTED`.
      */
     S_CONNECTING,
 
@@ -260,12 +260,12 @@ public:
      * and needs to be sent over the network.  A socket in this state may be Readable but cannot
      * be Writable.
      *
-     * This implies that a non-S_CLOSED socket may be, at a lower level, disconnected.  For
+     * This implies that a non-`S_CLOSED` socket may be, at a lower level, disconnected.  For
      * example, say there are 5 bytes in the Receive buffer, and the other side sends a graceful
      * disconnect packet to this socket.  This means the connection is finished, but the user can
      * still receive() the 5 bytes (without blocking).  Then state will remain
      * S_OPEN.S_DISCONNECTING until the last of the 5 bytes is received (gone from the buffer); at
-     * this point state may change to S_CLOSED (pending any other work Node must do to be able to
+     * this point state may change to `S_CLOSED` (pending any other work Node must do to be able to
      * disown the socket).
      */
     S_DISCONNECTING
@@ -435,9 +435,9 @@ public:
    *
    * @see The version of sync_send() with no timeout.
    * @tparam Rep
-   *         See boost::chrono::duration documentation (and see above tip).
+   *         See `boost::chrono::duration` documentation (and see above tip).
    * @tparam Period
-   *         See boost::chrono::duration documentation (and see above tip).
+   *         See `boost::chrono::duration` documentation (and see above tip).
    * @tparam Const_buffer_sequence
    *         See send().
    * @param data
@@ -1209,7 +1209,7 @@ private:
    * mutex.
    *
    * @todo `boost::weak_ptr<Node>` would be ideal for this, but of course then Node would have to
-   * (only?) be available via shared_ptr<>.
+   * (only?) be available via `shared_ptr<>`.
    */
   Node* m_node;
 
@@ -1745,7 +1745,7 @@ private:
    * an arriving acknowledgment against a packet that we'd sent out.  We'd prefer it to not invalidate
    * iterators when something is erased, so Linked_hash_map is good in that way
    * also.  So finally, why order by time it was queued up for sending (as opposed to by sequence
-   * number, as would be the case if this were an std::map)?  In truth, both are needed, which is why
+   * number, as would be the case if this were an `std::map`)?  In truth, both are needed, which is why
    * #m_snd_flying_pkts_by_seq_num exists.  This ordering is needed particularly for the
    * `m_acks_after_me` logic, wherein we count how many times packets that were sent after a given packet
    * have been acknowledged so far; by arranging the packets in that same order, that value can be
@@ -2155,7 +2155,7 @@ private:
   util::Scheduled_task_handle m_connection_timeout_scheduled_task;
 
   /**
-   * This is the final set of stats collected at the time the socket was moved to S_CLOSED #m_state.
+   * This is the final set of stats collected at the time the socket was moved to `S_CLOSED` #m_state.
    * If it has not yet moved to that state, this is not applicable (but equals `Peer_socket_info{}`).
    * It's used by info() to get at the final set of stats, before the source info is purged by the
    * resource cleanup in sock_free_memory().
