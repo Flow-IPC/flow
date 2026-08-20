@@ -529,7 +529,6 @@ private:
  *
  * Use @private as shown above *if and only if* the inner class is private.  This is due to a Doxygen quirk
  * (arguably bug).
- *
  */
 struct Cool_class::Inner_class_of_cool
 {
