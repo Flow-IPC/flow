@@ -831,6 +831,14 @@ const Data* after_aligned_prefix(const Prefix* prefix_ptr);
  *   }
  *   ~~~
  *
+ * @warning `func()` cannot throw.  (Internally it uses `shared_ptr` to implement this, but its dtor is `nothrow` =>
+ *          abort.)
+ *
+ * @todo Deprecate setup_auto_cleanup(): Boost-1.85 introduced `boost::scope` guards which will surely do this
+ * better with more options.  If possible first write setup_auto_cleanup() in terms of the Boost `scope` API +
+ * declare it deprecated; then eventually eliminate it.  Incidentally one guesses the cannot-throw limitation
+ * would go away.
+ *
  * @tparam Cleanup_func
  *         Any type such that given an instance `Cleanup_func f`, the expression `f()` is valid.
  * @param func

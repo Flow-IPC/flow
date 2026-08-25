@@ -1852,7 +1852,7 @@ private:
    * async_sock_low_lvl_packet_send_paced() pacing helper: If sock_pacing_process_q() ran out of the last
    * time slice's budget and still had packets to send, this is the handler that triggers when the
    * out-of-budget time slice ends.  Sets up a new time slice starting now and tries to send as many
-   * queud packets as possible with the new budget; if still more packets remain after this,
+   * queued packets as possible with the new budget; if still more packets remain after this,
    * schedules yet another timer.
    *
    * This may also be called via `cancel()` of the timer.  In this case, the pre-condition is that

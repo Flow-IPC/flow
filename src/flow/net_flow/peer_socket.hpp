@@ -1021,7 +1021,7 @@ private:
    *        See sync_send_impl().
    * @param err_code
    *        See sync_send_impl().
-   * @return See `sync_send(nullptr_t)`.  `true` if and only if Writable status successfuly reached in time.
+   * @return See `sync_send(nullptr_t)`.  `true` if and only if Writable status successfully reached in time.
    */
   bool sync_send_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code);
 
@@ -1081,7 +1081,7 @@ private:
    *        See sync_receive_impl().
    * @param err_code
    *        See sync_receive_impl().
-   * @return See `sync_receive(nullptr_t)`.  `true` if and only if Readable status successfuly reached in time.
+   * @return See `sync_receive(nullptr_t)`.  `true` if and only if Readable status successfully reached in time.
    */
   bool sync_receive_reactor_pattern_impl(const Fine_time_pt& wait_until, Error_code* err_code);
 
