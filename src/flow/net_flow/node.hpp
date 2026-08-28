@@ -1521,7 +1521,8 @@ private:
    *        The name of the option, suitable for logging; this is presumably obtained using the
    *        macro `#` technique.
    * @param err_code
-   *        See Peer_socket::set_options().
+   *        Must not be null; on validation error `*err_code` is set; on success it is *not* touched
+   *        (in particular it is not cleared: the caller is responsible for the on-success semantics).
    * @return `true` on success, `false` on validation error.
    */
   template<typename Opt_type>
@@ -1538,7 +1539,8 @@ private:
    *        String describing which condition was checked; this is presumably obtained using the
    *        macro # technique.
    * @param err_code
-   *        See Peer_socket::set_options().
+   *        Must not be null; on validation error `*err_code` is set; on success it is *not* touched
+   *        (in particular it is not cleared: the caller is responsible for the on-success semantics).
    * @return `true` on success, `false` on validation error.
    */
   bool validate_option_check(bool check, const std::string& check_str, Error_code* err_code) const;

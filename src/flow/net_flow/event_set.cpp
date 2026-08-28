@@ -567,6 +567,7 @@ bool Event_set::events_wanted(Error_code* err_code) const
   }
   // else
 
+  err_code->clear();
   return one_of(m_want, boost::not1(ev_type_to_socks_map_entry_is_empty));
 } // Event_set::events_wanted()
 

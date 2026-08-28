@@ -1006,6 +1006,9 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
 
   // We are in thread U != W or in thread W.
 
+  // Pre-clear (maintenance-proof); each failed check below shall set *err_code as needed.
+  err_code->clear();
+
   if (!init)
   {
     /* As explained above, they're trying to change an existing Node's option values.  Ensure all
@@ -1014,9 +1017,9 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
     // Explicitly documented pre-condition is that m_opts is already locked if necessary.  So don't lock.
 
     const bool static_ok
-      = VALIDATE_STATIC_OPTION(m_st_capture_interrupt_signals_internally) &&
-        VALIDATE_STATIC_OPTION(m_st_low_lvl_max_buf_size) &&
-        VALIDATE_STATIC_OPTION(m_st_timer_min_period);
+      = VALIDATE_STATIC_OPTION(m_st_capture_interrupt_signals_internally)
+        && VALIDATE_STATIC_OPTION(m_st_low_lvl_max_buf_size)
+        && VALIDATE_STATIC_OPTION(m_st_timer_min_period);
 
     if (!static_ok)
     {
@@ -1029,10 +1032,10 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
   // Now sanity-check the values themselves.  @todo Comment and reconsider these?
 
   const bool checks_ok
-    = VALIDATE_CHECK(opts.m_st_low_lvl_max_buf_size >= 128 * 1024) &&
-      VALIDATE_CHECK(opts.m_st_timer_min_period.count() >= 0) &&
-      VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512) &&
-      VALIDATE_CHECK(opts.m_dyn_accept_backlog_limit > 0);
+    = VALIDATE_CHECK(opts.m_st_low_lvl_max_buf_size >= 128 * 1024)
+      && VALIDATE_CHECK(opts.m_st_timer_min_period.count() >= 0)
+      && VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512)
+      && VALIDATE_CHECK(opts.m_dyn_accept_backlog_limit > 0);
 
   if (!checks_ok)
   {

@@ -1320,7 +1320,7 @@ Complex num{ -2, 2.3 }; // Initializing via direct-init, not via a constructor: 
 f(Complex{ -2, 2.3 });
 
 /* Do be careful of one thing: a container with an initializer_list ctor will invoke it over the would-be constructor
- * with a matching signature (if any).  Unfortunately one must revert to the parentheses-using-constructor-call style. 
+ * with a matching signature (if any).  Unfortunately one must revert to the parentheses-using-constructor-call style.
  * (Needless to say, the compiler doesn't care if you put spaces in there; that is for humans only.) */
 vector<int> v{ 10, 1 }; // 2 elements: 10, 1.  initializer_list ctor is invoked, even though the following ctor matches.
 vector<int> v(10, 1); // 10 elements, each one equal to `1`.  Force compiler to ignore the initializer_list ctor.

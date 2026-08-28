@@ -6164,6 +6164,9 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
 
   // We are in thread U != W or in thread W.
 
+  // Pre-clear (maintenance-proof); each failed check below shall set *err_code as needed.
+  err_code->clear();
+
   if (prev_opts)
   {
     /* As explained above, they're trying to change an existing socket's option values.  Ensure
@@ -6172,31 +6175,31 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
     // Explicitly documented pre-condition is that *prev_opts is already locked if necessary.  So don't lock.
 
     const bool static_ok
-      = VALIDATE_STATIC_OPTION(m_st_max_block_size) &&
-        VALIDATE_STATIC_OPTION(m_st_connect_retransmit_period) &&
-        VALIDATE_STATIC_OPTION(m_st_connect_retransmit_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_buf_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_sync_rcvd_data_q_cumulative_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_flow_control_on) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_slack_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_to_advertise_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_delayed_ack_timer_period) &&
-        VALIDATE_STATIC_OPTION(m_st_max_full_blocks_before_ack_send) &&
-        VALIDATE_STATIC_OPTION(m_st_rexmit_on) &&
-        VALIDATE_STATIC_OPTION(m_st_max_rexmissions_per_packet) &&
-        VALIDATE_STATIC_OPTION(m_st_init_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_pacing_enabled) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_bandwidth_est_sample_period_floor) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_strategy) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_init_cong_wnd_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_max_cong_wnd_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_classic_wnd_decay_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_drop_packet_exactly_after_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_drop_all_on_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_out_of_order_ack_restarts_drop_timer);
+      = VALIDATE_STATIC_OPTION(m_st_max_block_size)
+        && VALIDATE_STATIC_OPTION(m_st_connect_retransmit_period)
+        && VALIDATE_STATIC_OPTION(m_st_connect_retransmit_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_snd_buf_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_sync_rcvd_data_q_cumulative_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_flow_control_on)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_slack_percent)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_to_advertise_percent)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent)
+        && VALIDATE_STATIC_OPTION(m_st_delayed_ack_timer_period)
+        && VALIDATE_STATIC_OPTION(m_st_max_full_blocks_before_ack_send)
+        && VALIDATE_STATIC_OPTION(m_st_rexmit_on)
+        && VALIDATE_STATIC_OPTION(m_st_max_rexmissions_per_packet)
+        && VALIDATE_STATIC_OPTION(m_st_init_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_snd_pacing_enabled)
+        && VALIDATE_STATIC_OPTION(m_st_snd_bandwidth_est_sample_period_floor)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_strategy)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_init_cong_wnd_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_max_cong_wnd_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_classic_wnd_decay_percent)
+        && VALIDATE_STATIC_OPTION(m_st_drop_packet_exactly_after_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_drop_all_on_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_out_of_order_ack_restarts_drop_timer);
 
     if (!static_ok)
     {
@@ -6208,31 +6211,31 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
 
   // Now sanity-check the values themselves.  @todo Comment and reconsider these?
   const bool checks_ok
-    = VALIDATE_CHECK(opts.m_st_max_block_size >= 512) &&
-      VALIDATE_CHECK(opts.m_st_connect_retransmit_period.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_connect_retransmit_timeout.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_snd_buf_max_size >= 4 * opts.m_st_max_block_size) &&
-      VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size) &&
-      VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u)) &&
-      VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100) &&
-      VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1}) &&
-      VALIDATE_CHECK(util::in_closed_range(Fine_duration::zero(),
-                                           opts.m_st_delayed_ack_timer_period,
-                                           Fine_duration{seconds{1}})) &&
-      VALIDATE_CHECK(opts.m_st_max_full_blocks_before_ack_send >= 1) &&
-      VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet >= 1) &&
-      VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet <= numeric_limits<Low_lvl_packet::rexmit_id_t>::max());
-      VALIDATE_CHECK(opts.m_st_init_drop_timeout.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_snd_bandwidth_est_sample_period_floor.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_init_cong_wnd_blocks <= opts.m_st_cong_ctl_max_cong_wnd_blocks) &&
-      VALIDATE_CHECK
-        (4 * opts.m_st_cong_ctl_max_cong_wnd_blocks * opts.m_st_max_block_size <= opts.m_st_rcv_buf_max_size) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_cong_avoidance_increment_blocks < 20) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_classic_wnd_decay_percent <= 100) &&
-      VALIDATE_CHECK(util::in_closed_range<size_t>(1, opts.m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks, 10)) &&
-      VALIDATE_CHECK(opts.m_dyn_drop_timeout_ceiling > 4 * opts.m_st_init_drop_timeout) &&
-      VALIDATE_CHECK(opts.m_dyn_drop_timeout_backoff_factor >= 1) &&
-      VALIDATE_CHECK(opts.m_dyn_rcv_wnd_recovery_timer_period.count() > 0);
+    = VALIDATE_CHECK(opts.m_st_max_block_size >= 512)
+      && VALIDATE_CHECK(opts.m_st_connect_retransmit_period.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_connect_retransmit_timeout.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_snd_buf_max_size >= 4 * opts.m_st_max_block_size)
+      && VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size)
+      && VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u))
+      && VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100)
+      && VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1})
+      && VALIDATE_CHECK(util::in_closed_range(Fine_duration::zero(),
+                                              opts.m_st_delayed_ack_timer_period,
+                                              Fine_duration{seconds{1}}))
+      && VALIDATE_CHECK(opts.m_st_max_full_blocks_before_ack_send >= 1)
+      && VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet >= 1)
+      && VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet <= numeric_limits<Low_lvl_packet::rexmit_id_t>::max())
+      && VALIDATE_CHECK(opts.m_st_init_drop_timeout.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_snd_bandwidth_est_sample_period_floor.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_init_cong_wnd_blocks <= opts.m_st_cong_ctl_max_cong_wnd_blocks)
+      && VALIDATE_CHECK
+           (4 * opts.m_st_cong_ctl_max_cong_wnd_blocks * opts.m_st_max_block_size <= opts.m_st_rcv_buf_max_size)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_cong_avoidance_increment_blocks < 20)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_classic_wnd_decay_percent <= 100)
+      && VALIDATE_CHECK(util::in_closed_range<size_t>(1, opts.m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks, 10))
+      && VALIDATE_CHECK(opts.m_dyn_drop_timeout_ceiling > 4 * opts.m_st_init_drop_timeout)
+      && VALIDATE_CHECK(opts.m_dyn_drop_timeout_backoff_factor >= 1)
+      && VALIDATE_CHECK(opts.m_dyn_rcv_wnd_recovery_timer_period.count() > 0);
 
   // On error, validate_option_check() has set *err_code.
 
