@@ -60,10 +60,14 @@ namespace flow::util
  * @todo Linked_hash_map and Linked_hash_set have a reasonable complement of C++1x-ish APIs including move-semantics;
  * but the API does not quite mirror the full complement of what is in existence for `unordered_*` counterparts in
  * C++17 STL/Boost -- it would be nice to add these.  This includes such things as `.emplace()` and `.try_emplace()`
- * but more fundamentally would probably involve trolling `std::unordered_*` and copying its ~full API (and likely
+ * but more fundamentally would probably involve trolling `unordered_*` and copying its ~full API (and likely
  * some of a decent impl too).  That said what's available already acquits itself reasonably well.  (Historically
  * this was first written before C++11 and hasn't been given the full-on C++1x overhaul but instead merely the
- * essentials thereof.)
+ * essentials thereof.)  Boost's `unordered_*` are particularly respected, leading the way with the flat-addressing
+ * variants et al, so perhaps troll those more-so than a particular STL impl.  Surely we can borrow
+ * API and impl strategies/tactics from there (as well as use our own experience gained versus the pre-C++11 days).
+ * Impl of containers is not trivial, and these are not simple containers: nothing wrong with learning from the
+ * leaders in the field.
  *
  * ### Thread safety ###
  * Same as for `unordered_map<>`.
@@ -132,7 +136,7 @@ public:
   using Pred = Pred_t;
 
   /// Short-hand for key/mapped-value pairs stored in the structure.
-  using Value = std::pair<Key const, Mapped>;
+  using Value = std::pair<const Key, Mapped>;
 
   /// Short-hand for key/mapped-value pair best-suited (perf-wise) as arg type for the moving `insert()` overload.
   using Value_movable = std::pair<Key, Mapped>;
@@ -747,8 +751,7 @@ Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>&
    * Then we can assign.  Note that, even though it's N lines of code, reinterpret_cast<> generates no machine
    * code: it just makes the code-that-would-have-been-generated-anyway look at the memory in a different way
    * (in this case, as storing Keys that can be overwritten instead of read-only ones).  Finally, note that
-   * we specifically require that the template parameter `typename Key` be Assignable; that is the piece of the
-   * puzzle that GUARANTEES this reinterpret_cast<> (in general not a safe operation) is indeed safe/correct. */
+   * we specifically require that the template parameter `typename Key` be Assignable. */
   {
     using Mutable_key_value_list = std::list<Value_movable>;
 

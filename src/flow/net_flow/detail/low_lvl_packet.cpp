@@ -193,6 +193,10 @@ size_t Low_lvl_packet::serialize_common_header_to_raw_data(Const_buffer_sequence
   size += raw_bufs->back().size();
 
   return size;
+
+  /* @todo Minor and ~randomly placed: Convention these days seems to be to parenthesize sizeof(X) for any X, whether
+   * it's a type or variable or anything else.  Codify in doc-coding_style.cpp and convert all of Flow at least;
+   * seems NetFlow does it for types but not otherwise. */
 }
 
 size_t Syn_packet::serialize_to_raw_data(Const_buffer_sequence* raw_bufs) const // Virtual.
@@ -422,7 +426,7 @@ Low_lvl_packet::Ptr Low_lvl_packet::create_from_raw_data_packet(log::Logger* log
 
   /* We'll advance this as we keep reading off values from raw buffer.
    * Could also use += on *raw_buf, but I don't feel like cast<>ing all the time.
-   * Would rather reinterpret_cast<> due to it being the devil I know. Doesn't really matter. */
+   * Would rather reinterpret_cast<> due to it being the devil I know.  Doesn't really matter. */
 
   const uint8_t* common_data = static_cast<const uint8_t*>(raw_buf.data());
   // Meanwhile, this guy can skip past the entire Common Header.  We'll check that it matches common_data at the end.

@@ -1172,6 +1172,43 @@ void beautify_chrono_ostream(std::ostream* os);
 size_t deep_size(const std::string& val);
 
 /**
+ * `std::construct_at()` equivalent; unavailable until C++20, so here it is.  Placement-constructs a `T`
+ * at the given location with the given ctor args, using the expression used by C++20's `construct_at()` per
+ * cppreference.com.
+ *
+ * @tparam T
+ *         Object type.
+ * @tparam Ctor_args
+ *         `T` ctor arg types.
+ * @param obj
+ *        Pointer to uninitialized `T`.
+ * @param ctor_args
+ *        Ctor args for `T::T()`.
+ * @return `obj`.
+ */
+template<typename T, typename... Ctor_args>
+T* construct_at(T* obj, Ctor_args&&... ctor_args);
+
+/**
+ * Superficially similar to construct_at(), this default-initializes the `T` at the given location; this
+ * can be useful to avoid object-lifetime formality pitfalls.  Note that `T` must be *trivially* default-constructible.
+ * That means the call itself is a no-op -- in particular things like `int` members will not be
+ * zeroed -- but it can be used to inform the compiler of the nature of the area at `obj` as storing a `T`.
+ *
+ * @note We avoid describing the exact formalities of "inform the compiler of the nature of the area," so
+ *       you should know what you're doing before relying on this.  `std::start_lifetime_as()` in C++23 is related.
+ *
+ * If `T` is not trivially default-constructible, and you still want to placement-`T{}`-construct it, then
+ * just use construct_at() (with 1 arg) instead.
+ *
+ * @param obj
+ *        Pointer to `T`.
+ * @return `obj`.
+ */
+template<typename T>
+T* default_init_at(T* obj);
+
+/**
  * Serializes a Thread_local_state_registry to a standard output stream.
  *
  * @relatesalso Thread_local_state_registry

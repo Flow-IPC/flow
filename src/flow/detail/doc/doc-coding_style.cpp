@@ -985,7 +985,7 @@ T* x = 0; // OK and may be seen due to Flow originating before nullptr existed. 
  * definition/declaration (aggregate types/templates thereof; variables/constants; free functions/templates) then:
  *   - Any code requiring use of a given symbol can include the relevant _fwd.hpp when only a forward-declaration
  *     is required; e.g., if only referring to forward-declared type `T` by pointer or reference.
- *   - If it is insufficient (e.g., when `sizeof T` must be known to compiler), the code can include the non-_fwd.hpp
+ *   - If it is insufficient (e.g., when `sizeof(T)` must be known to compiler), the code can include the non-_fwd.hpp
  *     header.
  *
  * This allows for (1) shorter build times; and (arguably more importantly) (2) the methodical pre-disentangling of
@@ -1607,27 +1607,7 @@ void schedule_from_now(Fine_duration period_from_now);
  * when it is required to be type-unsafe and const-incorrect respectively.  Hence explain why you're doing it in those
  * cases.] */
 
-/* - Do: Prefer uintptr_t arithmetic over pointer arithmetic on `uint8_t*`, to avoid subtle undefined-behaviors.
- *
- * For example, given `void* pool_base`:
- *   OK: reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(pool_base) + pool_offset)
- *   Less OK: static_cast<void*>(static_cast<uint8_t*>(pool_base) + pool_offset)
- * There are many variations, but basically if there's a conversion to uint8_t* and/or back plus some byte sizes
- * being added/subtracted, then consider casting to/from uintptr_t.
- * [Rationale: It's too much to get into it here; but loosely: Formally by the standard compilers can assume that T*,
- * for any T, values that point beyond the bounds of formally known data structures => undefined behavior (UB).
- * Hence an optimizer could assume that since so-and-so implies UB, it must not be the case, and thus some branch
- * of your code can be optimized-away (or who knows what!).  The exact dangers, and how likely or unlikely or pedantic
- * some concern is, is hard to pin down.  However: usually the goal in such constructions is to simply (temporarily)
- * treat a pointer as a number, do some byte arithmetic on it that we know is correct, and then convert the the
- * actual pointer type we wanted -- void* in the above example but sometimes a `struct T` T*, or others.
- * By explicitly converting to uintptr_t, which is defined as sufficient to hold the numeric value of any T*, you
- * can do well-understood integer arithmetic without fear of phantom weirdness.] */
-
-/* - Do: Pointer arithmetic with `T*` within a known-valid range of `T`s.
- *
- * [Rationale: That is very normal.  Cf: The trouble starts, it is said, when going out of bounds or dealing with
- * raw addresses who-knows-where; and usually (not always) such code tends to have `T=uint8_t` or `T=char`. */
+// @todo: Section here about aliasing/punning/object-vs-bytes/[u]intptr_t/etc.  Working on the proper verbiage.
 
 /* - Do: Learn lambdas ASAP.  Use them extensively.  There should be NO reason to use bind() or a functor. -
  *

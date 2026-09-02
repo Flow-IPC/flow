@@ -25,6 +25,8 @@
 #include "flow/util/util_fwd.hpp"
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
+#include <type_traits>
+#include <utility>
 
 namespace flow::util
 {
@@ -786,5 +788,38 @@ Enum istream_to_enum(std::istream* is_ptr, Enum enum_default, Enum enum_sentinel
 
   return val;
 } // istream_to_enum()
+
+template<typename T, typename... Ctor_args>
+T* construct_at(T* obj, Ctor_args&&... ctor_args)
+{
+  using Value = T;
+
+  // Use placement-new expression used by C++20's construct_at() per cppreference.com.
+  return ::new (const_cast<void*>
+                  (static_cast<void const volatile*>
+                     (obj)))
+           Value(std::forward<Ctor_args>(ctor_args)...);
+  /* Careful -^-... Value{} would be preferred in most non-generic code, but generically as here it can mess things
+   * up by unintentionally invoking an initializer-list ctor form, if one exists, and the types line up just so
+   * (as when Value is, say, vector<size_t>, and one passes-in a single integer).  Use Value() to avoid
+   * any such surprises. */
+}
+
+template<typename T>
+T* default_init_at(T* obj)
+{
+  using Value = T;
+
+  static_assert(std::is_trivially_default_constructible_v<Value>,
+                "default_init_at() exists to begin an object's lifetime while writing nothing; a type whose "
+                  "default-ction (possibly) writes defeats that purpose.  "
+                  "If you want the ctor to run, use construct_at().");
+
+  // Similar to the above but...
+  return ::new (const_cast<void*>
+                  (static_cast<void const volatile*>
+                     (obj)))
+           Value; // ...default-initialize: no `()`.  E.g., a struct of `int`s won't have them zeroed by this.
+}
 
 } // namespace flow::util

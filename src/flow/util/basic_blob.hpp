@@ -259,21 +259,6 @@ struct Clear_on_alloc {};
  * and capacity(); rewrite Basic_blob in terms of this `Tight_blob`.  This simple container type has had some demand
  * in practice, and Basic_blob can and should be cleanly built on top of it (perhaps even as an IS-A subclass).
  *
- * @internal
- * ### Impl notes ###
- *
- * flow::util::Basic_blob internals use pointer arithmetic on a buffer of `uint8_t`s; the Flow coding guide
- * suggests avoiding this and bracketing such math with casts to-from `uintptr_t`; this *arguably* applies here.
- * We say arguably, because this guy actually *does* store `uint8_t`s formally, and the math is ~usually w/r/t
- * in-range values, which even formally compilers shall not take for undefined behavior.  There are some spots,
- * though, that refer to areas outside a `Basic_blob`; and in any case the idea is to remove all doubt in these
- * situations by working with `uintptr_t` when doing byte arithmetic.  On one hand could just b(y)te the bullet;
- * on the other this is in practice arguably academic.  Also there is #value_type (as opposed to `uint8_t`
- * all-over).  A `vector<T>` presumably would not do everything with `uintptr_t`s.  So not a formal to-do here,
- * but we did want to acknowledge this.
- *
- * @endinternal
- *
  * @tparam Allocator_t
  *         An allocator, with `value_type` equal to our #value_type, per the standard C++1x `Allocator` concept.
  *         In most uses this shall be left at the default `std::allocator<value_type>` which allocates in
