@@ -278,7 +278,8 @@ std::vector<std::string> stats_field_names(Ctor_args&&... ctor_args)
   using std::string;
 
   vector<string> names;
-  const Stat_set dummy{std::forward<Ctor_args>(ctor_args)...}; // Typically -- not always -- just {}.
+  // Typically -- not always -- just `()`. / Avoid initializer-list pitfalls in this generic code: (), not {} here.
+  const Stat_set dummy(std::forward<Ctor_args>(ctor_args)...);
   declare_stats("", &dummy, nullptr,
                 [&](auto&&, auto&&, auto&&, auto&&, String_view name)
   {
