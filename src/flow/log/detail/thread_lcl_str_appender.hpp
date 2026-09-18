@@ -243,7 +243,7 @@ public:
    * to the state saved last time this method was called on `*this`, or at its construction, whichever happened
    * later.  Examples of formatting state are `std::hex` and locale imbuings.
    *
-   * This is useful if you tend to follow a pattern like the following
+   * This is useful, if you tend to follow a pattern like the following
    * macro definition that takes `user_supplied_stream_args` macro argument:
    *
    *   ~~~
