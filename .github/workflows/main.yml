@@ -280,7 +280,7 @@ jobs:
           - id: newest
             name-suffix: -deps-newest
             conan-profile-replace-requires: |
-              boost/*: boost/1.91.0
+              boost/*: boost/1.90.0
 
         # Remove certain values from the 4D matrix so far.
         # The overall strategy is outlined in a large-ish comment above (or in Flow-IPC pipeline file;
