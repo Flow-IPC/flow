@@ -36,7 +36,8 @@ on:
       job-filter:
         description: >-
           If not blank: only jobs whose name contains this substring shall really run (e.g.:
-          "clang-15-relwithdebinfo-asan-cxx17" = 1 cell; "asan" = the ASAN cells; "doc" = the doc job).
+          "clang-15-relwithdebinfo-asan-cxx17" = 1 cell; "asan" = the ASAN cells; "deps-newest" = the
+          newest-dependency-versions cells; "doc" = the doc job).
           Others complete ~instantly with all steps skipped.
         required: false
         default: ''
@@ -269,9 +270,21 @@ jobs:
                             'clang': { 'sanitizer': ['None', 'address', 'thread', 'memory', 'undefined'] } } }
             sanitizer-name: tsan
             no-lto: True
+        # 4th axis: dependency versions (`floor` = conanfile.py-contained verions = supported minimums;
+        # `newest` = "early-warning" runs with newest conan-center versions of key dependencies).  Explained in
+        # Flow-IPC workflow counterpart.  For Flow the only such dependency is Boost.  Bump the `newest` version
+        # when conan-center gets a newer one.  (TODO: Some kind of reminder system to inform maintainer(s).)
+        deps:
+          - id: floor
+            name-suffix: ''
+          - id: newest
+            name-suffix: -deps-newest
+            conan-profile-replace-requires: |
+              boost/*: boost/1.91.0
 
-        # Remove certain values from the 3D matrix so far.
-        # The overall strategy is outlined in a large-ish comment above.
+        # Remove certain values from the 4D matrix so far.
+        # The overall strategy is outlined in a large-ish comment above (or in Flow-IPC pipeline file;
+        # referred to earlier above).
         exclude:
           # Firstly the exclusions from the C++17 sub-matrix (the other being the C++20 sub-matrix).
           # Again, these exclusions are explained in Flow-IPC workflow counterpart.
@@ -346,6 +359,32 @@ jobs:
             build-test-cfg: { id: relwithdebinfo-ubsan }
           - cxx-std: { id: cxx20 }
             build-test-cfg: { id: relwithdebinfo-tsan }
+          # Now the exclusions from the `deps: newest` sub-matrix: keep only gcc-13 and clang-17, only debug and
+          # relwithdebinfo, only C++17 (net: 4 cells).  Explained in Flow-IPC workflow counterpart.
+          - deps: { id: newest }
+            compiler: { id: gcc-9 }
+          - deps: { id: newest }
+            compiler: { id: gcc-10 }
+          - deps: { id: newest }
+            compiler: { id: gcc-11 }
+          - deps: { id: newest }
+            compiler: { id: clang-13 }
+          - deps: { id: newest }
+            compiler: { id: clang-15 }
+          - deps: { id: newest }
+            compiler: { id: clang-16 }
+          - deps: { id: newest }
+            build-test-cfg: { id: release }
+          - deps: { id: newest }
+            build-test-cfg: { id: minsizerel }
+          - deps: { id: newest }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - deps: { id: newest }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - deps: { id: newest }
+            build-test-cfg: { id: relwithdebinfo-tsan }
+          - deps: { id: newest }
+            cxx-std: { id: cxx20 }
 
     # Not using ubuntu-latest, so as to avoid surprises with OS upgrades and such.
     runs-on: ubuntu-22.04
@@ -354,12 +393,12 @@ jobs:
     # something hangs.
     timeout-minutes: 120
 
-    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
+    name: ${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}${{ matrix.deps.name-suffix }}
 
     env:
       # Whether this matrix cell shall really run, per the workflow_dispatch job-filter input.  See comments in
       # Flow-IPC workflow counterpart.  We use same techniques.
-      cell-selected: ${{ (github.event.inputs.job-filter || '') == '' || contains(format('{0}-{1}-{2}', matrix.compiler.id, matrix.build-test-cfg.id, matrix.cxx-std.id), github.event.inputs.job-filter) }}
+      cell-selected: ${{ ((github.event.inputs.job-filter || '') == '') || contains(format('{0}-{1}-{2}{3}', matrix.compiler.id, matrix.build-test-cfg.id, matrix.cxx-std.id, matrix.deps.name-suffix), github.event.inputs.job-filter) }}
       build-dir: ${{ github.workspace }}/build/${{ matrix.build-test-cfg.conan-profile-build-type }}
       install-dir: ${{ github.workspace }}/install/${{ matrix.build-test-cfg.conan-profile-build-type }}/usr/local
       # For the remaining env entries please see comments in Flow-IPC workflow counterpart.  We use same techniques.
@@ -499,6 +538,15 @@ jobs:
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
+        # `deps: newest` cells only: swap the conanfile.py-pinned dependency versions for the newest ones.
+        # See Flow-IPC workflow counterpart.
+        if [ '${{ matrix.deps.id }}' = newest ]; then
+          cat <<'EOF' >> conan_profile
+
+        [replace_requires]
+        ${{ matrix.deps.conan-profile-replace-requires }}
+        EOF
+        fi
 
     # Cache the Conan-built dependencies (Boost et al): a fresh runner otherwise rebuilds them from source every
     # run.  See explanatory comments atop the analogous steps in Flow-IPC workflow counterpart.  We use same
@@ -511,9 +559,9 @@ jobs:
       uses: actions/cache/restore@v6
       with:
         path: ~/.conan2/p
-        key: conan2-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-${{ hashFiles('conan_profile', 'conanfile.py') }}
+        key: conan2-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}${{ matrix.deps.name-suffix }}-${{ hashFiles('conan_profile', 'conanfile.py') }}
         restore-keys: |
-          conan2-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}-
+          conan2-data-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}${{ matrix.deps.name-suffix }}-
 
     - name: Install Flow dependencies with Conan using the profile
       if: env.cell-selected == 'true'
@@ -698,7 +746,7 @@ jobs:
           && always()
       uses: actions/upload-artifact@v7
       with:
-        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}
+        name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}${{ matrix.deps.name-suffix }}
         path: ${{ env.install-dir }}/bin/logs.tgz
 
 # TODO: See the crash-debuggability TODO at the analogous spot in Flow-IPC workflow counterpart; it applies
