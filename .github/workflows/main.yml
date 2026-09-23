@@ -274,7 +274,6 @@ jobs:
         # `newest` = "early-warning" runs with newest conan-center versions of key dependencies).  Explained in
         # Flow-IPC workflow counterpart.  For Flow the only such dependency is Boost.  Bump the `newest` version
         # when conan-center gets a newer one.  (TODO: Some kind of reminder system to inform maintainer(s).)
-        # (1.91.0 required un-excluding Boost.Regex in conanfile.py; see the comment there.)
         deps:
           - id: floor
             name-suffix: ''
