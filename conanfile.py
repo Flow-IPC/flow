@@ -78,7 +78,13 @@ class FlowRecipe(ConanFile):
             self.options["boost"].without_mpi = True
             self.options["boost"].without_nowide = True
             self.options["boost"].without_python = True
-            self.options["boost"].without_regex = True
+            # TODO: The next line is commented out, like `without_context` above, for the same reason: with Boost
+            # 1.91.0 (the early-warning pipeline cells) the same ConanException fires -- this time
+            # `{'boost_regex'}` -- even though b2 itself reports `regex: not building`; so apparently some module
+            # we *do* build now requires `regex` to itself build, and the recipe's bookkeeping does not know it.
+            # Same disposition: this gets rid of the problem; look into it sometime.  (Boost.Regex is header-only
+            # since 1.76 for our purposes; the built library is unused by us either way.)
+            # self.options["boost"].without_regex = True
             self.options["boost"].without_serialization = True
             self.options["boost"].without_stacktrace = True
             self.options["boost"].without_test = True

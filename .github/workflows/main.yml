@@ -274,13 +274,14 @@ jobs:
         # `newest` = "early-warning" runs with newest conan-center versions of key dependencies).  Explained in
         # Flow-IPC workflow counterpart.  For Flow the only such dependency is Boost.  Bump the `newest` version
         # when conan-center gets a newer one.  (TODO: Some kind of reminder system to inform maintainer(s).)
+        # (1.91.0 required un-excluding Boost.Regex in conanfile.py; see the comment there.)
         deps:
           - id: floor
             name-suffix: ''
           - id: newest
             name-suffix: -deps-newest
             conan-profile-replace-requires: |
-              boost/*: boost/1.90.0
+              boost/*: boost/1.91.0
 
         # Remove certain values from the 4D matrix so far.
         # The overall strategy is outlined in a large-ish comment above (or in Flow-IPC pipeline file;
