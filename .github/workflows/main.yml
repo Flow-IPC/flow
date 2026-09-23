@@ -538,7 +538,7 @@ jobs:
         # a huge deal... but it's a little nice to cover more paths, so let's do the `0` path when applicable.
         flow/*:build_cxx_std = ${{ ((matrix.cxx-std.id == 'cxx20') && '20') || '0' }}
         EOF
-        # `deps: newest` cells only: swap the conanfile.py-pinned dependency versions for the newest ones.
+        # `deps: newest` cells only: swap the conanfile.py-specified dependency versions for the newest ones.
         # See Flow-IPC workflow counterpart.
         if [ '${{ matrix.deps.id }}' = newest ]; then
           cat <<'EOF' >> conan_profile
