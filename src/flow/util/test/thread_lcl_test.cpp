@@ -1175,7 +1175,7 @@ TEST(Thread_local_ptr, Thread_locality)
  * thread_local deinit -- the fast-path cache is gone, and the class must transparently fall back to the
  * canonical thread_specific_ptr.  A cleanup function here (1) get()s a *different* Tlp and (2) re-arms its
  * own slot via reset()-to-non-null (which the cleanup pass must then clean once more).  Mostly this test's
- * assertion is implicit: no crash/no UAF in that window (ASAN/TSAN CI runs make it explicit). */
+ * assertion is implicit: no crash/no use-after-free in that window (ASAN/TSAN CI runs make it explicit). */
 TEST(Thread_local_ptr, Cleanup_window)
 {
   namespace tt = tlp_test;

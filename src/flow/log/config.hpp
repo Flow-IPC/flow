@@ -49,6 +49,7 @@
  * @see flow::log::Config class doc header Performance section for an overall recipe.
  *
  * @internal
+ *
  * ### Impl: The chosen default ###
  * Regarding the default value: Briefly (this requires understanding of Component_payload_type_dict):
  * All choices are pretty good, as all rely on pointers and not long type names, but reassuringly
@@ -76,6 +77,7 @@
  * @see flow::log::Config class doc header Performance section for an overall recipe.
  *
  * @internal
+ *
  * ### Impl: The chosen default ###
  * Regarding the default value: This is the slower lookup type, and may be irrelevant, but within this category we can
  * still do better or worse.  As noted in flow::log::Config::Component_payload_type_to_cfg_map doc header

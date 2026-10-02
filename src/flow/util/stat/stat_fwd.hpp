@@ -649,7 +649,7 @@
  *          a `GAUGE` shard-value in a newly-dead thread is to be treated the same as being zero.  If so: nothing
  *          special to do yet.  If not -- meaning perhaps the dead thread's `GAUGE`'s shard-value's proper
  *          contribution to the total is its last value at thread exit -- then treat it as an `ACC` in this
- *          context.  Which brings us to `ACC`s.  Logically, an `ACC` counts some event's occurrence, so once
+ *          context.  This brings us to `ACC`s.  Logically, an `ACC` counts some event's occurrence, so once
  *          its value exceeds zero, that's forever.  Therefore, you must set up a mechanism such that, at thread
  *          exit time, that thread's `Stat_set` shard is saved in some central store of "finalized" shards.
  *          For stats_aggregate_shards() (consumption) and stats_reset_shard_aggregate() (reset) all such shard
