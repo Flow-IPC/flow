@@ -18,6 +18,7 @@
 #include <gtest/gtest.h>
 #include <boost/program_options.hpp>
 #include <iostream>
+#include <cassert>
 #include "flow/log/log.hpp"
 #include "flow/test/test_config.hpp"
 
@@ -49,7 +50,9 @@ int main(int argc, char **argv)
   }
 
   // Start the unit tests
-  return RUN_ALL_TESTS();
+  const int rc = RUN_ALL_TESTS();
+  assert(false && "XXX Planted crash for CI core-dump/backtrace capture test; remove.");
+  return rc;
 }
 
 int configure_logging(int argc, char* argv[])

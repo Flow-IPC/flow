@@ -439,6 +439,10 @@ jobs:
           export BUILT_CMD_PREFIX='setarch -R'
           echo 'Shall use `setarch -R` to disable ASLR to avoid TSAN-built binary misbehavior.'
         fi
+        if [ '${{ matrix.build-test-cfg.sanitizer-name }}' = '' ]; then
+          ulimit -c unlimited
+        fi
+      core-dump-dir: /tmp/core_dumps
 
     steps:
     - name: Update available software list for apt-get
@@ -638,6 +642,16 @@ jobs:
         # Save runner space: blow away build dir after install.
         rm -rf ${{ env.build-dir }}
 
+    # Core dump capture (with the `ulimit` part in `setup-run-env`, and the backtrace step near the end): please see
+    # comments in Flow-IPC workflow counterpart (step of the same name).  We use same techniques.
+    - name: Prepare core dump capture
+      if: env.cell-selected == 'true'
+      run: |
+        # Prepare core dump capture.
+        mkdir -p ${{ env.core-dump-dir }}
+        chmod 1777 ${{ env.core-dump-dir }}
+        sudo sysctl -w kernel.core_pattern=${{ env.core-dump-dir }}/core.%E.%p
+
     # From now on use !cancelled() to try to run any test/demo that exists regardless
     # of preceding failures if any.  Same-ish (always()) with the log-upload at the end.
     # Worst-case they'll all fail in super-basic ways and immediately; no extra harm done.
@@ -730,6 +744,35 @@ jobs:
         fi
         echo 'No errors found in logs.'
 
+    # See comments in Flow-IPC workflow counterpart (step of the same name).  We use same techniques.
+    - name: Generate backtraces from core dumps, if any
+      if: |
+        (env.cell-selected == 'true')
+          && always()
+      run: |
+        # Generate backtraces from core dumps, if any.
+        OUT_DIR=${{ env.install-dir }}/bin/logs/core_dumps
+        for CORE in ${{ env.core-dump-dir }}/core.*; do
+          [ -e "$CORE" ] || continue
+          if ! command -v gdb > /dev/null; then
+            sudo apt-get install -y gdb > /dev/null
+          fi
+          NAME=${CORE##*/core.} # Executable path with `!` for `/`, then `.`, then PID.
+          PID=${NAME##*.}
+          EXE=$(echo "${NAME%.*}" | tr '!' '/')
+          mkdir -p $OUT_DIR
+          OUT=$OUT_DIR/$(basename "$EXE").$PID.backtrace.txt
+          echo "::warning::A program crashed and dumped core: [$EXE] (PID [$PID]).  Backtrace in logs artifact:" \
+               "[core_dumps/$(basename "$OUT")]."
+          { gdb -batch -iex 'set debuginfod enabled off' -ex 'set pagination off' \
+              -ex 'bt' -ex 'bt full' -ex 'thread apply all bt' "$EXE" "$CORE" > "$OUT" 2>&1; } || true
+          echo "Start of [$OUT]:"
+          echo '[[[ file--'
+          head -n 100 "$OUT"
+          echo '--file ]]]'
+          rm -f "$CORE" # Save runner space.
+        done
+
     - name: Package test/demo logs tarball
       if: |
         (env.cell-selected == 'true')
@@ -748,9 +791,6 @@ jobs:
       with:
         name: flow-test-logs-${{ matrix.compiler.id }}-${{ matrix.build-test-cfg.id }}-${{ matrix.cxx-std.id }}${{ matrix.deps.name-suffix }}
         path: ${{ env.install-dir }}/bin/logs.tgz
-
-# TODO: See the crash-debuggability TODO at the analogous spot in Flow-IPC workflow counterpart; it applies
-# here equally.
 
   doc-and-release:
     needs: [setup, set-vars]
