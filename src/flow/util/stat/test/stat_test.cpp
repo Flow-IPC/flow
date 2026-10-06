@@ -550,7 +550,7 @@ struct Test_stats
 };
 
 template<typename Visitor>
-void declare_stats(std::string name_prefix, const Test_stats* src_stats, Test_stats* target_stats,
+void declare_stats(const Stat_name& name_prefix, const Test_stats* src_stats, Test_stats* target_stats,
                    Visitor&& visitor)
 {
   FLOW_UTIL_STAT_DECLARE(m_msg_count, ACCUMULATOR);
@@ -568,7 +568,7 @@ struct Atomic_stats
 };
 
 template<typename Visitor>
-void declare_stats(std::string name_prefix, const Atomic_stats* src_stats, Atomic_stats* target_stats,
+void declare_stats(const Stat_name& name_prefix, const Atomic_stats* src_stats, Atomic_stats* target_stats,
                    Visitor&& visitor)
 {
   FLOW_UTIL_STAT_DECLARE(m_acc, ACCUMULATOR);
@@ -586,7 +586,7 @@ struct Plain_stats
 };
 
 template<typename Visitor>
-void declare_stats(std::string name_prefix, const Plain_stats* src_stats, Plain_stats* target_stats,
+void declare_stats(const Stat_name& name_prefix, const Plain_stats* src_stats, Plain_stats* target_stats,
                    Visitor&& visitor)
 {
   FLOW_UTIL_STAT_DECLARE(m_acc, ACCUMULATOR);
@@ -605,7 +605,7 @@ struct Compo_leaf_stats
 };
 
 template<typename Visitor>
-void declare_stats(std::string name_prefix, const Compo_leaf_stats* src_stats, Compo_leaf_stats* target_stats,
+void declare_stats(const Stat_name& name_prefix, const Compo_leaf_stats* src_stats, Compo_leaf_stats* target_stats,
                    Visitor&& visitor)
 {
   FLOW_UTIL_STAT_DECLARE(m_leaf_acc, ACCUMULATOR);
@@ -625,7 +625,7 @@ struct Compo_stats
 };
 
 template<typename Visitor>
-void declare_stats(std::string name_prefix, const Compo_stats* src_stats, Compo_stats* target_stats,
+void declare_stats(const Stat_name& name_prefix, const Compo_stats* src_stats, Compo_stats* target_stats,
                    Visitor&& visitor)
 {
   FLOW_UTIL_STAT_DECLARE(m_nested.m_n_events, ACCUMULATOR);
@@ -633,7 +633,7 @@ void declare_stats(std::string name_prefix, const Compo_stats* src_stats, Compo_
                 src_stats ? &src_stats->m_plain_leaf : nullptr,
                 target_stats ? &target_stats->m_plain_leaf : nullptr,
                 visitor);
-  declare_stats(name_prefix + "sub.",
+  declare_stats(Stat_name{name_prefix, "sub."},
                 src_stats ? &src_stats->m_sub_leaf : nullptr,
                 target_stats ? &target_stats->m_sub_leaf : nullptr,
                 visitor);
@@ -739,6 +739,38 @@ TEST(Stats_stat_set_test, Field_names)
   // Atomic_stats has no default ctor: the args are forwarded to whatever public ctor exists.
   EXPECT_EQ(stats_field_names<Atomic_stats>(size_t{0}), (vector<string>{"acc", "gauge", "hwm", "histo"}));
 } // TEST(Stats_stat_set_test, Field_names)
+
+/* Stat_name directly: chains deeper than the specimens' compositions use; a named prefix reused by two children (the
+ * pattern its doc header shows); member-id rendering; and the 3 on-demand renderings agreeing -- append_to()
+ * appending (not overwriting). */
+TEST(Stats_stat_set_test, Stat_name)
+{
+  using Fragment_kind = Stat_name::Fragment_kind;
+
+  const Stat_name root{"top."};
+  const Stat_name obj_prefix{root, "obj."};
+  const Stat_name own{obj_prefix, "own."};
+  const Stat_name lnd{obj_prefix, "lnd."};
+  const Stat_name own_member{own, "m_rcv.m_n_bytes", Fragment_kind::S_MEMBER_ID};
+  const Stat_name lnd_member{lnd, "m_count", Fragment_kind::S_MEMBER_ID};
+
+  EXPECT_EQ(Stat_name{}.str(), "");
+  EXPECT_EQ(Stat_name{""}.str(), "");
+  EXPECT_EQ(root.str(), "top.");
+  EXPECT_EQ(own_member.str(), "top.obj.own.rcv.n_bytes");
+  EXPECT_EQ(lnd_member.str(), "top.obj.lnd.count"); // Sibling of `own`: the shared prefix is unaffected by either.
+  EXPECT_EQ(obj_prefix.str(), "top.obj.");
+  EXPECT_EQ((Stat_name{obj_prefix, "m_x", Fragment_kind::S_LITERAL}.str()), "top.obj.m_x"); // Literal: verbatim.
+
+  string appended{"pre:"};
+  own_member.append_to(&appended);
+  EXPECT_EQ(appended, "pre:top.obj.own.rcv.n_bytes");
+
+  ostringstream os;
+  os << "pre:";
+  own_member.to_ostream(os);
+  EXPECT_EQ(os.str(), appended);
+} // TEST(Stats_stat_set_test, Stat_name)
 
 /* stats_reset() (per-Stat_type semantics, including the histogram-clears special) and stats_assign()
  * (the copy that works despite non-copyable atomic members). */

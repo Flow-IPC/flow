@@ -20,6 +20,9 @@
 #include "flow/util/util.hpp"
 #include "flow/test/test_common_util.hpp"
 #include <gtest/gtest.h>
+#include <optional>
+#include <string>
+#include <vector>
 
 namespace flow::util::test
 {
@@ -28,6 +31,7 @@ namespace
 {
 using std::string;
 using std::vector;
+using std::optional;
 
 using uint = unsigned int;
 static uint s_n_copies = 0;
@@ -51,8 +55,7 @@ size_t hash_value(const Obj& obj) { return boost::hash_value(obj.m_str); };
 
 TEST(Linked_hash, Interface)
 {
-  /* @todo I am sure there's more stuff to torture in Linked_hash_* for complete coverage; like custom
-   *       equality and hash predicates for example.  Also n_buckets.
+  /* @todo I am sure there's more stuff to torture in Linked_hash_* for complete coverage; like n_buckets for example.
    * As it stands, this at least tests a bunch of things which is by far better than nothing. */
 
   using std::swap; // This enables proper ADL.
@@ -230,9 +233,9 @@ TEST(Linked_hash, Interface)
     { FLOW_TEST_TRACE(); keys_check_map(map6, { "e", "d", "c", "a", "b" }); }
     { FLOW_TEST_TRACE(); vals_check_map(map6, { "E", "D", "C", "A", "B" }); }
 
-    /* @todo Repeat, tediously, the insert() tests as on map6 above, but with the copying-insert instead of moving-insert.
-     * We did already test copying-insert, and the fact that it in facts inserts and moves, but we haven't tested its
-     * return value pair, nor that it no-ops if key already in map. */
+    /* @todo Repeat, tediously, the insert() tests as on map6 above, but with the copying-insert instead of
+     * moving-insert.  We did already test copying-insert, and the fact that it in fact inserts and moves, but we
+     * haven't tested its return value pair, nor that it no-ops if key already in map. */
 
     const auto map7 = map6;
     EXPECT_EQ(map7.find("b"), --map7.end());
@@ -495,5 +498,141 @@ TEST(Linked_hash, Interface)
     EXPECT_EQ(set10.count(""), size_t(1));
   } // Set test block.
 } // TEST(Linked_hash, Interface)
+
+/* Pointer/iterator stability: the lookup structure inside is open-addressed (it moves its own elements around when it
+ * grows), but what the user can see -- the keys and mapped values, via iterators or references -- lives in a
+ * node-based list and must never move.  So: insert enough to make the lookup structure grow many times; erase some;
+ * touch() some (reorders the list, but by relinking nodes, not moving values); insert more; move-construct the
+ * container.  Throughout, every surviving element must be at the address first observed for it; and a saved iterator
+ * must still point to it. */
+TEST(Linked_hash, Pointer_stability)
+{
+  using Map = Linked_hash_map<string, uint>;
+  using Set = Linked_hash_set<string>;
+
+  constexpr uint N_KEYS = 3000; // Plenty to make the lookup structure grow (rehash) many times from empty.
+  const auto key_of = [](uint idx) { return std::to_string(idx); };
+
+  // Map.
+  {
+    Map map;
+    struct Seen
+    {
+      const string* m_key;
+      const uint* m_mapped;
+      Map::Iterator m_it;
+    };
+    vector<optional<Seen>> seen(N_KEYS * 2); // Index = key number; nullopt = never inserted, or erased.
+
+    const auto check_all = [&](const Map& m, const char* ctx)
+    {
+      size_t n_live = 0;
+      for (uint idx = 0; idx != seen.size(); ++idx)
+      {
+        const auto& s = seen[idx];
+        const auto it = m.find(key_of(idx));
+        if (!s)
+        {
+          EXPECT_TRUE(it == m.cend()) << ctx << ": key [" << idx << "].";
+          continue;
+        }
+        // else
+        ++n_live;
+        ASSERT_TRUE(it != m.cend()) << ctx << ": key [" << idx << "].";
+        EXPECT_EQ(&it->first, s->m_key) << ctx << ": key [" << idx << "].";
+        EXPECT_EQ(&it->second, s->m_mapped) << ctx << ": key [" << idx << "].";
+        EXPECT_EQ(&(s->m_it->first), s->m_key) << ctx << ": key [" << idx << "] (saved iterator).";
+        EXPECT_EQ(s->m_it->second, idx) << ctx << ": key [" << idx << "] (saved iterator).";
+      }
+      EXPECT_EQ(m.size(), n_live) << ctx;
+    };
+
+    const auto insert_range = [&](uint idx_begin, uint idx_end)
+    {
+      for (uint idx = idx_begin; idx != idx_end; ++idx)
+      {
+        const auto result = map.insert(Map::Value_movable{key_of(idx), idx});
+        ASSERT_TRUE(result.second);
+        seen[idx] = Seen{ &result.first->first, &result.first->second, result.first };
+        if ((idx % 500) == 0)
+        {
+          check_all(map, "During initial inserts");
+        }
+      }
+    };
+
+    insert_range(0, N_KEYS);
+    check_all(map, "After initial inserts");
+
+    for (uint idx = 0; idx < N_KEYS; idx += 3) // Erase every 3rd; alternate the erase overloads.
+    {
+      if ((idx % 2) == 0)
+      {
+        EXPECT_EQ(map.erase(key_of(idx)), 1u);
+      }
+      else
+      {
+        map.erase(seen[idx]->m_it);
+      }
+      seen[idx].reset();
+    }
+    check_all(map, "After erasures");
+
+    uint last_touched_idx = 0;
+    for (uint idx = 1; idx < N_KEYS; idx += 7) // Reorder some via touch(): relinks list nodes; must not move values.
+    {
+      if (seen[idx])
+      {
+        EXPECT_TRUE(map.touch(key_of(idx)));
+        last_touched_idx = idx;
+      }
+    }
+    EXPECT_EQ(map.newest()->second, last_touched_idx) << "(Sanity: the touch()es did reorder.)";
+    check_all(map, "After touch()es");
+
+    insert_range(N_KEYS, N_KEYS * 2); // Grow again, into the erased-slot-ridden structure.
+    check_all(map, "After more inserts");
+
+    Map map2{std::move(map)}; // Moving the container must not move the elements either.
+    check_all(map2, "After move-construction");
+  } // Map.
+
+  // Set.
+  {
+    Set set;
+    vector<const string*> seen(N_KEYS, nullptr); // Index = key number; null = never inserted, or erased.
+
+    const auto check_all = [&](const char* ctx)
+    {
+      for (uint idx = 0; idx != seen.size(); ++idx)
+      {
+        const auto it = set.find(key_of(idx));
+        if (!seen[idx])
+        {
+          EXPECT_TRUE(it == set.cend()) << ctx << ": key [" << idx << "].";
+          continue;
+        }
+        // else
+        ASSERT_TRUE(it != set.cend()) << ctx << ": key [" << idx << "].";
+        EXPECT_EQ(&(*it), seen[idx]) << ctx << ": key [" << idx << "].";
+      }
+    };
+
+    for (uint idx = 0; idx != N_KEYS; ++idx)
+    {
+      const auto result = set.insert(key_of(idx));
+      ASSERT_TRUE(result.second);
+      seen[idx] = &(*result.first);
+    }
+    check_all("After inserts");
+
+    for (uint idx = 0; idx < N_KEYS; idx += 2)
+    {
+      EXPECT_EQ(set.erase(key_of(idx)), 1u);
+      seen[idx] = nullptr;
+    }
+    check_all("After erasures");
+  } // Set.
+} // TEST(Linked_hash, Pointer_stability)
 
 } // namespace flow::util::test

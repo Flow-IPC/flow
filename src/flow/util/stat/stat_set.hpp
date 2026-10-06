@@ -21,7 +21,7 @@
 #include "flow/util/stat/stat_fwd.hpp"
 #include "flow/util/string_view.hpp"
 #include "flow/util/util_fwd.hpp"
-#include "flow/cfg/cfg_fwd.hpp"
+#include <boost/core/noncopyable.hpp>
 #include <ostream>
 #include <atomic>
 #include <cassert>
@@ -53,11 +53,12 @@
  *      `target_stats` shall be null to indicate this.
  *   -# `nullptr`: Ignored here.  See FLOW_UTIL_STAT_DECLARE_HI_WMARK().
  *   -# `auto stat_type_tag`: The type (accumulator, gauge, etc.) of the member encoded in such a way as to be able
- *      determing said type at compile-time via `if constexpr(...stat_type_tag...)`.
+ *      to determine said type at compile-time via `if constexpr(...stat_type_tag...)`.
  *      It may be ignored if unneeded by the op that's invoking `declare_stats()`.  With this macro this can
  *      be any type except `HI_WMARK`.
- *   -# `String_view name`: The printable name of the member.  It may be ignored if unneeded
- *      by the op that's invoking `declare_stats()`.
+ *   -# `const Stat_name& name`: The printable name of the member (with `name_prefix` in front).  It is computed only on
+ *      request -- `name.str()`, `name.to_ostream(os)`, et al -- so if unneeded by the op that's invoking
+ *      `declare_stats()`, then ignoring it costs nothing.  Do not keep it past the `visitor()` call; see Stat_name.
  *
  * When writing the `visitor()` lambda passed to a `stats_*()` op, start with the signature implied by
  * that list; then for readability consider replacing each ignored arg with `auto&&` (to avoid clutter
@@ -82,8 +83,8 @@
               target_stats ? &target_stats->ARG_m_stat : nullptr, \
               static_cast<Member_ptr_type>(nullptr), \
               std::integral_constant<Stat_type, FLOW_UTIL_STAT_DECLARE_stat_type>{}, \
-              ::flow::util::String_view \
-                {name_prefix + ::flow::cfg::value_set_member_id_to_opt_name(#ARG_m_stat, '_')}); \
+              ::flow::util::stat::Stat_name{name_prefix, #ARG_m_stat, \
+                                            ::flow::util::stat::Stat_name::Fragment_kind::S_MEMBER_ID}); \
     )
 
 /**
@@ -112,7 +113,7 @@
  *      `target_stats->ARG_m_gauged_stat` -- or null if such is not necessary for the `stats_*()` op
  *      that's invoking `declare_stats()`, in which case `target_stats` shall be null to indicate this.
  *   -# `auto stat_type_tag`: See FLOW_UTIL_STAT_DECLARE().
- *   -# `String_view name`: See FLOW_UTIL_STAT_DECLARE().
+ *   -# `const Stat_name& name`: See FLOW_UTIL_STAT_DECLARE().
  *
  * When writing the `visitor()` lambda... (same as FLOW_UTIL_STAT_DECLARE() doc header says).
  *
@@ -133,8 +134,8 @@
               target_stats ? &target_stats->ARG_m_stat : nullptr, \
               target_stats ? &target_stats->ARG_m_gauged_stat : nullptr, \
               std::integral_constant<Stat_type, Stat_type::S_HI_WMARK>{}, \
-              ::flow::util::String_view \
-                {name_prefix + ::flow::cfg::value_set_member_id_to_opt_name(#ARG_m_stat, '_')}); \
+              ::flow::util::stat::Stat_name{name_prefix, #ARG_m_stat, \
+                                            ::flow::util::stat::Stat_name::Fragment_kind::S_MEMBER_ID}); \
     )
 
 namespace flow::util::stat
@@ -159,6 +160,171 @@ struct Stat_set_printable
   /// The referenced stat set.
   const Stat_set& m_stats;
 };
+
+/**
+ * Specialized class that (at a light weight) represents a printable `Stat_set`-member name, or fragment thereof,
+ * by storing concatenated sub-fragments in rope-like fashion, so that certain relatively expensive yet rarely needed
+ * operations (given that stat-member names are used only for things like pretty-printing) are executed only
+ * when actually needed.
+ *
+ * ### How to use ###
+ * Typically you'll touch Stat_name only when writing a `declare_stats()` that composes `declare_stats()`s of
+ * sub-`struct`s, optionally adding a sub-prefix for those sub-`struct`s' stat names.  As an advanced user
+ * you might also write your own `stats_*()`-like op.  Thus:
+ *
+ *   ~~~
+ *   // A stats_*() op calls the top-level declare_stats() with the empty root Stat_name.
+ *   declare_stats("", &src_stats, target_stats, visitor);
+ *
+ *   template<typename Visitor>
+ *   void declare_stats(const Stat_name& name_prefix, const My_stats* src_stats, My_stats* target_stats,
+ *                      Visitor&& visitor)
+ *   {
+ *     // Plain fields: just declare them; name_prefix is applied automatically.
+ *     FLOW_UTIL_STAT_DECLARE(m_msg_count, ACCUMULATOR);
+ *
+ *     // Sub-struct, same prefix: forward name_prefix as-is.
+ *     declare_stats(name_prefix,
+ *                   src_stats ? &src_stats->m_misc : nullptr, target_stats ? &target_stats->m_misc : nullptr,
+ *                   visitor);
+ *
+ *     // Sub-struct, extended prefix: names come out as "<prefix>snd.<field>".
+ *     declare_stats(Stat_name{name_prefix, "snd."},
+ *                   src_stats ? &src_stats->m_snd : nullptr, target_stats ? &target_stats->m_snd : nullptr,
+ *                   visitor);
+ *
+ *     // Several sub-structs under a shared extended prefix: name it once; reuse it (as-is or extended further).
+ *     const Stat_name obj_prefix{name_prefix, "obj."};
+ *     declare_stats(Stat_name{obj_prefix, "own."}, ..., visitor);
+ *     declare_stats(Stat_name{obj_prefix, "lnd."}, ..., visitor);
+ *     declare_stats(obj_prefix, ..., visitor);
+ *   }
+ *   ~~~
+ *
+ * Inside a `visitor()` (a custom `stats_*()` op): take the name arg as `const Stat_name& name` if you need it -- then
+ * `name.str()` (or `name.append_to(&some_string)`, or `name.to_ostream(os)`) -- or else as `auto&&` and ignore it
+ * (which costs nothing).
+ *
+ * ### Rationale ###
+ * We gave a mini-rationale above.  To set it up more concretely: `stats_*()` ops routinely use ADL-determined
+ * `declare_stats()` functions (which call `FLOW_UTIL_STAT_DECLARE*()` and sometimes compose via further
+ * `declare_stats()` calls) given by the user to perform work for each stat-member of the given `Stat_set`.
+ * A `visitor()` thus visits (through those `DECLARE`s) each stat-member, the macro passing-in various info
+ * about that stat-member, such as its address in a source `Stat_set` and/or in a target one.  One of the
+ * items is the stat-member's printable name as a string, computed via cfg::value_set_member_id_to_opt_name()
+ * as called on the stringification of the member's identifier.
+ *
+ * However: most `stats_*()` guys will disregard this name; while a couple existing ones (stats_to_ostream(),
+ * usually invoked via print(), especially) will care about it very much.  Yet `FLOW_UTIL_STAT_DECLARE*()`
+ * would naively compute this name anyway -- per member! -- regardless of whether it's ignored, which it usually is.
+ * It is wasteful. / So instead we could store the argument *to* the `value_set_member_id_to_opt_name()` in
+ * a `*this` (as a mere `String_view`), and invoke that function only when a `stats_*()` actually requests the
+ * overall member-name *string* to be *computed*.
+ *
+ * A secondary but basically similar driver is when a user `declare_stats()` might use *composition*
+ * (see util::stat doc header).  For nice stat-member names to work `declare_stats()` takes a string name-prefix,
+ * which is prepended to the aforementioned basic member-identifier name from the macro.  So if `declare_stats()`
+ * is called inside `declare_stats()` for a sub-`struct` in the `Stat_set` (composition), it might pass-through
+ * not that same name-prefix but rather it plus a string literal IDing the sub-`struct`.  Then the sub-`struct`'s
+ * member `m_cool_val` would come out to, like, "prefix_given_to_us.sub_struct_prefix_we_added.cool_val".
+ * So with composition, naively, the prefix concatenation is computed once per such call -- but, again, it
+ * is only needed when the `visitor()` even cares about names at all.
+ *
+ * So there you have it: store a prefix-base (if any) (itself a Stat_name for this to work), an actual fragment-string
+ * (as a `String_view`), and whether (when computing actual resulting string as in str()) to just concatenate
+ * the two or to call cfg::value_set_member_id_to_opt_name() first.  The computation is done only on-demand;
+ * and the storage is of merely ~2 pointers, a length, and a flag.
+ */
+class Stat_name : private boost::noncopyable
+{
+public:
+  // Types.
+
+  /// How a fragment of text is rendered into the name.
+  enum class Fragment_kind
+  {
+    /// The fragment is rendered verbatim.
+    S_LITERAL,
+
+    /**
+     * The fragment is a data member identifier (e.g., `m_msg_count` or `m_rcv.m_n_transmitted`) and is rendered as
+     * its printable stat name via cfg::value_set_member_id_to_opt_name().  Used by
+     * FLOW_UTIL_STAT_DECLARE() and FLOW_UTIL_STAT_DECLARE_HI_WMARK(); you are unlikely to need it directly.
+     */
+    S_MEMBER_ID
+  }; // enum class Fragment_kind
+
+  // Constructors/destructor.
+
+  /**
+   * Constructs a Stat_name that represents only a name fragment with no reference to another Stat_name.
+   *
+   * @param fragment
+   *        The text; usually a literal or nothing.  It is referred-to, not copied; see class doc header for use-cases.
+   */
+  Stat_name(String_view fragment = {});
+
+  /**
+   * Identical to first ctor but takes `const char*` (usually a literal).  Exists because an implicit conversion
+   * from a string literal to `String_view` and then to Stat_name would be two user-defined conversions in a row,
+   * which C++ does not do implicitly.
+   *
+   * @param fragment
+   *        See other ctor.
+   */
+  Stat_name(const char* fragment);
+
+  /**
+   * Constructs a Stat_name that represents the concatenation of another Stat_name and the specified name fragment (or
+   * `value_set_member_id_to_opt_name()`-ification thereof).
+   *
+   * @param base
+   *        First part of the concatenation.  It is referred-to, not copied; see class doc header for use-cases.
+   * @param fragment
+   *        Second part of the concatenation, interpreted according to `fragment_kind`.
+   * @param fragment_kind
+   *        How to (on-demand only) render `fragment` into a string via (at least) str().
+   */
+  Stat_name(const Stat_name& base, String_view fragment, Fragment_kind fragment_kind = Fragment_kind::S_LITERAL);
+
+  // Methods.
+
+  /**
+   * On-demand evaluation: `*target += this->str()` but faster.
+   *
+   * @param target
+   *        The string to which to append.
+   */
+  void append_to(std::string* target) const;
+
+  /**
+   * On-demand evaluation: `os << this->str()` but faster.
+   *
+   * @param os
+   *        The stream to which to write.
+   */
+  void to_ostream(std::ostream& os) const;
+
+  /**
+   * On-demand evaluation: Returns the full name -- all fragments, from the root on, each rendered per its
+   * Fragment_kind -- as a new string.  Equivalent to append_to() into an empty string.
+   *
+   * @return See above.
+   */
+  std::string str() const;
+
+private:
+  // Data.
+
+  /// First part, if any, of the concatenation in str().
+  const Stat_name* const m_base;
+
+  /// Second part, if any, of the concatenation in str(), interpreted according to #m_fragment_kind.
+  const String_view m_fragment;
+
+  /// How to render #m_fragment.
+  const Fragment_kind m_fragment_kind;
+}; // class Stat_name
 
 // Template implementations.
 
@@ -249,7 +415,7 @@ void stats_to_ostream(std::ostream& os, const Stat_set& stats)
 {
   bool first = true;
   declare_stats("", &stats, nullptr,
-                [&](const auto* val_ptr, auto&&, auto&&, auto&&, String_view name)
+                [&](const auto* val_ptr, auto&&, auto&&, auto&&, const Stat_name& name)
   {
     const auto& val = *val_ptr;
 
@@ -260,7 +426,8 @@ void stats_to_ostream(std::ostream& os, const Stat_set& stats)
     first = false;
 
     // In particular load(val) efficiently loads/returns copy of atomic<> val; simply returns regular val by value.
-    os << name << "=[" << load(val) << ']';
+    name.to_ostream(os);
+    os << "=[" << load(val) << ']';
   }); // declare_stats()
   // ADL finds the overload of declare_stats() matching Stat_set.
 }
@@ -281,9 +448,9 @@ std::vector<std::string> stats_field_names(Ctor_args&&... ctor_args)
   // Typically -- not always -- just `()`. / Avoid initializer-list pitfalls in this generic code: (), not {} here.
   const Stat_set dummy(std::forward<Ctor_args>(ctor_args)...);
   declare_stats("", &dummy, nullptr,
-                [&](auto&&, auto&&, auto&&, auto&&, String_view name)
+                [&](auto&&, auto&&, auto&&, auto&&, const Stat_name& name)
   {
-    names.emplace_back(name.data(), name.size());
+    names.emplace_back(name.str());
   }); // declare_stats()
 
   return names;

@@ -21,7 +21,7 @@
 #include "flow/util/string_view.hpp"
 #include "flow/common.hpp"
 #include <boost/shared_ptr.hpp>
-#include <boost/unordered_set.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 
 /// @cond
 // -^- Doxygen, please ignore the following.
@@ -58,6 +58,21 @@ class Thread_local_ptr_cache;
 /**
  * The lookup structure used inside Linked_hash_map and Linked_hash_set.  See the former's doc header(s).
  *
+ * @note Make sure the value of #LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS is in sync with the target of
+ *       this type alias.  The constant's doc header explains.
+ *
+ * ### The actual target used ###
+ * It needs to be an `unordered_*set`, from somewhere, but for general use -- and this is general use, in that
+ * `Key` is specified by the `Linked_hash_map/set` user -- the Boost `unordered_flat_*` variants (with open
+ * addressing) are generally considered non-trivially faster than the vanilla alternative `unordered_*` ones.
+ * One loses pointer stability, but happily for us it does not matter:
+ *   - Access to a pointer/iterator into this structure is never granted to the actual user.  That's
+ *     really the bottom line.  For more context though:
+ *   - What they do eventually/potentially access = copies of `Iterator`s; these are into the `list`, or whatever,
+ *     inside `Linked_hash_map`, `Linked_hash_set`.  (Internally `Iterator`s are probably pointers really.)  That
+ *     `list`-or-whatever has pointer stability, in fact, but the point is that *our* pointer-stability or lack
+ *     thereof is not relevant.
+ *
  * @tparam Key
  *         See Linked_hash_map, Linked_hash_set.
  * @tparam Iterator
@@ -70,9 +85,26 @@ class Thread_local_ptr_cache;
  *         `true` for Linked_hash_map, `false` for Linked_hash_set.
  */
 template<typename Key, typename Iterator, typename Hash, typename Pred, bool IS_ITER_TO_PAIR>
-using Linked_hash_key_set = boost::unordered_set<Linked_hash_key<Key, Iterator, IS_ITER_TO_PAIR>,
-                                                 Linked_hash_key_hash<Hash>,
-                                                 Linked_hash_key_pred<Pred>>;
+using Linked_hash_key_set = boost::unordered_flat_set<Linked_hash_key<Key, Iterator, IS_ITER_TO_PAIR>,
+                                                      Linked_hash_key_hash<Hash>,
+                                                      Linked_hash_key_pred<Pred>>;
+
+// Constants.
+
+/**
+ * Value used by alias-target type of #Linked_hash_key_set as the default hash bucket count, if one does
+ * not explicitly specify it.
+ *
+ * ### The value ###
+ * Using `detail::` like this is technically uncool, but so far all alternatives look worse.
+ * We blame the somewhat annoying ctor API for unordered_*.
+ *
+ * @note There's a subtlety in that some of the `unordered_*` impls use `detail::default_bucket_count`; others
+ *       use `detail::foa::default_bucket_count` (though, between you and me, both are equal to zero -- whatever
+ *       it means -- in, say, Boost-1.92).  So keep it in sync with the target of #Linked_hash_key_set.
+ */
+constexpr size_t LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS = boost::unordered::detail::foa::default_bucket_count;
+
 // Free functions.
 
 /**

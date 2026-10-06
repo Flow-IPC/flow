@@ -26,7 +26,7 @@ namespace flow::util
 {
 
 /**
- * An object of this class is a set that combines the lookup speed of an `unordered_set<>` and ordering and
+ * An object of this class is a set that combines the lookup speed of an `unordered_flat_set<>` and ordering and
  * iterator stability capabilities of a `list<>`.
  *
  * This is just like Linked_hash_map, except it only stores keys -- no mapped values.  All comments, except for
@@ -134,7 +134,7 @@ public:
    *
    * @param n_buckets
    *        Number of buckets for the unordered (hash) table.  Special value -1 (default) will cause us to use
-   *        whatever `unordered_set<>` would use by default.
+   *        whatever `unordered_*set<>` would use by default.
    * @param hasher_obj
    *        Instance of the hash function type (`hasher_obj(k) -> size_t` should be hash of `Key k`).
    * @param pred
@@ -255,7 +255,7 @@ public:
 
   /**
    * Attempts to find value at the given key in the map.  Key presence is determined identically to how it would be
-   * done in an `unordered_set<Key_t, Hash_t, Pred_t>`, with the particular #Hash and #Pred instances given to ctor
+   * done in an `unordered_*set<Key_t, Hash_t, Pred_t>`, with the particular #Hash and #Pred instances given to ctor
    * (typically their default-cted instances, typically occupying no memory).
    *
    * The returned iterator (if valid) *cannot* be used to mutate the key inside the map.
@@ -431,19 +431,20 @@ public:
   Const_reverse_iterator const_past_newest() const;
 
   /**
-   * Returns true if and only if container is empty.  Same performance as of `unordered_set<>`.
+   * Returns true if and only if container is empty.  Same performance as of a certain `unordered_*set<>`.
    * @return Ditto.
    */
   bool empty() const;
 
   /**
-   * Returns number of elements stored.  Same performance as of `unordered_set<>.`
+   * Returns number of elements stored.  Same performance as of a certain `unordered_*set<>`.
    * @return Ditto.
    */
   size_type size() const;
 
   /**
-   * Returns max number of elements that can be stored.  Same performance as of `unordered_set<>` + `list<>`.
+   * Returns max number of elements that can be stored.  Same performance as of a certain `unordered_*set<>` +
+   * `list<>`.
    * @return Ditto.
    */
   size_type max_size() const;
@@ -470,7 +471,9 @@ template<typename Key_t, typename Hash_t, typename Pred_t>
 Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(size_type n_buckets,
                                                         const Hash& hasher_obj,
                                                         const Pred& pred) :
-  Linked_hash_set({}, n_buckets, hasher_obj, pred)
+  // (`Linked_hash_set({}, ...)` delegation preferred, but if Key uncopyable it won't compile.)
+  m_value_iter_set((n_buckets == size_type(-1)) ? LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS : n_buckets,
+                   hasher_obj, pred)
 {
   // That's all.
 }
@@ -482,11 +485,7 @@ Linked_hash_set<Key_t, Hash_t, Pred_t>::Linked_hash_set(std::initializer_list<Va
                                                         const Pred& pred) :
   // Their initializer_list is meant for a set of keys, but it is perfect for our list of keys.
   m_value_list(values),
-  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
-   * We blame the somewhat annoying ctor API for unordered_*. */
-  m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count
-                     : n_buckets,
+  m_value_iter_set((n_buckets == size_type(-1)) ? LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS : n_buckets,
                    hasher_obj, pred)
 {
   // Now link each key in the quick-lookup table to its stored location in the ordering.
@@ -561,7 +560,7 @@ void Linked_hash_set<Key_t, Hash_t, Pred_t>::swap(Linked_hash_set& other)
 {
   using std::swap;
 
-  swap(m_value_iter_set, other.m_value_iter_set); // unordered_set<> exchange; constant-time for sure at least.
+  swap(m_value_iter_set, other.m_value_iter_set); // unordered_*set<> exchange; constant-time for sure at least.
   swap(m_value_list, other.m_value_list); // list<> exchange (probably ~= head+tail pointer pairs exchanged).
   // Per cppreference.com `list<>::iterator`s (inside the `_maps`s) remain valid after list<>s swapped.
 }

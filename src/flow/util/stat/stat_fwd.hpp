@@ -156,7 +156,7 @@
  *
  *   ~~~
  *   template<typename Visitor>
- *   void declare_stats(std::string name_prefix, const My_stats* src_stats, My_stats* target_stats,
+ *   void declare_stats(const Stat_name& name_prefix, const My_stats* src_stats, My_stats* target_stats,
  *                      Visitor&& visitor)
  *   {
  *     FLOW_UTIL_STAT_DECLARE(m_msg_count, ACCUMULATOR);
@@ -289,7 +289,7 @@
  *
  *   ~~~
  *   template<typename Visitor>
- *   void declare_stats(std::string name_prefix, const Stat_set* src_stats, Stat_set* target_stats,
+ *   void declare_stats(const Stat_name& name_prefix, const Stat_set* src_stats, Stat_set* target_stats,
  *                      Visitor&& visitor)
  *   {
  *     // `os << print(stats);` would output "rcv.n_bytes_transmitted=..., ..., snd.buf_sz=..." -- note the prefixes.
@@ -334,7 +334,7 @@
  *   };
  *
  *   template<typename Visitor>
- *   void declare_stats(std::string name_prefix, const Set2* src_stats, Set2* target_stats,
+ *   void declare_stats(const Stat_name& name_prefix, const Set2* src_stats, Set2* target_stats,
  *                      Visitor&& visitor)
  *   {
  *     FLOW_UTIL_STAT_DECLARE(m_stat1, ACCUMULATOR);
@@ -342,7 +342,7 @@
  *   }
  *
  *   template<typename Visitor>
- *   void declare_stats(std::string name_prefix, const Stat_set* src_stats, Stat_set* target_stats,
+ *   void declare_stats(const Stat_name& name_prefix, const Stat_set* src_stats, Stat_set* target_stats,
  *                      Visitor&& visitor)
  *   {
  *     // The crux: Forward to the Set2 declare_stats. Add-on a prefix -- if desired -- so that
@@ -352,7 +352,7 @@
  *     // furnish us with our own "prefix.", which would be in `name_prefix`, so here we'd tack-on ours
  *     // to that, resulting in Stat_superset pretty-print to look like maybe
  *     //   stat_set.set2.stat1=[...] stat_set.set2.stat2=[...] stat_set.<...> stat_set.<...>
- *     declare_stats(name_prefix + "set2.",
+ *     declare_stats(Stat_name{name_prefix, "set2."},
  *                   src_stats ? &src_stats->m_set2 : nullptr, // Attn: must do the null-check.
  *                   target_stats ? &target_stats->m_set2 : nullptr,
  *                   visitor); // Attn: No need to forward(visitor).
@@ -364,7 +364,9 @@
  * A few points for clarification:
  *   - It is not mandatory to add to the prefix when forwarding to an "inner" `declare_stats()`.
  *     It is an aesthetic/clarity decision, as of this writing affecting pretty-print only; if no further
- *     qualification is desired then just forward `name_prefix` with tacking on anything else.
+ *     qualification is desired then just forward `name_prefix` without tacking on anything else.
+ *     See the Stat_name doc header for the forms (including one sub-prefix named once and reused for several
+ *     inner `declare_stats()`s).  A Stat_name is cheap: the strings are built only if a `stats_*()` op needs the names.
  *   - util::stat machinery will always pass the prefix "" to the top-level thing being `stats_*()`ed.
  *     However that should be none of any `declare_stats()`'s concern: if not composing then ignore
  *     `name_prefix`; if composing then (at least) forward it to inner `declare_stats()`(s).
@@ -848,6 +850,7 @@ enum class Stat_type
 
 template<typename Stat_set>
 struct Stat_set_printable;
+class Stat_name;
 template<typename Stat_set_t, size_t N>
 class Stat_set_list;
 template<typename Tag_t, typename Stat_set_t, size_t N = 1>
@@ -1329,12 +1332,12 @@ void stats_aggregate(Stat_set* target_stats, const It& src_stats_begin, const It
  * you can always stats_sum() and then manually `/=` the mean-appropriate `GAUGE`s.
  * Though, then you've got the `HI_WMARK` dillema still (if applicable).
  *
- * It also perfectly possible to write your own `stats_*()`-like function which would act in the way
+ * It is also perfectly possible to write your own `stats_*()`-like function which would act in the way
  * you'd prefer.  While the available `Stat_type`s are as they are (cannot be simply extended), you
  * can make compile-time or run-time choices like the following.
  *   - Use the type `T* = decltype(target_val)` (in the `Visitor`) combined with `if constexpr()`.
- *   - Possibly even draw inferences from the stat *name* (`String_view name` in the `Visitor`), perhaps
- *     based on some naming convention of your own.
+ *   - Possibly even draw inferences from the stat *name* (`const Stat_name& name` in the `Visitor`; see
+ *     Stat_name), perhaps based on some naming convention of your own.
  *
  * @tparam Stat_set
  *         See util::stat namespace doc header for background about the pattern and detailed requirements

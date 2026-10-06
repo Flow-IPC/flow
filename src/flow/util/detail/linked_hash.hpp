@@ -248,11 +248,11 @@ const Key_t&
 
   if constexpr(S_IS_ITER_TO_PAIR)
   {
-    return get<Iterator>(m_key_hndl)->first; // Iterator into list of `const Key`s.
+    return get<Iterator>(m_key_hndl)->first; // Iterator into list of pair<const Key, Mapped>s.
   }
   else
   {
-    return *(get<Iterator>(m_key_hndl)); // Iterator into list of pair<const Key, Mapped>s.
+    return *(get<Iterator>(m_key_hndl)); // Iterator into list of `const Key`s.
   }
 }
 
@@ -270,8 +270,8 @@ template<typename Hash>
 Linked_hash_key_hash<Hash>::Linked_hash_key_hash(const Hash& hasher) :
   Hash(hasher) // Store `hasher` copy in our super-class, making use of Empty Base-class Optimization (EBO) if possible.
 {
-  /* For context: A regular unordered_set<Key, Hash, ...> would store the `Hash hasher` copy inside itself.
-   * In our case it is unordered_set<Linked_hash_key, Linked_hash_key_hash<Hash>, ...> instead, so a *this is
+  /* For context: A regular unordered_*set<Key, Hash, ...> would store the `Hash hasher` copy inside itself.
+   * In our case it is unordered_*set<Linked_hash_key, Linked_hash_key_hash<Hash>, ...> instead, so a *this is
    * instead stored; and we store the original `Hash hasher` inside us (and nothing else).  So it's the exact same
    * thing in terms of what actually ends up in memory and likely in terms of processor cycles spent.
    *
@@ -291,8 +291,8 @@ template<typename Pred>
 Linked_hash_key_pred<Pred>::Linked_hash_key_pred(const Pred& pred) :
   Pred(pred) // Store `pred` copy in our super-class, making use of Empty Base-class Optimization (EBO) if possible.
 {
-  /* For context: A regular unordered_set<Key, ..., Pred> would store the `Pred pred` copy inside itself.
-   * In our case it is unordered_set<Linked_hash_key, ..., Linked_hash_key_pred<Pred>> instead, so a *this is
+  /* For context: A regular unordered_*set<Key, ..., Pred> would store the `Pred pred` copy inside itself.
+   * In our case it is unordered_*set<Linked_hash_key, ..., Linked_hash_key_pred<Pred>> instead, so a *this is
    * instead stored; and we store the original `Pred pred` inside us (and nothing else).  So it's the exact same
    * thing in terms of what actually ends up in memory and likely in terms of processor cycles spent.
    *

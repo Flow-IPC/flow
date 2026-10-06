@@ -26,10 +26,10 @@ namespace flow::util
 {
 
 /**
- * An object of this class is a map that combines the lookup speed of an `unordered_map<>` and ordering and
+ * An object of this class is a map that combines the lookup speed of an `unordered_flat_map<>` and ordering and
  * iterator stability capabilities of a `list<>`.
  *
- * The API is generally that of an `unordered_map<>`.  The differences essentially all have to do with iterators.
+ * The API is generally that of an `unordered_*map<>`.  The differences essentially all have to do with iterators.
  * This map introduces a concept of "newness," which determines the iteration order.  Moreover, *every* iterator remains
  * valid except (of course) under erasure of the underlying element.  Newness is defined as follows inductively:
  * whenever an element is inserted, it is "newest," thus it is placed at the front of the iterator order.  Furthermore,
@@ -37,13 +37,13 @@ namespace flow::util
  * thus formed orders elements from newest to oldest (hence newest() is begin(), past_oldest() is end()).
  *
  * Performance expectations: The best way to determine a method's time needs is to
- * imagine what it must do.  If it must perform a lookup by key, that is an `unordered_set<>` lookup resulting in an
- * (at least internal) iterator.  If it must insert an element, it is always inserted at the start of a `list`; and
- * also into an `unordered_set<>`.  If it must erase an element based on an iterator, that element is erased from a list
- * based on that iterator; and also by key from said `unordered_set<>`.  Iteration itself is iteration along a `list`.
- * But essentially, every operation is either near constant time or constant time.
+ * imagine what it must do.  If it must perform a lookup by key, that is an `unordered_flat_set<>` lookup resulting in
+ * an (at least internal) iterator.  If it must insert an element, it is always inserted at the start of a `list`; and
+ * also into an `unordered_flat_set<>`.  If it must erase an element based on an iterator, that element is erased from a
+ * list based on that iterator; and also by key from said `unordered_flat_set<>`.  Iteration itself is iteration along a
+ * `list`.  But essentially every operation is either near constant time or constant time.
  * In terms of space needs, this essentially stores the values themselves in a `list`; and also a pointer to each
- * list-held key/element in an `unordered_set<>`, which also stores a pointer or list iterator per element.
+ * list-held key/element in an `unordered_flat_set<>`.
  *
  * Move semantics for both keys and mapped-values are supported (let `T` be a concrete type for a `*this` and `x`
  * a `*this`):
@@ -54,8 +54,9 @@ namespace flow::util
  * There is the standard complement of container-wide move operations: move-construction, move-assignment, and
  * `swap()` (all constant-time, excluding any implied `this->clear()` in the move-assignment).
  *
- * The iterators are, really, `list<pair<const Key, Mapped>>` iterators; and as such are not invalidated except
- * due to direct erasure of a given pointee.
+ * The iterators are, really, `list<pair<const Key, Mapped>>` iterators -- when it gets down to it, pointers --
+ * and as such are not invalidated except due to direct erasure of a given pointee.  So we have
+ * pointer stability/iterator stability.
  *
  * @todo Linked_hash_map and Linked_hash_set have a reasonable complement of C++1x-ish APIs including move-semantics;
  * but the API does not quite mirror the full complement of what is in existence for `unordered_*` counterparts in
@@ -70,26 +71,27 @@ namespace flow::util
  * leaders in the field.
  *
  * ### Thread safety ###
- * Same as for `unordered_map<>`.
+ * Same as for `unordered_*map<>`.
  *
  * @internal
+ *
  * ### Impl notes ###
  * You should get much of what you need to grok this just by reading the above and possibly looking at the Data
  * section doc-headers under `private:`.  Essentially, to repeat/recap: there's the `list<pair<const Key, Mapped>>`
  * to store the actual values, in order (#m_value_list); #Iterator and #Const_iterator come directly from there.
  *
- * When lookup by #Key is needed, the `unordered_set` #m_value_iter_set comes into play.  This is arguably the
+ * When lookup by #Key is needed, the `unordered_*set` #m_value_iter_set comes into play.  This is arguably the
  * only real mechanical trickiness.  It actually stores `Iterator`s into #m_value_list but in such a way as to allow
  * seamless lookup from a mere `const Key&`; so `m_value_iter_set.find(key)` "magically" either finds `.end()` --
  * then the key is not in `*this` -- or the iterator into the actual key/mapped-value store in #m_value_list.
  * Using #m_value_iter_set is easy; but a bit of internal infrastructure is necessary to have it work.  Namely
- * we have support class template `Linked_hash_key<Key, Iterator>`, and the `unordered_set m_value_iter_set`
+ * we have support class template `Linked_hash_key<Key, Iterator>`, and the `unordered_*set m_value_iter_set`
  * actually stores those guys, not raw #Key copies; so it is a wrapper around an `Iterator` *or* a #Key
  * (union-style).  #m_value_iter_set stores #Iterator wrappers, while lookup attempts use the #Key wrapper form
  * to pass into `m_value_iter_set.find()`.
  *
- * An earlier version of Linked_hash_map instead used a simple `unordered_map<Key, Iterator>` instead of the
- * `unordered_set<Linked_hash_key<Key, Iterator>>`; so a lookup by key was just that.
+ * An earlier version of Linked_hash_map instead used a simple `unordered_*map<Key, Iterator>` instead of the
+ * `unordered_*set<Linked_hash_key<Key, Iterator>>`; so a lookup by key was just that.
  * Eventually we replaced it with the more complex solution simply to avoid storing 2 copies of
  * each #Key (one in the list, one in the map); as the `Iterator` itself
  * includes a pointer to the thing containing the corresponding #Key in the first place.  So this saves memory
@@ -106,13 +108,13 @@ namespace flow::util
  * @tparam Mapped_t
  *         The 2nd (satellite) part of the #Value pair type.  Same commentary as for #Key applies here.
  * @tparam Hash_t
- *         Hasher type.  Same requirements and behavior as `boost::unordered_set<>` counterpart.  If using
+ *         Hasher type.  Same requirements and behavior as `boost::unordered_*set<>` counterpart.  If using
  *         the default value for #Hash (`boost::hash<Key>`), and the default object is passed to ctor (`Hash{}`) (this
  *         is typical), but there is no hash-function already defined for #Key, then the easiest way to define
  *         it is: make a `size_t hash_value(Key)` free function in the same namespace as #Key.
  * @tparam Pred_t
- *         Equality-determiner type.  Same requirements and behavior as `boost::unordered_set<>` counterpart.  If using
- *         the default value for #Pred (`std::equal_to<Key>`), and the default object is passed to ctor (`Pred{}`)
+ *         Equality-determiner type.  Same requirements and behavior as `boost::unordered_*set<>` counterpart.  If
+ *         using the default value for #Pred (`std::equal_to<Key>`), and the default object is passed to ctor (`Pred{}`)
  *         (this is typical), but there is no equality op defined for #Key, then the easiest way to define
  *         it is: make an operator-method or free function such that `k1 == k2` (where `k1` and `k2` are `Key`s)
  *         determines equality or lack thereof.
@@ -198,7 +200,7 @@ public:
    *
    * @param n_buckets
    *        Number of buckets for the unordered (hash) table.  Special value -1 (default) will cause us to use
-   *        whatever `unordered_set<>` would use by default.
+   *        whatever `unordered_*set<>` would use by default.
    * @param hasher_obj
    *        Instance of the hash function type (`hasher_obj(k) -> size_t` should be hash of `Key k`).
    * @param pred
@@ -363,7 +365,7 @@ public:
 
   /**
    * Attempts to find value at the given key in the map.  Key presence is determined identically to how it would be
-   * done in an `unordered_set<Key, Hash, Pred>`, with the particular #Hash and #Pred instances given to ctor
+   * done in an `unordered_*set<Key, Hash, Pred>`, with the particular #Hash and #Pred instances given to ctor
    * (typically their default-cted instances, typically occupying no memory).
    *
    * The returned iterator (if valid) can be used to mutate the element inside the map; though only the #Mapped
@@ -566,19 +568,20 @@ public:
   Const_reverse_iterator const_past_newest() const;
 
   /**
-   * Returns true if and only if container is empty.  Same performance as of `unordered_set<>`.
+   * Returns true if and only if container is empty.  Same performance as of a certain `unordered_*set<>`.
    * @return Ditto.
    */
   bool empty() const;
 
   /**
-   * Returns number of elements stored.  Same performance as of `unordered_set<>.`
+   * Returns number of elements stored.  Same performance as of a certain `unordered_*set<>`.
    * @return Ditto.
    */
   size_type size() const;
 
   /**
-   * Returns max number of elements that can be stored.  Same performance as of `unordered_set<>` + `list<>`.
+   * Returns max number of elements that can be stored.  Same performance as of a certain `unordered_*set<>` +
+   * `list<>`.
    * @return Ditto.
    */
   size_type max_size() const;
@@ -609,13 +612,13 @@ private:
   // Data.
 
   /**
-   * The actual values -- which, as in `unordered_map<K, M>`, are instances of #Value = `pair<const Key, Mapped>` --
+   * The actual values -- which, as in `unordered_*map<K, M>`, are instances of #Value = `pair<const Key, Mapped>` --
    * are stored in here, in the order in which user would iterate over them.  If `Value v` is in this list, then no
    * `Value v1 == v` can be elsewhere in the list.  The order is semantically defined to be from "newest" to "oldest."
    * Therefore, any newly inserted value goes at the *start* of the list.  Similarly, any "touched" value is moved to
    * the *start* of the list (see touch()).
    *
-   * This ordering is what a normal `unordered_map<K, M>` would not supply (it's in the name!) but that we advertise.
+   * This ordering is what a normal `unordered_map<K, M>` would not supply (it's in the name!), but that we advertise.
    *
    * ### Design ###
    * This is very much the central structure in a `*this`; its iterator type *is* our exposed #Iterator.
@@ -626,7 +629,7 @@ private:
    *
    * ### Performance ###
    * Moving a value from anywhere to either end of the list is a constant-time operation
-   * (assuming the source location's iterator is known).  Hence touch() is constant-time.  Moreover, touch()
+   * (assuming the source location's iterator is known).  Hence touch() is constant-time.  Moreover touch()
    * does *not* involve a copy of a #Value (it only involves assigning, internally, a few linked list pointers).
    * Also note that insertion is similarly constant-time.  Finally, erasure is also constant-time.  These are the
    * basic operations needed.
@@ -634,7 +637,7 @@ private:
   Value_list m_value_list;
 
   /**
-   * Data structure that allows the amortized-constant-time (as in `unordered_set`) implementation of
+   * Data structure that allows the amortized-constant-time (as in the `unordered_*set` = `Linked_hash_key_set`) impl of
    * `this->find(key)`, where `key` is `const Key&`.  Namely, then, given a #Key, it gets us an #Iterator
    * into #m_value_list -- the central data store -- or a null iterator if not-found.
    *
@@ -644,7 +647,7 @@ private:
    *
    *   - takes a `const Key& key`; and
    *   - yields the #Iterator `it` stored therein (if any) such that
-   *     - it->second *equals by value* (via #Hash and #Pred) the `key`.
+   *     - `it->first` *equals by value* (via #Hash and #Pred) the `key`.
    *
    * This find-op must #Hash the `key`; and then perform a (series of) #Pred comparisons between
    * `key` and the `Key`s stored at `Iterator`s within that hash-bucket.
@@ -656,8 +659,9 @@ private:
    * Similarly `m_value_iter_set.insert(iter)` -- where `iter` is an #Iterator into #m_value_list -- just works.
    *
    * ### Performance ###
-   * Anything they'll need to do to this set (namely `.find()` and `.insert()`) carries the same performance cost as
-   * if they used a straight `unordered_map<>`, so by definition it is acceptable.
+   * Anything they'll need to do to this set (namely `.find()` and `.insert()`) carries the ~same performance cost as
+   * if they used a straight `unordered_flat_map<>` (or whatever ~matches #Linked_hash_key_set), so by definition
+   * it is acceptable.
    */
   Linked_hash_key_set<Key, Iterator, Hash, Pred, true> m_value_iter_set;
 }; // class Linked_hash_map
@@ -670,7 +674,9 @@ template<typename Key_t, typename Mapped_t, typename Hash_t, typename Pred_t>
 Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Linked_hash_map(size_type n_buckets,
                                                                   const Hash& hasher_obj,
                                                                   const Pred& pred) :
-  Linked_hash_map({}, n_buckets, hasher_obj, pred)
+  // (`Linked_hash_map({}, ...)` delegation preferred, but if e.g. Mapped uncopyable it won't compile.)
+  m_value_iter_set((n_buckets == size_type(-1)) ? LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS : n_buckets,
+                   hasher_obj, pred)
 {
   // That's all.
 }
@@ -682,11 +688,7 @@ Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Linked_hash_map(std::initializ
                                                                   const Pred& pred) :
   // Their initializer_list is meant for a dictionary, but it is perfect for our list of pairs!
   m_value_list(values),
-  /* @todo Using detail:: like this is technically uncool, but so far all alternatives look worse.
-   * We blame the somewhat annoying ctor API for unordered_*. */
-  m_value_iter_set((n_buckets == size_type(-1))
-                     ? boost::unordered::detail::default_bucket_count
-                     : n_buckets,
+  m_value_iter_set((n_buckets == size_type(-1)) ? LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS : n_buckets,
                    hasher_obj, pred)
 {
   // Now link each key in the quick-lookup table to its stored location in the ordering.
@@ -793,7 +795,7 @@ void Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::swap(Linked_hash_map& oth
 {
   using std::swap;
 
-  swap(m_value_iter_set, other.m_value_iter_set); // unordered_set<> exchange; constant-time for sure at least.
+  swap(m_value_iter_set, other.m_value_iter_set); // unordered_*set<> exchange; constant-time for sure at least.
   swap(m_value_list, other.m_value_list); // list<> exchange (probably ~= head+tail pointer pairs exchanged).
   // Per cppreference.com `list<>::iterator`s (inside the `_maps`s) remain valid after list<>s swapped.
 }
@@ -932,7 +934,7 @@ typename Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Iterator
 template<typename Key_t, typename Mapped_t, typename Hash_t, typename Pred_t>
 typename Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::Iterator
   Linked_hash_map<Key_t, Mapped_t, Hash_t, Pred_t>::erase(const Const_iterator& it_newest,
-                                                  const Const_iterator& it_past_oldest)
+                                                          const Const_iterator& it_past_oldest)
 {
   for (auto it = it_newest; it != it_past_oldest; ++it)
   {

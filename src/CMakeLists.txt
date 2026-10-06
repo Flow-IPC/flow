@@ -85,6 +85,7 @@ set(SRCS
     flow/util/detail/util.cpp
     flow/util/sched_task.cpp
     flow/util/stat/histo.cpp
+    flow/util/stat/stat_set.cpp
     flow/util/string_ostream.cpp
     flow/util/uniq_id_holder.cpp
     flow/util/util.cpp)
