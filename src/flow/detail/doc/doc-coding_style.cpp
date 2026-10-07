@@ -50,6 +50,7 @@
  *   - Order of declarations
  *   - Spacing and indentation
  *   - Misc/loose ends
+ *   - #include what you use (do not rely on transitive #include)
  *   - Header files and forwarding; _fwd.hpp pattern
  *     - Exceptions to _fwd.hpp pattern
  *     - _fwd.hpp pattern odds/ends: Macros, constexpr globals
@@ -327,7 +328,6 @@ void do_cool_thing(Type_bee_t thing, bool value = CONSTANT_BEE)
  *  - Having an alias { inside } class/struct is preferred also for generic programming + debugger + other.
  *    If so, preferred (not absolutely mandatory) style is: end `typename` identifier with `_t`, alias without.
  */
-
 
 // So, those are the roots.  What about prefixes and postfixes?  Simple:
 
@@ -911,6 +911,30 @@ const boost::unordered_map<Event_set::Event_type, Event_set::Func_ptr>
 T* x = nullptr; // This is the modern Flow convention.
 T* x = 0; // OK and may be seen due to Flow originating before nullptr existed.  Ideally change to nullptr on sight.
 // Note, no `NULL`!  NULL is C stuff; no need.
+
+// -- STYLE GUIDE: #include what you use (do not rely on transitive #include) --
+
+/* Highly encouraged (follow it in new code; retrofit older code opportunistically, when already editing it):
+ * A file shall directly `#include` the header for each external symbol it uses -- Flow, Boost, STL, etc. -- even if
+ * that header is known to arrive anyway, transitively, via another `#include`.
+ *
+ * Rationale: A transitive include is an accident of the current include graph.  When some intermediate header is
+ * slimmed down (which we do, for one thing, for compile times; see the _fwd.hpp pattern below), its dependents
+ * break -- or, worse, keep compiling only on certain compilers or standard library versions.  Moreover, direct
+ * includes document what a file actually depends on.
+ *
+ *   - "The header for the symbol" means the one declaring it to the degree you need: its _fwd.hpp, if a
+ *     forward-declaration suffices; else its full header.  (See the _fwd.hpp pattern below.)
+ *   - Exception: If a header is designated as *the* way to obtain some facility, include that one instead of the
+ *     lower-level header(s) it wraps.  E.g., boost.chrono (types and `ostream<<` I/O) shall come via
+ *     "flow/common.hpp", never by including <boost/chrono.hpp> (et al) directly; see the comments atop
+ *     flow/common.hpp for why.
+ *   - Common sense: Sometimes headers are basically collections of `#include`s of other headers; Boost does this
+ *     a whole lot.  It is of course fine to #include the the collection instead of individual header(s) it contains,
+ *     if you feel it's better, all else being equal; this rule is not about that. */
+
+#include "flow/util/util.hpp" // Yes: Suppose this file uses flow::util::round_to_multiple()...
+#include "flow/common.hpp" // ...even if (in this hypothetical) this one already includes the above.
 
 // -- STYLE GUIDE: Header files and forwarding; _fwd.hpp pattern --
 

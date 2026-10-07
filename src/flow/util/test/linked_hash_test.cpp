@@ -20,6 +20,7 @@
 #include "flow/util/util.hpp"
 #include "flow/test/test_common_util.hpp"
 #include <gtest/gtest.h>
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -50,6 +51,21 @@ struct Obj
 };
 
 size_t hash_value(const Obj& obj) { return boost::hash_value(obj.m_str); };
+
+// Like Obj but not copyable at all; for the Move_only TEST.
+struct Move_only_obj
+{
+  string m_str;
+  Move_only_obj(const char* str) : m_str(str) {}
+  Move_only_obj(const Move_only_obj&) = delete;
+  Move_only_obj(Move_only_obj&& src) : m_str(std::move(src.m_str)) { src.m_str.clear(); } // Moved-from = empty.
+  Move_only_obj& operator=(const Move_only_obj&) = delete;
+  Move_only_obj& operator=(Move_only_obj&& src) { if (this != &src) { m_str = std::move(src.m_str); src.m_str.clear(); }
+                                                    return *this; }
+  bool operator==(const Move_only_obj& rhs) const { return m_str == rhs.m_str; }
+};
+
+size_t hash_value(const Move_only_obj& obj) { return boost::hash_value(obj.m_str); }
 
 } // Anonymous namespace
 
@@ -634,5 +650,128 @@ TEST(Linked_hash, Pointer_stability)
     check_all("After erasures");
   } // Set.
 } // TEST(Linked_hash, Pointer_stability)
+
+/* Non-copyable keys and/or mapped values: everything that does not inherently need a copy must compile and work.
+ * (Notably the default ctor: it must not route through anything -- like the initializer_list ctor -- that would
+ * require copyability.)  Where we move something in, check that the source got moved-from (it really was moved,
+ * not copied by some roundabout route). */
+TEST(Linked_hash, Move_only)
+{
+  using std::unique_ptr;
+  using std::make_unique;
+  using Ptr = unique_ptr<uint>;
+  using Map = Linked_hash_map<Move_only_obj, Ptr>;
+  using Set = Linked_hash_set<Move_only_obj>;
+
+  // Default ctor, for each combination of non-copyability.
+  {
+    Linked_hash_map<Move_only_obj, uint> map_key_only;
+    Linked_hash_map<string, Ptr> map_mapped_only;
+    Map map_both;
+    Set set;
+    EXPECT_TRUE(map_key_only.empty());
+    EXPECT_TRUE(map_mapped_only.empty());
+    EXPECT_TRUE(map_both.empty());
+    EXPECT_TRUE(set.empty());
+
+    const string key_a{"a"};
+    map_mapped_only[key_a] = make_unique<uint>(1); // operator[](const Key&) is fine with copyable Key.
+    ASSERT_TRUE(map_mapped_only[key_a]);
+    EXPECT_EQ(*map_mapped_only[key_a], 1u);
+  }
+
+  // Map.
+  {
+    Map map;
+
+    // insert(Value_movable&&).
+    Map::Value_movable val{"a", make_unique<uint>(1)};
+    auto result = map.insert(std::move(val));
+    EXPECT_TRUE(result.second);
+    EXPECT_EQ(result.first->first.m_str, "a");
+    ASSERT_TRUE(result.first->second);
+    EXPECT_EQ(*result.first->second, 1u);
+    EXPECT_FALSE(val.second) << "Mapped source should have been moved-from.";
+    EXPECT_TRUE(val.first.m_str.empty()) << "Key source should have been moved-from.";
+
+    // operator[](Key&&): inserts (default-constructed, so null, mapped value); then assign by move.
+    Move_only_obj key_b{"b"};
+    auto& mapped_b = map[std::move(key_b)];
+    EXPECT_FALSE(mapped_b);
+    EXPECT_TRUE(key_b.m_str.empty()) << "Key source should have been moved-from.";
+    auto ptr_b = make_unique<uint>(2);
+    mapped_b = std::move(ptr_b);
+    EXPECT_FALSE(ptr_b);
+    // operator[](Key&&) again, same key: finds, does not insert.
+    EXPECT_EQ(map.size(), 2u);
+    ASSERT_TRUE(map[Move_only_obj{"b"}]);
+    EXPECT_EQ(*map[Move_only_obj{"b"}], 2u);
+    EXPECT_EQ(map.size(), 2u);
+
+    // insert() of existing key: no-op (fails).
+    result = map.insert(Map::Value_movable{"a", make_unique<uint>(100)});
+    EXPECT_FALSE(result.second);
+    EXPECT_EQ(*result.first->second, 1u);
+
+    map.insert(Map::Value_movable{"c", make_unique<uint>(3)});
+    EXPECT_EQ(map.newest()->first.m_str, "c");
+    EXPECT_TRUE(map.touch(Move_only_obj{"a"}));
+    EXPECT_EQ(map.newest()->first.m_str, "a");
+    EXPECT_EQ(map.count(Move_only_obj{"b"}), 1u);
+
+    // Move a mapped value out of the container.
+    const auto it_c = map.find(Move_only_obj{"c"});
+    ASSERT_TRUE(it_c != map.end());
+    const Ptr ptr_c = std::move(it_c->second);
+    EXPECT_FALSE(it_c->second);
+    ASSERT_TRUE(ptr_c);
+    EXPECT_EQ(*ptr_c, 3u);
+
+    EXPECT_EQ(map.erase(Move_only_obj{"c"}), 1u);
+    map.erase(map.find(Move_only_obj{"b"}));
+    EXPECT_EQ(map.size(), 1u);
+
+    // Move-construct; move-assign; swap.
+    Map map2{std::move(map)};
+    ASSERT_EQ(map2.size(), 1u);
+    EXPECT_EQ(*map2.find(Move_only_obj{"a"})->second, 1u);
+    Map map3;
+    map3.insert(Map::Value_movable{"z", make_unique<uint>(26)});
+    map3 = std::move(map2);
+    ASSERT_EQ(map3.size(), 1u);
+    EXPECT_EQ(*map3.find(Move_only_obj{"a"})->second, 1u);
+    Map map4;
+    map4.swap(map3);
+    EXPECT_TRUE(map3.empty());
+    ASSERT_EQ(map4.size(), 1u);
+    map4.clear();
+    EXPECT_TRUE(map4.empty());
+  } // Map.
+
+  // Set.
+  {
+    Set set;
+    Move_only_obj key_a{"a"};
+    auto result = set.insert(std::move(key_a));
+    EXPECT_TRUE(result.second);
+    EXPECT_EQ(result.first->m_str, "a");
+    EXPECT_TRUE(key_a.m_str.empty()) << "Key source should have been moved-from.";
+    EXPECT_FALSE(set.insert(Move_only_obj{"a"}).second);
+    set.insert(Move_only_obj{"b"});
+    EXPECT_EQ(set.newest()->m_str, "b");
+    EXPECT_TRUE(set.touch(Move_only_obj{"a"}));
+    EXPECT_EQ(set.newest()->m_str, "a");
+    EXPECT_EQ(set.erase(Move_only_obj{"b"}), 1u);
+
+    Set set2{std::move(set)};
+    ASSERT_EQ(set2.size(), 1u);
+    EXPECT_EQ(set2.count(Move_only_obj{"a"}), 1u);
+    Set set3;
+    set3 = std::move(set2);
+    ASSERT_EQ(set3.size(), 1u);
+    set3.clear();
+    EXPECT_TRUE(set3.empty());
+  } // Set.
+} // TEST(Linked_hash, Move_only)
 
 } // namespace flow::util::test
