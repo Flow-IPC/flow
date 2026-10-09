@@ -2324,7 +2324,7 @@ void Basic_blob<Allocator_t, SHARING>::reserve_impl(size_type new_capacity, bool
      * In some gcc versions in some build configs, particularly with aggressive auto-inlining optimization,
      * a warning like this can be triggered (observed, as of this writing, only in the movelib::make_unique_definit()
      * branch above, but to be safe we're covering all the branches with our if/else work-around):
-     *   argument 1 value ‘18446744073709551608’ exceeds maximum object size
+     *   argument 1 value '18446744073709551608' exceeds maximum object size
      *     9223372036854775807 [-Werror=alloc-size-larger-than=]
      * This occurs due to (among other things) inlining from above our frame down into the boost::movelib call
      * we make (and potentially the other allocating calls in the various branches above);
@@ -2507,7 +2507,7 @@ typename Basic_blob<Allocator_t, SHARING>::Iterator
     assert(((dest_it + n) <= src_data) || ((src_data + n) <= dest_it));
 
     /* Some compilers in some build configs issue stringop-overflow warning here, when optimizer heavily auto-inlines:
-     *   error: ‘memcpy’ specified bound between 9223372036854775808 and 18446744073709551615
+     *   error: 'memcpy' specified bound between 9223372036854775808 and 18446744073709551615
      *     exceeds maximum object size 9223372036854775807 [-Werror=stringop-overflow=]
      * This occurs due to (among other things) inlining from above our frame down into the std::memcpy() call
      * we make; plus allegedly the C++ front-end supplying the huge values during the diagnostics pass.

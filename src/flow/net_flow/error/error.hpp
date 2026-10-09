@@ -114,13 +114,13 @@ namespace flow::net_flow::error
  * @internal
  *
  * When you add a value to this `enum`, also add its description to
- * net_flow_error.cpp’s Category::message().  This description must be identical to the description
+ * error.cpp's Category::message().  This description must be identical to the description
  * in the /// comment below, or at least as close as possible.
  *
  * If, when adding a new revision of the code, you add a value to this `enum`, add it to the end.
  * If, when adding a new revision of the code, you deprecate a value in this `enum`, do not delete
  * it from this `enum`.  Instead mark it as deprecated here and then remove it from
- * Flow_category::message().
+ * Category::message().
  *
  * Errors that indicate apparent logic bugs (in other words, assertions that we were too afraid
  * to write as actual `assert()`s) should be prefixed with `S_INTERNAL_ERROR_`, and their messages
@@ -232,8 +232,8 @@ namespace boost::system
 /**
  * Ummm -- it specializes this `struct` to -- look -- the end result is boost.system uses this as
  * authorization to make `enum` `Code` convertible to `Error_code`.  The non-specialized
- * version of this sets "value" to false, so that random arbitary `enum`s can't just be used as
- * `Error_code`s.  Note that this is the offical way to accomplish that, as (confusingly but
+ * version of this sets "value" to false, so that random arbitrary `enum`s can't just be used as
+ * `Error_code`s.  Note that this is the official way to accomplish that, as (confusingly but
  * formally) documented in boost.system docs.
  */
 template<>

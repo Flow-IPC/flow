@@ -167,7 +167,7 @@ public:
 private:
   // Types.
 
-  /// Short-hand for bit set of arbitary length, representing a port set (each bit is a port; 1 open, 0 reserved).
+  /// Short-hand for bit set of arbitrary length, representing a port set (each bit is a port; 1 open, 0 reserved).
   using Bit_set = boost::dynamic_bitset<>;
 
   /// A type same as #flow_port_t but larger, useful when doing arithmetic that might hit overflow in corner cases.

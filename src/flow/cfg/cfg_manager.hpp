@@ -2266,7 +2266,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
    * So next either canonicalize or reject each parse attempt depending on overall success (dynamic only). */
   size_t d_value_set_idx = 0;
 
-  /* Zero it (`{}`) to avoid warnings from undefined behavior sanitizer; it’s not a perf-critical path.
+  /* Zero it (`{}`) to avoid warnings from undefined behavior sanitizer; it's not a perf-critical path.
    * (In reality the zeroing is not necessary, but we've run into warnings by some tools; might as well avoid.) */
   array<bool, S_N_D_VALUE_SETS> changed{};
   bool some_changed = false;
