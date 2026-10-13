@@ -27,6 +27,7 @@
 #include <gtest/gtest.h>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/future.hpp>
+#include <boost/unordered/unordered_map.hpp>
 #include <atomic>
 #include <cstdio>
 #include <cstdlib>

@@ -35,6 +35,10 @@ namespace flow::util
  * The template defines the interface, then the specializations for various container types define
  * the implementations.
  *
+ * @todo Add things like `unordered_flat_map/set`, `std::` counterparts, `boost::container` things, and more.
+ * Basically make this more complete, given that since this little facility was initially added, quite some
+ * containers have materialized and entered common use.
+ *
  * @tparam Container
  *         The container type being described.
  */

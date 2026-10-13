@@ -20,7 +20,7 @@
 
 #include "flow/log/log.hpp"
 #include "flow/log/detail/component_cfg.hpp"
-#include <boost/unordered_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <atomic>
 #include <typeinfo>
 #include <utility>
@@ -56,6 +56,15 @@
  * `std::unordered_map` (with `boost::unordered_map` very close) tends to be the best or close, though with only
  * 2 types in the map linear-search array can be marginally better.  (GNU STL used here; LLVM STL might be
  * different.)
+ *
+ * @todo Add/benchmark/possibly set `boost::unordered_flat_map` as a new possible value for
+ * `FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_*`.  `_flat_map` is generally thought of as faster than
+ * `_map` (whose `std::` and `boost::` variants are already available/benchmarked; and as of this writing
+ * `std::unordered_map` is even the chosen value for one the macros).
+ * `FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR` as of this writing is set to `std::unordered_map`;
+ * and since *generally* `boost::unordered_flat_map` is known to be faster, it might be a
+ * straightforward improvement here.  (Nevertheless it requires benchmarking; do not simply change it.  These are
+ * particularly tiny maps, typically, and we've seen some surprising results in the past.)
  */
 #  define FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR value_for_exposition
 /**
@@ -978,10 +987,10 @@ private:
                 "size_t must be able to act as equivalent to a component_union_idx_t key.");
 
   /// Short-hand for fast-lookup map from normalized component name to its flat-union-component-table index.
-  using Component_name_to_union_idx_map = boost::unordered_map<std::string, component_union_idx_t>;
+  using Component_name_to_union_idx_map = boost::unordered_flat_map<std::string, component_union_idx_t>;
 
   /// Short-hand for map that is essentially the inverse of `Component_name_to_union_idx_map`.
-  using Component_union_idx_to_name_map = boost::unordered_map<component_union_idx_t, std::string>;
+  using Component_union_idx_to_name_map = boost::unordered_flat_map<component_union_idx_t, std::string>;
 
   // Methods.
 

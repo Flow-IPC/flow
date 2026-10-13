@@ -24,6 +24,7 @@
 #include "flow/util/util.hpp"
 #include "flow/util/shared_ptr_alias_holder.hpp"
 #include <boost/array.hpp>
+#include <boost/unordered/unordered_set.hpp>
 
 namespace flow::cfg
 {

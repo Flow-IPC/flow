@@ -25,6 +25,7 @@
 #include "flow/async/util.hpp"
 #include <boost/algorithm/string.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/unordered/unordered_set.hpp>
 #include <utility>
 
 namespace flow::net_flow

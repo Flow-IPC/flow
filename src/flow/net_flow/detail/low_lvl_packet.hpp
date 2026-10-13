@@ -26,6 +26,7 @@
 #include "flow/util/shared_ptr_alias_holder.hpp"
 #include "flow/util/blob.hpp"
 #include <boost/endian.hpp>
+#include <boost/unordered/unordered_map.hpp>
 #include <limits>
 #include <type_traits>
 

@@ -26,7 +26,7 @@
 #include <boost/iostreams/stream_buffer.hpp>
 #include <boost/io/ios_state.hpp>
 #include <boost/move/unique_ptr.hpp>
-#include <boost/unordered_map.hpp>
+#include <boost/unordered/unordered_flat_map.hpp>
 #include <boost/thread.hpp>
 #include <string>
 
@@ -306,8 +306,9 @@ private:
    * Smart pointers are stored to ensure the Thread_local_string_appender is deleted once removed from such a map.
    * Thus once a per-thread map disappears at thread exit, all the stored objects within are freed also.
    */
-  using Source_obj_to_appender_map = boost::unordered_map<util::Unique_id_holder::id_t,
-                                                          boost::movelib::unique_ptr<Thread_local_string_appender>>;
+  using Source_obj_to_appender_map
+    = boost::unordered_flat_map<util::Unique_id_holder::id_t,
+                                boost::movelib::unique_ptr<Thread_local_string_appender>>;
 
   // Data.
 
