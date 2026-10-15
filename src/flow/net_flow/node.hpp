@@ -1443,6 +1443,10 @@ private:
   /**
    * A map from the connection ID (= remote-local socket pair) to the local Peer_socket that is
    * the local portion of the connection.  Applies to peer-to-peer (not server) sockets.
+   *
+   * @todo In Node: For various `unordered_*` data structures consider using `unordered_flat_*` which is known
+   * to be generally faster than plain `unordered_map`, `unordered_set`.  Within the context of NetFlow at least
+   * some of these structures are frequently accessed.
    */
   using Socket_id_to_socket_map = boost::unordered_map<Socket_id, Peer_socket::Ptr>;
 

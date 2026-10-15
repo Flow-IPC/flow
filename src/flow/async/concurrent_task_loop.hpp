@@ -431,9 +431,6 @@ public:
    * As noted in the class doc header, all methods are thread-safe on a common `*this` unless noted otherwise.
    * To wit: it is not safe to call `X.stop()` concurrently with `X.stop()` or with `X.start()`.
    *
-   * You may call stop() from within a task/completion handler executing within `*this` thread pool.  Of course
-   * you may also do this from another thread.
-   *
    * ### Rationale ###
    * This is similar to boost.asio `Task_engine::stop()`.  At a minimum it is useful, when shutting down the app
    * or module, in the situation where 2+ `Concurrent_task_loop`s routinely post work onto each other (or in at least 1

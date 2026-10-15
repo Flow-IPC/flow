@@ -414,6 +414,9 @@ private:
    * thread W only.
    *
    * @see Peer_socket::m_originating_serv for the closely related inverse.
+   *
+   * @todo In Server_socket: For any `unordered_*` data structures consider using `unordered_flat_*` which is known
+   * to be generally faster than plain `unordered_map`, `unordered_set`.
    */
   boost::unordered_set<Peer_socket_ptr> m_connecting_socks;
 }; // class Server_socket

@@ -2213,7 +2213,9 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
 
   /* Includes each order number (unique packet ID) for which the packet was acknowledged.
    * Used for Drop_timer events to register at the bottom; and also to feed the priority queue high_ack_count_q
-   * (explained below in detail). */
+   * (explained below in detail).
+   *
+   * @todo Consider using unordered_flat_set, generally though of as faster than unordered_set. */
   unordered_set<Peer_socket::order_num_t> flying_now_acked_pkts;
 
   // These are the N, M arguments to on_acks() described just above in big comment.
