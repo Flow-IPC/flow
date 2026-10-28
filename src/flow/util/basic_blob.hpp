@@ -2286,7 +2286,7 @@ void Basic_blob<Allocator_t, SHARING>::reserve_impl(size_type new_capacity, bool
            * any such thing; we simply A.allocate(N) via allocator (not std::allocator; possibly SHM-aware) --
            * then zero it.  The user could even do it themselves, in this case making clear_on_alloc syntactic
            * sugar at best.  So could we do better, like we did in the S_IS_VANILLA_ALLOC=true case above?
-           * Answer: Well... I (ygoldfel) think... no, not per se.  Not here at least.  We do have use the
+           * Answer: Well... I (ygoldfel) think... no, not per se.  Not here at least.  We do have to use the
            * Allocator, and nothing in the C++1x or C++17 Allocator concept docs suggests it is possible to
            * ask it to allocate-and-clear.  We only did so for S_IS_VANILLA_ALLOC=true, because we know
            * std::allocator by definition does heap new/delete; so we can call such things ourselves and not actually

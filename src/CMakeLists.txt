@@ -164,6 +164,7 @@ set(HDRS
     flow/util/basic_blob.hpp
     flow/util/blob.hpp
     flow/util/blob_fwd.hpp
+    flow/util/default_init_allocator.hpp
     flow/util/detail/linked_hash.hpp
     flow/util/detail/sched_task_handle_state.hpp
     flow/util/detail/thread_lcl_ptr_impl.hpp

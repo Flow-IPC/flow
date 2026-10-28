@@ -50,6 +50,9 @@ constexpr size_t DYNAMIC_EXTENT = boost::dynamic_extent;
 
 // Find doc headers near the bodies of these compound types.
 
+template<typename T, typename Allocator = std::allocator<T>>
+class Default_init_allocator;
+
 template<typename Key, typename Mapped, typename Hash = boost::hash<Key>, typename Pred = std::equal_to<Key>>
 class Linked_hash_map;
 template<typename Key, typename Hash = boost::hash<Key>, typename Pred = std::equal_to<Key>>
