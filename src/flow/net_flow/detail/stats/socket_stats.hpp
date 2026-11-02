@@ -30,7 +30,7 @@ namespace flow::net_flow
  * accumulate data in it, and provides output to `ostream`.
  *
  * Any object of this class is intended to have a 1-to-1 relationship with a Peer_socket.  The
- * interface is intentionally simple; the class keeps some counters and limited auxilliary state
+ * interface is intentionally simple; the class keeps some counters and limited auxiliary state
  * (such as creation time); the Node informs the class of events (like "DATA packet received"),
  * counts of which are stored in the class and are accessible through the interface (at least
  * through the `ostream` output operator).
