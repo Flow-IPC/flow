@@ -151,9 +151,9 @@ $(function() {
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment"> * ### A corner case ###</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> * See the warning in the ~Thread_local_ptr() dtor doc header; in short, as with `thread_specific_ptr`, it is</span></div>
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * not formally allowed to have a *relevant thread* (other then the dtor-calling one) at dtor time, where</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * relevant thread means one with `.get() != null`.  That&#39;s the official contract.  Moreover this contract</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * relevant thread means one with `.get() != nullptr`.  That&#39;s the official contract.  Moreover this contract</span></div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * affects Thread_local_state_registry (which uses a `*this`); in that thing if there&#39;s a different extant</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * thread at ctor time, for which `.this_thread_state_or_null() != null`, there is also possible instability.</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> * thread at ctor time, for which `.this_thread_state_or_null() != nullptr`, there is also possible instability.</span></div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> *</span></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> * We now briefly discuss what actually can happen if one disregards this.  Firstly, assuming no stability</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment"> * issue, `cleanup_func()`/`delete ...` will not immediately (at dtor time) run for the relevant threads.</span></div>
@@ -519,7 +519,7 @@ $(function() {
 <div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>  <span class="comment">/* See comment about member order near m_tsp; it shows the overall order of ops as a result of the following.</span></div>
 <div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span><span class="comment">   * The main anti-entropy principles going into that are as follows.</span></div>
 <div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span><span class="comment">   *   - Let old_value = get(); might be null.  Recall that `new_value == old_value` is possible -- means no-op --</span></div>
-<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span><span class="comment">   *     and both `*_value = null` is possible.  Assume for now `new_value != old_value`.</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span><span class="comment">   *     and both `*_value = nullptr` is possible.  Assume for now `new_value != old_value`.</span></div>
 <div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span><span class="comment">   *   - Split reset(new_value) into 3 parts:</span></div>
 <div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="comment">   *     - release() equivalent (delete old_value)</span></div>
 <div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span><span class="comment">   *     - cleanup w/r/t old_value</span></div>
@@ -625,7 +625,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 21:39:50 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

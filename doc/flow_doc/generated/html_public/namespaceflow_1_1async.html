@@ -791,7 +791,7 @@ template&lt;&gt; </div>
 <p>Assuming the same situation as documented for <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>, and that indeed the pool now contains that number of running threads: Attempts to optimize thread-core-pinning behavior in that pool for efficient performance. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor-affinity of the given thread – or calling thread – to be managed as the OS deems...">reset_thread_pinning()</a>: related operation.</dd></dl>
 <h3>Error condition</h3>
-<p >If an OS call fails, this will report error in standard Flow fashion. That said, this would indicate some sort of utter calamity of a situation; it might be reasonable to either both leave <code>err_code = null</code> and not-catch the exception; or abort the process on any error. In any case the situation will be logged.</p>
+<p >If an OS call fails, this will report error in standard Flow fashion. That said, this would indicate some sort of utter calamity of a situation; it might be reasonable to either both leave <code>err_code = nullptr</code> and not-catch the exception; or abort the process on any error. In any case the situation will be logged.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a> first. The two functions work together (one before, the other after spawning the threads). Behavior is undefined if the two aren't used in coherent fashion, meaning one passed different values for same-named args.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>There is a to-do, as of this writing, to allow one to query system to auto-determine <code>hw_threads_is_grouping_collated</code> if desired. See namespace <a class="el" href="namespaceflow_1_1async.html" title="Flow module containing tools enabling multi-threaded event loops operating under the asynchronous-tas...">flow::async</a> doc header.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -894,7 +894,7 @@ template&lt;&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 21:39:48 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
