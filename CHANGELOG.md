@@ -130,3 +130,13 @@
   * Build/dependencies:
     * Boost.Random library is now required.
     * Flow-like projects (such as Flow-IPC) using Flow's core build script(s): Build now fails if an export-worthy `#include`ee is not exported. Doc-only headers (such as concept docs) must be listed in new list `DOC_ONLY_HDRS`.
+
+## Impl notes
+* `flow::util::Thread_local_ptr<T>::get()` faster than `boost::thread_specific_ptr<T>::get()`:
+  * It wraps a `thread_specific_ptr` but also maintains its own per-thread index: a `thread_local boost::unordered_flat_map` keyed by a unique 64-bit per-instance ID. So `get()` touches only `thread_local`s plus one open-addressed probe, versus `thread_specific_ptr::get()`'s OS-TLS-API call plus an `std::map` lookup keyed by `this`.
+  * Trade-off: `reset()` is slower, as it updates both. (Microbenchmark: `get()` ~1.4x faster with 1 live instance, ~2x with 16 -- ours stays flat as instance count grows, while `thread_specific_ptr`'s degrades; `reset()` ~1.8x slower.)
+  * Near thread exit, once `thread_local`s may be deinitialized, it falls back to the `thread_specific_ptr` path.
+* flow.log perf:
+  * Three uses of `boost::thread_specific_ptr` replaced by C++ built-in `thread_local`; all are exercised at every log call site that passes the verbosity filter.
+  * Per-call-site lookup in the thread-local map keyed by `Logger*` uses a faster data structure.
+  * `Config::output_component_to_ostream()` (used by ~all `Logger`s when writing the message) uses a faster data structure for component lookups.
