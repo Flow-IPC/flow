@@ -6183,7 +6183,7 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
         && VALIDATE_STATIC_OPTION(m_st_connect_retransmit_timeout)
         && VALIDATE_STATIC_OPTION(m_st_snd_buf_max_size)
         && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size)
-        && VALIDATE_STATIC_OPTION(m_st_rcv_sync_rcvd_data_q_cumulative_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_syn_rcvd_data_q_cumulative_max_size)
         && VALIDATE_STATIC_OPTION(m_st_rcv_flow_control_on)
         && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_slack_percent)
         && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_to_advertise_percent)

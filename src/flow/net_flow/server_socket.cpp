@@ -773,7 +773,7 @@ void Node::handle_data_to_syn_rcvd(Peer_socket::Ptr sock,
     sock->m_rcv_syn_rcvd_data_cumulative_size = 0; // It's garbage at the moment.
   }
   else if ((sock->m_rcv_syn_rcvd_data_cumulative_size + packet->m_data.size())
-           > sock->opt(sock->m_opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size))
+           > sock->opt(sock->m_opts.m_st_rcv_syn_rcvd_data_q_cumulative_max_size))
   {
     /* Not a WARNING, because we didn't do anything wrong; could be network conditions.
      * Not INFO either: a SYN-flood-like (DATA-flood?) attempt may not overfill the logs, given the limit, but generally

@@ -145,7 +145,7 @@ struct Peer_socket_options
    * any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.
    * The value 0 will drop all such DATA packets.
    */
-  size_t m_st_rcv_sync_rcvd_data_q_cumulative_max_size;
+  size_t m_st_rcv_syn_rcvd_data_q_cumulative_max_size;
 
   /**
    * Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  If this is
