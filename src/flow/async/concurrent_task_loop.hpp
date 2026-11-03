@@ -450,8 +450,8 @@ public:
    * Lastly, the stop() and start() mechanism is amenable to dynamically configuring thread behavior such as the
    * number of threads in the pool.
    *
-   * @todo boost.asio has advanced features that might help to mark certain tasks as "must-run if already queued, even
-   * if one `stop()`s"; consider providing user-friendly access to these features, perhaps in the context of the
+   * @todo boost.asio has advanced features that might help to mark certain tasks as: must-run if already queued, even
+   * if one `stop()`s; consider providing user-friendly access to these features, perhaps in the context of the
    * existing Concurrent_task_loop::stop() API.  These features are documented as of this writing at least in the
    * `io_context` doc page.
    */

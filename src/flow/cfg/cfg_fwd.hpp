@@ -183,8 +183,8 @@ std::ostream& operator<<(std::ostream& os, const Option_set<Value_set>& val);
  * @param member_id
  *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.
  * @param sep_replacement
- *        Character to replace `_` word-separators with.  Default `'-'` yields config-option-style names
- *        (e.g., `cool-option-name`); `'_'` yields stats/metric-style names (e.g., `cool_option_name`).
+ *        Character to replace `_` word-separators with.  Default dash (`-`) yields config-option-style names
+ *        (e.g., `cool-option-name`); underscore (`_`) yields stats/metric-style names (e.g., `cool_option_name`).
  * @return See above.
  */
 std::string value_set_member_id_to_opt_name(util::String_view member_id, char sep_replacement = '-');

@@ -118,7 +118,7 @@ public:
    * @param recv_latency_seq
    *        List of latency outcomes for received packets.  When packet `i` (in chronological order)
    *        is received, it is lagged by N, where N is the `i`-th element in `recv_latency_seq`.  Once `i
-   *        >= recv_latency_seq.size()`, `recv_latency_range is used instead.
+   *        >= recv_latency_seq.size()`, `recv_latency_range` is used instead.
    * @param recv_packet_dup_prob
    *        Probability that the given received packet will get duplicated in addition to actually
    *        being received (0 is never; 1 is always; and anywhere in between).  This probability is

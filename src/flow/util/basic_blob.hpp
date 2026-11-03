@@ -652,7 +652,7 @@ public:
 
   /**
    * Identical to share_after_split_left(), except `this->end()` shifts by `size` to the left (instead of
-   * `this->begin() to the right), and the split-off Basic_blob contains the *right-most* `size` elements
+   * `this->begin()` to the right), and the split-off Basic_blob contains the *right-most* `size` elements
    * (instead of the left-most).
    *
    * More formally, this is identical to simply

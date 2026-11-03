@@ -13,7 +13,7 @@
 * flow.log: Significantly improve performance of `Logger::should_log()`, invoked at ~every log call site. To enable, requires small code change when invoking `flow::log::Config::init_component_to_union_idx_mapping()`.
 * C++20 mode build and GitHub-CI-pipeline support. C++17 remains the main/minimal mode, but we now ensure user can build/use in C++20 mode also.
 * flow.perf: Minor perf improvements.
-* Dependency bump: Boost v1.84 to 1.87. Results in slight breaking API changes in flow::error.
+* Dependency bump: Boost v1.84 to 1.87. Results in slight breaking API changes in `flow::error`.
 * Add a unit-test suite to Flow. (Flow now gains GTest dependency if built with test-suite enabled.)
 * GitHub CI pipeline: Tweak to get gcc-13 builds to work again (GitHub changed preinstalled packages).
 * Comment and/or doc changes.
@@ -27,4 +27,4 @@
     * Remove any `cref()` wrappers for args 3+ to this macro; this is no longer necessary and will likely not compile.
     * Ideally remove now-unnecessary method `Qualifiers::` in arg 2 (function name).
   * Removal of macro `FLOW_ERROR_EXEC_FUNC_AND_THROW_ON_ERROR()`.
-    * If you were using this, simply change it to `FLOW_ERROR_EXEC_AND_THROW_ON_ERROR` which now supports free functions.
+    * If you were using this, simply change it to `FLOW_ERROR_EXEC_AND_THROW_ON_ERROR()` which now supports free functions.

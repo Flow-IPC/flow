@@ -259,7 +259,7 @@ public:
   /**
    * Overwrites this object with a copy of the given source.  We become equal to `src` but independent of it to a
    * common-sense extent.  In addition, the hasher instance and equality predicate are copied from `src`.  Finally, a
-   * reasonable attempt is made to also make the internal structure of the hash map to be similar to that of `src.
+   * reasonable attempt is made to also make the internal structure of the hash map to be similar to that of `src`.
    *
    * @param src
    *        Source object.  No-op if `this == &src`.

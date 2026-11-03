@@ -1239,7 +1239,7 @@ void stats_assign(Stat_set* target_stats, const Stat_set& src_stats);
  * @warning Doing (essentially) `*target_val += src_val` for each `ACCUMULATOR` makes perfect sense, but
  *          for `GAUGE` it's a subtle question.  For example: if a `GAUGE` is a temperature, does it
  *          really make sense to add 30 Celsius to 40 Celsius to get an "aggregated" 70 Celsius?  That really
- *          depends on what "aggregate one `Stat_set` onto another" really *means* practically speaking.
+ *          depends on what "aggregate one stat-set onto another" really *means* practically speaking.
  *          To be direct in answering: Primarily it is a stepping stone for the generalized N-`Stat_set`
  *          stats_aggregate().  That one would perform stats_aggregate_one() N times -- and then for the
  *          `GAUGE`s `/=` each one by N, obtaining a mean... which actually *does* make sense.  However pre-applying

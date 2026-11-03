@@ -175,7 +175,7 @@ using Strand = Task_engine::strand;
  * a certain specific time relative to some Epoch.
  *
  * @see schedule_task_from_now() (and friends) for a simpler task-scheduling API (which internally uses this
- *      `Timer).  The notes below still apply however.  Please read them even if you won't use `Timer` directly.
+ *      `Timer`).  The notes below still apply however.  Please read them even if you won't use `Timer` directly.
  *
  * Important: While one can schedule events using very precise units using #Fine_duration, the
  * timer may not actually have that resolution.  That is, I may schedule something to happen in 1

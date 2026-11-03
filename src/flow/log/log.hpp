@@ -1401,8 +1401,8 @@ public:
    * The convenience macros `FLOW_LOG_...()` combine this with do_log() to make it so that
    * a message is only built if `should_log() == true`, and (if so) builds and logs it; otherwise
    * almost no computing or storage resources are spent, and the message is neither built nor logged logged.
-   * The verb "to build message" here more formally means "to execute the `ostream<<` fragment passed to macro by
-   * writing characters to some internally maintained `ostream` accordingly."
+   * The verb "to build message" here more formally means: to execute the ostream<< fragment passed to macro by
+   * writing characters to some internally maintained ostream accordingly.
    *
    * @param sev
    *        Severity of the message.
