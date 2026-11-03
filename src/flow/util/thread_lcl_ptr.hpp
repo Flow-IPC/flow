@@ -79,9 +79,9 @@ namespace flow::util
  * ### A corner case ###
  * See the warning in the ~Thread_local_ptr() dtor doc header; in short, as with `thread_specific_ptr`, it is
  * not formally allowed to have a *relevant thread* (other then the dtor-calling one) at dtor time, where
- * relevant thread means one with `.get() != null`.  That's the official contract.  Moreover this contract
+ * relevant thread means one with `.get() != nullptr`.  That's the official contract.  Moreover this contract
  * affects Thread_local_state_registry (which uses a `*this`); in that thing if there's a different extant
- * thread at ctor time, for which `.this_thread_state_or_null() != null`, there is also possible instability.
+ * thread at ctor time, for which `.this_thread_state_or_null() != nullptr`, there is also possible instability.
  *
  * We now briefly discuss what actually can happen if one disregards this.  Firstly, assuming no stability
  * issue, `cleanup_func()`/`delete ...` will not immediately (at dtor time) run for the relevant threads.
@@ -447,7 +447,7 @@ void Thread_local_ptr<Thread_local_state_t>::reset(Thread_local_state* new_value
   /* See comment about member order near m_tsp; it shows the overall order of ops as a result of the following.
    * The main anti-entropy principles going into that are as follows.
    *   - Let old_value = get(); might be null.  Recall that `new_value == old_value` is possible -- means no-op --
-   *     and both `*_value = null` is possible.  Assume for now `new_value != old_value`.
+   *     and both `*_value = nullptr` is possible.  Assume for now `new_value != old_value`.
    *   - Split reset(new_value) into 3 parts:
    *     - release() equivalent (delete old_value)
    *     - cleanup w/r/t old_value

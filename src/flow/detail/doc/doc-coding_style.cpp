@@ -1675,7 +1675,7 @@ void schedule_from_now(Fine_duration period_from_now);
  *   - Using a pointer provides an easy way to "turn off" the arg which is commonly needed though of course not
  *     universal.  When so used, the API is usually pithier than the alternative (requiring another arg, or a special
  *     value, or something).  For example, see how Flow's lib-API-error-returning convention works:
- *     if you pass in `Error_code* ec = null`, it'll throw exception on error; else it'll return normally and set
+ *     if you pass in `Error_code* ec = nullptr`, it'll throw exception on error; else it'll return normally and set
  *     *ec accordingly (including setting it no-error on success).
  * Try it.  You might like it.]
  *

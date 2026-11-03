@@ -420,7 +420,7 @@ unsigned int optimal_worker_thread_count_per_pool(log::Logger* logger_ptr,
  *
  * ### Error condition ###
  * If an OS call fails, this will report error in standard Flow fashion.  That said, this would indicate some sort
- * of utter calamity of a situation; it might be reasonable to either both leave `err_code = null` and not-catch
+ * of utter calamity of a situation; it might be reasonable to either both leave `err_code = nullptr` and not-catch
  * the exception; or abort the process on any error.  In any case the situation will be logged.
  *
  * @see optimal_worker_thread_count_per_pool() first.  The two functions work together (one before, the other after
