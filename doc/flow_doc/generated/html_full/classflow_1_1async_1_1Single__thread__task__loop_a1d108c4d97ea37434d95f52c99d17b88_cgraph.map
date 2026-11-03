@@ -1,0 +1,14 @@
+<map id="flow::async::Single_thread_task_loop::start" name="flow::async::Single_thread_task_loop::start">
+<area shape="rect" id="node1" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,211,159,247"/>
+<area shape="rect" id="node2" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API." alt="" coords="207,155,360,191"/>
+<area shape="rect" id="node11" href="$namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc..." alt="" coords="214,240,353,276"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect." alt="" coords="635,21,777,57"/>
+<area shape="rect" id="node4" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#a5c9a3da291fa961bb4d8c4be13c39bb8" title="Implements superclass API." alt="" coords="430,39,565,87"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),..." alt="" coords="421,196,574,232"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="645,257,767,293"/>
+<area shape="rect" id="node10" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API." alt="" coords="421,112,573,148"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1error.html#a48afa7f8c2e100acd461365dfb00a114" title="Equivalent of exec_and_throw_on_error() for operations with void return type." alt="" coords="637,124,775,160"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX&#45;affecting (in particul..." alt="" coords="635,185,777,233"/>
+<area shape="rect" id="node9" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="825,257,948,293"/>
+<area shape="rect" id="node12" href="$classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself." alt="" coords="408,308,587,344"/>
+</map>

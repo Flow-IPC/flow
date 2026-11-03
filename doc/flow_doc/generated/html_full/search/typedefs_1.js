@@ -6,5 +6,5 @@ var searchData=
   ['blob_5fconst_5fptr_3',['Blob_const_ptr',['../classflow_1_1net__flow_1_1Socket__buffer.html#a20b11f7f884d1c811573bc2f551c8771',1,'flow::net_flow::Socket_buffer']]],
   ['blob_5fptr_4',['Blob_ptr',['../classflow_1_1net__flow_1_1Socket__buffer.html#ac702b3fcb36a2aed9d129b1255dcfdbc',1,'flow::net_flow::Socket_buffer']]],
   ['blob_5fsans_5flog_5fcontext_5',['Blob_sans_log_context',['../namespaceflow_1_1util.html#a2c085aa47872fe7e4dbba0703e23923c',1,'flow::util']]],
-  ['buf_5fptr_6',['Buf_ptr',['../classflow_1_1util_1_1Basic__blob.html#a5b84fa4bce20b49c3ac0e7d87926cbf7',1,'flow::util::Basic_blob']]]
+  ['buf_5fptr_6',['Buf_ptr',['../classflow_1_1util_1_1Basic__blob.html#a01dd133ca0b81a49c974319bce7b877b',1,'flow::util::Basic_blob']]]
 ];

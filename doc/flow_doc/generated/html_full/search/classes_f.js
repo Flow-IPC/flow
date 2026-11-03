@@ -25,10 +25,13 @@ var searchData=
   ['socket_5fas_5fany_5fhash_22',['Socket_as_any_hash',['../classflow_1_1net__flow_1_1Event__set_1_1Socket__as__any__hash.html',1,'flow::net_flow::Event_set']]],
   ['socket_5fbuffer_23',['Socket_buffer',['../classflow_1_1net__flow_1_1Socket__buffer.html',1,'flow::net_flow']]],
   ['socket_5fid_24',['Socket_id',['../structflow_1_1net__flow_1_1Node_1_1Socket__id.html',1,'flow::net_flow::Node']]],
-  ['static_5fconfig_5fmanager_25',['Static_config_manager',['../classflow_1_1cfg_1_1Static__config__manager.html',1,'flow::cfg']]],
-  ['string_5fostream_26',['String_ostream',['../classflow_1_1util_1_1String__ostream.html',1,'flow::util']]],
-  ['syn_5fack_5fack_5fpacket_27',['Syn_ack_ack_packet',['../structflow_1_1net__flow_1_1Syn__ack__ack__packet.html',1,'flow::net_flow']]],
-  ['syn_5fack_5fpacket_28',['Syn_ack_packet',['../structflow_1_1net__flow_1_1Syn__ack__packet.html',1,'flow::net_flow']]],
-  ['syn_5fpacket_29',['Syn_packet',['../structflow_1_1net__flow_1_1Syn__packet.html',1,'flow::net_flow']]],
-  ['system_5ferror_30',['system_error',['../classboost_1_1system_1_1system__error.html',1,'boost::system']]]
+  ['stat_5fname_25',['Stat_name',['../classflow_1_1util_1_1stat_1_1Stat__name.html',1,'flow::util::stat']]],
+  ['stat_5fset_5flist_26',['Stat_set_list',['../classflow_1_1util_1_1stat_1_1Stat__set__list.html',1,'flow::util::stat']]],
+  ['stat_5fset_5fprintable_27',['Stat_set_printable',['../structflow_1_1util_1_1stat_1_1Stat__set__printable.html',1,'flow::util::stat']]],
+  ['static_5fconfig_5fmanager_28',['Static_config_manager',['../classflow_1_1cfg_1_1Static__config__manager.html',1,'flow::cfg']]],
+  ['string_5fostream_29',['String_ostream',['../classflow_1_1util_1_1String__ostream.html',1,'flow::util']]],
+  ['syn_5fack_5fack_5fpacket_30',['Syn_ack_ack_packet',['../structflow_1_1net__flow_1_1Syn__ack__ack__packet.html',1,'flow::net_flow']]],
+  ['syn_5fack_5fpacket_31',['Syn_ack_packet',['../structflow_1_1net__flow_1_1Syn__ack__packet.html',1,'flow::net_flow']]],
+  ['syn_5fpacket_32',['Syn_packet',['../structflow_1_1net__flow_1_1Syn__packet.html',1,'flow::net_flow']]],
+  ['system_5ferror_33',['system_error',['../classboost_1_1system_1_1system__error.html',1,'boost::system']]]
 ];

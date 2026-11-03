@@ -71,7 +71,7 @@
 <!-- Node37 -->
 <g id="node25" class="node">
 <title>Node37</title>
-<g id="a_node25"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a37f377987183d36b0ff5ebb9605d8aae" target="_top" xlink:title="Copies src buffer directly onto equally sized area within *this at location dest; *this must have suf...">
+<g id="a_node25"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a851ca0814f1dedf81d3c887985fb64b3" target="_top" xlink:title="Copies src buffer directly onto equally sized area within *this at location dest; *this must have suf...">
 <polygon fill="white" stroke="black" points="535,-360.5 535,-386.5 636,-386.5 636,-360.5 535,-360.5"/>
 <text text-anchor="start" x="543" y="-376.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-367.1" font-family="Helvetica,sans-Serif" font-size="8.00">::emplace_copy</text>
@@ -87,7 +87,7 @@
 <!-- Node38 -->
 <g id="node26" class="node">
 <title>Node38</title>
-<g id="a_node26"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a69df8d881b78c282f4d9d20898009b5e" target="_top" xlink:title="Guarantees post&#45;condition zero() == true by dropping *this ownership of the allocated internal buffer...">
+<g id="a_node26"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a9c46dde8caa6b2782f7549cdfdbaea87" target="_top" xlink:title="Guarantees post&#45;condition zero() == true by dropping *this ownership of the allocated internal buffer...">
 <polygon fill="white" stroke="black" points="535,-315.5 535,-341.5 636,-341.5 636,-315.5 535,-315.5"/>
 <text text-anchor="start" x="543" y="-331.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-322.1" font-family="Helvetica,sans-Serif" font-size="8.00">::make_zero</text>
@@ -103,7 +103,7 @@
 <!-- Node39 -->
 <g id="node27" class="node">
 <title>Node39</title>
-<g id="a_node27"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a5f45c6f17074d8261147f89925516d55" target="_top" xlink:title="Implements reserve() overloads.">
+<g id="a_node27"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a9e89f557a3356a9d530e5697806a3523" target="_top" xlink:title="Implements reserve() overloads.">
 <polygon fill="white" stroke="black" points="535,-270.5 535,-296.5 636,-296.5 636,-270.5 535,-270.5"/>
 <text text-anchor="start" x="543" y="-286.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-277.1" font-family="Helvetica,sans-Serif" font-size="8.00">::reserve_impl</text>
@@ -119,7 +119,7 @@
 <!-- Node40 -->
 <g id="node28" class="node">
 <title>Node40</title>
-<g id="a_node28"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a5e4e4668320845ae522165b2095f5097" target="_top" xlink:title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co&#45;owns) *this allocat...">
+<g id="a_node28"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#af49b2619d6e801ef14a85dfbc0a8a14b" target="_top" xlink:title="Applicable to !zero() blobs, this returns an identical Basic_blob that shares (co&#45;owns) *this allocat...">
 <polygon fill="white" stroke="black" points="535,-225.5 535,-251.5 636,-251.5 636,-225.5 535,-225.5"/>
 <text text-anchor="start" x="543" y="-241.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-232.1" font-family="Helvetica,sans-Serif" font-size="8.00">::share</text>
@@ -135,7 +135,7 @@
 <!-- Node41 -->
 <g id="node29" class="node">
 <title>Node41</title>
-<g id="a_node29"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a53826c1f5638db3a138192b87adde7fa" target="_top" xlink:title="Impl of share_after_split_equally() but capable of emitting not just *this type (Basic_blob&lt;....">
+<g id="a_node29"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#abe6ff1d7486309fa0cff92370a65eaea" target="_top" xlink:title="Impl of share_after_split_equally() but capable of emitting not just *this type (Basic_blob&lt;....">
 <polygon fill="white" stroke="black" points="513,-180.5 513,-206.5 658,-206.5 658,-180.5 513,-180.5"/>
 <text text-anchor="start" x="521" y="-196.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-187.1" font-family="Helvetica,sans-Serif" font-size="8.00">::share_after_split_equally_impl</text>
@@ -151,7 +151,7 @@
 <!-- Node42 -->
 <g id="node30" class="node">
 <title>Node42</title>
-<g id="a_node30"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a2c7da4387ef57fe4384fcf928de45dd2" target="_top" xlink:title="Applicable to !zero() blobs, this shifts this&#45;&gt;begin() by size to the right without changing end(); a...">
+<g id="a_node30"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a9404f28e4a83750caf49c377c4507294" target="_top" xlink:title="Applicable to !zero() blobs, this shifts this&#45;&gt;begin() by size to the right without changing end(); a...">
 <polygon fill="white" stroke="black" points="532,-135.5 532,-161.5 639,-161.5 639,-135.5 532,-135.5"/>
 <text text-anchor="start" x="540" y="-151.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">::share_after_split_left</text>
@@ -167,7 +167,7 @@
 <!-- Node43 -->
 <g id="node31" class="node">
 <title>Node43</title>
-<g id="a_node31"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a35a0b1bc225e328e95a590c92fe75c24" target="_top" xlink:title="Identical to share_after_split_left(), except this&#45;&gt;end() shifts by size to the left (instead of this...">
+<g id="a_node31"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a75b194b60b8210170dc2bdbb4f7ef397" target="_top" xlink:title="Identical to share_after_split_left(), except this&#45;&gt;end() shifts by size to the left (instead of this...">
 <polygon fill="white" stroke="black" points="529,-90.5 529,-116.5 642,-116.5 642,-90.5 529,-90.5"/>
 <text text-anchor="start" x="537" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-97.1" font-family="Helvetica,sans-Serif" font-size="8.00">::share_after_split_right</text>
@@ -199,7 +199,7 @@
 <!-- Node46 -->
 <g id="node34" class="node">
 <title>Node46</title>
-<g id="a_node34"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#afc24100c45d41d25ca658afe5e1421d7" target="_top" xlink:title="The opposite of emplace_copy() in every way, copying a sub&#45;blob onto a target memory area.">
+<g id="a_node34"><a xlink:href="classflow_1_1util_1_1Basic__blob.html#a705c65e5c8979216773ff635344a42c0" target="_top" xlink:title="The opposite of emplace_copy() in every way, copying a sub&#45;blob onto a target memory area.">
 <polygon fill="white" stroke="black" points="535,-0.5 535,-26.5 636,-26.5 636,-0.5 535,-0.5"/>
 <text text-anchor="start" x="543" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Basic_blob</text>
 <text text-anchor="middle" x="585.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sub_copy</text>

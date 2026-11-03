@@ -79,7 +79,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>An object of this class is a map that combines the lookup speed of an <code>unordered_map&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>.  
+<p>An object of this class is a map that combines the lookup speed of an <code>unordered_flat_map&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>.  
  <a href="classflow_1_1util_1_1Linked__hash__map.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>&gt;</code></p>
@@ -104,9 +104,9 @@ Public Types</h2></td></tr>
 <tr class="memitem:aea14e7770b9b7e7529753502f818505b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> = Pred_t</td></tr>
 <tr class="memdesc:aea14e7770b9b7e7529753502f818505b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience alias for template arg.  <a href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">More...</a><br /></td></tr>
 <tr class="separator:aea14e7770b9b7e7529753502f818505b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bda4cef68dc1775ae5a02f0f349bb62"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> = std::pair&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a> const, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a> &gt;</td></tr>
-<tr class="memdesc:a1bda4cef68dc1775ae5a02f0f349bb62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for key/mapped-value pairs stored in the structure.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">More...</a><br /></td></tr>
-<tr class="separator:a1bda4cef68dc1775ae5a02f0f349bb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b25da6cc4f2bc929b4a0ab349b42041"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> = std::pair&lt; const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a> &gt;</td></tr>
+<tr class="memdesc:a7b25da6cc4f2bc929b4a0ab349b42041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for key/mapped-value pairs stored in the structure.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">More...</a><br /></td></tr>
+<tr class="separator:a7b25da6cc4f2bc929b4a0ab349b42041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a7bf4c62aad92c36900c7974354dfcb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb">Value_movable</a> = std::pair&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a> &gt;</td></tr>
 <tr class="memdesc:a1a7bf4c62aad92c36900c7974354dfcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for key/mapped-value pair best-suited (perf-wise) as arg type for the moving <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a></code> overload.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb">More...</a><br /></td></tr>
 <tr class="separator:a1a7bf4c62aad92c36900c7974354dfcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,7 +134,7 @@ Public Types</h2></td></tr>
 <tr class="memitem:a1e9995f0c063e81317c64e3f1a9924f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1e9995f0c063e81317c64e3f1a9924f7">mapped_type</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a></td></tr>
 <tr class="memdesc:a1e9995f0c063e81317c64e3f1a9924f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a1e9995f0c063e81317c64e3f1a9924f7">More...</a><br /></td></tr>
 <tr class="separator:a1e9995f0c063e81317c64e3f1a9924f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a400decc79397fec52be13e1098e04661"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a400decc79397fec52be13e1098e04661">value_type</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a></td></tr>
+<tr class="memitem:a400decc79397fec52be13e1098e04661"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a400decc79397fec52be13e1098e04661">value_type</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a></td></tr>
 <tr class="memdesc:a400decc79397fec52be13e1098e04661"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a400decc79397fec52be13e1098e04661">More...</a><br /></td></tr>
 <tr class="separator:a400decc79397fec52be13e1098e04661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a816dda3b07a92e4446347b71f420f82f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a816dda3b07a92e4446347b71f420f82f">hasher</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a></td></tr>
@@ -143,16 +143,16 @@ Public Types</h2></td></tr>
 <tr class="memitem:a39f8b89d9bc13270c601b89c62b74191"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a39f8b89d9bc13270c601b89c62b74191">key_equal</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a></td></tr>
 <tr class="memdesc:a39f8b89d9bc13270c601b89c62b74191"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): <a class="el" href="classPred.html">Pred</a> type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a39f8b89d9bc13270c601b89c62b74191">More...</a><br /></td></tr>
 <tr class="separator:a39f8b89d9bc13270c601b89c62b74191"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18a7ba77b88c3dfa8547a54747a72bf6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a18a7ba77b88c3dfa8547a54747a72bf6">pointer</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> *</td></tr>
+<tr class="memitem:a18a7ba77b88c3dfa8547a54747a72bf6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a18a7ba77b88c3dfa8547a54747a72bf6">pointer</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> *</td></tr>
 <tr class="memdesc:a18a7ba77b88c3dfa8547a54747a72bf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): pointer to <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a18a7ba77b88c3dfa8547a54747a72bf6">More...</a><br /></td></tr>
 <tr class="separator:a18a7ba77b88c3dfa8547a54747a72bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5425ac3f7f0b5760b92312b60753adb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac5425ac3f7f0b5760b92312b60753adb">const_pointer</a> = const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> *</td></tr>
+<tr class="memitem:ac5425ac3f7f0b5760b92312b60753adb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac5425ac3f7f0b5760b92312b60753adb">const_pointer</a> = const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> *</td></tr>
 <tr class="memdesc:ac5425ac3f7f0b5760b92312b60753adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): pointer to <code>const Key</code>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ac5425ac3f7f0b5760b92312b60753adb">More...</a><br /></td></tr>
 <tr class="separator:ac5425ac3f7f0b5760b92312b60753adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d63f26c3fb953b0ab2856a3c76a22d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a6d63f26c3fb953b0ab2856a3c76a22d6">reference</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;</td></tr>
+<tr class="memitem:a6d63f26c3fb953b0ab2856a3c76a22d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a6d63f26c3fb953b0ab2856a3c76a22d6">reference</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;</td></tr>
 <tr class="memdesc:a6d63f26c3fb953b0ab2856a3c76a22d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): reference to <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a6d63f26c3fb953b0ab2856a3c76a22d6">More...</a><br /></td></tr>
 <tr class="separator:a6d63f26c3fb953b0ab2856a3c76a22d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a762084112e0def72d1e94493bba1f4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a6a762084112e0def72d1e94493bba1f4">const_reference</a> = const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;</td></tr>
+<tr class="memitem:a6a762084112e0def72d1e94493bba1f4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a6a762084112e0def72d1e94493bba1f4">const_reference</a> = const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;</td></tr>
 <tr class="memdesc:a6a762084112e0def72d1e94493bba1f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">For container compliance (hence the irregular capitalization): reference to <code>const Key</code>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a6a762084112e0def72d1e94493bba1f4">More...</a><br /></td></tr>
 <tr class="separator:a6a762084112e0def72d1e94493bba1f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18d16a268b95319c8611d57951c3317b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a18d16a268b95319c8611d57951c3317b">iterator</a> = <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a></td></tr>
@@ -164,12 +164,12 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af0033ec6c091d68ac9804cae1675b93f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#af0033ec6c091d68ac9804cae1675b93f">Linked_hash_map</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a> n_buckets=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a>(-1), const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;hasher_obj=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>{}, const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;pred=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>{})</td></tr>
-<tr class="memdesc:af0033ec6c091d68ac9804cae1675b93f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs empty structure with some basic parameters.  <a href="classflow_1_1util_1_1Linked__hash__map.html#af0033ec6c091d68ac9804cae1675b93f">More...</a><br /></td></tr>
-<tr class="separator:af0033ec6c091d68ac9804cae1675b93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5c23bc3d7a79eb3e334b80bf37b5529"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aa5c23bc3d7a79eb3e334b80bf37b5529">Linked_hash_map</a> (std::initializer_list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &gt; values, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a> n_buckets=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a>(-1), const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;hasher_obj=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>{}, const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;pred=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>{})</td></tr>
-<tr class="memdesc:aa5c23bc3d7a79eb3e334b80bf37b5529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs structure with some basic parameters, and values initialized from initializer list.  <a href="classflow_1_1util_1_1Linked__hash__map.html#aa5c23bc3d7a79eb3e334b80bf37b5529">More...</a><br /></td></tr>
-<tr class="separator:aa5c23bc3d7a79eb3e334b80bf37b5529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e12958490fc4d9b8a477209ddc6bb9b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a2e12958490fc4d9b8a477209ddc6bb9b">Linked_hash_map</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a> n_buckets=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a>(-1), const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;hasher_obj={}, const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;pred={})</td></tr>
+<tr class="memdesc:a2e12958490fc4d9b8a477209ddc6bb9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs empty structure with some basic parameters.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a2e12958490fc4d9b8a477209ddc6bb9b">More...</a><br /></td></tr>
+<tr class="separator:a2e12958490fc4d9b8a477209ddc6bb9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fb490b533fe33f275ad3f8b104c1bd5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a2fb490b533fe33f275ad3f8b104c1bd5">Linked_hash_map</a> (std::initializer_list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &gt; values, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a> n_buckets=<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf">size_type</a>(-1), const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;hasher_obj={}, const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;pred={})</td></tr>
+<tr class="memdesc:a2fb490b533fe33f275ad3f8b104c1bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs structure with some basic parameters, and values initialized from initializer list.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a2fb490b533fe33f275ad3f8b104c1bd5">More...</a><br /></td></tr>
+<tr class="separator:a2fb490b533fe33f275ad3f8b104c1bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae42dd8b8ecfd51d6414e4c8c8ac79924"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ae42dd8b8ecfd51d6414e4c8c8ac79924">Linked_hash_map</a> (const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a> &amp;src)</td></tr>
 <tr class="memdesc:ae42dd8b8ecfd51d6414e4c8c8ac79924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object that is a copy of the given source.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ae42dd8b8ecfd51d6414e4c8c8ac79924">More...</a><br /></td></tr>
 <tr class="separator:ae42dd8b8ecfd51d6414e4c8c8ac79924"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,7 +185,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac8393b9576ef14102a467e317f443471"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac8393b9576ef14102a467e317f443471">swap</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a> &amp;other)</td></tr>
 <tr class="memdesc:ac8393b9576ef14102a467e317f443471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the contents of this structure and <code>other</code>.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ac8393b9576ef14102a467e317f443471">More...</a><br /></td></tr>
 <tr class="separator:ac8393b9576ef14102a467e317f443471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac99cc54acf0b5a74e8e7a1f5ca30c2eb"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classbool.html">bool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb">insert</a> (const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;key_and_mapped)</td></tr>
+<tr class="memitem:ac99cc54acf0b5a74e8e7a1f5ca30c2eb"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classbool.html">bool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb">insert</a> (const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;key_and_mapped)</td></tr>
 <tr class="memdesc:ac99cc54acf0b5a74e8e7a1f5ca30c2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; if key already in <code>*this</code> makes no change.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb">More...</a><br /></td></tr>
 <tr class="separator:ac99cc54acf0b5a74e8e7a1f5ca30c2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6444fd8206c662fe4ebe61a91acb3eb9"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classbool.html">bool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a6444fd8206c662fe4ebe61a91acb3eb9">insert</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb">Value_movable</a> &amp;&amp;key_and_mapped)</td></tr>
@@ -290,14 +290,14 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
-<tr class="memitem:a29f69fa281255611a919ae0a042d81ef"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a29f69fa281255611a919ae0a042d81ef">Value_list</a> = std::list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &gt;</td></tr>
+<tr class="memitem:a29f69fa281255611a919ae0a042d81ef"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a29f69fa281255611a919ae0a042d81ef">Value_list</a> = std::list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &gt;</td></tr>
 <tr class="memdesc:a29f69fa281255611a919ae0a042d81ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for doubly linked list of (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a>) pairs.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a29f69fa281255611a919ae0a042d81ef">More...</a><br /></td></tr>
 <tr class="separator:a29f69fa281255611a919ae0a042d81ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:afd8f1651012750223c078e645de0ead0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0">insert_impl</a> (const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;key_and_mapped)</td></tr>
-<tr class="memdesc:afd8f1651012750223c078e645de0ead0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that modifies <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a> so that <code>key_and_mapped</code>'s copy is inserted into the structure.  <a href="classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0">More...</a><br /></td></tr>
+<tr class="memitem:afd8f1651012750223c078e645de0ead0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0">insert_impl</a> (const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;key_and_mapped)</td></tr>
+<tr class="memdesc:afd8f1651012750223c078e645de0ead0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper that modifies <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a> so that <code>key_and_mapped</code>'s copy is inserted into the structure.  <a href="classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0">More...</a><br /></td></tr>
 <tr class="separator:afd8f1651012750223c078e645de0ead0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f16297dae7c3f384e833e5ce22fd86e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a2f16297dae7c3f384e833e5ce22fd86e">insert_impl_mv</a> (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb">Value_movable</a> &amp;&amp;key_and_mapped)</td></tr>
 <tr class="memdesc:a2f16297dae7c3f384e833e5ce22fd86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#afd8f1651012750223c078e645de0ead0" title="Helper that modifies m_value_list and m_value_iter_set so that key_and_mapped&#39;s copy is inserted into...">insert_impl()</a>, except <code>key_and_mapped</code> components are <code>move()</code>d into <code>*this</code> instead of being copied.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a2f16297dae7c3f384e833e5ce22fd86e">More...</a><br /></td></tr>
@@ -306,10 +306,10 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ac636005479265a02045cac776f71c213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a29f69fa281255611a919ae0a042d81ef">Value_list</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213">m_value_list</a></td></tr>
-<tr class="memdesc:ac636005479265a02045cac776f71c213"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual values &ndash; which, as in <code>unordered_map&lt;K, M&gt;</code>, are instances of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> = <code>pair&lt;const Key, Mapped&gt;</code> &ndash; are stored in here, in the order in which user would iterate over them.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213">More...</a><br /></td></tr>
+<tr class="memdesc:ac636005479265a02045cac776f71c213"><td class="mdescLeft">&#160;</td><td class="mdescRight">The actual values &ndash; which, as in <code>unordered_*map&lt;K, M&gt;</code>, are instances of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> = <code>pair&lt;const Key, Mapped&gt;</code> &ndash; are stored in here, in the order in which user would iterate over them.  <a href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213">More...</a><br /></td></tr>
 <tr class="separator:ac636005479265a02045cac776f71c213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ceba9fd4f7a5b63be0b5e11e02056d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">Linked_hash_key_set</a>&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>, true &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d">m_value_iter_set</a></td></tr>
-<tr class="memdesc:a49ceba9fd4f7a5b63be0b5e11e02056d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure that allows the amortized-constant-time (as in <code>unordered_set</code>) implementation of <code>this-&gt;find(key)</code>, where <code>key</code> is <code>const Key&amp;</code>.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d">More...</a><br /></td></tr>
+<tr class="memitem:a49ceba9fd4f7a5b63be0b5e11e02056d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4">Linked_hash_key_set</a>&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>, true &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d">m_value_iter_set</a></td></tr>
+<tr class="memdesc:a49ceba9fd4f7a5b63be0b5e11e02056d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure that allows the amortized-constant-time (as in the <code>unordered_*set</code> = <code>Linked_hash_key_set</code>) impl of <code>this-&gt;find(key)</code>, where <code>key</code> is <code>const Key&amp;</code>.  <a href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d">More...</a><br /></td></tr>
 <tr class="separator:a49ceba9fd4f7a5b63be0b5e11e02056d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
@@ -323,9 +323,9 @@ Related Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Key_t, typename Mapped_t, typename Hash_t, typename Pred_t&gt;<br />
-class flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</div><p >An object of this class is a map that combines the lookup speed of an <code>unordered_map&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>. </p>
-<p >The API is generally that of an <code>unordered_map&lt;&gt;</code>. The differences essentially all have to do with iterators. This map introduces a concept of "newness," which determines the iteration order. Moreover, <em>every</em> iterator remains valid except (of course) under erasure of the underlying element. Newness is defined as follows inductively: whenever an element is inserted, it is "newest," thus it is placed at the front of the iterator order. Furthermore, the methods <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> can be used to make any element "newest" (moved to the front of the iterator order). Iterator thus formed orders elements from newest to oldest (hence <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty().">newest()</a> is <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a585b7d184077a8644d764d104feed76a" title="Synonym of newest().">begin()</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a> is <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a>).</p>
-<p >Performance expectations: The best way to determine a method's time needs is to imagine what it must do. If it must perform a lookup by key, that is an <code>unordered_set&lt;&gt;</code> lookup resulting in an (at least internal) iterator. If it must insert an element, it is always inserted at the start of a <code>list</code>; and also into an <code>unordered_set&lt;&gt;</code>. If it must erase an element based on an iterator, that element is erased from a list based on that iterator; and also by key from said <code>unordered_set&lt;&gt;</code>. Iteration itself is iteration along a <code>list</code>. But essentially, every operation is either near constant time or constant time. In terms of space needs, this essentially stores the values themselves in a <code>list</code>; and also a pointer to each list-held key/element in an <code>unordered_set&lt;&gt;</code>, which also stores a pointer or list iterator per element.</p>
+class flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</div><p >An object of this class is a map that combines the lookup speed of an <code>unordered_flat_map&lt;&gt;</code> and ordering and iterator stability capabilities of a <code>list&lt;&gt;</code>. </p>
+<p >The API is generally that of an <code>unordered_*map&lt;&gt;</code>. The differences essentially all have to do with iterators. This map introduces a concept of "newness," which determines the iteration order. Moreover, <em>every</em> iterator remains valid except (of course) under erasure of the underlying element. Newness is defined as follows inductively: whenever an element is inserted, it is "newest," thus it is placed at the front of the iterator order. Furthermore, the methods <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> can be used to make any element "newest" (moved to the front of the iterator order). Iterator thus formed orders elements from newest to oldest (hence <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty().">newest()</a> is <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a585b7d184077a8644d764d104feed76a" title="Synonym of newest().">begin()</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a> is <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a>).</p>
+<p >Performance expectations: The best way to determine a method's time needs is to imagine what it must do. If it must perform a lookup by key, that is an <code>unordered_flat_set&lt;&gt;</code> lookup resulting in an (at least internal) iterator. If it must insert an element, it is always inserted at the start of a <code>list</code>; and also into an <code>unordered_flat_set&lt;&gt;</code>. If it must erase an element based on an iterator, that element is erased from a list based on that iterator; and also by key from said <code>unordered_flat_set&lt;&gt;</code>. Iteration itself is iteration along a <code>list</code>. But essentially every operation is either near constant time or constant time. In terms of space needs, this essentially stores the values themselves in a <code>list</code>; and also a pointer to each list-held key/element in an <code>unordered_flat_set&lt;&gt;</code>.</p>
 <p >Move semantics for both keys and mapped-values are supported (let <code>T</code> be a concrete type for a <code>*this</code> and <code>x</code> a <code>*this</code>):</p><ul>
 <li><code>x.insert(std::make_pair&lt;Key, Mapped&gt;(..., ...))</code>;<ul>
 <li>or <code>x.insert(T::Value_movable{..., ...})</code>;</li>
@@ -334,25 +334,25 @@ class flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;</div>
 <li><code>x[std::move(...)] = std::move(...)</code>.</li>
 </ul>
 <p >There is the standard complement of container-wide move operations: move-construction, move-assignment, and <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac8393b9576ef14102a467e317f443471" title="Swaps the contents of this structure and other.">swap()</a></code> (all constant-time, excluding any implied <code>this-&gt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#acb81c78165446043355a1e3f0cc42c65" title="Makes it so that size() == 0.">clear()</a></code> in the move-assignment).</p>
-<p >The iterators are, really, <code>list&lt;pair&lt;const Key, Mapped&gt;&gt;</code> iterators; and as such are not invalidated except due to direct erasure of a given pointee.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000150">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a> have a reasonable complement of C++1x-ish APIs including move-semantics; but the API does not quite mirror the full complement of what is in existence for <code>unordered_*</code> counterparts in C++17 STL/Boost &ndash; it would be nice to add these. This includes such things as <code>.emplace()</code> and <code>.try_emplace()</code> but more fundamentally would probably involve trolling <code>std::unordered_*</code> and copying its ~full API (and likely some of a decent impl too). That said what's available already acquits itself reasonably well. (Historically this was first written before C++11 and hasn't been given the full-on C++1x overhaul but instead merely the essentials thereof.)</dd></dl>
+<p >The iterators are, really, <code>list&lt;pair&lt;const Key, Mapped&gt;&gt;</code> iterators &ndash; when it gets down to it, pointers &ndash; and as such are not invalidated except due to direct erasure of a given pointee. So we have pointer stability/iterator stability.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000153">Todo:</a></b></dt><dd><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_flat_set&lt;&gt; and orderi...">Linked_hash_set</a> have a reasonable complement of C++1x-ish APIs including move-semantics; but the API does not quite mirror the full complement of what is in existence for <code>unordered_*</code> counterparts in C++17 STL/Boost &ndash; it would be nice to add these. This includes such things as <code>.emplace()</code> and <code>.try_emplace()</code> but more fundamentally would probably involve trolling <code>unordered_*</code> and copying its ~full API (and likely some of a decent impl too). That said what's available already acquits itself reasonably well. (Historically this was first written before C++11 and hasn't been given the full-on C++1x overhaul but instead merely the essentials thereof.) Boost's <code>unordered_*</code> are particularly respected, leading the way with the flat-addressing variants et al, so perhaps troll those more-so than a particular STL impl. Surely we can borrow API and impl strategies/tactics from there (as well as use our own experience gained versus the pre-C++11 days). Impl of containers is not trivial, and these are not simple containers: nothing wrong with learning from the leaders in the field.</dd></dl>
 <h3>Thread safety</h3>
-<p >Same as for <code>unordered_map&lt;&gt;</code>.</p>
+<p >Same as for <code>unordered_*map&lt;&gt;</code>.</p>
 <h3>Impl notes</h3>
-<p >You should get much of what you need to grok this just by reading the above and possibly looking at the Data section doc-headers under <code>private:</code>. Essentially, to repeat/recap: there's the <code>list&lt;pair&lt;const Key, Mapped&gt;&gt;</code> to store the actual values, in order (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a>); <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aa81b082d4967a366aeb30fa644bb4605" title="Type for iterator pointing into an immutable structure of this type.">Const_iterator</a> come directly from there.</p>
-<p >When lookup by <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> is needed, the <code>unordered_set</code> <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a> comes into play. This is arguably the only real mechanical trickiness. It actually stores <code>Iterator</code>s into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> but in such a way as to allow seamless lookup from a mere <code>const Key&amp;</code>; so <code>m_value_iter_set.find(key)</code> "magically" either finds <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a></code> &ndash; then the key is not in <code>*this</code> &ndash; or the iterator into the actual key/mapped-value store in <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a>. Using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a> is easy; but a bit of internal infrastructure is necessary to have it work. Namely we have support class template <code><a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>&lt;Key, Iterator&gt;</code>, and the <code>unordered_set m_value_iter_set</code> actually stores those guys, not raw <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> copies; so it is a wrapper around an <code>Iterator</code> <em>or</em> a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> (union-style). <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a> stores <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> wrappers, while lookup attempts use the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> wrapper form to pass into <code>m_value_iter_set.find()</code>.</p>
-<p >An earlier version of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> instead used a simple <code>unordered_map&lt;Key, Iterator&gt;</code> instead of the <code>unordered_set&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>&lt;Key, Iterator&gt;&gt;</code>; so a lookup by key was just that. Eventually we replaced it with the more complex solution simply to avoid storing 2 copies of each <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> (one in the list, one in the map); as the <code>Iterator</code> itself includes a pointer to the thing containing the corresponding <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> in the first place. So this saves memory as well as various <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> copying.</p>
+<p >You should get much of what you need to grok this just by reading the above and possibly looking at the Data section doc-headers under <code>private:</code>. Essentially, to repeat/recap: there's the <code>list&lt;pair&lt;const Key, Mapped&gt;&gt;</code> to store the actual values, in order (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a>); <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aa81b082d4967a366aeb30fa644bb4605" title="Type for iterator pointing into an immutable structure of this type.">Const_iterator</a> come directly from there.</p>
+<p >When lookup by <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> is needed, the <code>unordered_*set</code> <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a> comes into play. This is arguably the only real mechanical trickiness. It actually stores <code>Iterator</code>s into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> but in such a way as to allow seamless lookup from a mere <code>const Key&amp;</code>; so <code>m_value_iter_set.find(key)</code> "magically" either finds <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a></code> &ndash; then the key is not in <code>*this</code> &ndash; or the iterator into the actual key/mapped-value store in <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a>. Using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a> is easy; but a bit of internal infrastructure is necessary to have it work. Namely we have support class template <code><a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>&lt;Key, Iterator&gt;</code>, and the <code>unordered_*set m_value_iter_set</code> actually stores those guys, not raw <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> copies; so it is a wrapper around an <code>Iterator</code> <em>or</em> a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> (union-style). <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a> stores <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> wrappers, while lookup attempts use the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> wrapper form to pass into <code>m_value_iter_set.find()</code>.</p>
+<p >An earlier version of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a> instead used a simple <code>unordered_*map&lt;Key, Iterator&gt;</code> instead of the <code>unordered_*set&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>&lt;Key, Iterator&gt;&gt;</code>; so a lookup by key was just that. Eventually we replaced it with the more complex solution simply to avoid storing 2 copies of each <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> (one in the list, one in the map); as the <code>Iterator</code> itself includes a pointer to the thing containing the corresponding <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> in the first place. So this saves memory as well as various <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> copying.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Key_t</td><td>Key type. We omit formal requirements, as it is tedious and full of corner cases depending on what you plan to invoke (e.g., whether you use move-semantics for keys). Please use common sense knowing the basic data structures involved as explained above. That said: if <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> is of non-trivial size, it is good to have it have performant move-constructibility and move-assignability and then make use of it via move-aware APIs as suggested in the doc header above. </td></tr>
-    <tr><td class="paramname">Mapped_t</td><td>The 2nd (satellite) part of the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> pair type. Same commentary as for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> applies here. </td></tr>
-    <tr><td class="paramname">Hash_t</td><td>Hasher type. Same requirements and behavior as <code>boost::unordered_set&lt;&gt;</code> counterpart. If using the default value for <a class="el" href="classHash.html">Hash</a> (<code>boost::hash&lt;Key&gt;</code>), and the default object is passed to ctor (<code><a class="el" href="classHash.html">Hash</a>{}</code>) (this is typical), but there is no hash-function already defined for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, then the easiest way to define it is: make a <code>size_t hash_value(Key)</code> free function in the same namespace as <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>. </td></tr>
-    <tr><td class="paramname">Pred_t</td><td>Equality-determiner type. Same requirements and behavior as <code>boost::unordered_set&lt;&gt;</code> counterpart. If using the default value for <a class="el" href="classPred.html">Pred</a> (<code>std::equal_to&lt;Key&gt;</code>), and the default object is passed to ctor (<code><a class="el" href="classPred.html">Pred</a>{}</code>) (this is typical), but there is no equality op defined for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, then the easiest way to define it is: make an operator-method or free function such that <code>k1 == k2</code> (where <code>k1</code> and <code>k2</code> are <code>Key</code>s) determines equality or lack thereof. </td></tr>
+    <tr><td class="paramname">Mapped_t</td><td>The 2nd (satellite) part of the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> pair type. Same commentary as for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> applies here. </td></tr>
+    <tr><td class="paramname">Hash_t</td><td>Hasher type. Same requirements and behavior as <code>boost::unordered_*set&lt;&gt;</code> counterpart. If using the default value for <a class="el" href="classHash.html">Hash</a> (<code>boost::hash&lt;Key&gt;</code>), and the default object is passed to ctor (<code><a class="el" href="classHash.html">Hash</a>{}</code>) (this is typical), but there is no hash-function already defined for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, then the easiest way to define it is: make a <code>size_t hash_value(Key)</code> free function in the same namespace as <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>. </td></tr>
+    <tr><td class="paramname">Pred_t</td><td>Equality-determiner type. Same requirements and behavior as <code>boost::unordered_*set&lt;&gt;</code> counterpart. If using the default value for <a class="el" href="classPred.html">Pred</a> (<code>std::equal_to&lt;Key&gt;</code>), and the default object is passed to ctor (<code><a class="el" href="classPred.html">Pred</a>{}</code>) (this is typical), but there is no equality op defined for <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, then the easiest way to define it is: make an operator-method or free function such that <code>k1 == k2</code> (where <code>k1</code> and <code>k2</code> are <code>Key</code>s) determines equality or lack thereof. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00117">117</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00123">123</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aa81b082d4967a366aeb30fa644bb4605" name="aa81b082d4967a366aeb30fa644bb4605"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa81b082d4967a366aeb30fa644bb4605">&#9670;&nbsp;</a></span>Const_iterator</h2>
@@ -370,7 +370,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Type for iterator pointing into an immutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00159">159</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00165">165</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -390,7 +390,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aa81b082d4967a366aeb30fa644bb4605" title="Type for iterator pointing into an immutable structure of this type.">Const_iterator</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00188">188</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00194">194</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -403,14 +403,14 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_pointer =  const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a>*</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_pointer =  const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a>*</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For container compliance (hence the irregular capitalization): pointer to <code>const Key</code>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00180">180</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00186">186</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -423,14 +423,14 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_reference =  const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a>&amp;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_reference =  const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For container compliance (hence the irregular capitalization): reference to <code>const Key</code>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00184">184</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00190">190</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -450,7 +450,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Type for reverse iterator pointing into an immutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00165">165</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00171">171</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -470,7 +470,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Type for difference of <code>size_type</code>s. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00153">153</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00159">159</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -490,7 +490,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Convenience alias for template arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00129">129</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00135">135</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -510,7 +510,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classHash.html">Hash</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00174">174</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00180">180</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -530,7 +530,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Type for iterator pointing into a mutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00156">156</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00162">162</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -550,7 +550,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00186">186</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00192">192</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -570,7 +570,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Convenience alias for template arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00123">123</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00129">129</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -590,7 +590,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classPred.html">Pred</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00176">176</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00182">182</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -610,7 +610,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00168">168</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00174">174</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -630,7 +630,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Convenience alias for template arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00126">126</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00132">132</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -650,7 +650,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00170">170</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00176">176</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -663,14 +663,14 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::pointer =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a>*</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::pointer =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a>*</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For container compliance (hence the irregular capitalization): pointer to <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00178">178</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00184">184</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -690,7 +690,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Convenience alias for template arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00132">132</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00138">138</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -703,14 +703,14 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::reference =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a>&amp;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::reference =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a>&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For container compliance (hence the irregular capitalization): reference to <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00182">182</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00188">188</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -730,7 +730,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Type for reverse iterator pointing into a mutable structure of this type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00162">162</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00168">168</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -750,12 +750,12 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Expresses sizes/lengths of relevant things. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00151">151</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00157">157</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1bda4cef68dc1775ae5a02f0f349bb62" name="a1bda4cef68dc1775ae5a02f0f349bb62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bda4cef68dc1775ae5a02f0f349bb62">&#9670;&nbsp;</a></span>Value</h2>
+<a id="a7b25da6cc4f2bc929b4a0ab349b42041" name="a7b25da6cc4f2bc929b4a0ab349b42041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b25da6cc4f2bc929b4a0ab349b42041">&#9670;&nbsp;</a></span>Value</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -763,14 +763,14 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Value =  std::pair&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a> const, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Value =  std::pair&lt;const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7">Mapped</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Short-hand for key/mapped-value pairs stored in the structure. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00135">135</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00141">141</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -786,7 +786,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Value_list =  std::list&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Value_list =  std::list&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a>&gt;</td>
         </tr>
       </table>
   </td>
@@ -798,7 +798,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Short-hand for doubly linked list of (<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a>) pairs. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00144">144</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00150">150</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -818,7 +818,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Short-hand for key/mapped-value pair best-suited (perf-wise) as arg type for the moving <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a></code> overload. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00138">138</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00144">144</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -831,20 +831,20 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::value_type =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a></td>
+          <td class="memname">using <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::value_type =  <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>For container compliance (hence the irregular capitalization): <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>/<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> pair type. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00172">172</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00178">178</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af0033ec6c091d68ac9804cae1675b93f" name="af0033ec6c091d68ac9804cae1675b93f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af0033ec6c091d68ac9804cae1675b93f">&#9670;&nbsp;</a></span>Linked_hash_map() <span class="overload">[1/4]</span></h2>
+<a id="a2e12958490fc4d9b8a477209ddc6bb9b" name="a2e12958490fc4d9b8a477209ddc6bb9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e12958490fc4d9b8a477209ddc6bb9b">&#9670;&nbsp;</a></span>Linked_hash_map() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -861,13 +861,13 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;&#160;</td>
-          <td class="paramname"><em>hasher_obj</em> = <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>{}</code>, </td>
+          <td class="paramname"><em>hasher_obj</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;&#160;</td>
-          <td class="paramname"><em>pred</em> = <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>{}</code>&#160;</td>
+          <td class="paramname"><em>pred</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -880,19 +880,19 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Constructs empty structure with some basic parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n_buckets</td><td>Number of buckets for the unordered (hash) table. Special value -1 (default) will cause us to use whatever <code>unordered_set&lt;&gt;</code> would use by default. </td></tr>
+    <tr><td class="paramname">n_buckets</td><td>Number of buckets for the unordered (hash) table. Special value -1 (default) will cause us to use whatever <code>unordered_*set&lt;&gt;</code> would use by default. </td></tr>
     <tr><td class="paramname">hasher_obj</td><td>Instance of the hash function type (<code>hasher_obj(k) -&gt; size_t</code> should be hash of <code>Key k</code>). </td></tr>
     <tr><td class="paramname">pred</td><td>Instance of the equality function type (<code>pred(k1, k2)</code> should return <code>true</code> if and only if the <code>Key</code>s are equal by value). </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00666">666</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00674">674</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa5c23bc3d7a79eb3e334b80bf37b5529" name="aa5c23bc3d7a79eb3e334b80bf37b5529"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5c23bc3d7a79eb3e334b80bf37b5529">&#9670;&nbsp;</a></span>Linked_hash_map() <span class="overload">[2/4]</span></h2>
+<a id="a2fb490b533fe33f275ad3f8b104c1bd5" name="a2fb490b533fe33f275ad3f8b104c1bd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb490b533fe33f275ad3f8b104c1bd5">&#9670;&nbsp;</a></span>Linked_hash_map() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -905,7 +905,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
         <tr>
           <td class="memname"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Linked_hash_map </td>
           <td>(</td>
-          <td class="paramtype">std::initializer_list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &gt;&#160;</td>
+          <td class="paramtype">std::initializer_list&lt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &gt;&#160;</td>
           <td class="paramname"><em>values</em>, </td>
         </tr>
         <tr>
@@ -918,13 +918,13 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a> &amp;&#160;</td>
-          <td class="paramname"><em>hasher_obj</em> = <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>{}</code>, </td>
+          <td class="paramname"><em>hasher_obj</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a> &amp;&#160;</td>
-          <td class="paramname"><em>pred</em> = <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>{}</code>&#160;</td>
+          <td class="paramname"><em>pred</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -951,9 +951,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00675">675</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00685">685</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00658">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00630">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00666">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00637">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>.</p>
 
 </div>
 </div>
@@ -984,7 +984,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00698">698</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00704">704</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1016,7 +1016,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00705">705</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00711">711</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1038,9 +1038,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty().">newest()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty().">newest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00976">976</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00981">981</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00849">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert_impl()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00865">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert_impl_mv()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00969">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::newest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00854">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert_impl()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00870">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert_impl_mv()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00974">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::newest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1067,7 +1067,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0e0722bbd2cc5ba9192f299545b9d0ed" title="Synonym of const_newest().">cbegin()</a>. </p>
 <p >Exists to satisfy the C++11 rangy stuff (which makes <code>for(:)</code> &ndash; and other magic &ndash; work). </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0e0722bbd2cc5ba9192f299545b9d0ed" title="Synonym of const_newest().">cbegin()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01011">1011</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01016">1016</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1088,9 +1088,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ad1640cce76b51f0fa0d8c1e95b682808" title="Same as newest() but operating on immutable *this.">const_newest()</a>. </p>
 <p >Exists as standard container method (hence the odd formatting). </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ad1640cce76b51f0fa0d8c1e95b682808" title="Same as newest() but operating on immutable *this.">const_newest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01004">1004</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01009">1009</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00997">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_newest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01002">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_newest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1117,9 +1117,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ad29dc85660cc2ed821cd887bff0ed953" title="Same as past_oldest() but operating on immutable *this.">const_past_oldest()</a>. </p>
 <p >Exists as standard container method (hence the odd formatting). </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ad29dc85660cc2ed821cd887bff0ed953" title="Same as past_oldest() but operating on immutable *this.">const_past_oldest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01025">1025</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01030">1030</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01018">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_past_oldest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01023">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_past_oldest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1145,11 +1145,11 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 
 <p>Makes it so that <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a97ea7121aa85856c9d977777f6c7c510" title="Returns number of elements stored.">size()</a> == 0</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00961">961</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00966">966</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00961">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::clear()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00966">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::clear()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00961">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::clear()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00966">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::clear()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1182,9 +1182,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Same as <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a43b0e5555bd112c464d4ab053fb3d06c" title="Returns first, a/k/a &quot;newest,&quot; element&#39;s iterator; or past_oldest() if empty().">newest()</a> but operating on immutable <code>*this</code>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00997">997</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01002">1002</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01004">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::cbegin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01009">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::cbegin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1211,9 +1211,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns first, a/k/a "oldest," element's reverse iterator (to immutable element). </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01067">1067</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01072">1072</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01074">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::crbegin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01079">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::crbegin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1240,9 +1240,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns special reverse iterator indicating the position just past the reverse-iteration order; if not <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aff10ef8e0f54d49462c1a651efca6424" title="Returns true if and only if container is empty.">empty()</a> this is one past last, a/k/a "newest," element in the reverse-iteration order. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01081">1081</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01086">1086</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01088">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::crend()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01093">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::crend()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1269,9 +1269,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Same as <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a> but operating on immutable <code>*this</code>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01018">1018</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01023">1023</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01025">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::cend()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01030">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::cend()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1308,11 +1308,11 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 or 1. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00894">894</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00899">899</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00894">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::count()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00899">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::count()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00894">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::count()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00899">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::count()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1345,9 +1345,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#af841fbe9ea76f962a56828098934199d" title="Returns first, a/k/a &quot;oldest,&quot; element&#39;s reverse iterator (to immutable element).">const_oldest()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#af841fbe9ea76f962a56828098934199d" title="Returns first, a/k/a &quot;oldest,&quot; element&#39;s reverse iterator (to immutable element).">const_oldest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01074">1074</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01079">1079</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01067">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_oldest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01072">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_oldest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1374,9 +1374,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a93725b3e4e10c7841fb34ca9ac5aff47" title="Returns special reverse iterator indicating the position just past the reverse-iteration order; if no...">const_past_newest()</a>. </p>
 <p >Exists as standard container method. </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a93725b3e4e10c7841fb34ca9ac5aff47" title="Returns special reverse iterator indicating the position just past the reverse-iteration order; if no...">const_past_newest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01088">1088</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01093">1093</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01081">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_past_newest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01086">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::const_past_newest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1401,13 +1401,13 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Returns true if and only if container is empty. </p>
-<p >Same performance as of <code>unordered_set&lt;&gt;</code>. </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
+<p >Same performance as of a certain <code>unordered_*set&lt;&gt;</code>. </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01101">1101</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01106">1106</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01101">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::empty()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01106">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::empty()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01101">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::empty()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01106">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::empty()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1440,9 +1440,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a>. </p>
 <p >Exists as standard container method. </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00990">990</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00995">995</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00983">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::past_oldest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00988">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::past_oldest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1469,7 +1469,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a4deb6b537745b164988fed8755722999" title="Synonym of const_past_oldest().">cend()</a>. </p>
 <p >Exists to satisfy the C++11 rangy stuff (which makes <code>for(:)</code> &ndash; and other magic &ndash; work). </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a4deb6b537745b164988fed8755722999" title="Synonym of const_past_oldest().">cend()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01032">1032</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01037">1037</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1501,11 +1501,11 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Iterator one position past (i.e., "older") than <code>it</code>, before <code>*it</code> was removed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00921">921</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00926">926</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00921">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00926">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00921">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00926">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1560,9 +1560,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>it_past_oldest</code> copy. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00931">931</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00936">936</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00921">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00926">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1600,9 +1600,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of elements erased (0 or 1). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00944">944</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00949">949</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00878">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00883">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1631,7 +1631,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Attempts to find value at the given key in the map. </p>
-<p >Key presence is determined identically to how it would be done in an <code>unordered_set&lt;Key, <a class="el" href="classHash.html">Hash</a>, <a class="el" href="classPred.html">Pred</a>&gt;</code>, with the particular <a class="el" href="classHash.html">Hash</a> and <a class="el" href="classPred.html">Pred</a> instances given to ctor (typically their default-cted instances, typically occupying no memory).</p>
+<p >Key presence is determined identically to how it would be done in an <code>unordered_*set&lt;Key, <a class="el" href="classHash.html">Hash</a>, <a class="el" href="classPred.html">Pred</a>&gt;</code>, with the particular <a class="el" href="classHash.html">Hash</a> and <a class="el" href="classPred.html">Pred</a> instances given to ctor (typically their default-cted instances, typically occupying no memory).</p>
 <p >The returned iterator (if valid) can be used to mutate the element inside the map; though only the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> is mutable; the <code>const Key</code> is immutable.</p>
 <p >Any subsequent writes to the referred-to (by returned iterator) area of memory will NOT have the effect of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a>. If you need it call <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> yourself.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1642,11 +1642,11 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If found, iterator to the key/mapped-value pair with the equivalent key; else <code>this-&gt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a></code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00878">878</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00883">883</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00878">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00883">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00944">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00878">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00836">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator[]()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00949">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::erase()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00883">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00841">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator[]()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1689,9 +1689,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If found, iterator to the key/mapped-value pair with the equivalent key; else <code>this-&gt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a4deb6b537745b164988fed8755722999" title="Synonym of const_past_oldest().">cend()</a></code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00886">886</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00891">891</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00878">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00883">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1712,7 +1712,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
         <tr>
           <td class="memname">std::pair&lt; typename <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">::Iterator</a>, <a class="el" href="classbool.html">bool</a> &gt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;&#160;</td>
           <td class="paramname"><em>key_and_mapped</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1730,9 +1730,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A pair whose second element is true if and only if the insertion occurred; and whose first element is an iterator pointing to either the newly inserted element or already present one with a key equal to <code>key_and_mapped.first</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00800">800</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00805">805</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05600">flow::net_flow::Node::close_connection_immediately()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l05604">flow::net_flow::Node::close_connection_immediately()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1761,7 +1761,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Identical to the other overload, except that (if key not already present in <code>*this</code>) the key and mapped-value are moved, not copied, into <code>*this</code>. </p>
-<dl class="section note"><dt>Note</dt><dd><code>key_and_mapped</code> pointee must be of type <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb" title="Short-hand for key/mapped-value pair best-suited (perf-wise) as arg type for the moving insert() over...">Value_movable</a>, a/k/a <code>pair&lt;Key, Mapped&gt;</code> &ndash; not <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a>, a/k/a <code>pair&lt;const Key, Mapped&gt;</code> &ndash; otherwise the other <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a> overload may get invoked, and copying may occur contrary to your intention. E.g., use <code>std::make_pair&lt;Key, Mapped&gt;()</code> or <code>"decltype(*this)::Value_movable{}"</code>. (For a move to occur, the source-object can't be <code>const</code>; so that's why.) </dd>
+<dl class="section note"><dt>Note</dt><dd><code>key_and_mapped</code> pointee must be of type <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1a7bf4c62aad92c36900c7974354dfcb" title="Short-hand for key/mapped-value pair best-suited (perf-wise) as arg type for the moving insert() over...">Value_movable</a>, a/k/a <code>pair&lt;Key, Mapped&gt;</code> &ndash; not <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a>, a/k/a <code>pair&lt;const Key, Mapped&gt;</code> &ndash; otherwise the other <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a> overload may get invoked, and copying may occur contrary to your intention. E.g., use <code>std::make_pair&lt;Key, Mapped&gt;()</code> or <code>"decltype(*this)::Value_movable{}"</code>. (For a move to occur, the source-object can't be <code>const</code>; so that's why.) </dd>
 <dd>
 You can often also use <code>x[std::move(key)] = std::move(value)</code>, particularly if you know <code>key</code> isn't in there, or you are OK with replacing the value if it is. In those cases it's probably more convenient, no pairs or <code>Value_movable</code>s to worry oneself.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1772,7 +1772,7 @@ You can often also use <code>x[std::move(key)] = std::move(value)</code>, partic
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other overload. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00813">813</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00818">818</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1790,7 +1790,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
         <tr>
           <td class="memname"><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">::Iterator</a> <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::insert_impl </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62">Value</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041">Value</a> &amp;&#160;</td>
           <td class="paramname"><em>key_and_mapped</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1802,7 +1802,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </table>
 </div><div class="memdoc">
 
-<p>Helper that modifies <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a> so that <code>key_and_mapped</code>'s copy is inserted into the structure. </p>
+<p>Helper that modifies <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a> so that <code>key_and_mapped</code>'s copy is inserted into the structure. </p>
 <p >Pre-condition is that <code>key_and_mapped.first</code> is not in the structure (else behavior undefined).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1812,9 +1812,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Same as in <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a>.first</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00849">849</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00854">854</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00976">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00981">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1859,9 +1859,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Same as in <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a>.first</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00865">865</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00870">870</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00976">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00981">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1886,9 +1886,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Returns max number of elements that can be stored. </p>
-<p >Same performance as of <code>unordered_set&lt;&gt;</code> + <code>list&lt;&gt;</code>. </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
+<p >Same performance as of a certain <code>unordered_*set&lt;&gt;</code> + <code>list&lt;&gt;</code>. </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01108">1108</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01113">1113</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -1909,9 +1909,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns first, a/k/a "newest," element's iterator; or <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9135b5521dd34bea817b2326b04737f3" title="Returns special iterator indicating the position just past the iteration order; if not empty() this i...">past_oldest()</a> if <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aff10ef8e0f54d49462c1a651efca6424" title="Returns true if and only if container is empty.">empty()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00969">969</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00974">974</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00976">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00981">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::begin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1938,9 +1938,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns first, a/k/a "oldest," element's reverse iterator. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01039">1039</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01044">1044</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01046">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::rbegin()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01051">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::rbegin()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1969,7 +1969,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Overwrites this object with a copy of the given source. </p>
-<p >We become equal to <code>src</code> but independent of it to a common-sense extent. In addition, the hasher instance and equality predicate are copied from <code>src</code>. Finally, a reasonable attempt is made to also make the internal structure of the hash map to be similar to that of `src.</p>
+<p >We become equal to <code>src</code> but independent of it to a common-sense extent. In addition, the hasher instance and equality predicate are copied from <code>src</code>. Finally, a reasonable attempt is made to also make the internal structure of the hash map to be similar to that of <code>src</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">src</td><td>Source object. No-op if <code>this == &amp;src</code>. </td></tr>
@@ -1978,9 +1978,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00713">713</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00719">719</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00658">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00630">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00666">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00637">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>.</p>
 
 </div>
 </div>
@@ -2012,9 +2012,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00778">778</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00783">783</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01910">flow::util::swap()</a>.</p>
+<p class="reference">References <a class="el" href="basic__blob_8hpp_source.html#l01911">flow::util::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2060,7 +2060,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to mutable <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7eb9e2d5cdb340c0ec938a88ce2ef5d7" title="Convenience alias for template arg.">Mapped</a> value directly inside the data structure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00825">825</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00830">830</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -2091,9 +2091,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See other overload. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00836">836</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00841">841</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00878">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00883">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::find()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2120,9 +2120,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns one past last, a/k/a "newest," element's reverse iterator. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01053">1053</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01058">1058</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01060">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::rend()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01065">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::rend()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2149,9 +2149,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Returns special iterator indicating the position just past the iteration order; if not <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aff10ef8e0f54d49462c1a651efca6424" title="Returns true if and only if container is empty.">empty()</a> this is one past last, a/k/a "oldest," element in the iteration order. </p>
 <dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00983">983</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00988">988</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00990">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::end()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00995">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::end()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2178,9 +2178,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a3155305b98475f232236ec395ec925e4" title="Returns first, a/k/a &quot;oldest,&quot; element&#39;s reverse iterator.">oldest()</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a3155305b98475f232236ec395ec925e4" title="Returns first, a/k/a &quot;oldest,&quot; element&#39;s reverse iterator.">oldest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01046">1046</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01051">1051</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01039">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::oldest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01044">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::oldest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2207,9 +2207,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 <p>Synonym of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0a4e24934208292fb4096b7e036d5227" title="Returns one past last, a/k/a &quot;newest,&quot; element&#39;s reverse iterator.">past_newest()</a>. </p>
 <p >Exists as standard container method. </p><dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0a4e24934208292fb4096b7e036d5227" title="Returns one past last, a/k/a &quot;newest,&quot; element&#39;s reverse iterator.">past_newest()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01060">1060</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01065">1065</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01053">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::past_newest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01058">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::past_newest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -2234,13 +2234,13 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><div class="memdoc">
 
 <p>Returns number of elements stored. </p>
-<p >Same performance as of <code>unordered_set&lt;&gt;.</code> </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
+<p >Same performance as of a certain <code>unordered_*set&lt;&gt;</code>. </p><dl class="section return"><dt>Returns</dt><dd>Ditto. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01095">1095</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01100">1100</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01095">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::size()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l01100">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::size()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00759">flow::net_flow::Event_set::ev_type_to_socks_map_sizes_to_str()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l01095">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::size()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="event__set_8cpp_source.html#l00759">flow::net_flow::Event_set::ev_type_to_socks_map_sizes_to_str()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l01100">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::size()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2284,11 +2284,11 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00789">789</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00794">794</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00658">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00630">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l01114">flow::util::swap()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00666">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00637">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_list</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l01119">flow::util::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01114">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l01119">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2332,7 +2332,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00900">900</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00905">905</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -2364,7 +2364,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if the key was found (even if it was already "newest"); <code>false</code> if not found. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00906">906</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00911">911</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
 </div>
 </div>
@@ -2414,9 +2414,9 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01114">1114</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l01119">1119</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00789">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
+<p class="reference">References <a class="el" href="linked__hash__map_8hpp_source.html#l00794">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2439,7 +2439,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">Linked_hash_key_set</a>&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>, true&gt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</td>
+          <td class="memname"><a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4">Linked_hash_key_set</a>&lt;<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db">Key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704">Iterator</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a232ad8dd1cfa23d0377c8b3db872219a">Hash</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#aea14e7770b9b7e7529753502f818505b">Pred</a>, true&gt; <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html">flow::util::Linked_hash_map</a>&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::m_value_iter_set</td>
         </tr>
       </table>
   </td>
@@ -2449,26 +2449,26 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </table>
 </div><div class="memdoc">
 
-<p>Data structure that allows the amortized-constant-time (as in <code>unordered_set</code>) implementation of <code>this-&gt;find(key)</code>, where <code>key</code> is <code>const Key&amp;</code>. </p>
-<p >Namely, then, given a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, it gets us an <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> &ndash; the central data store &ndash; or a null iterator if not-found.</p>
+<p>Data structure that allows the amortized-constant-time (as in the <code>unordered_*set</code> = <code>Linked_hash_key_set</code>) impl of <code>this-&gt;find(key)</code>, where <code>key</code> is <code>const Key&amp;</code>. </p>
+<p >Namely, then, given a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1c528ba7ead507ad4ecf2760937173db" title="Convenience alias for template arg.">Key</a>, it gets us an <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> &ndash; the central data store &ndash; or a null iterator if not-found.</p>
 <h3>Design</h3>
 <p >(There is quick intro in Impl section of the class doc header.) Ignoring various technicalities and C++isms, ultimately it stores <code>Iterator</code>s while supporting the <b>find</b> operation that</p>
 <ul>
 <li>takes a <code>const Key&amp; key</code>; and</li>
 <li>yields the <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> <code>it</code> stored therein (if any) such that<ul>
-<li>it-&gt;second <em>equals by value</em> (via <a class="el" href="classHash.html">Hash</a> and <a class="el" href="classPred.html">Pred</a>) the <code>key</code>.</li>
+<li><code>it-&gt;first</code> <em>equals by value</em> (via <a class="el" href="classHash.html">Hash</a> and <a class="el" href="classPred.html">Pred</a>) the <code>key</code>.</li>
 </ul>
 </li>
 </ul>
 <p >This find-op must <a class="el" href="classHash.html">Hash</a> the <code>key</code>; and then perform a (series of) <a class="el" href="classPred.html">Pred</a> comparisons between <code>key</code> and the <code>Key</code>s stored at <code>Iterator</code>s within that hash-bucket.</p>
-<p ><em>How</em> this is accomplished is encapsulated inside <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html" title="The internal-use Hash functor wrapper, used as the hasher type in internal-use set-type Linked_hash_k...">Linked_hash_key_hash</a>, and <a class="el" href="classflow_1_1util_1_1Linked__hash__key__pred.html" title="The internal-use Pred functor wrapper, used as the key-equality-determiner type in internal-use set-t...">Linked_hash_key_pred</a> helper (internally-used only) types. This is abstracted away; the bottom line is <code>m_value_iter_set.find(key)-&gt;iter()</code> yields the proper <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> (assuming <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find()</a></code> didn't yield <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a></code>).</p>
-<p >Similarly <code>m_value_iter_set.insert(iter)</code> &ndash; where <code>iter</code> is an <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> &ndash; just works.</p>
+<p ><em>How</em> this is accomplished is encapsulated inside <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html" title="The internal-use Hash functor wrapper, used as the hasher type in internal-use set-type Linked_hash_k...">Linked_hash_key_hash</a>, and <a class="el" href="classflow_1_1util_1_1Linked__hash__key__pred.html" title="The internal-use Pred functor wrapper, used as the key-equality-determiner type in internal-use set-t...">Linked_hash_key_pred</a> helper (internally-used only) types. This is abstracted away; the bottom line is <code>m_value_iter_set.find(key)-&gt;iter()</code> yields the proper <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> (assuming <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find()</a></code> didn't yield <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#abbc31f275883d1076755d2b179bc66d6" title="Synonym of past_oldest().">end()</a></code>).</p>
+<p >Similarly <code>m_value_iter_set.insert(iter)</code> &ndash; where <code>iter</code> is an <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a> into <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> &ndash; just works.</p>
 <h3>Performance</h3>
-<p >Anything they'll need to do to this set (namely <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find()</a></code> and <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a></code>) carries the same performance cost as if they used a straight <code>unordered_map&lt;&gt;</code>, so by definition it is acceptable. </p>
+<p >Anything they'll need to do to this set (namely <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find()</a></code> and <code>.<a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb" title="Attempts to insert (copying both key and mapped-value) the given key/mapped-value pair into the map; ...">insert()</a></code>) carries the ~same performance cost as if they used a straight <code>unordered_flat_map&lt;&gt;</code> (or whatever ~matches <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>), so by definition it is acceptable. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00658">658</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00666">666</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00675">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Linked_hash_map()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00713">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator=()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00789">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00685">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Linked_hash_map()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00719">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator=()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00794">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 
 </div>
 </div>
@@ -2494,17 +2494,17 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </table>
 </div><div class="memdoc">
 
-<p>The actual values &ndash; which, as in <code>unordered_map&lt;K, M&gt;</code>, are instances of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> = <code>pair&lt;const Key, Mapped&gt;</code> &ndash; are stored in here, in the order in which user would iterate over them. </p>
+<p>The actual values &ndash; which, as in <code>unordered_*map&lt;K, M&gt;</code>, are instances of <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> = <code>pair&lt;const Key, Mapped&gt;</code> &ndash; are stored in here, in the order in which user would iterate over them. </p>
 <p >If <code>Value v</code> is in this list, then no <code>Value v1 == v</code> can be elsewhere in the list. The order is semantically defined to be from "newest" to "oldest." Therefore, any newly inserted value goes at the <em>start</em> of the list. Similarly, any "touched" value is moved to the <em>start</em> of the list (see <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a>).</p>
-<p >This ordering is what a normal <code>unordered_map&lt;K, M&gt;</code> would not supply (it's in the name!) but that we advertise.</p>
+<p >This ordering is what a normal <code>unordered_map&lt;K, M&gt;</code> would not supply (it's in the name!), but that we advertise.</p>
 <h3>Design</h3>
-<p >This is very much the central structure in a <code>*this</code>; its iterator type <em>is</em> our exposed <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a>. Straight-up, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> supplies every single required operation (or at least ones on top of which any required ops could be implemented). There is exactly one exception to this: <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find(const Key&amp;)</a></code>. It too could be implemented with <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> alone, but a linear search (linear-time worst- and average-case) would be necessary (unacceptable). Because of that we have <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in unordered_set) implementation of this-&gt;...">m_value_iter_set</a>. See that guy's doc header.</p>
+<p >This is very much the central structure in a <code>*this</code>; its iterator type <em>is</em> our exposed <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a0fcf7b6069c82bb96bd31e9351f21704" title="Type for iterator pointing into a mutable structure of this type.">Iterator</a>. Straight-up, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> supplies every single required operation (or at least ones on top of which any required ops could be implemented). There is exactly one exception to this: <code><a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a9a18e44447eb0b848f1ed4c6d947427d" title="Attempts to find value at the given key in the map.">find(const Key&amp;)</a></code>. It too could be implemented with <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#ac636005479265a02045cac776f71c213" title="The actual values – which, as in unordered_*map&lt;K, M&gt;, are instances of Value = pair&lt;const Key,...">m_value_list</a> alone, but a linear search (linear-time worst- and average-case) would be necessary (unacceptable). Because of that we have <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a49ceba9fd4f7a5b63be0b5e11e02056d" title="Data structure that allows the amortized-constant-time (as in the unordered_*set = Linked_hash_key_se...">m_value_iter_set</a>. See that guy's doc header.</p>
 <h3>Performance</h3>
-<p >Moving a value from anywhere to either end of the list is a constant-time operation (assuming the source location's iterator is known). Hence <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> is constant-time. Moreover, <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> does <em>not</em> involve a copy of a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a1bda4cef68dc1775ae5a02f0f349bb62" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> (it only involves assigning, internally, a few linked list pointers). Also note that insertion is similarly constant-time. Finally, erasure is also constant-time. These are the basic operations needed. </p>
+<p >Moving a value from anywhere to either end of the list is a constant-time operation (assuming the source location's iterator is known). Hence <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> is constant-time. Moreover <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a283501e0657922191813c9a465ea0748" title="Given a valid iterator into the structure, makes the pointed-to element &quot;newest&quot; by moving it from wh...">touch()</a> does <em>not</em> involve a copy of a <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html#a7b25da6cc4f2bc929b4a0ab349b42041" title="Short-hand for key/mapped-value pairs stored in the structure.">Value</a> (it only involves assigning, internally, a few linked list pointers). Also note that insertion is similarly constant-time. Finally, erasure is also constant-time. These are the basic operations needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00630">630</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="linked__hash__map_8hpp_source.html#l00637">637</a> of file <a class="el" href="linked__hash__map_8hpp_source.html">linked_hash_map.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00675">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Linked_hash_map()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00713">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator=()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00789">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="linked__hash__map_8hpp_source.html#l00685">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::Linked_hash_map()</a>, <a class="el" href="linked__hash__map_8hpp_source.html#l00719">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::operator=()</a>, and <a class="el" href="linked__hash__map_8hpp_source.html#l00794">flow::util::Linked_hash_map&lt; Key_t, Mapped_t, Hash_t, Pred_t &gt;::swap()</a>.</p>
 
 </div>
 </div>
@@ -2515,7 +2515,7 @@ template&lt;typename Key_t , typename Mapped_t , typename Hash_t , typename Pred
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,6 @@
+<map id="flow::util::stat::Histogram_counter::Histogram_counter" name="flow::util::stat::Histogram_counter::Histogram_counter">
+<area shape="rect" id="node1" title="Allocates the histogram data structure (general&#45;scale: bucket widths [ABCD...]) and initializes each ..." alt="" coords="5,36,185,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ac1b3cc0a15ed007a960c9f18b9d09f5c" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="233,5,396,41"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="233,65,396,101"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="444,11,579,35"/>
+</map>

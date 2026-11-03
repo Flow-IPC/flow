@@ -71,9 +71,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-types">Private Types</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classflow_1_1log_1_1Thread__local__string__appender-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::log::Thread_local_string_appender Class Reference</div></div>
 </div><!--header-->
@@ -92,12 +90,15 @@ Inheritance diagram for flow::log::Thread_local_string_appender:</div>
 <div class="dynheader">
 Collaboration diagram for flow::log::Thread_local_string_appender:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender__coll__graph.svg" width="1119" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender__coll__graph.svg" width="1040" height="226"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#ad6eb4b32757f9df9823a3ee9073fa9b7">Thread_local_string_appender</a> ()</td></tr>
+<tr class="memdesc:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes object with an empty string and the streams machinery available to write to that string.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#ad6eb4b32757f9df9823a3ee9073fa9b7">More...</a><br /></td></tr>
+<tr class="separator:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8808ca3accc5384a627bb806de4e4b1"><td class="memItemLeft" align="right" valign="top">std::ostream *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1">fresh_appender_ostream</a> ()</td></tr>
 <tr class="memdesc:af8808ca3accc5384a627bb806de4e4b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the internally stored string (accessible for reading via <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read-only accessor for the contents of the string, as written to it since the last fresh_appender_ost...">target_contents()</a>), and returns an output stream writing to which will append to that string.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1">More...</a><br /></td></tr>
 <tr class="separator:af8808ca3accc5384a627bb806de4e4b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,21 +114,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c67bd1c2f1ccc58288df86abda02d88"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">get_this_thread_string_appender</a> (const <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html">util::Unique_id_holder</a> &amp;source_obj_id)</td></tr>
-<tr class="memdesc:a4c67bd1c2f1ccc58288df86abda02d88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the exactly one <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object that is accessible from the current thread for the given source object.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">More...</a><br /></td></tr>
-<tr class="separator:a4c67bd1c2f1ccc58288df86abda02d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a59134f4359452241a094b8bbcb5ec7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7">this_thread_string_appender</a> (const <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html">util::Unique_id_holder</a> &amp;source_obj_id)</td></tr>
+<tr class="memdesc:a9a59134f4359452241a094b8bbcb5ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the exactly one <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object that is accessible from the current thread for the given source object; or null if the thread is near death, and this <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> facility is no longer available for use.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7">More...</a><br /></td></tr>
+<tr class="separator:a9a59134f4359452241a094b8bbcb5ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
-<tr class="memitem:a4656e713b9ac1c6cdad3adde18de70ec"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4656e713b9ac1c6cdad3adde18de70ec">Source_obj_to_appender_map</a> = boost::unordered_map&lt; <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">util::Unique_id_holder::id_t</a>, boost::movelib::unique_ptr&lt; <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> &gt; &gt;</td></tr>
-<tr class="memdesc:a4656e713b9ac1c6cdad3adde18de70ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for map of a given thread's appender objects indexed by the IDs of their respective source objects.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#a4656e713b9ac1c6cdad3adde18de70ec">More...</a><br /></td></tr>
-<tr class="separator:a4656e713b9ac1c6cdad3adde18de70ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#ad6eb4b32757f9df9823a3ee9073fa9b7">Thread_local_string_appender</a> ()</td></tr>
-<tr class="memdesc:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes object with an empty string and the streams machinery available to write to that string.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#ad6eb4b32757f9df9823a3ee9073fa9b7">More...</a><br /></td></tr>
-<tr class="separator:ad6eb4b32757f9df9823a3ee9073fa9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547f6793c62f23885637e98efba24529"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a547f6793c62f23885637e98efba24529">Source_obj_to_appender_map</a> = boost::unordered_flat_map&lt; <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">util::Unique_id_holder::id_t</a>, boost::movelib::unique_ptr&lt; <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> &gt; &gt;</td></tr>
+<tr class="memdesc:a547f6793c62f23885637e98efba24529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for map of a given thread's appender objects indexed by the IDs of their respective source objects.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#a547f6793c62f23885637e98efba24529">More...</a><br /></td></tr>
+<tr class="separator:a547f6793c62f23885637e98efba24529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -137,18 +132,13 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aebc7ceab35e8201f0c60b59a0cc93ca3"><td class="memItemLeft" align="right" valign="top">boost::movelib::unique_ptr&lt; boost::io::ios_all_saver &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#aebc7ceab35e8201f0c60b59a0cc93ca3">m_target_appender_ostream_prev_os_state</a></td></tr>
 <tr class="memdesc:aebc7ceab35e8201f0c60b59a0cc93ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the <code>ostream</code> formatter state from construction time or time of last <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a2ac7b443898adf1696d0f24f87481520" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t...">save_formatting_state_and_restore_prev()</a>, whichever occurred later; clearing (including as part of reassigning) this pointer will invoke the destructor <code>~ios_all_saver()</code>, restoring that state to <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a7bb2cd7d173ddc0ca3075d0475015f96" title="The target string wrapped by an ostream. Emptied at construction and in fresh_appender_ostream() only...">m_target_appender_ostream</a>.  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#aebc7ceab35e8201f0c60b59a0cc93ca3">More...</a><br /></td></tr>
 <tr class="separator:aebc7ceab35e8201f0c60b59a0cc93ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a34ac1baa61cd0c865d844a7ab622b7ea"><td class="memItemLeft" align="right" valign="top">static boost::thread_specific_ptr&lt; <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4656e713b9ac1c6cdad3adde18de70ec">Source_obj_to_appender_map</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a34ac1baa61cd0c865d844a7ab622b7ea">s_this_thread_appender_ptrs</a></td></tr>
-<tr class="memdesc:a34ac1baa61cd0c865d844a7ab622b7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-local storage for each thread's map storing objects of this class (lazily set to non-null on 1st access).  <a href="classflow_1_1log_1_1Thread__local__string__appender.html#a34ac1baa61cd0c865d844a7ab622b7ea">More...</a><br /></td></tr>
-<tr class="separator:a34ac1baa61cd0c865d844a7ab622b7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Internal <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a> class that facilitates a more efficient way to get <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">util::ostream_op_to_string()</a> behavior by allowing each thread to repeatedly reuse the structures that function creates from scratch on stack each time it is invoked; furthermore each logging entity is allotted a separate such set of structures to enable each entity to not affect the streams of other entities. </p>
 <p >The problem statement arises from <a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">util::ostream_op_to_string()</a>'s only obvious flaw which is performance. One invokes that function and passes a target <code>std::string</code> and a sequence of <code>ostream</code>-writing operations. Usually the <code>string</code> has just been newly created <code>{</code> locally <code>}</code>; and the function itself will ultimately create some Boost <code>iostreams</code> machinery <code>{</code> locally <code>}</code> and then use it to efficiently write through that machinery into the <code>string</code>. That's all fine, but if the function is very often invoked, it would be nice to instead reuse a global <code>string</code> <em>and</em> associated machinery between invocations. (<code><a class="el" href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...">ostream_op_to_string()</a></code> can reuse an existing <code>string</code>, but even then it'll need to re-create the <code>iostreams</code> machinery each time.) In particular, logging machinery (<code>FLOW_LOG_*()</code> especially) indeed very often invokes such behavior and could thus benefit (hence the inspiration behind this class).</p>
-<p >Well, using global structures is not OK: multiple threads will corrupt any such structures by writing and/or reading concurrently to/from them. However, if one creates a structure per thread &ndash; a/k/a a thread-local structure &ndash; then that danger goes away completely. That is the principle behind this class. Firstly, from the class user's perspective, the class itself is a singleton per thread. Call <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">get_this_thread_string_appender()</a> to access the current thread's only instance of <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>. Now you have a pointer to that object. Further use is very simple: <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> clears the internally stored target string and returns a pointer to an <code>ostream</code> object. Write to this <code>ostream</code> like any other <code>ostream</code>. Once done doing so, call <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read-only accessor for the contents of the string, as written to it since the last fresh_appender_ost...">target_contents()</a>, which will return a reference to the read-only string which has been appended to with the aforementioned <code>ostream</code> writing. Repeat each time you'd like to write to a string, and then quickly access that string.</p>
-<p >Update: A further level of indirection/lookup was added when I realized that, for each thread, it's not desirable that logically separate stream writers (typically each allotted its own writing object, e.g., a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>) all write to one common stream. Even if their writes are not interleaved within an "atomic" sequence of characters, state-changing <code>ostream</code> formatters (<code>std::hex</code> and the like) would cause one writer to affect the formatting of another, which is not desired (though maybe not immediately obvious due to formatting being a relatively rarely used feature for many). Therefore, each writing "entity" is allotted a separate instance of this class, and lookup is (implicitly) via thread ID and (explicitly) via a source object ID which uniquely (over all time) identifies each object.</p>
+<p >Well, using global structures is not OK: multiple threads will corrupt any such structures by writing and/or reading concurrently to/from them. However, if one creates a structure per thread &ndash; a/k/a a thread-local structure &ndash; then that danger goes away completely. That is the principle behind this class. Firstly, from the class user's perspective, the class itself is a singleton per thread. Call <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> to access the current thread's only instance of <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>. Now you have a pointer to that object. Further use is very simple: <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> clears the internally stored target string and returns a pointer to an <code>ostream</code> object. Write to this <code>ostream</code> like any other <code>ostream</code>. Once done doing so, call <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read-only accessor for the contents of the string, as written to it since the last fresh_appender_ost...">target_contents()</a>, which will return a reference to the read-only string which has been appended to with the aforementioned <code>ostream</code> writing. Repeat each time you'd like to write to a string, and then quickly access that string.</p>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> may return null. If this happens, it means we are near thread death, and the required thread-local data we keep has been deinitialized (destroyed). The caller must have a contingency plan in this case; the appropriate stream simply no longer exists, nor can it reasonably exist. However, for the contingency, it is possible to directly instantiate a <code>*this</code> (which is why the ctor is public).</dd></dl>
+<p>Update: A further level of indirection/lookup was added when I realized that, for each thread, it's not desirable that logically separate stream writers (typically each allotted its own writing object, e.g., a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>) all write to one common stream. Even if their writes are not interleaved within an "atomic" sequence of characters, state-changing <code>ostream</code> formatters (<code>std::hex</code> and the like) would cause one writer to affect the formatting of another, which is not desired (though maybe not immediately obvious due to formatting being a relatively rarely used feature for many). Therefore, each writing "entity" is allotted a separate instance of this class, and lookup is (implicitly) via thread ID and (explicitly) via a source object ID which uniquely (over all time) identifies each object.</p>
 <div class="fragment"><div class="line"><span class="comment">// If you frequently do this, from one or from multiple threads:</span></div>
 <div class="line"><span class="keyword">class </span>Distinct_writer</div>
 <div class="line">{</div>
@@ -167,7 +157,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line">{</div>
 <div class="line">  ...</div>
 <div class="line">    <span class="comment">// Note lookup by `this`: we are also a Unique_id_holder which means this can get our unique ID.</span></div>
-<div class="line">    <span class="keyword">auto</span> <span class="keyword">const</span> appender = <a class="code hl_function" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">log::Thread_local_string_appender::get_this_thread_string_appender</a>(*<span class="keyword">this</span>);</div>
+<div class="line">    <span class="keyword">auto</span> <span class="keyword">const</span> appender = <a class="code hl_function" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7">log::Thread_local_string_appender::this_thread_string_appender</a>(*<span class="keyword">this</span>);</div>
 <div class="line">    <span class="comment">// Note added explicit `flush`.</span></div>
 <div class="line">    *(appender-&gt;fresh_appender_ostream()) &lt;&lt; <span class="stringliteral">&quot;The answer is: [&quot;</span> &lt;&lt; std::hex &lt;&lt; 42 &lt;&lt; <span class="stringliteral">&quot;].&quot;</span> &lt;&lt; std::flush;</div>
 <div class="line">    log_string(appender-&gt;target_contents());</div>
@@ -175,24 +165,37 @@ Static Private Attributes</h2></td></tr>
 <div class="line">    <span class="comment">// Additional feature: std::hex formatting will persist for further such snippets, for the current thread.</span></div>
 <div class="line">  ...</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassflow_1_1log_1_1Thread__local__string__appender_html_a4c67bd1c2f1ccc58288df86abda02d88"><div class="ttname"><a href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">flow::log::Thread_local_string_appender::get_this_thread_string_appender</a></div><div class="ttdeci">static Thread_local_string_appender * get_this_thread_string_appender(const util::Unique_id_holder &amp;source_obj_id)</div><div class="ttdoc">Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...</div><div class="ttdef"><b>Definition:</b> <a href="thread__lcl__str__appender_8cpp_source.html#l00033">thread_lcl_str_appender.cpp:33</a></div></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html">flow::util::Unique_id_holder</a></div><div class="ttdoc">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8hpp_source.html#l00106">uniq_id_holder.hpp:107</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1util_html_aa079e37d8ddc1b8f76b792e377dd80bd"><div class="ttname"><a href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">flow::util::ostream_op_to_string</a></div><div class="ttdeci">void ostream_op_to_string(std::string *target_str, T &amp;&amp;... ostream_args)</div><div class="ttdoc">Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00367">util.hpp:367</a></div></div>
-</div><!-- fragment --><p >Note, once again, that because <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">get_this_thread_string_appender()</a> returns a thread-local object, it is by definition impossible to corrupt anything inside it due to multiple threads writing to it. (That is unless, of course, you try passing that pointer to another thread and writing to it there, but that's basically malicious behavior; so don't do that.)</p>
+<div class="ttc" id="aclassflow_1_1log_1_1Thread__local__string__appender_html_a9a59134f4359452241a094b8bbcb5ec7"><div class="ttname"><a href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7">flow::log::Thread_local_string_appender::this_thread_string_appender</a></div><div class="ttdeci">static Thread_local_string_appender * this_thread_string_appender(const util::Unique_id_holder &amp;source_obj_id)</div><div class="ttdoc">Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...</div><div class="ttdef"><b>Definition:</b> <a href="thread__lcl__str__appender_8cpp_source.html#l00029">thread_lcl_str_appender.cpp:29</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html">flow::util::Unique_id_holder</a></div><div class="ttdoc">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8hpp_source.html#l00107">uniq_id_holder.hpp:108</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1util_html_aa079e37d8ddc1b8f76b792e377dd80bd"><div class="ttname"><a href="namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd">flow::util::ostream_op_to_string</a></div><div class="ttdeci">void ostream_op_to_string(std::string *target_str, T &amp;&amp;... ostream_args)</div><div class="ttdoc">Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,...</div><div class="ttdef"><b>Definition:</b> <a href="util_2util_8hpp_source.html#l00561">util.hpp:561</a></div></div>
+</div><!-- fragment --><p >Note, once again, that because <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> returns a thread-local object, it is by definition impossible to corrupt anything inside it due to multiple threads writing to it. (That is unless, of course, you try passing that pointer to another thread and writing to it there, but that's basically malicious behavior; so don't do that.)</p>
 <h3>Thread safety</h3>
 <p >Well, see above. If you use class as prescribed, then it's safe to read and write without locking around object of this class.</p>
 <h3>Memory use</h3>
 <p >The object itself is not large, storing some streams and ancillary stream-related obejcts. The lookup table just indexes by object ID and thread ID, so a few integers per writing entity per writing thread. The implementation we use ensures that once a given thread disappears, all the data for that thread ID are freed. Let us then discuss, from this point forth, what happens while a given thread is alive. Namely:</p>
 <p >There is no way to remove an appender from this table once it has been added which can be seen as a memory leak. In practice, the original use case of <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> means the number of lookup table entries is not likely to grow large enough to matter &ndash; but extreme scenarios contradicting this estimation may be contrived or occur.</p>
 <p >In terms of implementation, getting cleanup to work is extremely difficult and possibly essentially impossible. (This is true because it's not possible, without some kind of undocumented and possibly un-portable hackery, to enumerate all the threads from which a given object has created a <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>. Even if one could, it is similarly not really possible to do anything about it without entering each such thread, which is quite hard to do elegantly and unintrusively w/r/t to calling code. Even if one could enter each such thread, some kind of locking would probably need to be added, eliminating the elegance of the basic premise of the class which is that of a thread-local singleton per source object.) For this reason, adding cleanup is not even listed as a to-do.</p>
+<p >(Update: <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">util::Thread_local_state_registry</a> now exists and can probably be used to achieve the above. At any rate it deals with just such things. That does not mean it is worthwhile to use it for <em>this</em> though.)</p>
 <p >Since <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">util::Unique_id_holder</a> is unique over all time, not just at any given time, there is no danger that the reuse of some dead object's ID will cause a collision. Historically this was a problem when we used <code>this</code> pointers as IDs (as once an object is gone, its <code>this</code> value can be reused by another, new object).</p>
-<h3>Implementation notes</h3>
-<p >We use boost.thread's <code>thread_specific_ptr</code> to implement a lazily initialized per-thread singleton (in which a per-object-ID sub-table of <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> objects lies). An alternative implementation would be C++11's built-in <code>thread_local</code> keyword, probably with a <code>unique_ptr</code> to wrap each sub-table (to allow for lazy initialization instead of thread-startup initialization). The main reason I chose to keep <code>thread_specific_ptr</code> even upon moving from C++03 to C++1x is that we use <code>boost::thread</code> &ndash; not <code>std::thread</code>. Experiments show <code>thread_local</code> behaves appropriately (crucially, including cleanup on thread exit) even with <code>boost::thread</code>, but I don't see this documented anywhere (which doesn't mean it isn't documented), and without that it could be an implementation coincidence as opposed to a formal guarantee. A secondary reason &ndash; which can be thought of the straw that broke the camel's back in this case, as it is fairly minor &ndash; is that <code>thread_specific_ptr</code> provides lazy initialization by default, without needing a <code>unique_ptr</code> wrapper; a given thread's <code>p.get()</code> returns null the first time it is invoked; and executes <code>delete p.get();</code> at thread exit (one need not supply a deleter function, although one could if more complex cleanup were needed). This is what a default-constructed <code>unique_ptr</code> would give us, but we get it for "free" (in the sense that no added code is necessary to achieve the same behavior) with <code>thread_specific_ptr</code>. </p>
+<h3>Where is the <code>thread_local</code>?</h3>
+<p >There is no <code>static thread_local</code> member for the <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a547f6793c62f23885637e98efba24529" title="Short-hand for map of a given thread&#39;s appender objects indexed by the IDs of their respective source...">Source_obj_to_appender_map</a>, which is the master data structure, so what's goign on &ndash; one might ask, if one does not dive into the impl functions. Answer: We use what is conceptually a <code>static thread_local</code>-replacer/augmenter: Thread_local_obj_deinit_safe; so instead of, like, <code>s_this_thread_appender_ptrs[so_and_so]...</code> (where the <code>s_</code> would have been a <code>static thread_local</code> member of the class) it is instead:</p>
+<div class="fragment"><div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> this_thread_appender_ptrs</div>
+<div class="line">  = Thread_local_obj_deinit_safe&lt;Source_obj_to_appender_map, Thread_local_string_appender&gt;</div>
+<div class="line">      ::this_thread_obj_or_null();</div>
+<div class="line"><span class="keywordflow">if</span> (this_thread_appender_ptrs)</div>
+<div class="line">{</div>
+<div class="line">   (*this_thread_appender_ptrs)[so_and_so]...</div>
+<div class="line">}</div>
+<div class="line"><span class="keywordflow">else</span></div>
+<div class="line">{</div>
+<div class="line">  <span class="comment">// No good.  We are near thread death, and our thread_local map has been deinitialized already.</span></div>
+<div class="line">}</div>
+</div><!-- fragment --><p >The latter case &lt;=&gt; <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> returns null. </p>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00149">149</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00165">165</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a4656e713b9ac1c6cdad3adde18de70ec" name="a4656e713b9ac1c6cdad3adde18de70ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4656e713b9ac1c6cdad3adde18de70ec">&#9670;&nbsp;</a></span>Source_obj_to_appender_map</h2>
+<a id="a547f6793c62f23885637e98efba24529" name="a547f6793c62f23885637e98efba24529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547f6793c62f23885637e98efba24529">&#9670;&nbsp;</a></span>Source_obj_to_appender_map</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +204,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4656e713b9ac1c6cdad3adde18de70ec">flow::log::Thread_local_string_appender::Source_obj_to_appender_map</a> =  boost::unordered_map&lt;<a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">util::Unique_id_holder::id_t</a>, boost::movelib::unique_ptr&lt;<a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a>&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a547f6793c62f23885637e98efba24529">flow::log::Thread_local_string_appender::Source_obj_to_appender_map</a> =  boost::unordered_flat_map&lt;<a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">util::Unique_id_holder::id_t</a>, boost::movelib::unique_ptr&lt;<a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a>&gt; &gt;</td>
         </tr>
       </table>
   </td>
@@ -214,7 +217,7 @@ Static Private Attributes</h2></td></tr>
 <p>Short-hand for map of a given thread's appender objects indexed by the IDs of their respective source objects. </p>
 <p >Smart pointers are stored to ensure the <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> is deleted once removed from such a map. Thus once a per-thread map disappears at thread exit, all the stored objects within are freed also. </p>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00276">276</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00309">309</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
 </div>
 </div>
@@ -237,15 +240,15 @@ Static Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Initializes object with an empty string and the streams machinery available to write to that string. </p>
-<p >Note this is not publicly accessible. </p>
+<dl class="section warning"><dt>Warning</dt><dd>It is not intended for direct use in most cases; rather it was made public to help with the contingency when <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> returns null (near thread exit). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00094">94</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00093">93</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
 </div>
 </div>
@@ -268,11 +271,11 @@ Static Private Attributes</h2></td></tr>
 <p>Same as <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> but does not clear the result string, enabling piecemeal writing to that string between clearings of the latter. </p>
 <dl class="section return"><dt>Returns</dt><dd>Identical to <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a>'s return value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">107</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">106</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00318">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">fresh_appender_ostream()</a>, and <a class="el" href="log_8cpp_source.html#l00150">flow::log::Logger::this_thread_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">fresh_appender_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -282,7 +285,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a64383811f529af676dde0028f61831f7_icgraph.svg" width="987" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a64383811f529af676dde0028f61831f7_icgraph.svg" width="388" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -307,71 +310,17 @@ Here is the caller graph for this function:</div>
 <p >You must <code>flush</code> (or flush any other way like <code>endl</code>) the stream in order to ensure characters are actually written to the string. (I am fairly sure flushing is in fact THE thing that actually writes to the string.)</p>
 <p >The pointer's value never changes for <code>*this</code> object. This fact is critical when it comes to the logic of sequential <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a2ac7b443898adf1696d0f24f87481520" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t...">save_formatting_state_and_restore_prev()</a> calls, as well as (for example) the <code>ostream</code> continuity semantics described in class <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> header (that class uses the present class).</p>
 <p >Behavior is undefined if, at the time the present method is called, the last <code>flush</code> of <code>*fresh_appender_ostream()</code> precedes the last writing of actual data to same. In other words, always <code>flush</code> the stream immediately after writing to it, or else who knows what will happen with any un-flushed data when one subsequently calls <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a>, clearing the string?</p>
-<p >Behavior is undefined if you call this from any thread other than the one in which <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">get_this_thread_string_appender()</a> was called in order to obtain <code>this</code>.</p>
+<p >Behavior is undefined if you call this from any thread other than the one in which <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> was called in order to obtain <code>this</code>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a2ac7b443898adf1696d0f24f87481520" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t...">save_formatting_state_and_restore_prev()</a> is a valuable technique to enable usability in user-facing APIs that use <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> within the implementation (notably logging APIs). See its doc header before using this method.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to <code>ostream</code> writing to which (followed by flushing) will append to string that is accessible via <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a3f1a93d0c468efeafd83fb10e104905f" title="Read-only accessor for the contents of the string, as written to it since the last fresh_appender_ost...">target_contents()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">101</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">100</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00048">flow::util::String_ostream::str_clear()</a>.</p>
+<p class="reference">References <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00318">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00048">flow::util::String_ostream::str_clear()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_af8808ca3accc5384a627bb806de4e4b1_cgraph.svg" width="546" height="120"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a4c67bd1c2f1ccc58288df86abda02d88" name="a4c67bd1c2f1ccc58288df86abda02d88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c67bd1c2f1ccc58288df86abda02d88">&#9670;&nbsp;</a></span>get_this_thread_string_appender()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> * flow::log::Thread_local_string_appender::get_this_thread_string_appender </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html">util::Unique_id_holder</a> &amp;&#160;</td>
-          <td class="paramname"><em>source_obj_id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a pointer to the exactly one <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object that is accessible from the current thread for the given source object. </p>
-<p >The source object is given by its ID. The source object can store or contain (or be otherwise mapped to) its own <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">util::Unique_id_holder</a>; and thus it can be any object (e.g., a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, in original use case) that desires the use of one distinct (from other objects) but continuous (meaning any stream state including characters output will persist over time) <code>ostream</code>. (The <code>ostream</code> is not returned directly but rather as the wrapping <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object for that stream.) Ultimately there is exactly one <code>ostream</code> (and <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>) per (invoking thread T, <code>source_obj_id</code>) pair that has invoked the present method so far, including the current invocation itself.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source_obj_id</td><td>An ID attached in a 1-to-1 (over all time until program exit) fashion to the entity (typically, class instance of any type, e.g., <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>) desiring its own <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00033">33</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
-
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00295">s_this_thread_appender_ptrs</a>, and <a class="el" href="uniq__id__holder_8cpp_source.html#l00053">flow::util::Unique_id_holder::unique_id()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00150">flow::log::Logger::this_thread_ostream()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a4c67bd1c2f1ccc58288df86abda02d88_cgraph.svg" width="380" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a4c67bd1c2f1ccc58288df86abda02d88_icgraph.svg" width="974" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -394,7 +343,7 @@ Here is the caller graph for this function:</div>
 
 <p>Saves the formatting state of the <code>ostream</code> returned by <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a64383811f529af676dde0028f61831f7" title="Same as fresh_appender_ostream() but does not clear the result string, enabling piecemeal writing to ...">appender_ostream()</a> and sets that same <code>ostream</code> to the state saved last time this method was called on <code>*this</code>, or at its construction, whichever happened later. </p>
 <p >Examples of formatting state are <code>std::hex</code> and locale imbuings.</p>
-<p >This is useful if you tend to follow a pattern like the following macro definition that takes <code>user_supplied_stream_args</code> macro argument:</p>
+<p >This is useful, if you tend to follow a pattern like the following macro definition that takes <code>user_supplied_stream_args</code> macro argument:</p>
 <div class="fragment"><div class="line">*(appender-&gt;fresh_appender_ostream())</div>
 <div class="line">  &lt;&lt; __FILE__ &lt;&lt; <span class="charliteral">&#39;:&#39;</span> &lt;&lt; __LINE &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> <span class="comment">// First standard prefix to identify source of log line...</span></div>
 <div class="line">  &lt;&lt; user_supplied_stream_args         <span class="comment">// ...then user-given ostream args (token may expand to multiple &lt;&lt;s)...</span></div>
@@ -413,9 +362,9 @@ Here is the caller graph for this function:</div>
 <dd>
 Detail: The formatting features affected are as described in documentation for <code>boost::io::basic_ios_all_saver</code>. This can be summarized as everything except user-defined formatters. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">113</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">112</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00311">m_target_appender_ostream_prev_os_state</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
+<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00318">m_target_appender_ostream</a>, <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00331">m_target_appender_ostream_prev_os_state</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00033">flow::util::String_ostream::os()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -442,18 +391,73 @@ Here is the call graph for this function:</div>
 
 <p>Read-only accessor for the contents of the <code>string</code>, as written to it since the last <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> call, or object construction, whichever occurred later. </p>
 <p >The reference's value never changes for <code>*this</code> object. The string's value may change depending on whether the user writes to <code>*fresh_appender_ostream()</code> (which writes to the string) or calls that method (which clears it).</p>
-<p >Behavior is undefined if you call this from any thread other than the one in which <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">get_this_thread_string_appender()</a> was called in order to obtain <code>this</code>.</p>
+<p >Behavior is undefined if you call this from any thread other than the one in which <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a9a59134f4359452241a094b8bbcb5ec7" title="Returns a pointer to the exactly one Thread_local_string_appender object that is accessible from the ...">this_thread_string_appender()</a> was called in order to obtain <code>this</code>.</p>
 <h3>Rationale</h3>
 <p >Why return <code>const string&amp;</code> instead of <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9" title="Commonly used char-based Basic_string_view. See its doc header.">util::String_view</a>? Answer: Same as in doc header of String_ostream::str().</p>
 <dl class="section return"><dt>Returns</dt><dd>Read-only reference to <code>string</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00129">129</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00128">128</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00043">flow::util::String_ostream::str()</a>.</p>
+<p class="reference">References <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00318">m_target_appender_ostream</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00043">flow::util::String_ostream::str()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a3f1a93d0c468efeafd83fb10e104905f_cgraph.svg" width="326" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a9a59134f4359452241a094b8bbcb5ec7" name="a9a59134f4359452241a094b8bbcb5ec7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a59134f4359452241a094b8bbcb5ec7">&#9670;&nbsp;</a></span>this_thread_string_appender()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html">Thread_local_string_appender</a> * flow::log::Thread_local_string_appender::this_thread_string_appender </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html">util::Unique_id_holder</a> &amp;&#160;</td>
+          <td class="paramname"><em>source_obj_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the exactly one <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object that is accessible from the current thread for the given source object; or null if the thread is near death, and this <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> facility is no longer available for use. </p>
+<dl class="section note"><dt>Note</dt><dd>Be ready for the null return. In particular it is in danger of occurring if and only if one accesses us from a destructor (or some other form of cleanup function) of a <code>thread_local</code> or otherwise thread-local (Thread_local_ptr, Thread_local_state_registry, <code>thread_specific_ptr</code>...) object.</dd></dl>
+<p>The source object is given by its ID. The source object can store or contain (or be otherwise mapped to) its own <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">util::Unique_id_holder</a>; and thus it can be any object (e.g., a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, in original use case) that desires the use of one distinct (from other objects) but continuous (meaning any stream state including characters output will persist over time) <code>ostream</code>. (The <code>ostream</code> is not returned directly but rather as the wrapping <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> object for that stream.) Ultimately there is exactly one <code>ostream</code> (and <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>) per (invoking thread T, <code>source_obj_id</code>) pair that has invoked the present method so far, including the current invocation itself.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source_obj_id</td><td>An ID attached in a 1-to-1 (over all time until program exit) fashion to the entity (typically, class instance of any type, e.g., <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>) desiring its own <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>See above. Again: note that near thread death it may return null. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00029">29</a> of file <a class="el" href="thread__lcl__str__appender_8cpp_source.html">thread_lcl_str_appender.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="uniq__id__holder_8cpp_source.html#l00048">flow::util::Unique_id_holder::unique_id()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00194">flow::log::Logger::this_thread_ostream()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a9a59134f4359452241a094b8bbcb5ec7_cgraph.svg" width="355" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Thread__local__string__appender_a9a59134f4359452241a094b8bbcb5ec7_icgraph.svg" width="948" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -482,9 +486,9 @@ Here is the call graph for this function:</div>
 
 <p>The target string wrapped by an <code>ostream</code>. Emptied at construction and in <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#af8808ca3accc5384a627bb806de4e4b1" title="Clears the internally stored string (accessible for reading via target_contents()),...">fresh_appender_ostream()</a> <em>only</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00298">298</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00318">318</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">fresh_appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">save_formatting_state_and_restore_prev()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00129">target_contents()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">fresh_appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">save_formatting_state_and_restore_prev()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00128">target_contents()</a>.</p>
 
 </div>
 </div>
@@ -513,38 +517,9 @@ Here is the call graph for this function:</div>
 construction on existing object" API (not that I'm saying it should... less state is good, all else being equal... but I digress).</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a2ac7b443898adf1696d0f24f87481520" title="Saves the formatting state of the ostream returned by appender_ostream() and sets that same ostream t...">save_formatting_state_and_restore_prev()</a> for explanation of the feature enabled by this member. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00311">311</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00331">331</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">save_formatting_state_and_restore_prev()</a>.</p>
-
-</div>
-</div>
-<a id="a34ac1baa61cd0c865d844a7ab622b7ea" name="a34ac1baa61cd0c865d844a7ab622b7ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34ac1baa61cd0c865d844a7ab622b7ea">&#9670;&nbsp;</a></span>s_this_thread_appender_ptrs</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">boost::thread_specific_ptr&lt; <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4656e713b9ac1c6cdad3adde18de70ec">Thread_local_string_appender::Source_obj_to_appender_map</a> &gt; flow::log::Thread_local_string_appender::s_this_thread_appender_ptrs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Thread-local storage for each thread's map storing objects of this class (lazily set to non-null on 1st access). </p>
-<p >Recall <code>delete s_this_thread_appender_ptrs.get();</code> is executed at each thread's exit; so if that is non-null for a given thread, this map is freed at that time. Since smart pointers to <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> are stored in the map, the <a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html" title="Internal flow::log class that facilitates a more efficient way to get util::ostream_op_to_string() be...">Thread_local_string_appender</a> objects thus stored are also freed at that time. </p>
-
-<p class="definition">Definition at line <a class="el" href="thread__lcl__str__appender_8hpp_source.html#l00295">295</a> of file <a class="el" href="thread__lcl__str__appender_8hpp_source.html">thread_lcl_str_appender.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00033">get_this_thread_string_appender()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">save_formatting_state_and_restore_prev()</a>.</p>
 
 </div>
 </div>
@@ -555,7 +530,7 @@ construction on existing object" API (not that I'm saying it should... less stat
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

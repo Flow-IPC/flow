@@ -94,7 +94,7 @@ Inheritance diagram for flow::cfg::Option_set&lt; Value_set &gt;:</div>
 <div class="dynheader">
 Collaboration diagram for flow::cfg::Option_set&lt; Value_set &gt;:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Option__set__coll__graph.svg" width="1502" height="643"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Option__set__coll__graph.svg" width="1268" height="643"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -371,7 +371,7 @@ class flow::cfg::Option_set&lt; Value_set &gt;</div><p >The core config-parsing 
 <p >For input (parsing), every configurable value in <code>Value_set</code> must have an <code>istream&gt;&gt;</code> operator.</p>
 <p >For output (in help and current-values output), every such value must have an <code>ostream&lt;&lt;</code> operator. In addition, it is sometimes desirable to further massage output in config help/current-values output but not in a general <code>ostream&lt;&lt;</code> operator for that type. (E.g., you would not want to, or be able to usually, override stream output for <code>std::string</code> or <code>chrono::duration</code>.) To do this, provide a specialization or overload of the free function <code><a class="el" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96" title="Serializes a value of type Value to the given ostream suitably for output in Option_set-related outpu...">cfg::value_to_ostream</a>&lt;Value_set&gt;()</code>. Its generic implementation simply forwards to <code>ostream&lt;&lt;</code>, but you can do something different. As of this writing we already provide an overload for <code><a class="el" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96" title="Serializes a value of type Value to the given ostream suitably for output in Option_set-related outpu...">cfg::value_to_ostream</a>&lt;chrono::duration&lt;...&gt;&gt;</code>, which will automatically print the duration (which is typically stored in nanoseconds) in the coarsest possible units that would lose no precision (e.g., 60billion nanoseconds =&gt; "1 minute").</p>
 <h3>Recommended conventions</h3>
-<p >Firstly, it is recommended to store all durations in your <code>Value_set</code> as util::Fine_duration instead of using coarser units like <code>chrono::seconds()</code> or even <code>chrono::milliseconds()</code>. This tends to lead to more consistent and maintainable code, in the author's (ygoldfel) opinion, as util::Fine_duration <em>can</em> store durations expressed in essentially any units, without losing precision; <em>does</em> use the same underlying storage type &ndash; <code>int64_t</code> &ndash; and hence presents no performance or overflow difficulties (usually); and changing the desired units of a duration config value is fairly common. Simply put <code>Fine_duration</code> supports 99.99999999% of units and use cases without perf overhead. <em>In addition</em>, <code>value_to_ostream&lt;&gt;</code> is overloaded in such a way as to output <code>Fine_duration</code> members of <code>Value_set</code> in the most convenient possible units &ndash; automagically. So you're in no way forcing humans to work with nanoseconds: you can use any units in input and in code.</p>
+<p >Firstly, it is recommended to store all durations in your <code>Value_set</code> as util::Fine_duration instead of using coarser units like <code>chrono::seconds</code> or even <code>chrono::milliseconds</code>. This tends to lead to more consistent and maintainable code, in the author's (ygoldfel) opinion, as util::Fine_duration <em>can</em> store durations expressed in essentially any units, without losing precision; <em>does</em> use the same underlying storage type &ndash; <code>int64_t</code> &ndash; and hence presents no performance or overflow difficulties (usually); and changing the desired units of a duration config value is fairly common. Simply put <code>Fine_duration</code> supports 99.99999999% of units and use cases without perf overhead. <em>In addition</em>, <code>value_to_ostream&lt;&gt;</code> is overloaded in such a way as to output <code>Fine_duration</code> members of <code>Value_set</code> in the most convenient possible units &ndash; automagically. So you're in no way forcing humans to work with nanoseconds: you can use any units in input and in code.</p>
 <dl class="section note"><dt>Note</dt><dd>For all duration values, config sources can specify <em>any</em> units (convertible without loss of precision to the specific <code>chrono</code> type); and indeed <em>should</em> specify units. E.g., "5 ms" and "5 milliseconds" will both work. Since util::Fine_duration is in nanoseconds internally, almost any conceivable units (from "hours" to "nanoseconds") are accepted equally well as inputs in config sources.</dd></dl>
 <p>Secondly, when working with non-durations, specify units as a suffix in the member name.</p><ul>
 <li>Exception: if it's in bytes, <code>_bytes</code> or <code>_b</code> shall be omitted.</li>
@@ -410,7 +410,7 @@ template&lt;typename Value_set &gt; </div>
 <p >The idea is that the body of a user-provided callback of this type will consist of invoking <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> for each parseable option, in some consistent order, and that macro (which we control) will invoke handling of that particular option &ndash; whose stored type can be anything and different from the other options', meaning we cannot iterate through them at runtime (nor is it possible at compile time without some kind of insane meta-programming). So, depending on what arguments we pass to this callback, the macro will &ndash; upon performing an operation only a macro can do (namely <code>#ARG_whatever</code> and the like) &ndash; forward those args to a function templated on the type of the option's stored value, namely one of <code>declare_option_*()</code>, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#afe4b08b3a98b57d3b6caa2057e5e59e8" title="Internal-through-macro helper function; the user shall not call this directly but only through FLOW_C...">scan_parsed_option()</a>, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a8435631dfa49db887d2fc56638378aae" title="Internal-through-macro helper function; the user shall not call this directly but only through FLOW_C...">load_option_value_as_if_parsed()</a>, or <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ab79c61f62032b238cb25e132ce1e1d43" title="Internal-through-macro helper function; the user shall not call this directly but only through FLOW_C...">validate_parsed_option()</a>. That function will then perform the needed handling for that particular option.</p>
 <p >See <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html" title="Internal-use structure to use with Declare_options_func callback.">Declare_options_func_args</a> for the possible args' meanings. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00573">573</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00586">586</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -439,14 +439,14 @@ template&lt;typename Value_set &gt; </div>
 <p>Similar to a boost.program_options parsing results <code>variables_map</code>, which conceptually mirrors the results of a parsing operation in the target <code>Values</code> structure, mapping <code>string</code> to variable-type values. </p>
 <p >As explained in the doc header for <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Option_set::Opt_table</a>, a parsing operation takes in a config source (config file, etc.) and a <em>parsing-role</em> <code>Opt_table</code>; and outputs a <code>Values</code> and an object of the present type. <code>Values</code> is the main point <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> exists; it's what the application accesses, via simple <code>-&gt;m_*</code> access of various values, to observe the parsed config &ndash; so why do we need <code>Iterable_values</code>?</p>
 <p >The reason we use this is: we need to be able to iterate through all the options that were found in a parsing pass, at least to detect changes as needed at least for dynamic option features (triggering on-changed hooks, etc.). (Requiring a manual <code>operator==(Value_set, Value_set)</code> or similar is too onerous and error-prone for the implementor of the <code>Value_set</code>, as every <code>-&gt;m_</code> would require manual mention.)</p>
-<p >A <code>variables_map</code> is classically filled via the aforementioned parsing operation <code>opts::store()</code>; and is itself an <code>std::map</code>. Hence one can copy all the pairs from that into an <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a30c5113f0e85c705fadc32076d83dca4" title="Similar to a boost.program_options parsing results variables_map, which conceptually mirrors the resu...">Iterable_values</a>; and an <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a30c5113f0e85c705fadc32076d83dca4" title="Similar to a boost.program_options parsing results variables_map, which conceptually mirrors the resu...">Iterable_values</a> can be manually pre-filled with pre-parse values from <code>Values</code> for easy comparison after the <code>store()</code> (and other such algorithms). Note, also, it is deep-copyable, as long as all types stored within are deep-copyable.</p>
+<p >A <code>variables_map</code> is classically filled via the aforementioned parsing operation <code><a class="el" href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val.">opts::store()</a></code>; and is itself an <code>std::map</code>. Hence one can copy all the pairs from that into an <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a30c5113f0e85c705fadc32076d83dca4" title="Similar to a boost.program_options parsing results variables_map, which conceptually mirrors the resu...">Iterable_values</a>; and an <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a30c5113f0e85c705fadc32076d83dca4" title="Similar to a boost.program_options parsing results variables_map, which conceptually mirrors the resu...">Iterable_values</a> can be manually pre-filled with pre-parse values from <code>Values</code> for easy comparison after the <code><a class="el" href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val.">store()</a></code> (and other such algorithms). Note, also, it is deep-copyable, as long as all types stored within are deep-copyable.</p>
 <h3>Rationale</h3>
 <ul>
-<li>Why not simply use <code>opts::variables_map</code>? It is after all very close to what this is. Answer: I (ygoldfel) started that way, but its API is a bit hairy, and it's scary to have to depend on how boost.program_options will act when <code>variables_map</code> isn't empty before the parsing begins, for example (e.g., <code>store()</code> docs say it will NOT overwrite any "non-defaulted" value &ndash; having to rely on such nuances doesn't seem great). It is safer, if slower (but we don't care), to treat a fresh <code>variables_map</code> that's <code>store()</code>d into as an intermediary.</li>
+<li>Why not simply use <code>opts::variables_map</code>? It is after all very close to what this is. Answer: I (ygoldfel) started that way, but its API is a bit hairy, and it's scary to have to depend on how boost.program_options will act when <code>variables_map</code> isn't empty before the parsing begins, for example (e.g., <code><a class="el" href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val.">store()</a></code> docs say it will NOT overwrite any "non-defaulted" value &ndash; having to rely on such nuances doesn't seem great). It is safer, if slower (but we don't care), to treat a fresh <code>variables_map</code> that's <code><a class="el" href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val.">store()</a></code>d into as an intermediary.</li>
 <li>Why not <code>unordered_map</code>? It's faster after all. Answer: An alphabetical iteration order seems nice when (e.g.) iterating over the keys to show differences in values to humans. </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01063">1063</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01076">1076</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -579,9 +579,9 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01455">1455</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01468">1468</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="option__set_8hpp_source.html#l01079">flow::cfg::Option_set&lt; Value_set &gt;::m_declare_opts_func</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a32c9e1f9d46f3379bbb95a4aada644ba">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_fill_output_help_role_opt_table_args</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a1a35f61a3ebedfdd443e6f050e674aa9">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_fill_parsing_role_opt_table_args</a>, <a class="el" href="option__set_8hpp_source.html#l01091">flow::cfg::Option_set&lt; Value_set &gt;::m_values_candidate</a>, <a class="el" href="option__set_8hpp_source.html#l01085">flow::cfg::Option_set&lt; Value_set &gt;::m_values_default</a>, <a class="el" href="option__set_8hpp_source.html#l01485">flow::cfg::Option_set&lt; Value_set &gt;::null()</a>, <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cda2525895c3e467823cc3450761eaac825">flow::cfg::Option_set_base::S_FILL_OUTPUT_HELP_ROLE_OPT_TABLE</a>, and <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cda4f70649bf85f31925dd145af4c67025c">flow::cfg::Option_set_base::S_FILL_PARSING_ROLE_OPT_TABLE</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="option__set_8hpp_source.html#l01092">flow::cfg::Option_set&lt; Value_set &gt;::m_declare_opts_func</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a32c9e1f9d46f3379bbb95a4aada644ba">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_fill_output_help_role_opt_table_args</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a1a35f61a3ebedfdd443e6f050e674aa9">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_fill_parsing_role_opt_table_args</a>, <a class="el" href="option__set_8hpp_source.html#l01104">flow::cfg::Option_set&lt; Value_set &gt;::m_values_candidate</a>, <a class="el" href="option__set_8hpp_source.html#l01098">flow::cfg::Option_set&lt; Value_set &gt;::m_values_default</a>, <a class="el" href="option__set_8hpp_source.html#l01498">flow::cfg::Option_set&lt; Value_set &gt;::null()</a>, <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cda2525895c3e467823cc3450761eaac825">flow::cfg::Option_set_base::S_FILL_OUTPUT_HELP_ROLE_OPT_TABLE</a>, and <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cda4f70649bf85f31925dd145af4c67025c">flow::cfg::Option_set_base::S_FILL_PARSING_ROLE_OPT_TABLE</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -620,11 +620,11 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02043">2043</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02056">2056</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="util_2util_8hpp_source.html#l00310">flow::util::key_exists()</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="util_2util_8hpp_source.html#l00511">flow::util::key_exists()</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01570">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01571">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -693,9 +693,9 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01641">1641</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01654">1654</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="option__set_8hpp_source.html#l02161">flow::cfg::value_to_ostream()</a>.</p>
+<p class="reference">References <a class="el" href="option__set_8hpp_source.html#l02174">flow::cfg::value_to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -772,9 +772,9 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01566">1566</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01579">1579</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="option__set_8hpp_source.html#l02161">flow::cfg::value_to_ostream()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, and <a class="el" href="option__set_8hpp_source.html#l02174">flow::cfg::value_to_ostream()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -811,7 +811,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01541">1541</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01554">1554</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -868,7 +868,7 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01747">1747</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01760">1760</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -909,9 +909,9 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01547">1547</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01560">1560</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00574">FLOW_LOG_WITH_CHECKING</a>.</p>
 
 </div>
 </div>
@@ -959,9 +959,9 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01529">1529</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01542">1542</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00489">FLOW_LOG_WITH_CHECKING</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00574">FLOW_LOG_WITH_CHECKING</a>.</p>
 
 </div>
 </div>
@@ -982,7 +982,7 @@ template&lt;typename Value_set &gt; </div>
 <p>Convenience method that heap-allocates a copy of the internally stored <code><a class="el" href="classflow_1_1cfg_1_1Option__set.html#a93ab889bf230d21961c22bd4bf21e06a" title="Externally immutable internally stored canonical (current) config values as last constructed or parse...">values()</a></code> and wraps in a ref-counted handle suitable for speedy passing around the rest of the application. </p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01497">1497</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01510">1510</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1006,9 +1006,9 @@ template&lt;typename Value_set &gt; </div>
 <p >While likely of little value when the user instantiates an <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> directly, this can be useful in generic meta-programming, wherein multiple <code><a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a></code>s might be instantiated at compile time, but the coder doesn't know how many while coding. For example <a class="el" href="classflow_1_1cfg_1_1Config__manager.html" title="Manages a config setup, intended for a single daemon process, by maintaining 1 or more set(s) of stat...">Config_manager</a> uses <a class="el" href="classflow_1_1cfg_1_1Option__set.html#accd086867406387070ac766b03e7998c" title="Return true if and only if the option-declaring function passed to the constructor declared no option...">null()</a> to bypass confusingly-logging <a class="el" href="classflow_1_1cfg_1_1Option__set.html#abe8fe72cae80d20e0a07d4732f15d57b" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">parse_config_file()</a> calls on empty <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> objects, such as if a static config set has no dynamic config counterpart.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01485">1485</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01498">1498</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l01570">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, and <a class="el" href="cfg__manager_8hpp_source.html#l01571">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1037,7 +1037,7 @@ template&lt;typename Value_set &gt; </div>
 <p >This returns the same value (and reference) each time it is called.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01559">1559</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01572">1572</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1099,13 +1099,13 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01784">1784</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01797">1797</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00310">flow::util::key_exists()</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a4d18a90df12e3c632a2fd25fdc23224e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_compare_parsed_vals_args</a>, <a class="el" href="option__set_8hpp_source.html#l00480">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_option_set</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>.</p>
+<p class="reference">References <a class="el" href="error_2error_8hpp_source.html#l00269">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a>, <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="log_8hpp_source.html#l00155">FLOW_LOG_WARNING</a>, <a class="el" href="util_2util_8hpp_source.html#l00511">flow::util::key_exists()</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a4d18a90df12e3c632a2fd25fdc23224e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_compare_parsed_vals_args</a>, <a class="el" href="option__set_8hpp_source.html#l00488">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_option_set</a>, <a class="el" href="util_2util_8hpp_source.html#l00575">flow::util::ostream_op_string()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="stat__set_8hpp_source.html#l00344">flow::util::stat::store()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Option__set_abe8fe72cae80d20e0a07d4732f15d57b_cgraph.svg" width="675" height="96"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1cfg_1_1Option__set_abe8fe72cae80d20e0a07d4732f15d57b_cgraph.svg" width="678" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1157,11 +1157,11 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01994">1994</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02007">2007</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a4d18a90df12e3c632a2fd25fdc23224e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_compare_parsed_vals_args</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a47faf7f6307ae1bcea3e55577b102b41">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_load_val_as_if_parsed_args</a>, <a class="el" href="option__set_8hpp_source.html#l00480">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_option_set</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a4d18a90df12e3c632a2fd25fdc23224e">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_compare_parsed_vals_args</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a47faf7f6307ae1bcea3e55577b102b41">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_load_val_as_if_parsed_args</a>, <a class="el" href="option__set_8hpp_source.html#l00488">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_option_set</a>, and <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01822">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01823">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1188,11 +1188,11 @@ template&lt;typename Value_set &gt; </div>
 <p>In PARSING state, returns to CANONICAL state, as if no parse attempts have occurred. </p>
 <p >In CANONICAL state, a no-op. Calling this is typically a good idea when a <code>parse_*()</code> attempt indicates failure. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02076">2076</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02089">2089</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01570">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01571">flow::cfg::Config_manager&lt; S_d_value_set &gt;::option_set_canonicalize_or_reject()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1248,7 +1248,7 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01716">1716</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01729">1729</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1281,7 +1281,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02089">2089</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02102">2102</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1324,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02149">2149</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02162">2162</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1391,9 +1391,9 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02103">2103</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02116">2116</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00405">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae780a398078db2299e8a5c3714bcb987">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_validate_stored_vals_args</a>, and <a class="el" href="option__set_8hpp_source.html#l00549">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_values_to_validate</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00473">FLOW_LOG_SET_CONTEXT</a>, <a class="el" href="log_8hpp_source.html#l00155">FLOW_LOG_WARNING</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae780a398078db2299e8a5c3714bcb987">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_validate_stored_vals_args</a>, and <a class="el" href="option__set_8hpp_source.html#l00562">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_values_to_validate</a>.</p>
 
 </div>
 </div>
@@ -1425,7 +1425,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02095">2095</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02108">2108</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1447,9 +1447,9 @@ template&lt;typename Value_set &gt; </div>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1cfg_1_1Option__set.html#a45eebf6c9d7384bcc95c10ff7c934e1f" title="Convenience method that heap-allocates a copy of the internally stored values() and wraps in a ref-co...">mutable_values_copy()</a> to get a copy.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01491">1491</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01504">1504</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01822">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01823">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1477,9 +1477,9 @@ template&lt;typename Value_set &gt; </div>
 <p >Rationale: It is supplied publicly in case the caller wans to log it or something; or perhaps to check for current state (CANONICAL if and only it returns null).</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01503">1503</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01516">1516</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01822">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="cfg__manager_8hpp_source.html#l01823">flow::cfg::Config_manager&lt; S_d_value_set &gt;::apply_impl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1527,7 +1527,7 @@ template&lt;typename Value_set &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01509">1509</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01522">1522</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ae0e0d11ce1bf4ce971f5e2d75ed6e18d">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_args</a>, <a class="el" href="option__set_8hpp_source.html#l00465">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_call_type</a>, and <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a391e72f142afe97b89e4e106bf443801">flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args::m_fill_output_current_role_opt_table_args</a>.</p>
 
@@ -1586,9 +1586,9 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02155">2155</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02168">2168</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="option__set_8hpp_source.html#l01028">flow::cfg::Option_set&lt; Value_set &gt;::m_nickname</a>.</p>
+<p class="reference">References <a class="el" href="option__set_8hpp_source.html#l01041">flow::cfg::Option_set&lt; Value_set &gt;::m_nickname</a>.</p>
 
 </div>
 </div>
@@ -1618,9 +1618,9 @@ template&lt;typename Value_set &gt; </div>
 <p>The <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a>-filling, or <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a3de831b04134e0729a11a7e0a114a320" title="Structure mirroring m_values_candidate, where the values are the parsing-enabled members of m_values_...">m_iterable_values_candidate</a>-scanning, callback passed to the constructor and invoked with various input args (see <a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac6755bc762fc40b1ae8f4bd47c55bd39" title="Short-hand for the ever-important callback passed to the main Option_set constructor.">Declare_options_func</a> doc header). </p>
 <p >Depending on those args it will either fill <code>Opt_table</code> in various roles (see <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a> doc header), or it will scan the values just loaded into <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a3de831b04134e0729a11a7e0a114a320" title="Structure mirroring m_values_candidate, where the values are the parsing-enabled members of m_values_...">m_iterable_values_candidate</a> (e.g., for equality to the values in canonical <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a7bda9a32640f89d1c8a2306b8b368a13" title="See values().">m_values</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01079">1079</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01092">1092</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
 
 </div>
 </div>
@@ -1649,7 +1649,7 @@ template&lt;typename Value_set &gt; </div>
 <p>Structure mirroring <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adfd72b4b73913193252a02d35acdff09" title="See values_candidate(). When that returns null (m_parsing == false) this value is meaningless.">m_values_candidate</a>, where the values are the parsing-enabled members of <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adfd72b4b73913193252a02d35acdff09" title="See values_candidate(). When that returns null (m_parsing == false) this value is meaningless.">m_values_candidate</a>, and each value's key is it main config option name; if an option has not changed between <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a7bda9a32640f89d1c8a2306b8b368a13" title="See values().">m_values</a> and <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adfd72b4b73913193252a02d35acdff09" title="See values_candidate(). When that returns null (m_parsing == false) this value is meaningless.">m_values_candidate</a> (according to its <code>==</code> operator), then that option's key is omitted. </p>
 <p >In particular it is <code>.empty() == true</code> when in CANONICAL mode (<code>m_parsing == false</code>). </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01099">1099</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01112">1112</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1669,9 +1669,9 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <code>nickname</code> ctor arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01028">1028</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01041">1041</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02155">flow::cfg::Option_set&lt; Value_set &gt;::operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02168">flow::cfg::Option_set&lt; Value_set &gt;::operator&lt;&lt;()</a>.</p>
 
 </div>
 </div>
@@ -1699,7 +1699,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <a class="el" href="classflow_1_1cfg_1_1Option__set.html#accd086867406387070ac766b03e7998c" title="Return true if and only if the option-declaring function passed to the constructor declared no option...">null()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01068">1068</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01081">1081</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1727,7 +1727,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a2c5b105705745a5369a35cedbff326d1" title="Returns set of all option names declared by the option-declaring function passed to the constructor.">option_names()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01071">1071</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01084">1084</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1756,7 +1756,7 @@ template&lt;typename Value_set &gt; </div>
 <p>The <em>output-role</em> <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a>, help-text sub-role (see extensive explanation in <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a> doc header). </p>
 <p >Briefly: it's used to output help text to output streams for user's convenience, in fact simply by piping it to an <code>ostream</code> via <code>&lt;&lt;</code>. This should not change after the first <code>parse_*()</code> API begins execution (lest the user become confused). </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01114">1114</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01127">1127</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1785,7 +1785,7 @@ template&lt;typename Value_set &gt; </div>
 <p>The <em>parsing-role</em> <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a> (see extensive explanation in <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#ae2f1d04cb457f4845d636e93aa156f46" title="Short-hand for boost.program_options config options description, each of which is used for parsing an...">Opt_table</a> doc header). </p>
 <p >Briefly: it's used to actually load <code>*m_values_candidate</code> &ndash; and ultimately <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a7bda9a32640f89d1c8a2306b8b368a13" title="See values().">m_values</a> &ndash; with values parsed from config sources such as files. This must not change after the first <code>parse_*()</code> API begins execution. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01106">1106</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01119">1119</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1813,7 +1813,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adce212853383183bd1b60505157f7215" title="Returns null in CANONICAL state; or in PARSING state a pointer to the not-yet-canonical values after ...">values_candidate()</a> &ndash; <code>true</code> if and only if that returns non-null (PARSING state; else CANONICAL state). </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01088">1088</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01101">1101</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1841,7 +1841,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a93ab889bf230d21961c22bd4bf21e06a" title="Externally immutable internally stored canonical (current) config values as last constructed or parse...">values()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01082">1082</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01095">1095</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -1869,9 +1869,9 @@ template&lt;typename Value_set &gt; </div>
 
 <p>See <a class="el" href="classflow_1_1cfg_1_1Option__set.html#adce212853383183bd1b60505157f7215" title="Returns null in CANONICAL state; or in PARSING state a pointer to the not-yet-canonical values after ...">values_candidate()</a>. When that returns null (<code>m_parsing == false</code>) this value is meaningless. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01091">1091</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01104">1104</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
 
 </div>
 </div>
@@ -1899,9 +1899,9 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Copy of <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a93ab889bf230d21961c22bd4bf21e06a" title="Externally immutable internally stored canonical (current) config values as last constructed or parse...">values()</a> when it is first constructed; i.e., the defaults. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01085">1085</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l01098">1098</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>.</p>
 
 </div>
 </div>
@@ -1912,7 +1912,7 @@ template&lt;typename Value_set &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

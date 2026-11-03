@@ -1,0 +1,9 @@
+<map id="flow::util::stat::Stat_set_list::reset" name="flow::util::stat::Stat_set_list::reset">
+<area shape="rect" id="node1" title="Purely as syntactic sugar: executes stats_reset(&amp;s, {}) for each Stat_set s of S_N stored in *this." alt="" coords="5,36,133,72"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Stat__set__list.html#a293137eb47f110ac4492914bda5a644b" title="Read&#45;only access to the compile&#45;time&#45;specified&#45;slot&#45;indexed Stat_set: for stat consumption." alt="" coords="184,5,312,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#ae3b63139402f6351c9652cbcf158426c" title="With the help of a freshly&#45;initialized Stat_set, resets the target Stat_set so as to immediately begi..." alt="" coords="181,65,315,101"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="365,23,495,47"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#aa3b27de5e4e4ffb82521f64fdca03696" title="Executes target_val&#45;&gt;clear(), where *target_val is a Histogram_counter." alt="" coords="363,71,497,95"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="756,95,891,119"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ac1b3cc0a15ed007a960c9f18b9d09f5c" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="545,61,708,97"/>
+</map>

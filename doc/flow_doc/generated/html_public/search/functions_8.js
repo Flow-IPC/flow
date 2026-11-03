@@ -10,5 +10,6 @@ var searchData=
   ['init_5fcomponent_5fto_5funion_5fidx_5fmapping_7',['init_component_to_union_idx_mapping',['../classflow_1_1log_1_1Config.html#a9b7ba819538d221f190e044cfa6220db',1,'flow::log::Config']]],
   ['insert_8',['insert',['../classflow_1_1util_1_1Linked__hash__map.html#ac99cc54acf0b5a74e8e7a1f5ca30c2eb',1,'flow::util::Linked_hash_map::insert(const Value &amp;key_and_mapped)'],['../classflow_1_1util_1_1Linked__hash__map.html#a6444fd8206c662fe4ebe61a91acb3eb9',1,'flow::util::Linked_hash_map::insert(Value_movable &amp;&amp;key_and_mapped)'],['../classflow_1_1util_1_1Linked__hash__set.html#a3553fc2a52e6d2a265c7c05a5489d8a4',1,'flow::util::Linked_hash_set::insert(const Key &amp;key)'],['../classflow_1_1util_1_1Linked__hash__set.html#a4b234c28dc3647005b85655a6e25fe9f',1,'flow::util::Linked_hash_set::insert(Key &amp;&amp;key)']]],
   ['interrupt_5fall_5fwaits_9',['interrupt_all_waits',['../classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8',1,'flow::net_flow::Node']]],
-  ['istream_5fto_5fenum_10',['istream_to_enum',['../namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266',1,'flow::util']]]
+  ['is_5fpower_5fof_5ftwo_10',['is_power_of_two',['../namespaceflow_1_1util.html#a059b4dce2ef90f0f838fb14de743cbae',1,'flow::util']]],
+  ['istream_5fto_5fenum_11',['istream_to_enum',['../namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266',1,'flow::util']]]
 ];

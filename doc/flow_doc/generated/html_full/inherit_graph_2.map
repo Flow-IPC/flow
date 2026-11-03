@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classboost_1_1system_1_1error__category.html" title=" " alt="" coords="5,5,140,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1net__flow_1_1error_1_1Category.html" title="The boost.system category for errors returned by the net_flow Flow module." alt="" coords="188,5,319,41"/>
+<area shape="rect" id="node1" href="$classboost_1_1chrono_1_1duration__units__default.html" title=" " alt="" coords="5,5,159,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Duration__units__beautified.html" title="Internally used class that enables some of the activities of beautify_chrono_ostream() API." alt="" coords="207,5,331,41"/>
 </map>

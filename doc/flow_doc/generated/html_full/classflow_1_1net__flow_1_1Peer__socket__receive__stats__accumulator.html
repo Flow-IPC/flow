@@ -285,7 +285,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >A class that keeps a <a class="el" href="structflow_1_1net__flow_1_1Peer__socket__receive__stats.html" title="A data store that keeps stats about the incoming direction of a Peer_socket connection to another Flo...">Peer_socket_receive_stats</a> data store, includes methods to conveniently accumulate data in it, and provides output to <code>ostream</code>. </p>
-<p >Any object of this class is intended to have a 1-to-1 relationship with a <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>. The interface is intentionally simple; the class keeps some counters and limited auxilliary state (such as creation time); the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> informs the class of events (like "DATA packet received"), counts of which are stored in the class and are accessible through the interface (at least through the <code>ostream</code> output operator).</p>
+<p >Any object of this class is intended to have a 1-to-1 relationship with a <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a>. The interface is intentionally simple; the class keeps some counters and limited auxiliary state (such as creation time); the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> informs the class of events (like "DATA packet received"), counts of which are stored in the class and are accessible through the interface (at least through the <code>ostream</code> output operator).</p>
 <p >As usual, invoke the event handler methods of the class whenever the appropriate events occur. Failing to do so will obviously result in wrong statistics.</p>
 <p >The class intentionally does not take a reference to a <a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html" title="A peer (non-server) socket operating over the Flow network protocol, with optional stream-of-bytes an...">Peer_socket</a> and avoids logging; it is a simple accumulating data store.</p>
 <h3>Thread safety</h3>
@@ -322,7 +322,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00260">flow::net_flow::Peer_socket_receive_stats::m_max_buf_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01118">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01456">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01119">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01458">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -392,7 +392,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00150">flow::net_flow::Peer_socket_receive_stats::m_error_data_count</a>, and <a class="el" href="info_8hpp_source.html#l00145">flow::net_flow::Peer_socket_receive_stats::m_error_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00810">flow::net_flow::Node::sock_categorize_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l00811">flow::net_flow::Node::sock_categorize_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -430,7 +430,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00096">flow::net_flow::Peer_socket_receive_stats::m_good_data_accepted_count</a>, and <a class="el" href="info_8hpp_source.html#l00091">flow::net_flow::Peer_socket_receive_stats::m_good_data_accepted_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01118">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01305">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01119">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01307">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -468,7 +468,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00107">flow::net_flow::Peer_socket_receive_stats::m_good_data_delivered_count</a>, and <a class="el" href="info_8hpp_source.html#l00102">flow::net_flow::Peer_socket_receive_stats::m_good_data_delivered_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01118">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01456">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01119">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l01458">flow::net_flow::Node::sock_slide_rcv_next_seq_num()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -506,7 +506,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00128">flow::net_flow::Peer_socket_receive_stats::m_good_data_dropped_buf_overflow_count</a>, and <a class="el" href="info_8hpp_source.html#l00124">flow::net_flow::Peer_socket_receive_stats::m_good_data_dropped_buf_overflow_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01118">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01119">flow::net_flow::Node::sock_data_to_rcv_buf_unless_overflow()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -544,7 +544,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00139">flow::net_flow::Peer_socket_receive_stats::m_good_data_dropped_reassembly_q_overflow_count</a>, and <a class="el" href="info_8hpp_source.html#l00134">flow::net_flow::Peer_socket_receive_stats::m_good_data_dropped_reassembly_q_overflow_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01305">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01307">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -582,7 +582,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00118">flow::net_flow::Peer_socket_receive_stats::m_good_data_first_qd_count</a>, and <a class="el" href="info_8hpp_source.html#l00113">flow::net_flow::Peer_socket_receive_stats::m_good_data_first_qd_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01305">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01307">flow::net_flow::Node::sock_data_to_reassembly_q_unless_overflow()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -620,7 +620,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00085">flow::net_flow::Peer_socket_receive_stats::m_good_data_count</a>, and <a class="el" href="info_8hpp_source.html#l00083">flow::net_flow::Peer_socket_receive_stats::m_good_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -659,7 +659,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00191">flow::net_flow::Peer_socket_receive_stats::m_good_to_send_acks_count</a>, and <a class="el" href="info_8hpp_source.html#l00186">flow::net_flow::Peer_socket_receive_stats::m_good_to_send_acks_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -697,7 +697,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00161">flow::net_flow::Peer_socket_receive_stats::m_late_or_dupe_data_count</a>, and <a class="el" href="info_8hpp_source.html#l00156">flow::net_flow::Peer_socket_receive_stats::m_late_or_dupe_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -735,7 +735,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00203">flow::net_flow::Peer_socket_receive_stats::m_late_or_dupe_to_send_acks_count</a>, and <a class="el" href="info_8hpp_source.html#l00198">flow::net_flow::Peer_socket_receive_stats::m_late_or_dupe_to_send_acks_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -817,7 +817,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00168">flow::net_flow::Peer_socket_receive_stats::m_presumed_dropped_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01229">flow::net_flow::Node::sock_track_new_data_after_gap_rexmit_off()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l01230">flow::net_flow::Node::sock_track_new_data_after_gap_rexmit_off()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -983,7 +983,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="info_8hpp_source.html#l00080">flow::net_flow::Peer_socket_receive_stats::m_total_data_count</a>, and <a class="el" href="info_8hpp_source.html#l00078">flow::net_flow::Peer_socket_receive_stats::m_total_data_size</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00545">flow::net_flow::Node::handle_data_to_established()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="peer__socket_8cpp_source.html#l00546">flow::net_flow::Node::handle_data_to_established()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1030,7 +1030,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

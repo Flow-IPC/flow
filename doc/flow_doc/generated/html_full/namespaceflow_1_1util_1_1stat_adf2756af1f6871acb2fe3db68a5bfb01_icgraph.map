@@ -1,0 +1,4 @@
+<map id="flow::util::stat::stats_to_ostream" name="flow::util::stat::stats_to_ostream">
+<area shape="rect" id="node1" title="Outputs a human&#45;readable representation of all declared stats in stats to the given ostream." alt="" coords="224,5,357,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#ad952923952dcfed8d78ccd4d7672e242" title="Prints string representation of the given printable.m_stats to the given ostream via stats_to_ostream..." alt="" coords="5,11,176,35"/>
+</map>

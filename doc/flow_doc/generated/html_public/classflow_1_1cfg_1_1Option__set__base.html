@@ -152,7 +152,7 @@ Static Protected Member Functions</h2></td></tr>
 
 <p>Short-hand for boost.program_options config options description, each of which is used for parsing and/or describing (to humans) one or more config option/its value. </p>
 <p >boost.program_options allows for a wide variety of features and capacities for this object type, but our goal is to use it for our specific and more constrained config context, and hence we use this type in more specific/constrained ways which we describe here.</p>
-<p >We use it in our context in two primary roles; and since storage space and processor cycle are not practically affected, we tend to store separate copies of an <code>Opt_table</code> in <em>each</em> role (possibly even more than 1, as there can be sub-roles of each). The roles are:</p><ul>
+<p >We use it in our context in two primary roles; and since storage space and processor cycles are not practically affected, we tend to store separate copies of an <code>Opt_table</code> in <em>each</em> role (possibly even more than 1, as there can be sub-roles of each). The roles are:</p><ul>
 <li>Parsing: Used during a parsing pass from a given config source (like a config file) solely to parse values and store the resulting bits into a target <code>Values</code> and a mirroring <code>Iterable_values</code>. <code>opts::{parse_*|store}()</code> and other such functions take this <code>Opt_table</code> and a config source as input. Such an <code>Opt_table</code> stores a table of options; for each option storing:<ul>
 <li>Name: A string to be found in a config source like a config file.</li>
 <li>C++ type: Essentially a size in bytes plus a <code>&gt;&gt;</code> stream input operator for reading values into the target location from the config source.</li>
@@ -436,7 +436,7 @@ template&lt;typename Value &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

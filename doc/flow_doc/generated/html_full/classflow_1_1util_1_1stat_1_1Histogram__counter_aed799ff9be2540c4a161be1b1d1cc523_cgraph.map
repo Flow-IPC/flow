@@ -1,0 +1,5 @@
+<map id="flow::util::stat::Histogram_counter::overwrite_count_for_bucket" name="flow::util::stat::Histogram_counter::overwrite_count_for_bucket">
+<area shape="rect" id="node1" title="Set a bucket&#45;value so that count_for_bucket(idx) == new_count." alt="" coords="5,27,169,75"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="217,5,380,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="231,66,366,90"/>
+</map>

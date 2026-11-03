@@ -70,6 +70,7 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">flow::log Namespace Reference</div></div>
@@ -103,7 +104,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience class that simply stores a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> and/or <a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a> passed into a constructor; and returns this <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> and <a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a> via <a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a> and <a class="el" href="classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect.">get_log_component()</a> public accessors.  <a href="classflow_1_1log_1_1Log__context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html">Log_context_mt</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but is safe w/r/t to <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, assignment, and <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656" title="Identical to Log_context API; but safe against concurrent operations on a *this.">swap()</a></code> done concurrently to ops (especially <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" title="Identical to Log_context API; but safe against concurrent operations on a *this.">get_logger()</a>) on the same <code>*this</code>.  <a href="classflow_1_1log_1_1Log__context__mt.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar mission to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but enables one to safely log under the possibility of a concurrent <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a> (et al) that adds/replaces/removes active <code>Logger*</code> (et al).  <a href="classflow_1_1log_1_1Log__context__mt.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface that the user should implement, passing the implementing <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> into logging classes (Flow's own classes like <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">net_flow::Node</a>; and user's own logging classes) at construction (plus free/<code>static</code> logging functions).  <a href="classflow_1_1log_1_1Logger.html#details">More...</a><br /></td></tr>
@@ -120,6 +121,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Verbosity__config.html">Verbosity_config</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional-use structure encapsulating a full set of verbosity config, such that one can parse it from a config source (like an options file) in concise form and apply it to a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">log::Config</a> object.  <a href="classflow_1_1log_1_1Verbosity__config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aa4a63d43140d55096c544df1aff3f08d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">Fixed_string</a> = boost::static_string&lt; 128 &gt;</td></tr>
+<tr class="memdesc:aa4a63d43140d55096c544df1aff3f08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings in <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>.  <a href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">More...</a><br /></td></tr>
+<tr class="separator:aa4a63d43140d55096c544df1aff3f08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -146,7 +153,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1b475cd2cc2e476aa96c002927bf1690"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a1b475cd2cc2e476aa96c002927bf1690">More...</a><br /></td></tr>
 <tr class="separator:a1b475cd2cc2e476aa96c002927bf1690"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a553a1a30fb96a4af77078fb914fb372f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">swap</a> (<a class="el" href="classflow_1_1log_1_1Log__context__mt.html">Log_context_mt</a> &amp;val1, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html">Log_context_mt</a> &amp;val2)</td></tr>
-<tr class="memdesc:a553a1a30fb96a4af77078fb914fb372f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">More...</a><br /></td></tr>
+<tr class="memdesc:a553a1a30fb96a4af77078fb914fb372f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">More...</a><br /></td></tr>
 <tr class="separator:a553a1a30fb96a4af77078fb914fb372f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06c8c59ea6c9b36c25b9b8ef319ba501"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a06c8c59ea6c9b36c25b9b8ef319ba501">operator&lt;&lt;</a> (std::ostream &amp;os, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04">Sev</a> val)</td></tr>
 <tr class="memdesc:a06c8c59ea6c9b36c25b9b8ef319ba501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes a <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04" title="Enumeration containing one of several message severity levels, ordered from highest to lowest.">log::Sev</a> to a standard output stream.  <a href="namespaceflow_1_1log.html#a06c8c59ea6c9b36c25b9b8ef319ba501">More...</a><br /></td></tr>
@@ -207,7 +214,26 @@ Functions</h2></td></tr>
 </ul>
 </li>
 </ul>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="aa4a63d43140d55096c544df1aff3f08d" name="aa4a63d43140d55096c544df1aff3f08d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a63d43140d55096c544df1aff3f08d">&#9670;&nbsp;</a></span>Fixed_string</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">flow::log::Fixed_string</a> = typedef boost::static_string&lt;128&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings in <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>. </p>
+<p >The precipitating reason for introducing this to <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a> is that certain things, like string in <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a>, in a thread-local context would be destroyed by a non-trivial destructor; but ideally we want logging to work &ndash; all else being equal &ndash; even during <code>thread_local</code> deinit.</p>
+<p >The width was chosen so as to be big enough to handle all or most payloads for all <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a> use-cases (truncation naturally is used when required). For the record, as of this writing, the longest known real payloads are ~40 &ndash; let us say 64 &ndash; characters; typical loop/thread nicknames are usually shorter; and the OS-thread-name sink alongside truncates at 15. So 128 gives ample headroom, and truncation is cosmetic-only when it does occur. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a5c602384e6fe9d7642740ac2fae4ad04" name="a5c602384e6fe9d7642740ac2fae4ad04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c602384e6fe9d7642740ac2fae4ad04">&#9670;&nbsp;</a></span>Sev</h2>
 
@@ -655,7 +681,7 @@ This severity <em>is</em> part of the <em>minimalistic</em> (in-use within Flow)
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>. </p>
+<p><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">val1</td><td>Object. </td></tr>
@@ -669,7 +695,7 @@ This severity <em>is</em> part of the <em>minimalistic</em> (in-use within Flow)
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,10 @@
+<map id="flow::util::stat::Histogram_counter::clear" name="flow::util::stat::Histogram_counter::clear">
+<area shape="rect" id="node1" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="631,69,793,105"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a05868b6f9703a96b17f890fcd4b3acb8" title="Allocates the histogram data structure (general&#45;scale: bucket widths [ABCD...]) and initializes each ..." alt="" coords="403,41,583,77"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#aa3b27de5e4e4ffb82521f64fdca03696" title="Executes target_val&#45;&gt;clear(), where *target_val is a Histogram_counter." alt="" coords="425,102,560,126"/>
+<area shape="rect" id="node4" href="$classflow_1_1log_1_1Config.html#ac562cc0132f6cfa81b42c332400033ae" title="Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() c..." alt="" coords="181,5,355,41"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#a404d9e110b741b0a63f888c1c47e2db1" title="Sharded&#45;stats consumption: Aggregates N source Stat_sets, interpreted as shards of the aggregated who..." alt="" coords="201,65,335,101"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util_1_1stat.html#ae3b63139402f6351c9652cbcf158426c" title="With the help of a freshly&#45;initialized Stat_set, resets the target Stat_set so as to immediately begi..." alt="" coords="201,125,335,161"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util_1_1stat.html#aaf4612f95898988a74cb4f8135444000" title="Reset&#45;stats companion to stats_aggregate_shards(); together the two functions provide support for the..." alt="" coords="191,185,345,221"/>
+<area shape="rect" id="node7" href="$classflow_1_1util_1_1stat_1_1Stat__set__list.html#a1d33ced9410801fab84227a1458178b6" title="Purely as syntactic sugar: executes stats_reset(&amp;s, {}) for each Stat_set s of S_N stored in *this." alt="" coords="5,125,133,161"/>
+</map>

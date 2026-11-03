@@ -1,0 +1,5 @@
+<map id="flow::util::Basic_blob::Deleter_raw::operator=" name="flow::util::Basic_blob::Deleter_raw::operator=">
+<area shape="rect" id="node1" title="Move&#45;assignment which is required when we are used in unique_ptr." alt="" coords="5,33,164,69"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a72cb4cc2ab8067d1330a68915185b710" title="Swaps the contents of this structure and other, or no&#45;op if this == &amp;other." alt="" coords="212,5,347,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aaf0b04940a419acf0f32461dffcf41a2" title="Equivalent to blob1.swap(blob2)." alt="" coords="395,39,501,63"/>
+</map>

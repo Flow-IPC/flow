@@ -18,12 +18,6 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node1 -->
-<g id="edge5" class="edge">
-<title>Node1&#45;&gt;Node1</title>
-<path fill="none" stroke="midnightblue" d="M476.62,-30.6C476.4,-36.12 468.03,-40.5 451.5,-40.5 426.9,-40.5 420.36,-30.79 431.9,-22.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="479.48,-28.57 471.1,-22.07 473.6,-32.37 479.48,-28.57"/>
-</g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>

@@ -8,7 +8,8 @@ var searchData=
   ['unique_5fid_5',['unique_id',['../classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae',1,'flow::util::Unique_id_holder']]],
   ['unique_5fid_5fholder_6',['Unique_id_holder',['../classflow_1_1util_1_1Unique__id__holder.html',1,'flow::util::Unique_id_holder'],['../classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52',1,'flow::util::Unique_id_holder::Unique_id_holder()'],['../classflow_1_1util_1_1Unique__id__holder.html#abb06f3132d6a6d1d0c509cbd50b9f768',1,'flow::util::Unique_id_holder::Unique_id_holder(const Unique_id_holder &amp;)']]],
   ['unregister_5fdynamic_5fchange_5flistener_7',['unregister_dynamic_change_listener',['../classflow_1_1cfg_1_1Config__manager.html#a4e0dfe1e8f57d974a775f1320bd9856d',1,'flow::cfg::Config_manager']]],
-  ['util_2ecpp_8',['util.cpp',['../util_8cpp.html',1,'']]],
-  ['util_2ehpp_9',['util.hpp',['../async_2util_8hpp.html',1,'(Global Namespace)'],['../util_2util_8hpp.html',1,'(Global Namespace)']]],
-  ['util_5ffwd_2ehpp_10',['util_fwd.hpp',['../util__fwd_8hpp.html',1,'']]]
+  ['update_5fhi_5fwmark_8',['update_hi_wmark',['../namespaceflow_1_1util_1_1stat.html#a4ecc05913c259d8e2b1f372ad5472c7f',1,'flow::util::stat::update_hi_wmark(T *target_val, const boost::type_identity_t&lt; T &gt; &amp;val)'],['../namespaceflow_1_1util_1_1stat.html#ab7a469b073e7d209f2bd848b5dd9cf46',1,'flow::util::stat::update_hi_wmark(std::atomic&lt; T &gt; *target_val, boost::type_identity_t&lt; T &gt; val)']]],
+  ['util_2ecpp_9',['util.cpp',['../util_8cpp.html',1,'']]],
+  ['util_2ehpp_10',['util.hpp',['../async_2util_8hpp.html',1,'(Global Namespace)'],['../util_2util_8hpp.html',1,'(Global Namespace)']]],
+  ['util_5ffwd_2ehpp_11',['util_fwd.hpp',['../util__fwd_8hpp.html',1,'']]]
 ];

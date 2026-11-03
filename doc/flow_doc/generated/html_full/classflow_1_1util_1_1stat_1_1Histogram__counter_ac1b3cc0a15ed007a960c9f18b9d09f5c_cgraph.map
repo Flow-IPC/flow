@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Histogram_counter::clear" name="flow::util::stat::Histogram_counter::clear">
+<area shape="rect" id="node1" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="5,5,168,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="216,11,351,35"/>
+</map>

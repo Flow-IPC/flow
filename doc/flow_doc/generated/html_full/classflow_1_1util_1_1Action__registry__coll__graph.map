@@ -1,0 +1,6 @@
+<map id="flow::util::Action_registry&lt; Tag_t, Args &gt;" name="flow::util::Action_registry&lt; Tag_t, Args &gt;">
+<area shape="rect" id="node1" title="A registry of callbacks (actions) sharing a common signature, intended for fan&#45;out invocation across ..." alt="" coords="11,197,161,233"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,107,60,131"/>
+<area shape="rect" id="node3" title=" " alt="" coords="84,101,251,137"/>
+<area shape="rect" id="node4" href="$classflow_1_1Function.html" title=" " alt="" coords="100,5,235,41"/>
+</map>

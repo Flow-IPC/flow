@@ -1,4 +1,11 @@
 <map id="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper" name="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper">
-<area shape="rect" id="node1" title="Simply wraps a boost::thread_specific_ptr&lt;Tl_context&gt;, adding absolutely no data or algorithms,..." alt="" coords="5,125,152,185"/>
-<area shape="rect" id="node2" title=" " alt="" coords="13,5,145,65"/>
+<area shape="rect" id="node1" title="Simply wraps a Thread_local_ptr&lt;Tl_context&gt;/boost::thread_specific_ptr&lt;Tl_context&gt;,..." alt="" coords="1115,55,1261,115"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Thread__local__ptr.html" title=" " alt="" coords="852,55,1031,115"/>
+<area shape="rect" id="node3" title=" " alt="" coords="297,5,429,29"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Thread__local__ptr__cache.html" title="Internal&#45;use helper for Thread_local_ptr which encapsulates that guy&#39;s thread_locally&#45;accessed TLS pa..." alt="" coords="619,67,735,103"/>
+<area shape="rect" id="node4" title=" " alt="" coords="603,127,752,163"/>
+<area shape="rect" id="node6" href="$classbool.html" title=" " alt="" coords="339,68,386,92"/>
+<area shape="rect" id="node7" href="$structflow_1_1util_1_1Thread__local__ptr__cache_1_1Global__tl__state.html" title="Encapsulates two things: the thread&#39;s Tlp_states_map; and what shall run at thread_local deinit." alt="" coords="285,116,440,164"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,116,136,164"/>
+<area shape="rect" id="node9" title=" " alt="" coords="329,188,396,212"/>
 </map>

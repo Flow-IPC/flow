@@ -230,13 +230,13 @@ Related Functions</h2></td></tr>
 <div class="line">}</div>
 <div class="line">sum_timer.<a class="code hl_function" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7">checkpoint</a>(<span class="stringliteral">&quot;total&quot;</span>); <span class="comment">// Mark down the total time taken.</span></div>
 <div class="line"><span class="comment">// Log the total duration(s), one per clock type!</span></div>
-<div class="line"><a class="code hl_function" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#abd543abbfae859ddc111741468f95125">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer</a>(sum_timer, n_samples, <span class="keyword">false</span>);</div>
+<div class="line"><a class="code hl_function" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#abd543abbfae859ddc111741468f95125">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer</a>(logger, sum_timer, n_samples, <span class="keyword">false</span>);</div>
 <div class="line"><span class="comment">// And/or: Log mean duration(s), times N_SAMPLES_SCALE_CONVENIENCE, one per clock type!</span></div>
 <div class="line">{</div>
 <div class="line">  <span class="comment">// Just make a copy of the raw sum, then scale it x N_SAMPLES_SCALE_CONVENIENCE / n_samples.</span></div>
 <div class="line">  <span class="keyword">auto</span> mean_scaled_timer = sum_timer;</div>
 <div class="line">  mean_scaled_timer.scale(N_SAMPLES_SCALE_CONVENIENCE, n_samples);</div>
-<div class="line">  <a class="code hl_function" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#abd543abbfae859ddc111741468f95125">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer</a>(mean_scaled_timer, n_samples,</div>
+<div class="line">  <a class="code hl_function" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#abd543abbfae859ddc111741468f95125">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer</a>(logger, mean_scaled_timer, n_samples,</div>
 <div class="line">                                                                              <span class="keyword">true</span>, N_SAMPLES_SCALE_CONVENIENCE);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator_html_abd543abbfae859ddc111741468f95125"><div class="ttname"><a href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html#abd543abbfae859ddc111741468f95125">flow::perf::Checkpointing_timer::Aggregator::log_aggregated_result_in_timer</a></div><div class="ttdeci">static void log_aggregated_result_in_timer(log::Logger *logger_ptr, const Checkpointing_timer &amp;agg_timer, unsigned int n_samples, uint64_t mean_scale_or_zero=1)</div><div class="ttdoc">Given an aggregated-result Checkpointing_timer (as if returned by create_aggregated_result()) logs th...</div><div class="ttdef"><b>Definition:</b> checkpt_timer.cpp:471</div></div>
@@ -750,7 +750,7 @@ Related Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

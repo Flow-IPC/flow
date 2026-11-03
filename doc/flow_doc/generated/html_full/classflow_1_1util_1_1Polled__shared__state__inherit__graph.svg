@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Optional&#45;use companion to Thread_local_state_registry that enables the Polled_share_state pattern whe...">
+<g id="a_node1"><a xlink:title="Optional&#45;use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-35.5 112,-35.5 112,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Polled</text>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">_shared_state&lt; Shared</text>

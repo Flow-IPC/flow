@@ -147,7 +147,7 @@ Functions</h2></td></tr>
 <div class="line">    *err_code = FLOW_ERROR_EMIT_ERR_val; \</div>
 <div class="line">  )</div>
 <div class="ttc" id="anamespaceflow_html_a29eaaa9d0fac4ce87d8b969222dbed09"><div class="ttname"><a href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09">flow::Error_code</a></div><div class="ttdeci">boost::system::error_code Error_code</div><div class="ttdoc">Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...</div><div class="ttdef"><b>Definition:</b> common.hpp:497</div></div>
-<div class="ttc" id="autil__fwd_8hpp_html_a402a1fb61d3fe4ca6767729e38620d6d"><div class="ttname"><a href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a></div><div class="ttdeci">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition)</div><div class="ttdoc">Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at ...</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:1129</div></div>
+<div class="ttc" id="autil__fwd_8hpp_html_a402a1fb61d3fe4ca6767729e38620d6d"><div class="ttname"><a href="util__fwd_8hpp.html#a402a1fb61d3fe4ca6767729e38620d6d">FLOW_UTIL_SEMICOLON_SAFE</a></div><div class="ttdeci">#define FLOW_UTIL_SEMICOLON_SAFE(ARG_func_macro_definition)</div><div class="ttdoc">Use this to create a semicolon-safe version of a &quot;void&quot; functional macro definition consisting of at ...</div><div class="ttdef"><b>Definition:</b> util_fwd.hpp:1372</div></div>
 </div><!-- fragment -->
 <p>Sets <code>*err_code</code> to <code>ARG_val</code> and logs a warning about the error using <a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a>. </p>
 <p >An <code>err_code</code> variable of type that is pointer to <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> must be declared at the point where the macro is invoked.</p>
@@ -351,7 +351,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="comment">// Possibly really abort program, even if assert()s are disabled via NDEBUG.</span></div>
 <div class="line">std::abort();</div>
 <div class="ttc" id="aerror_2error_8hpp_html_a718bccd9aa8110891f8b615efd42ff65"><div class="ttname"><a href="error_2error_8hpp.html#a718bccd9aa8110891f8b615efd42ff65">FLOW_ERROR_SYS_ERROR_LOG_FATAL</a></div><div class="ttdeci">#define FLOW_ERROR_SYS_ERROR_LOG_FATAL()</div><div class="ttdoc">Logs a log::Sev::S_FATAL message about the (often errno-based or from a library) error code in sys_er...</div><div class="ttdef"><b>Definition:</b> error.hpp:302</div></div>
-<div class="ttc" id="alog_8hpp_html_a86c9eda3c93618933d751b675bdbefa5"><div class="ttname"><a href="log_8hpp.html#a86c9eda3c93618933d751b675bdbefa5">FLOW_LOG_FATAL</a></div><div class="ttdeci">#define FLOW_LOG_FATAL(ARG_stream_fragment)</div><div class="ttdoc">Logs a FATAL message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...</div><div class="ttdef"><b>Definition:</b> log.hpp:167</div></div>
+<div class="ttc" id="alog_8hpp_html_a86c9eda3c93618933d751b675bdbefa5"><div class="ttname"><a href="log_8hpp.html#a86c9eda3c93618933d751b675bdbefa5">FLOW_LOG_FATAL</a></div><div class="ttdeci">#define FLOW_LOG_FATAL(ARG_stream_fragment)</div><div class="ttdoc">Logs a FATAL message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...</div><div class="ttdef"><b>Definition:</b> log.hpp:170</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -388,14 +388,14 @@ Functions</h2></td></tr>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Continue operating.  No assert(false); no std::abort()....</span></div>
 <div class="ttc" id="aerror_2error_8hpp_html_a019ee6e90802e444572dd78d312d6e23"><div class="ttname"><a href="error_2error_8hpp.html#a019ee6e90802e444572dd78d312d6e23">FLOW_ERROR_SYS_ERROR_LOG_WARNING</a></div><div class="ttdeci">#define FLOW_ERROR_SYS_ERROR_LOG_WARNING()</div><div class="ttdoc">Logs a warning about the (often errno-based or from a library) error code in sys_err_code.</div><div class="ttdef"><b>Definition:</b> error.hpp:269</div></div>
-<div class="ttc" id="alog_8hpp_html_a626c7dc4d3b4dc0b32a8aac8624d66bc"><div class="ttname"><a href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc">FLOW_LOG_WARNING</a></div><div class="ttdeci">#define FLOW_LOG_WARNING(ARG_stream_fragment)</div><div class="ttdoc">Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...</div><div class="ttdef"><b>Definition:</b> log.hpp:152</div></div>
+<div class="ttc" id="alog_8hpp_html_a626c7dc4d3b4dc0b32a8aac8624d66bc"><div class="ttname"><a href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc">FLOW_LOG_WARNING</a></div><div class="ttdeci">#define FLOW_LOG_WARNING(ARG_stream_fragment)</div><div class="ttdoc">Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...</div><div class="ttdef"><b>Definition:</b> log.hpp:155</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

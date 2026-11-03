@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The internal-use <code><a class="el" href="classHash.html">Hash</a></code> functor wrapper, used as the hasher type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>.  
+<p>The internal-use <code><a class="el" href="classHash.html">Hash</a></code> functor wrapper, used as the hasher type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>.  
  <a href="classflow_1_1util_1_1Linked__hash__key__hash.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="linked__hash_8hpp_source.html">linked_hash.hpp</a>&gt;</code></p>
@@ -93,9 +93,9 @@ Collaboration diagram for flow::util::Linked_hash_key_hash&lt; Hash &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a93a40e23476ab7e96c3480d64abc0442"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html#a93a40e23476ab7e96c3480d64abc0442">Linked_hash_key_hash</a> (const <a class="el" href="classHash.html">Hash</a> &amp;hasher=<a class="el" href="classHash.html">Hash</a>{})</td></tr>
-<tr class="memdesc:a93a40e23476ab7e96c3480d64abc0442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a (typically data-free) copy of a given <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> or <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a> hasher object, as passed to that type's ctor.  <a href="classflow_1_1util_1_1Linked__hash__key__hash.html#a93a40e23476ab7e96c3480d64abc0442">More...</a><br /></td></tr>
-<tr class="separator:a93a40e23476ab7e96c3480d64abc0442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7a9881cf92fd58a2ad5991e0efe3be4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html#ac7a9881cf92fd58a2ad5991e0efe3be4">Linked_hash_key_hash</a> (const <a class="el" href="classHash.html">Hash</a> &amp;hasher={})</td></tr>
+<tr class="memdesc:ac7a9881cf92fd58a2ad5991e0efe3be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves a (typically data-free) copy of a given <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a> or <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_flat_set&lt;&gt; and orderi...">Linked_hash_set</a> hasher object, as passed to that type's ctor.  <a href="classflow_1_1util_1_1Linked__hash__key__hash.html#ac7a9881cf92fd58a2ad5991e0efe3be4">More...</a><br /></td></tr>
+<tr class="separator:ac7a9881cf92fd58a2ad5991e0efe3be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a836b5eade4a7ef0e570445d0794943ed"><td class="memTemplParams" colspan="2">template&lt;typename Linked_hash_key_t &gt; </td></tr>
 <tr class="memitem:a836b5eade4a7ef0e570445d0794943ed"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html#a836b5eade4a7ef0e570445d0794943ed">operator()</a> (const Linked_hash_key_t &amp;val) const</td></tr>
 <tr class="memdesc:a836b5eade4a7ef0e570445d0794943ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns hash of <code>val.key()</code>, where <code>val</code> is a <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a> instance, using the saved hasher object.  <a href="classflow_1_1util_1_1Linked__hash__key__hash.html#a836b5eade4a7ef0e570445d0794943ed">More...</a><br /></td></tr>
@@ -103,19 +103,19 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename <a class="el" href="classHash.html">Hash</a>&gt;<br />
-class flow::util::Linked_hash_key_hash&lt; Hash &gt;</div><p >The internal-use <code><a class="el" href="classHash.html">Hash</a></code> functor wrapper, used as the hasher type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>. </p>
+class flow::util::Linked_hash_key_hash&lt; Hash &gt;</div><p >The internal-use <code><a class="el" href="classHash.html">Hash</a></code> functor wrapper, used as the hasher type in internal-use set-type <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a>. </p>
 <p >Impl note: We store the <code><a class="el" href="classHash.html">Hash</a></code> via private inheritance, making use of Empty Base-class Optimization (EBO) if possible; namely when <code><a class="el" href="classHash.html">Hash</a></code> is an empty type (which is typical); in which case this shall waste no space.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname"><a class="el" href="classHash.html">Hash</a></td><td>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classHash.html">Hash</a></td><td>See <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a>, <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_flat_set&lt;&gt; and orderi...">Linked_hash_set</a>. </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="linked__hash_8hpp_source.html#l00144">144</a> of file <a class="el" href="linked__hash_8hpp_source.html">linked_hash.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a93a40e23476ab7e96c3480d64abc0442" name="a93a40e23476ab7e96c3480d64abc0442"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93a40e23476ab7e96c3480d64abc0442">&#9670;&nbsp;</a></span>Linked_hash_key_hash()</h2>
+<a id="ac7a9881cf92fd58a2ad5991e0efe3be4" name="ac7a9881cf92fd58a2ad5991e0efe3be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7a9881cf92fd58a2ad5991e0efe3be4">&#9670;&nbsp;</a></span>Linked_hash_key_hash()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -126,13 +126,13 @@ template&lt;typename <a class="el" href="classHash.html">Hash</a> &gt; </div>
           <td class="memname"><a class="el" href="classflow_1_1util_1_1Linked__hash__key__hash.html">flow::util::Linked_hash_key_hash</a>&lt; <a class="el" href="classHash.html">Hash</a> &gt;::Linked_hash_key_hash </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classHash.html">Hash</a> &amp;&#160;</td>
-          <td class="paramname"><em>hasher</em> = <code><a class="el" href="classHash.html">Hash</a>{}</code></td><td>)</td>
+          <td class="paramname"><em>hasher</em> = <code>{}</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Saves a (typically data-free) copy of a given <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> or <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a> hasher object, as passed to that type's ctor. </p>
+<p>Saves a (typically data-free) copy of a given <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a> or <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_flat_set&lt;&gt; and orderi...">Linked_hash_set</a> hasher object, as passed to that type's ctor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hasher</td><td>See above. </td></tr>
@@ -168,7 +168,7 @@ template&lt;typename Linked_hash_key_t &gt; </div>
 <p>Returns hash of <code>val.key()</code>, where <code>val</code> is a <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a> instance, using the saved hasher object. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Linked_hash_key_t</td><td>A concrete <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a> type: the key-type of <a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a> being used. </td></tr>
+    <tr><td class="paramname">Linked_hash_key_t</td><td>A concrete <a class="el" href="classflow_1_1util_1_1Linked__hash__key.html" title="The internal-use key/iterator-wrapper, used as the key type in internal-use set-type Linked_hash_key_...">Linked_hash_key</a> type: the key-type of <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a> being used. </td></tr>
   </table>
   </dd>
 </dl>
@@ -190,7 +190,7 @@ template&lt;typename Linked_hash_key_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

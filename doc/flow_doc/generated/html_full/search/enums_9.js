@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xfer_5fop_5fresult_0',['Xfer_op_result',['../namespaceflow_1_1net__flow.html#aaeebb1db2f4bb19f78cada66784d91d5',1,'flow::net_flow']]]
+  ['update_5ftype_0',['Update_type',['../classflow_1_1cfg_1_1Config__manager.html#aa0d03f4dcf7be2c21023c4073ac68b85',1,'flow::cfg::Config_manager']]]
 ];

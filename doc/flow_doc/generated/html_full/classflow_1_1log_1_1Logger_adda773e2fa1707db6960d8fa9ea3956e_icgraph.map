@@ -1,0 +1,5 @@
+<map id="flow::log::Logger::set_thread_info" name="flow::log::Logger::set_thread_info">
+<area shape="rect" id="node1" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met..." alt="" coords="203,47,325,83"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Logger.html#a2d1a0283764e5f85abf00c7cee4c4e19" title="Sets msg_metadata&#45;&gt;m_call_thread_nickname (if set) or else msg_metadata&#45;&gt;m_call_thread_id,..." alt="" coords="5,5,155,53"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Thread__local__state__registry.html#a00c1fdf013564b6510dd9db883a66562" title="Returns pointer to this thread&#39;s thread&#45;local object, first constructing it via m_create_state_func i..." alt="" coords="14,77,146,125"/>
+</map>

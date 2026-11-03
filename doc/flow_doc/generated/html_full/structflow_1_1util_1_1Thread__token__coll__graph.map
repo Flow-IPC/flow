@@ -1,0 +1,4 @@
+<map id="flow::util::Thread_token" name="flow::util::Thread_token">
+<area shape="rect" id="node1" title="An integer&#45;like, type&#45;safe wrapper for the thread&#45;token concept – see this_thread_unique_token(),..." alt="" coords="5,89,121,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="30,5,97,29"/>
+</map>

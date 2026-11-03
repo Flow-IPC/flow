@@ -1,0 +1,8 @@
+<map id="flow::util::stat::Histogram_counter" name="flow::util::stat::Histogram_counter">
+<area shape="rect" id="node1" title="Stats counter: tracks a histogram that summarizes, cumulatively, the numeric outcome of an event that..." alt="" coords="148,269,311,305"/>
+<area shape="rect" id="node2" title=" " alt="" coords="157,179,301,203"/>
+<area shape="rect" id="node3" title=" " alt="" coords="40,89,99,113"/>
+<area shape="rect" id="node4" title=" " alt="" coords="325,173,480,209"/>
+<area shape="rect" id="node5" title=" " alt="" coords="329,89,477,113"/>
+<area shape="rect" id="node6" title=" " alt="" coords="369,5,436,29"/>
+</map>

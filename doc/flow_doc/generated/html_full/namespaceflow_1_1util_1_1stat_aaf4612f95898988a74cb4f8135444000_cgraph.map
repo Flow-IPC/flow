@@ -1,0 +1,8 @@
+<map id="flow::util::stat::stats_reset_shard_aggregate" name="flow::util::stat::stats_reset_shard_aggregate">
+<area shape="rect" id="node1" title="Reset&#45;stats companion to stats_aggregate_shards(); together the two functions provide support for the..." alt="" coords="5,71,159,107"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#ab1bfde42f9cb59cdfc0af8e9a76171bf" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="207,5,367,29"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="221,53,352,77"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#aa3b27de5e4e4ffb82521f64fdca03696" title="Executes target_val&#45;&gt;clear(), where *target_val is a Histogram_counter." alt="" coords="219,101,354,125"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="625,125,760,149"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ac1b3cc0a15ed007a960c9f18b9d09f5c" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="415,91,577,127"/>
+</map>

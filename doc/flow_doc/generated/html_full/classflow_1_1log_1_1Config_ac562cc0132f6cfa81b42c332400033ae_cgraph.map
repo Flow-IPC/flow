@@ -1,4 +1,7 @@
 <map id="flow::log::Config::configure_default_verbosity" name="flow::log::Config::configure_default_verbosity">
-<area shape="rect" id="node1" title="Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() c..." alt="" coords="5,5,179,41"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Config.html#aee6877cec4b070e18a40090f080e76ca" title="Helper that for the given flat&#45;union&#45;component&#45;index saves the given per&#45;component verbosity,..." alt="" coords="227,5,409,41"/>
+<area shape="rect" id="node1" title="Sets the default verbosity to the given value, to be used by subsequent output_whether_should_log() c..." alt="" coords="5,33,179,69"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#aa3b27de5e4e4ffb82521f64fdca03696" title="Executes target_val&#45;&gt;clear(), where *target_val is a Histogram_counter." alt="" coords="251,11,385,35"/>
+<area shape="rect" id="node5" href="$classflow_1_1log_1_1Config.html#aee6877cec4b070e18a40090f080e76ca" title="Helper that for the given flat&#45;union&#45;component&#45;index saves the given per&#45;component verbosity,..." alt="" coords="227,60,409,96"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ac1b3cc0a15ed007a960c9f18b9d09f5c" title="Returns *this to the state as&#45;if just&#45;cted with the current bucket structure. Uses stat::store() x N." alt="" coords="457,5,620,41"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="668,11,803,35"/>
 </map>

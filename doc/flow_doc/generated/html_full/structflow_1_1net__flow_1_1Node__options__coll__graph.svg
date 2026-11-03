@@ -102,7 +102,7 @@
 <text text-anchor="start" x="183.11" y="-187.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_full_blocks</text>
 <text text-anchor="middle" x="234.11" y="-178.1" font-family="Helvetica,sans-Serif" font-size="8.00">_before_ack_send</text>
 <text text-anchor="middle" x="234.11" y="-169.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_buf_max_size</text>
-<text text-anchor="start" x="183.11" y="-160.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_sync_rcvd_data</text>
+<text text-anchor="start" x="183.11" y="-160.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_syn_rcvd_data</text>
 <text text-anchor="middle" x="234.11" y="-151.1" font-family="Helvetica,sans-Serif" font-size="8.00">_q_cumulative_max_size</text>
 <text text-anchor="middle" x="234.11" y="-142.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_snd_buf_max_size</text>
 </g>

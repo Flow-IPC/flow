@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classboost_1_1random_1_1uniform__int__distribution_3_01std_1_1size__t_01_4.html" title=" " alt="" coords="5,5,156,41"/>
+<area shape="rect" id="node1" href="$structflow_1_1util_1_1Thread__local__ptr__cache_1_1Global__tl__state.html" title="Encapsulates two things: the thread&#39;s Tlp_states_map; and what shall run at thread_local deinit." alt="" coords="5,5,160,53"/>
 </map>

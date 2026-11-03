@@ -1,0 +1,5 @@
+<map id="flow::util::stat::fetch_sub" name="flow::util::stat::fetch_sub">
+<area shape="rect" id="node1" title="Default fetch_sub(&amp;target_stats.m_val, _val) that simply applies *target_val &#45;= subtrahend_val." alt="" coords="216,42,375,66"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a3850181b85af6c769c2ad9637eeb4f00" title="Delta: bucket&#45;by&#45;bucket, makes *this bucket&#39;s count decremented by src&#39;s corresponding bucket&#39;s count..." alt="" coords="5,5,168,41"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#ab3392bd6c631a572b56c578797ba93f0" title="Intended for situations where the source of stat readings – including ACCUMULATORs and not just GAUGE..." alt="" coords="20,65,153,101"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::util::stat::stats_reset" name="flow::util::stat::stats_reset">
+<area shape="rect" id="node1" title="With the help of a freshly&#45;initialized Stat_set, resets the target Stat_set so as to immediately begi..." alt="" coords="181,5,315,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Stat__set__list.html#a1d33ced9410801fab84227a1458178b6" title="Purely as syntactic sugar: executes stats_reset(&amp;s, {}) for each Stat_set s of S_N stored in *this." alt="" coords="5,5,133,41"/>
+</map>

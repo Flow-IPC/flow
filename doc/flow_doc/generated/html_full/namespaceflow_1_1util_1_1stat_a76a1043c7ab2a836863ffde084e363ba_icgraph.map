@@ -1,0 +1,4 @@
+<map id="flow::util::stat::stats_aggregate_one" name="flow::util::stat::stats_aggregate_one">
+<area shape="rect" id="node1" title="Aggregates the values from src_stats into *target_stats, in&#45;place." alt="" coords="187,5,320,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#ab3d563958e342df01edcd63e9cba81d1" title="Aggregates N source Stat_sets – drawn from the iterator range [src_stats_begin, src_stats_end) – into..." alt="" coords="5,5,139,41"/>
+</map>

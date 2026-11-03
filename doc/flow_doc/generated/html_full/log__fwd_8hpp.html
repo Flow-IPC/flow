@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">log_fwd.hpp File Reference</div></div>
@@ -76,6 +77,7 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;boost/filesystem.hpp&gt;</code><br />
 <code>#include &lt;boost/filesystem/fstream.hpp&gt;</code><br />
+<code>#include &lt;boost/static_string.hpp&gt;</code><br />
 </div>
 <p><a href="log__fwd_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -90,6 +92,12 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceflow_1_1log_1_1fs"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log_1_1fs.html">flow::log::fs</a></td></tr>
 <tr class="memdesc:namespaceflow_1_1log_1_1fs"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for <code>namespace <a class="el" href="namespaceboost_1_1filesystem.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost::filesystem</a></code>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aa4a63d43140d55096c544df1aff3f08d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">flow::log::Fixed_string</a> = boost::static_string&lt; 128 &gt;</td></tr>
+<tr class="memdesc:aa4a63d43140d55096c544df1aff3f08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings in <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>.  <a href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">More...</a><br /></td></tr>
+<tr class="separator:aa4a63d43140d55096c544df1aff3f08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -122,7 +130,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:a1b475cd2cc2e476aa96c002927bf1690"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a1b475cd2cc2e476aa96c002927bf1690">More...</a><br /></td></tr>
 <tr class="separator:a1b475cd2cc2e476aa96c002927bf1690"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a553a1a30fb96a4af77078fb914fb372f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">flow::log::swap</a> (Log_context_mt &amp;val1, Log_context_mt &amp;val2)</td></tr>
-<tr class="memdesc:a553a1a30fb96a4af77078fb914fb372f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">More...</a><br /></td></tr>
+<tr class="memdesc:a553a1a30fb96a4af77078fb914fb372f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> ADL-friendly swap: Equivalent to <code>val1.swap(val2)</code>.  <a href="namespaceflow_1_1log.html#a553a1a30fb96a4af77078fb914fb372f">More...</a><br /></td></tr>
 <tr class="separator:a553a1a30fb96a4af77078fb914fb372f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">flow::log::beautify_chrono_logger_this_thread</a> (Logger *logger_ptr)</td></tr>
 <tr class="memdesc:aaaaa1dcbf7c8dc99aceb2b6c217187fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets certain <code>chrono</code>-related formatting on the given <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> in the current thread that results in a consistent, desirable output of <code>duration</code>s and certain types of <code>time_point</code>s.  <a href="namespaceflow_1_1log.html#aaaaa1dcbf7c8dc99aceb2b6c217187fc">More...</a><br /></td></tr>
@@ -134,7 +142,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:18 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,6 @@
+<map id="flow::util::stat::stats_aggregate_one" name="flow::util::stat::stats_aggregate_one">
+<area shape="rect" id="node1" title="Aggregates the values from src_stats into *target_stats, in&#45;place." alt="" coords="5,47,139,83"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#ab1bfde42f9cb59cdfc0af8e9a76171bf" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="187,5,347,29"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="201,53,332,77"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#a4ecc05913c259d8e2b1f372ad5472c7f" title="Default update_hi_wmark(&amp;target_stats.m_val, val) that updates *target_val to val if and only if the ..." alt="" coords="194,102,339,138"/>
+</map>

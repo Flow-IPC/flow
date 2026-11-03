@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Stat_set_list::stats_mutable_at" name="flow::util::stat::Stat_set_list::stats_mutable_at">
+<area shape="rect" id="node1" title="Mutable access to the run&#45;time&#45;specified&#45;slot&#45;indexed Stat_set: for stat updates." alt="" coords="181,5,348,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Stat__set__list.html#ac7d8c2fb2b44828f7ece35a4abfe6a60" title="Read&#45;only access to the run&#45;time&#45;specified&#45;slot&#45;indexed Stat_set: for stat consumption." alt="" coords="5,5,133,41"/>
+</map>

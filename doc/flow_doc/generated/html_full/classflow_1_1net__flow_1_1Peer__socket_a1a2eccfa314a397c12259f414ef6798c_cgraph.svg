@@ -90,9 +90,9 @@
 <path fill="none" stroke="midnightblue" d="M273.2,-161.04C281.9,-159.77 290.8,-158.47 299.41,-157.21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="299.97,-160.67 309.36,-155.76 298.95,-153.74 299.97,-160.67"/>
 </g>
-<!-- Node60 -->
+<!-- Node59 -->
 <g id="node16" class="node">
-<title>Node60</title>
+<title>Node59</title>
 <g id="a_node16"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a2a4dc3d8e294bbc8423e111f52e414ae" target="_top" xlink:title="Implementation of core blocking transfer methods, namely Peer_socket::sync_send(),...">
 <polygon fill="white" stroke="black" points="309.5,-68.5 309.5,-94.5 410.5,-94.5 410.5,-68.5 309.5,-68.5"/>
 <text text-anchor="start" x="317.5" y="-84.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -100,9 +100,9 @@
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node60 -->
+<!-- Node2&#45;&gt;Node59 -->
 <g id="edge18" class="edge">
-<title>Node2&#45;&gt;Node60</title>
+<title>Node2&#45;&gt;Node59</title>
 <path fill="none" stroke="midnightblue" d="M230.71,-157.37C256.38,-142.18 298.82,-117.09 327.8,-99.95"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="329.88,-102.79 336.7,-94.69 326.31,-96.76 329.88,-102.79"/>
 </g>
@@ -171,9 +171,9 @@
 <path fill="none" stroke="midnightblue" d="M410.67,-148.5C420.48,-148.5 430.93,-148.5 441.17,-148.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="441.32,-152 451.32,-148.5 441.32,-145 441.32,-152"/>
 </g>
-<!-- Node59 -->
+<!-- Node58 -->
 <g id="node15" class="node">
-<title>Node59</title>
+<title>Node58</title>
 <g id="a_node15"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aae148cec361b59237996a4b30c6624b5" target="_top" xlink:title="Returns true if and only if the Node is operating.">
 <polygon fill="white" stroke="black" points="457,-90.5 457,-116.5 558,-116.5 558,-90.5 457,-90.5"/>
 <text text-anchor="start" x="465" y="-106.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -181,9 +181,9 @@
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node59 -->
+<!-- Node7&#45;&gt;Node58 -->
 <g id="edge17" class="edge">
-<title>Node7&#45;&gt;Node59</title>
+<title>Node7&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M403.08,-135.48C419.15,-130.52 437.66,-124.79 454.54,-119.57"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="455.74,-122.86 464.26,-116.56 453.67,-116.18 455.74,-122.86"/>
 </g>
@@ -285,15 +285,15 @@
 <path fill="none" stroke="midnightblue" d="M721.86,-113.5C742.11,-119.65 766.49,-127.04 787.86,-133.53"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="786.86,-136.88 797.44,-136.44 788.89,-130.18 786.86,-136.88"/>
 </g>
-<!-- Node60&#45;&gt;Node59 -->
+<!-- Node59&#45;&gt;Node58 -->
 <g id="edge22" class="edge">
-<title>Node60&#45;&gt;Node59</title>
+<title>Node59&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M410.67,-89.01C422.24,-90.76 434.69,-92.64 446.66,-94.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="446.15,-97.92 456.56,-95.95 447.2,-90.99 446.15,-97.92"/>
 </g>
-<!-- Node61 -->
+<!-- Node60 -->
 <g id="node17" class="node">
-<title>Node61</title>
+<title>Node60</title>
 <g id="a_node17"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a237c603bbd4845a5fc4b0370b4979b31" target="_top" xlink:title="Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns ...">
 <polygon fill="white" stroke="black" points="457,-45.5 457,-71.5 558,-71.5 558,-45.5 457,-45.5"/>
 <text text-anchor="start" x="465" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -301,37 +301,37 @@
 </a>
 </g>
 </g>
-<!-- Node60&#45;&gt;Node61 -->
+<!-- Node59&#45;&gt;Node60 -->
 <g id="edge19" class="edge">
-<title>Node60&#45;&gt;Node61</title>
+<title>Node59&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M410.67,-73.65C422.24,-71.82 434.69,-69.85 446.66,-67.96"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="447.23,-71.41 456.56,-66.39 446.14,-64.5 447.23,-71.41"/>
 </g>
-<!-- Node65 -->
+<!-- Node64 -->
 <g id="node19" class="node">
-<title>Node65</title>
-<g id="a_node19"><a xlink:href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" target="_top" xlink:title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">
+<title>Node64</title>
+<g id="a_node19"><a xlink:href="namespaceflow_1_1util.html#accf7f455fe2a94370fb6a59f1d684ed9" target="_top" xlink:title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">
 <polygon fill="white" stroke="black" points="455.5,-0.5 455.5,-26.5 559.5,-26.5 559.5,-0.5 455.5,-0.5"/>
 <text text-anchor="start" x="463.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::setup_auto</text>
 <text text-anchor="middle" x="507.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_cleanup</text>
 </a>
 </g>
 </g>
-<!-- Node60&#45;&gt;Node65 -->
+<!-- Node59&#45;&gt;Node64 -->
 <g id="edge23" class="edge">
-<title>Node60&#45;&gt;Node65</title>
+<title>Node59&#45;&gt;Node64</title>
 <path fill="none" stroke="midnightblue" d="M383.57,-68.33C400.67,-58.62 424.92,-45.43 447,-35.5 450.9,-33.75 454.98,-32.02 459.11,-30.35"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="460.7,-33.49 468.73,-26.58 458.14,-26.97 460.7,-33.49"/>
 </g>
-<!-- Node61&#45;&gt;Node11 -->
+<!-- Node60&#45;&gt;Node11 -->
 <g id="edge21" class="edge">
-<title>Node61&#45;&gt;Node11</title>
+<title>Node60&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M558.2,-61.64C616.72,-65.35 713.98,-71.5 777.67,-75.53"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="777.78,-79.04 787.99,-76.18 778.23,-72.05 777.78,-79.04"/>
 </g>
-<!-- Node62 -->
+<!-- Node61 -->
 <g id="node18" class="node">
-<title>Node62</title>
+<title>Node61</title>
 <g id="a_node18"><a xlink:href="namespaceflow_1_1async.html#a24567271e97a67d3cae6bd8bf8dc63c4" target="_top" xlink:title="An extension of boost.asio&#39;s post() and dispatch() free function templates, this free function templa...">
 <polygon fill="white" stroke="red" points="623.5,-3.5 623.5,-29.5 732.5,-29.5 732.5,-3.5 623.5,-3.5"/>
 <text text-anchor="start" x="631.5" y="-19.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::asio_exec</text>
@@ -339,9 +339,9 @@
 </a>
 </g>
 </g>
-<!-- Node61&#45;&gt;Node62 -->
+<!-- Node60&#45;&gt;Node61 -->
 <g id="edge20" class="edge">
-<title>Node61&#45;&gt;Node62</title>
+<title>Node60&#45;&gt;Node61</title>
 <path fill="none" stroke="midnightblue" d="M558.14,-46.13C575.92,-41.7 596.18,-36.65 614.88,-31.98"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="615.93,-35.33 624.78,-29.52 614.23,-28.54 615.93,-35.33"/>
 </g>

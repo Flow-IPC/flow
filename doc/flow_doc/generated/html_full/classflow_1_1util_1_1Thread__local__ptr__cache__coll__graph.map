@@ -1,0 +1,8 @@
+<map id="flow::util::Thread_local_ptr_cache" name="flow::util::Thread_local_ptr_cache">
+<area shape="rect" id="node1" title="Internal&#45;use helper for Thread_local_ptr which encapsulates that guy&#39;s thread_locally&#45;accessed TLS pa..." alt="" coords="603,70,719,106"/>
+<area shape="rect" id="node2" title=" " alt="" coords="297,5,429,29"/>
+<area shape="rect" id="node3" href="$classbool.html" title=" " alt="" coords="339,53,386,77"/>
+<area shape="rect" id="node4" href="$structflow_1_1util_1_1Thread__local__ptr__cache_1_1Global__tl__state.html" title="Encapsulates two things: the thread&#39;s Tlp_states_map; and what shall run at thread_local deinit." alt="" coords="285,101,440,149"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,101,136,149"/>
+<area shape="rect" id="node6" title=" " alt="" coords="329,173,396,197"/>
+</map>

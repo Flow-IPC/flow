@@ -1,0 +1,7 @@
+<map id="flow::util::stat::Stat_name" name="flow::util::stat::Stat_name">
+<area shape="rect" id="node1" title="Specialized class that (at a light weight) represents a printable Stat_set&#45;member name,..." alt="" coords="151,187,315,211"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,97,137,121"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1Basic__string__view.html" title="Essentially alias for a C++17&#45;conforming string&#45;view class template, which is a very lightweight std:..." alt="" coords="161,91,304,127"/>
+<area shape="rect" id="node4" title=" " alt="" coords="161,5,304,41"/>
+<area shape="rect" id="node5" title=" " alt="" coords="328,97,463,121"/>
+</map>

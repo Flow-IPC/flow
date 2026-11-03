@@ -136,7 +136,7 @@
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" target="_top" xlink:title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself.">
-<polygon fill="white" stroke="red" points="677,-0.5 677,-26.5 811,-26.5 811,-0.5 677,-0.5"/>
+<polygon fill="white" stroke="black" points="677,-0.5 677,-26.5 811,-26.5 811,-0.5 677,-0.5"/>
 <text text-anchor="start" x="685" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::Unique</text>
 <text text-anchor="middle" x="744" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_id_holder::create_unique_id</text>
 </a>

@@ -1,0 +1,5 @@
+<map id="flow::util::stat::Stat_name::str" name="flow::util::stat::Stat_name::str">
+<area shape="rect" id="node1" title="On&#45;demand evaluation: Returns the full name – all fragments, from the root on, each rendered per its ..." alt="" coords="5,29,133,65"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Stat__name.html#a88bd14af421b1aa541817afa73f8f1f8" title="On&#45;demand evaluation: *target += this&#45;&gt;str() but faster." alt="" coords="181,29,309,65"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i..." alt="" coords="357,29,520,65"/>
+</map>

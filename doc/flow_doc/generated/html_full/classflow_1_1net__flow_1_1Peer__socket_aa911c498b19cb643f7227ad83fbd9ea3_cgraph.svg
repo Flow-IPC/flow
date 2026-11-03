@@ -148,9 +148,9 @@
 <path fill="none" stroke="midnightblue" d="M403.4,-59.16C412.95,-59.09 423.07,-59.02 433.02,-58.95"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="433.32,-62.45 443.29,-58.88 433.27,-55.45 433.32,-62.45"/>
 </g>
-<!-- Node60 -->
+<!-- Node59 -->
 <g id="node14" class="node">
-<title>Node60</title>
+<title>Node59</title>
 <g id="a_node14"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aae148cec361b59237996a4b30c6624b5" target="_top" xlink:title="Returns true if and only if the Node is operating.">
 <polygon fill="white" stroke="black" points="449,-0.5 449,-26.5 550,-26.5 550,-0.5 449,-0.5"/>
 <text text-anchor="start" x="457" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -158,9 +158,9 @@
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node60 -->
+<!-- Node7&#45;&gt;Node59 -->
 <g id="edge16" class="edge">
-<title>Node7&#45;&gt;Node60</title>
+<title>Node7&#45;&gt;Node59</title>
 <path fill="none" stroke="midnightblue" d="M394.66,-46.44C411.11,-41.22 430.22,-35.16 447.53,-29.67"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="449.01,-32.87 457.48,-26.51 446.89,-26.2 449.01,-32.87"/>
 </g>

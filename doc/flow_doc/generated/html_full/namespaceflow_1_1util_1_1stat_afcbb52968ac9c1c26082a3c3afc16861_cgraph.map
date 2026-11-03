@@ -1,0 +1,5 @@
+<map id="flow::util::stat::reset" name="flow::util::stat::reset">
+<area shape="rect" id="node1" title="Executes store(*target_val, load(fresh_val))." alt="" coords="5,29,140,53"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="190,5,321,29"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="188,53,323,77"/>
+</map>

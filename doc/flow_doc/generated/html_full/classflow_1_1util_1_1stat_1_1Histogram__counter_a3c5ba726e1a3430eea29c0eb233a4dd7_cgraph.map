@@ -1,0 +1,6 @@
+<map id="flow::util::stat::Histogram_counter::operator=" name="flow::util::stat::Histogram_counter::operator=">
+<area shape="rect" id="node1" title="Straightforward copy assignment." alt="" coords="5,54,168,90"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="232,5,363,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="216,54,379,90"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="230,115,365,139"/>
+</map>

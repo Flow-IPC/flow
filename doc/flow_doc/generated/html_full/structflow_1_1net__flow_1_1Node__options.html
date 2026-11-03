@@ -233,9 +233,6 @@ Friends</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">flow::net_flow::Node_options::Node_options </td>
@@ -244,11 +241,6 @@ Friends</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Constructs a <a class="el" href="structflow_1_1net__flow_1_1Node__options.html" title="A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...">Node_options</a> with values equal to those used by <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> when the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> creator chooses not to supply custom options. </p>
@@ -385,7 +377,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00171">171</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00063">add_config_option()</a>, and <a class="el" href="node_8hpp_source.html#l04113">flow::net_flow::Node::validate_static_option()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00063">add_config_option()</a>, and <a class="el" href="node_8hpp_source.html#l04119">flow::net_flow::Node::validate_static_option()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -423,8 +415,9 @@ Here is the caller graph for this function:</div>
 <div class="line">std::ifstream F(...);</div>
 <div class="line">flow_opts.<a class="code hl_function" href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">setup_config_parsing</a>(&amp;opts_desc);</div>
 <div class="line">opts::variables_map cfg_vars;</div>
-<div class="line">opts::store(opts::parse_config_file(F, *opts_desc), cfg_vars);</div>
+<div class="line"><a class="code hl_function" href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d">opts::store</a>(opts::parse_config_file(F, *opts_desc), cfg_vars);</div>
 <div class="line">opts::notify(cfg_vars);</div>
+<div class="ttc" id="anamespaceflow_1_1util_1_1stat_html_aff48f3d8b8b9456208bb1c30e3546e5d"><div class="ttname"><a href="namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d">flow::util::stat::store</a></div><div class="ttdeci">void store(T *target_val, const boost::type_identity_t&lt; T &gt; &amp;val)</div><div class="ttdoc">Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val.</div><div class="ttdef"><b>Definition:</b> <a href="stat__set_8hpp_source.html#l00344">stat_set.hpp:344</a></div></div>
 <div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html">flow::net_flow::Node_options</a></div><div class="ttdoc">A set of low-level options affecting a single Flow Node, including Peer_socket objects and other obje...</div><div class="ttdef"><b>Definition:</b> <a href="options_8hpp_source.html#l00455">options.hpp:456</a></div></div>
 <div class="ttc" id="astructflow_1_1net__flow_1_1Node__options_html_a5819e60ed58aafb496e39962c89215f1"><div class="ttname"><a href="structflow_1_1net__flow_1_1Node__options.html#a5819e60ed58aafb496e39962c89215f1">flow::net_flow::Node_options::setup_config_parsing</a></div><div class="ttdeci">void setup_config_parsing(Options_description *opts_desc)</div><div class="ttdoc">Modifies a boost.program_options options description object to enable subsequent parsing of a command...</div><div class="ttdef"><b>Definition:</b> <a href="options_8cpp_source.html#l00157">options.cpp:157</a></div></div>
 </div><!-- fragment --><p >Note the default values will come from the current values inside <code>*this</code>.</p>
@@ -737,7 +730,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00600">600</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00438">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="node_8cpp_source.html#l01112">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="server__socket_8cpp_source.html#l00438">flow::net_flow::Node::handle_syn_to_listening_server()</a>, <a class="el" href="node_8cpp_source.html#l01115">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="options_8cpp_source.html#l00082">setup_config_parsing_helper()</a>, and <a class="el" href="node_8cpp_source.html#l00980">flow::net_flow::Node::validate_options()</a>.</p>
 
 </div>
 </div>
@@ -811,7 +804,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

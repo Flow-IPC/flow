@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structflow_1_1cfg_1_1Config__manager_1_1On__dynamic__change__func__handle.html" title="Opaque handle for managing a dynamic config change callback." alt="" coords="5,5,201,53"/>
+<area shape="rect" id="node1" href="$classboost_1_1system_1_1system__error.html" title=" " alt="" coords="5,5,152,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1error_1_1Runtime__error.html" title="An std::runtime_error (which is an std::exception) that stores an Error_code." alt="" coords="200,5,331,41"/>
 </map>

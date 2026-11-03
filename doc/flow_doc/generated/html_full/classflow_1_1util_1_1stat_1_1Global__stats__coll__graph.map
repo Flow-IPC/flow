@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Global_stats&lt; Tag_t, Stat_set_t, N &gt;" name="flow::util::stat::Global_stats&lt; Tag_t, Stat_set_t, N &gt;">
+<area shape="rect" id="node1" title="A straightforward global/singleton holder of a single Stat_set_list&lt;Stat_set, S_N&gt;; the template para..." alt="" coords="5,89,184,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="68,5,121,29"/>
+</map>

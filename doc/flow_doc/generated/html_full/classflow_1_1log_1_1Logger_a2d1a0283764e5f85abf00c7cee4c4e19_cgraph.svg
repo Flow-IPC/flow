@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Loads msg_metadata&#45;&gt;m_call_thread_nickname (if set) or else msg_metadata&#45;&gt;m_call_thread_id,...">
+<g id="a_node1"><a xlink:title="Sets msg_metadata&#45;&gt;m_call_thread_nickname (if set) or else msg_metadata&#45;&gt;m_call_thread_id,...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-35.5 112,-35.5 112,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-25.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Logger::</text>
 <text text-anchor="start" x="8" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">set_thread_info_in_msg</text>
@@ -23,7 +23,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1log_1_1Logger.html#aea02011a3aa505087397c8d9984e0659" target="_top" xlink:title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">
+<g id="a_node2"><a xlink:href="classflow_1_1log_1_1Logger.html#adda773e2fa1707db6960d8fa9ea3956e" target="_top" xlink:title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">
 <polygon fill="white" stroke="black" points="148,-5 148,-31 240,-31 240,-5 148,-5"/>
 <text text-anchor="start" x="156" y="-20.6" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Logger::</text>
 <text text-anchor="middle" x="194" y="-11.6" font-family="Helvetica,sans-Serif" font-size="8.00">set_thread_info</text>

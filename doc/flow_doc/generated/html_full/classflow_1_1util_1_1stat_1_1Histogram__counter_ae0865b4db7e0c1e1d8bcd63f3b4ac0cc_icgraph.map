@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Histogram_counter::to_ostream" name="flow::util::stat::Histogram_counter::to_ostream">
+<area shape="rect" id="node1" title="Prints string representation to the given ostream." alt="" coords="216,5,379,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ad9c660e03f07d0dc8487ecb7b6cb1726" title="Prints string representation of the given Histogram_counter to the given ostream." alt="" coords="5,5,168,41"/>
+</map>

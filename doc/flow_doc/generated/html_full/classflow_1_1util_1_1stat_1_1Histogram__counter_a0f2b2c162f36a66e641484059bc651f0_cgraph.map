@@ -1,0 +1,7 @@
+<map id="flow::util::stat::Histogram_counter::record_period" name="flow::util::stat::Histogram_counter::record_period">
+<area shape="rect" id="node1" title="Convenience wrapper for record_value() that records a duration in the units specified as the mandator..." alt="" coords="5,27,168,63"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a69d15fde1dfda48f49ac735ab60020c7" title="Record event outcome." alt="" coords="216,27,379,63"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#ab1bfde42f9cb59cdfc0af8e9a76171bf" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="428,5,588,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a32d54703586fa946b50867081417ad64" title="Which index into m_per_bucket_counts points to the appropriate bucket for record_value(val)?" alt="" coords="427,54,589,90"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="637,54,800,90"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::util::Basic_blob::alloc_raw" name="flow::util::Basic_blob::alloc_raw">
+<area shape="rect" id="node1" title="For convenience/expressiveness, the allocator object for *this." alt="" coords="188,5,323,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Basic__blob.html#a519104dac5876c1522bc9d1f9f7c091a" title="Copy assignment: assuming (this != &amp;src) &amp;&amp; (!blobs_sharing(*this, src)), makes *this logically equal..." alt="" coords="5,5,140,41"/>
+</map>

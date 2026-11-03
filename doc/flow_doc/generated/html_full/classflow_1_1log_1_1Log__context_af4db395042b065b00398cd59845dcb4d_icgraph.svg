@@ -22,7 +22,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a11b11abade3b70f242dbb61cddb34ad1" target="_top" xlink:title="Sends a low&#45;level ACK packet, with all accumulated in Peer_socket::m_rcv_pending_acks of sock individ...">
+<g id="a_node2"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a3beeca100a41ccb9bdf8ce816332ae81" target="_top" xlink:title="Sends a low&#45;level ACK packet, with all accumulated in Peer_socket::m_rcv_pending_acks of sock individ...">
 <polygon fill="white" stroke="black" points="908,-2235.5 908,-2261.5 1027,-2261.5 1027,-2235.5 908,-2235.5"/>
 <text text-anchor="start" x="916" y="-2251.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="967.5" y="-2242.1" font-family="Helvetica,sans-Serif" font-size="8.00">::async_low_lvl_ack_send</text>
@@ -80,7 +80,7 @@
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
-<g id="edge72" class="edge">
+<g id="edge71" class="edge">
 <title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M2192.8,-1368.79C2192.11,-1422.78 2182.19,-1556.83 2104,-1621.5 2041.9,-1672.87 2004.15,-1635.08 1924,-1643.5 1843.24,-1651.98 1823.12,-1655.94 1742,-1659.5 1670.96,-1662.62 1653.05,-1662.33 1582,-1659.5 1520.52,-1657.05 1367.53,-1637.5 1306,-1637.5 1306,-1637.5 1306,-1637.5 651.5,-1637.5 552.84,-1637.5 504.98,-1616.96 435,-1686.5 383.03,-1738.15 356.55,-1980.4 350.74,-2040.15"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2196.3,-1368.54 2192.83,-1358.54 2189.3,-1368.53 2196.3,-1368.54"/>
@@ -114,7 +114,7 @@
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
-<g id="edge73" class="edge">
+<g id="edge72" class="edge">
 <title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M2192.39,-1368.88C2191.42,-1525.1 2182.45,-2414.09 2104,-2501.5 2027.9,-2586.29 1965.93,-2548.5 1852,-2548.5 1852,-2548.5 1852,-2548.5 347.5,-2548.5 129.9,-2548.5 70.41,-2179.83 59.52,-2094.14"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2195.89,-1368.57 2192.45,-1358.55 2188.89,-1368.53 2195.89,-1368.57"/>
@@ -131,7 +131,7 @@
 </g>
 </g>
 <!-- Node1&#45;&gt;Node11 -->
-<g id="edge75" class="edge">
+<g id="edge74" class="edge">
 <title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M2192.29,-1368.94C2190.73,-1521.88 2178.71,-2373.89 2104,-2458.5 2028.31,-2544.22 1966.36,-2510.5 1852,-2510.5 1852,-2510.5 1852,-2510.5 1304,-2510.5 1197.69,-2510.5 1168.69,-2505.61 1068,-2471.5 1042.23,-2462.77 1015.11,-2447.9 995.71,-2436.12"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2195.79,-1368.83 2192.39,-1358.8 2188.79,-1368.76 2195.79,-1368.83"/>
@@ -213,7 +213,7 @@
 </g>
 </g>
 <!-- Node1&#45;&gt;Node27 -->
-<g id="edge74" class="edge">
+<g id="edge73" class="edge">
 <title>Node1&#45;&gt;Node27</title>
 <path fill="none" stroke="midnightblue" d="M2191.05,-1368.91C2183.89,-1480.59 2150.83,-1955.76 2104,-2000.5 2068.72,-2034.2 2247.42,-2018.34 703,-2021.5 658.11,-2021.59 646.85,-2023.28 602,-2021.5 586.08,-2020.87 568.79,-2019.67 553.1,-2018.4"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2194.55,-1368.92 2191.69,-1358.72 2187.57,-1368.48 2194.55,-1368.92"/>
@@ -447,98 +447,98 @@
 <!-- Node57 -->
 <g id="node48" class="node">
 <title>Node57</title>
-<g id="a_node48"><a xlink:href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" target="_top" xlink:title="Identical to Log_context API; but safe against concurrent operations on a *this.">
-<polygon fill="white" stroke="black" points="1978.5,-944.5 1978.5,-970.5 2085.5,-970.5 2085.5,-944.5 1978.5,-944.5"/>
-<text text-anchor="start" x="1986.5" y="-960.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Log_context</text>
-<text text-anchor="middle" x="2032" y="-951.1" font-family="Helvetica,sans-Serif" font-size="8.00">_mt::get_logger</text>
+<g id="a_node48"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
+<polygon fill="white" stroke="black" points="1981.5,-926.5 1981.5,-952.5 2082.5,-952.5 2082.5,-926.5 1981.5,-926.5"/>
+<text text-anchor="start" x="1989.5" y="-942.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
+<text text-anchor="middle" x="2032" y="-933.1" font-family="Helvetica,sans-Serif" font-size="8.00">::listen</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node57 -->
-<g id="edge71" class="edge">
+<g id="edge75" class="edge">
 <title>Node1&#45;&gt;Node57</title>
-<path fill="none" stroke="midnightblue" d="M2189.8,-1321.99C2181.02,-1249.52 2151.13,-1031.33 2104,-980.5 2098.89,-974.99 2092.45,-970.8 2085.55,-967.6"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2186.37,-1322.81 2191.02,-1332.33 2193.32,-1321.98 2186.37,-1322.81"/>
+<path fill="none" stroke="midnightblue" d="M2192.9,-1322.05C2192.8,-1259.91 2184.73,-1088.37 2104,-980.5 2094.87,-968.31 2080.97,-959.14 2067.88,-952.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2189.4,-1322.32 2192.85,-1332.34 2196.4,-1322.36 2189.4,-1322.32"/>
 </g>
 <!-- Node58 -->
 <g id="node49" class="node">
 <title>Node58</title>
-<g id="a_node49"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a9fabe79fbd1888fc7aa9eb25281e7b16" target="_top" xlink:title="Sets up a server on the given local Flow port and returns Server_socket which can be used to accept s...">
-<polygon fill="white" stroke="black" points="1981.5,-881.5 1981.5,-907.5 2082.5,-907.5 2082.5,-881.5 1981.5,-881.5"/>
-<text text-anchor="start" x="1989.5" y="-897.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
-<text text-anchor="middle" x="2032" y="-888.1" font-family="Helvetica,sans-Serif" font-size="8.00">::listen</text>
+<g id="a_node49"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a1bfde94f7d529ea8e6c26b560abfa9c7" target="_top" xlink:title="Helper of handle_accumulated_acks() that logs the about&#45;to&#45;be&#45;handled accumulated individual acknowle...">
+<polygon fill="white" stroke="black" points="1974.5,-881.5 1974.5,-907.5 2089.5,-907.5 2089.5,-881.5 1974.5,-881.5"/>
+<text text-anchor="start" x="1982.5" y="-897.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
+<text text-anchor="middle" x="2032" y="-888.1" font-family="Helvetica,sans-Serif" font-size="8.00">::log_accumulated_acks</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node58 -->
-<g id="edge76" class="edge">
+<g id="edge77" class="edge">
 <title>Node1&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M2189.96,-1322.11C2181.17,-1244.79 2150.09,-998.74 2104,-935.5 2095.11,-923.31 2081.41,-914.18 2068.41,-907.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2186.5,-1322.7 2191.09,-1332.25 2193.46,-1321.93 2186.5,-1322.7"/>
+<path fill="none" stroke="midnightblue" d="M2190.73,-1322.25C2184.17,-1242.06 2158.77,-978.62 2104,-917.5 2099.94,-912.96 2094.97,-909.32 2089.57,-906.39"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2187.25,-1322.62 2191.53,-1332.31 2194.22,-1322.06 2187.25,-1322.62"/>
 </g>
 <!-- Node59 -->
 <g id="node50" class="node">
 <title>Node59</title>
-<g id="a_node50"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a1bfde94f7d529ea8e6c26b560abfa9c7" target="_top" xlink:title="Helper of handle_accumulated_acks() that logs the about&#45;to&#45;be&#45;handled accumulated individual acknowle...">
-<polygon fill="white" stroke="black" points="1974.5,-836.5 1974.5,-862.5 2089.5,-862.5 2089.5,-836.5 1974.5,-836.5"/>
-<text text-anchor="start" x="1982.5" y="-852.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
-<text text-anchor="middle" x="2032" y="-843.1" font-family="Helvetica,sans-Serif" font-size="8.00">::log_accumulated_acks</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node59 -->
-<g id="edge78" class="edge">
-<title>Node1&#45;&gt;Node59</title>
-<path fill="none" stroke="midnightblue" d="M2191.22,-1322.09C2186.07,-1236.35 2164.19,-940.95 2104,-872.5 2099.98,-867.93 2095.04,-864.26 2089.66,-861.31"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2187.74,-1322.55 2191.81,-1332.33 2194.73,-1322.14 2187.74,-1322.55"/>
-</g>
-<!-- Node60 -->
-<g id="node51" class="node">
-<title>Node60</title>
-<g id="a_node51"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ac2fdb686165aae42f474cc655fca80c0" target="_top" xlink:title="Logs TRACE or DATA messages that show the detailed state of the receiving sequence number space.">
+<g id="a_node50"><a xlink:href="classflow_1_1net__flow_1_1Node.html#ac2fdb686165aae42f474cc655fca80c0" target="_top" xlink:title="Logs TRACE or DATA messages that show the detailed state of the receiving sequence number space.">
 <polygon fill="white" stroke="black" points="1981.5,-1715.5 1981.5,-1741.5 2082.5,-1741.5 2082.5,-1715.5 1981.5,-1715.5"/>
 <text text-anchor="start" x="1989.5" y="-1731.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="2032" y="-1722.1" font-family="Helvetica,sans-Serif" font-size="8.00">::log_rcv_window</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node60 -->
-<g id="edge79" class="edge">
-<title>Node1&#45;&gt;Node60</title>
+<!-- Node1&#45;&gt;Node59 -->
+<g id="edge78" class="edge">
+<title>Node1&#45;&gt;Node59</title>
 <path fill="none" stroke="midnightblue" d="M2189.79,-1368.78C2180.99,-1440.54 2151.03,-1656.56 2104,-1706.5 2098.16,-1712.7 2090.61,-1717.17 2082.63,-1720.38"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2193.3,-1368.89 2191.02,-1358.55 2186.35,-1368.06 2193.3,-1368.89"/>
 </g>
-<!-- Node62 -->
-<g id="node53" class="node">
-<title>Node62</title>
-<g id="a_node53"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aee8466d9c810da5edea443d665b24dcb" target="_top" xlink:title="Performs low&#45;priority tasks that should be run on an infrequent, regular basis, such as stat logging ...">
+<!-- Node61 -->
+<g id="node52" class="node">
+<title>Node61</title>
+<g id="a_node52"><a xlink:href="classflow_1_1net__flow_1_1Node.html#aee8466d9c810da5edea443d665b24dcb" target="_top" xlink:title="Performs low&#45;priority tasks that should be run on an infrequent, regular basis, such as stat logging ...">
 <polygon fill="white" stroke="black" points="1582,-1521.5 1582,-1547.5 1742,-1547.5 1742,-1521.5 1582,-1521.5"/>
 <text text-anchor="start" x="1590" y="-1537.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="1662" y="-1528.1" font-family="Helvetica,sans-Serif" font-size="8.00">::perform_regular_infrequent_tasks</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node62 -->
+<!-- Node1&#45;&gt;Node61 -->
 <g id="edge106" class="edge">
-<title>Node1&#45;&gt;Node62</title>
+<title>Node1&#45;&gt;Node61</title>
 <path fill="none" stroke="midnightblue" d="M2184.75,-1368.54C2172.82,-1400.09 2146.75,-1455.86 2104,-1482.5 2045.36,-1519.04 1852.63,-1529.91 1742.34,-1533.13"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2188.15,-1369.44 2188.26,-1358.84 2181.56,-1367.06 2188.15,-1369.44"/>
 </g>
-<!-- Node63 -->
-<g id="node54" class="node">
-<title>Node63</title>
-<g id="a_node54"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a24785d3e04e0a9cd5daca43bc867e5aa" target="_top" xlink:title="Logs TRACE or DATA messages thats show the detailed state of the sending sequence number space.">
+<!-- Node62 -->
+<g id="node53" class="node">
+<title>Node62</title>
+<g id="a_node53"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a24785d3e04e0a9cd5daca43bc867e5aa" target="_top" xlink:title="Logs TRACE or DATA messages thats show the detailed state of the sending sequence number space.">
 <polygon fill="white" stroke="black" points="1981.5,-1670.5 1981.5,-1696.5 2082.5,-1696.5 2082.5,-1670.5 1981.5,-1670.5"/>
 <text text-anchor="start" x="1989.5" y="-1686.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="2032" y="-1677.1" font-family="Helvetica,sans-Serif" font-size="8.00">::log_snd_window</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node63 -->
-<g id="edge85" class="edge">
-<title>Node1&#45;&gt;Node63</title>
+<!-- Node1&#45;&gt;Node62 -->
+<g id="edge84" class="edge">
+<title>Node1&#45;&gt;Node62</title>
 <path fill="none" stroke="midnightblue" d="M2192.51,-1368.67C2191.3,-1425.1 2180.49,-1571.16 2104,-1655.5 2098.13,-1661.98 2090.56,-1666.98 2082.57,-1670.83"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="2196.01,-1368.67 2192.64,-1358.63 2189.01,-1368.58 2196.01,-1368.67"/>
+</g>
+<!-- Node63 -->
+<g id="node54" class="node">
+<title>Node63</title>
+<g id="a_node54"><a xlink:href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" target="_top" xlink:title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">
+<polygon fill="white" stroke="black" points="1978.5,-836.5 1978.5,-862.5 2085.5,-862.5 2085.5,-836.5 1978.5,-836.5"/>
+<text text-anchor="start" x="1986.5" y="-852.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Log_context</text>
+<text text-anchor="middle" x="2032" y="-843.1" font-family="Helvetica,sans-Serif" font-size="8.00">_mt::log_while_locked</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node63 -->
+<g id="edge86" class="edge">
+<title>Node1&#45;&gt;Node63</title>
+<path fill="none" stroke="midnightblue" d="M2191.22,-1322.09C2186.07,-1236.35 2164.19,-940.95 2104,-872.5 2099.04,-866.86 2092.68,-862.59 2085.81,-859.36"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2187.74,-1322.55 2191.81,-1332.33 2194.73,-1322.14 2187.74,-1322.55"/>
 </g>
 <!-- Node64 -->
 <g id="node55" class="node">
@@ -607,7 +607,7 @@
 <!-- Node83 -->
 <g id="node70" class="node">
 <title>Node83</title>
-<g id="a_node70"><a xlink:href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" target="_top" xlink:title="Implements superclass API.">
+<g id="a_node70"><a xlink:href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" target="_top" xlink:title="Implements superclass API.">
 <polygon fill="white" stroke="black" points="1793.5,-753.5 1793.5,-779.5 1908.5,-779.5 1908.5,-753.5 1793.5,-753.5"/>
 <text text-anchor="start" x="1801.5" y="-769.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Cross</text>
 <text text-anchor="middle" x="1851" y="-760.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>
@@ -639,7 +639,7 @@
 <!-- Node87 -->
 <g id="node74" class="node">
 <title>Node87</title>
-<g id="a_node74"><a xlink:href="classflow_1_1async_1_1Segregated__thread__task__loop.html#af19377b924d1598a3ad59f0fba89bfee" target="_top" xlink:title="Implements superclass API.">
+<g id="a_node74"><a xlink:href="classflow_1_1async_1_1Segregated__thread__task__loop.html#ab13df8376e8c2fc2b834e21ead6a77c6" target="_top" xlink:title="Implements superclass API.">
 <polygon fill="white" stroke="black" points="1603.5,-677.5 1603.5,-703.5 1720.5,-703.5 1720.5,-677.5 1603.5,-677.5"/>
 <text text-anchor="start" x="1611.5" y="-693.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Segregated</text>
 <text text-anchor="middle" x="1662" y="-684.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>
@@ -904,7 +904,7 @@
 <!-- Node111 -->
 <g id="node98" class="node">
 <title>Node111</title>
-<g id="a_node98"><a xlink:href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42" target="_top" xlink:title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th...">
+<g id="a_node98"><a xlink:href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91" target="_top" xlink:title="Constructs object, immediately spawning new (worker) thread, memorizing a ref&#45;counted reference to th...">
 <polygon fill="white" stroke="black" points="1970,-0.5 1970,-26.5 2094,-26.5 2094,-0.5 1970,-0.5"/>
 <text text-anchor="start" x="1978" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Task_qing</text>
 <text text-anchor="middle" x="2032" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread::Task_qing_thread</text>
@@ -1438,55 +1438,55 @@
 <path fill="none" stroke="midnightblue" d="M1964.74,-1600.35C1943.09,-1600.96 1919.5,-1601.61 1899.52,-1602.17"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1964.96,-1603.85 1974.85,-1600.07 1964.76,-1596.85 1964.96,-1603.85"/>
 </g>
-<!-- Node58&#45;&gt;Node58 -->
-<g id="edge77" class="edge">
-<title>Node58&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M2060.8,-917.94C2057.6,-922.64 2048,-926 2032,-926 2005.75,-926 1996.73,-916.96 2004.93,-907.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2064.2,-917.04 2059.07,-907.77 2057.29,-918.22 2064.2,-917.04"/>
+<!-- Node57&#45;&gt;Node57 -->
+<g id="edge76" class="edge">
+<title>Node57&#45;&gt;Node57</title>
+<path fill="none" stroke="midnightblue" d="M2060.8,-962.94C2057.6,-967.64 2048,-971 2032,-971 2005.75,-971 1996.73,-961.96 2004.93,-952.77"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2064.2,-962.04 2059.07,-952.77 2057.29,-963.22 2064.2,-962.04"/>
 </g>
-<!-- Node61 -->
-<g id="node52" class="node">
-<title>Node61</title>
-<g id="a_node52"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a755c329b9e0f2b8edb2e5b900bd2a337" target="_top" xlink:title="Logs a verbose state report for the given socket.">
+<!-- Node60 -->
+<g id="node51" class="node">
+<title>Node60</title>
+<g id="a_node51"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a755c329b9e0f2b8edb2e5b900bd2a337" target="_top" xlink:title="Logs a verbose state report for the given socket.">
 <polygon fill="white" stroke="black" points="1800.5,-1712.5 1800.5,-1738.5 1901.5,-1738.5 1901.5,-1712.5 1800.5,-1712.5"/>
 <text text-anchor="start" x="1808.5" y="-1728.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
 <text text-anchor="middle" x="1851" y="-1719.1" font-family="Helvetica,sans-Serif" font-size="8.00">::sock_log_detail</text>
 </a>
 </g>
 </g>
-<!-- Node60&#45;&gt;Node61 -->
-<g id="edge80" class="edge">
-<title>Node60&#45;&gt;Node61</title>
+<!-- Node59&#45;&gt;Node60 -->
+<g id="edge79" class="edge">
+<title>Node59&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M1971,-1727.49C1948.45,-1727.12 1923.09,-1726.69 1901.59,-1726.33"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1971.08,-1731 1981.14,-1727.66 1971.2,-1724 1971.08,-1731"/>
 </g>
-<!-- Node61&#45;&gt;Node30 -->
-<g id="edge81" class="edge">
-<title>Node61&#45;&gt;Node30</title>
+<!-- Node60&#45;&gt;Node30 -->
+<g id="edge80" class="edge">
+<title>Node60&#45;&gt;Node30</title>
 <path fill="none" stroke="midnightblue" d="M1793.34,-1742.03C1788.08,-1744.03 1782.9,-1746.19 1778,-1748.5 1741.06,-1765.91 1701.85,-1793.33 1680.09,-1809.45"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1794.62,-1745.29 1802.84,-1738.6 1792.24,-1738.71 1794.62,-1745.29"/>
 </g>
-<!-- Node61&#45;&gt;Node62 -->
-<g id="edge82" class="edge">
-<title>Node61&#45;&gt;Node62</title>
+<!-- Node60&#45;&gt;Node61 -->
+<g id="edge81" class="edge">
+<title>Node60&#45;&gt;Node61</title>
 <path fill="none" stroke="midnightblue" d="M1830.37,-1705.24C1808.77,-1682.95 1772.98,-1646.1 1742,-1614.5 1718.91,-1590.94 1691.88,-1563.62 1676.17,-1547.78"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1827.92,-1707.74 1837.39,-1712.48 1832.95,-1702.87 1827.92,-1707.74"/>
 </g>
-<!-- Node62&#45;&gt;Node10 -->
-<g id="edge84" class="edge">
-<title>Node62&#45;&gt;Node10</title>
+<!-- Node61&#45;&gt;Node10 -->
+<g id="edge83" class="edge">
+<title>Node61&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M1602.38,-1518.58C1595.49,-1516.59 1588.58,-1514.54 1582,-1512.5 1561.08,-1506.02 1537.9,-1498.14 1519.19,-1491.6"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1601.83,-1522.07 1612.41,-1521.44 1603.75,-1515.33 1601.83,-1522.07"/>
 </g>
-<!-- Node62&#45;&gt;Node62 -->
-<g id="edge83" class="edge">
-<title>Node62&#45;&gt;Node62</title>
+<!-- Node61&#45;&gt;Node61 -->
+<g id="edge82" class="edge">
+<title>Node61&#45;&gt;Node61</title>
 <path fill="none" stroke="midnightblue" d="M1694.66,-1557.58C1691.34,-1562.47 1680.46,-1566 1662,-1566 1632.47,-1566 1622.32,-1556.96 1631.55,-1547.77"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1698.06,-1556.76 1692.45,-1547.77 1691.23,-1558.3 1698.06,-1556.76"/>
 </g>
-<!-- Node63&#45;&gt;Node61 -->
-<g id="edge86" class="edge">
-<title>Node63&#45;&gt;Node61</title>
+<!-- Node62&#45;&gt;Node60 -->
+<g id="edge85" class="edge">
+<title>Node62&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M1971.31,-1697.51C1948.68,-1702.82 1923.19,-1708.8 1901.59,-1713.86"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1972.2,-1700.89 1981.14,-1695.2 1970.6,-1694.08 1972.2,-1700.89"/>
 </g>
@@ -1747,7 +1747,7 @@
 <!-- Node84 -->
 <g id="node71" class="node">
 <title>Node84</title>
-<g id="a_node71"><a xlink:href="classflow_1_1async_1_1Single__thread__task__loop.html#a0047f013a3a9a05b9368666690cf4db8" target="_top" xlink:title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">
+<g id="a_node71"><a xlink:href="classflow_1_1async_1_1Single__thread__task__loop.html#a1d108c4d97ea37434d95f52c99d17b88" target="_top" xlink:title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i...">
 <polygon fill="white" stroke="black" points="1604.5,-739.5 1604.5,-765.5 1719.5,-765.5 1719.5,-739.5 1604.5,-739.5"/>
 <text text-anchor="start" x="1612.5" y="-755.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::async::Single</text>
 <text text-anchor="middle" x="1662" y="-746.1" font-family="Helvetica,sans-Serif" font-size="8.00">_thread_task_loop::start</text>

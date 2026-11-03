@@ -1,0 +1,7 @@
+<map id="flow::util::stat::operator&lt;&lt;" name="flow::util::stat::operator&lt;&lt;">
+<area shape="rect" id="node1" title="Prints string representation of the given printable.m_stats to the given ostream via stats_to_ostream..." alt="" coords="5,45,176,69"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#adf2756af1f6871acb2fe3db68a5bfb01" title="Outputs a human&#45;readable representation of all declared stats in stats to the given ostream." alt="" coords="224,39,357,75"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="405,5,536,29"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1stat_1_1Stat__name.html#a3012ceb3a7679b869bd38fe53fdd54ff" title="On&#45;demand evaluation: os &lt;&lt; this&#45;&gt;str() but faster." alt="" coords="407,78,535,114"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i..." alt="" coords="584,78,747,114"/>
+</map>

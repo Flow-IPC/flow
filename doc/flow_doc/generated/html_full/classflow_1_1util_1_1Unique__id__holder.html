@@ -72,7 +72,6 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="classflow_1_1util_1_1Unique__id__holder-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">flow::util::Unique_id_holder Class Reference</div></div>
 </div><!--header-->
@@ -91,7 +90,7 @@ Inheritance diagram for flow::util::Unique_id_holder:</div>
 <div class="dynheader">
 Collaboration diagram for flow::util::Unique_id_holder:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder__coll__graph.svg" width="228" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder__coll__graph.svg" width="127" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -127,12 +126,6 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:abfd221f9f9a3498c9f697ede78d99938"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">id_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#abfd221f9f9a3498c9f697ede78d99938">m_id</a></td></tr>
 <tr class="memdesc:abfd221f9f9a3498c9f697ede78d99938"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ID. Note its <code>const</code>ness alone forbids a classic assignment operator.  <a href="classflow_1_1util_1_1Unique__id__holder.html#abfd221f9f9a3498c9f697ede78d99938">More...</a><br /></td></tr>
 <tr class="separator:abfd221f9f9a3498c9f697ede78d99938"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:ad42e76b8fd63b28a0775167c43edfc58"><td class="memItemLeft" align="right" valign="top">static std::atomic&lt; <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">id_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#ad42e76b8fd63b28a0775167c43edfc58">s_last_id</a></td></tr>
-<tr class="memdesc:ad42e76b8fd63b28a0775167c43edfc58"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#abfd221f9f9a3498c9f697ede78d99938" title="The ID. Note its constness alone forbids a classic assignment operator.">m_id</a> value of the <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> object last constructed.  <a href="classflow_1_1util_1_1Unique__id__holder.html#ad42e76b8fd63b28a0775167c43edfc58">More...</a><br /></td></tr>
-<tr class="separator:ad42e76b8fd63b28a0775167c43edfc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from all other objects of the same class ever constructed, across all time from program start to end. </p>
@@ -184,12 +177,12 @@ Static Private Attributes</h2></td></tr>
 <div class="line">  <a class="code hl_function" href="classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52">Unique_id_holder</a> m_uniq_id_holder;</div>
 <div class="line">  <span class="keyword">static</span> Widget_store s_widget_store;</div>
 <div class="line">};</div>
-<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html">flow::util::Unique_id_holder</a></div><div class="ttdoc">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8hpp_source.html#l00106">uniq_id_holder.hpp:107</a></div></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html_a24742b697933e623df30056aebbebfae"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae">flow::util::Unique_id_holder::unique_id</a></div><div class="ttdeci">id_t unique_id() const</div><div class="ttdoc">Raw unique ID identifying this object as well as any object of a derived type.</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8cpp_source.html#l00053">uniq_id_holder.cpp:53</a></div></div>
-<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html_a90705293787069f52372638d5450ef52"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52">flow::util::Unique_id_holder::Unique_id_holder</a></div><div class="ttdeci">Unique_id_holder()</div><div class="ttdoc">Thread-safely construct an ID whose value is different from any other object of this class,...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8cpp_source.html#l00031">uniq_id_holder.cpp:31</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html">flow::util::Unique_id_holder</a></div><div class="ttdoc">Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8hpp_source.html#l00107">uniq_id_holder.hpp:108</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html_a24742b697933e623df30056aebbebfae"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae">flow::util::Unique_id_holder::unique_id</a></div><div class="ttdeci">id_t unique_id() const</div><div class="ttdoc">Raw unique ID identifying this object as well as any object of a derived type.</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8cpp_source.html#l00048">uniq_id_holder.cpp:48</a></div></div>
+<div class="ttc" id="aclassflow_1_1util_1_1Unique__id__holder_html_a90705293787069f52372638d5450ef52"><div class="ttname"><a href="classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52">flow::util::Unique_id_holder::Unique_id_holder</a></div><div class="ttdeci">Unique_id_holder()</div><div class="ttdoc">Thread-safely construct an ID whose value is different from any other object of this class,...</div><div class="ttdef"><b>Definition:</b> <a href="uniq__id__holder_8cpp_source.html#l00030">uniq_id_holder.cpp:30</a></div></div>
 </div><!-- fragment --><p >Update: A simplified pattern is now possible: If you just want the raw unique number itself and don't even want to keep <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> objects around or refer to them, call the static <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short-hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself.">create_unique_id()</a> which returns a new raw <code>id_t</code> integer. The above 2 usage patterns can be rewritten to pass around <code>id_t</code> values. The "Example of outside code registering an object" sub-case is the one exception to that, as for that either <code>store_in_table()</code> must continue to take a <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> and not a raw integer, or I suppose <code>m_uniq_id_holder</code> must be made public which some would not like. </p>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00106">106</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00107">107</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="af9cbe2432658aac398498e0a7e96405f" name="af9cbe2432658aac398498e0a7e96405f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af9cbe2432658aac398498e0a7e96405f">&#9670;&nbsp;</a></span>id_t</h2>
@@ -205,7 +198,7 @@ Static Private Attributes</h2></td></tr>
 
 <p>Raw integer type to uniquely identify a thing. 64-bit width should make overflow extremely hard to reach. </p>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00112">112</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00113">113</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
 
 </div>
 </div>
@@ -235,15 +228,7 @@ Static Private Attributes</h2></td></tr>
 
 <p>Thread-safely construct an ID whose value is different from any other object of this class, past or future. </p>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00031">31</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="uniq__id__holder_8cpp_source.html#l00058">create_unique_id()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a90705293787069f52372638d5450ef52_icgraph.svg" width="1055" height="652"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00030">30</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +259,7 @@ Here is the caller graph for this function:</div>
 <p>This copy constructor is identical in behavior to <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52" title="Thread-safely construct an ID whose value is different from any other object of this class,...">Unique_id_holder()</a>, the default ctor. </p>
 <p ><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> doc header explains this behavior and why copy construction is not disallowed entirely. </p>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00041">41</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00036">36</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
 
 </div>
 </div>
@@ -305,21 +290,13 @@ Here is the caller graph for this function:</div>
 <p>Short-hand for <code><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52" title="Thread-safely construct an ID whose value is different from any other object of this class,...">Unique_id_holder()</a>.<a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae" title="Raw unique ID identifying this object as well as any object of a derived type.">unique_id()</a></code>; useful when all you want is the unique integer itself. </p>
 <dl class="section return"><dt>Returns</dt><dd>See <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#a24742b697933e623df30056aebbebfae" title="Raw unique ID identifying this object as well as any object of a derived type.">unique_id()</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00058">58</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00053">53</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="uniq__id__holder_8cpp_source.html#l00031">Unique_id_holder()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a50489177a7731618ca130468c3872748_cgraph.svg" width="376" height="59"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
+<p class="reference">Referenced by <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>, and <a class="el" href="uniq__id__holder_8cpp_source.html#l00071">flow::util::this_thread_unique_token()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a50489177a7731618ca130468c3872748_icgraph.svg" width="1719" height="611"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a50489177a7731618ca130468c3872748_icgraph.svg" width="1731" height="788"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -345,7 +322,7 @@ Here is the caller graph for this function:</div>
 <p ><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> doc header explains this behavior, and why assignment is not disallowed entirely.</p>
 <dl class="section return"><dt>Returns</dt><dd><code>*this</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00047">47</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00042">42</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
 
 </div>
 </div>
@@ -367,15 +344,15 @@ Here is the caller graph for this function:</div>
 <p>Raw unique ID identifying this object as well as any object of a derived type. </p>
 <dl class="section return"><dt>Returns</dt><dd>Numeric ID. Can be used as a key for most classic associative containers without extra code. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00053">53</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8cpp_source.html#l00048">48</a> of file <a class="el" href="uniq__id__holder_8cpp_source.html">uniq_id_holder.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="uniq__id__holder_8hpp_source.html#l00154">m_id</a>.</p>
+<p class="reference">References <a class="el" href="uniq__id__holder_8hpp_source.html#l00155">m_id</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00033">flow::log::Thread_local_string_appender::get_this_thread_string_appender()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00029">flow::log::Thread_local_string_appender::this_thread_string_appender()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a24742b697933e623df30056aebbebfae_icgraph.svg" width="978" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1Unique__id__holder_a24742b697933e623df30056aebbebfae_icgraph.svg" width="952" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -404,39 +381,9 @@ Here is the caller graph for this function:</div>
 
 <p>The ID. Note its <code>const</code>ness alone forbids a classic assignment operator. </p>
 
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00154">154</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00155">155</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uniq__id__holder_8cpp_source.html#l00053">unique_id()</a>.</p>
-
-</div>
-</div>
-<a id="ad42e76b8fd63b28a0775167c43edfc58" name="ad42e76b8fd63b28a0775167c43edfc58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad42e76b8fd63b28a0775167c43edfc58">&#9670;&nbsp;</a></span>s_last_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::atomic&lt; <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#af9cbe2432658aac398498e0a7e96405f">Unique_id_holder::id_t</a> &gt; flow::util::Unique_id_holder::s_last_id</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classflow_1_1util_1_1Unique__id__holder.html#abfd221f9f9a3498c9f697ede78d99938" title="The ID. Note its constness alone forbids a classic assignment operator.">m_id</a> value of the <a class="el" href="classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a...">Unique_id_holder</a> object last constructed. </p>
-<h3>Implementation subtleties</h3>
-<p >Using <code>atomic</code> for concise thread safety.</p>
-<p >I don't specify any memory ordering arguments when using this because of the simplicity of this implementation (a lone <code>++</code>). Be careful if the code increases in complexity though; any kind of thread coordination would probably mean one would have to think of such matters and switch away from just overloaded operator(s) in favor of explicitly-memory-order-specifying <code>atomic&lt;&gt;</code> API calls.</p>
-<p >Normally when an <code>std</code> implementation is available along with a <code>boost</code> one, I choose the latter, for the likely extra features and for consistency. I chose to do differently in the case of <code>atomic</code>, because, firstly, this is widely recommended, and, secondly, because this is a low-level feature and "feels" like it might be particularly well coded for a given architecture's compiler. Not that the Boost guys aren't great. </p>
-
-<p class="definition">Definition at line <a class="el" href="uniq__id__holder_8hpp_source.html#l00172">172</a> of file <a class="el" href="uniq__id__holder_8hpp_source.html">uniq_id_holder.hpp</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uniq__id__holder_8cpp_source.html#l00048">unique_id()</a>.</p>
 
 </div>
 </div>
@@ -447,7 +394,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

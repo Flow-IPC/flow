@@ -82,7 +82,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for flow::cfg::Option_set&lt; Value_set &gt;::Declare_options_func_args:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args__coll__graph.svg" width="1548" height="1044"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args__coll__graph.svg" width="1528" height="1044"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -213,9 +213,9 @@ template&lt;typename Value_set &gt; </div>
 </div><div class="memdoc">
 
 <p>The args to pass in depending on <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ab563381b890c42be9e02c23acb9af0f5" title="Why Declare_options_func is being called.">m_call_type</a>. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd><code>union</code> used inside <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> implementation should be replaced with the type-safe, equally-fast, more-expressive <code>std::variant</code>. The author was not aware of the latter's existence when originally writing this. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd><code>union</code> used inside <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> implementation should be replaced with the type-safe, equally-fast, more-expressive <code>std::variant</code>. The author was not aware of the latter's existence when originally writing this. <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ad652ec52b981c9e0b571cf1463bd2e55" title="Short-hand for type of m_call_type.">Call_type</a> and <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cd" title="Internal-use type to use with Option_set::Declare_options_func callback.">Option_set_base::Declare_options_func_call_type</a> could be eliminated: For example <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a1a35f61a3ebedfdd443e6f050e674aa9" title="Corresponds to Call_type::S_FILL_PARSING_ROLE_OPT_TABLE.">m_fill_parsing_role_opt_table_args</a> could have a named (currently it's anonymous) type <code>struct Fill_parsing_role_opt_table</code>, used as the <code>variant</code> selector value for that call-type. So when calling the <a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac6755bc762fc40b1ae8f4bd47c55bd39" title="Short-hand for the ever-important callback passed to the main Option_set constructor.">Declare_options_func</a> callback while desiring that operation, we'd load the variant with a <code>struct Fill_parsing_role_opt_table</code>; and <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> would get a non-null <code>get_if&lt;Fill_parsing_role_opt_table&gt;()</code> result, indicating that's the desired op; if not then it would try the others one by one (conceptually a <code>switch()</code> statement &ndash; much like today). A tiny bit slower, but in this context it's totally fine. (Or could use an explicit <code>variant</code> index and have an actual <code>switch()</code>.) </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01785">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l01994">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02103">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01509">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01522">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
 
 </div>
 </div>
@@ -237,7 +237,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00465">465</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01455">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01785">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l01994">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02103">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01509">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01522">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
 
 </div>
 </div>
@@ -260,9 +260,9 @@ template&lt;typename Value_set &gt; </div>
 <p >Canonical values in <code>m_option_set-&gt;<a class="el" href="classflow_1_1cfg_1_1Option__set.html#a93ab889bf230d21961c22bd4bf21e06a" title="Externally immutable internally stored canonical (current) config values as last constructed or parse...">values()</a></code> shall be compared with parsed values in <code>m_option_set-&gt;m_iterable_values_candidate</code>.</p>
 <p ><code>m_option_set-&gt;m_opts_for_help</code> shall be filled out. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00480">480</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00488">488</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01785">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, and <a class="el" href="option__set_8hpp_source.html#l01994">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, and <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>.</p>
 
 </div>
 </div>
@@ -282,7 +282,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p><a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a94df262d2c85c677916cb5f57f9c1559" title="m_target_opts shall be filled out based on the defaults earlier saved into m_values_default and curre...">m_target_opts</a> shall be filled out based on the defaults earlier saved into <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a7c91f3db7161cf30816e0fe1fccc39c0" title="m_option_set-&gt;m_values_default: defaults loaded into Option_set::m_opts_for_help will originate here.">m_values_default</a> and current values in <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a19683d3ea7c64e3abf96f85b60e9e610" title="The current values loaded into *m_target_opts (e.g., via description text) will originate here.">m_values_current</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00510">510</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00523">523</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -303,7 +303,7 @@ template&lt;typename Value_set &gt; </div>
 <p><code>m_option_set-&gt;m_values_candidate</code>, the parsing-in-progress <code>Value_set</code> filled out whenever parsing using the completed <a class="el" href="classflow_1_1cfg_1_1Option__set.html#a381ff2ba7989b90cec0040e3b833d238" title="The parsing-role Opt_table (see extensive explanation in Opt_table doc header).">Option_set::m_opts_for_parsing</a>. </p>
 <p ><code>m_option_set-&gt;m_values_candidate</code>, the structure to load from <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a838e0b0c1f25e167a102e11de272de4e" title="Values shall be copied from this external Value_set.">m_values_to_load</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00485">485</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00493">493</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -323,7 +323,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>The current values loaded into <code>*m_target_opts</code> (e.g., via description text) will originate here. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00514">514</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00527">527</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -344,7 +344,7 @@ template&lt;typename Value_set &gt; </div>
 <p><code>m_option_set-&gt;m_values_default</code>: defaults loaded into <code><a class="el" href="classflow_1_1cfg_1_1Option__set.html#aaeb9b41e8ac4c9f5a2437cedb0f3472a" title="The output-role Opt_table, help-text sub-role (see extensive explanation in Opt_table doc header).">Option_set::m_opts_for_help</a></code> will originate here. </p>
 <p ><code>m_option_set-&gt;m_values_default</code>: the defaults loaded into <code>*m_target_opts</code> will originate here. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00500">500</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00508">508</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -365,7 +365,7 @@ template&lt;typename Value_set &gt; </div>
 <p><code>m_option_set-&gt;m_values_default</code>: the defaults loaded into <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#acbaeb3dd021040e15bff6e85b8da5253" title="m_option_set-&gt;m_values_candidate, the parsing-in-progress Value_set filled out whenever parsing using...">m_values_candidate</a> at the top of each parse, for any option specified as non-accumulating. </p>
 <p >(Any members whose corresponding option is a regular accumulating one is, in this context, ignored; instead the preceding parse's final value is kept unchanged.) </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00491">491</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00499">499</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Values shall be copied from this external <code>Value_set</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00542">542</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00555">555</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,9 +405,9 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Each validator-enabled (via a <a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac6755bc762fc40b1ae8f4bd47c55bd39" title="Short-hand for the ever-important callback passed to the main Option_set constructor.">Declare_options_func</a>) member in this structure shall be validated. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00549">549</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00562">562</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02103">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>.</p>
 
 </div>
 </div>
@@ -417,7 +417,7 @@ template&lt;typename Value_set &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

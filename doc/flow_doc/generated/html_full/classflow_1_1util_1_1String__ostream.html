@@ -114,13 +114,13 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-types" name="pri-types"></a>
 Private Types</h2></td></tr>
 <tr class="memitem:a6f12f8266343018c2025ebf61c586b6d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#a6f12f8266343018c2025ebf61c586b6d">String_appender_ostream</a> = boost::iostreams::stream&lt; boost::iostreams::back_insert_device&lt; std::string &gt; &gt;</td></tr>
-<tr class="memdesc:a6f12f8266343018c2025ebf61c586b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for an <code>ostream</code> writing to which will append to an std::string it is adapting.  <a href="classflow_1_1util_1_1String__ostream.html#a6f12f8266343018c2025ebf61c586b6d">More...</a><br /></td></tr>
+<tr class="memdesc:a6f12f8266343018c2025ebf61c586b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for an <code>ostream</code> writing to which will append to an <code>std::string</code> it is adapting.  <a href="classflow_1_1util_1_1String__ostream.html#a6f12f8266343018c2025ebf61c586b6d">More...</a><br /></td></tr>
 <tr class="separator:a6f12f8266343018c2025ebf61c586b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a0ac450344a0464a634f78288f6c357c8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#a0ac450344a0464a634f78288f6c357c8">m_own_target_str</a></td></tr>
-<tr class="memdesc:a0ac450344a0464a634f78288f6c357c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Underlying string to use if user chooses not to pass in their own in constructor.  <a href="classflow_1_1util_1_1String__ostream.html#a0ac450344a0464a634f78288f6c357c8">More...</a><br /></td></tr>
+<tr class="memdesc:a0ac450344a0464a634f78288f6c357c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Underlying string to use if user chooses not to pass in their own in constructor. Otherwise unused.  <a href="classflow_1_1util_1_1String__ostream.html#a0ac450344a0464a634f78288f6c357c8">More...</a><br /></td></tr>
 <tr class="separator:a0ac450344a0464a634f78288f6c357c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa87f2303455e62c0be244deb37cb65e"><td class="memItemLeft" align="right" valign="top">std::string *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1String__ostream.html#afa87f2303455e62c0be244deb37cb65e">m_target</a></td></tr>
 <tr class="memdesc:afa87f2303455e62c0be244deb37cb65e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the target string. Emptied at construction and in <a class="el" href="classflow_1_1util_1_1String__ostream.html#a55008c2e651cfc832182a941284f7e7e" title="Performs std::string::clear() on the object returned by str().">str_clear()</a> <em>only</em>.  <a href="classflow_1_1util_1_1String__ostream.html#afa87f2303455e62c0be244deb37cb65e">More...</a><br /></td></tr>
@@ -136,7 +136,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p >Similar to <code>ostringstream</code> but allows fast read-only access directly into the <code>std::string</code> being written; and some limited write access to that string. </p>
 <p >Also it can take over an existing <code>std::string</code>.</p>
 <p ><code>ostringstream</code> is fine, except for the giant flaw that is the fact that the essentially only way to read the string is to call <code>ostringstream::str()</code> which returns a copy, not a reference.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000157">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000161">Todo:</a></b></dt><dd>Consider using <code>alt_sstream</code> in boost.format; it doesn't seem to have public documentation but isn't in a <code>detail</code> directory either. So that's interesting. It might have better performance than the implementation here (by being more "direct" probably). Then again it might not.</dd></dl>
 <h3>Thread safety</h3>
 <p >This provides the same level of thread safety as <code>ostringstream</code>. That is, you should use a mutex if planning concurrent read/write access to the same object. </p>
 
@@ -162,7 +162,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Short-hand for an <code>ostream</code> writing to which will append to an std::string it is adapting. </p>
+<p>Short-hand for an <code>ostream</code> writing to which will append to an <code>std::string</code> it is adapting. </p>
 
 <p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00108">108</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
 
@@ -226,13 +226,13 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="string__ostream_8cpp_source.html#l00033">33</a> of file <a class="el" href="string__ostream_8cpp_source.html">string_ostream.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00126">m_target_appender_ostream</a>.</p>
+<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00122">m_target_appender_ostream</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00107">flow::log::Thread_local_string_appender::appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00113">flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev()</a>, and <a class="el" href="option__set_8hpp_source.html#l01612">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00106">flow::log::Thread_local_string_appender::appender_ostream()</a>, <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00112">flow::log::Thread_local_string_appender::save_formatting_state_and_restore_prev()</a>, and <a class="el" href="option__set_8hpp_source.html#l01625">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1String__ostream_a7e64b069ae0e221952068c13fdc0f080_icgraph.svg" width="1000" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1util_1_1String__ostream_a7e64b069ae0e221952068c13fdc0f080_icgraph.svg" width="584" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -258,7 +258,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="string__ostream_8cpp_source.html#l00038">38</a> of file <a class="el" href="string__ostream_8cpp_source.html">string_ostream.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00126">m_target_appender_ostream</a>.</p>
+<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00122">m_target_appender_ostream</a>.</p>
 
 </div>
 </div>
@@ -285,9 +285,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="string__ostream_8cpp_source.html#l00043">43</a> of file <a class="el" href="string__ostream_8cpp_source.html">string_ostream.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00120">m_target</a>.</p>
+<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00116">m_target</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="buffer__logger_8cpp_source.html#l00053">flow::log::Buffer_logger::buffer_str()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00129">flow::log::Thread_local_string_appender::target_contents()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="buffer__logger_8cpp_source.html#l00053">flow::log::Buffer_logger::buffer_str()</a>, and <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00128">flow::log::Thread_local_string_appender::target_contents()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -318,9 +318,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="string__ostream_8cpp_source.html#l00048">48</a> of file <a class="el" href="string__ostream_8cpp_source.html">string_ostream.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00120">m_target</a>.</p>
+<p class="reference">References <a class="el" href="string__ostream_8hpp_source.html#l00116">m_target</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00101">flow::log::Thread_local_string_appender::fresh_appender_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="thread__lcl__str__appender_8cpp_source.html#l00100">flow::log::Thread_local_string_appender::fresh_appender_ostream()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -351,10 +351,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Underlying string to use if user chooses not to pass in their own in constructor. </p>
-<p >Otherwise unused. (Could use <code>unique_ptr</code> to avoid even allocating it if not needed; but the memory use of an empty string is negligible, and this is otherwise equally fast or faster and leads to simpler code.) </p>
+<p>Underlying string to use if user chooses not to pass in their own in constructor. Otherwise unused. </p>
 
-<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00117">117</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00113">113</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
 
 </div>
 </div>
@@ -380,7 +379,7 @@ Here is the caller graph for this function:</div>
 
 <p>Pointer to the target string. Emptied at construction and in <a class="el" href="classflow_1_1util_1_1String__ostream.html#a55008c2e651cfc832182a941284f7e7e" title="Performs std::string::clear() on the object returned by str().">str_clear()</a> <em>only</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00120">120</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00116">116</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="string__ostream_8cpp_source.html#l00043">str()</a>, and <a class="el" href="string__ostream_8cpp_source.html#l00048">str_clear()</a>.</p>
 
@@ -408,7 +407,7 @@ Here is the caller graph for this function:</div>
 
 <p>Appender <code>ostream</code> into <a class="el" href="classflow_1_1util_1_1String__ostream.html#afa87f2303455e62c0be244deb37cb65e" title="Pointer to the target string. Emptied at construction and in str_clear() only.">m_target</a> by way of <a class="el" href="classflow_1_1util_1_1String__ostream.html#ab8866da6531e449b80b1b7bb18a3b7b9" title="Inserter into m_target.">m_target_inserter</a>. Write/<code>flush</code> here to write to <a class="el" href="classflow_1_1util_1_1String__ostream.html#afa87f2303455e62c0be244deb37cb65e" title="Pointer to the target string. Emptied at construction and in str_clear() only.">m_target</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00126">126</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00122">122</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="string__ostream_8cpp_source.html#l00033">os()</a>.</p>
 
@@ -436,7 +435,7 @@ Here is the caller graph for this function:</div>
 
 <p>Inserter into <a class="el" href="classflow_1_1util_1_1String__ostream.html#afa87f2303455e62c0be244deb37cb65e" title="Pointer to the target string. Emptied at construction and in str_clear() only.">m_target</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00123">123</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="string__ostream_8hpp_source.html#l00119">119</a> of file <a class="el" href="string__ostream_8hpp_source.html">string_ostream.hpp</a>.</p>
 
 </div>
 </div>
@@ -447,7 +446,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

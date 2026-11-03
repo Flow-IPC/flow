@@ -1,0 +1,7 @@
+<map id="flow::util::stat::update_hi_wmark" name="flow::util::stat::update_hi_wmark">
+<area shape="rect" id="node1" title="Default update_hi_wmark(&amp;target_stats.m_val, val) that updates *target_val to val if and only if the ..." alt="" coords="368,65,513,101"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#a76a1043c7ab2a836863ffde084e363ba" title="Aggregates the values from src_stats into *target_stats, in&#45;place." alt="" coords="187,5,320,41"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#a404d9e110b741b0a63f888c1c47e2db1" title="Sharded&#45;stats consumption: Aggregates N source Stat_sets, interpreted as shards of the aggregated who..." alt="" coords="187,65,320,101"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#ab3392bd6c631a572b56c578797ba93f0" title="Intended for situations where the source of stat readings – including ACCUMULATORs and not just GAUGE..." alt="" coords="187,125,320,161"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#ab3d563958e342df01edcd63e9cba81d1" title="Aggregates N source Stat_sets – drawn from the iterator range [src_stats_begin, src_stats_end) – into..." alt="" coords="5,5,139,41"/>
+</map>

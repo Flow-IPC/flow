@@ -140,7 +140,7 @@ $(function() {
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment"> * requirements; for example they hold for ~all built-in scalar types, plus `chrono::duration`, `std::string`,</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"> * and many more oft-used types; and deriving from `Shared_ptr_alias_holder` is just a line or two.</span></div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * Maintaining a `Value_set` like that is straighforward, but the things one wants to do with with an *entire*</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"> * Maintaining a `Value_set` like that is straightforward, but the things one wants to do with with an *entire*</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment"> * `Value_set` -- as opposed to individual members in it -- tend to be laborious, anti-consistent, and error-prone</span></div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment"> * to do.  To wit:</span></div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment"> *   - stream output (tediously list members along with laborious and inconsistent `ostream&lt;&lt;` logic);</span></div>
@@ -198,7 +198,7 @@ $(function() {
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">/* (The @namespace and @brief thingies shouldn&#39;t be needed, but some Doxygen bug necessitated them.</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"> * See flow::util::bind_ns for explanation... same thing here.) */</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="comment"> * See flow::log::fs for explanation... same thing here.) */</span></div>
 <div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment"></span> </div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">/**</span></div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="namespaceflow_1_1cfg_1_1fs.html">  132</a></span><span class="comment"> * @namespace flow::cfg::fs</span></div>
@@ -233,185 +233,190 @@ $(function() {
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">/**</span></div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment"> * Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment"> * in case it is useful, that converts a string containing a conventionally formatted data member name into the</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"> * corresponding auto-determined config option name.</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment"> * @note An example for convenience, accurate as of the time of this writing:</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment"> *       `m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy.m_cool_option_name` transforms to</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment"> *       `cool-object.cool-sub-object.badass-sub-guy.cool-option-name`.</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment"> * The format for the contents of `member_id` shall be as follows: It shall consist of one or more</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment"> * identifiers following the Flow coding guide, each starting with `m_`, concatenated with C++ object separator</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"> * sequences, each sequence chosen to be either `.` (object dereference) or `-&gt;` (pointer dereference).  `m_` for</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"> * each identifier is optional for this function -- though the coding guide requires it as of this writing anyway.</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * Note that boost.program_options allows config files (when used as config sources, e.g,</span></div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> * Option_set::parse_config_file()) to declare a `[config-section]` which results in each `option-name` listed</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> * in that section to be treated as-if named `config-section.option-name`.  This has synergy with nested objects</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> * within a config value set being separated by dots also (or `-&gt;` if desired for orthogonal reasons, such as</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment"> * if a smart pointer is used).</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment"> * @param member_id</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> * @return See above.</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>std::string <a class="code hl_function" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0">value_set_member_id_to_opt_name</a>(<a class="code hl_typedef" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"></span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() internally</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> * (also made available as a public API in case it is useful), that does the job of</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="comment"> * value_set_member_id_to_opt_name() in addition to substituting the last `[...]` fragment with</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment"> * a dot separator, followed by the `ostream` encoding of `key`.</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment"> * @note An example for convenience, accurate as of the time of this writing:</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment"> *       `m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy[cool_key].m_cool_option_name`, with `cool_key == 3`,</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment"> *       transforms to `cool-object.cool-sub-object.badass-sub-guy.3.cool-option-name`.</span></div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment"> * Behavior is undefined if the `[...]` part doesn&#39;t exist or is preceded or succeeded by nothing.</span></div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment"> * In reality for things to work as expected that part should also be followed by a C++ object separator</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"> * as in value_set_member_id_to_opt_name() doc header; so, e.g., `m_blah[idx]-&gt;m_blah` or `m_blah[idx].m_blah`.</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> * @tparam Key</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> *         An `ostream&lt;&lt;`able type.  Common: `size_t` and `std::string`.</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> * @param member_id</span></div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> *        Identifier, perhaps obtained via the preprocessor `#` feature from an argument to a functional macro.</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> * @param key</span></div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> *        The value to splice in when replacing the key fragment inside `[]` (after the inserted `.`).</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> * @return See above.</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Key&gt;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>std::string <a class="code hl_function" href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">value_set_member_id_to_opt_name_keyed</a>(<a class="code hl_typedef" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id, <span class="keyword">const</span> Key&amp; key);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment"></span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment"> * Serializes a value of type `Value` to the given `ostream` suitably for output in Option_set-related output to user</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="comment"> * such as in help messages.  The generic version simply forwards to `ostream&lt;&lt;` operator; but specializations/overloads</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="comment"> * can massage/customize the output more suitably for usability.  The user may provide their own specializations or</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment"> * overload on top of any already provided.</span></div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment"> * @see E.g.: the `Value = chrono::duration` overload.</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment"> * @tparam Value</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment"> *         Type of `val`.  For this generic implementation `ostream &lt;&lt; Value` operator must exist.</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment"> * @param os</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment"> *        Stream to which to serialize.</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment"> * @param val</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment"> *        Value to serialize.</span></div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Value&gt;</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> Value&amp; val);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment"></span> </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment"> * Overload that serializes a value of `chrono`-based `duration` including `Fine_duration` --</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment"> * which is recommended to use for Option_set-configured time durations -- to the given `ostream` suitably for output</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment"> * in Option_set-related output to user such as in help messages.  As of this writing it improves upon the default</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment"> * `ostream&lt;&lt;` behavior by converting to coarser units without losing precision (e.g., not `&quot;9000000000 ns&quot;` but</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment"> * `&quot;9 s&quot;`).</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment"> * @tparam Rep</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment"> *         See `chrono::duration`.</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment"> * @tparam Period</span></div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment"> *         See `chrono::duration`.</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment"> * @param os</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment"> *        Stream to which to serialize.</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment"> * @param val</span></div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment"> *        Value to serialize.</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Rep, <span class="keyword">typename</span> Period&gt;</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> boost::chrono::duration&lt;Rep, Period&gt;&amp; val);</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment"></span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment"> * Overload that serializes a list value (with `Element` type itself similarly serializable)</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="comment"> * to the given `ostream` suitably for output in Option_set-related output to user such as in help messages.</span></div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment"> * @tparam Element</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment"> *         Any type for which `value_to_ostream(Element_type)` is available; but as of this writing</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment"> *         it cannot itself be `std::vector&lt;&gt;` (no lists of lists).</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment"> * @param os</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment"> *        Stream to which to serialize.</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment"> * @param val</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment"> *        Value to serialize.</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Element&gt;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> std::vector&lt;Element&gt;&amp; val);</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>} <span class="comment">// namespace flow::cfg</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment"></span> </div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="comment">/// We may add some ADL-based overloads into this namespace outside `flow`.</span></div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="namespaceboost_1_1filesystem.html">  266</a></span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceboost_1_1filesystem.html">boost::filesystem</a></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>{</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="comment">// Free functions.</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment"> * corresponding auto-determined config option name.  Can also be used for data members whose names are to be</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="comment"> * derived/printed for other purposes.  As of this writing, for example, util::stat uses it when pretty-printing</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment"> * individual stat data members (counters and gauges and such) near their values: `m_ack_count` =&gt; `&quot;ack_count=[5564]&quot;`.</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment"> * @note An example for convenience, accurate as of the time of this writing:</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment"> *       `m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy.m_cool_option_name` transforms to</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment"> *       `cool-object.cool-sub-object.badass-sub-guy.cool-option-name`.</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment"> * The format for the contents of `member_id` shall be as follows: It shall consist of one or more</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment"> * identifiers following the Flow coding guide, each starting with `m_`, concatenated with C++ object separator</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment"> * sequences, each sequence chosen to be either `.` (object dereference) or `-&gt;` (pointer dereference).  `m_` for</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"> * each identifier is optional for this function -- though the coding guide requires it as of this writing anyway.</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment"> * Note that boost.program_options allows config files (when used as config sources, e.g,</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="comment"> * Option_set::parse_config_file()) to declare a `[config-section]` which results in each `option-name` listed</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="comment"> * in that section to be treated as-if named `config-section.option-name`.  This has synergy with nested objects</span></div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment"> * within a config value set being separated by dots also (or `-&gt;` if desired for orthogonal reasons, such as</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment"> * if a smart pointer is used).</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="comment"> * @param member_id</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment"> *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment"> * @param sep_replacement</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="comment"> *        Character to replace `_` word-separators with.  Default dash (`-`) yields config-option-style names</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="comment"> *        (e.g., `cool-option-name`); underscore (`_`) yields stats/metric-style names (e.g., `cool_option_name`).</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment"> * @return See above.</span></div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>std::string <a class="code hl_function" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8">value_set_member_id_to_opt_name</a>(<a class="code hl_typedef" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id, <span class="keywordtype">char</span> sep_replacement = <span class="charliteral">&#39;-&#39;</span>);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="comment"></span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="comment"> * Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() internally</span></div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="comment"> * (also made available as a public API in case it is useful), that does the job of</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment"> * value_set_member_id_to_opt_name() in addition to substituting the last `[...]` fragment with</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment"> * a dot separator, followed by the `ostream` encoding of `key`.</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment"> * @note An example for convenience, accurate as of the time of this writing:</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="comment"> *       `m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy[cool_key].m_cool_option_name`, with `cool_key == 3`,</span></div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> *       transforms to `cool-object.cool-sub-object.badass-sub-guy.3.cool-option-name`.</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> * Behavior is undefined if the `[...]` part doesn&#39;t exist or is preceded or succeeded by nothing.</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> * In reality for things to work as expected that part should also be followed by a C++ object separator</span></div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> * as in value_set_member_id_to_opt_name() doc header; so, e.g., `m_blah[idx]-&gt;m_blah` or `m_blah[idx].m_blah`.</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> * @tparam Key</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment"> *         An `ostream&lt;&lt;`able type.  Common: `size_t` and `std::string`.</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment"> * @param member_id</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment"> *        Identifier, perhaps obtained via the preprocessor `#feature` from an argument to a functional macro.</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="comment"> * @param key</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment"> *        The value to splice in when replacing the key fragment inside `[]` (after the inserted `.`).</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment"> * @return See above.</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Key&gt;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>std::string <a class="code hl_function" href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">value_set_member_id_to_opt_name_keyed</a>(<a class="code hl_typedef" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id, <span class="keyword">const</span> Key&amp; key);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="comment"></span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment"> * Serializes a value of type `Value` to the given `ostream` suitably for output in Option_set-related output to user</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment"> * such as in help messages.  The generic version simply forwards to `ostream&lt;&lt;` operator; but specializations/overloads</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment"> * can massage/customize the output more suitably for usability.  The user may provide their own specializations or</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment"> * overload on top of any already provided.</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="comment"> * @see E.g.: the `Value = chrono::duration` overload.</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="comment"> * @tparam Value</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment"> *         Type of `val`.  For this generic implementation `ostream &lt;&lt; Value` operator must exist.</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment"> * @param os</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment"> *        Stream to which to serialize.</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment"> * @param val</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="comment"> *        Value to serialize.</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Value&gt;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> Value&amp; val);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="comment"></span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="comment"> * Overload that serializes a value of `chrono`-based `duration` including `Fine_duration` --</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment"> * which is recommended to use for Option_set-configured time durations -- to the given `ostream` suitably for output</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment"> * in Option_set-related output to user such as in help messages.  As of this writing it improves upon the default</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="comment"> * `ostream&lt;&lt;` behavior by converting to coarser units without losing precision (e.g., not `&quot;9000000000 ns&quot;` but</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="comment"> * `&quot;9 s&quot;`).</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="comment"> * @tparam Rep</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="comment"> *         See `chrono::duration`.</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="comment"> * @tparam Period</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="comment"> *         See `chrono::duration`.</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="comment"> * @param os</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment"> *        Stream to which to serialize.</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment"> * @param val</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment"> *        Value to serialize.</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Rep, <span class="keyword">typename</span> Period&gt;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> boost::chrono::duration&lt;Rep, Period&gt;&amp; val);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span><span class="comment"></span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment"> * Overload that serializes a list value (with `Element` type itself similarly serializable)</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="comment"> * to the given `ostream` suitably for output in Option_set-related output to user such as in help messages.</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment"> * @tparam Element</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment"> *         Any type for which `value_to_ostream(Element_type)` is available; but as of this writing</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment"> *         it cannot itself be `std::vector&lt;&gt;` (no lists of lists).</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment"> * @param os</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment"> *        Stream to which to serialize.</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment"> * @param val</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="comment"> *        Value to serialize.</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Element&gt;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a>(std::ostream&amp; os, <span class="keyword">const</span> std::vector&lt;Element&gt;&amp; val);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>} <span class="comment">// namespace flow::cfg</span></div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment"></span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="comment"> * ADL-based overload of boost.program_options `validate()` to allow for empty `boost::filesystem::path` values</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="comment"> * in flow::cfg config parsing as well as any other boost.program_options parsing in the application.</span></div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment"> * Likely there&#39;s no need to call this directly: it is invoked by boost.program_options when parsing `path`s.</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment"> * More precisely: This has ~two effects:</span></div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment"> *   - flow::cfg::Option_set (and flow::cfg::Config_manager and anything else built on `Option_set`) will</span></div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment"> *     successfully parse an empty (or all-spaces) value for a setting of type `boost::filesystem::path`, resulting</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment"> *     in a `path` equal to a default-constructed `path()`.</span></div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="comment"> *     - You may still disallow it via a validator expression in FLOW_CFG_OPTION_SET_DECLARE_OPTION() as usual.</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment"> *       (Sometimes an empty &quot;path&quot; value is useful as a special or sentinel value.)  Such flow::cfg-user-specified</span></div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment"> *       individual-option-validator checking, internally, occurs after (and only if) the lower-level parsing already</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment"> *       succeeded.</span></div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="comment"> *   - Any other use (even outside of flow::cfg) of boost.program_options to parse a `path` will now also allow</span></div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="comment"> *     an empty value (on command line, in file, etc.) in the same application.</span></div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment"> * ### Rationale ###</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment"> * Allowing empty `path`s in flow::cfg is required for usability.  It was a common use case to allow for a blank special</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment"> * value for path settings.  However trying to in fact provide an empty value in a flow::cfg file (e.g., simply</span></div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment"> * `log-file=`) resulted in an &quot;Invalid argument&quot; error message and refusal of</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment"> * flow::cfg::Option_set::parse_config_file() to successfully parse.</span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment"> * (The following discussion is about implementation details and would normally be omitted from this public-facing API</span></div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="comment"> * doc header.  However, in this slightly unusual (for Flow) situation the solution happens to subtly affect</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment"> * code outside of flow::cfg.  Therefore it is appropriate to discuss these internals here.)</span></div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="comment"> * The reason for this problem: flow::cfg uses boost.program_options for config source (especially file) parsing.</span></div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="comment"> * By default, when parsing a string into the proper type `T` (here `T` being `path`),</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="comment"> * boost.program_options uses `istream &gt;&gt; T` overload.  Turns out that reading a blank from a stream into `path` causes</span></div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="comment"> * the `istream` bad-bit to set, meaning `lexical_cast` throws `bad_lexical_cast`; boost.program_options then manifests</span></div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="comment"> * this as an arg parse error.  (If `T` were `std::string`, by contrast, no such problem would occur:</span></div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="comment"> * `istream &gt;&gt; string` will happily accept a blank string.)</span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="comment"> * boost.program_options clearly suggests the proper way to custom-parse types at</span></div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="comment"> * https://www.boost.org/doc/libs/1_78_0/doc/html/program_options/howto.html#id-1.3.32.6.7 --</span></div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="comment"> * namely, define a `validate()` overload in the same namespace as type `T`, with a `T`-typed arg.</span></div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="comment"> * ADL (argument-dependent lookup) will then use that overload -- instead of the default one, which simply invokes</span></div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="comment"> * `lexical_cast` (i.e., `istream&gt;&gt;`) -- and reports an error if that throws.  This is the same technique used</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="comment"> * to conveniently select `hash_value()` for `unordered_*`; `swap()` for STL containers; etc.</span></div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment"> * This solves the problem.  However, somewhat unusually, this imposes the same more-permissive semantics on</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment"> * *all* other uses of boost.program_options in any application linking Flow (which includes this overload).</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="comment"> * This is arguably not-great; ideally we&#39;d affect flow::cfg and nothing else.  That said (1) there&#39;s no apparent</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="comment"> * alternative in boost.program_options; and more to the point (2) this feels like either an improvement or</span></div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="comment"> * neutral.  If an empty path must be disallowed, this can be done via `notifier()` (or just a manual check).</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="comment"> * So, all in all, this seemed fine.</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment"> * @param target</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment"> *        `target` shall be loaded with the `path` on success.  Otherwise we shall throw, per required</span></div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="comment"> *        boost.program_options semantics.</span></div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="comment"> * @param user_values</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment"> *        The (trimmed) raw strings from the user for this occurrence of the setting.</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="comment"> *        In our case there must be only one, since a `path` has only one value.</span></div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceboost_1_1filesystem.html#a5fa05fd030711d6d8c76139467b13256">validate</a>(boost::any&amp; target, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; user_values, path*, <span class="keywordtype">int</span>);</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>} <span class="comment">// namespace boost::filesystem</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">/// We may add some ADL-based overloads into this namespace outside `flow`.</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno"><a class="line" href="namespaceboost_1_1filesystem.html">  271</a></span><span class="comment"></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceboost_1_1filesystem.html">boost::filesystem</a></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>{</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span><span class="comment">// Free functions.</span></div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span><span class="comment"></span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="comment"> * ADL-based overload of boost.program_options `validate()` to allow for empty `boost::filesystem::path` values</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="comment"> * in flow::cfg config parsing as well as any other boost.program_options parsing in the application.</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="comment"> * Likely there&#39;s no need to call this directly: it is invoked by boost.program_options when parsing `path`s.</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="comment"> * More precisely: This has ~two effects:</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="comment"> *   - flow::cfg::Option_set (and flow::cfg::Config_manager and anything else built on `Option_set`) will</span></div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span><span class="comment"> *     successfully parse an empty (or all-spaces) value for a setting of type `boost::filesystem::path`, resulting</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span><span class="comment"> *     in a `path` equal to a default-constructed `path()`.</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span><span class="comment"> *     - You may still disallow it via a validator expression in FLOW_CFG_OPTION_SET_DECLARE_OPTION() as usual.</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment"> *       (Sometimes an empty &quot;path&quot; value is useful as a special or sentinel value.)  Such flow::cfg-user-specified</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment"> *       individual-option-validator checking, internally, occurs after (and only if) the lower-level parsing already</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment"> *       succeeded.</span></div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment"> *   - Any other use (even outside of flow::cfg) of boost.program_options to parse a `path` will now also allow</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment"> *     an empty value (on command line, in file, etc.) in the same application.</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="comment"> * ### Rationale ###</span></div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="comment"> * Allowing empty `path`s in flow::cfg is required for usability.  It was a common use case to allow for a blank special</span></div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="comment"> * value for path settings.  However trying to in fact provide an empty value in a flow::cfg file (e.g., simply</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="comment"> * `log-file=`) resulted in an &quot;Invalid argument&quot; error message and refusal of</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="comment"> * flow::cfg::Option_set::parse_config_file() to successfully parse.</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="comment"> * (The following discussion is about implementation details and would normally be omitted from this public-facing API</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span><span class="comment"> * doc header.  However, in this slightly unusual (for Flow) situation the solution happens to subtly affect</span></div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span><span class="comment"> * code outside of flow::cfg.  Therefore it is appropriate to discuss these internals here.)</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span><span class="comment"> * The reason for this problem: flow::cfg uses boost.program_options for config source (especially file) parsing.</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="comment"> * By default, when parsing a string into the proper type `T` (here `T` being `path`),</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="comment"> * boost.program_options uses `istream &gt;&gt; T` overload.  Turns out that reading a blank from a stream into `path` causes</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="comment"> * the `istream` bad-bit to set, meaning `lexical_cast` throws `bad_lexical_cast`; boost.program_options then manifests</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span><span class="comment"> * this as an arg parse error.  (If `T` were `std::string`, by contrast, no such problem would occur:</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="comment"> * `istream &gt;&gt; string` will happily accept a blank string.)</span></div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="comment"> * boost.program_options clearly suggests the proper way to custom-parse types at</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment"> * https://www.boost.org/doc/libs/1_78_0/doc/html/program_options/howto.html#id-1.3.32.6.7 --</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment"> * namely, define a `validate()` overload in the same namespace as type `T`, with a `T`-typed arg.</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment"> * ADL (argument-dependent lookup) will then use that overload -- instead of the default one, which simply invokes</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="comment"> * `lexical_cast` (i.e., `istream&gt;&gt;`) -- and reports an error if that throws.  This is the same technique used</span></div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span><span class="comment"> * to conveniently select `hash_value()` for `unordered_*`; `swap()` for STL containers; etc.</span></div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="comment"> * This solves the problem.  However, somewhat unusually, this imposes the same more-permissive semantics on</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment"> * *all* other uses of boost.program_options in any application linking Flow (which includes this overload).</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment"> * This is arguably not-great; ideally we&#39;d affect flow::cfg and nothing else.  That said (1) there&#39;s no apparent</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment"> * alternative in boost.program_options; and more to the point (2) this feels like either an improvement or</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="comment"> * neutral.  If an empty path must be disallowed, this can be done via `notifier()` (or just a manual check).</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="comment"> * So, all in all, this seemed fine.</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="comment"> * @param target</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="comment"> *        `target` shall be loaded with the `path` on success.  Otherwise we shall throw, per required</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="comment"> *        boost.program_options semantics.</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="comment"> * @param user_values</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="comment"> *        The (trimmed) raw strings from the user for this occurrence of the setting.</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment"> *        In our case there must be only one, since a `path` has only one value.</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespaceboost_1_1filesystem.html#a5fa05fd030711d6d8c76139467b13256">validate</a>(boost::any&amp; target, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; user_values, path*, <span class="keywordtype">int</span>);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>} <span class="comment">// namespace boost::filesystem</span></div>
 <div class="ttc" id="aclassflow_1_1cfg_1_1Dynamic__cfg__context_html"><div class="ttname"><a href="classflow_1_1cfg_1_1Dynamic__cfg__context.html">flow::cfg::Dynamic_cfg_context</a></div><div class="ttdoc">Class which facilitates managing access to a dynamic configuration.</div><div class="ttdef"><b>Definition:</b> <a href="dynamic__cfg__context_8hpp_source.html#l00056">dynamic_cfg_context.hpp:57</a></div></div>
 <div class="ttc" id="aclassflow_1_1cfg_1_1Option__set__base_html"><div class="ttname"><a href="classflow_1_1cfg_1_1Option__set__base.html">flow::cfg::Option_set_base</a></div><div class="ttdoc">Un-templated base for Option_set.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l00033">option_set.hpp:34</a></div></div>
 <div class="ttc" id="aclassflow_1_1cfg_1_1Option__set_html"><div class="ttname"><a href="classflow_1_1cfg_1_1Option__set.html">flow::cfg::Option_set</a></div><div class="ttdoc">The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l00418">option_set.hpp:422</a></div></div>
-<div class="ttc" id="anamespaceboost_1_1filesystem_html"><div class="ttname"><a href="namespaceboost_1_1filesystem.html">boost::filesystem</a></div><div class="ttdoc">We may add some ADL-based overloads into this namespace outside flow.</div><div class="ttdef"><b>Definition:</b> <a href="cfg__fwd_8hpp_source.html#l00266">cfg_fwd.hpp:267</a></div></div>
-<div class="ttc" id="anamespaceboost_1_1filesystem_html_a5fa05fd030711d6d8c76139467b13256"><div class="ttname"><a href="namespaceboost_1_1filesystem.html#a5fa05fd030711d6d8c76139467b13256">boost::filesystem::validate</a></div><div class="ttdeci">void validate(boost::any &amp;target, const std::vector&lt; std::string &gt; &amp;user_values, path *, int)</div><div class="ttdoc">ADL-based overload of boost.program_options validate() to allow for empty boost::filesystem::path val...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8cpp_source.html#l00106">option_set.cpp:106</a></div></div>
+<div class="ttc" id="anamespaceboost_1_1filesystem_html"><div class="ttname"><a href="namespaceboost_1_1filesystem.html">boost::filesystem</a></div><div class="ttdoc">We may add some ADL-based overloads into this namespace outside flow.</div><div class="ttdef"><b>Definition:</b> <a href="cfg__fwd_8hpp_source.html#l00271">cfg_fwd.hpp:272</a></div></div>
+<div class="ttc" id="anamespaceboost_1_1filesystem_html_a5fa05fd030711d6d8c76139467b13256"><div class="ttname"><a href="namespaceboost_1_1filesystem.html#a5fa05fd030711d6d8c76139467b13256">boost::filesystem::validate</a></div><div class="ttdeci">void validate(boost::any &amp;target, const std::vector&lt; std::string &gt; &amp;user_values, path *, int)</div><div class="ttdoc">ADL-based overload of boost.program_options validate() to allow for empty boost::filesystem::path val...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8cpp_source.html#l00113">option_set.cpp:113</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html"><div class="ttname"><a href="namespaceflow_1_1cfg.html">flow::cfg</a></div><div class="ttdoc">Flow module that facilitates configuring modules, such as applications and APIs, via statically and/o...</div><div class="ttdef"><b>Definition:</b> <a href="cfg__fwd_8hpp_source.html#l00111">cfg_fwd.hpp:112</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1cfg_html_a1f5ff766e52aae24e6d5c876b3b26e96"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">flow::cfg::value_to_ostream</a></div><div class="ttdeci">void value_to_ostream(std::ostream &amp;os, const Value &amp;val)</div><div class="ttdoc">Serializes a value of type Value to the given ostream suitably for output in Option_set-related outpu...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02161">option_set.hpp:2161</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1cfg_html_a696eee859b6e3f0fc0b6473a1d2836b0"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0">flow::cfg::value_set_member_id_to_opt_name</a></div><div class="ttdeci">std::string value_set_member_id_to_opt_name(util::String_view member_id)</div><div class="ttdoc">Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8cpp_source.html#l00038">option_set.cpp:38</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1cfg_html_aafaf432a612183beab72175831aaa960"><div class="ttname"><a href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">flow::cfg::value_set_member_id_to_opt_name_keyed</a></div><div class="ttdeci">std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, const Key &amp;key)</div><div class="ttdoc">Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() i...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02238">option_set.hpp:2238</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1cfg_html_af310e567f2763a9736eda686030e6311"><div class="ttname"><a href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">flow::cfg::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Option_set&lt; Value_set &gt; &amp;val)</div><div class="ttdoc">Serializes (briefly) an Option_set to a standard output stream.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02155">option_set.hpp:2155</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1cfg_html_a1f5ff766e52aae24e6d5c876b3b26e96"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">flow::cfg::value_to_ostream</a></div><div class="ttdeci">void value_to_ostream(std::ostream &amp;os, const Value &amp;val)</div><div class="ttdoc">Serializes a value of type Value to the given ostream suitably for output in Option_set-related outpu...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02174">option_set.hpp:2174</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1cfg_html_a6d6595cfcda9a6788dc87fc61a87ccd8"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8">flow::cfg::value_set_member_id_to_opt_name</a></div><div class="ttdeci">std::string value_set_member_id_to_opt_name(util::String_view member_id, char sep_replacement='-')</div><div class="ttdoc">Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8cpp_source.html#l00041">option_set.cpp:41</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1cfg_html_aafaf432a612183beab72175831aaa960"><div class="ttname"><a href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">flow::cfg::value_set_member_id_to_opt_name_keyed</a></div><div class="ttdeci">std::string value_set_member_id_to_opt_name_keyed(util::String_view member_id, const Key &amp;key)</div><div class="ttdoc">Similar to value_set_member_id_to_opt_name() but used by FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() i...</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02251">option_set.hpp:2251</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1cfg_html_af310e567f2763a9736eda686030e6311"><div class="ttname"><a href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">flow::cfg::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Option_set&lt; Value_set &gt; &amp;val)</div><div class="ttdoc">Serializes (briefly) an Option_set to a standard output stream.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02168">option_set.hpp:2168</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1util_html_ae4dc52186797094b3040379ff19124c9"><div class="ttname"><a href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">flow::util::String_view</a></div><div class="ttdeci">Basic_string_view&lt; char &gt; String_view</div><div class="ttdoc">Commonly used char-based Basic_string_view. See its doc header.</div><div class="ttdef"><b>Definition:</b> <a href="string__view_8hpp_source.html#l00191">string_view.hpp:191</a></div></div>
 <div class="ttc" id="autil__fwd_8hpp_html"><div class="ttname"><a href="util__fwd_8hpp.html">util_fwd.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:18 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

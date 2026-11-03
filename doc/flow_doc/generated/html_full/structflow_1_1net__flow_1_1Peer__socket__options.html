@@ -130,9 +130,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a171480324f26432928738532cb3c8556"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">m_st_rcv_buf_max_size</a></td></tr>
 <tr class="memdesc:a171480324f26432928738532cb3c8556"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of bytes that the Receive buffer can hold.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#a171480324f26432928738532cb3c8556">More...</a><br /></td></tr>
 <tr class="separator:a171480324f26432928738532cb3c8556"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabbea38a7d97f54614c15921435d2106"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">m_st_rcv_sync_rcvd_data_q_cumulative_max_size</a></td></tr>
-<tr class="memdesc:aabbea38a7d97f54614c15921435d2106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#aabbea38a7d97f54614c15921435d2106">More...</a><br /></td></tr>
-<tr class="separator:aabbea38a7d97f54614c15921435d2106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1192b14c419e3688296af91fb0ea37a"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad1192b14c419e3688296af91fb0ea37a">m_st_rcv_syn_rcvd_data_q_cumulative_max_size</a></td></tr>
+<tr class="memdesc:ad1192b14c419e3688296af91fb0ea37a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Due to loss or reordering we may receive DATA packets before receiving the handshake-finishing SYN_ACK_ACK; any such SYN_RCVD-state DATA packets beyond this cumulative payload size shall be silently dropped.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad1192b14c419e3688296af91fb0ea37a">More...</a><br /></td></tr>
+<tr class="separator:ad1192b14c419e3688296af91fb0ea37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classbool.html">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">m_st_rcv_flow_control_on</a></td></tr>
 <tr class="memdesc:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether flow control (a/k/a receive window a/k/a rcv_wnd management) is enabled.  <a href="structflow_1_1net__flow_1_1Peer__socket__options.html#ad9a31f63eea6f89952a89ea0385d9a2e">More...</a><br /></td></tr>
 <tr class="separator:ad9a31f63eea6f89952a89ea0385d9a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -438,7 +438,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8cpp_source.html#l00285">285</a> of file <a class="el" href="options_8cpp_source.html">options.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="cong__ctl_8cpp_source.html#l00115">flow::net_flow::Congestion_control_selector::get_ids()</a>, <a class="el" href="options_8hpp_source.html#l00332">m_dyn_drop_timeout_backoff_factor</a>, <a class="el" href="options_8hpp_source.html#l00324">m_dyn_drop_timeout_ceiling</a>, <a class="el" href="options_8hpp_source.html#l00346">m_dyn_rcv_wnd_recovery_max_period</a>, <a class="el" href="options_8hpp_source.html#l00340">m_dyn_rcv_wnd_recovery_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00321">m_st_cong_ctl_classic_wnd_decay_percent</a>, <a class="el" href="options_8hpp_source.html#l00313">m_st_cong_ctl_cong_avoidance_increment_blocks</a>, <a class="el" href="options_8hpp_source.html#l00306">m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks</a>, <a class="el" href="options_8hpp_source.html#l00284">m_st_cong_ctl_init_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00303">m_st_cong_ctl_max_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00277">m_st_cong_ctl_strategy</a>, <a class="el" href="options_8hpp_source.html#l00121">m_st_connect_retransmit_period</a>, <a class="el" href="options_8hpp_source.html#l00124">m_st_connect_retransmit_timeout</a>, <a class="el" href="options_8hpp_source.html#l00198">m_st_delayed_ack_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00247">m_st_drop_all_on_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00240">m_st_drop_packet_exactly_after_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00233">m_st_init_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00114">m_st_max_block_size</a>, <a class="el" href="options_8hpp_source.html#l00205">m_st_max_full_blocks_before_ack_send</a>, <a class="el" href="options_8hpp_source.html#l00227">m_st_max_rexmissions_per_packet</a>, <a class="el" href="options_8hpp_source.html#l00255">m_st_out_of_order_ack_restarts_drop_timer</a>, <a class="el" href="options_8hpp_source.html#l00141">m_st_rcv_buf_max_size</a>, <a class="el" href="options_8hpp_source.html#l00167">m_st_rcv_buf_max_size_slack_percent</a>, <a class="el" href="options_8hpp_source.html#l00178">m_st_rcv_buf_max_size_to_advertise_percent</a>, <a class="el" href="options_8hpp_source.html#l00157">m_st_rcv_flow_control_on</a>, <a class="el" href="options_8hpp_source.html#l00190">m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent</a>, <a class="el" href="options_8hpp_source.html#l00148">m_st_rcv_sync_rcvd_data_q_cumulative_max_size</a>, <a class="el" href="options_8hpp_source.html#l00221">m_st_rexmit_on</a>, <a class="el" href="options_8hpp_source.html#l00274">m_st_snd_bandwidth_est_sample_period_floor</a>, <a class="el" href="options_8hpp_source.html#l00134">m_st_snd_buf_max_size</a>, and <a class="el" href="options_8hpp_source.html#l00265">m_st_snd_pacing_enabled</a>.</p>
+<p class="reference">References <a class="el" href="cong__ctl_8cpp_source.html#l00115">flow::net_flow::Congestion_control_selector::get_ids()</a>, <a class="el" href="options_8hpp_source.html#l00332">m_dyn_drop_timeout_backoff_factor</a>, <a class="el" href="options_8hpp_source.html#l00324">m_dyn_drop_timeout_ceiling</a>, <a class="el" href="options_8hpp_source.html#l00346">m_dyn_rcv_wnd_recovery_max_period</a>, <a class="el" href="options_8hpp_source.html#l00340">m_dyn_rcv_wnd_recovery_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00321">m_st_cong_ctl_classic_wnd_decay_percent</a>, <a class="el" href="options_8hpp_source.html#l00313">m_st_cong_ctl_cong_avoidance_increment_blocks</a>, <a class="el" href="options_8hpp_source.html#l00306">m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks</a>, <a class="el" href="options_8hpp_source.html#l00284">m_st_cong_ctl_init_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00303">m_st_cong_ctl_max_cong_wnd_blocks</a>, <a class="el" href="options_8hpp_source.html#l00277">m_st_cong_ctl_strategy</a>, <a class="el" href="options_8hpp_source.html#l00121">m_st_connect_retransmit_period</a>, <a class="el" href="options_8hpp_source.html#l00124">m_st_connect_retransmit_timeout</a>, <a class="el" href="options_8hpp_source.html#l00198">m_st_delayed_ack_timer_period</a>, <a class="el" href="options_8hpp_source.html#l00247">m_st_drop_all_on_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00240">m_st_drop_packet_exactly_after_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00233">m_st_init_drop_timeout</a>, <a class="el" href="options_8hpp_source.html#l00114">m_st_max_block_size</a>, <a class="el" href="options_8hpp_source.html#l00205">m_st_max_full_blocks_before_ack_send</a>, <a class="el" href="options_8hpp_source.html#l00227">m_st_max_rexmissions_per_packet</a>, <a class="el" href="options_8hpp_source.html#l00255">m_st_out_of_order_ack_restarts_drop_timer</a>, <a class="el" href="options_8hpp_source.html#l00141">m_st_rcv_buf_max_size</a>, <a class="el" href="options_8hpp_source.html#l00167">m_st_rcv_buf_max_size_slack_percent</a>, <a class="el" href="options_8hpp_source.html#l00178">m_st_rcv_buf_max_size_to_advertise_percent</a>, <a class="el" href="options_8hpp_source.html#l00157">m_st_rcv_flow_control_on</a>, <a class="el" href="options_8hpp_source.html#l00190">m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent</a>, <a class="el" href="options_8hpp_source.html#l00148">m_st_rcv_syn_rcvd_data_q_cumulative_max_size</a>, <a class="el" href="options_8hpp_source.html#l00221">m_st_rexmit_on</a>, <a class="el" href="options_8hpp_source.html#l00274">m_st_snd_bandwidth_est_sample_period_floor</a>, <a class="el" href="options_8hpp_source.html#l00134">m_st_snd_buf_max_size</a>, and <a class="el" href="options_8hpp_source.html#l00265">m_st_snd_pacing_enabled</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00497">setup_config_parsing()</a>, and <a class="el" href="options_8cpp_source.html#l00082">flow::net_flow::Node_options::setup_config_parsing_helper()</a>.</p>
 <div class="dynheader">
@@ -625,7 +625,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>is</code>.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000117">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000120">Todo:</a></b></dt><dd><a class="el" href="structflow_1_1net__flow_1_1Peer__socket__options.html#a42ce94dbc5d8be28134261c2eb18b245" title="The possible choices for congestion control strategy for the socket.">Peer_socket_options::Congestion_control_strategy_choice</a> stream inserter <code>&lt;&lt;</code> and <code>&gt;&gt;</code> operators should use the <a class="el" href="namespaceflow_1_1util.html#a18a29d6a6e65c3b96c52b5cad5971266" title="Deserializes an enum class value from a standard input stream.">flow::util::istream_to_enum()</a> pattern which is much easier than the overwrought old thing in there now involving two <code>map</code>s. Perhaps add a generic <code>enum_to_strings()</code> to provide the body for <a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c" title="Returns a list of strings, called IDs, each of which textually represents a distinct Congestion_contr...">net_flow::Congestion_control_selector::get_ids()</a>. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="cong__ctl_8cpp_source.html#l00124">124</a> of file <a class="el" href="cong__ctl_8cpp_source.html">cong_ctl.cpp</a>.</p>
 
@@ -814,7 +814,7 @@ Here is the caller graph for this function:</div>
 <li>This limits total outgoing throughput. The throughput B will be &lt;= CWND/RTT, where RTT is roughly the RTT of the connection, and CWND == max-cong-wnd-blocks * max-block-size. Therefore, choose B and RTT values and set max-cong-wnd-blocks = B * RTT / max-block-size (B in bytes/second, RTT in seconds).</li>
 <li>Until we implement Receive window, this value should be much (say, 4x) less than the size of the Receive buffer, to avoid situations where even a well-behaving user (i.e., user that <code>receive()</code>s all data ASAP) cannot keep up with reading data off Receive buffer, forcing <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> to drop large swaths of incoming traffic. If CWND is much smaller than Receive buffer size, then this avoids that problem.</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000119">Todo:</a></b></dt><dd>Reconsider this value after Receive window feature is implemented. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000122">Todo:</a></b></dt><dd>Reconsider this value after Receive window feature is implemented. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00303">303</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
@@ -859,7 +859,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00121">121</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -879,7 +879,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00124">124</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -900,7 +900,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00198">198</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -981,11 +981,11 @@ Here is the caller graph for this function:</div>
 <p>The size of block that we will strive to (and will, assuming at least that many bytes are available in Send buffer) pack into each outgoing DATA packet. </p>
 <p >It is assumed the other side is following the same policiy (any packets that do not &ndash; i.e., exceed this size &ndash; are dropped). This is an important control; the higher it is the better for performance AS LONG AS it's not so high it undergoes IP fragmentation (or does that even happen in UDP? if not, even worse &ndash; it'll just be dropped and not sent!). The performance impact is major; e.g., assuming no fragmentation/dropping, we've seen a ~1500 byte MBS result in 20-30% higher throughput than 1024 byte MBS.</p>
 <p >Additionally, if using <code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code> module with no reliability feature &ndash; i.e., if you want to perform FEC or something else outside the Flow protocol &ndash; then it is absolutely essential that EVERY <code>send*()</code> call provides a buffer whose size is a multiple of max-block-size. Otherwise packet boundaries will not be what you expect, and you will get what seems to be corrupted data at the application layer (since our stream-based API has no way of knowing where your message begins or ends). Alternatively you can encode message terminators or packet sizes, but since in unreliable mode integrity of a given block is guaranteed only if all blocks align with max-block-size boundaries, you'll still probably be screwed.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000118">Todo:</a></b></dt><dd>max-block-size should be dynamically determined (but overridable by this option). That is a complex topic, however, with considerations such as MTU discovery, ICMP errors, and who knows what else. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000121">Todo:</a></b></dt><dd>max-block-size should be dynamically determined (but overridable by this option). That is a complex topic, however, with considerations such as MTU discovery, ICMP errors, and who knows what else. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00114">114</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l01112">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00343">flow::net_flow::Peer_socket::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00348">flow::net_flow::Peer_socket::max_block_size_multiple()</a>, <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="node_8cpp_source.html#l01115">flow::net_flow::Node::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00344">flow::net_flow::Peer_socket::max_block_size()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00349">flow::net_flow::Peer_socket::max_block_size_multiple()</a>, <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1065,11 +1065,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Maximum number of bytes that the Receive buffer can hold. </p>
-<p >This determines how many bytes can be received in the background by the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> without user doing any receive()s. It is also rounded up to to the nearest multiple of max-block-size. </p>
+<p >This determines how many bytes can be received in the background by the <a class="el" href="classflow_1_1net__flow_1_1Node.html" title="An object of this class is a single Flow-protocol networking node, in the sense that: (1) it has a di...">Node</a> without user doing any <code>receive()</code>s. It is also rounded up to to the nearest multiple of max-block-size. </p>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00141">141</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1111,7 +1111,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00178">178</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1156,18 +1156,18 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00190">190</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
-<a id="aabbea38a7d97f54614c15921435d2106" name="aabbea38a7d97f54614c15921435d2106"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabbea38a7d97f54614c15921435d2106">&#9670;&nbsp;</a></span>m_st_rcv_sync_rcvd_data_q_cumulative_max_size</h2>
+<a id="ad1192b14c419e3688296af91fb0ea37a" name="ad1192b14c419e3688296af91fb0ea37a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1192b14c419e3688296af91fb0ea37a">&#9670;&nbsp;</a></span>m_st_rcv_syn_rcvd_data_q_cumulative_max_size</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t flow::net_flow::Peer_socket_options::m_st_rcv_sync_rcvd_data_q_cumulative_max_size</td>
+          <td class="memname">size_t flow::net_flow::Peer_socket_options::m_st_rcv_syn_rcvd_data_q_cumulative_max_size</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1199,7 +1199,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00221">221</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00364">flow::net_flow::Peer_socket::rexmit_on()</a>, and <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="info_8cpp_source.html#l00322">flow::net_flow::Peer_socket_info::output()</a>, <a class="el" href="peer__socket_8cpp_source.html#l00365">flow::net_flow::Peer_socket::rexmit_on()</a>, and <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>.</p>
 
 </div>
 </div>
@@ -1237,11 +1237,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Maximum number of bytes that the Send buffer can hold. </p>
-<p >This determines how many bytes user can <code>send()</code> while peer cannot send over network until send() refuses to take any more bytes. Notew that any value given will be increased, if necessary, to the nearest multiple of max-block-size. This is important to preserve message boundaries when operating in unreliable mode (guaranteed max-block-size-sized chunks of data will be sent out in their entirety instead of being fragmented). </p>
+<p >This determines how many bytes user can <code>send()</code> while peer cannot send over network until <code>send()</code> refuses to take any more bytes. Note that any value given will be increased, if necessary, to the nearest multiple of max-block-size. This is important to preserve message boundaries when operating in unreliable mode (guaranteed max-block-size-sized chunks of data will be sent out in their entirety instead of being fragmented). </p>
 
 <p class="definition">Definition at line <a class="el" href="options_8hpp_source.html#l00134">134</a> of file <a class="el" href="options_8hpp_source.html">options.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06144">flow::net_flow::Node::sock_validate_options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="options_8cpp_source.html#l00285">setup_config_parsing_helper()</a>, and <a class="el" href="peer__socket_8cpp_source.html#l06148">flow::net_flow::Node::sock_validate_options()</a>.</p>
 
 </div>
 </div>
@@ -1273,7 +1273,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Stat_set_printable&lt; Stat_set &gt;" name="flow::util::stat::Stat_set_printable&lt; Stat_set &gt;">
+<area shape="rect" id="node1" title="Thin proxy wrapping a const reference to a Stat_set, enabling ostream &lt;&lt; stat::print(my_stats) syntax..." alt="" coords="5,89,172,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="33,5,144,29"/>
+</map>

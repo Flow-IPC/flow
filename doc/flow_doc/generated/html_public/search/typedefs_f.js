@@ -8,11 +8,12 @@ var searchData=
   ['shared_5fstate_5',['Shared_state',['../classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f',1,'flow::util::Polled_shared_state']]],
   ['sharing_5fblob_6',['Sharing_blob',['../namespaceflow_1_1util.html#a164f043f9edc5e5ec8fc99a0e4eb9064',1,'flow::util']]],
   ['sharing_5fblob_5fsans_5flog_5fcontext_7',['Sharing_blob_sans_log_context',['../namespaceflow_1_1util.html#a0edd9dd6bf51e7457477123b419f5bf6',1,'flow::util']]],
-  ['size_5ftype_8',['size_type',['../classflow_1_1util_1_1Linked__hash__set.html#a39922a66be81234c043a5e43647df40b',1,'flow::util::Linked_hash_set::size_type()'],['../classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf',1,'flow::util::Linked_hash_map::size_type()'],['../classflow_1_1util_1_1Blob__with__log__context.html#ad085eb7b083c5207635a4a68ea5811ce',1,'flow::util::Blob_with_log_context::size_type()'],['../classflow_1_1util_1_1Basic__blob.html#a48015fe46d5378c44b32203efb1004da',1,'flow::util::Basic_blob::size_type()']]],
+  ['size_5ftype_8',['size_type',['../classflow_1_1util_1_1Linked__hash__set.html#a39922a66be81234c043a5e43647df40b',1,'flow::util::Linked_hash_set::size_type()'],['../classflow_1_1util_1_1Linked__hash__map.html#a135ce79aa68113033d3d5295bf6e3fdf',1,'flow::util::Linked_hash_map::size_type()'],['../classflow_1_1util_1_1Blob__with__log__context.html#ad085eb7b083c5207635a4a68ea5811ce',1,'flow::util::Blob_with_log_context::size_type()'],['../classflow_1_1util_1_1Basic__blob.html#a7e5a8f5e57fd1be7a0fce07fc68e31e9',1,'flow::util::Basic_blob::size_type()']]],
   ['sockets_9',['Sockets',['../classflow_1_1net__flow_1_1Event__set.html#a592b3ce6602051bd9994216041a3cbdc',1,'flow::net_flow::Event_set']]],
   ['span_10',['Span',['../namespaceflow_1_1util.html#a1a4ce7d40de4231a1443bc0c77103cba',1,'flow::util']]],
-  ['state_5fper_5fthread_5fmap_11',['State_per_thread_map',['../classflow_1_1util_1_1Thread__local__state__registry.html#a7ab7dc8cc1e83209fee76f5bc02c38e1',1,'flow::util::Thread_local_state_registry']]],
-  ['strand_12',['Strand',['../namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e',1,'flow::util']]],
-  ['strand_5fptr_13',['Strand_ptr',['../namespaceflow_1_1async.html#a2b92feccafa90bce16db57131c0fcd9e',1,'flow::async']]],
-  ['string_5fview_14',['String_view',['../namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9',1,'flow::util']]]
+  ['stat_5fset_11',['Stat_set',['../classflow_1_1util_1_1stat_1_1Stat__set__list.html#a3ec255c78d84b4fcc70cbbb3b397db84',1,'flow::util::stat::Stat_set_list::Stat_set()'],['../classflow_1_1util_1_1stat_1_1Global__stats.html#a9c7540049cac5b092ef923bb81ed3875',1,'flow::util::stat::Global_stats::Stat_set()']]],
+  ['state_5fper_5fthread_5fmap_12',['State_per_thread_map',['../classflow_1_1util_1_1Thread__local__state__registry.html#a7ab7dc8cc1e83209fee76f5bc02c38e1',1,'flow::util::Thread_local_state_registry']]],
+  ['strand_13',['Strand',['../namespaceflow_1_1util.html#aa59354ab408e978c8a7bda1a4706924e',1,'flow::util']]],
+  ['strand_5fptr_14',['Strand_ptr',['../namespaceflow_1_1async.html#a2b92feccafa90bce16db57131c0fcd9e',1,'flow::async']]],
+  ['string_5fview_15',['String_view',['../namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9',1,'flow::util']]]
 ];

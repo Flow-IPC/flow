@@ -1,0 +1,11 @@
+<map id="flow::util::stat::fetch_add" name="flow::util::stat::fetch_add">
+<area shape="rect" id="node1" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="427,162,587,186"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#ac2b4001ab9a803a1e2a7b9a32d90dedc" title="Aggregator: bucket&#45;by&#45;bucket, makes *this bucket&#39;s count incremented by src&#39;s corresponding bucket&#39;s ..." alt="" coords="216,5,379,41"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a69d15fde1dfda48f49ac735ab60020c7" title="Record event outcome." alt="" coords="216,65,379,101"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#a76a1043c7ab2a836863ffde084e363ba" title="Aggregates the values from src_stats into *target_stats, in&#45;place." alt="" coords="231,125,364,161"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util_1_1stat.html#a404d9e110b741b0a63f888c1c47e2db1" title="Sharded&#45;stats consumption: Aggregates N source Stat_sets, interpreted as shards of the aggregated who..." alt="" coords="231,185,364,221"/>
+<area shape="rect" id="node8" href="$namespaceflow_1_1util_1_1stat.html#aaf4612f95898988a74cb4f8135444000" title="Reset&#45;stats companion to stats_aggregate_shards(); together the two functions provide support for the..." alt="" coords="221,245,374,281"/>
+<area shape="rect" id="node9" href="$namespaceflow_1_1util_1_1stat.html#a57340a94c7c7ea7ed4591da0f9d5b20c" title="Equivalent to stats_aggregate() as&#45;if every stat, regardless of its actual stat::Stat_type,..." alt="" coords="217,306,378,330"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a0f2b2c162f36a66e641484059bc651f0" title="Convenience wrapper for record_value() that records a duration in the units specified as the mandator..." alt="" coords="5,65,168,101"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util_1_1stat.html#ab3d563958e342df01edcd63e9cba81d1" title="Aggregates N source Stat_sets – drawn from the iterator range [src_stats_begin, src_stats_end) – into..." alt="" coords="20,125,153,161"/>
+</map>

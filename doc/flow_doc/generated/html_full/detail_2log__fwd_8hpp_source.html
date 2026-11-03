@@ -150,21 +150,21 @@ $(function() {
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment"></span> </div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">/**</span></div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment"> * Thread-local Msg_metadata object used by FLOW_LOG_WITHOUT_CHECKING() for an alleged perf bonus in the</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * synchronous-Logger code path.  It is allocated at the first log call site for a given thread; and auto-deallocated</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> * when thread exits.</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">extern</span> boost::thread_specific_ptr&lt;Msg_metadata&gt; <a class="code hl_variable" href="namespaceflow_1_1log.html#ada740b2acb9b14ebf025883245c64357">this_thread_sync_msg_metadata_ptr</a>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace flow::log</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment"> * synchronous-Logger code path.</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">extern</span> <span class="keyword">thread_local</span> <a class="code hl_struct" href="structflow_1_1log_1_1Msg__metadata.html">Msg_metadata</a> <a class="code hl_variable" href="namespaceflow_1_1log.html#a99ce8d5999053399b72b076052daa988">this_thread_sync_msg_metadata</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace flow::log</span></div>
 <div class="ttc" id="aclassflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map_html"><div class="ttname"><a href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__map.html">flow::log::Component_payload_type_dict_by_ptr_via_map</a></div><div class="ttdoc">An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects,...</div><div class="ttdef"><b>Definition:</b> <a href="component__cfg_8hpp_source.html#l00147">component_cfg.hpp:148</a></div></div>
 <div class="ttc" id="aclassflow_1_1log_1_1Component__payload__type__dict__by__val__via__map_html"><div class="ttname"><a href="classflow_1_1log_1_1Component__payload__type__dict__by__val__via__map.html">flow::log::Component_payload_type_dict_by_val_via_map</a></div><div class="ttdoc">An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects,...</div><div class="ttdef"><b>Definition:</b> <a href="component__cfg_8hpp_source.html#l00345">component_cfg.hpp:346</a></div></div>
 <div class="ttc" id="alog__fwd_8hpp_html"><div class="ttname"><a href="log__fwd_8hpp.html">log_fwd.hpp</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1log_html"><div class="ttname"><a href="namespaceflow_1_1log.html">flow::log</a></div><div class="ttdoc">Flow module providing logging functionality.</div><div class="ttdef"><b>Definition:</b> <a href="async__file__logger_8cpp_source.html#l00027">async_file_logger.cpp:28</a></div></div>
-<div class="ttc" id="anamespaceflow_1_1log_html_ada740b2acb9b14ebf025883245c64357"><div class="ttname"><a href="namespaceflow_1_1log.html#ada740b2acb9b14ebf025883245c64357">flow::log::this_thread_sync_msg_metadata_ptr</a></div><div class="ttdeci">boost::thread_specific_ptr&lt; Msg_metadata &gt; this_thread_sync_msg_metadata_ptr</div><div class="ttdoc">Thread-local Msg_metadata object used by FLOW_LOG_WITHOUT_CHECKING() for an alleged perf bonus in the...</div><div class="ttdef"><b>Definition:</b> <a href="log_8cpp_source.html#l00028">log.cpp:28</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1log_html_a99ce8d5999053399b72b076052daa988"><div class="ttname"><a href="namespaceflow_1_1log.html#a99ce8d5999053399b72b076052daa988">flow::log::this_thread_sync_msg_metadata</a></div><div class="ttdeci">thread_local Msg_metadata this_thread_sync_msg_metadata</div><div class="ttdoc">Thread-local Msg_metadata object used by FLOW_LOG_WITHOUT_CHECKING() for an alleged perf bonus in the...</div><div class="ttdef"><b>Definition:</b> <a href="log_8cpp_source.html#l00029">log.cpp:29</a></div></div>
+<div class="ttc" id="astructflow_1_1log_1_1Msg__metadata_html"><div class="ttname"><a href="structflow_1_1log_1_1Msg__metadata.html">flow::log::Msg_metadata</a></div><div class="ttdoc">Simple data store containing all of the information generated at every logging call site by flow::log...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01150">log.hpp:1151</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:18 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

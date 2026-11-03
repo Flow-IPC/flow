@@ -68,7 +68,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">uniq_id_holder.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -81,11 +82,23 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceflow_1_1util"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html">flow::util</a></td></tr>
 <tr class="memdesc:namespaceflow_1_1util"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a99d00ea3453388ac9b9ff7e26031d44c"><td class="memItemLeft" align="right" valign="top">Thread_token&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c">flow::util::this_thread_unique_token</a> ()</td></tr>
+<tr class="memdesc:a99d00ea3453388ac9b9ff7e26031d44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a value conceptually similar to <code>this_thread::get_id()</code> &ndash; a thread ID &ndash; but that is never recycled for another thread, even after this one exits.  <a href="namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c">More...</a><br /></td></tr>
+<tr class="separator:a99d00ea3453388ac9b9ff7e26031d44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b264ba6e3506edc69b080de7563e404"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a4b264ba6e3506edc69b080de7563e404">flow::util::operator&lt;&lt;</a> (std::ostream &amp;os, Thread_token val)</td></tr>
+<tr class="memdesc:a4b264ba6e3506edc69b080de7563e404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints string representation of the given <code><a class="el" href="structflow_1_1util_1_1Thread__token.html" title="An integer-like, type-safe wrapper for the thread-token concept – see this_thread_unique_token(),...">Thread_token</a></code> to the given <code>ostream</code>: the <em>low 32 bits</em> of the underlying integer in fixed-width hex &ndash; <code>0x</code> followed by exactly N (as of this writing N=8) zero-padded digits &ndash; a token being an identity, not a quantity.  <a href="namespaceflow_1_1util.html#a4b264ba6e3506edc69b080de7563e404">More...</a><br /></td></tr>
+<tr class="separator:a4b264ba6e3506edc69b080de7563e404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab238b0bf494b555a693169abcfeb6561"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#ab238b0bf494b555a693169abcfeb6561">flow::util::hash_value</a> (Thread_token val)</td></tr>
+<tr class="memdesc:ab238b0bf494b555a693169abcfeb6561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes the given <code><a class="el" href="structflow_1_1util_1_1Thread__token.html" title="An integer-like, type-safe wrapper for the thread-token concept – see this_thread_unique_token(),...">Thread_token</a></code>; making it, e.g., boost.unordered-compatible as a key out of the box.  <a href="namespaceflow_1_1util.html#ab238b0bf494b555a693169abcfeb6561">More...</a><br /></td></tr>
+<tr class="separator:ab238b0bf494b555a693169abcfeb6561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

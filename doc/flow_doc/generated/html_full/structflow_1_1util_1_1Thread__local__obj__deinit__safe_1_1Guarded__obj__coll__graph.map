@@ -1,0 +1,5 @@
+<map id="flow::util::Thread_local_obj_deinit_safe&lt; Obj_t, Tag_t &gt;::Guarded_obj" name="flow::util::Thread_local_obj_deinit_safe&lt; Obj_t, Tag_t &gt;::Guarded_obj">
+<area shape="rect" id="node1" title="Holds the actual per&#45;thread Obj; its destruction records itself in the adjacent dead&#45;flag." alt="" coords="5,89,189,137"/>
+<area shape="rect" id="node2" title=" " alt="" coords="37,5,86,29"/>
+<area shape="rect" id="node3" href="$classbool.html" title=" " alt="" coords="110,5,157,29"/>
+</map>

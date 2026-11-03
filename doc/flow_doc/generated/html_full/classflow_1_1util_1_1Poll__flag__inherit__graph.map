@@ -1,0 +1,4 @@
+<map id="flow::util::Poll_flag" name="flow::util::Poll_flag">
+<area shape="rect" id="node1" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and..." alt="" coords="10,77,133,101"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,137,29"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Histogram_counter::idx_of_outcome" name="flow::util::stat::Histogram_counter::idx_of_outcome">
+<area shape="rect" id="node1" title="Which index into m_per_bucket_counts points to the appropriate bucket for record_value(val)?" alt="" coords="5,5,168,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="216,5,379,41"/>
+</map>

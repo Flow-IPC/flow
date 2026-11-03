@@ -90,7 +90,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for flow::log::Config:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config__coll__graph.svg" width="1094" height="456"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config__coll__graph.svg" width="1094" height="468"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -187,12 +187,12 @@ Private Types</h2></td></tr>
 <tr class="memitem:a3c5c7d62daba9625b0309b31da287585"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a3c5c7d62daba9625b0309b31da287585">Component_union_idx_to_sev_map</a> = std::vector&lt; <a class="el" href="classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html">Atomic_raw_sev</a> &gt;</td></tr>
 <tr class="memdesc:a3c5c7d62daba9625b0309b31da287585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for fast-lookup, thread-safe-for-RW mapping from flat-union-component-table index to max allowed severity for that component.  <a href="classflow_1_1log_1_1Config.html#a3c5c7d62daba9625b0309b31da287585">More...</a><br /></td></tr>
 <tr class="separator:a3c5c7d62daba9625b0309b31da287585"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1ed54fc7cef5b0ba4eadf97daf79be7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#aa1ed54fc7cef5b0ba4eadf97daf79be7">Component_name_to_union_idx_map</a> = boost::unordered_map&lt; std::string, <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a> &gt;</td></tr>
-<tr class="memdesc:aa1ed54fc7cef5b0ba4eadf97daf79be7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for fast-lookup map from normalized component name to its flat-union-component-table index.  <a href="classflow_1_1log_1_1Config.html#aa1ed54fc7cef5b0ba4eadf97daf79be7">More...</a><br /></td></tr>
-<tr class="separator:aa1ed54fc7cef5b0ba4eadf97daf79be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a663307a81245b621e12680d3a4d83df2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a663307a81245b621e12680d3a4d83df2">Component_union_idx_to_name_map</a> = boost::unordered_map&lt; <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>, std::string &gt;</td></tr>
-<tr class="memdesc:a663307a81245b621e12680d3a4d83df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for map that is essentially the inverse of <code>Component_name_to_union_idx_map</code>.  <a href="classflow_1_1log_1_1Config.html#a663307a81245b621e12680d3a4d83df2">More...</a><br /></td></tr>
-<tr class="separator:a663307a81245b621e12680d3a4d83df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeef14505b355ff452dfb8713130c75ff"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#aeef14505b355ff452dfb8713130c75ff">Component_name_to_union_idx_map</a> = boost::unordered_flat_map&lt; std::string, <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a> &gt;</td></tr>
+<tr class="memdesc:aeef14505b355ff452dfb8713130c75ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for fast-lookup map from normalized component name to its flat-union-component-table index.  <a href="classflow_1_1log_1_1Config.html#aeef14505b355ff452dfb8713130c75ff">More...</a><br /></td></tr>
+<tr class="separator:aeef14505b355ff452dfb8713130c75ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f3d2648d2b082adc7d74e835bf0783e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a4f3d2648d2b082adc7d74e835bf0783e">Component_union_idx_to_name_map</a> = boost::unordered_flat_map&lt; <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>, std::string &gt;</td></tr>
+<tr class="memdesc:a4f3d2648d2b082adc7d74e835bf0783e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for map that is essentially the inverse of <code>Component_name_to_union_idx_map</code>.  <a href="classflow_1_1log_1_1Config.html#a4f3d2648d2b082adc7d74e835bf0783e">More...</a><br /></td></tr>
+<tr class="separator:a4f3d2648d2b082adc7d74e835bf0783e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -223,10 +223,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a6b6b4511883c815e81f6427909ed829f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Config.html#a3c5c7d62daba9625b0309b31da287585">Component_union_idx_to_sev_map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a6b6b4511883c815e81f6427909ed829f">m_verbosities_by_component</a></td></tr>
 <tr class="memdesc:a6b6b4511883c815e81f6427909ed829f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps from flat union component index to most verbose (highest) <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04" title="Enumeration containing one of several message severity levels, ordered from highest to lowest.">log::Sev</a> for which <a class="el" href="classflow_1_1log_1_1Config.html#ae429a329e31a41ba75f94578b0e7f26c" title="A key output of Config, this computes the verbosity-filtering answer to Logger::should_log() based on...">output_whether_should_log()</a> will return true, when the input component is not null and maps to that flat union index via <a class="el" href="classflow_1_1log_1_1Config.html#af2d963a6e1e9e0fc5809764d5718e938" title="Given a component in the form user provides it at log call sites, returns its index in the flat compo...">component_to_union_idx()</a>.  <a href="classflow_1_1log_1_1Config.html#a6b6b4511883c815e81f6427909ed829f">More...</a><br /></td></tr>
 <tr class="separator:a6b6b4511883c815e81f6427909ed829f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35cb8f5805d2093d13625a528d78919c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Config.html#a663307a81245b621e12680d3a4d83df2">Component_union_idx_to_name_map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a35cb8f5805d2093d13625a528d78919c">m_component_names_by_union_idx</a></td></tr>
+<tr class="memitem:a35cb8f5805d2093d13625a528d78919c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Config.html#a4f3d2648d2b082adc7d74e835bf0783e">Component_union_idx_to_name_map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#a35cb8f5805d2093d13625a528d78919c">m_component_names_by_union_idx</a></td></tr>
 <tr class="memdesc:a35cb8f5805d2093d13625a528d78919c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps each flat union component index to its <em>output</em> component name as registered in <a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a>.  <a href="classflow_1_1log_1_1Config.html#a35cb8f5805d2093d13625a528d78919c">More...</a><br /></td></tr>
 <tr class="separator:a35cb8f5805d2093d13625a528d78919c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9decea94f2d3297a2b24bc6de7c4657"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Config.html#aa1ed54fc7cef5b0ba4eadf97daf79be7">Component_name_to_union_idx_map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#ad9decea94f2d3297a2b24bc6de7c4657">m_component_union_idxs_by_name</a></td></tr>
+<tr class="memitem:ad9decea94f2d3297a2b24bc6de7c4657"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Config.html#aeef14505b355ff452dfb8713130c75ff">Component_name_to_union_idx_map</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Config.html#ad9decea94f2d3297a2b24bc6de7c4657">m_component_union_idxs_by_name</a></td></tr>
 <tr class="memdesc:ad9decea94f2d3297a2b24bc6de7c4657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps each distinct component name as registered in <a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a> to its flat union component index.  <a href="classflow_1_1log_1_1Config.html#ad9decea94f2d3297a2b24bc6de7c4657">More...</a><br /></td></tr>
 <tr class="separator:ad9decea94f2d3297a2b24bc6de7c4657"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -234,7 +234,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><p >Class used to configure the filtering and logging behavior of <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s; its use in your custom <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s is optional but encouraged; supports dynamically changing filter settings even while concurrent logging occurs. </p>
 <p >If you are reading this to know how to configure an existing <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, then you don't need further background; just see this API to know how to configure such <code><a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a></code>s in a uniform way.</p>
 <p >If you are, instead, reading this when implementing a new custom <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>, then please see implementation recommendations in <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> doc header before continuing here.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000036">Todo:</a></b></dt><dd>Class <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> doc header is wordy and might be hard to follow; rewrite for clarity/flow/size.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>Class <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> doc header is wordy and might be hard to follow; rewrite for clarity/flow/size.</dd></dl>
 <h3>Synopsis: How do I use it to configure a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a>? Just tell me!</h3>
 <p >Really it's pretty easy to use it, but it's much easier to see how it's done by example rather than a formal-ish description (which is nevertheless below, in the next section of this doc header). To use <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> with a <code><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a></code>-supporting <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> in your <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>-using module M:</p>
 <ul>
@@ -303,16 +303,16 @@ Private Attributes</h2></td></tr>
 <div class="line">  m_thread_pool = std::make_unique&lt;flow::async::Cross_thread_task_loop&gt;(get_logger(), <span class="stringliteral">&quot;huge_pool&quot;</span>, 3000);</div>
 <div class="line">  m_thread_pool-&gt;start();</div>
 <div class="line">} <span class="comment">// Previous thread-local verbosity is restored (whether there was one, or none) upon exit from {block}.</span></div>
-<div class="ttc" id="aclassflow_1_1log_1_1Config_html_ab025990297cc07d51aaec277af203dfe"><div class="ttname"><a href="classflow_1_1log_1_1Config.html#ab025990297cc07d51aaec277af203dfe">flow::log::Config::this_thread_verbosity_override_auto</a></div><div class="ttdeci">static util::Scoped_setter&lt; Sev &gt; this_thread_verbosity_override_auto(Sev most_verbose_sev_or_none)</div><div class="ttdoc">Sets *(this_thread_verbosity_override()) = most_verbose_sev_or_none; and returns an object that shall...</div><div class="ttdef"><b>Definition:</b> <a href="config_8cpp_source.html#l00267">config.cpp:267</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Config_html_ab025990297cc07d51aaec277af203dfe"><div class="ttname"><a href="classflow_1_1log_1_1Config.html#ab025990297cc07d51aaec277af203dfe">flow::log::Config::this_thread_verbosity_override_auto</a></div><div class="ttdeci">static util::Scoped_setter&lt; Sev &gt; this_thread_verbosity_override_auto(Sev most_verbose_sev_or_none)</div><div class="ttdoc">Sets *(this_thread_verbosity_override()) = most_verbose_sev_or_none; and returns an object that shall...</div><div class="ttdef"><b>Definition:</b> <a href="config_8cpp_source.html#l00263">config.cpp:263</a></div></div>
 <div class="ttc" id="anamespaceflow_1_1log_html_a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021"><div class="ttname"><a href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021">flow::log::Sev::S_WARNING</a></div><div class="ttdeci">@ S_WARNING</div><div class="ttdoc">Message indicates a &quot;bad&quot; condition that is not frequent enough to be of severity Sev::S_TRACE.</div></div>
 </div><!-- fragment --><p> You may also query the current setting via <code>*(<a class="el" href="classflow_1_1log_1_1Config.html#a81da2c80d99cdd43c66a0df2eed64c70" title="Returns pointer to this thread&#39;s mutable verbosity override, for querying or assignment alike.">this_thread_verbosity_override()</a>)</code>. Direct assignment of a <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04" title="Enumeration containing one of several message severity levels, ordered from highest to lowest.">Sev</a> to the latter is allowed, but generally it is both safer and easier to use the RAII pattern via <a class="el" href="classflow_1_1log_1_1Config.html#ab025990297cc07d51aaec277af203dfe" title="Sets *(this_thread_verbosity_override()) = most_verbose_sev_or_none; and returns an object that shall...">this_thread_verbosity_override_auto()</a> for setting/restoring the override.</p>
 <p >The value <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf" title="Not an actual value but rather stores the highest numerical payload, useful for validity checks.">Sev::S_END_SENTINEL</a> indicates the thread-local verbosity override is disabled; and is the initial (default) state in any thread. However, generally, it is recommended to use the RAII pattern via <a class="el" href="classflow_1_1log_1_1Config.html#ab025990297cc07d51aaec277af203dfe" title="Sets *(this_thread_verbosity_override()) = most_verbose_sev_or_none; and returns an object that shall...">this_thread_verbosity_override_auto()</a> instead of direct assignment, for safe and easy save/restore.</p>
 <p >Note there are no thread-safety concerns with this feature, as it is entirely thread-local. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00316">316</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00327">327</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aa1ed54fc7cef5b0ba4eadf97daf79be7" name="aa1ed54fc7cef5b0ba4eadf97daf79be7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1ed54fc7cef5b0ba4eadf97daf79be7">&#9670;&nbsp;</a></span>Component_name_to_union_idx_map</h2>
+<a id="aeef14505b355ff452dfb8713130c75ff" name="aeef14505b355ff452dfb8713130c75ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeef14505b355ff452dfb8713130c75ff">&#9670;&nbsp;</a></span>Component_name_to_union_idx_map</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -321,7 +321,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Config.html#aa1ed54fc7cef5b0ba4eadf97daf79be7">flow::log::Config::Component_name_to_union_idx_map</a> =  boost::unordered_map&lt;std::string, <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>&gt;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Config.html#aeef14505b355ff452dfb8713130c75ff">flow::log::Config::Component_name_to_union_idx_map</a> =  boost::unordered_flat_map&lt;std::string, <a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>&gt;</td>
         </tr>
       </table>
   </td>
@@ -333,7 +333,7 @@ Private Attributes</h2></td></tr>
 
 <p>Short-hand for fast-lookup map from normalized component name to its flat-union-component-table index. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00979">979</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00990">990</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -366,7 +366,7 @@ Private Attributes</h2></td></tr>
 <p >That's why <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict.html" title="An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects; impl = 1 C...">Component_payload_type_dict</a> (and its buddies) exists as opposed to just using a straightforward hash-map. We wrote some code that uses <code>type_info*</code> pointer values after all, when possible (and hence the <code>component_payload_type_info_ptr_is_uniq</code> hint arg to <a class="el" href="classflow_1_1log_1_1Config.html#a9b7ba819538d221f190e044cfa6220db" title="Registers a generically-typed enum class that represents the full set of the calling module&#39;s possibl...">init_component_to_union_idx_mapping()</a>). Further details are encapsulated in <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict.html" title="An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects; impl = 1 C...">Component_payload_type_dict</a> land.</p>
 <p >So what one needs to decide here is how to configure <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict.html" title="An internal-use dictionary for fast lookup of small Cfg values keyed by type_info objects; impl = 1 C...">Component_payload_type_dict</a> via its two template args just below. The current choices were obtained empirically with benchmarking (which can be found elsewhere in unit-test-land; a unit test will fail if those benchmarks start giving very unexpected results, e.g. due to differing hardware or who knows what). (See <a class="el" href="config_8hpp.html#a4c7537066356b7dcb9b9090fc98a38d2" title="Macro (preprocessor symbol) to optionally set (when building Flow and translation units that use flow...">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR</a> and <a class="el" href="config_8hpp.html#a432ef317310a3c5e0f691f092e80494f" title="Cousin of FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR, similarly affecting a related behavior.">FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL</a> Impl section for discussion. These also allow user to override all or part of our decision.) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00854">854</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00865">865</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,12 +385,12 @@ Private Attributes</h2></td></tr>
 <p>Unsigned index into the flat union of component tables maintained by a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a>, combining potentially multiple user component <code>enum</code> tables. </p>
 <p >Also suitable for non-negative offsets against such indices. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00325">325</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00336">336</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a663307a81245b621e12680d3a4d83df2" name="a663307a81245b621e12680d3a4d83df2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a663307a81245b621e12680d3a4d83df2">&#9670;&nbsp;</a></span>Component_union_idx_to_name_map</h2>
+<a id="a4f3d2648d2b082adc7d74e835bf0783e" name="a4f3d2648d2b082adc7d74e835bf0783e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f3d2648d2b082adc7d74e835bf0783e">&#9670;&nbsp;</a></span>Component_union_idx_to_name_map</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -399,7 +399,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Config.html#a663307a81245b621e12680d3a4d83df2">flow::log::Config::Component_union_idx_to_name_map</a> =  boost::unordered_map&lt;<a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>, std::string&gt;</td>
+          <td class="memname">using <a class="el" href="classflow_1_1log_1_1Config.html#a4f3d2648d2b082adc7d74e835bf0783e">flow::log::Config::Component_union_idx_to_name_map</a> =  boost::unordered_flat_map&lt;<a class="el" href="classflow_1_1log_1_1Config.html#aabb6bf7c67b40faeab764ad695b63b9d">component_union_idx_t</a>, std::string&gt;</td>
         </tr>
       </table>
   </td>
@@ -411,7 +411,7 @@ Private Attributes</h2></td></tr>
 
 <p>Short-hand for map that is essentially the inverse of <code>Component_name_to_union_idx_map</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00982">982</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00993">993</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -445,7 +445,7 @@ Private Attributes</h2></td></tr>
 <h3>Performance</h3>
 <p >The lookup by index could not be any faster: it adds the index to a base integer and done. This is even somewhat faster than an <code>unordered_map&lt;&gt;</code> which is also constant-time but a bit more involved. The writing and reading of the <code>atomic&lt;&gt;</code> can be faster than with an explicit mutex lock/unlock bracketing but can be somewhat slower than an unprotected assignment/read; or it can be exactly equal; the point is that is under our control via <code>memory_order</code> spec; again, see details at the read and write sites. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00968">968</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00979">979</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -471,7 +471,7 @@ Private Attributes</h2></td></tr>
 
 <p>How we store a <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04" title="Enumeration containing one of several message severity levels, ordered from highest to lowest.">log::Sev</a> (a mere <code>enum</code> itself) in a certain data structure. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00859">859</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00870">870</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -580,7 +580,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for move-construction. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move constructor. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move constructor. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -620,9 +620,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00040">40</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="component__cfg_8hpp_source.html#l00722">flow::log::Component_payload_type_dict&lt; Dict_by_ptr_t, Dict_by_val_t &gt;::lookup()</a>, <a class="el" href="config_8hpp_source.html#l01034">m_component_cfgs_by_payload_type</a>, <a class="el" href="log_8cpp_source.html#l00181">flow::log::Component::payload_enum_raw_value()</a>, and <a class="el" href="log_8cpp_source.html#l00175">flow::log::Component::payload_type()</a>.</p>
+<p class="reference">References <a class="el" href="component__cfg_8hpp_source.html#l00722">flow::log::Component_payload_type_dict&lt; Dict_by_ptr_t, Dict_by_val_t &gt;::lookup()</a>, <a class="el" href="config_8hpp_source.html#l01045">m_component_cfgs_by_payload_type</a>, <a class="el" href="log_8cpp_source.html#l00226">flow::log::Component::payload_enum_raw_value()</a>, and <a class="el" href="log_8cpp_source.html#l00220">flow::log::Component::payload_type()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01228">configure_component_verbosity()</a>, <a class="el" href="config_8hpp_source.html#l01142">init_component_names()</a>, <a class="el" href="config_8cpp_source.html#l00152">output_component_to_ostream()</a>, and <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01239">configure_component_verbosity()</a>, <a class="el" href="config_8hpp_source.html#l01153">init_component_names()</a>, <a class="el" href="config_8cpp_source.html#l00152">output_component_to_ostream()</a>, and <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -679,7 +679,7 @@ template&lt;typename Component_payload &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> on success; <code>false</code> otherwise. See above for more. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01228">1228</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01239">1239</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
 <div class="dynheader">
@@ -733,7 +733,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00134">134</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8hpp_source.html#l01095">m_component_union_idxs_by_name</a>, <a class="el" href="config_8cpp_source.html#l00240">normalized_component_name()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
+<p class="reference">References <a class="el" href="config_8hpp_source.html#l01106">m_component_union_idxs_by_name</a>, <a class="el" href="config_8cpp_source.html#l00240">normalized_component_name()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -784,11 +784,11 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00116">116</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8hpp_source.html#l01078">m_verbosities_by_component</a>, <a class="el" href="config_8hpp_source.html#l01049">m_verbosity_default</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
+<p class="reference">References <a class="el" href="config_8hpp_source.html#l01089">m_verbosities_by_component</a>, <a class="el" href="config_8hpp_source.html#l01060">m_verbosity_default</a>, <a class="el" href="histo_8cpp_source.html#l00385">flow::util::stat::reset()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config_ac562cc0132f6cfa81b42c332400033ae_cgraph.svg" width="415" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config_ac562cc0132f6cfa81b42c332400033ae_cgraph.svg" width="808" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -855,9 +855,9 @@ template&lt;typename Component_payload &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01141">1141</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01152">1152</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="util_2util_8hpp_source.html#l00310">flow::util::key_exists()</a>, <a class="el" href="config_8hpp_source.html#l01088">m_component_names_by_union_idx</a>, <a class="el" href="config_8hpp_source.html#l01095">m_component_union_idxs_by_name</a>, <a class="el" href="config_8cpp_source.html#l00249">normalize_component_name()</a>, and <a class="el" href="config_8cpp_source.html#l00240">normalized_component_name()</a>.</p>
+<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="util_2util_8hpp_source.html#l00511">flow::util::key_exists()</a>, <a class="el" href="config_8hpp_source.html#l01099">m_component_names_by_union_idx</a>, <a class="el" href="config_8hpp_source.html#l01106">m_component_union_idxs_by_name</a>, <a class="el" href="config_8cpp_source.html#l00249">normalize_component_name()</a>, and <a class="el" href="config_8cpp_source.html#l00240">normalized_component_name()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -935,9 +935,9 @@ template&lt;typename Component_payload &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01101">1101</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01112">1112</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="component__cfg_8hpp_source.html#l00708">flow::log::Component_payload_type_dict&lt; Dict_by_ptr_t, Dict_by_val_t &gt;::insert()</a>, <a class="el" href="config_8hpp_source.html#l01034">m_component_cfgs_by_payload_type</a>, and <a class="el" href="config_8hpp_source.html#l01078">m_verbosities_by_component</a>.</p>
+<p class="reference">References <a class="el" href="component__cfg_8hpp_source.html#l00708">flow::log::Component_payload_type_dict&lt; Dict_by_ptr_t, Dict_by_val_t &gt;::insert()</a>, <a class="el" href="config_8hpp_source.html#l01045">m_component_cfgs_by_payload_type</a>, and <a class="el" href="config_8hpp_source.html#l01089">m_verbosities_by_component</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -981,7 +981,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00249">249</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01142">init_component_names()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01153">init_component_names()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1026,7 +1026,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00240">240</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8hpp_source.html#l01142">init_component_names()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8hpp_source.html#l01153">init_component_names()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1061,7 +1061,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for move assignment. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000039">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move assignment. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> move assignment. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -1090,7 +1090,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>For now at least there's no reason for copy assignment. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000038">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> copy assignment. I just didn't need to deal with it. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000039">Todo:</a></b></dt><dd>Reconsider providing a <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> copy assignment. I just didn't need to deal with it. </dd></dl>
 
 </div>
 </div>
@@ -1134,7 +1134,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00152">152</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="log_8cpp_source.html#l00170">flow::log::Component::empty()</a>, and <a class="el" href="config_8hpp_source.html#l01088">m_component_names_by_union_idx</a>.</p>
+<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Component::empty()</a>, and <a class="el" href="config_8hpp_source.html#l01099">m_component_names_by_union_idx</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 <div class="dynheader">
@@ -1214,11 +1214,11 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00184">184</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="log_8cpp_source.html#l00170">flow::log::Component::empty()</a>, <a class="el" href="config_8hpp_source.html#l01078">m_verbosities_by_component</a>, <a class="el" href="config_8hpp_source.html#l01049">m_verbosity_default</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf">flow::log::S_END_SENTINEL</a>, and <a class="el" href="config_8cpp_source.html#l00257">this_thread_verbosity_override()</a>.</p>
+<p class="reference">References <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Component::empty()</a>, <a class="el" href="stat__set_8hpp_source.html#l00332">flow::util::stat::load()</a>, <a class="el" href="config_8hpp_source.html#l01089">m_verbosities_by_component</a>, <a class="el" href="config_8hpp_source.html#l01060">m_verbosity_default</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf">flow::log::S_END_SENTINEL</a>, and <a class="el" href="config_8cpp_source.html#l00257">this_thread_verbosity_override()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config_ae429a329e31a41ba75f94578b0e7f26c_cgraph.svg" width="795" height="291"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Config_ae429a329e31a41ba75f94578b0e7f26c_cgraph.svg" width="795" height="339"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1258,7 +1258,7 @@ template&lt;typename Component_payload &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01244">1244</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01255">1255</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 </div>
 </div>
@@ -1307,9 +1307,9 @@ template&lt;typename Component_payload &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00062">62</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8hpp_source.html#l01078">m_verbosities_by_component</a>.</p>
+<p class="reference">References <a class="el" href="config_8hpp_source.html#l01089">m_verbosities_by_component</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01228">configure_component_verbosity()</a>, <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8cpp_source.html#l00116">configure_default_verbosity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01239">configure_component_verbosity()</a>, <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8cpp_source.html#l00116">configure_default_verbosity()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1368,7 +1368,7 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a6fba12db09e5bebfaa04f6372c41c2cf">flow::log::S_END_SENTINEL</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>, and <a class="el" href="config_8cpp_source.html#l00267">this_thread_verbosity_override_auto()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>, and <a class="el" href="config_8cpp_source.html#l00263">this_thread_verbosity_override_auto()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1414,7 +1414,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Object that, when it is destroyed, will restore the verbosity override to what it was before this call. (The object cannot be copied, to prevent a double-restore. It can however be moved-from.) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00267">267</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8cpp_source.html#l00263">263</a> of file <a class="el" href="config_8cpp_source.html">config.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="config_8cpp_source.html#l00257">this_thread_verbosity_override()</a>.</p>
 <div class="dynheader">
@@ -1450,9 +1450,9 @@ Here is the call graph for this function:</div>
 <p>Fast-lookup map from distinct <code>Component_payload</code> type to the config for that component <code>enum</code>. </p>
 <p >The key is <code>std::type_info</code>, a/k/a <a class="el" href="classflow_1_1log_1_1Component.html#a3ff8ff4d75add447b3e10ded5430833d" title="Returns typeid(Payload), where Payload was the template param used when calling the originating one-a...">Component::payload_type()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01034">1034</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01045">1045</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, and <a class="el" href="config_8hpp_source.html#l01101">init_component_to_union_idx_mapping()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00040">component_to_union_idx()</a>, and <a class="el" href="config_8hpp_source.html#l01112">init_component_to_union_idx_mapping()</a>.</p>
 
 </div>
 </div>
@@ -1466,7 +1466,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classflow_1_1log_1_1Config.html#a663307a81245b621e12680d3a4d83df2">Component_union_idx_to_name_map</a> flow::log::Config::m_component_names_by_union_idx</td>
+          <td class="memname"><a class="el" href="classflow_1_1log_1_1Config.html#a4f3d2648d2b082adc7d74e835bf0783e">Component_union_idx_to_name_map</a> flow::log::Config::m_component_names_by_union_idx</td>
         </tr>
       </table>
   </td>
@@ -1480,9 +1480,9 @@ Here is the call graph for this function:</div>
 <p >Note that a given index not being present in this map doesn't mean it's not a real component; but <a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a> caller may have intentionally not supplied it a forward-lookup name, so that instead the number itself would be output.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01088">1088</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01099">1099</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01142">init_component_names()</a>, and <a class="el" href="config_8cpp_source.html#l00152">output_component_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8hpp_source.html#l01153">init_component_names()</a>, and <a class="el" href="config_8cpp_source.html#l00152">output_component_to_ostream()</a>.</p>
 
 </div>
 </div>
@@ -1496,7 +1496,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classflow_1_1log_1_1Config.html#aa1ed54fc7cef5b0ba4eadf97daf79be7">Component_name_to_union_idx_map</a> flow::log::Config::m_component_union_idxs_by_name</td>
+          <td class="memname"><a class="el" href="classflow_1_1log_1_1Config.html#aeef14505b355ff452dfb8713130c75ff">Component_name_to_union_idx_map</a> flow::log::Config::m_component_union_idxs_by_name</td>
         </tr>
       </table>
   </td>
@@ -1509,9 +1509,9 @@ Here is the call graph for this function:</div>
 <p>Maps each distinct component name as registered in <a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a> to its flat union component index. </p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Config.html#aa915c16f60e7ebf79ee7a1919f2e7f9b" title="Registers the string names of each member of the enum class Component_payload earlier registered via ...">init_component_names()</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01095">1095</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01106">1106</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8hpp_source.html#l01142">init_component_names()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00134">configure_component_verbosity_by_name()</a>, and <a class="el" href="config_8hpp_source.html#l01153">init_component_names()</a>.</p>
 
 </div>
 </div>
@@ -1530,7 +1530,7 @@ Here is the call graph for this function:</div>
 <p><a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a> setting: If <code>true</code>, time stamps will include a (deterministically formatted) date, time, time zone, all in the OS's current time zone; else raw # of seconds passed since POSIX (Unix) Epoch (1970, Jan 1, 00:00, GMT). </p>
 <p >In both cases time is expressed with microsecond resolution (but the accuracy is only as good as the computer's clock hardware and OS software allow, presumably, though this isn't in the purview of class <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">Config</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00793">793</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00804">804</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00038">flow::log::Ostream_log_msg_writer::Ostream_log_msg_writer()</a>.</p>
 
@@ -1565,9 +1565,9 @@ Here is the call graph for this function:</div>
 </ul>
 <p >Note that some log systems will choose to not even allow any elements in <a class="el" href="classflow_1_1log_1_1Config.html#a6b6b4511883c815e81f6427909ed829f" title="Maps from flat union component index to most verbose (highest) log::Sev for which output_whether_shou...">m_verbosities_by_component</a> and leave the config to <a class="el" href="classflow_1_1log_1_1Config.html#a409818a2192ee2544b442b2ea957a76c" title="Most verbose (highest) log::Sev for which output_whether_should_log() will return true,...">m_verbosity_default</a> exclusively; in this case <code>m_verbosities_by_component</code> is filled with -1 copies (or might even be empty, if they had never configured any components for whatever reason; by above semantics those have identical meanings). </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01078">1078</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01089">1089</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00116">configure_default_verbosity()</a>, <a class="el" href="config_8hpp_source.html#l01101">init_component_to_union_idx_mapping()</a>, <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00116">configure_default_verbosity()</a>, <a class="el" href="config_8hpp_source.html#l01112">init_component_to_union_idx_mapping()</a>, <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>, and <a class="el" href="config_8cpp_source.html#l00062">store_severity_by_component()</a>.</p>
 
 </div>
 </div>
@@ -1596,7 +1596,7 @@ Here is the call graph for this function:</div>
 <h3>Rationale: Why <a class="el" href="classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,...">Atomic_raw_sev</a> instead of just <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04" title="Enumeration containing one of several message severity levels, ordered from highest to lowest.">log::Sev</a>?</h3>
 <p >The reasoning is identical to that found in the discussion of why <code>atomic</code> is used in <a class="el" href="classflow_1_1log_1_1Config.html#a3c5c7d62daba9625b0309b31da287585" title="Short-hand for fast-lookup, thread-safe-for-RW mapping from flat-union-component-table index to max a...">Component_union_idx_to_sev_map</a>; see its doc header. (We don't have to store a <a class="el" href="classflow_1_1log_1_1Config.html#acae76e3367bd497f5b00f46e48b3a39c" title="How we store a log::Sev (a mere enum itself) in a certain data structure.">raw_sev_t</a>, as it's one lousy value and not a bulk container in this case, but we do anyway just to get the copyability for free without having to parameterize <a class="el" href="classflow_1_1log_1_1Config_1_1Atomic__raw__sev.html" title="Trivial wrapper of atomic&lt;raw_sev_t&gt; which adds a couple of things to make it possible to construct,...">Atomic_raw_sev</a> into a template. It's a tiny bit cheesy to avoid the latter just to keep the code briefer, but probably well within reasonableness.) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01049">1049</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l01060">1060</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="config_8cpp_source.html#l00116">configure_default_verbosity()</a>, and <a class="el" href="config_8cpp_source.html#l00184">output_whether_should_log()</a>.</p>
 
@@ -1624,7 +1624,7 @@ Here is the call graph for this function:</div>
 
 <p>Recommended default/catch-all most-verbose-severity value if no specific config is given. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00330">330</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8hpp_source.html#l00341">341</a> of file <a class="el" href="config_8hpp_source.html">config.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="verbosity__config_8cpp_source.html#l00044">flow::log::Verbosity_config::parse()</a>, and <a class="el" href="verbosity__config_8cpp_source.html#l00034">flow::log::Verbosity_config::Verbosity_config()</a>.</p>
 
@@ -1637,7 +1637,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -1,21 +1,23 @@
 <map id="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;" name="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;">
-<area shape="rect" id="node1" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built&#45;in lazy&#45;init semantics; and more importantly ..." alt="" coords="1239,371,1397,419"/>
-<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context__mt.html" title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ..." alt="" coords="879,225,1041,249"/>
-<area shape="rect" id="node3" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="628,175,771,199"/>
-<area shape="rect" id="node4" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="371,175,486,199"/>
-<area shape="rect" id="node5" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="5,223,157,247"/>
-<area shape="rect" id="node6" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="23,102,139,138"/>
-<area shape="rect" id="node7" title=" " alt="" coords="15,275,147,299"/>
-<area shape="rect" id="node8" title=" " alt="" coords="19,162,144,198"/>
-<area shape="rect" id="node9" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="359,53,499,77"/>
-<area shape="rect" id="node10" title=" " alt="" coords="25,53,138,77"/>
-<area shape="rect" id="node11" title=" " alt="" coords="36,5,127,29"/>
-<area shape="rect" id="node12" title=" " alt="" coords="672,225,727,249"/>
-<area shape="rect" id="node13" href="$classbool.html" title=" " alt="" coords="937,328,983,352"/>
-<area shape="rect" id="node14" href="$classflow_1_1Function.html" title=" " alt="" coords="885,377,1035,413"/>
-<area shape="rect" id="node15" title=" " alt="" coords="921,437,999,461"/>
-<area shape="rect" id="node16" title=" " alt="" coords="639,429,760,465"/>
-<area shape="rect" id="node17" href="$structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html" title="Simply wraps a boost::thread_specific_ptr&lt;Tl_context&gt;, adding absolutely no data or algorithms,..." alt="" coords="887,486,1033,546"/>
-<area shape="rect" id="node18" title=" " alt="" coords="633,489,765,549"/>
-<area shape="rect" id="node19" title=" " alt="" coords="871,571,1049,619"/>
+<area shape="rect" id="node1" title="Similar to Thread_local_ptr&lt;T&gt; (a perf&#45;upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t..." alt="" coords="1307,532,1465,580"/>
+<area shape="rect" id="node2" href="$classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns..." alt="" coords="982,225,1125,249"/>
+<area shape="rect" id="node3" href="$classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;..." alt="" coords="688,225,803,249"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1Null__interface.html" title="An empty interface, consisting of nothing but a default virtual destructor, intended as a boiler&#45;plat..." alt="" coords="323,200,475,224"/>
+<area shape="rect" id="node5" href="$classflow_1_1util_1_1Unique__id__holder.html" title="Each object of this class stores (at construction) and returns (on demand) a numeric ID unique from a..." alt="" coords="341,350,457,386"/>
+<area shape="rect" id="node6" title=" " alt="" coords="49,345,116,369"/>
+<area shape="rect" id="node19" href="$classflow_1_1util_1_1Thread__local__ptr__cache.html" title="Internal&#45;use helper for Thread_local_ptr which encapsulates that guy&#39;s thread_locally&#45;accessed TLS pa..." alt="" coords="341,414,457,450"/>
+<area shape="rect" id="node7" title=" " alt="" coords="17,276,149,300"/>
+<area shape="rect" id="node17" href="$classflow_1_1util_1_1Thread__local__ptr.html" title=" " alt="" coords="656,438,835,498"/>
+<area shape="rect" id="node8" title=" " alt="" coords="337,139,460,175"/>
+<area shape="rect" id="node9" href="$classflow_1_1log_1_1Component.html" title="A light&#45;weight class, each object storing a component payload encoding an enum value from enum type o..." alt="" coords="675,91,815,115"/>
+<area shape="rect" id="node10" title=" " alt="" coords="342,91,455,115"/>
+<area shape="rect" id="node11" title=" " alt="" coords="353,43,444,67"/>
+<area shape="rect" id="node12" href="$classbool.html" title=" " alt="" coords="59,524,106,548"/>
+<area shape="rect" id="node13" href="$classflow_1_1Function.html" title=" " alt="" coords="978,594,1129,630"/>
+<area shape="rect" id="node14" title=" " alt="" coords="1014,655,1093,679"/>
+<area shape="rect" id="node15" title=" " alt="" coords="685,649,806,685"/>
+<area shape="rect" id="node16" href="$structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html" title="Simply wraps a Thread_local_ptr&lt;Tl_context&gt;/boost::thread_specific_ptr&lt;Tl_context&gt;,..." alt="" coords="980,453,1127,513"/>
+<area shape="rect" id="node18" title=" " alt="" coords="324,474,473,510"/>
+<area shape="rect" id="node20" href="$structflow_1_1util_1_1Thread__local__ptr__cache_1_1Global__tl__state.html" title="Encapsulates two things: the thread&#39;s Tlp_states_map; and what shall run at thread_local deinit." alt="" coords="5,433,160,481"/>
+<area shape="rect" id="node21" title=" " alt="" coords="964,703,1143,751"/>
 </map>

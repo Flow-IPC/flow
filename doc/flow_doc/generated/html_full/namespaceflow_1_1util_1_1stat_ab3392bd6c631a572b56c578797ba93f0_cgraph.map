@@ -1,0 +1,7 @@
+<map id="flow::util::stat::stats_since_reset_state" name="flow::util::stat::stats_since_reset_state">
+<area shape="rect" id="node1" title="Intended for situations where the source of stat readings – including ACCUMULATORs and not just GAUGE..." alt="" coords="5,71,139,107"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#a3d4a7b1a94bc8b6c747f6940e6103ad8" title="Default fetch_sub(&amp;target_stats.m_val, _val) that simply applies *target_val &#45;= subtrahend_val." alt="" coords="187,5,345,29"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="201,53,331,77"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="199,101,333,125"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#a4ecc05913c259d8e2b1f372ad5472c7f" title="Default update_hi_wmark(&amp;target_stats.m_val, val) that updates *target_val to val if and only if the ..." alt="" coords="193,150,339,186"/>
+</map>

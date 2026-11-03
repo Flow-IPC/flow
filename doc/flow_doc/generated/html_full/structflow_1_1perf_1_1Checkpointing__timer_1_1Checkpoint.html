@@ -107,7 +107,7 @@ Related Functions</h2></td></tr>
 <div class="textblock"><p >The entirety of the information recorded with each <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html#a9e6078df059d5626ab5774f0a33fbad7" title="Records a checkpoint, which takes a sample of all enabled Clock_types&#39; clocks and records the corresp...">Checkpointing_timer::checkpoint()</a> call; it contains the <code>Duration</code> values (for each <code>Clock_type</code>) with the time elapsed since either the preceding <code>T.checkpoint()</code> or construction. </p>
 <p >User doesn't usually need to access these, since the string/stream/log facilities of <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer.html" title="The central class in the perf Flow module, this efficiently times the user&#39;s operation,...">Checkpointing_timer</a> and <a class="el" href="classflow_1_1perf_1_1Checkpointing__timer_1_1Aggregator.html" title="This companion/inner class of Checkpointing_timer provides aggregation of results from many Checkpoin...">Checkpointing_timer::Aggregator</a> would already print out the info; but this provides programmatic access if desired. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00203">203</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00202">202</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 </div><h2 class="groupheader">Friends And Related Function Documentation</h2>
 <a id="a5bb3a068357516df714c4266ec5c3df4" name="a5bb3a068357516df714c4266ec5c3df4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bb3a068357516df714c4266ec5c3df4">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
@@ -156,7 +156,7 @@ Related Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="checkpt__timer_8cpp_source.html#l00335">335</a> of file <a class="el" href="checkpt__timer_8cpp_source.html">checkpt_timer.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00206">m_name</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00212">m_since_last</a>.</p>
+<p class="reference">References <a class="el" href="checkpt__timer_8hpp_source.html#l00205">m_name</a>, and <a class="el" href="checkpt__timer_8hpp_source.html#l00211">m_since_last</a>.</p>
 
 </div>
 </div>
@@ -175,7 +175,7 @@ Related Functions</h2></td></tr>
 
 <p>User-supplied name of the checkpoint. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00206">206</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00205">205</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00372">flow::perf::Checkpointing_timer::Aggregator::create_aggregated_result()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00335">operator&lt;&lt;()</a>.</p>
 
@@ -196,7 +196,7 @@ Related Functions</h2></td></tr>
 <p>For the <code>T.checkpoint()</code> call that generated <code>*this</code>, for each enabled <code>Clock_type</code>: Time elapsed since either the preceding <code>T.checkpoint()</code> or (if it's the first <code>T.checkpoint()</code>) since <code>T</code> construction. </p>
 <p >Zero is recorded for each disabled <code>Clock_type</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00212">212</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="checkpt__timer_8hpp_source.html#l00211">211</a> of file <a class="el" href="checkpt__timer_8hpp_source.html">checkpt_timer.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="checkpt__timer_8cpp_source.html#l00372">flow::perf::Checkpointing_timer::Aggregator::create_aggregated_result()</a>, <a class="el" href="checkpt__timer_8cpp_source.html#l00335">operator&lt;&lt;()</a>, and <a class="el" href="checkpt__timer_8cpp_source.html#l00100">flow::perf::Checkpointing_timer::scale()</a>.</p>
 
@@ -208,7 +208,7 @@ Related Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

@@ -68,14 +68,17 @@ $(function() {
 <h3><a id="index_g" name="index_g"></a>- g -</h3><ul>
 <li>generate_init_seq_num()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a06f094532f4be6ab3b69d27ea39b2d4d">flow::net_flow::Sequence_number::Generator</a></li>
 <li>Generator()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Sequence__number_1_1Generator.html#a8c0005053088c63c912655222791dd7d">flow::net_flow::Sequence_number::Generator</a></li>
-<li>get_allocator()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#ad52f23edf1e536ba6c4b80271de7ff9e">flow::util::Basic_blob&lt; Allocator, SHARING &gt;</a></li>
+<li>get()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1stat_1_1Global__stats.html#af9d3260667965bd591fef8459414318e">flow::util::stat::Global_stats&lt; Tag_t, Stat_set_t, N &gt;</a>, <a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html#ae258e44e2bcd79eaf31b53a7057ab180">flow::util::Thread_local_ptr&lt; Thread_local_state_t &gt;</a>, <a class="el" href="classflow_1_1util_1_1Thread__local__ptr__cache.html#a4cbbbc50a02462706d04993135e02d63">flow::util::Thread_local_ptr_cache</a></li>
+<li>get_allocator()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Basic__blob.html#a4f86e9873394aecc4352b4e1e3f0d034">flow::util::Basic_blob&lt; Allocator_t, SHARING &gt;</a></li>
 <li>get_connect_metadata()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket.html#ace9175d5481b2bcc77e3d39a3982775b">flow::net_flow::Peer_socket</a></li>
 <li>get_ids()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Congestion__control__selector.html#aca9ae5272088f3ef8fb81f40cc85224c">flow::net_flow::Congestion_control_selector</a></li>
-<li>get_log_component()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948">flow::log::Log_context</a>, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a85bf496e7c6ef07eae34aa3fa4fb0648">flow::log::Log_context_mt</a></li>
-<li>get_logger()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">flow::log::Log_context</a>, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665">flow::log::Log_context_mt</a></li>
+<li>get_instance()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1Action__registry.html#a97839824dd45de2d8e3049240e2174fc">flow::util::Action_registry&lt; Tag_t, Args &gt;</a></li>
+<li>get_log_component()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948">flow::log::Log_context</a></li>
+<li>get_logger()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">flow::log::Log_context</a></li>
 <li>Get_root_func&#160;:&#160;<a class="el" href="classflow_1_1cfg_1_1Dynamic__cfg__context.html#a971da5a0f825e0104f5dd1ff95068fec">flow::cfg::Dynamic_cfg_context&lt; Root, Target, Target_ptr &gt;</a></li>
 <li>get_seq_num_range()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Node.html#a663f1fd8b524ffe63dfa6b7ca76b1a43">flow::net_flow::Node</a></li>
-<li>get_this_thread_string_appender()&#160;:&#160;<a class="el" href="classflow_1_1log_1_1Thread__local__string__appender.html#a4c67bd1c2f1ccc58288df86abda02d88">flow::log::Thread_local_string_appender</a></li>
+<li>Global_stats()&#160;:&#160;<a class="el" href="classflow_1_1util_1_1stat_1_1Global__stats.html#ae4951d3665f608af8a515f95b7b6baa7">flow::util::stat::Global_stats&lt; Tag_t, Stat_set_t, N &gt;</a></li>
+<li>Global_tl_state()&#160;:&#160;<a class="el" href="structflow_1_1util_1_1Thread__local__ptr__cache_1_1Global__tl__state.html#a66acf51cfae66e5bd7663b5e103e7756">flow::util::Thread_local_ptr_cache::Global_tl_state</a></li>
 <li>good_ack()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__send__stats__accumulator.html#ac3348dc1e0bfb5377addd00eadd28ed9">flow::net_flow::Peer_socket_send_stats_accumulator</a></li>
 <li>good_data_accepted_packet()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#a20f2fe00c0874f075fade075bb82e234">flow::net_flow::Peer_socket_receive_stats_accumulator</a></li>
 <li>good_data_delivered_packet()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#a5cc77830ee793725a5bbc1e7660fb230">flow::net_flow::Peer_socket_receive_stats_accumulator</a></li>
@@ -84,11 +87,12 @@ $(function() {
 <li>good_data_first_qd_packet()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#ae2ed3438420d6f331549e2decb9f0556">flow::net_flow::Peer_socket_receive_stats_accumulator</a></li>
 <li>good_data_packet()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#aa44f429fb274ae4fad21efbc88aa9b95">flow::net_flow::Peer_socket_receive_stats_accumulator</a></li>
 <li>good_to_send_ack_packet()&#160;:&#160;<a class="el" href="classflow_1_1net__flow_1_1Peer__socket__receive__stats__accumulator.html#a7f68edbb903370ec36fa2deac09288ee">flow::net_flow::Peer_socket_receive_stats_accumulator</a></li>
+<li>Guarded_obj()&#160;:&#160;<a class="el" href="structflow_1_1util_1_1Thread__local__obj__deinit__safe_1_1Guarded__obj.html#a0c9ed1ad3e31969286da01060365315c">flow::util::Thread_local_obj_deinit_safe&lt; Obj_t, Tag_t &gt;::Guarded_obj</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:20 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

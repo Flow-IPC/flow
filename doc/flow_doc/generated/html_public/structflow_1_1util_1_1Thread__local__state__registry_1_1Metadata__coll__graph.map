@@ -1,0 +1,4 @@
+<map id="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata" name="flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata">
+<area shape="rect" id="node1" title="General info (as of this writing for logging only) about a given entry (thread/object) in State_per_t..." alt="" coords="5,101,152,161"/>
+<area shape="rect" id="node2" href="$structflow_1_1util_1_1Thread__token.html" title="An integer&#45;like, type&#45;safe wrapper for the thread&#45;token concept – see this_thread_unique_token(),..." alt="" coords="21,5,137,41"/>
+</map>

@@ -9,5 +9,4 @@
 <area shape="rect" id="node8" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#a28d7c70f0d3147ba48a10afa84ef98c1" title="Implements superclass API." alt="" coords="459,205,641,241"/>
 <area shape="rect" id="node9" href="$namespaceflow_1_1util.html#a74d4a66fb00055be4e1bd6ee98e04667" title="Schedule the given function to execute in a certain amount of time: A handy wrapper around Timer (asi..." alt="" coords="487,265,613,301"/>
 <area shape="rect" id="node10" href="$classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself." alt="" coords="689,265,868,301"/>
-<area shape="rect" id="node11" href="$classflow_1_1util_1_1Unique__id__holder.html#a90705293787069f52372638d5450ef52" title="Thread&#45;safely construct an ID whose value is different from any other object of this class,..." alt="" coords="916,259,1055,307"/>
 </map>

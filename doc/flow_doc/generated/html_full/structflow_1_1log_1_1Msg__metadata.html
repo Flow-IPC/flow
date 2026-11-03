@@ -81,7 +81,7 @@ $(function() {
 <div class="dynheader">
 Collaboration diagram for flow::log::Msg_metadata:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1log_1_1Msg__metadata__coll__graph.svg" width="796" height="399"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1log_1_1Msg__metadata__coll__graph.svg" width="788" height="399"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -105,20 +105,24 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a11e04fcee8409b76adb9aaa3108f90e1"><td class="memItemLeft" align="right" valign="top">std::chrono::system_clock::time_point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a11e04fcee8409b76adb9aaa3108f90e1">m_called_when</a></td></tr>
 <tr class="memdesc:a11e04fcee8409b76adb9aaa3108f90e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time stamp from as close as possible to entry into the log call site (usually <code><a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a></code> or similar).  <a href="structflow_1_1log_1_1Msg__metadata.html#a11e04fcee8409b76adb9aaa3108f90e1">More...</a><br /></td></tr>
 <tr class="separator:a11e04fcee8409b76adb9aaa3108f90e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4588cf8c827944e5379c6ad1fd11d6db"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db">m_call_thread_nickname</a></td></tr>
-<tr class="memdesc:a4588cf8c827944e5379c6ad1fd11d6db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread nickname, as for <a class="el" href="classflow_1_1log_1_1Logger.html#aa69919fc58cbcb854abe7676e624f044" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a>, of the thread from which the log call was invoked; or an empty string if the thread had no such nickname set at the time.  <a href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db">More...</a><br /></td></tr>
-<tr class="separator:a4588cf8c827944e5379c6ad1fd11d6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5ae1224b0b60819c07f0aea31d540f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">Fixed_string</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4d5ae1224b0b60819c07f0aea31d540f">m_call_thread_nickname</a></td></tr>
+<tr class="memdesc:a4d5ae1224b0b60819c07f0aea31d540f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread nickname, as for <a class="el" href="classflow_1_1log_1_1Logger.html#aa69919fc58cbcb854abe7676e624f044" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a>, of the thread from which the log call was invoked; or an empty string if the thread had no such nickname set at the time.  <a href="structflow_1_1log_1_1Msg__metadata.html#a4d5ae1224b0b60819c07f0aea31d540f">More...</a><br /></td></tr>
+<tr class="separator:a4d5ae1224b0b60819c07f0aea31d540f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a278ef30d1bdceb9482c0aef097177c91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">util::Thread_id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91">m_call_thread_id</a></td></tr>
 <tr class="memdesc:a278ef30d1bdceb9482c0aef097177c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) such thread ID if the thread has a nickname, meaning <code>!m_call_thread_nickname.empty()</code>.  <a href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91">More...</a><br /></td></tr>
 <tr class="separator:a278ef30d1bdceb9482c0aef097177c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Simple data store containing all of the information generated at every logging call site by <a class="el" href="namespaceflow_1_1log.html" title="Flow module providing logging functionality.">flow::log</a>, except the message itself, which is passed to <a class="el" href="classflow_1_1log_1_1Logger.html#a934667f16dd6ca0841e521296ab3a6e2" title="Given a message and its severity, logs that message and possibly severity WITHOUT checking whether it...">Logger::do_log()</a> assuming <a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">Logger::should_log()</a> had returned <code>true</code>. </p>
-<p >User only need to worry about this when dealing with the internals of a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> implementation. Copying is to be avoided, as there are some non-trivial data stored here; though it is not too bad.</p>
-<dl class="section warning"><dt>Warning</dt><dd>If changing the insides of <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a>, ensure free function <code>deep_copy(const Msg_metadata&amp;)</code> remains accurate.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000046">Todo:</a></b></dt><dd>Add support in <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a> for a message ID which could more straightforwardly help the human log reader to map a log line to the originating log call site in source code. One approach, then, might be to output that message ID when available; else output <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a>, <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a2f17801fae328d1fdc070edc2578dd91" title="Copy of integer that would have come from built-in __LINE__ macro which is auto-invoked by all FLOW_L...">m_msg_src_line</a>, <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#af7704a632434e7b52c43ab6047cf023b" title="Analogous to m_msg_src_file but coming from __FUNCTION__, not __FILE__. See m_msg_src_file perf notes...">m_msg_src_function</a>; or maybe both. </dd></dl>
+<p >User only needs to worry about this when dealing with the internals of a <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> implementation. Copying is cheap: all members are scalars, views, or array-backed strings; no heap involvement. (Formally it is still not trivially copyable &ndash; <a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d" title="Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings...">Fixed_string</a> has a user-provided copy ctor &ndash; merely trivially destructible.)</p>
+<dl class="section warning"><dt>Warning</dt><dd>If changing the insides of <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a>, ensure free function <code><a class="el" href="namespaceflow_1_1log.html#a267187e63c6355704f547d794c776747" title="Estimate of memory footprint of the given value, including memory allocated on its behalf – but exclu...">deep_size(const Msg_metadata&amp;)</a></code> remains accurate.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000047">Todo:</a></b></dt><dd>Add support in <a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a> for a message ID which could more straightforwardly help the human log reader to map a log line to the originating log call site in source code. One approach, then, might be to output that message ID when available; else output <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a>, <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a2f17801fae328d1fdc070edc2578dd91" title="Copy of integer that would have come from built-in __LINE__ macro which is auto-invoked by all FLOW_L...">m_msg_src_line</a>, <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#af7704a632434e7b52c43ab6047cf023b" title="Analogous to m_msg_src_file but coming from __FUNCTION__, not __FILE__. See m_msg_src_file perf notes...">m_msg_src_function</a>; or maybe both.</dd></dl>
+<h3>No heap / trivial destructor</h3>
+<p ><a class="el" href="structflow_1_1log_1_1Msg__metadata.html" title="Simple data store containing all of the information generated at every logging call site by flow::log...">Msg_metadata</a> has a trivial destructor; its members do not have a heap component. We want it to be this way, so that even if declared <code>thread_local</code> a <code>*this</code> is valid to any C++ code in its thread including during <code>thread_local</code> deinit at thread end. The trade-off is mainly that any would-be <code>string</code> &ndash; as of this writing it is <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4d5ae1224b0b60819c07f0aea31d540f" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> &ndash; must use <a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d" title="Alias for a heap-free, array-backed, trivial-destructor-having string used for certain simple strings...">Fixed_string</a> or equivalent instead, imposing a length limit on it.</p>
+<h3>Note regarding thread IDs</h3>
+<p >As noted in the docs for the actual members: We store the user-set nickname (if set) or else the classic <a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de" title="Short-hand for an OS-provided ID of a util::Thread.">util::Thread_id</a> <code>this_thread::get_id()</code> thread-ID. We also considered storing a Flow Thread_token (see <a class="el" href="namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc...">this_thread_unique_token()</a>) which is similar to a <code>Thread_id</code> but unique over time (for a given process). However, while extremely useful for algorithmic purposes in some cases, it is not universally recognized in the context of logging/monitoring/debugging. Therefore we decided to leave it out as such; it can still be set as the <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4d5ae1224b0b60819c07f0aea31d540f" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> (after stringification) if desired. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01042">1042</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01150">1150</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="a278ef30d1bdceb9482c0aef097177c91" name="a278ef30d1bdceb9482c0aef097177c91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a278ef30d1bdceb9482c0aef097177c91">&#9670;&nbsp;</a></span>m_call_thread_id</h2>
@@ -133,34 +137,33 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) such thread ID if the thread has a nickname, meaning <code>!m_call_thread_nickname.empty()</code>. </p>
-<p >The working assumption is that (1) both members are met for direct log output only and no other logic; and (2) the nickname is preferable when set, the thread ID being the fallback. (If this sounds meh, consider that it's entirely reasonable to make the nickname contain some nice info <em>and</em> the original thread ID as well in string form. However, mind the length &ndash; the Performance Note in <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> doc header.) </p>
+<p >The working assumption is that (1) both members are meant for direct log output only and no other logic; and (2) the nickname is preferable when set, the thread ID being the fallback. (If this sounds meh, consider that it's entirely reasonable to make the nickname contain some nice info <em>and</em> the original thread ID as well in string form. One could also easily stuff Thread_token from <a class="el" href="namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc...">this_thread_unique_token()</a> in here. However, mind the length.) </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01139">1139</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01243">1243</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>, and <a class="el" href="log_8cpp_source.html#l00144">flow::log::Logger::set_thread_info_in_msg_metadata()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>, and <a class="el" href="log_8cpp_source.html#l00188">flow::log::Logger::set_thread_info_in_msg_metadata()</a>.</p>
 
 </div>
 </div>
-<a id="a4588cf8c827944e5379c6ad1fd11d6db" name="a4588cf8c827944e5379c6ad1fd11d6db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4588cf8c827944e5379c6ad1fd11d6db">&#9670;&nbsp;</a></span>m_call_thread_nickname</h2>
+<a id="a4d5ae1224b0b60819c07f0aea31d540f" name="a4d5ae1224b0b60819c07f0aea31d540f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d5ae1224b0b60819c07f0aea31d540f">&#9670;&nbsp;</a></span>m_call_thread_nickname</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string flow::log::Msg_metadata::m_call_thread_nickname</td>
+          <td class="memname"><a class="el" href="namespaceflow_1_1log.html#aa4a63d43140d55096c544df1aff3f08d">Fixed_string</a> flow::log::Msg_metadata::m_call_thread_nickname</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Thread nickname, as for <a class="el" href="classflow_1_1log_1_1Logger.html#aa69919fc58cbcb854abe7676e624f044" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a>, of the thread from which the log call was invoked; or an empty string if the thread had no such nickname set at the time. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91" title="Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) suc...">m_call_thread_id</a></dd></dl>
-<h3>Perf note</h3>
-<p >Setting this involves an <code>std::string</code> copy; the cost of this is worth considering given that this is done for every single log call site, if the nickname is indeed set. See performance note in doc header of <a class="el" href="classflow_1_1log_1_1Logger.html#aa69919fc58cbcb854abe7676e624f044" title="Sets or unsets the current thread&#39;s logging-worthy string name; optionally sets the OS thread name (s...">Logger::this_thread_set_logged_nickname()</a> for the recommendation and details. (Long story short, if you keep it at N <code>char</code>s or fewer, the cost of a non-empty <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a4588cf8c827944e5379c6ad1fd11d6db" title="Thread nickname, as for Logger::this_thread_set_logged_nickname(), of the thread from which the log c...">m_call_thread_nickname</a> becomes equal to that of an empty one. N might be 15 in gcc 5.) </p>
+<p >An array-backed string type is used &ndash; see <code>struct</code> doc header for rationale (short: we want to be a simple type for max <code>thread_local</code>-friendliness) &ndash; so if necessary (which is probably not very common) truncation must occur when setting this.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a278ef30d1bdceb9482c0aef097177c91" title="Thread ID of the thread from which the log call was invoked; or a default-constructed (no-thread) suc...">m_call_thread_id</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01129">1129</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01233">1233</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00423">flow::log::deep_size()</a>, <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>, and <a class="el" href="log_8cpp_source.html#l00144">flow::log::Logger::set_thread_info_in_msg_metadata()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>, and <a class="el" href="log_8cpp_source.html#l00188">flow::log::Logger::set_thread_info_in_msg_metadata()</a>.</p>
 
 </div>
 </div>
@@ -179,7 +182,7 @@ Public Attributes</h2></td></tr>
 <p>Time stamp from as close as possible to entry into the log call site (usually <code><a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a></code> or similar). </p>
 <p ><code>std::chrono</code> is used instead of boost.chrono for certain internal output reasons in <a class="el" href="classflow_1_1log_1_1Ostream__log__msg__writer.html" title="Utility class, each object of which wraps a given ostream and outputs discrete messages to it adorned...">Ostream_log_msg_writer</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01114">1114</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01222">1222</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00079">flow::log::Ostream_log_msg_writer::do_log_with_epoch_time_stamp()</a>, and <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00105">flow::log::Ostream_log_msg_writer::do_log_with_human_friendly_time_stamp()</a>.</p>
 
@@ -199,7 +202,7 @@ Public Attributes</h2></td></tr>
 
 <p><a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a> of message, as of this writing coming from either <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> constructor or <a class="el" href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95" title="For the rest of the block within which this macro is instantiated, causes all FLOW_LOG_....">FLOW_LOG_SET_CONTEXT()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01047">1047</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01155">1155</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 
@@ -220,7 +223,7 @@ Public Attributes</h2></td></tr>
 <p>Severity of message, typically determined by choice of macro (e.g., <a class="el" href="log_8hpp.html#a626c7dc4d3b4dc0b32a8aac8624d66bc" title="Logs a WARNING message into flow::log::Logger *get_logger() with flow::log::Component get_log_compone...">FLOW_LOG_WARNING()</a> vs. </p>
 <p ><a class="el" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d" title="Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_INFO()</a>) at the call site; though it can also be supplied manually via <code>FLOW_LOG_WITH[OUT]_CHECKING()</code> macro arg. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01053">1053</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01161">1161</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="simple__ostream__logger_8cpp_source.html#l00053">flow::log::Simple_ostream_logger::do_log()</a>, and <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 
@@ -248,7 +251,7 @@ Public Attributes</h2></td></tr>
 <h3>Perf rationale: Why not use <code>const char*</code> instead?</h3>
 <p >(This is arguably very nitpicky anyway, but these objects are generated and passed around at every single log call site, so we should try to save every little bit.) Let's stipulate that the cost of storing (RAM; and copying) the length is negligible. The next concern is initializing the length; the above shows that's free in practice. Finally, when output to the final device/whatever occurs within <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> impl, there are two possibilities of how it might realistically act. One, it might search for the NUL char anyway &ndash; in which case we've changed nothing perf-wise &ndash; as it copies for output purposes. Two, it might require the length of the string and hence use <code>String_view::size()</code> and then perform the copy; in that case we have saved a linear search. (For example, if the <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">Logger</a> is printing to an <code>ostream</code>, then there exists an <code>operator&lt;&lt;(ostream, String_view)</code> that'd be automatically used and would of course use the saved length properly.) So, it's a win or at worst a tie. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01098">1098</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01206">1206</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 
@@ -268,7 +271,7 @@ Public Attributes</h2></td></tr>
 
 <p>Analogous to <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a> but coming from <code>__FUNCTION__</code>, not <code>__FILE__</code>. See <a class="el" href="structflow_1_1log_1_1Msg__metadata.html#a5e7224fd18f1b9b2600508ac399687dd" title="Pointer/length into static-storage string that would have come from built-in __FILE__ macro which is ...">m_msg_src_file</a> perf notes. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01107">1107</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01215">1215</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 
@@ -288,7 +291,7 @@ Public Attributes</h2></td></tr>
 
 <p>Copy of integer that would have come from built-in <code>__LINE__</code> macro which is auto-invoked by all <code>FLOW_LOG_*()</code> logging call sites. </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01104">1104</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01212">1212</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ostream__log__msg__writer_8cpp_source.html#l00165">flow::log::Ostream_log_msg_writer::log_past_time_stamp()</a>.</p>
 
@@ -300,7 +303,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

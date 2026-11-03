@@ -1,0 +1,4 @@
+<map id="flow::util::this_thread_unique_token" name="flow::util::this_thread_unique_token">
+<area shape="rect" id="node1" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc..." alt="" coords="5,5,144,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself." alt="" coords="192,5,371,41"/>
+</map>

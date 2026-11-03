@@ -1,0 +1,6 @@
+<map id="flow::util::stat::Histogram_counter::record_value" name="flow::util::stat::Histogram_counter::record_value">
+<area shape="rect" id="node1" title="Record event outcome." alt="" coords="5,27,168,63"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#ab1bfde42f9cb59cdfc0af8e9a76171bf" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="217,5,377,29"/>
+<area shape="rect" id="node3" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a32d54703586fa946b50867081417ad64" title="Which index into m_per_bucket_counts points to the appropriate bucket for record_value(val)?" alt="" coords="216,54,379,90"/>
+<area shape="rect" id="node4" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#abccbfda253fd06a063c4fba854197084" title="Returns the number of buckets in the histogram, as supplied to ctor as n_buckets." alt="" coords="427,54,589,90"/>
+</map>

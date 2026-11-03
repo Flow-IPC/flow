@@ -12,7 +12,7 @@
 <!-- Node1 -->
 <g id="node1" class="node">
 <title>Node1</title>
-<g id="a_node1"><a xlink:title="Identical to Log_context but is safe w/r/t to set_logger(), assignment, and swap() done concurrently ...">
+<g id="a_node1"><a xlink:title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-17.5 121,-17.5 121,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="60.5" y="-7.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::log::Log_context_mt</text>
 </a>

@@ -74,32 +74,42 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>General info (as of this writing for logging only) about a given entry (thread/object) in <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#aa5aca050b4111b28208e2dea02a981f6" title="Returns reference to immutable container holding info for each thread in which this_thread_state() ha...">state_per_thread()</a>.  
+<p>General info (as of this writing for logging only) about a given entry (thread/object) in <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#a7ab7dc8cc1e83209fee76f5bc02c38e1" title="Type of state_per_thread to task() to while_locked(): extant Thread_local_states and info about their...">State_per_thread_map</a>.  
  <a href="structflow_1_1util_1_1Thread__local__state__registry_1_1Metadata.html#details">More...</a></p>
 
 <p><code>#include &lt;thread_lcl.hpp&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1util_1_1Thread__local__state__registry_1_1Metadata__coll__graph.svg" width="175" height="167"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a6a7eb70f1765960cb5a126631c4e6c65"><td class="memItemLeft" align="right" valign="top"><a id="a6a7eb70f1765960cb5a126631c4e6c65" name="a6a7eb70f1765960cb5a126631c4e6c65"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_thread_nickname</b></td></tr>
-<tr class="memdesc:a6a7eb70f1765960cb5a126631c4e6c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread nickname as per <a class="el" href="classflow_1_1log_1_1Logger.html#aea02011a3aa505087397c8d9984e0659" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">log::Logger::set_thread_info()</a>. (Reminder: Might equal <code>m_thread_id</code>.) <br /></td></tr>
+<tr class="memdesc:a6a7eb70f1765960cb5a126631c4e6c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread nickname as per <a class="el" href="classflow_1_1log_1_1Logger.html#adda773e2fa1707db6960d8fa9ea3956e" title="Same as set_thread_info_in_msg_metadata() but targets the given two variables as opposed to a Msg_met...">log::Logger::set_thread_info()</a>. <br /></td></tr>
 <tr class="separator:a6a7eb70f1765960cb5a126631c4e6c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb3b420145c4ced1703a7b9bd9c7de2b"><td class="memItemLeft" align="right" valign="top"><a id="acb3b420145c4ced1703a7b9bd9c7de2b" name="acb3b420145c4ced1703a7b9bd9c7de2b"></a>
 <a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de">Thread_id</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_thread_id</b></td></tr>
-<tr class="memdesc:acb3b420145c4ced1703a7b9bd9c7de2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread ID. <br /></td></tr>
+<tr class="memdesc:acb3b420145c4ced1703a7b9bd9c7de2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread ID. See <a class="el" href="namespaceflow_1_1util.html#a0a4e7b2d3107bd630e0dc0c0b8f2e4de" title="Short-hand for an OS-provided ID of a util::Thread.">Thread_id</a> doc header for important warning about how these can be recycled (not fully unique). <br /></td></tr>
 <tr class="separator:acb3b420145c4ced1703a7b9bd9c7de2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab86a944997f4b839ec9ce049e6febdaa"><td class="memItemLeft" align="right" valign="top"><a id="ab86a944997f4b839ec9ce049e6febdaa" name="ab86a944997f4b839ec9ce049e6febdaa"></a>
+<a class="el" href="structflow_1_1util_1_1Thread__token.html">Thread_token</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_thread_token</b></td></tr>
+<tr class="memdesc:ab86a944997f4b839ec9ce049e6febdaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique thread token. See <a class="el" href="namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc...">this_thread_unique_token()</a> doc header for details; in short: it is fully unique. <br /></td></tr>
+<tr class="separator:ab86a944997f4b839ec9ce049e6febdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Thread_local_state_t&gt;<br />
-struct flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata</div><p >General info (as of this writing for logging only) about a given entry (thread/object) in <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#aa5aca050b4111b28208e2dea02a981f6" title="Returns reference to immutable container holding info for each thread in which this_thread_state() ha...">state_per_thread()</a>. </p>
+struct flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Metadata</div><p >General info (as of this writing for logging only) about a given entry (thread/object) in <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#a7ab7dc8cc1e83209fee76f5bc02c38e1" title="Type of state_per_thread to task() to while_locked(): extant Thread_local_states and info about their...">State_per_thread_map</a>. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>util/<a class="el" href="thread__lcl_8hpp.html">thread_lcl.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:11 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

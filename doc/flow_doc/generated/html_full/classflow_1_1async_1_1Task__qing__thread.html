@@ -89,20 +89,20 @@ Inheritance diagram for flow::async::Task_qing_thread:</div>
 <div class="dynheader">
 Collaboration diagram for flow::async::Task_qing_thread:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Task__qing__thread__coll__graph.svg" width="1466" height="387"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Task__qing__thread__coll__graph.svg" width="1232" height="387"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a42a3f066c30c8016fd4b82eafa870d42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42">Task_qing_thread</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> nickname, const <a class="el" href="namespaceflow_1_1async.html#a968806f54b14c697fd76b3339a2bdbbf">Task_engine_ptr</a> &amp;<a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903">task_engine</a>, <a class="el" href="classbool.html">bool</a> own_task_engine, boost::promise&lt; void &gt; *done_promise_else_block=nullptr, <a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_func_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{})</td></tr>
-<tr class="memdesc:a42a3f066c30c8016fd4b82eafa870d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to the provided <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> which may or may not be a fresh one and meant to be shared with other <code><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a></code>s or exclusively by this one.  <a href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42">More...</a><br /></td></tr>
-<tr class="separator:a42a3f066c30c8016fd4b82eafa870d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d867a128de63bcd5ba11021a5f51d91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91">Task_qing_thread</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> nickname, const <a class="el" href="namespaceflow_1_1async.html#a968806f54b14c697fd76b3339a2bdbbf">Task_engine_ptr</a> &amp;<a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903">task_engine</a>, <a class="el" href="classbool.html">bool</a> own_task_engine, boost::promise&lt; void &gt; *done_promise_else_block=nullptr, <a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_func_or_empty={})</td></tr>
+<tr class="memdesc:a6d867a128de63bcd5ba11021a5f51d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to the provided <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> which may or may not be a fresh one and meant to be shared with other <code><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a></code>s or exclusively by this one.  <a href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91">More...</a><br /></td></tr>
+<tr class="separator:a6d867a128de63bcd5ba11021a5f51d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3046b2dee9df486ba2710cb0d6b2e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#abd3046b2dee9df486ba2710cb0d6b2e3">~Task_qing_thread</a> ()</td></tr>
 <tr class="memdesc:abd3046b2dee9df486ba2710cb0d6b2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6515b9f5240cea26b78e27ea99964ade" title="Blocks the calling thread until the constructor-started thread has finished; if the underlying Task_e...">stop()</a>, followed by forgetting the <code>Task_engine</code> returned by <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903" title="Returns pointer to util::Task_engine such that post()ing to it will cause the subsequent asynchronous...">task_engine()</a>; the latter action may destroy that <code>Task_engine</code> synchronously.  <a href="classflow_1_1async_1_1Task__qing__thread.html#abd3046b2dee9df486ba2710cb0d6b2e3">More...</a><br /></td></tr>
 <tr class="separator:abd3046b2dee9df486ba2710cb0d6b2e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf0191625ae2613a7351dc0515398903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1async.html#a968806f54b14c697fd76b3339a2bdbbf">Task_engine_ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903">task_engine</a> ()</td></tr>
-<tr class="memdesc:aaf0191625ae2613a7351dc0515398903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pointer to <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> such that <code>post()</code>ing to it will cause the subsequent asynchronous execution of that task in a way explained in the <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header.  <a href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903">More...</a><br /></td></tr>
+<tr class="memdesc:aaf0191625ae2613a7351dc0515398903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns pointer to <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> such that <code>post()</code>ing to it will cause the subsequent asynchronous execution of that task in a way explained in the <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header.  <a href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903">More...</a><br /></td></tr>
 <tr class="separator:aaf0191625ae2613a7351dc0515398903"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3f9a0071880455c00a993d36c6040ae5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5">util::Thread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5">raw_worker_thread</a> ()</td></tr>
 <tr class="memdesc:a3f9a0071880455c00a993d36c6040ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> &ndash; a thin wrapper around the native OS thread handle &ndash; corresponding to the worker thread started in constructor.  <a href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5">More...</a><br /></td></tr>
@@ -181,12 +181,12 @@ Private Attributes</h2></td></tr>
 <li>Provides access to low-level underlying <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> via <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5" title="Returns the util::Thread – a thin wrapper around the native OS thread handle – corresponding to the w...">raw_worker_thread()</a>; see <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">async::optimize_pinning_in_thread_pool()</a>. Note <a class="el" href="namespaceflow_1_1util.html#af030c3119f060a9630afca31098a78a5" title="Short-hand for standard thread class.">util::Thread</a> in turn allows direct native access to the OS thread object (pthread handle, or whatever).</li>
 </ul>
 <h3>Design rationale</h3>
-<p ><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header contains discussion worth reading. </p>
+<p ><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header contains discussion worth reading. </p>
 
 <p class="definition">Definition at line <a class="el" href="task__qing__thread_8hpp_source.html#l00059">59</a> of file <a class="el" href="task__qing__thread_8hpp_source.html">task_qing_thread.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a42a3f066c30c8016fd4b82eafa870d42" name="a42a3f066c30c8016fd4b82eafa870d42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42a3f066c30c8016fd4b82eafa870d42">&#9670;&nbsp;</a></span>Task_qing_thread()</h2>
+<a id="a6d867a128de63bcd5ba11021a5f51d91" name="a6d867a128de63bcd5ba11021a5f51d91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d867a128de63bcd5ba11021a5f51d91">&#9670;&nbsp;</a></span>Task_qing_thread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,7 +228,7 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>init_func_or_empty</em> = <code><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}</code>&#160;</td>
+          <td class="paramname"><em>init_func_or_empty</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -272,7 +272,7 @@ When creating the <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0d
 <p >Also informally: The hairiness of forcing the user to have to make this decision, and then write potentially <code>if</code>-laden code that subsequently actually posts tasks, is a chief motivation for abstracting such details behind the interfaces <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> and <a class="el" href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949" title="An object of this opaque type represents a collection of 1 or more async::Task, past or future,...">async::Op</a>. Then the user gets to just post <code>Task</code>s, optionally tagged with <code>Op</code>s to prevent unwanted concurrency, while the aforementioned interfaces will deal with the different ways of using <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a>. Therefore, <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a> is a detail/ class not to be used by or exposed to the user.</p>
 <p >Historically, a certain proof of concept (PoC) started out by having "user" code deal with <code>Task_engine</code>s directly, quickly morphing to wrap them with <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a> for ease of use. Then once this PoC desired to have knobs controlling how tasks are scheduled across threads, without having the "user" code worry about it after initial thread-pool setup, <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a> was moved from the public area into detail/, and <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> was born (along with with helper type <a class="el" href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949" title="An object of this opaque type represents a collection of 1 or more async::Task, past or future,...">async::Op</a>).</p>
 <h3>Logging subtlety</h3>
-<p >For convenience, as promised by at least <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">Cross_thread_task_loop::start()</a> doc header: If user has specified a Config::this_thread_verbosity_override() setting (to reduce or increase log volume temporarily), then we take it upon ourselves to apply this setting to the spawned thread during exactly the following times:</p><ul>
+<p >For convenience, as promised by at least <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">Cross_thread_task_loop::start()</a> doc header: If user has specified a Config::this_thread_verbosity_override() setting (to reduce or increase log volume temporarily), then we take it upon ourselves to apply this setting to the spawned thread during exactly the following times:</p><ul>
 <li>Any startup logging in the spawned thread, by <code>*this</code>.</li>
 <li>Any shutdown logging in the spawned thread, by <code>*this</code>, after <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6515b9f5240cea26b78e27ea99964ade" title="Blocks the calling thread until the constructor-started thread has finished; if the underlying Task_e...">stop()</a> triggers thread exit.</li>
 </ul>
@@ -290,11 +290,11 @@ When creating the <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0d
 
 <p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00037">37</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8cpp_source.html#l00413">flow::log::beautify_chrono_logger_this_thread()</a>, <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00268">m_own_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00265">m_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00271">m_worker_thread</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::S_ASYNC</a>.</p>
+<p class="reference">References <a class="el" href="log_8cpp_source.html#l00447">flow::log::beautify_chrono_logger_this_thread()</a>, <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00268">m_own_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00265">m_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00271">m_worker_thread</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::S_ASYNC</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Task__qing__thread_a42a3f066c30c8016fd4b82eafa870d42_cgraph.svg" width="966" height="203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Task__qing__thread_a6d867a128de63bcd5ba11021a5f51d91_cgraph.svg" width="962" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -322,9 +322,9 @@ Here is the call graph for this function:</div>
 <dd>
 <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903" title="Returns pointer to util::Task_engine such that post()ing to it will cause the subsequent asynchronous...">task_engine()</a> through which one can obtain a ref-counted <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a>, for example with the idea to have another thread <code><a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903" title="Returns pointer to util::Task_engine such that post()ing to it will cause the subsequent asynchronous...">task_engine()</a>-&gt;run()</code>, thus inheriting any queued work/tasks and able to enqueue and execute future ones. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00248">248</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00249">249</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00259">stop()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00260">stop()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -354,7 +354,7 @@ Here is the call graph for this function:</div>
 <p >The intended use of this is to set thread attributes (such as processor-core affinity) in a way that won't affect/disturb the concurrently executing thread's ability to execute tasks; meaning one might grab its native ID and then set some affinity attribute, but it wouldn't (say) suspend the thread or join it. Slightly informally, then: any such steps ("such" being the informal part) lead to undefined behavior.</p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to <code>Thread</code>, not null. Guaranteed valid until destructor is invoked; guaranteed to be not-a-thread after <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6515b9f5240cea26b78e27ea99964ade" title="Blocks the calling thread until the constructor-started thread has finished; if the underlying Task_e...">stop()</a> and not not-a-thread before it. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00309">309</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00310">310</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="task__qing__thread_8hpp_source.html#l00271">m_worker_thread</a>.</p>
 
@@ -381,11 +381,11 @@ Here is the call graph for this function:</div>
 <p >In effect: If we share an external <code>Task_engine</code> (<code>own_task_engine == false</code> in constructor), this method simply waits for the thread to exit as long as needed. Hence the caller must trigger the shared <code>Task_engine</code> to exit this thread's <code>Task_engine::run()</code>. (In particular, <code>Task_engine::stop()</code> will do this.) Otherwise this method will block until then.</p>
 <p >The key fact is that, after this returns, the <code>Task_engine</code> returned by <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#aaf0191625ae2613a7351dc0515398903" title="Returns pointer to util::Task_engine such that post()ing to it will cause the subsequent asynchronous...">task_engine()</a> shall not have been destroyed by this method. In particular, <code>post()</code> on that <code>Task_engine</code> object will still work without undefined behavior/crashing. The <code>post()</code>ed function just won't actually run. (It may run on another thread but not this one, since by definition this thread has been joined.) </p>
 
-<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00259">259</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00260">260</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00268">m_own_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00265">m_task_engine</a>, and <a class="el" href="task__qing__thread_8hpp_source.html#l00271">m_worker_thread</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00268">m_own_task_engine</a>, <a class="el" href="task__qing__thread_8hpp_source.html#l00265">m_task_engine</a>, and <a class="el" href="task__qing__thread_8hpp_source.html#l00271">m_worker_thread</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00248">~Task_qing_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00249">~Task_qing_thread()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -410,13 +410,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Returns pointer to <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> such that <code>post()</code>ing to it will cause the subsequent asynchronous execution of that task in a way explained in the <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a42a3f066c30c8016fd4b82eafa870d42" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header. </p>
+<p>Returns pointer to <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> such that <code>post()</code>ing to it will cause the subsequent asynchronous execution of that task in a way explained in the <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a6d867a128de63bcd5ba11021a5f51d91" title="Constructs object, immediately spawning new (worker) thread, memorizing a ref-counted reference to th...">Task_qing_thread()</a> constructor doc header. </p>
 <p >This is the same object passed to ctor.</p>
 <p >Do note that the user's saving a copy of this pointer can extend the life of the returned <code>Task_engine</code> (which is NOT at all the same as extending the life of <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html#a3f9a0071880455c00a993d36c6040ae5" title="Returns the util::Thread – a thin wrapper around the native OS thread handle – corresponding to the w...">raw_worker_thread()</a>; also NOT at all the same as making it possible to actually execute work which requires threads).</p>
 <p >Could technically be <code>const</code>, but <code>const</code> usage is OK to be conservative. In spirit, at least, it's not <code>const</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00304">304</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__qing__thread_8cpp_source.html#l00305">305</a> of file <a class="el" href="task__qing__thread_8cpp_source.html">task_qing_thread.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="task__qing__thread_8hpp_source.html#l00265">m_task_engine</a>.</p>
 
@@ -447,7 +447,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="task__qing__thread_8hpp_source.html#l00268">268</a> of file <a class="el" href="task__qing__thread_8hpp_source.html">task_qing_thread.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00259">stop()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00260">stop()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
 
 </div>
 </div>
@@ -475,7 +475,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="task__qing__thread_8hpp_source.html#l00265">265</a> of file <a class="el" href="task__qing__thread_8hpp_source.html">task_qing_thread.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00259">stop()</a>, <a class="el" href="task__qing__thread_8cpp_source.html#l00304">task_engine()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00260">stop()</a>, <a class="el" href="task__qing__thread_8cpp_source.html#l00305">task_engine()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
 
 </div>
 </div>
@@ -503,7 +503,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="task__qing__thread_8hpp_source.html#l00271">271</a> of file <a class="el" href="task__qing__thread_8hpp_source.html">task_qing_thread.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00309">raw_worker_thread()</a>, <a class="el" href="task__qing__thread_8cpp_source.html#l00259">stop()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__qing__thread_8cpp_source.html#l00310">raw_worker_thread()</a>, <a class="el" href="task__qing__thread_8cpp_source.html#l00260">stop()</a>, and <a class="el" href="task__qing__thread_8cpp_source.html#l00037">Task_qing_thread()</a>.</p>
 
 </div>
 </div>
@@ -540,7 +540,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

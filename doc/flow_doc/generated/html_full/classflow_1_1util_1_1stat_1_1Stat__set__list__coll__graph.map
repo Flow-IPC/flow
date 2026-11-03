@@ -1,0 +1,5 @@
+<map id="flow::util::stat::Stat_set_list&lt; Stat_set_t, N &gt;" name="flow::util::stat::Stat_set_list&lt; Stat_set_t, N &gt;">
+<area shape="rect" id="node1" title="Dead&#45;simple collection (essentially a statically&#45;sized array) of up&#45;to&#45;N Stat_sets,..." alt="" coords="15,89,171,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,59,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="83,5,227,29"/>
+</map>

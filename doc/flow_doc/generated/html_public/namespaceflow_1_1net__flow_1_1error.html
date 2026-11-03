@@ -246,7 +246,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Given a <code>Code</code> <code>enum</code> value, creates a lightweight <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> (a/k/a <a class="el" href="namespaceboost_1_1system.html" title="We may add some ADL-based overloads into this namespace outside flow.">boost.system</a> <code>error_code</code>) representing that error. </p>
-<p >This is needed to make the <code>boost::system::error_code::error_code&lt;Code&gt;()</code> template implementation work. Or, slightly more in English, it glues the (completely general) <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> to the (net_flow-specific) error code set <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482" title="All possible errors returned (via flow::Error_code arguments) by flow::net_flow functions/methods.">flow::net_flow::error::Code</a>, so that one can implicitly covert from the latter to the former.</p>
+<p >This is needed to make the <code>boost::system::error_code::error_code&lt;Code&gt;()</code> template implementation work. Or, slightly more in English, it glues the (completely general) <a class="el" href="namespaceflow.html#a29eaaa9d0fac4ce87d8b969222dbed09" title="Short-hand for a boost.system error code (which basically encapsulates an integer/enum error code and...">flow::Error_code</a> to the (<code><a class="el" href="namespaceflow_1_1net__flow.html" title="Flow module containing the API and implementation of the Flow network protocol, a TCP-inspired stream...">net_flow</a></code>-specific) error code set <a class="el" href="namespaceflow_1_1net__flow_1_1error.html#a18e13de77b119ea0f2be411490859482" title="All possible errors returned (via flow::Error_code arguments) by flow::net_flow functions/methods.">flow::net_flow::error::Code</a>, so that one can implicitly covert from the latter to the former.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">err_code</td><td>The <code>enum</code> value. </td></tr>
@@ -260,7 +260,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

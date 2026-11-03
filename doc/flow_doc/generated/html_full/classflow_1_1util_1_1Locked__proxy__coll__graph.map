@@ -1,0 +1,5 @@
+<map id="flow::util::Locked_proxy&lt; Target_t, Mutex_t &gt;" name="flow::util::Locked_proxy&lt; Target_t, Mutex_t &gt;">
+<area shape="rect" id="node1" title="A simple locking&#45;proxy class template (execute&#45;around&#45;pointer idiom): at construction locks the given..." alt="" coords="53,89,223,125"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,145,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="170,5,234,29"/>
+</map>

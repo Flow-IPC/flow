@@ -44,7 +44,7 @@
 <text text-anchor="start" x="31" y="-97.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_max_full_blocks</text>
 <text text-anchor="middle" x="82" y="-88.1" font-family="Helvetica,sans-Serif" font-size="8.00">_before_ack_send</text>
 <text text-anchor="middle" x="82" y="-79.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_buf_max_size</text>
-<text text-anchor="start" x="31" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_sync_rcvd_data</text>
+<text text-anchor="start" x="31" y="-70.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_rcv_syn_rcvd_data</text>
 <text text-anchor="middle" x="82" y="-61.1" font-family="Helvetica,sans-Serif" font-size="8.00">_q_cumulative_max_size</text>
 <text text-anchor="middle" x="82" y="-52.1" font-family="Helvetica,sans-Serif" font-size="8.00">m_st_snd_buf_max_size</text>
 </g>

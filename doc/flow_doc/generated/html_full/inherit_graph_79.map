@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,11,97,35"/>
-<area shape="rect" id="node2" href="$classflow_1_1Function_3_01Result_07Args_8_8_8_08_4.html" title="Intended as the polymorphic function wrapper of choice for Flow, internally and externally; to be use..." alt="" coords="145,5,291,41"/>
+<area shape="rect" id="node1" href="$structflow_1_1util_1_1Thread__local__obj__deinit__safe_1_1Guarded__obj.html" title="Holds the actual per&#45;thread Obj; its destruction records itself in the adjacent dead&#45;flag." alt="" coords="5,5,189,53"/>
 </map>

@@ -68,9 +68,9 @@
 <path fill="none" stroke="midnightblue" d="M63.34,-972.68C87.51,-903.13 186.73,-652.37 360.5,-652.37 360.5,-652.37 360.5,-652.37 545.5,-652.37 678.39,-652.37 1047.42,-585.04 1143,-677.37 1218.34,-750.15 1113.55,-1065.58 1179,-1147.37 1183.97,-1153.58 1190.57,-1158.15 1197.8,-1161.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1196.63,-1164.81 1207.22,-1165.15 1199.15,-1158.28 1196.63,-1164.81"/>
 </g>
-<!-- Node90 -->
+<!-- Node89 -->
 <g id="node78" class="node">
-<title>Node90</title>
+<title>Node89</title>
 <g id="a_node78"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a0fba26db0055a969f3869014bc5c2bfc" target="_top" xlink:title="Performs all tasks to be performed at the end of low_lvl_recv_and_handle() or async part of async_wai...">
 <polygon fill="white" stroke="black" points="834,-235.87 834,-270.87 946,-270.87 946,-235.87 834,-235.87"/>
 <text text-anchor="start" x="842" y="-260.47" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -79,9 +79,9 @@
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node90 -->
+<!-- Node1&#45;&gt;Node89 -->
 <g id="edge122" class="edge">
-<title>Node1&#45;&gt;Node90</title>
+<title>Node1&#45;&gt;Node89</title>
 <path fill="none" stroke="midnightblue" d="M59,-972.58C70.59,-840.16 151.39,-13.37 360.5,-13.37 360.5,-13.37 360.5,-13.37 545.5,-13.37 650.06,-13.37 693.51,26.39 780,-32.37 847.11,-77.97 874.61,-177.3 884.36,-225.72"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="880.96,-226.62 886.27,-235.79 887.84,-225.31 880.96,-226.62"/>
 </g>
@@ -303,9 +303,9 @@
 <path fill="none" stroke="midnightblue" d="M218.32,-1377.43C235.04,-1389.13 261.15,-1406.01 286,-1416.37 471.08,-1493.56 705.32,-1537.74 819.74,-1556.15"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="819.34,-1559.63 829.76,-1557.75 820.44,-1552.72 819.34,-1559.63"/>
 </g>
-<!-- Node89 -->
+<!-- Node88 -->
 <g id="node77" class="node">
-<title>Node89</title>
+<title>Node88</title>
 <g id="a_node77"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a4bd7b471dd6cd3e3570930b48d30e577" target="_top" xlink:title="The maximum number of bytes of user data per received or sent block on connections generated from thi...">
 <polygon fill="white" stroke="black" points="1521,-1309.37 1521,-1335.37 1622,-1335.37 1622,-1309.37 1521,-1309.37"/>
 <text text-anchor="start" x="1529" y="-1324.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -313,9 +313,9 @@
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node89 -->
+<!-- Node3&#45;&gt;Node88 -->
 <g id="edge118" class="edge">
-<title>Node3&#45;&gt;Node89</title>
+<title>Node3&#45;&gt;Node88</title>
 <path fill="none" stroke="midnightblue" d="M250.01,-1355.42C316.52,-1344.18 438.5,-1326.37 543.5,-1326.37 543.5,-1326.37 543.5,-1326.37 1256,-1326.37 1344.71,-1326.37 1447.48,-1324.76 1510.74,-1323.58"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1511,-1327.08 1520.93,-1323.39 1510.87,-1320.08 1511,-1327.08"/>
 </g>
@@ -1458,7 +1458,7 @@
 <!-- Node81 -->
 <g id="node71" class="node">
 <title>Node81</title>
-<g id="a_node71"><a xlink:href="classflow_1_1net__flow_1_1Sequence__number.html#ad70753a4a64f89692a5166cfd9d23261" target="_top" xlink:title="Updates the full set of metadata (used at least for convenient convention&#45;based logging but not actua...">
+<g id="a_node71"><a xlink:href="classflow_1_1net__flow_1_1Sequence__number.html#ae3e77c6779350a1e036c7a3aaf69f017" target="_top" xlink:title="Updates the full set of metadata (used at least for convenient convention&#45;based logging but not actua...">
 <polygon fill="white" stroke="black" points="1011.5,-1916.37 1011.5,-1942.37 1131.5,-1942.37 1131.5,-1916.37 1011.5,-1916.37"/>
 <text text-anchor="start" x="1019.5" y="-1931.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Sequence</text>
 <text text-anchor="middle" x="1071.5" y="-1922.97" font-family="Helvetica,sans-Serif" font-size="8.00">_number::set_metadata</text>
@@ -1487,9 +1487,9 @@
 <path fill="none" stroke="midnightblue" d="M910.04,-1583.88C926.48,-1599.97 949.78,-1625.23 964,-1651.37 991.02,-1701.03 970.32,-1725.25 1000,-1773.37 1011.18,-1791.5 1028.63,-1807.9 1043.37,-1819.81"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1041.63,-1822.89 1051.67,-1826.28 1045.94,-1817.37 1041.63,-1822.89"/>
 </g>
-<!-- Node88 -->
+<!-- Node87 -->
 <g id="node76" class="node">
-<title>Node88</title>
+<title>Node87</title>
 <g id="a_node76"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a6daaa6a5a7d0b7e5a2266dd9db400c01" target="_top" xlink:title="Internal factory used for ALL Peer_socket objects created by this Node (including subclasses).">
 <polygon fill="white" stroke="black" points="1021,-1871.37 1021,-1897.37 1122,-1897.37 1122,-1871.37 1021,-1871.37"/>
 <text text-anchor="start" x="1029" y="-1886.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -1497,9 +1497,9 @@
 </a>
 </g>
 </g>
-<!-- Node74&#45;&gt;Node88 -->
+<!-- Node74&#45;&gt;Node87 -->
 <g id="edge113" class="edge">
-<title>Node74&#45;&gt;Node88</title>
+<title>Node74&#45;&gt;Node87</title>
 <path fill="none" stroke="midnightblue" d="M911.46,-1584.12C928.35,-1599.99 951.51,-1624.79 964,-1651.37 1004.46,-1737.47 937.37,-1790.77 1000,-1862.37 1003.31,-1866.15 1007.26,-1869.29 1011.57,-1871.9"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1010.34,-1875.2 1020.85,-1876.53 1013.46,-1868.93 1010.34,-1875.2"/>
 </g>
@@ -1521,9 +1521,9 @@
 <path fill="none" stroke="midnightblue" d="M1084.83,-1826.1C1100.84,-1808.11 1128.43,-1774.3 1143,-1740.37 1143.7,-1738.75 1228.76,-1300.47 1249.49,-1193.64"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1252.97,-1194.07 1251.44,-1183.58 1246.1,-1192.73 1252.97,-1194.07"/>
 </g>
-<!-- Node86 -->
+<!-- Node85 -->
 <g id="node74" class="node">
-<title>Node86</title>
+<title>Node85</title>
 <g id="a_node74"><a xlink:href="namespaceflow_1_1util.html#a79a0f182b38898771d669475d3e963a4" target="_top" xlink:title="Returns whether a previously scheduled (by schedule_task_from_now() or similar) task has already fire...">
 <polygon fill="white" stroke="black" points="1204.5,-1918.37 1204.5,-1944.37 1305.5,-1944.37 1305.5,-1918.37 1204.5,-1918.37"/>
 <text text-anchor="start" x="1212.5" y="-1933.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::scheduled</text>
@@ -1531,15 +1531,15 @@
 </a>
 </g>
 </g>
-<!-- Node82&#45;&gt;Node86 -->
+<!-- Node82&#45;&gt;Node85 -->
 <g id="edge111" class="edge">
-<title>Node82&#45;&gt;Node86</title>
+<title>Node82&#45;&gt;Node85</title>
 <path fill="none" stroke="midnightblue" d="M1124.64,-1852.44C1131.11,-1855.18 1137.41,-1858.46 1143,-1862.37 1164.26,-1877.27 1157.61,-1893.67 1179,-1908.37 1183.89,-1911.73 1189.29,-1914.62 1194.88,-1917.09"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1193.83,-1920.43 1204.41,-1920.87 1196.41,-1913.93 1193.83,-1920.43"/>
 </g>
-<!-- Node87 -->
+<!-- Node86 -->
 <g id="node75" class="node">
-<title>Node87</title>
+<title>Node86</title>
 <g id="a_node75"><a xlink:href="namespaceflow_1_1util.html#a9a0812b36dc401a3b2ac5e60e2a070d0" target="_top" xlink:title="Returns how long remains until a previously scheduled (by schedule_task_from_now() or similar) task f...">
 <polygon fill="white" stroke="black" points="1203.5,-1863.87 1203.5,-1898.87 1306.5,-1898.87 1306.5,-1863.87 1203.5,-1863.87"/>
 <text text-anchor="start" x="1211.5" y="-1888.47" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::scheduled</text>
@@ -1548,33 +1548,33 @@
 </a>
 </g>
 </g>
-<!-- Node82&#45;&gt;Node87 -->
+<!-- Node82&#45;&gt;Node86 -->
 <g id="edge112" class="edge">
-<title>Node82&#45;&gt;Node87</title>
+<title>Node82&#45;&gt;Node86</title>
 <path fill="none" stroke="midnightblue" d="M1128.93,-1852.43C1149.41,-1857.17 1172.63,-1862.54 1193.45,-1867.36"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1192.92,-1870.83 1203.45,-1869.68 1194.5,-1864.01 1192.92,-1870.83"/>
 </g>
-<!-- Node89&#45;&gt;Node10 -->
+<!-- Node88&#45;&gt;Node10 -->
 <g id="edge119" class="edge">
-<title>Node89&#45;&gt;Node10</title>
+<title>Node88&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M1622.36,-1329.42C1631.74,-1330.75 1641.71,-1332.16 1651.56,-1333.55"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1651.36,-1337.06 1661.75,-1334.99 1652.34,-1330.13 1651.36,-1337.06"/>
 </g>
-<!-- Node90&#45;&gt;Node21 -->
+<!-- Node89&#45;&gt;Node21 -->
 <g id="edge123" class="edge">
-<title>Node90&#45;&gt;Node21</title>
+<title>Node89&#45;&gt;Node21</title>
 <path fill="none" stroke="midnightblue" d="M916.52,-271.08C932.03,-282.94 951.24,-299.76 964,-318.37 1023.23,-404.76 1054.71,-528.35 1065.81,-579.18"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1062.43,-580.1 1067.93,-589.16 1069.27,-578.65 1062.43,-580.1"/>
 </g>
-<!-- Node90&#45;&gt;Node50 -->
+<!-- Node89&#45;&gt;Node50 -->
 <g id="edge128" class="edge">
-<title>Node90&#45;&gt;Node50</title>
+<title>Node89&#45;&gt;Node50</title>
 <path fill="none" stroke="midnightblue" d="M919.24,-270.89C935.14,-282.35 953.81,-298.81 964,-318.37 1027.26,-439.82 942.6,-500.04 1000,-624.37 1010.28,-646.64 1029.59,-666.73 1045.4,-680.66"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1043.4,-683.55 1053.29,-687.36 1047.93,-678.21 1043.4,-683.55"/>
 </g>
-<!-- Node91 -->
+<!-- Node90 -->
 <g id="node79" class="node">
-<title>Node91</title>
+<title>Node90</title>
 <g id="a_node79"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a136d9ccd25634cee2955ea79ae829006" target="_top" xlink:title="Helper of perform_accumulated_on_recv_tasks() that handles any incoming acknowledgments and rcv_wnd u...">
 <polygon fill="white" stroke="black" points="1006,-152.37 1006,-178.37 1137,-178.37 1137,-152.37 1006,-152.37"/>
 <text text-anchor="start" x="1014" y="-167.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -1582,15 +1582,15 @@
 </a>
 </g>
 </g>
-<!-- Node90&#45;&gt;Node91 -->
+<!-- Node89&#45;&gt;Node90 -->
 <g id="edge124" class="edge">
-<title>Node90&#45;&gt;Node91</title>
+<title>Node89&#45;&gt;Node90</title>
 <path fill="none" stroke="midnightblue" d="M926.89,-235.78C958.14,-220.46 1003.21,-198.36 1034.49,-183.03"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1036.28,-186.05 1043.72,-178.5 1033.2,-179.76 1036.28,-186.05"/>
 </g>
-<!-- Node93 -->
+<!-- Node92 -->
 <g id="node81" class="node">
-<title>Node93</title>
+<title>Node92</title>
 <g id="a_node81"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a45583714bc147300158f074ecacce0fd" target="_top" xlink:title="Helper of perform_accumulated_on_recv_tasks() that handles any additional individual outgoing acknowl...">
 <polygon fill="white" stroke="black" points="1017.5,-235.87 1017.5,-270.87 1125.5,-270.87 1125.5,-235.87 1017.5,-235.87"/>
 <text text-anchor="start" x="1025.5" y="-260.47" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -1599,31 +1599,31 @@
 </a>
 </g>
 </g>
-<!-- Node90&#45;&gt;Node93 -->
+<!-- Node89&#45;&gt;Node92 -->
 <g id="edge127" class="edge">
-<title>Node90&#45;&gt;Node93</title>
+<title>Node89&#45;&gt;Node92</title>
 <path fill="none" stroke="midnightblue" d="M946.32,-253.37C965.53,-253.37 987.22,-253.37 1007.04,-253.37"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1007.21,-256.87 1017.21,-253.37 1007.21,-249.87 1007.21,-256.87"/>
 </g>
-<!-- Node91&#45;&gt;Node47 -->
+<!-- Node90&#45;&gt;Node47 -->
 <g id="edge125" class="edge">
-<title>Node91&#45;&gt;Node47</title>
+<title>Node90&#45;&gt;Node47</title>
 <path fill="none" stroke="midnightblue" d="M1137.03,-164.9C1190.31,-166.26 1267.25,-172.29 1331,-193.37 1354.96,-201.29 1379.47,-216.08 1397.17,-228.18"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1395.56,-231.33 1405.76,-234.21 1399.59,-225.6 1395.56,-231.33"/>
 </g>
-<!-- Node92 -->
+<!-- Node91 -->
 <g id="node80" class="node">
-<title>Node92</title>
-<g id="a_node80"><a xlink:href="namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" target="_top" xlink:title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">
+<title>Node91</title>
+<g id="a_node80"><a xlink:href="namespaceflow_1_1util.html#accf7f455fe2a94370fb6a59f1d684ed9" target="_top" xlink:title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block.">
 <polygon fill="white" stroke="black" points="1203,-114.37 1203,-140.37 1307,-140.37 1307,-114.37 1203,-114.37"/>
 <text text-anchor="start" x="1211" y="-129.97" font-family="Helvetica,sans-Serif" font-size="8.00">flow::util::setup_auto</text>
 <text text-anchor="middle" x="1255" y="-120.97" font-family="Helvetica,sans-Serif" font-size="8.00">_cleanup</text>
 </a>
 </g>
 </g>
-<!-- Node91&#45;&gt;Node92 -->
+<!-- Node90&#45;&gt;Node91 -->
 <g id="edge126" class="edge">
-<title>Node91&#45;&gt;Node92</title>
+<title>Node90&#45;&gt;Node91</title>
 <path fill="none" stroke="midnightblue" d="M1134.71,-152.35C1153.5,-148.41 1174.1,-144.1 1192.82,-140.18"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1193.64,-143.59 1202.71,-138.11 1192.21,-136.73 1193.64,-143.59"/>
 </g>

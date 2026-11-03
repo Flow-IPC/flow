@@ -1,8 +1,8 @@
-<map id="flow::util::Basic_blob&lt; Allocator, SHARING &gt;" name="flow::util::Basic_blob&lt; Allocator, SHARING &gt;">
-<area shape="rect" id="node1" title="A hand&#45;optimized and API&#45;tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all..." alt="" coords="341,102,489,138"/>
-<area shape="rect" id="node2" href="$classbool.html" title=" " alt="" coords="69,5,116,29"/>
-<area shape="rect" id="node3" title=" " alt="" coords="11,53,174,77"/>
-<area shape="rect" id="node4" title=" " alt="" coords="25,102,161,138"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,162,180,198"/>
-<area shape="rect" id="node6" title=" " alt="" coords="66,228,119,252"/>
+<map id="flow::util::Basic_blob&lt; Allocator_t, SHARING &gt;" name="flow::util::Basic_blob&lt; Allocator_t, SHARING &gt;">
+<area shape="rect" id="node1" title="A hand&#45;optimized and API&#45;tweaked replacement for vector&lt;uint8_t&gt;, i.e., buffer of bytes inside an all..." alt="" coords="345,102,503,138"/>
+<area shape="rect" id="node2" href="$classbool.html" title=" " alt="" coords="71,5,118,29"/>
+<area shape="rect" id="node3" title=" " alt="" coords="13,53,176,77"/>
+<area shape="rect" id="node4" title=" " alt="" coords="27,102,163,138"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,162,184,198"/>
+<area shape="rect" id="node6" title=" " alt="" coords="68,228,121,252"/>
 </map>

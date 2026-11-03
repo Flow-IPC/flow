@@ -257,7 +257,7 @@ template&lt;typename Cfg_t &gt; </div>
 <p>The values pairs (<code>&amp;type</code>, <code>cfg</code>) passed to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__sorted__array.html#a4fd0aa81a5d8d51268e78f4a1c42634a" title="See Component_payload_type_dict_by_ptr_via_map.">insert()</a>, in order of increasing <code>&amp;type</code> (pointer) value. </p>
 <p >(Due to <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__sorted__array.html#a4fd0aa81a5d8d51268e78f4a1c42634a" title="See Component_payload_type_dict_by_ptr_via_map.">insert()</a> contract: they are guaranteed to be distinct pointer values, no repeats.)</p>
 <h3>Performance/rationale</h3>
-<p >The values are sorted by key, so as to be binary-searched for log-time performance. As for the constant factor: a binary search is a higher-level operation, hence realistically lower-level perfomance is mostly outside of our control. So we can just use a vanilla setup: a <code>vector</code> with key-value <code>pair</code>s + <code>std::lower_bound()</code> for binary search.</p>
+<p >The values are sorted by key, so as to be binary-searched for log-time performance. As for the constant factor: a binary search is a higher-level operation, hence realistically lower-level performance is mostly outside of our control. So we can just use a vanilla setup: a <code>vector</code> with key-value <code>pair</code>s + <code>std::lower_bound()</code> for binary search.</p>
 <p >The constant factor shall involve the quite-quick pointer <code>&lt;</code> comparisons. Versus <a class="el" href="classflow_1_1log_1_1Component__payload__type__dict__by__ptr__via__sorted__array.html" title="Exactly equivalent to Component_payload_type_dict_by_ptr_via_array but with impl = sorted array susce...">Component_payload_type_dict_by_ptr_via_sorted_array</a> (array, but linear search instead of binary search), we might do better for larger N, while the potentially-low-level-optimized search-through-contiguous-buffer might cause "them" to do better for smaller N. </p>
 
 <p class="definition">Definition at line <a class="el" href="component__cfg_8hpp_source.html#l00323">323</a> of file <a class="el" href="component__cfg_8hpp_source.html">component_cfg.hpp</a>.</p>
@@ -298,7 +298,7 @@ template&lt;typename Cfg_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

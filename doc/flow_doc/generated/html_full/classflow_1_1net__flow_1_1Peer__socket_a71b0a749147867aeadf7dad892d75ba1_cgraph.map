@@ -16,5 +16,5 @@
 <area shape="rect" id="node14" href="$classflow_1_1net__flow_1_1Node.html#a2565b7c0bd82cad86eb168b62f8ffd9d" title="Helper placed by send() onto W to invoke send_worker() but ensures that the socket has not entered so..." alt="" coords="780,177,949,213"/>
 <area shape="rect" id="node15" href="$classflow_1_1net__flow_1_1Node.html#a382b607fa2e482886f2fd75edc36b8b7" title="Return true if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of sock (if re..." alt="" coords="797,237,932,273"/>
 <area shape="rect" id="node17" href="$classflow_1_1net__flow_1_1Node.html#a237c603bbd4845a5fc4b0370b4979b31" title="Creates a new Event_set in Event_set::State::S_INACTIVE state with no sockets/events stored; returns ..." alt="" coords="797,357,932,393"/>
-<area shape="rect" id="node18" href="$namespaceflow_1_1util.html#a09a032f8e1e77a3afc0b7df115a773e1" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block." alt="" coords="795,417,934,453"/>
+<area shape="rect" id="node18" href="$namespaceflow_1_1util.html#accf7f455fe2a94370fb6a59f1d684ed9" title="Provides a way to execute arbitrary (cleanup) code at the exit of the current block." alt="" coords="795,417,934,453"/>
 </map>

@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Optional-use companion to <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> that enables the <code>Polled_share_state</code> pattern wherein from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate on/using locked shared state, with the no-op fast-path being gated by a high-performance-low-strictness atomic-flag being <code>false</code>.  
+<p>Optional-use companion to <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a> that (together with <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a>) enables the <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a></code> pattern wherein from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate on/using locked shared state, with the no-op fast-path being gated by a high-performance <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> being disarmed.  
  <a href="classflow_1_1util_1_1Polled__shared__state.html#details">More...</a></p>
 
 <p><code>#include &lt;thread_lcl.hpp&gt;</code></p>
@@ -99,20 +99,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c44feb8ad18f2109ccf88d44a67abc0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0">while_locked</a> (const Task &amp;task)</td></tr>
 <tr class="memdesc:a5c44feb8ad18f2109ccf88d44a67abc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks the non-recursive shared-state mutex, such that no access or modification of the contents of the <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> shall concurrently occur; executes given task; and unlocks said mutex.  <a href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0">More...</a><br /></td></tr>
 <tr class="separator:a5c44feb8ad18f2109ccf88d44a67abc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57cd1fc66a0a3931504d6afdaf35cb13"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13">this_thread_poll_state</a> ()</td></tr>
-<tr class="memdesc:a57cd1fc66a0a3931504d6afdaf35cb13"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be called from a thread-local context in which you'll be checking <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a>, returns opaque pointer to save in your <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#ae7e3943eb37f5c1373b35d6784b0ef3d" title="Short-hand for template parameter type. See our class doc header for requirements.">Thread_local_state_registry::Thread_local_state</a> and pass to <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a>.  <a href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13">More...</a><br /></td></tr>
-<tr class="separator:a57cd1fc66a0a3931504d6afdaf35cb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a277b1edef6590b4d1776d790d38a35f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1">arm_next_poll</a> (void *thread_poll_state)</td></tr>
-<tr class="memdesc:a277b1edef6590b4d1776d790d38a35f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be called from any context (typically not the targeted thread-local context in which you'll be checking poll_armed, though that works too), this causes the next <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a> called in the thread in which <code>thread_poll_state</code> was returned to return <code>true</code> (once).  <a href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1">More...</a><br /></td></tr>
-<tr class="separator:a277b1edef6590b4d1776d790d38a35f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f2bf7773084dd52081e0e00eeff9cdf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf">poll_armed</a> (void *thread_poll_state)</td></tr>
-<tr class="memdesc:a3f2bf7773084dd52081e0e00eeff9cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the given thread's poll-flag is not armed, no-ops and returns <code>false</code>; otherwise returns <code>true</code> and resets poll-flag to <code>false</code>.  <a href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf">More...</a><br /></td></tr>
-<tr class="separator:a3f2bf7773084dd52081e0e00eeff9cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Shared_state_t&gt;<br />
-class flow::util::Polled_shared_state&lt; Shared_state_t &gt;</div><p >Optional-use companion to <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> that enables the <code>Polled_share_state</code> pattern wherein from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate on/using locked shared state, with the no-op fast-path being gated by a high-performance-low-strictness atomic-flag being <code>false</code>. </p>
-<p >This <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that enables the Polled_share_state pattern whe...">Polled_shared_state</a></code> pattern (I, ygoldfel, made that up... don't know if it's a known thing) is maybe best explained by example. Suppose we're using <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a> with <code>Thread_local_state</code> type being <code>T</code>. Suppose that sometimes some event occurs, in an arbitrary thread (for simplicity let's say that is not in any thread activated by the <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a>&lt;T&gt;</code>) that requires each state to execute <code>thread_locally_launch_rocket()</code>. Lastly, suppose that upon launching the <em>last</em> rocket required, we must report success via <code>report_success()</code> from whichever thread did it.</p>
+class flow::util::Polled_shared_state&lt; Shared_state_t &gt;</div><p >Optional-use companion to <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a> that (together with <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a>) enables the <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a></code> pattern wherein from some arbitrary thread user causes the extant thread-locally-activated threads opportunistically collaborate on/using locked shared state, with the no-op fast-path being gated by a high-performance <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> being disarmed. </p>
+<p >This <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a></code> pattern (I, ygoldfel, made that up... don't know if it's a known thing) is maybe best explained by example. Suppose we're using <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a> with <code>Thread_local_state</code> type being <code>T</code>. Suppose that sometimes some event occurs, in an arbitrary thread (for simplicity let's say that is not in any thread activated by the <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a>&lt;T&gt;</code>) that requires each state to execute <code>thread_locally_launch_rocket()</code>. Lastly, suppose that upon launching the <em>last</em> rocket required, we must report success via <code>report_success()</code> from whichever thread did it.</p>
 <p >However there are 2-ish problems at least:</p><ul>
 <li>We're not in any of those threads; we need to inform them somehow they each need to <code>thread_locally_launch_rocket()</code>. There's no way to signal them to do it immediately necessarily; but we can do it opportunistically to any thread that has already called <code>this_thread_state()</code> (been activated).<ul>
 <li>Plus there's the non-trivial accounting regarding "last one to launch does a special finishing step" that requires keeping track of work-load in some shared state.</li>
@@ -122,44 +113,43 @@ class flow::util::Polled_shared_state&lt; Shared_state_t &gt;</div><p >Optional-
 <li>Typically we don't need to launch any rockets; and the <em>fast-path</em> is that we in fact don't. It is important that each activated thread can ask "do we need to launch-rocket?" and get the probable answer "no" extremely quickly: without locking any mutex, and even more importantly without any contention if we do. If the answer is "yes," which is assumed to be rare, <em>then</em> even lock-contended-locking is okay.</li>
 </ul>
 <p >To handle these challenges the pattern is as follows.</p><ul>
-<li>The <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> template param here is perhaps <code>set&lt;T*&gt;</code>: the set of <code>T</code>s (each belonging to an activated thread that has called <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a>&lt;T&gt;::this_thread_state()</code>) that should execute, and have not yet executed, <code>thread_locally_launch_rocket()</code>.</li>
-<li>Wherever the <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a>&lt;T&gt;</code> is declared/instantiated &ndash; e.g., <code>static</code>ally &ndash; also declare <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that enables the Polled_share_state pattern whe...">Polled_shared_state</a>&lt;set&lt;T*&gt;&gt;</code>, <em>immediately before</em> the registry.</li>
-<li>In <code>T</code> ctor &ndash; which by definition executes only in an activated thread and only once &ndash; prepare an opaque atomic-flag-state by executing <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13" title="To be called from a thread-local context in which you&#39;ll be checking poll_armed(),...">this_thread_poll_state()</a> and saving the returned <code>void*</code> into a non-<code>static</code> data member of <code>T</code> (say, <code>void* const m_missile_launch_needed_poll_state</code>).</li>
+<li>The <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> template param here is perhaps <code>set&lt;T*&gt;</code>: the set of <code>T</code>s (each belonging to an activated thread that has called <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a>&lt;T&gt;::this_thread_state()</code>) that should execute, and have not yet executed, <code>thread_locally_launch_rocket()</code>.</li>
+<li>Wherever the <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a>&lt;T&gt;</code> is declared/instantiated &ndash; e.g., <code>static</code>ally &ndash; also declare <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a>&lt;set&lt;T*&gt;&gt;</code>. Conventionally we recommend the <code>Polled_stared_state</code>-first, <code><a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a></code>-second order; the latter depends on the former.</li>
+<li>Give <code>T</code> a <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> data member (say, <code><a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> m_missile_launch_needed_flag</code>).</li>
 <li>If the "let's launch missiles" event occurs, in its code do:</li>
 </ul>
-<div class="fragment"><div class="line">registry.while_locked([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; lock) <span class="comment">// Any access across per-thread state is done while_locked().</span></div>
+<div class="fragment"><div class="line">registry.while_locked([&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; state_per_thread) <span class="comment">// Access across per-thread state is done while_locked().</span></div>
 <div class="line">{</div>
-<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; state_per_thread = registry.state_per_thread(lock);</div>
 <div class="line">  <span class="keywordflow">if</span> (state_per_thread.empty()) { return; } <span class="comment">// No missiles to launch for sure; forget it.</span></div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Load the shared state (while_locked()):</span></div>
 <div class="line">  missiles_to_launch_polled_shared_state.while_locked([&amp;](set&lt;T*&gt;* threads_that_shall_launch_missiles)</div>
 <div class="line">  {</div>
 <div class="line">    <span class="comment">// *threads_that_shall_launch_missiles is protected against concurrent change.</span></div>
-<div class="line">    for (const auto&amp; state_and_mdt)</div>
+<div class="line">    for (const auto&amp; state_and_mdt : state_per_thread)</div>
 <div class="line">    {</div>
-<div class="line">      T* const active_per_thread_t = state_and_mdt.first;</div>
-<div class="line">      threads_that_shall_launch_missiles-&gt;insert(active_per_thread_t);</div>
+<div class="line">      T* const thread_lcl_state_ptr = state_and_mdt.first;</div>
+<div class="line">      threads_that_shall_launch_missiles-&gt;insert(thread_lcl_state_ptr);</div>
 <div class="line">    }</div>
 <div class="line">  });</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// *AFTER!!!* loading the shared state, arm the poll-flag:</span></div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; state_and_mdt)</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; state_and_mdt : state_per_thread)</div>
 <div class="line">  {</div>
-<div class="line">    T* <span class="keyword">const</span> active_per_thread_t = state_and_mdt.first;</div>
-<div class="line">    missiles_to_launch_polled_shared_state.arm_next_poll(active_per_thread_t-&gt;m_missile_launch_needed_poll_state);</div>
+<div class="line">    T* <span class="keyword">const</span> thread_lcl_state_ptr = state_and_mdt.first;</div>
+<div class="line">    thread_lcl_state_ptr-&gt;m_missile_launch_needed_flag.arm_next_poll();</div>
 <div class="line">    <span class="comment">// (We arm every per-thread T; but it is possible and fine to do it only for some.)</span></div>
 <div class="line">    <span class="comment">// Also note it might already be armed; this would keep it armed; no problem.  Before the for()</span></div>
 <div class="line">    <span class="comment">// the set&lt;&gt; might already have entries (launches planned, now we&#39;re adding possibly more to it).</span></div>
 <div class="line">  }</div>
-<div class="line">}</div>
+<div class="line">});</div>
 </div><!-- fragment --><p >So that's the setup/arming; and now to consume it:</p><ul>
 <li>In each relevant thread, such that <code>this_thread_state()</code> has been called in it (and therefore a <code>T</code> exists), whenever the opportunity arises, check the poll-flag, and in the rare case where it is armed, do <code>thread_locally_launch_rocket()</code>:</li>
 </ul>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> opportunistically_launch_when_triggered() <span class="comment">// Assumes: bool(registry.this_thread_state_or_null()) == true.</span></div>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> opportunistically_launch_when_triggered() <span class="comment">// Assumes: registry.this_thread_state_or_null()) is non-null.</span></div>
 <div class="line">{</div>
 <div class="line">  T* <span class="keyword">const</span> this_thread_state = registry.this_thread_state();</div>
-<div class="line">  <span class="keywordflow">if</span> (!missiles_to_launch_polled_shared_state.poll_armed(this_thread_state-&gt;m_missile_launch_needed_poll_state))</div>
+<div class="line">  <span class="keywordflow">if</span> (!this_thread_state-&gt;m_missile_launch_needed_flag.poll_armed())</div>
 <div class="line">  { <span class="comment">// Fast-path!  Nothing to do re. missile-launching.</span></div>
 <div class="line">    <span class="keywordflow">return</span>;</div>
 <div class="line">  }</div>
@@ -178,16 +168,26 @@ class flow::util::Polled_shared_state&lt; Shared_state_t &gt;</div><p >Optional-
 <div class="line">    {</div>
 <div class="line">      report_success(); <span class="comment">// We launched the last required missile... report success.</span></div>
 <div class="line">    }</div>
-<div class="line">  }</div>
+<div class="line">  });</div>
 <div class="line">}</div>
 </div><!-- fragment --><p >Hopefully that explains it. It is a little rigid and a little flexible; the nature of <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> is arbitrary, and the above is probably the simplest form of it (but typically we suspect it will usually involve some container(s) tracking some subset of extant <code>T*</code>s).</p>
-<p >Though, perhaps an even simpler scenario might be <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> being an empty <code>struct Dummy {};</code>, so that the atomic-flags being armed are the only info actually being transmitted. In the above example that would have been enough &ndash; if not for the requirement to <code>report_success()</code>, when the last missile is launched.</p>
+<p >If there is no shared state to maintain &ndash; the armed flags alone carry all the needed info &ndash; then you need no <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a> at all: just embed the <code><a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a></code>s. (In the above example that would have been enough &ndash; if not for the requirement to <code>report_success()</code>, when the last missile is launched.)</p>
+<h3>Lifetime/safety</h3>
+<p >Each poll-flag, being a <code>T</code> member, lives exactly as long as its <code>T</code>. Hence:</p><ul>
+<li>Arming within <code>registry.while_locked()</code> (as shown above) is safe &ndash; even if a targeted thread is concurrently exiting: every <code>T</code> in <code>state_per_thread</code>, and therefore its flag, is alive at least until <code>task()</code> returns. (A <code>T</code>'s thread-exit cleanup contends for the same lock and un-registers the <code>T</code> before destroying it.)</li>
+<li>Polling is safe wherever a <code>T</code> is available &ndash; including from <code>~T()</code> itself, if it comes to that.</li>
+</ul>
 <h3>Performance</h3>
-<p >The fast-path reasoning is that (1) the arming event occurs rarely and therefore is not part of any fast-path; and (2) thread-local logic can detect <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a> == false</code> first-thing and do nothing further. Internally we facilitate speed further by <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a> using an <code>atomic&lt;bool&gt;</code> with an optimized memory-ordering setting that is nevertheless safe (impl details omitted here). Point is, <code>if (!....<a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a>) { return }</code> shall be a quite speedy check.</p>
-<p >Last but not least: If <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> is empty (formally: <code>is_empty_v&lt;Shared_state&gt; == true</code>; informally: use, e.g., <code>struct Dummy {};</code>), then <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a> will not be generated, and trying to write code that calls it will cause a compile-time <code>static_assert()</code> fail. As noted earlier using <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that enables the Polled_share_state pattern whe...">Polled_shared_state</a>, despite the name, for not any shared state but just the thread-local distributed flag arming/polling = a perfectly valid approach.</p>
+<p >The arming event occurs rarely and thus is not part of any fast-path; the fast-path cost is thread-local logic detecting <code>poll_armed() == false</code> first-thing and doing nothing further &ndash; a single, cheap atomic op (see <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> doc header).</p>
+<h3>Design rationale: addendum</h3>
+<p >The two actual API-classes involved in the <code><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a></code> pattern &ndash; <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a> here and <a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> nearby &ndash; are each quite simple, so simple that one could say they are unnecessary. Nevertheless in our experience it was worthwhile to do this; in particular the sister project Flow-IPC as of this writing uses the pattern (including both classes) in 3 different places.</p><ul>
+<li><a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a> itself is really just a simple mutex and a <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a>. We provide a bit of syntactic sugar (<a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a>) and the encapsulation; that's all.</li>
+<li>However: our doc header is a good place to document the pattern. We feel this alone has real value.</li>
+<li><a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a> does encapsulate certain <code>atomic</code>-logic that, while not exotic or obscure, is still easy to get wrong in little ways (that will not easily reveal themselves empirically) in terms of correctness and perf.</li>
+</ul>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">Shared_state_t</td><td>A single object of this type shall be constructed and can be accessed, whether for reading or writing, using <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">Polled_shared_state::while_locked()</a>. It must be constructible via the ctor signature you choose to use when constructing <code>*this</code> <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that enables the Polled_share_state pattern whe...">Polled_shared_state</a> ctor (template). The ctor args shall be forwarded to the <code>Shared_state_t</code> ctor. Note that it is not required to actually use a <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> and <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">Polled_shared_state::while_locked()</a>. In that case please let <code>Shared_state_t</code> be an empty <code>struct</code> type. </td></tr>
+    <tr><td class="paramname">Shared_state_t</td><td>A single object of this type shall be constructed and can be accessed, whether for reading or writing, using <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a>. It must be constructible via the ctor signature you choose to use when constructing <code>*this</code> <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html" title="Optional-use companion to Thread_local_state_registry that (together with Poll_flag) enables the Poll...">Polled_shared_state</a> ctor (template). The ctor args shall be forwarded to the <code>Shared_state_t</code> ctor. </td></tr>
   </table>
   </dd>
 </dl>
@@ -213,8 +213,7 @@ template&lt;typename... Ctor_args&gt; </div>
 </div><div class="memdoc">
 
 <p>Forwards to the stored object's <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> ctor. </p>
-<p >You should also, in thread-local context, memorize ptr returned by <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13" title="To be called from a thread-local context in which you&#39;ll be checking poll_armed(),...">this_thread_poll_state()</a>.</p>
-<p >Next: outside thread-local context use <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a> to check/modify <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> contents safely; then for each relevant per-thread context <code>this-&gt;arm_next_poll(x)</code>, where <code>x</code> is the saved <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13" title="To be called from a thread-local context in which you&#39;ll be checking poll_armed(),...">this_thread_poll_state()</a>; this shall cause <code>this-&gt;<a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a></code> in that thread-local context to return <code>true</code> (once, until you again <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1" title="To be called from any context (typically not the targeted thread-local context in which you&#39;ll be che...">arm_next_poll()</a> it).</p>
+<p >Next: use <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a> to check/modify <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a> contents safely; then arm the relevant per-thread <code><a class="el" href="classflow_1_1util_1_1Poll__flag.html" title="A single boolean flag, armed via arm_next_poll() (typically from another thread) and both checked and...">Poll_flag</a></code>s. See class doc header for the full pattern.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Ctor_args</td><td>See above. </td></tr>
@@ -231,84 +230,6 @@ template&lt;typename... Ctor_args&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a277b1edef6590b4d1776d790d38a35f1" name="a277b1edef6590b4d1776d790d38a35f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a277b1edef6590b4d1776d790d38a35f1">&#9670;&nbsp;</a></span>arm_next_poll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Shared_state_t &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html">flow::util::Polled_shared_state</a>&lt; Shared_state_t &gt;::arm_next_poll </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>thread_poll_state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>To be called from any context (typically not the targeted thread-local context in which you'll be checking poll_armed, though that works too), this causes the next <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a> called in the thread in which <code>thread_poll_state</code> was returned to return <code>true</code> (once). </p>
-<p >Tip: Typically one would use <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1" title="To be called from any context (typically not the targeted thread-local context in which you&#39;ll be che...">arm_next_poll()</a> inside a <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#a77a1495f862b1ad71fd012bed9f8f26c" title="Locks the non-recursive registry mutex, such that no access or modification of the (deep or shallow) ...">Thread_local_state_registry::while_locked()</a> statement, perhaps cycling through all of <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#aa5aca050b4111b28208e2dea02a981f6" title="Returns reference to immutable container holding info for each thread in which this_thread_state() ha...">Thread_local_state_registry::state_per_thread()</a> and arming the poll-flags of all or some subset of those <code>Thread_local_state</code>s.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thread_poll_state</td><td>Value from <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a57cd1fc66a0a3931504d6afdaf35cb13" title="To be called from a thread-local context in which you&#39;ll be checking poll_armed(),...">this_thread_poll_state()</a> called from within the thread whose next <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a> you are targeting. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3f2bf7773084dd52081e0e00eeff9cdf" name="a3f2bf7773084dd52081e0e00eeff9cdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f2bf7773084dd52081e0e00eeff9cdf">&#9670;&nbsp;</a></span>poll_armed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Shared_state_t &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html">flow::util::Polled_shared_state</a>&lt; Shared_state_t &gt;::poll_armed </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>thread_poll_state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If the given thread's poll-flag is not armed, no-ops and returns <code>false</code>; otherwise returns <code>true</code> and resets poll-flag to <code>false</code>. </p>
-<p >Use <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1" title="To be called from any context (typically not the targeted thread-local context in which you&#39;ll be che...">arm_next_poll()</a>, typically from a different thread, to affect when this methods does return <code>true</code>. Usually that means there has been some meaningful change to the stored <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a4595b59452da2e76fabd8fd5eb2a579f" title="Short-hand for template parameter type.">Shared_state</a>, and therefore you should look there (and/or modify it) <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a5c44feb8ad18f2109ccf88d44a67abc0" title="Locks the non-recursive shared-state mutex, such that no access or modification of the contents of th...">while_locked()</a> immediately.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thread_poll_state</td><td>See <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a277b1edef6590b4d1776d790d38a35f1" title="To be called from any context (typically not the targeted thread-local context in which you&#39;ll be che...">arm_next_poll()</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
-
-</div>
-</div>
-<a id="a57cd1fc66a0a3931504d6afdaf35cb13" name="a57cd1fc66a0a3931504d6afdaf35cb13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57cd1fc66a0a3931504d6afdaf35cb13">&#9670;&nbsp;</a></span>this_thread_poll_state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Shared_state_t &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void * <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html">flow::util::Polled_shared_state</a>&lt; Shared_state_t &gt;::this_thread_poll_state</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>To be called from a thread-local context in which you'll be checking <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a>, returns opaque pointer to save in your <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#ae7e3943eb37f5c1373b35d6784b0ef3d" title="Short-hand for template parameter type. See our class doc header for requirements.">Thread_local_state_registry::Thread_local_state</a> and pass to <a class="el" href="classflow_1_1util_1_1Polled__shared__state.html#a3f2bf7773084dd52081e0e00eeff9cdf" title="If the given thread&#39;s poll-flag is not armed, no-ops and returns false; otherwise returns true and re...">poll_armed()</a>. </p>
-<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
-
-</div>
-</div>
 <a id="a5c44feb8ad18f2109ccf88d44a67abc0" name="a5c44feb8ad18f2109ccf88d44a67abc0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c44feb8ad18f2109ccf88d44a67abc0">&#9670;&nbsp;</a></span>while_locked()</h2>
 
@@ -352,7 +273,7 @@ template&lt;typename Task &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:16 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:10 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

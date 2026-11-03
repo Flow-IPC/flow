@@ -1,0 +1,9 @@
+<map id="flow::util::stat::stats_aggregate" name="flow::util::stat::stats_aggregate">
+<area shape="rect" id="node1" title="Aggregates N source Stat_sets – drawn from the iterator range [src_stats_begin, src_stats_end) – into..." alt="" coords="5,140,139,176"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util_1_1stat.html#a77a2e44027fa45589b57d62a6b7c4475" title="Default load(stats.m_val) that simply return stats.m_val." alt="" coords="383,118,513,142"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util_1_1stat.html#a76a1043c7ab2a836863ffde084e363ba" title="Aggregates the values from src_stats into *target_stats, in&#45;place." alt="" coords="187,56,320,92"/>
+<area shape="rect" id="node6" href="$namespaceflow_1_1util_1_1stat.html#a797a4c57702f9695f1794bd2c3000c8d" title="Given a source Stat_set, makes the target Stat_set equal to the former." alt="" coords="187,168,320,204"/>
+<area shape="rect" id="node7" href="$namespaceflow_1_1util_1_1stat.html#aff48f3d8b8b9456208bb1c30e3546e5d" title="Default store(&amp;target_stats.m_val, val) that simply assigns *target_val = val." alt="" coords="381,202,515,226"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util_1_1stat.html#ab1bfde42f9cb59cdfc0af8e9a76171bf" title="Default fetch_add(&amp;target_stats.m_val, addend_val) that simply applies *target_val += addend_val." alt="" coords="368,66,528,90"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util_1_1stat.html#a4ecc05913c259d8e2b1f372ad5472c7f" title="Default update_hi_wmark(&amp;target_stats.m_val, val) that updates *target_val to val if and only if the ..." alt="" coords="375,5,521,41"/>
+</map>

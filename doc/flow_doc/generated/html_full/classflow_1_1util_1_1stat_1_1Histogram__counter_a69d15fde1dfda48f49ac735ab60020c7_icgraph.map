@@ -1,0 +1,4 @@
+<map id="flow::util::stat::Histogram_counter::record_value" name="flow::util::stat::Histogram_counter::record_value">
+<area shape="rect" id="node1" title="Record event outcome." alt="" coords="216,5,379,41"/>
+<area shape="rect" id="node2" href="$classflow_1_1util_1_1stat_1_1Histogram__counter.html#a0f2b2c162f36a66e641484059bc651f0" title="Convenience wrapper for record_value() that records a duration in the units specified as the mandator..." alt="" coords="5,5,168,41"/>
+</map>

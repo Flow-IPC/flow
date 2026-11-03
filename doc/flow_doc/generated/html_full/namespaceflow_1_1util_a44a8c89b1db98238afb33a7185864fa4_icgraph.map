@@ -1,0 +1,4 @@
+<map id="flow::util::round_to_multiple" name="flow::util::round_to_multiple">
+<area shape="rect" id="node1" title="Returns the smallest integer &gt;= the given integer dividend such that it is a multiple of the given in..." alt="" coords="172,5,297,41"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#a0305ba7f9f8a3ea80b22d2b7879f6105" title="Compile&#45;time calculation: Given a type Data returns the minimum size, in bytes, of a hypothetical buf..." alt="" coords="5,5,124,41"/>
+</map>

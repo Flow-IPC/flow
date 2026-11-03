@@ -75,12 +75,12 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Simply wraps a <code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>, adding absolutely no data or algorithms, purely to work-around a combination of (some?) clang versions and (some?) GNU STL impls giving a bogus compile error, when one tries <code>optional&lt;<a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a>&gt;</code>.  
+<p>Simply wraps a <code><a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html" title="boost::thread_specific_ptr replacement (augmentation) whose fast-path .get() touches only thread_loca...">Thread_local_ptr</a>&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>/<code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>, adding absolutely no data or algorithms, purely to work-around a combination of (some?) clang versions and (some?) GNU STL impls giving a bogus compile error, when one tries <code>optional&lt;<a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a>&gt;</code>.  
  <a href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper__coll__graph.svg" width="158" height="191"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper__coll__graph.svg" width="1267" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -99,17 +99,19 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa670c1534d2975852bfb8f6a0a667849"><td class="memItemLeft" align="right" valign="top">boost::thread_specific_ptr&lt; <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html">Tl_context</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#aa670c1534d2975852bfb8f6a0a667849">m_tsp</a></td></tr>
-<tr class="memdesc:aa670c1534d2975852bfb8f6a0a667849"><td class="mdescLeft">&#160;</td><td class="mdescRight">What we wrap and forward-to-and-fro.  <a href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#aa670c1534d2975852bfb8f6a0a667849">More...</a><br /></td></tr>
-<tr class="separator:aa670c1534d2975852bfb8f6a0a667849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82bef40ae73b4ebc835e593a3ab83647"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html">Thread_local_ptr</a>&lt; <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html">Tl_context</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#a82bef40ae73b4ebc835e593a3ab83647">m_tsp</a></td></tr>
+<tr class="memdesc:a82bef40ae73b4ebc835e593a3ab83647"><td class="mdescLeft">&#160;</td><td class="mdescRight">What we wrap and forward-to-and-fro: an object with functional semantics identical to those of <code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>.  <a href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#a82bef40ae73b4ebc835e593a3ab83647">More...</a><br /></td></tr>
+<tr class="separator:a82bef40ae73b4ebc835e593a3ab83647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Thread_local_state_t&gt;<br />
-struct flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper</div><p >Simply wraps a <code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>, adding absolutely no data or algorithms, purely to work-around a combination of (some?) clang versions and (some?) GNU STL impls giving a bogus compile error, when one tries <code>optional&lt;<a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to boost::thread_specific_ptr&lt;T&gt; but with built-in lazy-init semantics; and more importantly ...">Thread_local_state_registry</a>&gt;</code>. </p>
-<p >The error is "the parameter for this explicitly-defaulted copy constructor is const, but a member or base requires it to be
-non-const" and references impl details of STL's <code>optional</code>. The solution is to wrap the thing in a thing that is itself already noncopyable in the proper way, unlike <code>thread_specific_ptr</code> (which, at least as of Boost-1.87, still has a copy-forbidding ctor/assigner that takes non-<code>const</code> ref). </p>
+struct flow::util::Thread_local_state_registry&lt; Thread_local_state_t &gt;::Tsp_wrapper</div><p >Simply wraps a <code><a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html" title="boost::thread_specific_ptr replacement (augmentation) whose fast-path .get() touches only thread_loca...">Thread_local_ptr</a>&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>/<code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>, adding absolutely no data or algorithms, purely to work-around a combination of (some?) clang versions and (some?) GNU STL impls giving a bogus compile error, when one tries <code>optional&lt;<a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a>&gt;</code>. </p>
+<p >The error is "the parameter for this explicitly-defaulted copy constructor is const, but a member
+or base requires it to be non-const" and references impl details of STL's <code>optional</code>. The solution is to wrap the thing in a thing that is itself already noncopyable in the proper way, unlike <code>thread_specific_ptr</code> (which, at least as of Boost-1.87, still has a copy-forbidding ctor/assigner that takes non-<code>const</code> ref).</p>
+<p >Update: The above paragraph and <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html" title="Simply wraps a Thread_local_ptr&lt;Tl_context&gt;/boost::thread_specific_ptr&lt;Tl_context&gt;,...">Tsp_wrapper</a> were written based on, in fact, the Boost <code>t_s_p</code>. However since then we've changed to <a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html" title="boost::thread_specific_ptr replacement (augmentation) whose fast-path .get() touches only thread_loca...">Thread_local_ptr</a> which is semantically identical to Boost <code>t_s_p</code> (and internally wraps it) but provides a significantly faster <code>get()</code> (used in our fast-path: <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html#a00c1fdf013564b6510dd9db883a66562" title="Returns pointer to this thread&#39;s thread-local object, first constructing it via m_create_state_func i...">this_thread_state()</a> et al). It also lacks the above problem; so <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html" title="Simply wraps a Thread_local_ptr&lt;Tl_context&gt;/boost::thread_specific_ptr&lt;Tl_context&gt;,...">Tsp_wrapper</a> (while harmless, added lines-of-code aside) is not necessary. We nevertheless decided, for now, to keep it &ndash; just in case for some tactical reasons (maybe debug/test) we want to switch back to Boost's impl.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000163">Todo:</a></b></dt><dd>Once the use of <a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html" title="boost::thread_specific_ptr replacement (augmentation) whose fast-path .get() touches only thread_loca...">Thread_local_ptr</a> (instead of/augmenting <code>boost::thread_specific_ptr</code>) inside <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html" title="Similar to Thread_local_ptr&lt;T&gt; (a perf-upgraded boost::thread_specific_ptr&lt;T&gt;) but allows iteration t...">Thread_local_state_registry</a> impl has proven out to be entirely permanent, with no desire to switch-back even for test/debug purposes, eliminate the <code><a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html" title="Simply wraps a Thread_local_ptr&lt;Tl_context&gt;/boost::thread_specific_ptr&lt;Tl_context&gt;,...">Tsp_wrapper</a></code> compiler-error-fighting contraption. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l00580">580</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l00694">694</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af3758296f6b91d15937e028a2d8678f2" name="af3758296f6b91d15937e028a2d8678f2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3758296f6b91d15937e028a2d8678f2">&#9670;&nbsp;</a></span>Tsp_wrapper() <span class="overload">[1/2]</span></h2>
@@ -134,12 +136,12 @@ template&lt;typename... Ctor_args&gt; </div>
 <p>Constructs payload. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctor_args</td><td>Args to <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#aa670c1534d2975852bfb8f6a0a667849" title="What we wrap and forward-to-and-fro.">m_tsp</a> ctor. </td></tr>
+    <tr><td class="paramname">ctor_args</td><td>Args to <a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tsp__wrapper.html#a82bef40ae73b4ebc835e593a3ab83647" title="What we wrap and forward-to-and-fro: an object with functional semantics identical to those of boost:...">m_tsp</a> ctor. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l01175">1175</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l01311">1311</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
 
 </div>
 </div>
@@ -218,8 +220,8 @@ template&lt;typename Thread_local_state_t &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa670c1534d2975852bfb8f6a0a667849" name="aa670c1534d2975852bfb8f6a0a667849"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa670c1534d2975852bfb8f6a0a667849">&#9670;&nbsp;</a></span>m_tsp</h2>
+<a id="a82bef40ae73b4ebc835e593a3ab83647" name="a82bef40ae73b4ebc835e593a3ab83647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82bef40ae73b4ebc835e593a3ab83647">&#9670;&nbsp;</a></span>m_tsp</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,14 +229,16 @@ template&lt;typename Thread_local_state_t &gt; </div>
 template&lt;typename Thread_local_state_t &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html">Tl_context</a>&gt; <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html">flow::util::Thread_local_state_registry</a>&lt; Thread_local_state_t &gt;::Tsp_wrapper::m_tsp</td>
+          <td class="memname"><a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html">Thread_local_ptr</a>&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html">Tl_context</a>&gt; <a class="el" href="classflow_1_1util_1_1Thread__local__state__registry.html">flow::util::Thread_local_state_registry</a>&lt; Thread_local_state_t &gt;::Tsp_wrapper::m_tsp</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>What we wrap and forward-to-and-fro. </p>
+<p>What we wrap and forward-to-and-fro: an object with functional semantics identical to those of <code>boost::thread_specific_ptr&lt;<a class="el" href="structflow_1_1util_1_1Thread__local__state__registry_1_1Tl__context.html" title="The actual user Thread_local_state stored per thread as lazily-created in this_thread_state(); plus a...">Tl_context</a>&gt;</code>. </p>
+<p >The latter can, itself, be used here; but we have now replaced it with Thread_local_ptr&lt;Tl_context&gt; which has much better <code>.get()</code> perf.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1util_1_1Thread__local__ptr.html" title="boost::thread_specific_ptr replacement (augmentation) whose fast-path .get() touches only thread_loca...">Thread_local_ptr</a> for details on that. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l00585">585</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="thread__lcl_8hpp_source.html#l00705">705</a> of file <a class="el" href="thread__lcl_8hpp_source.html">thread_lcl.hpp</a>.</p>
 
 </div>
 </div>
@@ -244,7 +248,7 @@ template&lt;typename Thread_local_state_t &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

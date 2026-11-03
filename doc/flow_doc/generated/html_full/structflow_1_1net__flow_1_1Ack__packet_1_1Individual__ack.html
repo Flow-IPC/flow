@@ -114,7 +114,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p >Specifies the <em>incoming</em> (post-deserialization) acknowledgment of a single received <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>. </p>
 <p >It is not copyable, and moving them around by smart <a class="el" href="structflow_1_1net__flow_1_1Ack__packet_1_1Individual__ack.html#abbd41e30089125f67667b39f5756c275" title="Short-hand for ref-counted pointer to mutable objects of this class.">Individual_ack::Ptr</a> is encouraged. Construct this by direct member initialization. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01195">1195</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01205">1205</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a55bebcb04b4cc192e38023e58bfd761c" name="a55bebcb04b4cc192e38023e58bfd761c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a55bebcb04b4cc192e38023e58bfd761c">&#9670;&nbsp;</a></span>Const_ptr</h2>
@@ -130,7 +130,7 @@ Public Attributes</h2></td></tr>
 
 <p>Short-hand for ref-counted pointer to immutable objects of this class. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01204">1204</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01214">1214</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -148,7 +148,7 @@ Public Attributes</h2></td></tr>
 
 <p>Short-hand for ref-counted pointer to mutable objects of this class. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01201">1201</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01211">1211</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -167,7 +167,7 @@ Public Attributes</h2></td></tr>
 
 <p>The delay between when we received the acknowledged packet and when decided to send this ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01215">1215</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01225">1225</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -185,7 +185,7 @@ Public Attributes</h2></td></tr>
 
 <p>Make us noncopyable without breaking aggregateness (direct-init). </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01225">1225</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01235">1235</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -204,7 +204,7 @@ Public Attributes</h2></td></tr>
 <p>Retransmit counter of the acknowledged <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html" title="Internal net_flow struct that encapsulates the Flow-protocol low-level DATA packet.">Data_packet</a>. </p>
 <p >Identifies which attempt we are acknowledging (0 = initial, 1 = first retransmit, 2 = second retransmit, ...). Literally this equals the acked <a class="el" href="structflow_1_1net__flow_1_1Data__packet.html#ac149f87b8915213857c707b0f3562ef0" title="Retransmit counter of the DATA packet being sent.">Data_packet::m_rexmit_id</a>. Always 0 if retransmission is disabled for the given socket. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01222">1222</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01232">1232</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -221,9 +221,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sequence number of first datum in packet that we acknowledge. </p>
-<p >This is non-<code>const</code> for a technical reason: one must be able to use <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#ad70753a4a64f89692a5166cfd9d23261" title="Updates the full set of metadata (used at least for convenient convention-based logging but not actua...">Sequence_number::set_metadata()</a>. </p>
+<p >This is non-<code>const</code> for a technical reason: one must be able to use <a class="el" href="classflow_1_1net__flow_1_1Sequence__number.html#ae3e77c6779350a1e036c7a3aaf69f017" title="Updates the full set of metadata (used at least for convenient convention-based logging but not actua...">Sequence_number::set_metadata()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01212">1212</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="low__lvl__packet_8hpp_source.html#l01222">1222</a> of file <a class="el" href="low__lvl__packet_8hpp_source.html">low_lvl_packet.hpp</a>.</p>
 
 </div>
 </div>
@@ -233,7 +233,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

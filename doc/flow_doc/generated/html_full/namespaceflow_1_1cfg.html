@@ -128,12 +128,12 @@ Functions</h2></td></tr>
 <tr class="memitem:af310e567f2763a9736eda686030e6311"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classflow_1_1cfg_1_1Option__set.html">Option_set</a>&lt; Value_set &gt; &amp;val)</td></tr>
 <tr class="memdesc:af310e567f2763a9736eda686030e6311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes (briefly) an <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> to a standard output stream.  <a href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">More...</a><br /></td></tr>
 <tr class="separator:af310e567f2763a9736eda686030e6311"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a696eee859b6e3f0fc0b6473a1d2836b0"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0">value_set_member_id_to_opt_name</a> (<a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id)</td></tr>
-<tr class="memdesc:a696eee859b6e3f0fc0b6473a1d2836b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility, used by <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> internally but made available as a public API in case it is useful, that converts a string containing a conventionally formatted data member name into the corresponding auto-determined config option name.  <a href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0">More...</a><br /></td></tr>
-<tr class="separator:a696eee859b6e3f0fc0b6473a1d2836b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6595cfcda9a6788dc87fc61a87ccd8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8">value_set_member_id_to_opt_name</a> (<a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id, char sep_replacement='-')</td></tr>
+<tr class="memdesc:a6d6595cfcda9a6788dc87fc61a87ccd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility, used by <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> internally but made available as a public API in case it is useful, that converts a string containing a conventionally formatted data member name into the corresponding auto-determined config option name.  <a href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8">More...</a><br /></td></tr>
+<tr class="separator:a6d6595cfcda9a6788dc87fc61a87ccd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafaf432a612183beab72175831aaa960"><td class="memTemplParams" colspan="2">template&lt;typename Key &gt; </td></tr>
 <tr class="memitem:aafaf432a612183beab72175831aaa960"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">value_set_member_id_to_opt_name_keyed</a> (<a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> member_id, const Key &amp;key)</td></tr>
-<tr class="memdesc:aafaf432a612183beab72175831aaa960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> but used by <a class="el" href="option__set_8hpp.html#a4fef7c1a28ef3510f71fae708c647590" title="Identical to FLOW_CFG_OPTION_SET_DECLARE_OPTION(), but with support for setting a value at a containe...">FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED()</a> internally (also made available as a public API in case it is useful), that does the job of <a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> in addition to substituting the last <code>[...]</code> fragment with a dot separator, followed by the <code>ostream</code> encoding of <code>key</code>.  <a href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">More...</a><br /></td></tr>
+<tr class="memdesc:aafaf432a612183beab72175831aaa960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> but used by <a class="el" href="option__set_8hpp.html#a4fef7c1a28ef3510f71fae708c647590" title="Identical to FLOW_CFG_OPTION_SET_DECLARE_OPTION(), but with support for setting a value at a containe...">FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED()</a> internally (also made available as a public API in case it is useful), that does the job of <a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> in addition to substituting the last <code>[...]</code> fragment with a dot separator, followed by the <code>ostream</code> encoding of <code>key</code>.  <a href="namespaceflow_1_1cfg.html#aafaf432a612183beab72175831aaa960">More...</a><br /></td></tr>
 <tr class="separator:aafaf432a612183beab72175831aaa960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f5ff766e52aae24e6d5c876b3b26e96"><td class="memTemplParams" colspan="2">template&lt;typename Value &gt; </td></tr>
 <tr class="memitem:a1f5ff766e52aae24e6d5c876b3b26e96"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1cfg.html#a1f5ff766e52aae24e6d5c876b3b26e96">value_to_ostream</a> (std::ostream &amp;os, const Value &amp;val)</td></tr>
@@ -188,7 +188,7 @@ const boost::regex&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_S
 <li>it should derive from <a class="el" href="classflow_1_1util_1_1Shared__ptr__alias__holder.html" title="Convenience class template that endows the given subclass T with nested aliases Ptr and Const_ptr ali...">util::Shared_ptr_alias_holder</a>, so as to gain <code>Ptr</code> and <code>Const_ptr</code> aliases (to <code>shared_ptr&lt;&gt;</code>).</li>
 </ul>
 <p >Call the <code>struct</code> type satisfying the above requirements <code>Value_set</code>. All facilities dealing with such value sets are templates parameterized on <code>Value_set</code>. Generally speaking it is straightforward to satisfy these requirements; for example they hold for ~all built-in scalar types, plus <code>chrono::duration</code>, <code>std::string</code>, and many more oft-used types; and deriving from <code>Shared_ptr_alias_holder</code> is just a line or two.</p>
-<p >Maintaining a <code>Value_set</code> like that is straighforward, but the things one wants to do with with an <em>entire</em> <code>Value_set</code> &ndash; as opposed to individual members in it &ndash; tend to be laborious, anti-consistent, and error-prone to do. To wit:</p><ul>
+<p >Maintaining a <code>Value_set</code> like that is straightforward, but the things one wants to do with with an <em>entire</em> <code>Value_set</code> &ndash; as opposed to individual members in it &ndash; tend to be laborious, anti-consistent, and error-prone to do. To wit:</p><ul>
 <li>stream output (tediously list members along with laborious and inconsistent <code>ostream&lt;&lt;</code> logic);</li>
 <li>parsing (it's just hard &ndash; and even with boost.program_options there's a ton of boiler-plate to write and tons of degrees of freedom);<ul>
 <li>documenting the available settings/meanings/semantics to the user (help message);</li>
@@ -288,7 +288,7 @@ const boost::regex&#160;</td><td class="memItemRight" valign="bottom"><b>VALUE_S
 
 <p class="definition">Definition at line <a class="el" href="cfg__manager_8cpp_source.html#l00031">31</a> of file <a class="el" href="cfg__manager_8cpp_source.html">cfg_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="cfg__manager_8hpp_source.html#l02712">flow::cfg::Final_validator_func&lt; Value_set &gt;::null()</a>.</p>
+<p class="reference">References <a class="el" href="cfg__manager_8hpp_source.html#l02713">flow::cfg::Final_validator_func&lt; Value_set &gt;::null()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -342,7 +342,7 @@ template&lt;typename... S_d_value_set&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02718">2718</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cfg__manager_8hpp_source.html#l02719">2719</a> of file <a class="el" href="cfg__manager_8hpp_source.html">cfg_manager.hpp</a>.</p>
 
 </div>
 </div>
@@ -390,7 +390,7 @@ template&lt;typename Value_set &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>os</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02155">2155</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02168">2168</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -442,8 +442,8 @@ template&lt;typename Value_set &gt; </div>
 
 </div>
 </div>
-<a id="a696eee859b6e3f0fc0b6473a1d2836b0" name="a696eee859b6e3f0fc0b6473a1d2836b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a696eee859b6e3f0fc0b6473a1d2836b0">&#9670;&nbsp;</a></span>value_set_member_id_to_opt_name()</h2>
+<a id="a6d6595cfcda9a6788dc87fc61a87ccd8" name="a6d6595cfcda9a6788dc87fc61a87ccd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d6595cfcda9a6788dc87fc61a87ccd8">&#9670;&nbsp;</a></span>value_set_member_id_to_opt_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,31 +452,43 @@ template&lt;typename Value_set &gt; </div>
           <td class="memname">std::string flow::cfg::value_set_member_id_to_opt_name </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a>&#160;</td>
-          <td class="paramname"><em>member_id</em></td><td>)</td>
+          <td class="paramname"><em>member_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>sep_replacement</em> = <code>'-'</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Utility, used by <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> internally but made available as a public API in case it is useful, that converts a string containing a conventionally formatted data member name into the corresponding auto-determined config option name. </p>
+<p >Can also be used for data members whose names are to be derived/printed for other purposes. As of this writing, for example, <a class="el" href="namespaceflow_1_1util_1_1stat.html" title="Sub-module of flow::util providing lightweight facilities for working with simple structs of stat cou...">util::stat</a> uses it when pretty-printing individual stat data members (counters and gauges and such) near their values: <code>m_ack_count</code> =&gt; <code>"ack_count=[5564]"</code>.</p>
 <dl class="section note"><dt>Note</dt><dd>An example for convenience, accurate as of the time of this writing: <code>m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy.m_cool_option_name</code> transforms to <code>cool-object.cool-sub-object.badass-sub-guy.cool-option-name</code>.</dd></dl>
 <p>The format for the contents of <code>member_id</code> shall be as follows: It shall consist of one or more identifiers following the Flow coding guide, each starting with <code>m_</code>, concatenated with C++ object separator sequences, each sequence chosen to be either <code>.</code> (object dereference) or <code>-&gt;</code> (pointer dereference). <code>m_</code> for each identifier is optional for this function &ndash; though the coding guide requires it as of this writing anyway.</p>
 <p >Note that boost.program_options allows config files (when used as config sources, e.g, <a class="el" href="classflow_1_1cfg_1_1Option__set.html#abe8fe72cae80d20e0a07d4732f15d57b" title="Enters into (from CANONICAL state) or continues in PARSING state by parsing the config source in the ...">Option_set::parse_config_file()</a>) to declare a <code>[config-section]</code> which results in each <code>option-name</code> listed in that section to be treated as-if named <code>config-section.option-name</code>. This has synergy with nested objects within a config value set being separated by dots also (or <code>-&gt;</code> if desired for orthogonal reasons, such as if a smart pointer is used).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">member_id</td><td>Identifier, perhaps obtained via the preprocessor <code>#feature</code> from an argument to a functional macro. </td></tr>
+    <tr><td class="paramname">sep_replacement</td><td>Character to replace <code>_</code> word-separators with. Default dash (<code>-</code>) yields config-option-style names (e.g., <code>cool-option-name</code>); underscore (<code>_</code>) yields stats/metric-style names (e.g., <code>cool_option_name</code>). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8cpp_source.html#l00038">38</a> of file <a class="el" href="option__set_8cpp_source.html">option_set.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8cpp_source.html#l00041">41</a> of file <a class="el" href="option__set_8cpp_source.html">option_set.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02238">value_set_member_id_to_opt_name_keyed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="stat__set_8cpp_source.html#l00052">flow::util::stat::Stat_name::append_to()</a>, <a class="el" href="stat__set_8cpp_source.html#l00070">flow::util::stat::Stat_name::to_ostream()</a>, and <a class="el" href="option__set_8hpp_source.html#l02251">value_set_member_id_to_opt_name_keyed()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_a696eee859b6e3f0fc0b6473a1d2836b0_icgraph.svg" width="422" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespaceflow_1_1cfg_a6d6595cfcda9a6788dc87fc61a87ccd8_icgraph.svg" width="822" height="215"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -510,9 +522,9 @@ template&lt;typename Key &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Similar to <a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> but used by <a class="el" href="option__set_8hpp.html#a4fef7c1a28ef3510f71fae708c647590" title="Identical to FLOW_CFG_OPTION_SET_DECLARE_OPTION(), but with support for setting a value at a containe...">FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED()</a> internally (also made available as a public API in case it is useful), that does the job of <a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> in addition to substituting the last <code>[...]</code> fragment with a dot separator, followed by the <code>ostream</code> encoding of <code>key</code>. </p>
+<p>Similar to <a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> but used by <a class="el" href="option__set_8hpp.html#a4fef7c1a28ef3510f71fae708c647590" title="Identical to FLOW_CFG_OPTION_SET_DECLARE_OPTION(), but with support for setting a value at a containe...">FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED()</a> internally (also made available as a public API in case it is useful), that does the job of <a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> in addition to substituting the last <code>[...]</code> fragment with a dot separator, followed by the <code>ostream</code> encoding of <code>key</code>. </p>
 <dl class="section note"><dt>Note</dt><dd>An example for convenience, accurate as of the time of this writing: <code>m_cool_object.m_cool_sub_object-&gt;m_badass_sub_guy[cool_key].m_cool_option_name</code>, with <code>cool_key == 3</code>, transforms to <code>cool-object.cool-sub-object.badass-sub-guy.3.cool-option-name</code>.</dd></dl>
-<p>Behavior is undefined if the <code>[...]</code> part doesn't exist or is preceded or succeeded by nothing. In reality for things to work as expected that part should also be followed by a C++ object separator as in <a class="el" href="namespaceflow_1_1cfg.html#a696eee859b6e3f0fc0b6473a1d2836b0" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> doc header; so, e.g., <code>m_blah[idx]-&gt;m_blah</code> or <code>m_blah[idx].m_blah</code>.</p>
+<p>Behavior is undefined if the <code>[...]</code> part doesn't exist or is preceded or succeeded by nothing. In reality for things to work as expected that part should also be followed by a C++ object separator as in <a class="el" href="namespaceflow_1_1cfg.html#a6d6595cfcda9a6788dc87fc61a87ccd8" title="Utility, used by FLOW_CFG_OPTION_SET_DECLARE_OPTION() internally but made available as a public API i...">value_set_member_id_to_opt_name()</a> doc header; so, e.g., <code>m_blah[idx]-&gt;m_blah</code> or <code>m_blah[idx].m_blah</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Key</td><td>An <code>ostream&lt;&lt;</code>able type. Common: <code>size_t</code> and <code>std::string</code>. </td></tr>
@@ -521,16 +533,16 @@ template&lt;typename Key &gt; </div>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">member_id</td><td>Identifier, perhaps obtained via the preprocessor <code>#</code> feature from an argument to a functional macro. </td></tr>
+    <tr><td class="paramname">member_id</td><td>Identifier, perhaps obtained via the preprocessor <code>#feature</code> from an argument to a functional macro. </td></tr>
     <tr><td class="paramname">key</td><td>The value to splice in when replacing the key fragment inside <code>[]</code> (after the inserted <code>.</code>). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02238">2238</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02251">2251</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, <a class="el" href="option__set_8cpp_source.html#l00038">value_set_member_id_to_opt_name()</a>, and <a class="el" href="namespaceflow_1_1cfg.html#ac2f99fdb8f743e12d8f92553292dc8d6">VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00575">flow::util::ostream_op_string()</a>, <a class="el" href="option__set_8cpp_source.html#l00041">value_set_member_id_to_opt_name()</a>, and <a class="el" href="namespaceflow_1_1cfg.html#ac2f99fdb8f743e12d8f92553292dc8d6">VALUE_SET_MEMBER_ID_TO_OPT_NAME_KEYED_REGEX</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -585,9 +597,9 @@ template&lt;typename Rep , typename Period &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02167">2167</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02180">2180</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>.</p>
+<p class="reference">References <a class="el" href="util_2util_8hpp_source.html#l00575">flow::util::ostream_op_string()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -640,7 +652,7 @@ template&lt;typename Element &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02223">2223</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02236">2236</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -689,9 +701,9 @@ template&lt;typename Value &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02161">2161</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l02174">2174</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01641">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_help()</a>, <a class="el" href="option__set_8hpp_source.html#l01670">flow::cfg::Option_set_base::declare_option_for_output()</a>, <a class="el" href="option__set_8hpp_source.html#l01566">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_parsing()</a>, and <a class="el" href="option__set_8hpp_source.html#l01612">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01654">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_help()</a>, <a class="el" href="option__set_8hpp_source.html#l01683">flow::cfg::Option_set_base::declare_option_for_output()</a>, <a class="el" href="option__set_8hpp_source.html#l01579">flow::cfg::Option_set&lt; Value_set &gt;::declare_option_for_parsing()</a>, and <a class="el" href="option__set_8hpp_source.html#l01625">flow::cfg::Option_set_base::throw_on_invalid_func()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -704,7 +716,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

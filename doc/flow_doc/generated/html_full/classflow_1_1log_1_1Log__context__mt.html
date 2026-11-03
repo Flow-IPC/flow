@@ -75,20 +75,20 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but is safe w/r/t to <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, assignment, and <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656" title="Identical to Log_context API; but safe against concurrent operations on a *this.">swap()</a></code> done concurrently to ops (especially <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" title="Identical to Log_context API; but safe against concurrent operations on a *this.">get_logger()</a>) on the same <code>*this</code>.  
+<p>Similar mission to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but enables one to safely log under the possibility of a concurrent <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a> (et al) that adds/replaces/removes active <code>Logger*</code> (et al).  
  <a href="classflow_1_1log_1_1Log__context__mt.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="log_8hpp_source.html">log.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for flow::log::Log_context_mt:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt__inherit__graph.svg" width="570" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt__inherit__graph.svg" width="172" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for flow::log::Log_context_mt:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt__coll__graph.svg" width="1395" height="308"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt__coll__graph.svg" width="1162" height="308"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -116,15 +116,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a05fe75a837fa7caf8d241c3ff492a656"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656">swap</a> (<a class="el" href="classflow_1_1log_1_1Log__context__mt.html">Log_context_mt</a> &amp;other)</td></tr>
 <tr class="memdesc:a05fe75a837fa7caf8d241c3ff492a656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API; but safe against concurrent operations on a <code>*this</code>.  <a href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656">More...</a><br /></td></tr>
 <tr class="separator:a05fe75a837fa7caf8d241c3ff492a656"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e4cde1cebc684e940348452bea51665"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665">get_logger</a> () const</td></tr>
-<tr class="memdesc:a8e4cde1cebc684e940348452bea51665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API; but safe against concurrent operations on a <code>*this</code>.  <a href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665">More...</a><br /></td></tr>
-<tr class="separator:a8e4cde1cebc684e940348452bea51665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae966e47340336f0022195e0b73ed0527"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527">set_logger</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> *logger)</td></tr>
 <tr class="memdesc:ae966e47340336f0022195e0b73ed0527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API; but safe against concurrent operations on a <code>*this</code>.  <a href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527">More...</a><br /></td></tr>
 <tr class="separator:ae966e47340336f0022195e0b73ed0527"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85bf496e7c6ef07eae34aa3fa4fb0648"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classflow_1_1log_1_1Component.html">Component</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a85bf496e7c6ef07eae34aa3fa4fb0648">get_log_component</a> () const</td></tr>
-<tr class="memdesc:a85bf496e7c6ef07eae34aa3fa4fb0648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API.  <a href="classflow_1_1log_1_1Log__context__mt.html#a85bf496e7c6ef07eae34aa3fa4fb0648">More...</a><br /></td></tr>
-<tr class="separator:a85bf496e7c6ef07eae34aa3fa4fb0648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367131d10986e946cd29f8bf15cec438"><td class="memTemplParams" colspan="2">template&lt;typename Logging_task &gt; </td></tr>
+<tr class="memitem:a367131d10986e946cd29f8bf15cec438"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438">log_while_locked</a> (Logging_task &amp;&amp;logging_task) const</td></tr>
+<tr class="memdesc:a367131d10986e946cd29f8bf15cec438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks <code>*this</code> to be immutable, and under this lock executes user's <code>logging_task()</code>, providing it <code>get_logger</code> and <code>get_log_component</code> functions as arguments, so it can use them for logging operations without worry of the returned values becoming concurrently obsolete (potentially invalid).  <a href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438">More...</a><br /></td></tr>
+<tr class="separator:a367131d10986e946cd29f8bf15cec438"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -168,12 +166,22 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a8a5fef42dc2cedf3c0d1a6e83beb2948 inherit pub_methods_classflow_1_1log_1_1Log__context"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but is safe w/r/t to <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, assignment, and <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656" title="Identical to Log_context API; but safe against concurrent operations on a *this.">swap()</a></code> done concurrently to ops (especially <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" title="Identical to Log_context API; but safe against concurrent operations on a *this.">get_logger()</a>) on the same <code>*this</code>. </p>
+<div class="textblock"><p >Similar mission to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> but enables one to safely log under the possibility of a concurrent <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a> (et al) that adds/replaces/removes active <code>Logger*</code> (et al). </p>
+<p >Specifically:</p><ul>
+<li><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, assignment, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a05fe75a837fa7caf8d241c3ff492a656" title="Identical to Log_context API; but safe against concurrent operations on a *this.">swap()</a> act identically but are safe under concurrent (w/r/t themselves and accessors &ndash; next bullet(s)) invocation on the same <code>*this</code>.</li>
+<li>There is no <a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a> or <a class="el" href="classflow_1_1log_1_1Log__context.html#a8a5fef42dc2cedf3c0d1a6e83beb2948" title="Returns reference to the stored Component object, particularly as many FLOW_LOG_*() macros expect.">get_log_component()</a>, so as to discourage a potential anti-pattern. Instead:<ul>
+<li>Use <code>log_while_locked(F)</code>, where you provide <code>F()</code> that performs work, including logging work, with certainty that the <code>Logger*</code> and <code><a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a></code> stores in <code>*this</code> cannot change. If used as prescribed (see <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> doc header), then anything depending on <code>get_logger</code> and/or <code>get_log_component</code> &ndash; including <code><a class="el" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d" title="Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_INFO()</a></code>, <code><a class="el" href="log_8hpp.html#affcf2e4c496ce3f42adf981669c623b8" title="Logs a TRACE message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_TRACE()</a></code>, etc. &ndash; will work properly.</li>
+<li>The direct use of <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> is somewhat wordy; therefore we've provided <code><a class="el" href="log_8hpp.html#ac287175a174111d97076706d2eb8b26b" title="A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.">FLOW_LOG_INFO_LOCKED()</a></code>, <code><a class="el" href="log_8hpp.html#ae4c9da7c46a43c56a7387d02502234e4" title="A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.">FLOW_LOG_TRACE_LOCKED()</a></code>, etc., each of which is equivalent to its non-<code>_LOCKED</code> counterpart but as-if executed inside <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a>.</li>
+</ul>
+</li>
+</ul>
+<p >We restate: As there is no <code><a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a>/get_log_component()</code>, actual logging work now must use <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> to make them (safely) available. And: we recommend the use of <code>FLOW_LOG_..._LOCKED()</code> macros in order to make that happen with reduced boiler-plate.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> doc header section "Setting the logger / thready safety."</dd></dl>
-<p>There is a perf trade-off: essentially all operations will lock an internal mutex, proceed, then unlock. This will have a small cost when there is no lock contention (no simultaneous logging &ndash; <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" title="Identical to Log_context API; but safe against concurrent operations on a *this.">get_logger()</a> calls); and a larger cost when there is (when indeed there is simultaneous logging &ndash; therefore <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a8e4cde1cebc684e940348452bea51665" title="Identical to Log_context API; but safe against concurrent operations on a *this.">get_logger()</a> calls). Informally: in our experience, as noted in the aforementioned doc header discussion, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a> is mainly used when the sub-class is instantiated <code>static</code>ally or globally; and usually it is possible to simply avoid logging along fast-paths of such classes.</p>
-<p >Still: it requires care. If you need to provide/use <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, be mindful of this potential source of slow-down. </p>
+<p>There is a perf trade-off: essentially all operations will lock an internal mutex, proceed, then unlock. This will have a small cost when there is no lock contention (no simultaneous logging &ndash; <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> calls); and a larger cost when there is (when indeed there is simultaneous logging &ndash; therefore <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> calls). Informally: in our experience, as noted in the aforementioned doc header discussion, <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a> is mainly used when the sub-class is instantiated <code>static</code>ally or globally; and usually it is possible to simply avoid logging along fast-paths of such classes. By the time one has decided to actually <code>FLOW_LOG_...()</code> in those situations, it is usually stipulated that performance (in <em>that specific place</em>) is of lower concern.</p>
+<p >Still: it requires care. If you need to provide/use <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, with automatic concurrency support, be mindful of this potential source of slow-down in using <a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>In some cases perf is of such high concern that even <code>FLOW_LOG_TRACE*()</code> (or more verbose) is too costly to perform along a fast-path; even the <code>should_log()</code> check &ndash; generally coded to be quite speedy &ndash; is best avoided. Adding a <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> setup (whether explicitly or via <code>..._LOCKED()</code>) would certainly not help matters. So what to do? Answer: There are various bespoke little tricks to use. One we have found to be acceptable is this: Maintaining an extra flag, something like <code>m_skip_fast_path_verbose_logging</code>, that is set to <code>true</code> or <code>false</code> whenever executing <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>; specifically to <code>true</code> if and only if <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b" title="Message indicates any condition that may occur with great frequency (thus verbose if logged).">Sev::S_TRACE</a> results in <code><a class="el" href="classflow_1_1log_1_1Logger.html#ac8a2e7a33fe3fbc0c29ead62ed98c022" title="Given attributes of a hypothetical message that would be logged, return true if that message should b...">Logger::should_log()</a> == false</code> at that time. Then bracket any <code><a class="el" href="log_8hpp.html#affcf2e4c496ce3f42adf981669c623b8" title="Logs a TRACE message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...">FLOW_LOG_TRACE()</a></code> (or higher verbosity log-call-site) with an <code>if (!m_skip_fast_path_verbose_logging) {}</code>. A single flag-check in the fast-path, when TRACE logging is disabled (by convention the case in production), is fast-enough &ndash; and it'll skip both the repeated <code>should_log()</code> checks &ndash; and, relevantly here, the now-also-required <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> setup. The downside is simply that <em>enabling</em> TRACE-logging (in debug/test scenarios) requires (for these hot-spot singletons/globals/whatever &ndash; not generally!), <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a></code> in order to take effect. (Worst-case that means restart application; but other triggers could be added if desired.) We've found in practice it can be worthwhile (but only in <em>very</em> perf-sensitive contexts). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01772">1772</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01952">1952</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a732505fa829624bd9b1ed4f8ce723243" name="a732505fa829624bd9b1ed4f8ce723243"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a732505fa829624bd9b1ed4f8ce723243">&#9670;&nbsp;</a></span>Log_context_mt() <span class="overload">[1/4]</span></h2>
@@ -207,7 +215,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00246">246</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00292">292</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
 </div>
 </div>
@@ -262,7 +270,7 @@ template&lt;typename Component_payload &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01906">1906</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l02170">2170</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
 </div>
 </div>
@@ -298,9 +306,9 @@ template&lt;typename Component_payload &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00252">252</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00298">298</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, and <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, and <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -334,9 +342,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00260">260</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00306">306</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, <a class="el" href="log_8cpp_source.html#l00339">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00377">flow::log::swap()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, <a class="el" href="log_8cpp_source.html#l00373">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00411">flow::log::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -347,61 +355,91 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a85bf496e7c6ef07eae34aa3fa4fb0648" name="a85bf496e7c6ef07eae34aa3fa4fb0648"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85bf496e7c6ef07eae34aa3fa4fb0648">&#9670;&nbsp;</a></span>get_log_component()</h2>
+<a id="a367131d10986e946cd29f8bf15cec438" name="a367131d10986e946cd29f8bf15cec438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a367131d10986e946cd29f8bf15cec438">&#9670;&nbsp;</a></span>log_while_locked()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename Logging_task &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classflow_1_1log_1_1Component.html">Component</a> &amp; flow::log::Log_context_mt::get_log_component </td>
+          <td class="memname">void flow::log::Log_context_mt::log_while_locked </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">Logging_task &amp;&amp;&#160;</td>
+          <td class="paramname"><em>logging_task</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API. </p>
-<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
+<p>Locks <code>*this</code> to be immutable, and under this lock executes user's <code>logging_task()</code>, providing it <code>get_logger</code> and <code>get_log_component</code> functions as arguments, so it can use them for logging operations without worry of the returned values becoming concurrently obsolete (potentially invalid). </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="log_8hpp.html#ac287175a174111d97076706d2eb8b26b" title="A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.">FLOW_LOG_INFO_LOCKED()</a>, <a class="el" href="log_8hpp.html#ae4c9da7c46a43c56a7387d02502234e4" title="A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.">FLOW_LOG_TRACE_LOCKED()</a>, et al: They use <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> enabling its use pithily and safely. </dd>
+<dd>
+<a class="el" href="log_8hpp.html#a6a6a0fa2d728f7e7a96bd315543ed2e1" title="It is to FLOW_LOG_SET_CONTEXT() what FLOW_LOG_(sev)_LOCKED is to plain FLOW_LOG_(sev): given a const ...">FLOW_LOG_SET_LOCKED_CONTEXT()</a>, reminiscent of <a class="el" href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95" title="For the rest of the block within which this macro is instantiated, causes all FLOW_LOG_....">FLOW_LOG_SET_CONTEXT()</a> (explained below). </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>You can also declare your own method <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a></code> that forwards to a <a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> of choice.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><code>logging_task()</code> must be careful not to invoke anything that would lock <code>*this</code>; this includes <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#ae966e47340336f0022195e0b73ed0527" title="Identical to Log_context API; but safe against concurrent operations on a *this.">set_logger()</a>, assignment, swap, and <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> &ndash; and <code>FLOW_LOG_..._LOCKED()</code> which calls the latter. For this reason, it is typically better to not use <a class="el" href="classflow_1_1log_1_1Log__context__mt.html#a367131d10986e946cd29f8bf15cec438" title="Locks *this to be immutable, and under this lock executes user&#39;s logging_task(), providing it get_log...">log_while_locked()</a> directly but rather <code>FLOW_LOG_..._LOCKED()</code> (and don't do anything similarly-illegal inside the args to <code>..._LOCKED()</code> either). </dd>
+<dd>
+Along those lines, it also possible to deadlock if <code>logging_task()</code> locks another <code><a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a></code>, while in another thread the two are locked in the opposite order (AB/BA deadlock). If all threads stick to <code>FLOW_LOG_..._LOCKED()</code> (without illegal stuff inside the <code>()</code>), then this bad thing cannot happen.</dd></dl>
+<p>An example of what is safe: </p><div class="fragment"><div class="line"><span class="comment">// Thread 1: main():</span></div>
+<div class="line">std::optional&lt;Async_file_logger&gt; lgr{std::in_place, ...};</div>
+<div class="line"><span class="comment">// s_concurrently_logging_guy derives from Log_context_mt.</span></div>
+<div class="line">s_concurrently_logging_guy.set_logger(&amp;*lgr);</div>
+<div class="line">...</div>
+<div class="line">s_concurrently_logging_guy.set_logger(<span class="keyword">nullptr</span>);</div>
+<div class="line"><span class="comment">// s_concurrently_logging_guy is fine logging as shown below; by now its Logger* is null, so</span></div>
+<div class="line"><span class="comment">// *lgr disappearing does not affect it.</span></div>
+<div class="line">lgr.reset();</div>
+<div class="line"><span class="comment">// main() exits here, even while s_concurrently_logging_guy is still potentially logging for a bit.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Thread 2: inside s_concurrently_logging_guy:</span></div>
+<div class="line">  ...</div>
+<div class="line">  <a class="code hl_define" href="log_8hpp.html#ac287175a174111d97076706d2eb8b26b">FLOW_LOG_INFO_LOCKED</a>(<span class="stringliteral">&quot;Periodic logging of something interesting [&quot;</span> &lt;&lt; ... &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>);</div>
+<div class="line">  <span class="comment">// ^-- This did basically: log_while_locked([&amp;](auto&amp;&amp; get_logger, auto&amp;&amp; get_log_component)</span></div>
+<div class="line">  <span class="comment">//                                            { FLOW_LOG_INFO(&quot;Periodic logging of ....&quot;); });</span></div>
+<div class="line">  <span class="comment">// So either get_logger() is null, or get_logger() is &amp;*lgr, inside the lambda.</span></div>
+<div class="ttc" id="alog_8hpp_html_ac287175a174111d97076706d2eb8b26b"><div class="ttname"><a href="log_8hpp.html#ac287175a174111d97076706d2eb8b26b">FLOW_LOG_INFO_LOCKED</a></div><div class="ttdeci">#define FLOW_LOG_INFO_LOCKED(ARG_stream_fragment)</div><div class="ttdoc">A-la FLOW_LOG_WARNING_LOCKED() but with the different log::Sev.</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00286">log.hpp:286</a></div></div>
+</div><!-- fragment --><p >An example of what would not compile: </p><div class="fragment"><div class="line"><span class="comment">// Thread 2: inside s_concurrently_logging_guy:</span></div>
+<div class="line">  ...</div>
+<div class="line">  <span class="comment">// Compile error: No get_logger() or get_log_component() available.</span></div>
+<div class="line">  <a class="code hl_define" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d">FLOW_LOG_INFO</a>(<span class="stringliteral">&quot;Periodic logging of something interesting [&quot;</span> &lt;&lt; ... &lt;&lt; <span class="stringliteral">&quot;].&quot;</span>);</div>
+<div class="ttc" id="alog_8hpp_html_a325fdd4b5cf0be49b37d3b7b7c29070d"><div class="ttname"><a href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d">FLOW_LOG_INFO</a></div><div class="ttdeci">#define FLOW_LOG_INFO(ARG_stream_fragment)</div><div class="ttdoc">Logs an INFO message into flow::log::Logger *get_logger() with flow::log::Component get_log_component...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00200">log.hpp:200</a></div></div>
+</div><!-- fragment --><h3>Use outside a <a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> sub-class / Whether to save <code>Logger*</code> past lock</h3>
+<p >Just as sometimes one needs to log in a <code>static</code> (etc.) function and, without concurrency concerns, would use <a class="el" href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95" title="For the rest of the block within which this macro is instantiated, causes all FLOW_LOG_....">FLOW_LOG_SET_CONTEXT()</a> giving it a known <code>Logger*</code> and <code><a class="el" href="classflow_1_1log_1_1Component.html" title="A light-weight class, each object storing a component payload encoding an enum value from enum type o...">Component</a></code>, you may want to do a similar thing &ndash; but now you've got concurrency concerns. In this case a <code>const Log_context_mt*</code> &ndash; perhaps <code>log_ctx_mt_ptr</code> &ndash; is required by definition. How to actually use it though?</p>
+<p >It is <em>possible</em>, but usually not recommended/possibly an anti-pattern, to grab <code><a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a></code>'s value and use it outside the lock. You might be tempted to do something like this: </p><div class="fragment"><div class="line"><a class="code hl_class" href="classflow_1_1log_1_1Logger.html">Logger</a>* logger_ptr;</div>
+<div class="line">log_ctx_mt_ptr-&gt;log_while_locked([&amp;](<span class="keyword">auto</span>&amp;&amp; <a class="code hl_function" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">get_logger</a>, <span class="keyword">auto</span>&amp;&amp;) { logger_ptr = <a class="code hl_function" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">get_logger</a>(); });</div>
+<div class="line"><a class="code hl_define" href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95">FLOW_LOG_SET_CONTEXT</a>(logger_ptr, ...); <span class="comment">// ... could be, say, a hard-coded Component.  That is fine.</span></div>
+<div class="line"><a class="code hl_define" href="log_8hpp.html#a325fdd4b5cf0be49b37d3b7b7c29070d">FLOW_LOG_INFO</a>(<span class="stringliteral">&quot;Let&#39;s log.&quot;</span>); <span class="comment">// Not fine: *logger_ptr might be wrong -- or even destroyed -- here.</span></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Log__context_html_af4db395042b065b00398cd59845dcb4d"><div class="ttname"><a href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d">flow::log::Log_context::get_logger</a></div><div class="ttdeci">Logger * get_logger() const</div><div class="ttdoc">Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.</div><div class="ttdef"><b>Definition:</b> <a href="log_8cpp_source.html#l00260">log.cpp:260</a></div></div>
+<div class="ttc" id="aclassflow_1_1log_1_1Logger_html"><div class="ttname"><a href="classflow_1_1log_1_1Logger.html">flow::log::Logger</a></div><div class="ttdoc">Interface that the user should implement, passing the implementing Logger into logging classes (Flow'...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l01388">log.hpp:1392</a></div></div>
+<div class="ttc" id="alog_8hpp_html_ae4b5d4fdd2eb052615620879dd74af95"><div class="ttname"><a href="log_8hpp.html#ae4b5d4fdd2eb052615620879dd74af95">FLOW_LOG_SET_CONTEXT</a></div><div class="ttdeci">#define FLOW_LOG_SET_CONTEXT(ARG_logger_ptr, ARG_component_payload)</div><div class="ttdoc">For the rest of the block within which this macro is instantiated, causes all FLOW_LOG_....</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00473">log.hpp:473</a></div></div>
+</div><!-- fragment --><p >Usually don't do that ("that" = use a <code>Logger*</code> outside the lock, having grabbed it inside the lock).</p>
+<dl class="section note"><dt>Note</dt><dd>It is not disallowed, and <em>if</em> you can guarantee that <code>*logger_ptr</code> will remain in-existence and generally-OK-to-use throughout such a snippet, then it is well-defined behavior and not dangerous. In our experience we've found cases where it was okay and unavoidable, such as <code>Thread_local_state_registry&lt;T&gt;</code> distributing <code>Logger*</code> to individual per-thread <code>T</code> objects: (1) as-needed pull (constructing new <code>T{}</code>) or (2) via user-triggered push (Thread_local_state_registry::set_logger() that updates each existing <code>T</code>).</dd></dl>
+<p>As for the original premise here &ndash; lacking a <a class="el" href="classflow_1_1log_1_1Log__context__mt.html" title="Similar mission to Log_context but enables one to safely log under the possibility of a concurrent se...">Log_context_mt</a> super-class &ndash; consider using <a class="el" href="log_8hpp.html#a6a6a0fa2d728f7e7a96bd315543ed2e1" title="It is to FLOW_LOG_SET_CONTEXT() what FLOW_LOG_(sev)_LOCKED is to plain FLOW_LOG_(sev): given a const ...">FLOW_LOG_SET_LOCKED_CONTEXT()</a> instead. This would be fine: </p><div class="fragment"><div class="line"><a class="code hl_define" href="log_8hpp.html#a6a6a0fa2d728f7e7a96bd315543ed2e1">FLOW_LOG_SET_LOCKED_CONTEXT</a>(log_ctx_mt_ptr);</div>
+<div class="line"><span class="comment">// Now naked `log_while_locked` is available, so you can just:</span></div>
+<div class="line"><a class="code hl_define" href="log_8hpp.html#ac287175a174111d97076706d2eb8b26b">FLOW_LOG_INFO_LOCKED</a>(<span class="stringliteral">&quot;Let&#39;s log.&quot;</span>);</div>
+<div class="ttc" id="alog_8hpp_html_a6a6a0fa2d728f7e7a96bd315543ed2e1"><div class="ttname"><a href="log_8hpp.html#a6a6a0fa2d728f7e7a96bd315543ed2e1">FLOW_LOG_SET_LOCKED_CONTEXT</a></div><div class="ttdeci">#define FLOW_LOG_SET_LOCKED_CONTEXT(ARG_log_ctx_mt_ptr)</div><div class="ttdoc">It is to FLOW_LOG_SET_CONTEXT() what FLOW_LOG_(sev)_LOCKED is to plain FLOW_LOG_(sev): given a const ...</div><div class="ttdef"><b>Definition:</b> <a href="log_8hpp_source.html#l00537">log.hpp:537</a></div></div>
+</div><!-- fragment --><p >You can also always use <code>log_ctx_mt_ptr-&gt;log_while_locked(F)</code> directly in that situation. In general at that point, though, it becomes tempting to do something complex in <code>F()</code>, and the aforementioned warnings come into play. Informally we suggest using <code>FLOW_LOG_..._LOCKED()</code> when possible; <a class="el" href="log_8hpp.html#a6a6a0fa2d728f7e7a96bd315543ed2e1" title="It is to FLOW_LOG_SET_CONTEXT() what FLOW_LOG_(sev)_LOCKED is to plain FLOW_LOG_(sev): given a const ...">FLOW_LOG_SET_LOCKED_CONTEXT()</a> makes that reasonably easy in this situation.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Logging_task</td><td>Recommended signature in your code: verbatim: <code>void (auto&amp;&amp; get_logger, auto&amp;&amp; get_log_component)</code>. If the args are named literally <code>get_logger</code> and <code>get_log_component</code>, then <code>FLOW_LOG_...()</code>s inside will compile and work properly. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logging_task</td><td>See above. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00333">333</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l02177">2177</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8cpp_source.html#l00226">flow::log::Log_context::get_log_component()</a>, and <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="log_8cpp_source.html#l00272">flow::log::Log_context::get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, and <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt_a85bf496e7c6ef07eae34aa3fa4fb0648_cgraph.svg" width="358" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-
-</div>
-</div>
-<a id="a8e4cde1cebc684e940348452bea51665" name="a8e4cde1cebc684e940348452bea51665"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e4cde1cebc684e940348452bea51665">&#9670;&nbsp;</a></span>get_logger()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classflow_1_1log_1_1Logger.html">Logger</a> * flow::log::Log_context_mt::get_logger </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Identical to <a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a> API; but safe against concurrent operations on a <code>*this</code>. </p>
-<dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00321">321</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
-
-<p class="reference">References <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, and <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt_a8e4cde1cebc684e940348452bea51665_cgraph.svg" width="344" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1log_1_1Log__context__mt_a367131d10986e946cd29f8bf15cec438_cgraph.svg" width="344" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -432,9 +470,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00271">271</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00317">317</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, and <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, and <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -469,9 +507,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00298">298</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00344">344</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>, <a class="el" href="log_8cpp_source.html#l00339">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00377">flow::log::swap()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, <a class="el" href="classflow_1_1log_1_1Log__context.html#a5d628315d5a93908d47a281980d3113e">flow::log::Log_context::operator=()</a>, <a class="el" href="log_8cpp_source.html#l00373">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00411">flow::log::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -506,9 +544,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>See above. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00327">327</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00367">367</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, and <a class="el" href="log_8cpp_source.html#l00220">flow::log::Log_context::set_logger()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, and <a class="el" href="log_8cpp_source.html#l00265">flow::log::Log_context::set_logger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -542,11 +580,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00339">339</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8cpp_source.html#l00373">373</a> of file <a class="el" href="log_8cpp_source.html">log.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l01861">m_mutex</a>, <a class="el" href="log_8cpp_source.html#l00339">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00377">flow::log::swap()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l02125">m_mutex</a>, <a class="el" href="log_8cpp_source.html#l00373">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00411">flow::log::swap()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00260">Log_context_mt()</a>, <a class="el" href="log_8cpp_source.html#l00298">operator=()</a>, <a class="el" href="log_8cpp_source.html#l00339">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00377">flow::log::swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00306">Log_context_mt()</a>, <a class="el" href="log_8cpp_source.html#l00344">operator=()</a>, <a class="el" href="log_8cpp_source.html#l00373">swap()</a>, and <a class="el" href="log_8cpp_source.html#l00411">flow::log::swap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -585,9 +623,9 @@ Here is the caller graph for this function:</div>
 
 <p>Protects access to data in <code>static_cast&lt;<a class="el" href="classflow_1_1log_1_1Log__context.html" title="Convenience class that simply stores a Logger and/or Component passed into a constructor; and returns...">Log_context</a>&amp;&gt;(*this)</code> (especially <a class="el" href="classflow_1_1log_1_1Log__context.html#af13297446a54d6d80eb33d8fc672c10f" title="The held Logger pointer. Making the pointer itself non-const to allow operator=() to work.">Log_context::m_logger</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l01861">1861</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="log_8hpp_source.html#l02125">2125</a> of file <a class="el" href="log_8hpp_source.html">log.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00333">get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00321">get_logger()</a>, <a class="el" href="log_8cpp_source.html#l00252">Log_context_mt()</a>, <a class="el" href="log_8cpp_source.html#l00271">operator=()</a>, <a class="el" href="log_8cpp_source.html#l00327">set_logger()</a>, and <a class="el" href="log_8cpp_source.html#l00339">swap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="log_8cpp_source.html#l00298">Log_context_mt()</a>, <a class="el" href="log_8hpp_source.html#l02177">log_while_locked()</a>, <a class="el" href="log_8cpp_source.html#l00317">operator=()</a>, <a class="el" href="log_8cpp_source.html#l00367">set_logger()</a>, and <a class="el" href="log_8cpp_source.html#l00373">swap()</a>.</p>
 
 </div>
 </div>
@@ -598,7 +636,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:19 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:14 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

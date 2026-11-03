@@ -90,21 +90,21 @@ Inheritance diagram for flow::async::Cross_thread_task_loop:</div>
 <div class="dynheader">
 Collaboration diagram for flow::async::Cross_thread_task_loop:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop__coll__graph.svg" width="1806" height="591"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop__coll__graph.svg" width="1572" height="592"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a754593f190b2ef6fd0fa6b05ed14e891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a754593f190b2ef6fd0fa6b05ed14e891">Cross_thread_task_loop</a> (<a class="el" href="classflow_1_1log_1_1Logger.html">log::Logger</a> *logger_ptr, <a class="el" href="namespaceflow_1_1util.html#ae4dc52186797094b3040379ff19124c9">util::String_view</a> nickname, size_t n_threads_or_zero, <a class="el" href="classbool.html">bool</a> est_hw_core_sharing_helps_algo=false, <a class="el" href="classbool.html">bool</a> est_hw_core_pinning_helps_algo=false, <a class="el" href="classbool.html">bool</a> hw_threads_is_grouping_collated=false)</td></tr>
-<tr class="memdesc:a754593f190b2ef6fd0fa6b05ed14e891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object, making it available for <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API.">post()</a> and similar work, but without starting any threads and hence without the ability to perform any work; call <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> to spawn threads and perform work.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#a754593f190b2ef6fd0fa6b05ed14e891">More...</a><br /></td></tr>
+<tr class="memdesc:a754593f190b2ef6fd0fa6b05ed14e891"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs object, making it available for <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API.">post()</a> and similar work, but without starting any threads and hence without the ability to perform any work; call <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> to spawn threads and perform work.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#a754593f190b2ef6fd0fa6b05ed14e891">More...</a><br /></td></tr>
 <tr class="separator:a754593f190b2ef6fd0fa6b05ed14e891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bdaa64396435066a41857e3c5f6c6cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a1bdaa64396435066a41857e3c5f6c6cb">~Cross_thread_task_loop</a> () override</td></tr>
 <tr class="memdesc:a1bdaa64396435066a41857e3c5f6c6cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">See superclass destructor.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#a1bdaa64396435066a41857e3c5f6c6cb">More...</a><br /></td></tr>
 <tr class="separator:a1bdaa64396435066a41857e3c5f6c6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad45dfab4620c0026382757b3c0dbdc74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{}) override</td></tr>
-<tr class="memdesc:ad45dfab4620c0026382757b3c0dbdc74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74">More...</a><br /></td></tr>
-<tr class="separator:ad45dfab4620c0026382757b3c0dbdc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad41758e1b5c9ac76a4e0277289a8935c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty={}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty={}) override</td></tr>
+<tr class="memdesc:ad41758e1b5c9ac76a4e0277289a8935c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c">More...</a><br /></td></tr>
+<tr class="separator:ad41758e1b5c9ac76a4e0277289a8935c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0f53f269524b701b23237766f79df2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d">stop</a> () override</td></tr>
 <tr class="memdesc:aa0f53f269524b701b23237766f79df2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements superclass API.  <a href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d">More...</a><br /></td></tr>
 <tr class="separator:aa0f53f269524b701b23237766f79df2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,14 +142,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a7b9123d43e1cfae899b0e1bb52bb6dde">~Concurrent_task_loop</a> () override</td></tr>
 <tr class="memdesc:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any implementing subclass's destructor shall execute <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1" title="Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such ...">stop()</a> &ndash; see its doc header please &ndash; and then clean up any resources.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a7b9123d43e1cfae899b0e1bb52bb6dde">More...</a><br /></td></tr>
 <tr class="separator:a7b9123d43e1cfae899b0e1bb52bb6dde inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty=<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty=<a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{})=0</td></tr>
-<tr class="memdesc:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts all threads in the thread pool; any queued <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>ed (and similar) tasks may begin executing immediately; and any future posted work may execute in these threads.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">More...</a><br /></td></tr>
-<tr class="separator:a8f82b5fdfe6fa5ca6311ca0dca755d1b inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da933bdb3ea5c1b5dddb160497b8da9 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a0da933bdb3ea5c1b5dddb160497b8da9">start</a> (<a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;init_task_or_empty={}, const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;thread_init_func_or_empty={})=0</td></tr>
+<tr class="memdesc:a0da933bdb3ea5c1b5dddb160497b8da9 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts all threads in the thread pool; any queued <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>ed (and similar) tasks may begin executing immediately; and any future posted work may execute in these threads.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a0da933bdb3ea5c1b5dddb160497b8da9">More...</a><br /></td></tr>
+<tr class="separator:a0da933bdb3ea5c1b5dddb160497b8da9 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1">stop</a> ()=0</td></tr>
 <tr class="memdesc:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such tasks from running; then gracefully stops/joins all threads in pool; and then returns.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1">More...</a><br /></td></tr>
 <tr class="separator:aadadb5b8b6c40ddc86c205de1b8f25b1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">n_threads</a> () const =0</td></tr>
-<tr class="memdesc:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many threads does <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a> start?  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">More...</a><br /></td></tr>
+<tr class="memdesc:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many threads does <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a0da933bdb3ea5c1b5dddb160497b8da9" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a> start?  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a131335863b19446dbc349de181d4b5a1">More...</a><br /></td></tr>
 <tr class="separator:a131335863b19446dbc349de181d4b5a1 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ee1c5f5785af0bcc6aed0757981ffe3 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceflow_1_1async.html#a024042c64b7dc544a7a5587afa4b1949">Op</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a4ee1c5f5785af0bcc6aed0757981ffe3">create_op</a> ()=0</td></tr>
 <tr class="memdesc:a4ee1c5f5785af0bcc6aed0757981ffe3 inherit pub_methods_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a new Op which can bundle together an arbitrary set of <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a24f96f97ee24bfabb06c8609bc0e94a6" title="Cause the given Task (function) to execute within the thread pool as soon as possible,...">post()</a></code>s that would result in the provided task functions executing non-concurrently.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#a4ee1c5f5785af0bcc6aed0757981ffe3">More...</a><br /></td></tr>
@@ -266,7 +266,7 @@ Related Functions</h2></td></tr>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classflow_1_1async_1_1Concurrent__task__loop')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html">flow::async::Concurrent_task_loop</a></td></tr>
 <tr class="memitem:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> = <a class="el" href="classflow_1_1Function.html">Function</a>&lt; void(size_t thread_idx)&gt;</td></tr>
-<tr class="memdesc:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the thread-initializer-function optional arg type to <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a>.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">More...</a><br /></td></tr>
+<tr class="memdesc:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short-hand for the thread-initializer-function optional arg type to <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a0da933bdb3ea5c1b5dddb160497b8da9" title="Starts all threads in the thread pool; any queued post()ed (and similar) tasks may begin executing im...">start()</a>.  <a href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">More...</a><br /></td></tr>
 <tr class="separator:aa164fb1fe1b3d7fce0de0174d77ea396 inherit pub_types_classflow_1_1async_1_1Concurrent__task__loop"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -280,8 +280,8 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Add dynamic configurability of low-level thread/core behavior of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html" title="Concrete Concurrent_task_loop that is able to efficiently schedule Tasks within a given Op to execute...">Cross_thread_task_loop</a>, <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a>, and the <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> interface generally, as these parameters (including <code>n_threads_or_zero</code>, <code>est_hw_core_sharing_helps_algo</code>, <code>est_hw_core_pinning_helps_algo</code>) can only be set at construction time even though <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> and <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> can be invoked anytime. For instance a non-<code>virtual</code> <code>configure()</code> method could be added to each <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> subclass, potentially with different signatures. Note, also, that the decision to have <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> exit the actual threads, in addition to making some things easier to code/reason about internally, is also more amenable to these dynamic changes &ndash; messing with threading behavior dynamically is easier if one can exit and re-spawn the thread pool.</dd></dl>
-<p >Regarding the dynamic-configurability to-do above: By my (ygoldfel) off-top-of-head estimation, it's easier to add in <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html" title="Concrete Concurrent_task_loop that is able to efficiently schedule Tasks within a given Op to execute...">Cross_thread_task_loop</a> than in <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a>, as there is exactly 1 <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> per <code>*this</code> in the former, while <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a> has N of them, 1 per thread. So changing the desired thread count, in particular, would be more difficult in the latter case, as one must not lose any enqueued tasks through <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> and <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a>. It would not be unreasonable to make one more dynamically-configurable than the other.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>Add dynamic configurability of low-level thread/core behavior of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html" title="Concrete Concurrent_task_loop that is able to efficiently schedule Tasks within a given Op to execute...">Cross_thread_task_loop</a>, <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a>, and the <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> interface generally, as these parameters (including <code>n_threads_or_zero</code>, <code>est_hw_core_sharing_helps_algo</code>, <code>est_hw_core_pinning_helps_algo</code>) can only be set at construction time even though <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> and <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> can be invoked anytime. For instance a non-<code>virtual</code> <code>configure()</code> method could be added to each <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html" title="The core flow::async interface, providing an optionally multi-threaded thread pool onto which runnabl...">Concurrent_task_loop</a> subclass, potentially with different signatures. Note, also, that the decision to have <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> exit the actual threads, in addition to making some things easier to code/reason about internally, is also more amenable to these dynamic changes &ndash; messing with threading behavior dynamically is easier if one can exit and re-spawn the thread pool.</dd></dl>
+<p >Regarding the dynamic-configurability to-do above: By my (ygoldfel) off-top-of-head estimation, it's easier to add in <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html" title="Concrete Concurrent_task_loop that is able to efficiently schedule Tasks within a given Op to execute...">Cross_thread_task_loop</a> than in <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a>, as there is exactly 1 <a class="el" href="namespaceflow_1_1util.html#ac3e89a8a271b0ddc76ac2a0ce488dea4" title="Short-hand for boost.asio event service, the central class of boost.asio.">util::Task_engine</a> per <code>*this</code> in the former, while <a class="el" href="classflow_1_1async_1_1Segregated__thread__task__loop.html" title="Concrete Concurrent_task_loop that uses the legacy pin-Tasks-within-1-Op-to-1-thread method of achiev...">Segregated_thread_task_loop</a> has N of them, 1 per thread. So changing the desired thread count, in particular, would be more difficult in the latter case, as one must not lose any enqueued tasks through <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> and <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a>. It would not be unreasonable to make one more dynamically-configurable than the other.</p>
 <p >One must also be careful about the legacy-ish mechanism <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#af00698ef9a83bcc4e7e34fec89274569" title="Implements superclass API.">per_thread_ops()</a> in this context. </p>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00088">88</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
@@ -308,7 +308,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Short-hand for smart pointer to <a class="el" href="classflow_1_1async_1_1Task__qing__thread.html" title="Internally used building block of various concrete Concurrent_task_loop subclasses that encapsulates ...">Task_qing_thread</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00282">282</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00281">281</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 </div>
 </div>
@@ -371,13 +371,13 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs object, making it available for <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API.">post()</a> and similar work, but without starting any threads and hence without the ability to perform any work; call <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> to spawn threads and perform work. </p>
-<p >The arguments <code>n_threads_or_zero</code> and ones following it should be viewed as configuration for the next <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> call.</p>
+<p>Constructs object, making it available for <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ab785edcaa745fb859aaef4743478ea07" title="Implements superclass API.">post()</a> and similar work, but without starting any threads and hence without the ability to perform any work; call <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> to spawn threads and perform work. </p>
+<p >The arguments <code>n_threads_or_zero</code> and ones following it should be viewed as configuration for the next <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> call.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">logger_ptr</td><td>Logger to use for subsequently logging. </td></tr>
     <tr><td class="paramname">nickname</td><td>Brief, human-readable nickname of the new thread pool, as of this writing for logging only. </td></tr>
-    <tr><td class="paramname">n_threads_or_zero</td><td>If non-zero, <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> will start exactly this many worker threads; and the system will be entirely entrusted with the question of which thread is assigned to which processor core and any subsequent migration. If zero, <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> attempts to optimize the thread count and thread-to-core relationship itself, per <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a> and <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a>. The thread pool will choose the worker thread count and any thread-to-core relationships as per those methods, having made the assumptions documented for those functions. </td></tr>
+    <tr><td class="paramname">n_threads_or_zero</td><td>If non-zero, <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> will start exactly this many worker threads; and the system will be entirely entrusted with the question of which thread is assigned to which processor core and any subsequent migration. If zero, <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> attempts to optimize the thread count and thread-to-core relationship itself, per <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a> and <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a>. The thread pool will choose the worker thread count and any thread-to-core relationships as per those methods, having made the assumptions documented for those functions. </td></tr>
     <tr><td class="paramname">est_hw_core_sharing_helps_algo</td><td>See <a class="el" href="namespaceflow_1_1async.html#adab04f47b40b92fffbe12bc33fadd223" title="Assuming a planned thread pool will be receiving ~symmetrical load, and its UX-affecting (in particul...">optimal_worker_thread_count_per_pool()</a>. </td></tr>
     <tr><td class="paramname">est_hw_core_pinning_helps_algo</td><td>See <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a>. </td></tr>
     <tr><td class="paramname">hw_threads_is_grouping_collated</td><td>See <a class="el" href="namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),...">optimize_pinning_in_thread_pool()</a>. </td></tr>
@@ -387,7 +387,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00029">29</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::S_ASYNC</a>.</p>
+<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a4d7a5700444c0570af37b1f9bcc6eb1f">flow::async::S_ASYNC</a>.</p>
 
 </div>
 </div>
@@ -418,7 +418,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00071">71</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">stop()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">stop()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -460,7 +460,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00267">267</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>.</p>
+<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>.</p>
 
 </div>
 </div>
@@ -494,7 +494,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">262</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00298">m_qing_threads</a>.</p>
+<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00297">m_qing_threads</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00292">post()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">schedule_from_now()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 <div class="dynheader">
@@ -537,7 +537,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00272">272</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00304">m_per_thread_strands</a>.</p>
+<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00303">m_per_thread_strands</a>.</p>
 
 </div>
 </div>
@@ -596,7 +596,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00292">292</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00420">flow::async::op_to_exec_ctx&lt; Strand_ptr &gt;()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">post()</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00420">flow::async::op_to_exec_ctx&lt; Strand_ptr &gt;()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">post()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -654,9 +654,9 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">277</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00227">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, and <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00230">FLOW_LOG_TRACE</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, and <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00292">post()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00061">flow::async::Single_thread_task_loop::post()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00292">post()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00062">flow::async::Single_thread_task_loop::post()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -722,11 +722,11 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">schedule_from_now()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00072">flow::async::Single_thread_task_loop::schedule_at()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00073">flow::async::Single_thread_task_loop::schedule_at()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_aa8fb0ac1ac3dc4fb86b0a7dbec0a8686_cgraph.svg" width="1036" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_aa8fb0ac1ac3dc4fb86b0a7dbec0a8686_cgraph.svg" width="850" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
@@ -797,7 +797,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a3405f13bd63f6a9156cc6efb5c9f44be_cgraph.svg" width="1036" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a3405f13bd63f6a9156cc6efb5c9f44be_cgraph.svg" width="850" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -851,13 +851,13 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">319</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="async_8cpp_source.html#l00030">flow::async::cpu_idx()</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00226">flow::log::Log_context::get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>.</p>
+<p class="reference">References <a class="el" href="async_8cpp_source.html#l00030">flow::async::cpu_idx()</a>, <a class="el" href="log_8hpp_source.html#l00422">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00272">flow::log::Log_context::get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, and <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00396">schedule_at()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00066">flow::async::Single_thread_task_loop::schedule_from_now()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00351">schedule_from_now()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00396">schedule_at()</a>, <a class="el" href="single__thread__task__loop_8cpp_source.html#l00067">flow::async::Single_thread_task_loop::schedule_from_now()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00351">schedule_from_now()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a1008ae4c48d32ebf835d7a7ba203e5a9_cgraph.svg" width="794" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a1008ae4c48d32ebf835d7a7ba203e5a9_cgraph.svg" width="607" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
@@ -924,18 +924,18 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00351">351</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="async_8cpp_source.html#l00030">flow::async::cpu_idx()</a>, <a class="el" href="log_8hpp_source.html#l00354">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00226">flow::log::Log_context::get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00420">flow::async::op_to_exec_ctx&lt; Strand_ptr &gt;()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">schedule_from_now()</a>, and <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>.</p>
+<p class="reference">References <a class="el" href="async_8cpp_source.html#l00030">flow::async::cpu_idx()</a>, <a class="el" href="log_8hpp_source.html#l00422">FLOW_LOG_TRACE_WITHOUT_CHECKING</a>, <a class="el" href="log_8cpp_source.html#l00272">flow::log::Log_context::get_log_component()</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00420">flow::async::op_to_exec_ctx&lt; Strand_ptr &gt;()</a>, <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a3ee808b04c34bf6c110e3754de277f7b">flow::log::S_TRACE</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">schedule_from_now()</a>, and <a class="el" href="sched__task_8hpp_source.html#l00034">flow::util::schedule_task_from_now()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a414e266ad227e12d47cb25f827251698_cgraph.svg" width="1020" height="371"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_a414e266ad227e12d47cb25f827251698_cgraph.svg" width="834" height="371"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
 </div>
 </div>
-<a id="ad45dfab4620c0026382757b3c0dbdc74" name="ad45dfab4620c0026382757b3c0dbdc74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad45dfab4620c0026382757b3c0dbdc74">&#9670;&nbsp;</a></span>start()</h2>
+<a id="ad41758e1b5c9ac76a4e0277289a8935c" name="ad41758e1b5c9ac76a4e0277289a8935c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad41758e1b5c9ac76a4e0277289a8935c">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -947,13 +947,13 @@ Here is the call graph for this function:</div>
           <td class="memname">void flow::async::Cross_thread_task_loop::start </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>init_task_or_empty</em> = <code><a class="el" href="namespaceflow_1_1async.html#af35fb65bdea1a3a92929ec2c4a6a6b72">Task</a>{}</code>, </td>
+          <td class="paramname"><em>init_task_or_empty</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a> &amp;&#160;</td>
-          <td class="paramname"><em>thread_init_func_or_empty</em> = <code><a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aa164fb1fe1b3d7fce0de0174d77ea396">Thread_init_func</a>{}</code>&#160;</td>
+          <td class="paramname"><em>thread_init_func_or_empty</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -972,8 +972,8 @@ Here is the call graph for this function:</div>
 <p >In this implementation this essentially involves a single <code>Task_engine::restart()</code>, followed by starting N threads, each of which executing a long-running <code>Task_engine::run()</code>.</p>
 <h3>Logging subtlety for large thread pools</h3>
 <p >If <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a5c9a3da291fa961bb4d8c4be13c39bb8" title="Implements superclass API.">n_threads()</a> is large &ndash; e.g., hundreds &ndash; this method may produce a large number of <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04ac238793326fae17afcc849e96b96e8e7" title="Message indicates a not-&quot;bad&quot; condition that is not frequent enough to be of severity Sev::S_TRACE.">log::Sev::S_INFO</a> level log messages to <a class="el" href="classflow_1_1log_1_1Logger.html" title="Interface that the user should implement, passing the implementing Logger into logging classes (Flow&#39;...">log::Logger</a> at <code><a class="el" href="classflow_1_1log_1_1Log__context.html#af4db395042b065b00398cd59845dcb4d" title="Returns the stored Logger pointer, particularly as many FLOW_LOG_*() macros expect.">get_logger()</a></code>. There may be a few lines, split among this thread and the spawned thread, per each of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a5c9a3da291fa961bb4d8c4be13c39bb8" title="Implements superclass API.">n_threads()</a> threads. In addition <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> and/or the destructor will produce a similar volume of INFO messages.</p>
-<p >You may, however, use <code>log::Config::this_thread_verbosity_override_auto(X)</code> just before <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a>. X = <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a9ed9d44ce5760f61ea506d5571343624" title="Sentinel log level that must not be specified for any actual message (at risk of undefined behavior s...">log::Sev::S_NONE</a> will disable all logging; while X = <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021" title="Message indicates a &quot;bad&quot; condition that is not frequent enough to be of severity Sev::S_TRACE.">log::Sev::S_WARNING</a> will skip anything but error conditions.</p>
-<p >This is not special and can be done anytime in any context: it affects any logging through <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">log::Config</a> in this thread. In addition: If indeed such an X is set at entry to <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a>, we will intentionally affect each spawned thread as well, albeit only around startup and shutdown. This is for your convenience.</p>
+<p >You may, however, use <code>log::Config::this_thread_verbosity_override_auto(X)</code> just before <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a>. X = <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a9ed9d44ce5760f61ea506d5571343624" title="Sentinel log level that must not be specified for any actual message (at risk of undefined behavior s...">log::Sev::S_NONE</a> will disable all logging; while X = <a class="el" href="namespaceflow_1_1log.html#a5c602384e6fe9d7642740ac2fae4ad04a4aee6034ce9dbc2b5c36f27c80abe021" title="Message indicates a &quot;bad&quot; condition that is not frequent enough to be of severity Sev::S_TRACE.">log::Sev::S_WARNING</a> will skip anything but error conditions.</p>
+<p >This is not special and can be done anytime in any context: it affects any logging through <a class="el" href="classflow_1_1log_1_1Config.html" title="Class used to configure the filtering and logging behavior of Loggers; its use in your custom Loggers...">log::Config</a> in this thread. In addition: If indeed such an X is set at entry to <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a>, we will intentionally affect each spawned thread as well, albeit only around startup and shutdown. This is for your convenience.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">init_task_or_empty</td><td>See superclass API. </td></tr>
@@ -982,23 +982,23 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a8f82b5fdfe6fa5ca6311ca0dca755d1b">flow::async::Concurrent_task_loop</a>.</p>
+<p>Implements <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#a0da933bdb3ea5c1b5dddb160497b8da9">flow::async::Concurrent_task_loop</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">81</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00152">FLOW_LOG_WARNING</a>, <a class="el" href="log_8cpp_source.html#l00215">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00293">m_est_hw_core_pinning_helps_algo</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00291">m_est_hw_core_sharing_helps_algo</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00295">m_hw_threads_is_grouping_collated</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00289">m_n_threads_or_zero</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00287">m_nickname</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00298">m_qing_threads</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="concurrent__task__loop_8cpp_source.html#l00080">flow::async::optimize_pinning_in_thread_pool()</a>, <a class="el" href="util_2util_8hpp_source.html#l00381">flow::util::ostream_op_string()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">post()</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25">flow::async::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="log_8hpp_source.html#l00155">FLOW_LOG_WARNING</a>, <a class="el" href="log_8cpp_source.html#l00260">flow::log::Log_context::get_logger()</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00292">m_est_hw_core_pinning_helps_algo</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00290">m_est_hw_core_sharing_helps_algo</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00294">m_hw_threads_is_grouping_collated</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00288">m_n_threads_or_zero</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00286">m_nickname</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00297">m_qing_threads</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="concurrent__task__loop_8cpp_source.html#l00080">flow::async::optimize_pinning_in_thread_pool()</a>, <a class="el" href="util_2util_8hpp_source.html#l00575">flow::util::ostream_op_string()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">post()</a>, and <a class="el" href="namespaceflow_1_1async.html#a0a06794b16b72f2829ce3353557c8485a57525f29ac96f4edd56c951e7d7c7b25">flow::async::S_ASYNC_AND_AWAIT_CONCURRENT_COMPLETION</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00041">flow::async::Single_thread_task_loop::start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00042">flow::async::Single_thread_task_loop::start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_ad45dfab4620c0026382757b3c0dbdc74_cgraph.svg" width="906" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_ad41758e1b5c9ac76a4e0277289a8935c_cgraph.svg" width="906" height="295"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_ad45dfab4620c0026382757b3c0dbdc74_icgraph.svg" width="366" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classflow_1_1async_1_1Cross__thread__task__loop_ad41758e1b5c9ac76a4e0277289a8935c_icgraph.svg" width="366" height="47"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1028,18 +1028,18 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Implements superclass API. </p>
-<p >In this implementation this essentially boils down to a single <code>Task_engine::stop()</code>, followed by joining each thread started by <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a>.</p>
+<p >In this implementation this essentially boils down to a single <code>Task_engine::stop()</code>, followed by joining each thread started by <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a>.</p>
 <h3>Logging subtlety for large thread pools</h3>
-<p >A similar note from <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a> doc header applies here. Again: you may set an override verbosity just ahead of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> to reduce or disable logging if desired.</p>
-<p >In addition, for your convenience: Any shutdown logging within each of the spawned (now shutting down) threads will follow the override (if any) you had specified ahead of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API.">start()</a>. </p>
+<p >A similar note from <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a> doc header applies here. Again: you may set an override verbosity just ahead of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#aa0f53f269524b701b23237766f79df2d" title="Implements superclass API.">stop()</a> to reduce or disable logging if desired.</p>
+<p >In addition, for your convenience: Any shutdown logging within each of the spawned (now shutting down) threads will follow the override (if any) you had specified ahead of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API.">start()</a>. </p>
 
 <p>Implements <a class="el" href="classflow_1_1async_1_1Concurrent__task__loop.html#aadadb5b8b6c40ddc86c205de1b8f25b1">flow::async::Concurrent_task_loop</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">192</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="log_8hpp_source.html#l00197">FLOW_LOG_INFO</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00287">m_nickname</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00298">m_qing_threads</a>, and <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>.</p>
+<p class="reference">References <a class="el" href="log_8hpp_source.html#l00200">FLOW_LOG_INFO</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00286">m_nickname</a>, <a class="el" href="x__thread__task__loop_8hpp_source.html#l00297">m_qing_threads</a>, and <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00056">flow::async::Single_thread_task_loop::stop()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00071">~Cross_thread_task_loop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00057">flow::async::Single_thread_task_loop::stop()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00071">~Cross_thread_task_loop()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1080,9 +1080,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8cpp_source.html#l00414">414</a> of file <a class="el" href="x__thread__task__loop_8cpp_source.html">x_thread_task_loop.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">m_shared_task_engine</a>.</p>
+<p class="reference">References <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">m_shared_task_engine</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00078">flow::async::Single_thread_task_loop::task_engine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="single__thread__task__loop_8cpp_source.html#l00079">flow::async::Single_thread_task_loop::task_engine()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1165,7 +1165,7 @@ Here is the caller graph for this function:</div>
 
 <p>See constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00293">293</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00292">292</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 
@@ -1193,7 +1193,7 @@ Here is the caller graph for this function:</div>
 
 <p>See constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00291">291</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00290">290</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 
@@ -1221,7 +1221,7 @@ Here is the caller graph for this function:</div>
 
 <p>See constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00295">295</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00294">294</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 
@@ -1250,7 +1250,7 @@ Here is the caller graph for this function:</div>
 <p>See constructor. </p>
 <dl class="section warning"><dt>Warning</dt><dd>Not safe to use this in lieu of <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a5c9a3da291fa961bb4d8c4be13c39bb8" title="Implements superclass API.">n_threads()</a> when this is in fact zero. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00289">289</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00288">288</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>.</p>
 
@@ -1278,7 +1278,7 @@ Here is the caller graph for this function:</div>
 
 <p>See constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00287">287</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00286">286</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">stop()</a>.</p>
 
@@ -1306,7 +1306,7 @@ Here is the caller graph for this function:</div>
 
 <p>See <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#af00698ef9a83bcc4e7e34fec89274569" title="Implements superclass API.">per_thread_ops()</a>. The <code>boost::any</code> payload is always of the type <a class="el" href="namespaceflow_1_1async.html#a2b92feccafa90bce16db57131c0fcd9e" title="Short-hand for ref-counted pointer to util::Strand.">async::Strand_ptr</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00304">304</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00303">303</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00272">per_thread_ops()</a>.</p>
 
@@ -1334,7 +1334,7 @@ Here is the caller graph for this function:</div>
 
 <p>N task-execution-capable worker threads whose lifetimes equal those of <code>*this</code>, all sharing <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a3fb892d50647ad249eea983b7a664315" title="boost.asio Task_engine (a/k/a io_context) co-used by all m_qing_threads.">m_shared_task_engine</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00298">298</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00297">297</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00262">n_threads()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">stop()</a>.</p>
 
@@ -1362,7 +1362,7 @@ Here is the caller graph for this function:</div>
 
 <p>boost.asio <code>Task_engine</code> (a/k/a <code>io_context</code>) co-used by all <a class="el" href="classflow_1_1async_1_1Cross__thread__task__loop.html#a2e93cd0649bf68bdeda1cb844f53c5a8" title="N task-execution-capable worker threads whose lifetimes equal those of *this, all sharing m_shared_ta...">m_qing_threads</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00301">301</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="x__thread__task__loop_8hpp_source.html#l00300">300</a> of file <a class="el" href="x__thread__task__loop_8hpp_source.html">x_thread_task_loop.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="x__thread__task__loop_8cpp_source.html#l00267">create_op()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00029">Cross_thread_task_loop()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00277">post()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00319">schedule_from_now()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00081">start()</a>, <a class="el" href="x__thread__task__loop_8cpp_source.html#l00192">stop()</a>, and <a class="el" href="x__thread__task__loop_8cpp_source.html#l00414">task_engine()</a>.</p>
 
@@ -1376,7 +1376,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:18 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

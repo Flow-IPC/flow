@@ -5,8 +5,8 @@
 <area shape="rect" id="node4" href="$classflow_1_1net__flow_1_1Node.html#adadcf843694ddc9516151485aa23e0b8" title="Interrupts any blocking operation, a/k/a wait, and informs the invoker of that operation that the blo..." alt="" coords="420,173,555,209"/>
 <area shape="rect" id="node5" href="$namespaceflow_1_1async.html#a3e200db7e5375de21d2568004a85dcad" title="Assuming the same situation as documented for optimal_worker_thread_count_per_pool(),..." alt="" coords="411,257,564,293"/>
 <area shape="rect" id="node9" href="$namespaceflow_1_1async.html#a7fa5292ae2e7dddd11a7fe5228b1e574" title="Resets the processor&#45;affinity of the given thread – or calling thread – to be managed as the OS deems..." alt="" coords="427,341,547,377"/>
-<area shape="rect" id="node6" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#af19377b924d1598a3ad59f0fba89bfee" title="Implements superclass API." alt="" coords="207,209,363,245"/>
-<area shape="rect" id="node7" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ad45dfab4620c0026382757b3c0dbdc74" title="Implements superclass API." alt="" coords="208,269,361,305"/>
-<area shape="rect" id="node8" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a0047f013a3a9a05b9368666690cf4db8" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,269,159,305"/>
+<area shape="rect" id="node6" href="$classflow_1_1async_1_1Segregated__thread__task__loop.html#ab13df8376e8c2fc2b834e21ead6a77c6" title="Implements superclass API." alt="" coords="207,209,363,245"/>
+<area shape="rect" id="node7" href="$classflow_1_1async_1_1Cross__thread__task__loop.html#ad41758e1b5c9ac76a4e0277289a8935c" title="Implements superclass API." alt="" coords="208,269,361,305"/>
+<area shape="rect" id="node8" href="$classflow_1_1async_1_1Single__thread__task__loop.html#a1d108c4d97ea37434d95f52c99d17b88" title="Starts the 1 thread in the thread pool; any queued post()ed (and similar) tasks may begin executing i..." alt="" coords="5,269,159,305"/>
 <area shape="rect" id="node10" href="$namespaceflow_1_1async.html#a227e64eb71ec278f19d679d8411db627" title="Resets processor&#45;affinity of the calling thread; does not log; and throws on extremely unlikely syste..." alt="" coords="217,341,352,377"/>
 </map>

@@ -70,14 +70,15 @@ $(function() {
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">util_fwd.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="string__view_8hpp_source.html">flow/util/string_view.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="common_8hpp_source.html">flow/common.hpp</a>&quot;</code><br />
 <code>#include &lt;boost/shared_ptr.hpp&gt;</code><br />
-<code>#include &lt;boost/unordered_set.hpp&gt;</code><br />
+<code>#include &lt;boost/unordered/unordered_flat_set.hpp&gt;</code><br />
 </div>
 <p><a href="detail_2util__fwd_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -89,16 +90,13 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceflow_1_1util"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html">flow::util</a></td></tr>
 <tr class="memdesc:namespaceflow_1_1util"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flow module containing miscellaneous general-use facilities that don't fit into any other Flow module. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceflow_1_1util_1_1bind__ns"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util_1_1bind__ns.html">flow::util::bind_ns</a></td></tr>
-<tr class="memdesc:namespaceflow_1_1util_1_1bind__ns"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hack namespace alias to enable use of <code>bind</code> and related utilities like <code>cref</code> in the face of strange observed compiler behavior. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Iterator , typename <a class="el" href="classHash.html">Hash</a> , typename <a class="el" href="classPred.html">Pred</a> , <a class="el" href="classbool.html">bool</a> IS_ITER_TO_PAIR&gt; </td></tr>
-<tr class="memitem:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">flow::util::Linked_hash_key_set</a> = boost::unordered_set&lt; Linked_hash_key&lt; Key, Iterator, IS_ITER_TO_PAIR &gt;, Linked_hash_key_hash&lt; <a class="el" href="classHash.html">Hash</a> &gt;, Linked_hash_key_pred&lt; <a class="el" href="classPred.html">Pred</a> &gt; &gt;</td></tr>
-<tr class="memdesc:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The lookup structure used inside <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_map&lt;&gt; and ordering an...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a map that combines the lookup speed of an unordered_set&lt;&gt; and ordering an...">Linked_hash_set</a>.  <a href="namespaceflow_1_1util.html#acb68e7985082dd9cbe7b1c67dd3b54a1">More...</a><br /></td></tr>
-<tr class="separator:acb68e7985082dd9cbe7b1c67dd3b54a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e805a48ff42008c66b02c4a3ab49d4"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename Iterator , typename <a class="el" href="classHash.html">Hash</a> , typename <a class="el" href="classPred.html">Pred</a> , <a class="el" href="classbool.html">bool</a> IS_ITER_TO_PAIR&gt; </td></tr>
+<tr class="memitem:a30e805a48ff42008c66b02c4a3ab49d4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4">flow::util::Linked_hash_key_set</a> = boost::unordered_flat_set&lt; Linked_hash_key&lt; Key, Iterator, IS_ITER_TO_PAIR &gt;, Linked_hash_key_hash&lt; <a class="el" href="classHash.html">Hash</a> &gt;, Linked_hash_key_pred&lt; <a class="el" href="classPred.html">Pred</a> &gt; &gt;</td></tr>
+<tr class="memdesc:a30e805a48ff42008c66b02c4a3ab49d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The lookup structure used inside <a class="el" href="classflow_1_1util_1_1Linked__hash__map.html" title="An object of this class is a map that combines the lookup speed of an unordered_flat_map&lt;&gt; and orderi...">Linked_hash_map</a> and <a class="el" href="classflow_1_1util_1_1Linked__hash__set.html" title="An object of this class is a set that combines the lookup speed of an unordered_flat_set&lt;&gt; and orderi...">Linked_hash_set</a>.  <a href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4">More...</a><br /></td></tr>
+<tr class="separator:a30e805a48ff42008c66b02c4a3ab49d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -116,11 +114,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a3a33fa903d51cbe124781544eaf0c4bc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc">flow::util::get_where_am_i_str</a> (String_view file, String_view function, unsigned int line)</td></tr>
 <tr class="memdesc:a3a33fa903d51cbe124781544eaf0c4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper for <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a>, etc., that, given values for source code file name, function, and line number, returns an <code>std::string</code> equal to what <a class="el" href="util__fwd_8hpp.html#a4b8c54b789ea3bbc1dedebbff084625c" title="Expands to an ostream fragment X (suitable for, for example: std::cout &lt;&lt; X &lt;&lt; &quot;: Hi!...">FLOW_UTIL_WHERE_AM_I()</a> would place into an <code>ostream</code>.  <a href="namespaceflow_1_1util.html#a3a33fa903d51cbe124781544eaf0c4bc">More...</a><br /></td></tr>
 <tr class="separator:a3a33fa903d51cbe124781544eaf0c4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a8a849aa9b50ee26f76a86d0ecd8c575d"><td class="memItemLeft" align="right" valign="top">constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceflow_1_1util.html#a8a849aa9b50ee26f76a86d0ecd8c575d">flow::util::LINKED_HASH_KEY_SET_DEFAULT_N_BUCKETS</a> = boost::unordered::detail::foa::default_bucket_count</td></tr>
+<tr class="memdesc:a8a849aa9b50ee26f76a86d0ecd8c575d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value used by alias-target type of <a class="el" href="namespaceflow_1_1util.html#a30e805a48ff42008c66b02c4a3ab49d4" title="The lookup structure used inside Linked_hash_map and Linked_hash_set.">Linked_hash_key_set</a> as the default hash bucket count, if one does not explicitly specify it.  <a href="namespaceflow_1_1util.html#a8a849aa9b50ee26f76a86d0ecd8c575d">More...</a><br /></td></tr>
+<tr class="separator:a8a849aa9b50ee26f76a86d0ecd8c575d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 24 2026 10:36:18 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Tue Nov 3 2026 06:45:13 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

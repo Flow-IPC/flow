@@ -1,6 +1,8 @@
 <map id="flow::log::Logger::this_thread_set_logged_nickname" name="flow::log::Logger::this_thread_set_logged_nickname">
-<area shape="rect" id="node1" title="Sets or unsets the current thread&#39;s logging&#45;worthy string name; optionally sets the OS thread name (s..." alt="" coords="5,5,153,53"/>
-<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="201,11,324,47"/>
-<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="372,11,495,47"/>
-<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="543,11,673,47"/>
+<area shape="rect" id="node1" title="Sets or unsets the current thread&#39;s logging&#45;worthy string name; optionally sets the OS thread name (s..." alt="" coords="5,30,153,78"/>
+<area shape="rect" id="node2" href="$namespaceflow_1_1util.html#acd8a77acb1c38ee462ca4fb213a3f164" title="Equivalent to ostream_op_to_string() but returns a new string by value instead of writing to the call..." alt="" coords="209,5,332,41"/>
+<area shape="rect" id="node5" href="$namespaceflow_1_1util.html#a99d00ea3453388ac9b9ff7e26031d44c" title="Returns a value conceptually similar to this_thread::get_id() – a thread ID – but that is never recyc..." alt="" coords="201,65,340,101"/>
+<area shape="rect" id="node3" href="$namespaceflow_1_1util.html#aa079e37d8ddc1b8f76b792e377dd80bd" title="Writes to the specified string, as if the given arguments were each passed, via &lt;&lt; in sequence,..." alt="" coords="416,5,539,41"/>
+<area shape="rect" id="node4" href="$namespaceflow_1_1util.html#a1bf7064869bb90466477e426b466f7d2" title="Function template that simply outputs arguments 2+ via &lt;&lt; to the given ostream, in the order given." alt="" coords="615,5,745,41"/>
+<area shape="rect" id="node6" href="$classflow_1_1util_1_1Unique__id__holder.html#a50489177a7731618ca130468c3872748" title="Short&#45;hand for Unique_id_holder().unique_id(); useful when all you want is the unique integer itself." alt="" coords="388,65,567,101"/>
 </map>

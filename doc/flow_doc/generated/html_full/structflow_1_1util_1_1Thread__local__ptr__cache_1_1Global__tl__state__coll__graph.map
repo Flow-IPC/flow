@@ -1,0 +1,4 @@
+<map id="flow::util::Thread_local_ptr_cache::Global_tl_state" name="flow::util::Thread_local_ptr_cache::Global_tl_state">
+<area shape="rect" id="node1" title="Encapsulates two things: the thread&#39;s Tlp_states_map; and what shall run at thread_local deinit." alt="" coords="5,113,160,161"/>
+<area shape="rect" id="node2" title=" " alt="" coords="17,5,148,53"/>
+</map>

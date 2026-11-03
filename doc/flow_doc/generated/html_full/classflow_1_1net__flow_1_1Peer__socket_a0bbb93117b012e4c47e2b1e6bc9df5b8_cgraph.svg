@@ -164,9 +164,9 @@
 <path fill="none" stroke="midnightblue" d="M558.32,-90.48C575.21,-85.47 594.68,-79.68 612.39,-74.42"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="613.43,-77.77 622.02,-71.56 611.43,-71.06 613.43,-77.77"/>
 </g>
-<!-- Node66 -->
+<!-- Node65 -->
 <g id="node11" class="node">
-<title>Node66</title>
+<title>Node65</title>
 <g id="a_node11"><a xlink:href="classflow_1_1net__flow_1_1Node.html#a2a4dc3d8e294bbc8423e111f52e414ae" target="_top" xlink:title="Implementation of core blocking transfer methods, namely Peer_socket::sync_send(),...">
 <polygon fill="white" stroke="red" points="616.5,-0.5 616.5,-26.5 717.5,-26.5 717.5,-0.5 616.5,-0.5"/>
 <text text-anchor="start" x="624.5" y="-16.1" font-family="Helvetica,sans-Serif" font-size="8.00">flow::net_flow::Node</text>
@@ -174,9 +174,9 @@
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node66 -->
+<!-- Node8&#45;&gt;Node65 -->
 <g id="edge10" class="edge">
-<title>Node8&#45;&gt;Node66</title>
+<title>Node8&#45;&gt;Node65</title>
 <path fill="none" stroke="midnightblue" d="M531.87,-90.48C551.62,-76.01 585.14,-52.45 616,-35.5 618.87,-33.92 621.87,-32.37 624.92,-30.87"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="626.57,-33.96 634.12,-26.52 623.58,-27.63 626.57,-33.96"/>
 </g>
