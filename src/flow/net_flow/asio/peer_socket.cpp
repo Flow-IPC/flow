@@ -28,7 +28,7 @@ namespace flow::net_flow::asio
 Peer_socket::Peer_socket(log::Logger* logger_ptr,
                          util::Task_engine* task_engine, const Peer_socket_options& opts) :
   net_flow::Peer_socket(logger_ptr, task_engine, opts),
-  m_target_task_engine(0)
+  m_target_task_engine(nullptr)
 {
   // Only print pointer value for same reason as in super-constructor.
   FLOW_LOG_TRACE("boost.asio-integrated Peer_socket [" << static_cast<void*>(this) << "] created; no Task_engine.");
@@ -143,7 +143,7 @@ Node* Peer_socket::node_or_post_error(Handler_func&& on_result)
     FLOW_LOG_WARNING("Cannot perform async op on object [" << this << "]: it is already closed for "
                      "reason [" << err_code << '/' << err_code.message() << "].");
     on_result(err_code, 0); // It post()s user's originally-passed-in handler.
-    return 0;
+    return nullptr;
   }
   // else
   return owner_node;

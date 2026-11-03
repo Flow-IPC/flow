@@ -78,7 +78,13 @@ class FlowRecipe(ConanFile):
             self.options["boost"].without_mpi = True
             self.options["boost"].without_nowide = True
             self.options["boost"].without_python = True
-            self.options["boost"].without_regex = True
+            # TODO: The next line is commented out, like `without_context` above, for the same reason: with Boost
+            # 1.91.0 (the early-warning pipeline cells) the same ConanException fires -- this time
+            # `{'boost_regex'}` -- even though b2 itself reports `regex: not building`; so apparently some module
+            # we *do* build now requires `regex` to itself build, and the recipe's bookkeeping does not know it.
+            # Same disposition: this gets rid of the problem; look into it sometime.  (Boost.Regex is header-only
+            # since 1.76 for our purposes; the built library is unused by us either way.)
+            # self.options["boost"].without_regex = True
             self.options["boost"].without_serialization = True
             self.options["boost"].without_stacktrace = True
             self.options["boost"].without_test = True
@@ -117,22 +123,7 @@ class FlowRecipe(ConanFile):
 
     def requirements(self):
         if self.options.build:
-            # Attention: This version of Boost is unfortunately as of this writing (1/14/2025) not
-            # in conan-center; 1.86 is the latest version in conan-center, with 1.87 PR
-            # (https://github.com/conan-io/conan-center-index/pull/26079) still open
-            # since 1.87's release ~1 month earlier.  We try to get it manually for now, which is why the "@"
-            # is at the end there.  To be clear, "it" is just the recipe (which wrangles Boost), not Boost
-            # itself.  To make this work:
-            #   - We grabbed the contents of the PR and placed the Boost-relevant parts (a handful of files
-            #     under recipes/boost) directly in ./conan dir.
-            #   - The pipeline .yml in .github, when wrangling Conan, installs that recipe manually.
-            #   - Then the "@" here gets the desired Boost based on that locally-obtained recipe.
-            # TODO: Surely soon enough the version will be in conan-center, at which point:
-            #   - Remove the "@" here.
-            #   - Remove the `conan export` + related command(s) from the relevant `.yml`s.
-            #     Spoiler alert: that's our main.yml and Flow-IPC's main.yml.
-            self.requires("boost/1.87.0@")
-
+            self.requires("boost/1.87.0")
             self.requires("fmt/11.0.2")
             self.requires("gtest/1.15.0")
 
@@ -144,10 +135,6 @@ class FlowRecipe(ConanFile):
     def package(self):
         cmake = CMake(self)
         cmake.install()
-
-    def layout(self):
-        cmake_layout(self)
-
 
     def layout(self):
         cmake_layout(self)

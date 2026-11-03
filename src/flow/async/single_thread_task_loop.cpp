@@ -17,6 +17,7 @@
 
 /// @file
 #include "flow/async/single_thread_task_loop.hpp"
+#include "flow/util/util_fwd.hpp"
 
 namespace flow::async
 {
@@ -44,13 +45,13 @@ void Single_thread_task_loop::start(Task&& init_task_or_empty)
   m_underlying_loop.start(std::move(init_task_or_empty), [this](size_t)
   {
     // This occurs ~first thing in the thread (before init_task_or_empty() if any).
-    m_started_thread_id_or_none = util::this_thread::get_id();
+    m_started_thread_token_or_none = util::this_thread_unique_token();
   });
 }
 
 bool Single_thread_task_loop::in_thread() const
 {
-  return util::this_thread::get_id() == m_started_thread_id_or_none; // Corner case: false before start().
+  return util::this_thread_unique_token() == m_started_thread_token_or_none; // Corner case: false before start().
 }
 
 void Single_thread_task_loop::stop()

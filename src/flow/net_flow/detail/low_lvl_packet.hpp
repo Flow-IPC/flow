@@ -26,6 +26,7 @@
 #include "flow/util/shared_ptr_alias_holder.hpp"
 #include "flow/util/blob.hpp"
 #include <boost/endian.hpp>
+#include <boost/unordered/unordered_map.hpp>
 #include <limits>
 #include <type_traits>
 
@@ -550,11 +551,20 @@ private:
    * tried it the `virtual/switch` way.  Instead of the raw type IDs and
    * string descriptions being conveniently encapsulated in the present map (where there's little to no chance of
    * conflicting values), they were distributed across `virtual` implementations.  This was less maintainable; nor did
-   * it improve OO style, since the raw type ID values (at least) were
-   * still inter-dependent (were not allowed to conflict) in any case.
-   * The present solution does not pretend the actual contents of these values are of no interest to Low_lvl_packet
-   * itself (as opposed to the sub-types), and in not having to pretend this, all related code is quite a bit more
-   * compact and a bit more maintainable as well.
+   * it improve OO style, since the raw type ID values (at least) were still inter-dependent (were not allowed to
+   * conflict) in any case.  The present solution does not pretend the actual contents of these values are of no
+   * interest to Low_lvl_packet itself (as opposed to the sub-types), and in not having to pretend this, all related
+   * code is quite a bit more compact and a bit more maintainable as well.
+   *
+   * Update:
+   *
+   * @todo Many years after writing the NetFlow doc header where this to-do (being added now) resides, we've learned
+   * that despite appearances and docs, lookup by `type_index` is not all that fast but actually for certain
+   * subtle reasons *is* in practice lookup by `typeid(...).name()` -- yes, by string; so reconsider the
+   * design of the map #S_NATIVE_TYPE_ID_TO_PACKET_TYPE_INFO.  (Also consider using a `_flat_map` variant, if
+   * still applicable, as it is generally thought to be faster than plain `unordered_map`.)  Otherwise unrelated,
+   * log::Config gives background about `type_index` lookup such as why/how it is usually implemented + what to
+   * do, potentially, when avoiding it.
    */
   static const boost::unordered_map<std::type_index, Packet_type_info> S_NATIVE_TYPE_ID_TO_PACKET_TYPE_INFO;
 
@@ -1025,7 +1035,7 @@ struct Ack_packet : public Low_lvl_packet
    * Type used to store the ACK delay for a given individual acknowledged packet.  The value
    * specifies the number of multiples of `Ack_delay_time_unit{1}` comprised by a packet's ACK delay.
    *
-   * An earlier version of `net_flow` used the unit milliseconds and the encoding type uint16_t.  The
+   * An earlier version of `net_flow` used the unit milliseconds and the encoding type `uint16_t`.  The
    * reasoning was that this allowed a maximum ACK delay of ~65 sec which should be plenty; and that
    * the 1-millisecond finegrainedness was acceptable.  However when implementing queue delay-based
    * congestion control (like FAST or Vegas) we realized it is important for RTTs (which use the ACK

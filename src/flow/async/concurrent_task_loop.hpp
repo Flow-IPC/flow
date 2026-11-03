@@ -408,8 +408,7 @@ public:
    *        in each thread, for all `thread_idx` in [0, n_threads()).  start() will return no sooner than
    *        when each such callback has finished.
    */
-  virtual void start(Task&& init_task_or_empty = Task{},
-                     const Thread_init_func& thread_init_func_or_empty = Thread_init_func{}) = 0;
+  virtual void start(Task&& init_task_or_empty = {}, const Thread_init_func& thread_init_func_or_empty = {}) = 0;
 
   /**
    * Waits for any ongoing task(s)/completion handler(s) to return; then prevents any further-queued such tasks
@@ -432,9 +431,6 @@ public:
    * As noted in the class doc header, all methods are thread-safe on a common `*this` unless noted otherwise.
    * To wit: it is not safe to call `X.stop()` concurrently with `X.stop()` or with `X.start()`.
    *
-   * You may call stop() from within a task/completion handler executing within `*this` thread pool.  Of course
-   * you may also do this from another thread.
-   *
    * ### Rationale ###
    * This is similar to boost.asio `Task_engine::stop()`.  At a minimum it is useful, when shutting down the app
    * or module, in the situation where 2+ `Concurrent_task_loop`s routinely post work onto each other (or in at least 1
@@ -454,8 +450,8 @@ public:
    * Lastly, the stop() and start() mechanism is amenable to dynamically configuring thread behavior such as the
    * number of threads in the pool.
    *
-   * @todo boost.asio has advanced features that might help to mark certain tasks as "must-run if already queued, even
-   * if one `stop()`s"; consider providing user-friendly access to these features, perhaps in the context of the
+   * @todo boost.asio has advanced features that might help to mark certain tasks as: must-run if already queued, even
+   * if one `stop()`s; consider providing user-friendly access to these features, perhaps in the context of the
    * existing Concurrent_task_loop::stop() API.  These features are documented as of this writing at least in the
    * `io_context` doc page.
    */

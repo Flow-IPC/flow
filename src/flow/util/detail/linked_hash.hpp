@@ -154,7 +154,7 @@ public:
    * @param hasher
    *        See above.
    */
-  Linked_hash_key_hash(const Hash& hasher = Hash{});
+  Linked_hash_key_hash(const Hash& hasher = {});
 
   // Methods.
 
@@ -195,7 +195,7 @@ public:
    * @param pred
    *        See above.
    */
-  Linked_hash_key_pred(const Pred& pred = Pred{});
+  Linked_hash_key_pred(const Pred& pred = {});
 
   // Methods
 
@@ -248,11 +248,11 @@ const Key_t&
 
   if constexpr(S_IS_ITER_TO_PAIR)
   {
-    return get<Iterator>(m_key_hndl)->first; // Iterator into list of `const Key`s.
+    return get<Iterator>(m_key_hndl)->first; // Iterator into list of pair<const Key, Mapped>s.
   }
   else
   {
-    return *(get<Iterator>(m_key_hndl)); // Iterator into list of pair<const Key, Mapped>s.
+    return *(get<Iterator>(m_key_hndl)); // Iterator into list of `const Key`s.
   }
 }
 
@@ -270,8 +270,8 @@ template<typename Hash>
 Linked_hash_key_hash<Hash>::Linked_hash_key_hash(const Hash& hasher) :
   Hash(hasher) // Store `hasher` copy in our super-class, making use of Empty Base-class Optimization (EBO) if possible.
 {
-  /* For context: A regular unordered_set<Key, Hash, ...> would store the `Hash hasher` copy inside itself.
-   * In our case it is unordered_set<Linked_hash_key, Linked_hash_key_hash<Hash>, ...> instead, so a *this is
+  /* For context: A regular unordered_*set<Key, Hash, ...> would store the `Hash hasher` copy inside itself.
+   * In our case it is unordered_*set<Linked_hash_key, Linked_hash_key_hash<Hash>, ...> instead, so a *this is
    * instead stored; and we store the original `Hash hasher` inside us (and nothing else).  So it's the exact same
    * thing in terms of what actually ends up in memory and likely in terms of processor cycles spent.
    *
@@ -291,8 +291,8 @@ template<typename Pred>
 Linked_hash_key_pred<Pred>::Linked_hash_key_pred(const Pred& pred) :
   Pred(pred) // Store `pred` copy in our super-class, making use of Empty Base-class Optimization (EBO) if possible.
 {
-  /* For context: A regular unordered_set<Key, ..., Pred> would store the `Pred pred` copy inside itself.
-   * In our case it is unordered_set<Linked_hash_key, ..., Linked_hash_key_pred<PRed>> instead, so a *this is
+  /* For context: A regular unordered_*set<Key, ..., Pred> would store the `Pred pred` copy inside itself.
+   * In our case it is unordered_*set<Linked_hash_key, ..., Linked_hash_key_pred<Pred>> instead, so a *this is
    * instead stored; and we store the original `Pred pred` inside us (and nothing else).  So it's the exact same
    * thing in terms of what actually ends up in memory and likely in terms of processor cycles spent.
    *
@@ -324,7 +324,7 @@ bool Linked_hash_key_pred<Pred>::operator()(const Linked_hash_key_t& lhs, const 
    * would be (1) conceptually tighter (serving the exact known purpose) and (2) probably faster (avoids key comparison
    * at least sometimes).  On the other hand internal documentation would be more complex, and the code here would
    * be longer/more complex (probably requiring among other things either `friend`ship or additional accessor(s) on
-   * Linked_hash_key.
+   * Linked_hash_key).
    *
    * Oh, and also, I (ygoldfel) am not 100% certain about the following, but another difficulty might arise when
    * Iterator and Const_iterator are not the same type....  Bottom line, probably best not jump into this, unless

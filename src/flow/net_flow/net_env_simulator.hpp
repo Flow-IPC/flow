@@ -118,7 +118,7 @@ public:
    * @param recv_latency_seq
    *        List of latency outcomes for received packets.  When packet `i` (in chronological order)
    *        is received, it is lagged by N, where N is the `i`-th element in `recv_latency_seq`.  Once `i
-   *        >= recv_latency_seq.size()`, `recv_latency_range is used instead.
+   *        >= recv_latency_seq.size()`, `recv_latency_range` is used instead.
    * @param recv_packet_dup_prob
    *        Probability that the given received packet will get duplicated in addition to actually
    *        being received (0 is never; 1 is always; and anywhere in between).  This probability is
@@ -132,11 +132,11 @@ public:
   explicit Net_env_simulator(log::Logger* logger_ptr,
                              seed_type_t random_seed = 0,
                              prob_type_t recv_packet_loss_prob = 0,
-                             const Packet_loss_seq& recv_packet_loss_seq = Packet_loss_seq{},
-                             const Latency_range& recv_latency_range = Latency_range{},
-                             const Latency_seq& recv_latency_seq = Latency_seq{},
+                             const Packet_loss_seq& recv_packet_loss_seq = {},
+                             const Latency_range& recv_latency_range = {},
+                             const Latency_seq& recv_latency_seq = {},
                              prob_type_t recv_packet_dup_prob = 0,
-                             const Packet_dup_seq& recv_packet_dup_seq = Packet_dup_seq{});
+                             const Packet_dup_seq& recv_packet_dup_seq = {});
 
   // Methods.
 

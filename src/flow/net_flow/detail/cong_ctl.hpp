@@ -55,7 +55,7 @@ namespace flow::net_flow
  * basically: congestion_window_bytes() (obtain CWND for comparison to In-flight bytes in
  * `can_send()`); and `on_...()` methods to effect change in the internally stored CWND.
  *
- * ### Object life cycle ###
+ * ### Object lifecycle ###
  * There is a strict 1-to-1 relationship between one Congestion_control_strategy
  * instance and one Peer_socket.  A Congestion_control_strategy is created shortly after Peer_socket
  * is and is saved inside the latter.  Conversely a pointer to the Peer_socket is stored inside the

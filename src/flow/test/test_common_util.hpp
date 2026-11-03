@@ -52,6 +52,29 @@ namespace flow::test
 std::string get_test_suite_name();
 
 /**
+ * Returns whether this is a ThreadSanitizer (TSAN) build: gcc defines `__SANITIZE_THREAD__`; clang answers the
+ * `__has_feature(thread_sanitizer)` query.  Intended for skipping a test that TSAN cannot follow -- for example
+ * one that creates and destroys descriptors on several threads in quick succession, which TSAN's
+ * per-descriptor-number race tracking misreads as races between unrelated objects.
+ *
+ * @return See above.
+ */
+constexpr bool tsan_enabled()
+{
+#if defined(__SANITIZE_THREAD__)
+  return true;
+#elif defined(__has_feature)
+#  if __has_feature(thread_sanitizer)
+  return true;
+#  else
+  return false;
+#  endif
+#else
+  return false;
+#endif
+}
+
+/**
  * Examines output for matches.
  *
  * @param output The output to match against.

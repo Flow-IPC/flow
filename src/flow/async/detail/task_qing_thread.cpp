@@ -107,7 +107,8 @@ Task_qing_thread::Task_qing_thread(flow::log::Logger* logger_ptr, util::String_v
 
       // Now do the pre-loop work.
 
-      Logger::this_thread_set_logged_nickname(nickname, logger_ptr); // This INFO-logs a nice message.
+      // This INFO-logs a nice message (including this nickname, this_thread::get_id(), this_thread_unique_token()).
+      Logger::this_thread_set_logged_nickname(nickname, logger_ptr);
 
       // Use standard beautified formatting for chrono durations/etc. output (and conversely input).
       beautify_chrono_logger_this_thread(get_logger());

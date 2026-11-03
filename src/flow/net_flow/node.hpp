@@ -331,7 +331,7 @@ namespace flow::net_flow
  * can indeed listen on either type of address and connect to either as well, but how well it works is untested, and
  * from some outside experience it might involve some subtle provisions internally.
  *
- * @todo Based on some outside experience, there maybe be problems -- particularly considering the to-do regarding
+ * @todo Based on some outside experience, there may be problems -- particularly considering the to-do regarding
  * dual-stack IPv6/v4 support -- in servers listening in multiple-IP situations; make sure we support these seamlessly.
  * For example consider a machine with a WAN IP address and a LAN (10.x.x.x) IP address (and possibly IPv6 versions
  * of each also) that (as is typical) binds on all of them at ANY:P (where P is some port; and ANY is the IPv6 version,
@@ -702,7 +702,7 @@ namespace flow::net_flow
  * Node, with listen() becoming essentially something that turns on the "are we listening?" Boolean state,
  * while stop_listening() would turn it off (instead of something like `Server_socket::close()`).  (Important
  * note: That was not an endorsement of removing Server_socket.  Arguably it is still a nice abstraction.
- * Removing it would certainly remove some boiler-plate machinery to do with Server_socket's life cycle, on
+ * Removing it would certainly remove some boiler-plate machinery to do with Server_socket's lifecycle, on
  * the other hand.  Perhaps it's best to take a two-step appraoch; remove Flow ports first; then after a long
  * time, assuming it becomes clear that nothing like them is going to come back, remove Server_socket as
  * well.)  A key question is, of course what would we lose?  At first glance, Flow port allows multiple
@@ -1008,7 +1008,7 @@ public:
    */
   explicit Node(log::Logger* logger, const util::Udp_endpoint& low_lvl_endpoint,
                 Net_env_simulator* net_env_sim = nullptr, Error_code* err_code = nullptr,
-                const Node_options& opts = Node_options{});
+                const Node_options& opts = {});
 
   /**
    * Destroys Node.  Closes all Peer_socket objects as if by `sock->close_abruptly()`.  Then closes all
@@ -1443,6 +1443,10 @@ private:
   /**
    * A map from the connection ID (= remote-local socket pair) to the local Peer_socket that is
    * the local portion of the connection.  Applies to peer-to-peer (not server) sockets.
+   *
+   * @todo In Node: For various `unordered_*` data structures consider using `unordered_flat_*` which is known
+   * to be generally faster than plain `unordered_map`, `unordered_set`.  Within the context of NetFlow at least
+   * some of these structures are frequently accessed.
    */
   using Socket_id_to_socket_map = boost::unordered_map<Socket_id, Peer_socket::Ptr>;
 
@@ -1521,7 +1525,8 @@ private:
    *        The name of the option, suitable for logging; this is presumably obtained using the
    *        macro `#` technique.
    * @param err_code
-   *        See Peer_socket::set_options().
+   *        Must not be null; on validation error `*err_code` is set; on success it is *not* touched
+   *        (in particular it is not cleared: the caller is responsible for the on-success semantics).
    * @return `true` on success, `false` on validation error.
    */
   template<typename Opt_type>
@@ -1538,7 +1543,8 @@ private:
    *        String describing which condition was checked; this is presumably obtained using the
    *        macro # technique.
    * @param err_code
-   *        See Peer_socket::set_options().
+   *        Must not be null; on validation error `*err_code` is set; on success it is *not* touched
+   *        (in particular it is not cleared: the caller is responsible for the on-success semantics).
    * @return `true` on success, `false` on validation error.
    */
   bool validate_option_check(bool check, const std::string& check_str, Error_code* err_code) const;
@@ -1852,7 +1858,7 @@ private:
    * async_sock_low_lvl_packet_send_paced() pacing helper: If sock_pacing_process_q() ran out of the last
    * time slice's budget and still had packets to send, this is the handler that triggers when the
    * out-of-budget time slice ends.  Sets up a new time slice starting now and tries to send as many
-   * queud packets as possible with the new budget; if still more packets remain after this,
+   * queued packets as possible with the new budget; if still more packets remain after this,
    * schedules yet another timer.
    *
    * This may also be called via `cancel()` of the timer.  In this case, the pre-condition is that
@@ -2826,7 +2832,7 @@ private:
    *        ESTABLISHED state: `operation_aborted` => NOOP; success or any other error => attempt to
    *        send ACK(s).
    */
-  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = Error_code{});
+  void async_low_lvl_ack_send(Peer_socket::Ptr sock, const Error_code& sys_err_code = {});
 
   /**
    * Return `true` if and only if there are enough data either in Peer_socket::m_snd_rexmit_q of `sock` (if
@@ -3973,7 +3979,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
   // else event_set ready.
 
   // We must clean up event_set at any return point below.
-  util::Auto_cleanup cleanup = util::setup_auto_cleanup([&]()
+  const auto cleanup = util::setup_auto_cleanup([&]()
   {
     // Eat any error when closing Event_set, as it's unlikely and not interesting to user.
   	Error_code dummy_prevents_throw;
@@ -4038,7 +4044,7 @@ Non_blocking_func_ret_type Node::sync_op(typename Socket::Ptr sock,
      * in fact this mode is indicated by non_blocking_func.empty(). */
 
     {
-      typename Socket::Lock_guard lock(sock->m_mutex);
+      typename Socket::Lock_guard lock{sock->m_mutex};
       if (sock->m_state == Socket::State::S_CLOSED) // As in the invoker of this method....
       {
         assert(sock->m_disconnect_cause);

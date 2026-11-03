@@ -104,9 +104,10 @@ Scheduled_task_handle schedule_task_from_now(log::Logger* logger_ptr,
    * even when F is a vanilla lambda/function and not associated with any strand.  The theoretical reason it works
    * can be found in the post() doc link above, where it explains how precisely it invokes F() (both
    * some_task_engine, itself an executor, and g_a_e(F) are involved -- it works out; details omitted here).
-   * The reason one might worry is that g_a_e(F), where F is non-strandy/vanilla, yields system_executor, which -- if
-   * post()ed onto *directly* -- uses some unspecified thread/pool.  But together with post(some_task_engine),
-   * it does work.
+   * The reason one might worry is that g_a_e(F), where F is non-strandy/vanilla, yields the default associated
+   * executor: system_executor (boost.asio through Boost 1.89) which -- if post()ed onto *directly* -- uses some
+   * unspecified thread/pool; or inline_executor (Boost 1.90+) which runs the function object inline.  But together
+   * with post(some_task_engine), it does work either way: the body runs in some_task_engine's thread(s).
    *
    * P.P.S. Why not execute the async_wait()'s completion handler below through g_a_e(task_body_moved)?  1, we have
    * our own algorithm for avoiding thread-unsafety and want to use *task_engine directly; it is less entropy-laden
@@ -123,7 +124,7 @@ Scheduled_task_handle schedule_task_from_now(log::Logger* logger_ptr,
                                                           (bool short_fire) mutable
   {
     // Not safe to rely on L->R arg evaluation below; get this 1st, when we know task_body hasn't been move()d.
-    const auto executor = get_associated_executor(task_body); // Usually system_executor (vanilla) or a strand.
+    const auto executor = get_associated_executor(task_body); // Usually the boost.asio default (vanilla) or a strand.
     post(*task_engine,
          bind_executor(executor, [get_logger, get_log_component, task_id,
                                   task_body = std::move(task_body), short_fire]()

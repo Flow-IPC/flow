@@ -512,7 +512,7 @@ Peer_socket::Handler_func Peer_socket::handler_func(Handler&& on_result)
            mutable
   {
     // Not safe to rely on L->R arg evaluation below; get this 1st, when we know on_result hasn't been move()d.
-    const auto executor = get_associated_executor(on_result); // Usually system_executor (vanilla) or a strand.
+    const auto executor = get_associated_executor(on_result); // Usually the boost.asio default (vanilla) or a strand.
     post(*(async_task_engine()),
          bind_executor(executor,
                        [err_code, op_result, on_result = std::move(on_result)]

@@ -50,6 +50,7 @@
  *   - Order of declarations
  *   - Spacing and indentation
  *   - Misc/loose ends
+ *   - #include what you use (do not rely on transitive #include)
  *   - Header files and forwarding; _fwd.hpp pattern
  *     - Exceptions to _fwd.hpp pattern
  *     - _fwd.hpp pattern odds/ends: Macros, constexpr globals
@@ -57,6 +58,7 @@
  *   - Comments
  *   - Inlining
  *   - Constructor and initializer invocation
+ *   - Naming vis-a-vis units, time units, time math
  *   - Doxygen doc header deep-dive
  *   - Namespaces, libraries
  *   - Error handling
@@ -296,6 +298,37 @@ enum class /* [...] */
   S_ENUM_VALUES_ARE_CONSTANTS_3 = 3
 };
 
+/* Class/struct template `typename` identifiers look like class/struct/whatever types.
+ *  - Having an alias { inside } class/struct is preferred for generic programming + other reasons.
+ *    If so, preferred (not absolutely mandatory) style is below (`_t` versus no `_t`).
+ * tparam constants looks like local constants.
+ *  - Having an alias { inside } class/struct is preferred also for generic programming + debugger + other.
+ *    If so, mandatory style is is below (lead alias identifier but not tparam with `S_` + `static constexpr`). */
+template<typename Type_ay, typename Type_bee_t, bool CONSTANT_AY, bool CONSTANT_BEE>
+{
+public:
+  /// Alias or short-hand for generic programming.
+  using Type_bee = Type_bee_t;
+  /// Constant mirroring template parameter.
+  static constexpr S_CONSTANT_BEE = CONSTANT_BEE;
+}
+/* Function templates: similar for types (but: no particular en/discouragement of aliases).
+ * Function templates: similar for constants but no `static` or `S_` (and: no en/discouragement of aliases). */
+template<typename Type_ay, typename Type_bee_t, bool CONSTANT_AY, bool CONSTANT_BEE>
+void do_cool_thing(Type_bee_t thing, bool value = CONSTANT_BEE)
+{
+  using Type_bee = Type_bee_t; // Allowed if you feel like it.
+  constexpr auto SHORT_B = CONSTANT_BEE; // Ditto.
+}
+
+/* `typename` identifiers look like class/struct/whatever types.
+ *  - Having an alias { inside } class/struct is preferred for generic programming + other reasons.
+ *    If so, preferred (not absolutely mandatory) style is below (`_t` versus no `_t`).
+ * tparam constants looks like local constants.
+ *  - Having an alias { inside } class/struct is preferred also for generic programming + debugger + other.
+ *    If so, preferred (not absolutely mandatory) style is: end `typename` identifier with `_t`, alias without.
+ */
+
 // So, those are the roots.  What about prefixes and postfixes?  Simple:
 
 // Only one postfix exists: _t, used for aliases of non-compound types.  See 2 examples above.
@@ -375,7 +408,7 @@ class Some_class
 
 // Types.
 
-/// Short-hand for boost::any.  Any ordering is fine within the //Types grouping.
+/// Short-hand for `boost::any`.  Any ordering is fine within the //Types grouping.
 using Cool_type = boost::any;
 
 /**
@@ -496,7 +529,6 @@ private:
  *
  * Use @private as shown above *if and only if* the inner class is private.  This is due to a Doxygen quirk
  * (arguably bug).
- *
  */
 struct Cool_class::Inner_class_of_cool
 {
@@ -546,7 +578,8 @@ extern Cool_class s_singleton_instance;
  * possible.  This isn't 100% true: `private` isn't API; `private` inner classes aren't API.  Still, pretty close. */
 #endif
 
-// Template/inline implementations.  [We actually forbid explicit inlining elsewhere, but just in case, they'd go here.]
+// Template/constexpr/inline implementations.
+// [We actually discourage explicit inlining elsewhere, but if needed they go here.]
 
 #if 0
 /* Finally the "actual code" (function bodies) go here!  Recall, do NOT duplicate doc headers.
@@ -879,6 +912,30 @@ T* x = nullptr; // This is the modern Flow convention.
 T* x = 0; // OK and may be seen due to Flow originating before nullptr existed.  Ideally change to nullptr on sight.
 // Note, no `NULL`!  NULL is C stuff; no need.
 
+// -- STYLE GUIDE: #include what you use (do not rely on transitive #include) --
+
+/* Highly encouraged (follow it in new code; retrofit older code opportunistically, when already editing it):
+ * A file shall directly `#include` the header for each external symbol it uses -- Flow, Boost, STL, etc. -- even if
+ * that header is known to arrive anyway, transitively, via another `#include`.
+ *
+ * Rationale: A transitive include is an accident of the current include graph.  When some intermediate header is
+ * slimmed down (which we do, for one thing, for compile times; see the _fwd.hpp pattern below), its dependents
+ * break -- or, worse, keep compiling only on certain compilers or standard library versions.  Moreover, direct
+ * includes document what a file actually depends on.
+ *
+ *   - "The header for the symbol" means the one declaring it to the degree you need: its _fwd.hpp, if a
+ *     forward-declaration suffices; else its full header.  (See the _fwd.hpp pattern below.)
+ *   - Exception: If a header is designated as *the* way to obtain some facility, include that one instead of the
+ *     lower-level header(s) it wraps.  E.g., boost.chrono (types and `ostream<<` I/O) shall come via
+ *     "flow/common.hpp", never by including <boost/chrono.hpp> (et al) directly; see the comments atop
+ *     flow/common.hpp for why.
+ *   - Common sense: Sometimes headers are basically collections of `#include`s of other headers; Boost does this
+ *     a whole lot.  It is of course fine to #include the the collection instead of individual header(s) it contains,
+ *     if you feel it's better, all else being equal; this rule is not about that. */
+
+#include "flow/util/util.hpp" // Yes: Suppose this file uses flow::util::round_to_multiple()...
+#include "flow/common.hpp" // ...even if (in this hypothetical) this one already includes the above.
+
 // -- STYLE GUIDE: Header files and forwarding; _fwd.hpp pattern --
 
 /* Flow now follows the forwarding-header pattern observed in various Boost libraries, although I (ygoldfel) have not
@@ -952,7 +1009,7 @@ T* x = 0; // OK and may be seen due to Flow originating before nullptr existed. 
  * definition/declaration (aggregate types/templates thereof; variables/constants; free functions/templates) then:
  *   - Any code requiring use of a given symbol can include the relevant _fwd.hpp when only a forward-declaration
  *     is required; e.g., if only referring to forward-declared type `T` by pointer or reference.
- *   - If it is insufficient (e.g., when `sizeof T` must be known to compiler), the code can include the non-_fwd.hpp
+ *   - If it is insufficient (e.g., when `sizeof(T)` must be known to compiler), the code can include the non-_fwd.hpp
  *     header.
  *
  * This allows for (1) shorter build times; and (arguably more importantly) (2) the methodical pre-disentangling of
@@ -1159,7 +1216,7 @@ T* x = 0; // OK and may be seen due to Flow originating before nullptr existed. 
  *     and any major capabilities, within reason.
  *   - The following paragraph (or the rest of the 1st one) may expand on that, featuring the most essential black-box
  *     information.
- *   - Next, explain *how to use* the class/whatever (a/k/a an object's life cycle).  Like: First, you construct it with
+ *   - Next, explain *how to use* the class/whatever (a/k/a an object's lifecycle).  Like: First, you construct it with
  *     purpose/details X.  Then, you use so-and-so methods; then after that you may use these other methods.  Destroy
  *     the object when Y.  Spend multiple paragraphs if helpful for clarity.  Pithy is good but clear is better!
  *     - All the members (including functions) must be documented with doc headers; so no need to get into that except
@@ -1201,6 +1258,14 @@ if (mutex.locked()) // Mutex being locked here means we are in trouble.
 #endif
 
 // -- BEST PRACTICES: Inlining --
+
+/* - Disregard the following rule when writing *very* perf-sensitive code written *specifically for perf reasons*.
+ *
+ * We shall not try to be ultra-precise about this.  Use your judgment.  There are not frequent situations where
+ * explicit inlining is required for perf in practice; even less frequently would "let LTO handle it" not cover it.
+ * They do exist though.  If, say, you're writing widely used code that's to be specifically faster than some
+ * STL or Boost utility that's already speedy -- and it is so quick that the call overhead is a major part of it --
+ * `inline` away. */
 
 /* - Do not use explicit or implicit inlining; let compiler/linker handle it. -
  *
@@ -1279,7 +1344,7 @@ Complex num{ -2, 2.3 }; // Initializing via direct-init, not via a constructor: 
 f(Complex{ -2, 2.3 });
 
 /* Do be careful of one thing: a container with an initializer_list ctor will invoke it over the would-be constructor
- * with a matching signature (if any).  Unfortunately one must revert to the parentheses-using-constructor-call style. 
+ * with a matching signature (if any).  Unfortunately one must revert to the parentheses-using-constructor-call style.
  * (Needless to say, the compiler doesn't care if you put spaces in there; that is for humans only.) */
 vector<int> v{ 10, 1 }; // 2 elements: 10, 1.  initializer_list ctor is invoked, even though the following ctor matches.
 vector<int> v(10, 1); // 10 elements, each one equal to `1`.  Force compiler to ignore the initializer_list ctor.
@@ -1293,6 +1358,77 @@ f(static_cast<size_t>(-1)); // OK: explicit cast.  It's a bit wordy though, so t
 f(unsigned int{-1}); // SYNTAX ERROR.  This is due to the space in the type name.
 f((unsigned int)-1); // BAD.  By convention we do not use draconian C-style casts, even though it works.
 f(static_cast<unsigned int>(-1)); // Defeat the syntax error.  Could also `using uint = unsigned int` or something.
+
+// -- BEST PRACTICES: Naming vis-a-vis units, time units, time math --
+
+// - Do: Include units in names that represent quantities, at each name's end, in singular form; except bytes.
+size_t buf_sz; // Bytes: no units.
+float metric_velocity_kph; // Other quantities with units: include units.
+
+// - Do: For bytes, do still use (when applicable), the multiplier prefixes: ki (1024), mi (1024^2), etc. -
+// - Do: Use ki/mi/... when the multiplier is a power of 1,024; k/m/etc. when it is a power of 1,000. -
+const size_t RAM_LIMIT_MI; // Mebibytes: just show the mega part.
+const uint64_t HARD_DRIVE_CAPACITY_G; // Gigabytes (billions of bytes): just show the giga part.
+
+// - Do: Use `u` for micro. - Do not: use `micro` or the greek non-ASCII symbol or `m`. -
+// - Do: Use `sec` (not `s`) for seconds.  It is not metric, but that's a chosen convention.
+const auto count_usec = boost::chrono::microseconds{some_dur}.count();
+
+// - Do not: Use a naked numeric type for durations whenever `chrono` is usable. -
+/* - Do: Use `chrono` for all durations and time points.  Prefer `boost::chrono` to `std::chrono`. -
+ *
+ * Math using `chrono` is type-safe (precision cannot be lost without an explicit `duration_cast` or `round`
+ * or `ceil`) and feature-rich; yet exactly as fast and memory-compact as manual time operations.
+ * There is no rational argument to not use it whenever possible.
+ *
+ * When a raw tick count is required, such as by an 3rd-party API, use `duration::count()`.
+ *
+ * `std::chrono` and `boost::chrono` are nearly identical.  However, as of this writing and the versions involved,
+ * the latter is (1) ubuquitous in Flow and (2) has several *very* useful additional features.
+ *   - I/O: Stream (e.g., cout) output straightforwardly <<s durations and time points along with units.
+ *     (Input works similarly.)  This is not yet available as of C++17 std::chrono.
+ *   - Clocks: `boost::chrono` has some additional clocks types such as a thread-time clock. */
+using boost::chrono::microseconds;
+using boost::chrono::milliseconds;
+using boost::chrono::seconds;
+using boost::chrono::round;
+auto period = microseconds{332} + seconds{2}; // Automatic conversion math.
+auto period_msec = round<milliseconds>(period).count(); // round()/etc. required: usec -> msec would lose precision.
+auto period_msec = milliseconds{period}.count(); // NO: Will not compile.
+old_api_that_takes_msec(period_msec);
+
+// - Do not: Specify units on `chrono` duration values.  A duration is a duration; that's `chrono`'s thing. -
+Fine_duration some_period; // It's nanoseconds but so what?
+microseconds some_period; // Ditto.
+/* - Do: Specify units on `chrono` duration values if the resolution carried is specifically important. -
+ *
+ * For example a config value that can only be given with the coarseness of seconds should still be a
+ * `chrono::duration`, for conversion safety and other goodies; but it's important to specify that whatever value
+ * one gives cannot be more precise than seconds. */
+Fine_duration cfg_period; // It's a duration.  Any units are fine.
+Fine_duration cfg_period_sec; // It's a duration, and the stored count is of seconds, nothing better.
+
+/* - Do: Prefer simpler/less-templated APIs that take `chrono` values as `Fine_duration`s and `Fine_time_pt`s. -
+ *
+ * Very general APIs, when taking `chrono` quantities, *sometimes* tend to be templates that allow the
+ * use of any unit-type.  flow::Fine_duration is `nanoseconds` and represents the highest precision and bit-width
+ * generally appropriate in practice, yet reasonable to hold durations of ~any coarseness.  (flow::Fine_time_pt
+ * is the corresponding time-point type.)  Using these tends to make for simpler APIs while losing ~no flexibility
+ * or syntactic sugar.  `Fine_clock::now()` yields `Fine_time_pt`s.
+ *
+ * It's not a hard rule.  If it is a public-facing API in a very general utility, you may feel
+ * `template<typename Rep, typename Period> f(chrono::duration<Rep, Period> period)` or even just
+ * `template<typename Dur> f(Dur period)` is preferable.  It is your call.  Do note that, e.g., boost.asio
+ * in essence goes the `Fine_duration` route. */
+void schedule_at(Fine_time_pt when, ...);
+void schedule_from_now(Fine_duration period, ...);
+
+// - Do: Follow *suggested* naming conventions for duration and time-point names.  Reduces ambiguity; ups consistency. -
+Fine_time_pt m_stopped_when; // Time stamp: `when`, `WHEN`.  (Not `timestamp`, `time`, etc.)
+Fine_duration m_log_period; // Duration: `period`, `PERIOD`.  (Not `duration, `time`, etc.)
+void schedule_at(Fine_time_pt when); // Action to be performed at a specific time: `_at`.
+// Action to be performed after a delay from <current time>: `_from_now`.
+void schedule_from_now(Fine_duration period_from_now);
 
 // -- BEST PRACTICES: Doxygen doc header deep-dive --
 
@@ -1488,12 +1624,14 @@ f(static_cast<unsigned int>(-1)); // Defeat the syntax error.  Could also `using
  * [Rationale: Probably most/all coders are familiar with this and likely agree.  But this is a const-correct shop,
  * no exceptions, outside of working with ill-behaved outside libraries which may not be const-correct.] */
 
-/* - Corollary: Do not: use C-style casts; const|reinterpret_cast<> are to be rare and always justified w/ comment. -
+/* - Corollary: Do not: use C-style casts; const|reinterpret_cast<> are to be rare and best justified w/ comment. -
  *
  * [Rationale: C-style cast, like `(T)x`, is always bad, as it allows type-unsafety and const-discarding without
  * even clearly doing so.  Instead, use `static|dynamic|reinterpret|const_cast`, with the latter 2 used rarely
  * when it is required to be type-unsafe and const-incorrect respectively.  Hence explain why you're doing it in those
  * cases.] */
+
+// @todo: Section here about aliasing/punning/object-vs-bytes/[u]intptr_t/etc.  Working on the proper verbiage.
 
 /* - Do: Learn lambdas ASAP.  Use them extensively.  There should be NO reason to use bind() or a functor. -
  *
@@ -1595,7 +1733,6 @@ f(static_cast<unsigned int>(-1)); // Defeat the syntax error.  Could also `using
  * Can't you just "cheat" by wrapping the access into a non-`const`-reference-returning `protected` accessor or
  * something?  Well, yes, but then you're still breaking the spirit of the guideline.  The spirit is the point.
  * Still, a protected method or accessor (if you must) is still better. */
-
 
 /* - Do: Use the `_base` inheritance pattern when a T-parameterized class template C contains non-T-parameterized
  *   aliases/constants/etc. that must be usable without actually instantiating the template C<T> for some concrete

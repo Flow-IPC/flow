@@ -84,7 +84,7 @@ bool scheduled_task_cancel(log::Logger* logger_ptr, Scheduled_task_handle task)
   }
   else
   {
-    Lock_guard<Mutex_non_recursive> lock(*task->m_mutex_unless_single_threaded);
+    Lock_guard<Mutex_non_recursive> lock{*task->m_mutex_unless_single_threaded};
     canceled = cancel_if_should();
   }
 

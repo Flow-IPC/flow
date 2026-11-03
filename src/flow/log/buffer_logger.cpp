@@ -44,7 +44,7 @@ bool Buffer_logger::logs_asynchronously() const // Virtual.
 void Buffer_logger::do_log(Msg_metadata* metadata, util::String_view msg) // Virtual.
 {
   // Prevent simultaneous logging, reading-by-copy.
-  util::Lock_guard<decltype(m_log_mutex)> lock(m_log_mutex);
+  util::Lock_guard<decltype(m_log_mutex)> lock{m_log_mutex};
 
   // m_os_writer wraps (as of this writing) String_ostream, which wraps std::string.  Write msg+metadata to std::string.
   m_os_writer.log(*metadata, msg);
@@ -58,7 +58,7 @@ const std::string& Buffer_logger::buffer_str() const
 const std::string Buffer_logger::buffer_str_copy() const
 {
   // Prevent simultaneous logging, reading.
-  util::Lock_guard<decltype(m_log_mutex)> lock(m_log_mutex);
+  util::Lock_guard<decltype(m_log_mutex)> lock{m_log_mutex};
 
   return buffer_str(); // Copy occurs here; then mutex is unlocked.
 }

@@ -27,18 +27,18 @@ Runtime_error::Runtime_error(const Error_code& err_code_or_success, util::String
   // This strange-looking dichotomy is explained in ###Rationale### in m_context_if_no_code doc header.
   boost::system::system_error(err_code_or_success,
                               err_code_or_success
-                                ? std::string(context)
-                                : std::string()),
+                                ? std::string{context}
+                                : std::string{}),
   // code() == err_code_or_success, now.
   m_context_if_no_code(code()
-                         ? std::string()
-                         : std::string(context))
+                         ? std::string{}
+                         : std::string{context})
 {
   // Nothing.
 }
 
 Runtime_error::Runtime_error(util::String_view context) :
-  Runtime_error(Error_code(), context) // Our formal contract is to be equivalent to this.
+  Runtime_error(Error_code{}, context) // Our formal contract is to be equivalent to this.
 {
   // Nothing.
 }

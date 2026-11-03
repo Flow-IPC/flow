@@ -282,7 +282,7 @@ void Node::async_wait_latency_then_handle_incoming(const Fine_duration& latency,
        "from [UDP " << low_lvl_remote_endpoint << "].");
 
     // Move (again) the actual buffer to handle_incoming()'s ownership.
-    Blob packet_data_moved_again(std::move(*packet_data_moved_ptr));
+    Blob packet_data_moved_again{std::move(*packet_data_moved_ptr)};
     // *packet_data_moved_ptr is now empty and will be deleted once that smart pointer goes out of scope below.
     handle_incoming(&packet_data_moved_again, low_lvl_remote_endpoint);
     // packet_data_moved_again may now be decimated also!  Do not use it.

@@ -78,9 +78,8 @@ using Component_payload_type_dict_by_val_via_b_hash_map
 
 /**
  * Thread-local Msg_metadata object used by FLOW_LOG_WITHOUT_CHECKING() for an alleged perf bonus in the
- * synchronous-Logger code path.  It is allocated at the first log call site for a given thread; and auto-deallocated
- * when thread exits.
+ * synchronous-Logger code path.
  */
-extern boost::thread_specific_ptr<Msg_metadata> this_thread_sync_msg_metadata_ptr;
+extern thread_local Msg_metadata this_thread_sync_msg_metadata;
 
 } // namespace flow::log

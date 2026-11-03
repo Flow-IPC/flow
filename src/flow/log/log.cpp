@@ -19,17 +19,22 @@
 #include "flow/log/log.hpp"
 #include "flow/error/error.hpp"
 #include "flow/util/util_fwd.hpp"
+#include <type_traits>
 
 namespace flow::log
 {
 
 // Global initializations.
 
-boost::thread_specific_ptr<Msg_metadata> this_thread_sync_msg_metadata_ptr;
+thread_local Msg_metadata this_thread_sync_msg_metadata;
+static_assert(std::is_trivially_destructible_v<Msg_metadata>,
+              "We want this fully available even while thread_local deinit is happening, for FLOW_LOG_DO_LOG() et al.");
 
 // Static initializations.
 
-boost::thread_specific_ptr<std::string> Logger::s_this_thread_nickname_ptr;
+thread_local Fixed_string Logger::s_this_thread_nickname;
+static_assert(std::is_trivially_destructible_v<Fixed_string>,
+              "We want this fully available even while thread_local deinit is happening, for FLOW_LOG_DO_LOG() et al.");
 
 // Logger implementations.
 
@@ -41,20 +46,28 @@ void Logger::this_thread_set_logged_nickname(util::String_view thread_nickname, 
   using ::pthread_setname_np;
   using ::pthread_self;
 
-  /* Either set or delete (0 means no nickname, which is the original state of things).
-   * Note: This value is saved in a thread-local fashion. This has no effect on the
-   * value of s_this_thread_nickname.get() or dereference thereof in any thread except
-   * the one in which we currently execute. */
-  s_this_thread_nickname_ptr.reset(thread_nickname.empty()
-                                     ? nullptr
-                                     : new string{thread_nickname});
+  /* Either set or delete (empty means no nickname, which is the original state of things).
+   * Note: This value is saved in a thread-local fashion.  This has no effect on the
+   * value of s_this_thread_nickname in any thread except the one in which we currently execute.
+   *
+   * For reason(s) explained in its doc header, the target is a Fixed_string; hence truncate if necessary. */
+  {
+    const auto thread_nickname_maybe_trunc = thread_nickname.substr(0, Fixed_string::static_capacity);
+    // util::String_view may or may not be supported by Fixed_string, so just explicit form, so it'll always compile.
+    s_this_thread_nickname.assign(thread_nickname_maybe_trunc.data(), thread_nickname_maybe_trunc.size());
+  }
 
   // Log about it if given an object capable of logging about itself.
   if (logger_ptr)
   {
     FLOW_LOG_SET_CONTEXT(logger_ptr, Flow_log_component::S_LOG);
-    FLOW_LOG_INFO("Set new thread nickname for current thread ID "
-                  "[" << util::this_thread::get_id() << "].");
+    FLOW_LOG_INFO("Set new thread nickname for current thread ID [" << util::this_thread::get_id() << "] / "
+                  "thread-token [" << util::this_thread_unique_token() << "].");
+    /* (Regarding that unique-token: While we do not generally log unique-tokens per-message <=> do not keep
+     * it in Msg_metadata -- consult the latter's doc header for some discussion -- it can be a useful
+     * truly-unique, within a process, thread identifier albeit one with less universal recognition.  This is
+     * a cheap place to log it once, without having to store it per-message.  This can help correlate information
+     * in the field despite by default only appearing here.) */
   }
 
   if (also_set_os_name)
@@ -109,17 +122,34 @@ std::ostream& Logger::this_thread_logged_name_os_manip(std::ostream& os) // Stat
 {
   // Reminder: we are an ostream manipulator, invoked like flush or endl: os << flush;
 
-  /* If there's a thread nickname, output that. Otherwise default to actual thread ID.
+  /* If there's a thread nickname, output that.  Otherwise default to actual thread ID.
    * ATTN: This must be consistent with behavior in set_thread_info*().
    * We could also just use the latter here, but the following is a bit quicker.  @todo Reconsider maybe. */
 
-  auto const this_thread_nickname_ptr = s_this_thread_nickname_ptr.get();
-  if (this_thread_nickname_ptr)
+  if (!s_this_thread_nickname.empty())
   {
-    return os << (*this_thread_nickname_ptr);
+    return os << s_this_thread_nickname;
   }
   // else
   return os << util::this_thread::get_id();
+}
+
+void Logger::set_thread_info(Fixed_string* call_thread_nickname, flow::util::Thread_id* call_thread_id) // Static.
+{
+  assert(call_thread_nickname);
+  assert(call_thread_id);
+
+  /* If there's a thread nickname, output that.  Otherwise default to actual thread ID.
+   * ATTN: This must be consistent with behavior in this_thread_logged_name_os_manip() (and our overloads). */
+
+  if (s_this_thread_nickname.empty())
+  {
+    *call_thread_id = util::this_thread::get_id();
+  }
+  else
+  {
+    *call_thread_nickname = s_this_thread_nickname; // Fixed_string => Fixed_string.
+  }
 }
 
 void Logger::set_thread_info(std::string* call_thread_nickname, flow::util::Thread_id* call_thread_id) // Static.
@@ -127,17 +157,31 @@ void Logger::set_thread_info(std::string* call_thread_nickname, flow::util::Thre
   assert(call_thread_nickname);
   assert(call_thread_id);
 
-  /* If there's a thread nickname, output that. Otherwise default to actual thread ID.
-   * ATTN: This must be consistent with behavior in this_thread_logged_name_os_manip(). */
-
-  auto const this_thread_nickname_ptr = s_this_thread_nickname_ptr.get();
-  if (this_thread_nickname_ptr)
+  // Mirror overload.  @todo Maybe code reuse?  Template?  Meh.
+  if (s_this_thread_nickname.empty())
   {
-    *call_thread_nickname = (*this_thread_nickname_ptr);
+    *call_thread_id = util::this_thread::get_id();
   }
   else
   {
+    *call_thread_nickname = s_this_thread_nickname; // Fixed_string => string.
+  }
+}
+
+void Logger::set_thread_info(util::String_view* call_thread_nickname, flow::util::Thread_id* call_thread_id) // Static.
+{
+  assert(call_thread_nickname);
+  assert(call_thread_id);
+
+  // Mirror overload.  @todo Maybe code reuse?  Template?  Meh.
+  if (s_this_thread_nickname.empty())
+  {
     *call_thread_id = util::this_thread::get_id();
+  }
+  else
+  {
+    // Fixed_string => String_view.
+    *call_thread_nickname = {s_this_thread_nickname.begin(), s_this_thread_nickname.size()};
   }
 }
 
@@ -150,7 +194,8 @@ void Logger::set_thread_info_in_msg_metadata(Msg_metadata* msg_metadata) // Stat
 std::ostream* Logger::this_thread_ostream() const
 {
   // Grab the stream used for the current thread by this particular Logger.
-  return Thread_local_string_appender::get_this_thread_string_appender(*this)->appender_ostream();
+  const auto appender_or_null = Thread_local_string_appender::this_thread_string_appender(*this);
+  return appender_or_null ? appender_or_null->appender_ostream() : nullptr; // Latter can happen near thread exit.
 }
 
 // Component implementations.
@@ -219,8 +264,9 @@ Logger* Log_context::get_logger() const
 
 Logger* Log_context::set_logger(Logger* logger)
 {
+  const auto prev = m_logger;
   m_logger = logger;
-  return logger;
+  return prev;
 }
 
 const Component& Log_context::get_log_component() const
@@ -318,22 +364,10 @@ Log_context_mt& Log_context_mt::operator=(Log_context_mt&& src)
   return *this;
 } // Log_context_mt::operator=(&&)
 
-Logger* Log_context_mt::get_logger() const
-{
-  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
-  return Log_context::get_logger();
-}
-
 Logger* Log_context_mt::set_logger(Logger* logger)
 {
   util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
   return Log_context::set_logger(logger);
-}
-
-const Component& Log_context_mt::get_log_component() const
-{
-  util::Lock_guard<decltype(m_mutex)> lock{m_mutex};
-  return Log_context::get_log_component();
 }
 
 void Log_context_mt::swap(Log_context_mt& other)
@@ -416,20 +450,21 @@ void beautify_chrono_logger_this_thread(Logger* logger_ptr)
 
   if (logger_ptr)
   {
-    beautify_chrono_ostream(logger_ptr->this_thread_ostream());
+    const auto os = logger_ptr->this_thread_ostream();
+    if (os)
+    {
+      beautify_chrono_ostream(os);
+    }
+    // else { Nothing left to beautify (near thread exit).  It is fine. }
   }
 }
 
-size_t deep_size(const Msg_metadata& val)
+size_t deep_size(const Msg_metadata&)
 {
-  // We're following the loose pattern explained at the end of Async_file_logger::mem_cost().
-
-  using util::deep_size;
-
-  /* Reminder: exclude sizeof(val); include only non-shallow memory used on val's behalf; so
-   * sum of deep_size(X), for each X that is (1) a member of Msg_metadata; and (2) has a deep_size(X) free function.
-   * As of this writing there is just one: */
-  return deep_size(val.m_call_thread_nickname);
+  /* We're following the loose pattern explained at the end of Async_file_logger::mem_cost()...
+   * ...and since we (now) lack any non-shallow memory use in any members, the right answer is just zero.
+   * (Historically there was an std::string, so we had return deep_size(<that thing>); it is now Fixed_string.) */
+  return 0;
 }
 
 } // namespace flow::log

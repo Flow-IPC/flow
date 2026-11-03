@@ -20,6 +20,7 @@
 
 #include "flow/util/util_fwd.hpp"
 #include <atomic>
+#include <type_traits>
 
 namespace flow::util
 {
@@ -152,24 +153,66 @@ private:
 
   /// The ID.  Note its `const`ness alone forbids a classic assignment operator.
   const id_t m_id;
+}; // class Unique_id_holder
+
+/**
+ * An integer-like, type-safe wrapper for the *thread-token* concept -- see this_thread_unique_token(), which
+ * explains the whole situation and returns one of these; we are merely the type-safe type usable for it.
+ * A default-constructed Thread_token is "none": it equals no thread's token, ever -- so a data member of this
+ * type needs no explicit not-yet-set sentinel value or initializer.
+ *
+ * @see this_thread_unique_token() that returns a unique (across all threads in this process) Thread_token.
+ *
+ * It converts to #id_t implicitly, so comparisons and the like work as for an integer; while the reverse
+ * requires a deliberate `Thread_token{...}` (type-safety being the whole point).  `ostream<<`
+ * prints it in fixed-width hex (see that operator's doc header): a token is an identity, not a quantity.
+ * `Thread_token`s are usable as associate keys, whether ordered or unordered.
+ *
+ * @internal
+ *
+ * ### Impl notes ###
+ * Stylistically there is some inconsistency between Unique_id_holder and Thread_token; for example
+ * Unique_id_holder::create_unique_id() is a `static` member that returns raw values alongside a default-ctor
+ * that creates a Unique_id_holder -- while Thread_token default-ctor returns a sentinel, and free function
+ * this_thread_unique_token() returns a Thread_token.  The two are slightly related too.  The inconsistency
+ * is neither criminal nor ideal; and the reason for the inconsistency is that Unique_id_holder was written so
+ * long ago; the author (ygoldfel) has developed their style since then.  That said Unique_id_holder is fine
+ * too; it probably could be simplified a bit, but it works fine.  We are not marking a to-do here, as it would
+ * create unnecessary breaking-code situations, but this all was worth writing down for posterity.
+ */
+struct Thread_token
+{
+  // Types.
+
+  /// Short-hand for the underlying integer type.
+  using id_t = Unique_id_holder::id_t;
+
+  // Data.
+
+  /// The underlying integer value; `0` <=> "none."  Typically it is better to assign to `*this` rather than to #m_val.
+  id_t m_val = 0;
+
+  // Methods.
 
   /**
-   * #m_id value of the Unique_id_holder object last constructed.
-   *
-   * ### Implementation subtleties ###
-   * Using `atomic` for concise thread safety.
-   *
-   * I don't specify any memory ordering arguments when using this
-   * because of the simplicity of this implementation (a lone `++`).  Be careful if the code increases in complexity
-   * though; any kind of thread coordination would probably mean one would have to think of such matters and switch
-   * away from just overloaded operator(s) in favor of explicitly-memory-order-specifying `atomic<>` API calls.
-   *
-   * Normally when an `std` implementation is available along with a `boost` one, I choose the latter,
-   * for the likely extra features and for consistency.  I chose to do differently in the case of `atomic`, because,
-   * firstly, this is widely recommended, and, secondly, because this is a low-level feature and "feels" like it
-   * might be particularly well coded for a given architecture's compiler.  Not that the Boost guys aren't great.
+   * Returns #m_val; so comparisons and the like work as for an integer.
+   * @return See above.
    */
-  static std::atomic<id_t> s_last_id;
-}; // class Unique_id_holder
+  constexpr operator id_t() const;
+}; // struct Thread_token
+static_assert(std::is_trivially_copyable_v<Thread_token> && std::is_trivially_destructible_v<Thread_token>,
+              "Thread_token must remain trivially copyable (at least to store it in raw memory as, say, a prefix) and "
+                "destructible (at least so that any C++ code -- even in a thread_local dtor during TL-deinit "
+                "at thread end -- can safely access a thread_local Thread_token).");
+
+// Free functions: in *_fwd.hpp.
+
+// constexpr implementations.
+
+constexpr Thread_token::operator id_t() const
+{
+  return m_val;
+}
+
 
 } // namespace flow::util

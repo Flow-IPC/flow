@@ -134,7 +134,7 @@ public:
    *        Possible prefix within `*this`.
    * @return Whether `*this` contains `needle` as prefix.
    */
-  bool starts_with(Basic_string_view needle) const;
+  constexpr bool starts_with(Basic_string_view needle) const;
 
   /**
    * Equivalent to C++20 `basic_string_view::starts_with()` which is lacking in C++17 but present in C++20 and
@@ -144,7 +144,7 @@ public:
    *        Possible prefix within `*this`.
    * @return Whether `*this` contains `needle` as prefix.
    */
-  bool starts_with(Ch const * needle) const;
+  constexpr bool starts_with(Ch const * needle) const;
 
   /**
    * Equivalent to C++20 `basic_string_view::starts_with()` which is lacking in C++17 but present in C++20 and
@@ -154,7 +154,7 @@ public:
    *        Possible prefix within `*this`.
    * @return Whether `*this` contains `needle` as prefix.
    */
-  bool starts_with(Ch needle) const;
+  constexpr bool starts_with(Ch needle) const;
 
   /**
    * Equivalent to C++20 `basic_string_view::ends_with()` which is lacking in C++17 but present in C++20 and
@@ -164,7 +164,7 @@ public:
    *        Possible postfix within `*this`.
    * @return Whether `*this` contains `needle` as postfix.
    */
-  bool ends_with(Basic_string_view needle) const;
+  constexpr bool ends_with(Basic_string_view needle) const;
 
   /**
    * Equivalent to C++20 `basic_string_view::ends_with()` which is lacking in C++17 but present in C++20 and
@@ -174,7 +174,7 @@ public:
    *        Possible postfix within `*this`.
    * @return Whether `*this` contains `needle` as postfix.
    */
-  bool ends_with(Ch const * needle) const;
+  constexpr bool ends_with(Ch const * needle) const;
 
   /**
    * Equivalent to C++20 `basic_string_view::ends_with()` which is lacking in C++17 but present in C++20 and
@@ -184,7 +184,7 @@ public:
    *        Possible postfix within `*this`.
    * @return Whether `*this` contains `needle` as postfix.
    */
-  bool ends_with(Ch needle) const;
+  constexpr bool ends_with(Ch needle) const;
 }; // class Basic_string_view
 
 /// Commonly used `char`-based Basic_string_view.  See its doc header.
@@ -228,7 +228,7 @@ constexpr Basic_string_view<Ch, Traits>& Basic_string_view<Ch, Traits>::operator
   = default;
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::starts_with(Basic_string_view needle) const
+constexpr bool Basic_string_view<Ch, Traits>::starts_with(Basic_string_view needle) const
 {
   const auto needle_sz = needle.size();
   if (this->size() < needle.size())
@@ -248,7 +248,7 @@ bool Basic_string_view<Ch, Traits>::starts_with(Basic_string_view needle) const
 }
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::starts_with(Ch const * needle) const
+constexpr bool Basic_string_view<Ch, Traits>::starts_with(Ch const * needle) const
 {
   /* Conceivably hand-writing it to avoid a Traits::length() search for NUL (in constructing the 2nd
    * arg to starts_with() below) could improve perf; but on the other
@@ -258,13 +258,13 @@ bool Basic_string_view<Ch, Traits>::starts_with(Ch const * needle) const
 }
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::starts_with(Ch needle) const
+constexpr bool Basic_string_view<Ch, Traits>::starts_with(Ch needle) const
 {
   return (!this->empty()) && (this->front() == needle);
 }
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::ends_with(Basic_string_view needle) const
+constexpr bool Basic_string_view<Ch, Traits>::ends_with(Basic_string_view needle) const
 {
   const auto needle_sz = needle.size();
   if (this->size() < needle.size())
@@ -285,14 +285,14 @@ bool Basic_string_view<Ch, Traits>::ends_with(Basic_string_view needle) const
 }
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::ends_with(Ch const * needle) const
+constexpr bool Basic_string_view<Ch, Traits>::ends_with(Ch const * needle) const
 {
   // Same comment as in starts_with().
   return ends_with(Basic_string_view{needle});
 }
 
 template<typename Ch, typename Traits>
-bool Basic_string_view<Ch, Traits>::ends_with(Ch needle) const
+constexpr bool Basic_string_view<Ch, Traits>::ends_with(Ch needle) const
 {
   return (!this->empty()) && (this->back() == needle);
 }

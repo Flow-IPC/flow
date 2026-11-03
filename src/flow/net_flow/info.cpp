@@ -201,7 +201,7 @@ void Peer_socket_send_stats::output(std::ostream* os) const
   // Use a floating point representation for socket lifetime so that it can be printed in floating-point seconds.
   const Float_seconds lifetime = duration_cast<Float_seconds>(Fine_clock::now() - m_init_time);
 
-  /* Compute the loss rate based based on Dropped vs. Acknowledged bytes.  In-flight bytes are
+  /* Compute the loss rate based on Dropped vs. Acknowledged bytes.  In-flight bytes are
    * considered as having unknown status for now and are not included.  If a Dropped packet is later
    * acknowledged, it has still already been Dropped, so it will still be only counted as Dropped.
    * However there is a separate statistic for such late acknowledgments. */
@@ -484,7 +484,7 @@ void Peer_socket_info::output_pkt_count_value(std::ostream* os,
                                               const std::map<Xfer_op_result, uint64_t>& value_by_op_result) // Static.
 {
   // This value is itself a map, so use recursion, in a manner of speaking.
-  output_map_of_pkt_counts<Xfer_op_result, uint64_t>(os, value_by_op_result, 0);
+  output_map_of_pkt_counts<Xfer_op_result, uint64_t>(os, value_by_op_result, nullptr);
 }
 
 void Peer_socket_info::output_pkt_count_key(std::ostream* os, const std::type_index& type_id) // Static.

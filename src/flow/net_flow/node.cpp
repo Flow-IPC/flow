@@ -42,7 +42,7 @@ Node::Node(log::Logger* logger_ptr, const util::Udp_endpoint& low_lvl_endpoint, 
   log::Log_context(this_thread_init_logger_setup("", logger_ptr),
                    Flow_log_component::S_NET_FLOW),
   /* Take the given Node_options set and copy it into our stored global options.  (Note the default
-   * is Node_options().)  The default is safe, but if they actually are providing a custom set of
+   * is Node_options{}.)  The default is safe, but if they actually are providing a custom set of
    * options, then we must validate before accepting.  This may result in a validation error.
    * If !err_code, then it'll throw exception right here.  If err_code, then it will set *err_code,
    * so we check for it inside the constructor body and exit. */
@@ -339,7 +339,7 @@ void Node::worker_run(const util::Udp_endpoint low_lvl_endpoint)
     while (!m_event_sets.empty()) // As above.
     {
       const Event_set::Ptr event_set = *m_event_sets.begin();
-      Event_set::Lock_guard lock(event_set->m_mutex); // Pre-condition for event_set_close_worker().
+      Event_set::Lock_guard lock{event_set->m_mutex}; // Pre-condition for event_set_close_worker().
       event_set_close_worker(event_set);
     }
 
@@ -1006,6 +1006,9 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
 
   // We are in thread U != W or in thread W.
 
+  // Pre-clear (maintenance-proof); each failed check below shall set *err_code as needed.
+  err_code->clear();
+
   if (!init)
   {
     /* As explained above, they're trying to change an existing Node's option values.  Ensure all
@@ -1014,9 +1017,9 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
     // Explicitly documented pre-condition is that m_opts is already locked if necessary.  So don't lock.
 
     const bool static_ok
-      = VALIDATE_STATIC_OPTION(m_st_capture_interrupt_signals_internally) &&
-        VALIDATE_STATIC_OPTION(m_st_low_lvl_max_buf_size) &&
-        VALIDATE_STATIC_OPTION(m_st_timer_min_period);
+      = VALIDATE_STATIC_OPTION(m_st_capture_interrupt_signals_internally)
+        && VALIDATE_STATIC_OPTION(m_st_low_lvl_max_buf_size)
+        && VALIDATE_STATIC_OPTION(m_st_timer_min_period);
 
     if (!static_ok)
     {
@@ -1029,10 +1032,10 @@ const Node_options& Node::validate_options(const Node_options& opts, bool init, 
   // Now sanity-check the values themselves.  @todo Comment and reconsider these?
 
   const bool checks_ok
-    = VALIDATE_CHECK(opts.m_st_low_lvl_max_buf_size >= 128 * 1024) &&
-      VALIDATE_CHECK(opts.m_st_timer_min_period.count() >= 0) &&
-      VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512) &&
-      VALIDATE_CHECK(opts.m_dyn_accept_backlog_limit > 0);
+    = VALIDATE_CHECK(opts.m_st_low_lvl_max_buf_size >= 128 * 1024)
+      && VALIDATE_CHECK(opts.m_st_timer_min_period.count() >= 0)
+      && VALIDATE_CHECK(opts.m_dyn_low_lvl_max_packet_size >= 512)
+      && VALIDATE_CHECK(opts.m_dyn_accept_backlog_limit > 0);
 
   if (!checks_ok)
   {

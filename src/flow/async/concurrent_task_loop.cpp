@@ -143,7 +143,7 @@ void optimize_pinning_in_thread_pool(log::Logger* logger_ptr,
 
   for (unsigned int thread_idx = 0; thread_idx != n_pool_threads; ++thread_idx)
   {
-    Thread* thread = threads_in_pool[thread_idx];
+    Thread* const thread = threads_in_pool[thread_idx];
     const auto native_pthread_thread_id = thread->native_handle();
 
 #if FLOW_ASYNC_HW_THREAD_AFFINITY_PTHREAD_VIA_CORE_IDX
@@ -301,9 +301,8 @@ void reset_thread_pinning(log::Logger* logger_ptr, util::Thread* thread_else_our
     const Error_code sys_err_code{errno, system_category()};
     FLOW_ERROR_SYS_ERROR_LOG_WARNING(); // Log non-portable error.
     *err_code = sys_err_code;
-    return;
   }
-  // else OK!
+  // else { OK! }
 } // reset_thread_pinning()
 
 void reset_this_thread_pinning() // I know this looks odd and pointless; but see our doc header.

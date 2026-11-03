@@ -502,7 +502,7 @@ void Drop_timer::handle_timer_firing([[maybe_unused]] Ptr prevent_destruction,
   unsigned int backoff_factor;
   Fine_duration ceiling;
   {
-    Peer_socket::Options_lock lock(m_sock->m_opts_mutex);
+    Peer_socket::Options_lock lock{m_sock->m_opts_mutex};
     backoff_factor = m_sock->m_opts.m_dyn_drop_timeout_backoff_factor;
     ceiling = m_sock->m_opts.m_dyn_drop_timeout_ceiling;
   }

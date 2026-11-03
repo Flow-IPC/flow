@@ -24,7 +24,7 @@ namespace flow::net_flow
 
 // Use conservative start value which will be overridden with the next ACK.  (Value taken from Linux tcp_westwood.c.)
 const Send_bandwidth_estimator::Time_unit Congestion_control_classic_with_bandwidth_est::S_INIT_RTT_MIN
-  = boost::chrono::seconds(20);
+  = boost::chrono::seconds{20};
 
 // Implementations.
 

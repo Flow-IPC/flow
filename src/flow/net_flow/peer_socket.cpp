@@ -25,6 +25,7 @@
 #include "flow/async/util.hpp"
 #include <boost/algorithm/string.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/unordered/unordered_set.hpp>
 #include <utility>
 
 namespace flow::net_flow
@@ -149,7 +150,7 @@ size_t Peer_socket::node_sync_send(const Function<size_t (size_t max_data_size)>
   using boost::adopt_lock;
 
   // Everything is locked.  (See sync_send() template.)
-  Lock_guard lock(m_mutex, adopt_lock); // Adopt already-locked mutex.
+  Lock_guard lock{m_mutex, adopt_lock}; // Adopt already-locked mutex.
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -230,7 +231,7 @@ size_t Peer_socket::node_sync_receive(const Function<size_t ()>& rcv_buf_consume
   using boost::adopt_lock;
 
   // Everything is locked.  (See sync_send() template.)
-  Lock_guard lock(m_mutex, adopt_lock); // Adopt already-locked mutex.
+  Lock_guard lock{m_mutex, adopt_lock}; // Adopt already-locked mutex.
 
   const Ptr sock = shared_from_this();
   if (!Node::ensure_sock_open(sock, err_code)) // Ensure it's open, so that we can access m_node.
@@ -883,7 +884,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
 
     *dupe = true;
     *slide = false;
-    return Error_code{};
+    return {};
   } // if (seq_num < rcv_next_seq_num)
   // else if (seq_num >= rcv_next_seq_num)
 
@@ -919,7 +920,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     *slide = true;
     *slide_size = size_t(seq_num_end - seq_num);
     assert(*slide_size == data.size());
-    return Error_code{};
+    return {};
   }
 
   // else if:
@@ -977,7 +978,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     {
       const Peer_socket::Recvd_pkt_const_iter last_packet = prior(rcv_packets_with_gaps.end());
       Sequence_number seq_num_last_end;
-      get_seq_num_range(last_packet, 0, &seq_num_last_end);
+      get_seq_num_range(last_packet, nullptr, &seq_num_last_end);
 
       if (seq_num_last_end > seq_num) // (Corner case check: == means it contiguously precedes `packet`; no straddle.)
       {
@@ -1010,7 +1011,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     }
 
     *dupe = false;
-    return Error_code{};
+    return {};
   } // if (next_packet does not exist)
   // else if (next_packet exists at the same or later sequence number as seq_num)
 
@@ -1047,7 +1048,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                    "sequence numbers [" << seq_num << ", " << seq_num_end << ").");
 
     *dupe = true;
-    return Error_code{};
+    return {};
   } // if (seq_num_next_start == seq_num)
   // else if:
   assert(seq_num_next_start > seq_num); // lower_bound() is not horrifically broken.
@@ -1084,7 +1085,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
     FLOW_LOG_TRACE("New packet partially fills first gap without sliding window; "
                    "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                    "first unreceived packet [" << rcv_next_seq_num << "].");
-    return Error_code{}; // There are none. We're good.
+    return {}; // There are none. We're good.
   }
 
   const Peer_socket::Recvd_pkt_const_iter prev_packet = prior(next_packet);
@@ -1112,7 +1113,7 @@ Error_code Node::sock_categorize_data_to_established(Peer_socket::Ptr sock,
                  "sequence numbers [" << seq_num << ", " << seq_num_end << "); "
                  "first unreceived packet [" << rcv_next_seq_num << "].");
 
-  return Error_code{};
+  return {};
 } // Node::sock_categorize_data_to_established()
 
 bool Node::sock_data_to_rcv_buf_unless_overflow(Peer_socket::Ptr sock,
@@ -1258,7 +1259,8 @@ void Node::sock_track_new_data_after_gap_rexmit_off(Peer_socket::Ptr sock,
 #endif
     rcv_packets_with_gaps.insert
       (make_pair(seq_num,
-                 Peer_socket::Received_packet::Ptr{new Peer_socket::Received_packet{get_logger(), data_size, 0}}));
+                 Peer_socket::Received_packet::Ptr
+                   {new Peer_socket::Received_packet{get_logger(), data_size, nullptr}}));
   // m_rcv_reassembly_q_data_size untouched because !rexmit_on.
   assert(!sock->rexmit_on());
   assert(insert_result.second); // If was already there, there's some serious bug in above logic.
@@ -2041,7 +2043,7 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
   /* To not put already-handled acknowledgments up for handling again in the next run of this method
    * (which would be wrong), we must clear acked_packets before exiting this method.  To be safe,
    * make sure acked_packets.clear() runs no matter how this method exits. */
-  util::Auto_cleanup cleanup = util::setup_auto_cleanup([&]() { acked_packets.clear(); });
+  const auto cleanup = util::setup_auto_cleanup([&]() { acked_packets.clear(); });
 
   /* Handle all the acknowledgments we've received in this receive handler.  Background on the
    * accumulation tactic is in handle_ack_to_established().  As explained in that method, some
@@ -2211,7 +2213,9 @@ void Node::handle_accumulated_acks(const Socket_id& socket_id, Peer_socket::Ptr 
 
   /* Includes each order number (unique packet ID) for which the packet was acknowledged.
    * Used for Drop_timer events to register at the bottom; and also to feed the priority queue high_ack_count_q
-   * (explained below in detail). */
+   * (explained below in detail).
+   *
+   * @todo Consider using unordered_flat_set, generally though of as faster than unordered_set. */
   unordered_set<Peer_socket::order_num_t> flying_now_acked_pkts;
 
   // These are the N, M arguments to on_acks() described just above in big comment.
@@ -2737,7 +2741,7 @@ bool Node::categorize_individual_ack(const Socket_id& socket_id, Peer_socket::Pt
   const Peer_socket::Sent_packet& acked_pkt = *((*acked_pkt_it)->second);
   const unsigned int acked_rexmit_id = rexmit_on ? acked_pkt.m_packet->m_rexmit_id : 0;
   Sequence_number seq_num_end; // Get sequence number just past last datum in packet.
-  get_seq_num_range(*acked_pkt_it, 0, &seq_num_end);
+  get_seq_num_range(*acked_pkt_it, nullptr, &seq_num_end);
 
   // Note that both rexmit_id and acked_rexmit_id are guaranteed 0 at this point if !rexmit_on.
 
@@ -3720,7 +3724,7 @@ Sequence_number Node::snd_past_last_flying_datum_seq_num(Peer_socket::Const_ptr 
   const Peer_socket::Sent_pkt_by_seq_num_map& flying_packets = sock->m_snd_flying_pkts_by_seq_num;
   if (flying_packets.empty())
   {
-    return Sequence_number{}; // Default value.  Less than all others.
+    return {}; // Default value.  Less than all others.
   }
   // else
 
@@ -4171,7 +4175,7 @@ Peer_socket::Ptr Node::sync_connect_impl(const Remote_endpoint& to, const Fine_d
 
   // We must clean up event_set at any return point below.
   Error_code dummy_prevents_throw;
-  util::Auto_cleanup event_set_cleanup = util::setup_auto_cleanup([&]()
+  const auto event_set_cleanup = util::setup_auto_cleanup([&]()
   {
     // Eat any error when closing Event_set, as it's unlikely and not interesting to user.
     event_set->close(&dummy_prevents_throw);
@@ -6163,6 +6167,9 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
 
   // We are in thread U != W or in thread W.
 
+  // Pre-clear (maintenance-proof); each failed check below shall set *err_code as needed.
+  err_code->clear();
+
   if (prev_opts)
   {
     /* As explained above, they're trying to change an existing socket's option values.  Ensure
@@ -6171,31 +6178,31 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
     // Explicitly documented pre-condition is that *prev_opts is already locked if necessary.  So don't lock.
 
     const bool static_ok
-      = VALIDATE_STATIC_OPTION(m_st_max_block_size) &&
-        VALIDATE_STATIC_OPTION(m_st_connect_retransmit_period) &&
-        VALIDATE_STATIC_OPTION(m_st_connect_retransmit_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_buf_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_sync_rcvd_data_q_cumulative_max_size) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_flow_control_on) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_slack_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_to_advertise_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_delayed_ack_timer_period) &&
-        VALIDATE_STATIC_OPTION(m_st_max_full_blocks_before_ack_send) &&
-        VALIDATE_STATIC_OPTION(m_st_rexmit_on) &&
-        VALIDATE_STATIC_OPTION(m_st_max_rexmissions_per_packet) &&
-        VALIDATE_STATIC_OPTION(m_st_init_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_pacing_enabled) &&
-        VALIDATE_STATIC_OPTION(m_st_snd_bandwidth_est_sample_period_floor) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_strategy) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_init_cong_wnd_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_max_cong_wnd_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks) &&
-        VALIDATE_STATIC_OPTION(m_st_cong_ctl_classic_wnd_decay_percent) &&
-        VALIDATE_STATIC_OPTION(m_st_drop_packet_exactly_after_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_drop_all_on_drop_timeout) &&
-        VALIDATE_STATIC_OPTION(m_st_out_of_order_ack_restarts_drop_timer);
+      = VALIDATE_STATIC_OPTION(m_st_max_block_size)
+        && VALIDATE_STATIC_OPTION(m_st_connect_retransmit_period)
+        && VALIDATE_STATIC_OPTION(m_st_connect_retransmit_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_snd_buf_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_syn_rcvd_data_q_cumulative_max_size)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_flow_control_on)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_slack_percent)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_buf_max_size_to_advertise_percent)
+        && VALIDATE_STATIC_OPTION(m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent)
+        && VALIDATE_STATIC_OPTION(m_st_delayed_ack_timer_period)
+        && VALIDATE_STATIC_OPTION(m_st_max_full_blocks_before_ack_send)
+        && VALIDATE_STATIC_OPTION(m_st_rexmit_on)
+        && VALIDATE_STATIC_OPTION(m_st_max_rexmissions_per_packet)
+        && VALIDATE_STATIC_OPTION(m_st_init_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_snd_pacing_enabled)
+        && VALIDATE_STATIC_OPTION(m_st_snd_bandwidth_est_sample_period_floor)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_strategy)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_init_cong_wnd_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_max_cong_wnd_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks)
+        && VALIDATE_STATIC_OPTION(m_st_cong_ctl_classic_wnd_decay_percent)
+        && VALIDATE_STATIC_OPTION(m_st_drop_packet_exactly_after_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_drop_all_on_drop_timeout)
+        && VALIDATE_STATIC_OPTION(m_st_out_of_order_ack_restarts_drop_timer);
 
     if (!static_ok)
     {
@@ -6207,31 +6214,31 @@ bool Node::sock_validate_options(const Peer_socket_options& opts,
 
   // Now sanity-check the values themselves.  @todo Comment and reconsider these?
   const bool checks_ok
-    = VALIDATE_CHECK(opts.m_st_max_block_size >= 512) &&
-      VALIDATE_CHECK(opts.m_st_connect_retransmit_period.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_connect_retransmit_timeout.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_snd_buf_max_size >= 4 * opts.m_st_max_block_size) &&
-      VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size) &&
-      VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u)) &&
-      VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100) &&
-      VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1}) &&
-      VALIDATE_CHECK(util::in_closed_range(Fine_duration::zero(),
-                                           opts.m_st_delayed_ack_timer_period,
-                                           Fine_duration{seconds{1}})) &&
-      VALIDATE_CHECK(opts.m_st_max_full_blocks_before_ack_send >= 1) &&
-      VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet >= 1) &&
-      VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet <= numeric_limits<Low_lvl_packet::rexmit_id_t>::max());
-      VALIDATE_CHECK(opts.m_st_init_drop_timeout.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_snd_bandwidth_est_sample_period_floor.count() > 0) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_init_cong_wnd_blocks <= opts.m_st_cong_ctl_max_cong_wnd_blocks) &&
-      VALIDATE_CHECK
-        (4 * opts.m_st_cong_ctl_max_cong_wnd_blocks * opts.m_st_max_block_size <= opts.m_st_rcv_buf_max_size) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_cong_avoidance_increment_blocks < 20) &&
-      VALIDATE_CHECK(opts.m_st_cong_ctl_classic_wnd_decay_percent <= 100) &&
-      VALIDATE_CHECK(util::in_closed_range<size_t>(1, opts.m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks, 10)) &&
-      VALIDATE_CHECK(opts.m_dyn_drop_timeout_ceiling > 4 * opts.m_st_init_drop_timeout) &&
-      VALIDATE_CHECK(opts.m_dyn_drop_timeout_backoff_factor >= 1) &&
-      VALIDATE_CHECK(opts.m_dyn_rcv_wnd_recovery_timer_period.count() > 0);
+    = VALIDATE_CHECK(opts.m_st_max_block_size >= 512)
+      && VALIDATE_CHECK(opts.m_st_connect_retransmit_period.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_connect_retransmit_timeout.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_snd_buf_max_size >= 4 * opts.m_st_max_block_size)
+      && VALIDATE_CHECK(opts.m_st_rcv_buf_max_size >= 4 * opts.m_st_max_block_size)
+      && VALIDATE_CHECK(util::in_open_closed_range(0u, opts.m_st_rcv_buf_max_size_to_advertise_percent, 100u))
+      && VALIDATE_CHECK(opts.m_st_rcv_max_packets_after_unrecvd_packet_ratio_percent >= 100)
+      && VALIDATE_CHECK(opts.m_st_delayed_ack_timer_period <= seconds{1})
+      && VALIDATE_CHECK(util::in_closed_range(Fine_duration::zero(),
+                                              opts.m_st_delayed_ack_timer_period,
+                                              Fine_duration{seconds{1}}))
+      && VALIDATE_CHECK(opts.m_st_max_full_blocks_before_ack_send >= 1)
+      && VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet >= 1)
+      && VALIDATE_CHECK(opts.m_st_max_rexmissions_per_packet <= numeric_limits<Low_lvl_packet::rexmit_id_t>::max())
+      && VALIDATE_CHECK(opts.m_st_init_drop_timeout.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_snd_bandwidth_est_sample_period_floor.count() > 0)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_init_cong_wnd_blocks <= opts.m_st_cong_ctl_max_cong_wnd_blocks)
+      && VALIDATE_CHECK
+           (4 * opts.m_st_cong_ctl_max_cong_wnd_blocks * opts.m_st_max_block_size <= opts.m_st_rcv_buf_max_size)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_cong_avoidance_increment_blocks < 20)
+      && VALIDATE_CHECK(opts.m_st_cong_ctl_classic_wnd_decay_percent <= 100)
+      && VALIDATE_CHECK(util::in_closed_range<size_t>(1, opts.m_st_cong_ctl_cong_wnd_on_drop_timeout_blocks, 10))
+      && VALIDATE_CHECK(opts.m_dyn_drop_timeout_ceiling > 4 * opts.m_st_init_drop_timeout)
+      && VALIDATE_CHECK(opts.m_dyn_drop_timeout_backoff_factor >= 1)
+      && VALIDATE_CHECK(opts.m_dyn_rcv_wnd_recovery_timer_period.count() > 0);
 
   // On error, validate_option_check() has set *err_code.
 
@@ -6254,7 +6261,7 @@ Peer_socket_info Node::sock_info(Peer_socket::Const_ptr sock)
     /* WARNING!!!  sock->m_mutex is locked, but WE must unlock it before returning!  Can't leave that
      * to the caller, because we must unlock at a specific point below, right before post()ing
      * sock_info_worker() onto thread W.  Use a Lock_guard that adopts an already-locked mutex. */
-    Peer_socket::Lock_guard lock(sock->m_mutex, adopt_lock);
+    Peer_socket::Lock_guard lock{sock->m_mutex, adopt_lock};
 
     if (!running())
     {

@@ -31,11 +31,11 @@ namespace flow::net_flow
 
 const boost::unordered_map<Event_set::Event_type, Function<bool (const Node*, const boost::any&)>>
         Event_set::S_EV_TYPE_TO_IS_ACTIVE_NODE_MTD
-          ({
+          {{
              { Event_set::Event_type::S_PEER_SOCKET_READABLE, &Node::sock_is_readable },
              { Event_set::Event_type::S_PEER_SOCKET_WRITABLE, &Node::sock_is_writable },
              { Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE, &Node::serv_is_acceptable }
-           });
+           }};
 
 // Event_set implementations.
 
@@ -456,8 +456,7 @@ bool Event_set::sync_wait_impl(const Fine_duration& max_wait, Error_code* err_co
 
 bool Event_set::sync_wait(Error_code* err_code)
 {
-  using boost::chrono::microseconds;
-  return sync_wait(microseconds(microseconds::max()), err_code); // Wait indefinitely.  May throw.
+  return sync_wait(boost::chrono::microseconds::max(), err_code); // Wait indefinitely.  May throw.
 }
 
 void Event_set::close(Error_code* err_code)
@@ -568,6 +567,7 @@ bool Event_set::events_wanted(Error_code* err_code) const
   }
   // else
 
+  err_code->clear();
   return one_of(m_want, boost::not1(ev_type_to_socks_map_entry_is_empty));
 } // Event_set::events_wanted()
 
@@ -736,9 +736,9 @@ Event_set::Ev_type_to_socks_map Event_set::empty_ev_type_to_socks_map() // Stati
   return Ev_type_to_socks_map
          {{
             // Linked_hash_map order is significant.  Iteration will occur in this canonical order in logs, etc.
-            { Event_type::S_PEER_SOCKET_READABLE, Sockets() },
-            { Event_type::S_PEER_SOCKET_WRITABLE, Sockets() },
-            { Event_type::S_SERVER_SOCKET_ACCEPTABLE, Sockets() }
+            { Event_type::S_PEER_SOCKET_READABLE, Sockets{} },
+            { Event_type::S_PEER_SOCKET_WRITABLE, Sockets{} },
+            { Event_type::S_SERVER_SOCKET_ACCEPTABLE, Sockets{} }
           }};
 }
 
@@ -1290,7 +1290,7 @@ void Node::event_set_close(Event_set::Ptr event_set, Error_code* err_code)
      * leave that to the caller, because we must unlock at a specific point below, right before
      * post()ing event_set_close_worker() onto thread W.  Use a Lock_guard that adopts an
      * already-locked mutex. */
-    Event_set::Lock_guard lock(event_set->m_mutex, adopt_lock);
+    Event_set::Lock_guard lock{event_set->m_mutex, adopt_lock};
 
     /* Put the rest of the work into thread W.  For justification, see big comment in listen().
      * Addendum regarding performance: close_abruptly() is probably called more frequently than
@@ -1425,7 +1425,7 @@ void Node::interrupt_all_waits_worker()
   for (Event_set::Ptr event_set : m_event_sets)
   {
     // Work on one Event_set at a time.  Lock it.
-    Event_set::Lock_guard lock(event_set->m_mutex);
+    Event_set::Lock_guard lock{event_set->m_mutex};
 
     if (event_set->m_state == Event_set::State::S_WAITING)
     {

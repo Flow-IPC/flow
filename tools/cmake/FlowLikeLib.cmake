@@ -104,6 +104,11 @@
 #     like:
 #       set(SRCS ipc_core/a/b/x.cpp ipc_core/a/b/y.cpp ipc_core/d/e/a.cpp ...)
 #       set(HDRS ipc_core/a/b/x.hpp ipc_core/d/e/a.hpp ...)
+#   DOC_ONLY_HDRS (optional): Headers (relative paths a-la HDRS) that exist in the source tree but are
+#     deliberately not exported (nor compiled): documentation-only files (e.g., a Doxygen-scanned concept
+#     "header" that no code ever `#include`s).  Context: we verify that each header/schema in the source tree
+#     is in HDRS or DOC_ONLY_HDRS (or under a test/ dir -- test-only, never exported); one in none of
+#     those places is a fatal error, as a user building against an installed tree would lack it.
 #   generate_custom_srcs(): Define this function if and only if, just before this .cmake performs add_library(SRCS)
 #     and exports HDRS, you need to add more source files to compile and/or headers to export.  This is necessary
 #     at least when those sources and/or headers are to be themselves generated from something; the known use case
@@ -176,6 +181,30 @@ endif()
 
 message(VERBOSE "Source (to compile) list: [${SRCS}].")
 message(VERBOSE "Exported header list: [${HDRS}].")
+
+# Sanity-check HDRS: every header/schema in the source tree must be listed in HDRS -- except test-only ones
+# (which by convention live under some test/ directory and are never exported) and the optional
+# DOC_ONLY_HDRS (see doc header above).  Otherwise our own builds would still work (src/ dirs being on the
+# include-path throughout), but a user building against an installed tree would find the header missing.
+# It is otherwise easy to miss such a bug.
+#
+# (Notes: We run before the generate_custom_srcs() hook possibly appends generated headers to HDRS; those
+# live under the build dir, not the source tree, so they are not this check's concern.  Also -- contrast with
+# the anti-file(GLOB) note in our doc header above: this glob merely verifies; the build inputs remain the
+# explicit lists; in the worst case a stale glob delays this diagnostic, never breaking a correct build.)
+file(GLOB_RECURSE hdrs_on_disk RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS
+     ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_SOURCE_DIR}/*.capnp)
+foreach(hdr ${hdrs_on_disk})
+  if((NOT (hdr MATCHES "(^|/)test/")) AND (NOT (hdr IN_LIST HDRS)) AND (NOT (hdr IN_LIST DOC_ONLY_HDRS)))
+    message(FATAL_ERROR "Header/schema [${hdr}] exists in the source tree but is absent from HDRS, meaning "
+                          "it would not be exported by `make install` (or equivalent), and a user building "
+                          "against the installed tree would lack it.  Either add it to HDRS; or if it is "
+                          "test-only move it under a test/ directory; or if it is docs-only add it to "
+                          "DOC_ONLY_HDRS.")
+  endif()
+endforeach()
+unset(hdrs_on_disk)
+
 if(COMMAND generate_custom_srcs)
   message(CHECK_START "(Generating custom sources/headers.)")
   list(APPEND CMAKE_MESSAGE_INDENT "- ")

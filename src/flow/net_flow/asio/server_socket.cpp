@@ -100,7 +100,7 @@ void Server_socket::async_accept_impl(Handler_func&& on_result,
     <Server_socket, net_flow::Server_socket, Peer_socket::Ptr>
     (serv,
      std::move(non_blocking_func),
-     0, Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE, wait_until,
+     nullptr, Event_set::Event_type::S_SERVER_SOCKET_ACCEPTABLE, wait_until,
      std::move(on_result));
 }
 

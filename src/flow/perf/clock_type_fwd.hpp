@@ -177,7 +177,7 @@ using Clock_types_subset = std::bitset<size_t(Clock_type::S_END_SENTINEL)>;
  * ### Design rationale ###
  * Performance is absolutely key, so this is to be identical to the underlying (and publicly accessible)
  * `array` in terms of data storage and operations.  I wrote this `struct` to avoid overloading things like
- * `operator-(a, b)` and `operator<<(ostream&, x)`, when the underlying type of `a`, `b, `x` is
+ * `operator-(a, b)` and `operator<<(ostream&, x)`, when the underlying type of `a`, `b`, `x` is
  * a standard `array`: we don't want to overload such operations on a general type, even if it's only in our
  * namespace.  Historically, the first cut simply made non-operator-overload free function versions of such things
  * operating directly on the `array`s.

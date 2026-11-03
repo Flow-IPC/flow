@@ -41,7 +41,7 @@
  * While the server sits in SYN_RCVD (SYN sent, SYN_ACK_ACK not yet received), DATA packets may
  * already arrive from the peer (re-ordering, or peer-already-ESTABLISHED-while-our-SYN_ACK_ACK-lost).
  * handle_data_to_syn_rcvd() buffers them, subject to
- * Peer_socket_options::m_st_rcv_sync_rcvd_data_q_cumulative_max_size -- a defense against
+ * Peer_socket_options::m_st_rcv_syn_rcvd_data_q_cumulative_max_size -- a defense against
  * SYN-flood-style resource exhaustion where an attacker parks the server in SYN_RCVD and then keeps
  * feeding DATA.  This test verifies that cap is enforced.
  *
@@ -117,7 +117,7 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
   });
 
   Node_options srv_opts;
-  srv_opts.m_dyn_sock_opts.m_st_rcv_sync_rcvd_data_q_cumulative_max_size = CAP;
+  srv_opts.m_dyn_sock_opts.m_st_rcv_syn_rcvd_data_q_cumulative_max_size = CAP;
   // Long enough to send all our DATA before server retransmits SYN_ACK (which would promptly end SYN_RCVD).
   srv_opts.m_dyn_sock_opts.m_st_connect_retransmit_period = RETX_PERIOD;
 
@@ -177,7 +177,8 @@ TEST(Net_flow_syn_rcvd_data, Limit_enforced_on_overflow)
     FAIL() << "Unexpected exception: [" << exc.what() << "].";
   }
 
-  // Cap is hard: bytes that survived the cap (= everything the server's rcv pipeline ultimately accepted) must not exceed it.
+  /* Cap is hard: bytes that survived the cap (= everything the server's rcv pipeline ultimately accepted) must not
+   * exceed it. */
   EXPECT_LE(n_delivered_bytes, CAP)
     << "Bytes delivered through the server rcv pipeline [" << n_delivered_bytes << "] exceed cap [" << CAP << "]; "
        "cap was not enforced.";

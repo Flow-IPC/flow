@@ -37,7 +37,7 @@ namespace flow::cfg
  * Config_manager which supports all that.  (You can also develop your own handling of `Option_set<Value_set>`
  * instead.  See Config_manager doc header.)
  *
- * The life cycle and usage are simple.  Define your `Value_set` (see Option_set doc header for formal requirements,
+ * The lifecycle and usage are simple.  Define your `Value_set` (see Option_set doc header for formal requirements,
  * but basically you'll need a `struct`, an option-defining function using FLOW_CFG_OPTION_SET_DECLARE_OPTION(),
  * and possibly an inter-option validator function).  Construct the `Static_config_manager<Value_set>`.
  * Call apply() to read a file.  (You can do this more than once, potentially for different files.  As of this writing
