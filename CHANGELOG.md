@@ -31,12 +31,12 @@
 
 # Version 3.0.0 (Nov 2026)
 * flow.util:
-  * Add `flow::util::stat` sub-namespace: facilities for working with simple stat-holding `struct`s ("stat-sets"). Each data member ("stat-member") is classified as an accumulator (counter), gauge, or high-water mark of a particular gauge.
-    * Add `Histogram_counter`: usable as accumulator stat-member and standalone.
-    * Stat-consuming API: direct-read stat-members from stat-sets; reset and pretty-print stat-sets; more.
-    * Stat-collecting API: collect under concurrency (optionally with thread-local sharding) or single-threaded; or integrate with third-party stat sources.
+  * Add `flow::util::stat` sub-namespace: Facilities for working with simple stat-holding `struct`s ("stat-sets"). Each data member ("stat-member") is classified as an accumulator (counter), gauge, or high-water mark of a particular gauge.
+    * Add `Histogram_counter`: Usable as accumulator stat-member and standalone.
+    * Stat-consuming API: Direct-read stat-members from stat-sets; reset and pretty-print stat-sets; more.
+    * Stat-collecting API: Collect under concurrency (optionally with thread-local sharding) or single-threaded; or integrate with third-party stat sources.
   * Add thread-local-related utilities:
-    * `flow::util::Thread_local_state_registry<T>`: a thread-local `T` per thread, plus access to all extant threads' `T`s. Companions `Poll_flag` and `Polled_shared_state<Shared_state>` support signaling a rare cross-thread request that each thread notices cheaply on its fast-path.
+    * `flow::util::Thread_local_state_registry<T>`: A thread-local `T` per thread, plus access to all extant threads' `T`s. Companions `Poll_flag` and `Polled_shared_state<Shared_state>` support signaling a rare cross-thread request that each thread notices cheaply on its fast-path.
     * `Thread_local_ptr<T>` (fast `boost::thread_specific_ptr<T>` equivalent).
     * `Thread_token`, `this_thread_unique_token()` (actually-unique thread IDs).
     * `Thread_local_obj_deinit_safe<T, Tag>`.
@@ -47,34 +47,34 @@
     * Smaller `sizeof()`. #84
   * `flow::util::Linked_hash_map` and `Linked_hash_set`:
     * Add move-semantics insertion (key need not be copyable).
-    * Perf and memory-use improvements: key not stored twice per entry; open-addressed set instead of closed-addressed map.
+    * Perf and memory-use improvements: Key not stored twice per entry; open-addressed set instead of closed-addressed map.
     * Remove `[pop_]front()`, `[pop_]back()` methods (stylistically inappropriate for associative containers).
   * Add misc utilities: `flow::util::Action_registry`, `Locked_proxy<Target, Mutex>`, `Default_init_allocator`, `construct_at()`, `default_init_at()`, `Span` (alias), and arithmetic and pointer-math/alignment free functions.
 * flow.log:
   * Perf improvements at every log call site that passes the verbosity filter; and when writing message strings in ~all `flow::log::Logger`s. (From internal use of thread-locality and faster lookups.)
   * Bug fix: Logging near thread death -- such as from the destructor of a `thread_local` object -- could hit undefined behavior, because certain thread-local flow.log facilities may by then be deinitialized. #116
   * Add `flow::log::Log_context::set_logger()`; and `Log_context_mt`, a variant whose `set_logger()` is thread-safe.
-  * `flow::log::Logger::this_thread_set_logged_nickname()` (used also by much of flow.async): when the input nickname exceeds the Linux thread-name length limit (15 characters), and the function is to also affect the OS thread name (as for `top` et al), that name is now truncated from the back, not the front.
+  * `flow::log::Logger::this_thread_set_logged_nickname()` (used also by much of flow.async): When the input nickname exceeds the Linux thread-name length limit (15 characters), and the function is to also affect the OS thread name (as for `top` et al), that name is now truncated from the back, not the front.
     * The `Async_file_logger` worker thread's nickname now fits that limit.
   * `Async_file_logger` worker thread resets its core-affinity (see flow.async below), so it no longer inherits the creating thread's.
 * flow.async:
   * Add `flow::async::reset_thread_pinning()` and `reset_this_thread_pinning()`, which undo (on-demand) the default OS behavior of a thread inheriting its parent's setting.
   * `flow::async::optimize_pinning_in_thread_pool()` takes an optional `Error_code*`.
 * NetFlow (`flow::net_flow`):
-  * Hardening: Use a CSPRNG for ephemeral ports, initial sequence numbers, and security tokens. #112
-  * Hardening: Add configurable listen backlog (default 64) and limit on DATA cached in SYN_RCVD state (default 64Ki bytes). #113
+  * Hardening: Use a CSPRNG for ephemeral ports, initial sequence numbers, and security tokens. Reported by Sebastián Alba Vives (@Sebasteuo). #112
+  * Hardening: Add configurable listen backlog (default 64) and limit on DATA cached in SYN_RCVD state (default 64Ki bytes). Reported by Sebastián Alba Vives (@Sebasteuo). #113
   * Minor bug fixes (~no splash radius).
 * Build/dependencies:
   * Dependency bump: fmt v10.0.0 to 11.0.2. #104
   * Boost.Random is now a required Boost library.
   * Flow and Flow-like projects now fail the build if an export-worthy header is not actually exported.
-* Significantly expand unit-test coverage: many new tests (including for ~all new APIs above) and expand existing ones. #82
+* Significantly expand unit-test coverage: Many new tests (including for ~all new APIs above) and expand existing ones. #82
 * GitHub CI pipeline:
   * Conan 1 => 2 migration. #115
   * Reduce pipeline run time: Dependency caching; parallelized core build step.
   * Add "early-warning" jobs against newest (as opposed to only min-supported) dependency versions.
   * Core-dump stack traces; LSAN suppressions; misc.
-* Coding guide: several additions.
+* Coding guide: Several additions.
 * Comment and/or doc changes.
 
 ## API notes
@@ -85,13 +85,13 @@
       * Per-stat helpers that work the same on plain and `atomic` members: `load()`, `store()`, `fetch_add()`, `fetch_sub()`, `update_hi_wmark()`.
       * `Histogram_counter`; `Stat_set_list`; `Global_stats`; `Stat_name`.
     * As pertains to thread-local state:
-      * `Thread_local_state_registry<T>`: maintains a thread-local `T` per thread, created on-demand via `this_thread_state()` and deleted when its thread exits or the registry is destroyed, whichever happens first. To access all extant threads' `T`s, call `while_locked(task)`; `task()` receives the registry's map of extant `T`s.
+      * `Thread_local_state_registry<T>`: Maintains a thread-local `T` per thread, created on-demand via `this_thread_state()` and deleted when its thread exits or the registry is destroyed, whichever happens first. To access all extant threads' `T`s, call `while_locked(task)`; `task()` receives the registry's map of extant `T`s.
         * At its core this is similar to `boost::thread_specific_ptr`, except that utility deliberately holds no registry of extant threads. Use the registry functionality with care; the doc headers give advice.
-      * `Poll_flag`: a single boolean flag, armed via `arm_next_poll()` (typically from another thread) and both checked and disarmed via `poll_armed()`, cheaply enough for the hottest of paths.
-      * `Polled_shared_state<Shared_state>`: optional companion to `Thread_local_state_registry`, for the pattern wherein one embeds a `Poll_flag` in each thread's `T` and arms them all to signal a rare cross-thread request, which each thread checks cheaply along its fast-path. `Shared_state` carries any state about the overall request, accessed via `Polled_shared_state::while_locked()`.
-      * `Thread_local_ptr<T>`: semantically identical to `boost::thread_specific_ptr<T>` but with significantly faster `get()`.
-      * `Thread_local_obj_deinit_safe<T, Tag>`: equivalent to a naked `thread_local T`, but for non-trivially-destructible `T` guards access to the object, yielding null if the object has been destroyed near thread exit.
-      * `this_thread_unique_token()` (and type `Thread_token`): similar to `this_thread::get_id()` but guaranteed never to recycle values.
+      * `Poll_flag`: A single boolean flag, armed via `arm_next_poll()` (typically from another thread) and both checked and disarmed via `poll_armed()`, cheaply enough for the hottest of paths.
+      * `Polled_shared_state<Shared_state>`: Optional companion to `Thread_local_state_registry`, for the pattern wherein one embeds a `Poll_flag` in each thread's `T` and arms them all to signal a rare cross-thread request, which each thread checks cheaply along its fast-path. `Shared_state` carries any state about the overall request, accessed via `Polled_shared_state::while_locked()`.
+      * `Thread_local_ptr<T>`: Semantically identical to `boost::thread_specific_ptr<T>` but with significantly faster `get()`.
+      * `Thread_local_obj_deinit_safe<T, Tag>`: Equivalent to a naked `thread_local T`, but for non-trivially-destructible `T` guards access to the object, yielding null if the object has been destroyed near thread exit.
+      * `this_thread_unique_token()` (and type `Thread_token`): Similar to `this_thread::get_id()` but guaranteed never to recycle values.
     * As pertains to `Basic_blob<Allocator>` and `Blob_with_log_context`:
       * Stateful `Allocator` (e.g., `boost::interprocess::allocator`) support for `Basic_blob`.
       * New overloads that zero-initialize memory during buffer allocation: `reserve()`, `resize()`, and `resize()`ing ctor, taking tag-typed value `CLEAR_ON_ALLOC`.
@@ -99,28 +99,28 @@
     * As pertains to `Linked_hash_map` and `Linked_hash_set`:
       * `Linked_hash_map::insert()` and `operator[]()` overloads with move-semantics for keys and, where applicable, mapped-values; `Linked_hash_set::insert()` overload with move-semantics for keys.
       * Type alias members such as `Key` and `Hash`.
-    * `Action_registry`: a simple singleton template (with a tag parameter separating registries); code sites (particularly singleton initializers) can register actions (functors); other code can execute all actions in registration order, passing the same args to each.
-    * `Locked_proxy<Target, Mutex>`: proxy-pointer class template for the execute-around-pointer idiom.
-    * `Default_init_allocator`: allocator for STL-compliant containers that avoids zeroing things like PoDs and `array<>`s.
+    * `Action_registry`: A simple singleton template (with a tag parameter separating registries); code sites (particularly singleton initializers) can register actions (functors); other code can execute all actions in registration order, passing the same args to each.
+    * `Locked_proxy<Target, Mutex>`: Proxy-pointer class template for the execute-around-pointer idiom.
+    * `Default_init_allocator`: Allocator for STL-compliant containers that avoids zeroing things like PoDs and `array<>`s.
     * `construct_at()`, mimicking the C++20 STL facility of the same name; `default_init_at()`, reminiscent of C++23 `std::start_lifetime_as()`.
-    * Arithmetic: new `constexpr` `round_to_multiple()`; `ceil_div()` is now `constexpr` and slightly more flexible.
+    * Arithmetic: New `constexpr` `round_to_multiple()`; `ceil_div()` is now `constexpr` and slightly more flexible.
     * Pointer-math/alignment free function templates: `is_power_of_two()`, `max_align_sz()`, `aligned_sz_of()`, `aligned_prefix_before()`, `after_aligned_prefix()`.
-    * `Span` and `DYNAMIC_EXTENT`: aliases for `std::span`-like ops.
+    * `Span` and `DYNAMIC_EXTENT`: Aliases for `std::span`-like ops.
     * `String_view::starts_with()` and `ends_with()` are now `constexpr`.
     * `setup_auto_cleanup()` now takes its functor via move semantics.
   * In `flow::log`:
-    * `Log_context::set_logger()`: change the deriver's `Logger*` (not thread-safe).
-    * `Log_context_mt`: variant of `Log_context` whose `Logger*` can be changed thread-safely via `set_logger()`; the mutex also protects copy/move and `swap()`.
-      * Mutex-locked logging: new macros `FLOW_LOG_..._LOCKED()` (lock, log, unlock); method `log_while_locked()` for a custom operation. New macro `FLOW_LOG_SET_LOCKED_CONTEXT()` is to `FLOW_LOG_SET_CONTEXT()` what `FLOW_LOG_..._LOCKED()` is to `FLOW_LOG_...()`.
+    * `Log_context::set_logger()`: Change the deriver's `Logger*` (not thread-safe).
+    * `Log_context_mt`: Variant of `Log_context` whose `Logger*` can be changed thread-safely via `set_logger()`; the mutex also protects copy/move and `swap()`.
+      * Mutex-locked logging: New macros `FLOW_LOG_..._LOCKED()` (lock, log, unlock); method `log_while_locked()` for a custom operation. New macro `FLOW_LOG_SET_LOCKED_CONTEXT()` is to `FLOW_LOG_SET_CONTEXT()` what `FLOW_LOG_..._LOCKED()` is to `FLOW_LOG_...()`.
       * Unlike `Log_context`, it has no `get_logger()` or `get_log_component()` (an unlocked accessor would defeat the purpose).
       * Usage/perf point: Each such log call site locks a mutex, even when the message does not pass the verbosity filter. Prefer to avoid such logging along fast-paths; the doc header gives advice.
   * In `flow::async`:
-    * `reset_thread_pinning()` and `reset_this_thread_pinning()`: reset the core-affinity (in particular as inherited from parent thread) of the given/calling thread to no preference, leaving migration decisions to the OS.
-    * `optimize_pinning_in_thread_pool()`: new optional arg `Error_code*`, making it compliant with the standard Flow error-emission pattern.
+    * `reset_thread_pinning()` and `reset_this_thread_pinning()`: Reset the core-affinity (in particular as inherited from parent thread) of the given/calling thread to no preference, leaving migration decisions to the OS.
+    * `optimize_pinning_in_thread_pool()`: New optional arg `Error_code*`, making it compliant with the standard Flow error-emission pattern.
   * In `flow::cfg`:
-    * `value_set_member_id_to_opt_name()`: new optional arg `sep_replacement`.
+    * `value_set_member_id_to_opt_name()`: New optional arg `sep_replacement`.
   * In `flow::net_flow`:
-    * New `Node`-level socket-option `m_dyn_accept_backlog_limit` (default 64): a `Server_socket` rejects (with RST) any SYN once its count of half-opened plus not-yet-accepted connections reaches this limit, akin to the `backlog` arg to Berkeley-socket `listen()`. Changing it affects subsequently created `Server_socket`s only.
+    * New `Node`-level socket-option `m_dyn_accept_backlog_limit` (default 64): A `Server_socket` rejects (with RST) any SYN once its count of half-opened plus not-yet-accepted connections reaches this limit, akin to the `backlog` arg to Berkeley-socket `listen()`. Changing it affects subsequently created `Server_socket`s only.
     * New socket-option `m_st_rcv_syn_rcvd_data_q_cumulative_max_size` (default 64Ki bytes) limiting the cumulative size of DATA payload cached for a half-opened (SYN_RCVD-state) connection. Previously these were limited only by the more general (and typically much more generous) receive-buffer limit.
 * Breaking changes:
   * Remove `flow::util::Linked_hash_{map|set}::front()` and `back()` as well as `Linked_hash_set::pop_{front|back}()`.
