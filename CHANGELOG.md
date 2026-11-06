@@ -41,10 +41,10 @@
     * `Thread_token`, `this_thread_unique_token()` (actually-unique thread IDs).
     * `Thread_local_obj_deinit_safe<T, Tag>`.
   * `flow::util::Basic_blob` and `Blob_with_log_context`:
-    * Bug fix: Containers of blobs (e.g., `vector<Blob>`) silently copied, instead of moving, blobs when relocating them, due to missing `noexcept`s. #76
+    * Bug fix: Containers of blobs (e.g., `vector<Blob>`) silently copied, instead of moving, blobs when relocating them, due to missing `noexcept`s.
     * Support stateful `Allocator`s (such as `boost::interprocess::allocator`); previously this did not compile.
     * Add optional allocate-and-zero in one step (`CLEAR_ON_ALLOC` overloads), which can be significantly faster than allocating and then zeroing.
-    * Smaller `sizeof()`. #84
+    * Smaller `sizeof()`.
   * `flow::util::Linked_hash_map` and `Linked_hash_set`:
     * Add move-semantics insertion (key need not be copyable).
     * Perf and memory-use improvements: Key not stored twice per entry; open-addressed set instead of closed-addressed map.
@@ -52,7 +52,7 @@
   * Add misc utilities: `flow::util::Action_registry`, `Locked_proxy<Target, Mutex>`, `Default_init_allocator`, `construct_at()`, `default_init_at()`, `Span` (alias), and arithmetic and pointer-math/alignment free functions.
 * flow.log:
   * Perf improvements at every log call site that passes the verbosity filter; and when writing message strings in ~all `flow::log::Logger`s. (From internal use of thread-locality and faster lookups.)
-  * Bug fix: Logging near thread death -- such as from the destructor of a `thread_local` object -- could hit undefined behavior, because certain thread-local flow.log facilities may by then be deinitialized. #116
+  * Bug fix: Logging near thread death -- such as from the destructor of a `thread_local` object -- could hit undefined behavior, because certain thread-local flow.log facilities may by then be deinitialized.
   * Add `flow::log::Log_context::set_logger()`; and `Log_context_mt`, a variant whose `set_logger()` is thread-safe.
   * `flow::log::Logger::this_thread_set_logged_nickname()` (used also by much of flow.async): When the input nickname exceeds the Linux thread-name length limit (15 characters), and the function is to also affect the OS thread name (as for `top` et al), that name is now truncated from the back, not the front.
     * The `Async_file_logger` worker thread's nickname now fits that limit.
@@ -61,16 +61,16 @@
   * Add `flow::async::reset_thread_pinning()` and `reset_this_thread_pinning()`, which undo (on-demand) the default OS behavior of a thread inheriting its parent's setting.
   * `flow::async::optimize_pinning_in_thread_pool()` takes an optional `Error_code*`.
 * NetFlow (`flow::net_flow`):
-  * Hardening: Use a CSPRNG for ephemeral ports, initial sequence numbers, and security tokens. Reported by Sebastián Alba Vives (@Sebasteuo). #112
-  * Hardening: Add configurable listen backlog (default 64) and limit on DATA cached in SYN_RCVD state (default 64Ki bytes). Reported by Sebastián Alba Vives (@Sebasteuo). #113
+  * Hardening: Use a CSPRNG for ephemeral ports, initial sequence numbers, and security tokens. Reported by Sebastián Alba Vives (@Sebasteuo).
+  * Hardening: Add configurable listen backlog (default 64) and limit on DATA cached in SYN_RCVD state (default 64Ki bytes). Reported by Sebastián Alba Vives (@Sebasteuo).
   * Minor bug fixes (~no splash radius).
 * Build/dependencies:
-  * Dependency bump: fmt v10.0.0 to 11.0.2. #104
+  * Dependency bump: fmt v10.0.0 to 11.0.2.
   * Boost.Random is now a required Boost library.
   * Flow and Flow-like projects now fail the build if an export-worthy header is not actually exported.
-* Significantly expand unit-test coverage: Many new tests (including for ~all new APIs above) and expand existing ones. #82
+* Significantly expand unit-test coverage: Many new tests (including for ~all new APIs above) and expand existing ones.
 * GitHub CI pipeline:
-  * Conan 1 => 2 migration. #115
+  * Conan 1 => 2 migration.
   * Reduce pipeline run time: Dependency caching; parallelized core build step.
   * Add "early-warning" jobs against newest (as opposed to only min-supported) dependency versions.
   * Core-dump stack traces; LSAN suppressions; misc.
