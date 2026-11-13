@@ -129,8 +129,8 @@ class flow::util::stat::Stat_set_list&lt; Stat_set_t, N &gt;</div><p >Dead-simpl
 <p >It really <em>is</em> an <code>array&lt;Stat_set, S_N&gt;</code> &ndash; initialized to hold <a class="el" href="classflow_1_1util_1_1stat_1_1Stat__set__list.html#a1be8e2fb40a5fb516a6063162e6a8f11" title="The template parameter N.">S_N</a> default-constructed <code>Stat_set</code>s &ndash; albeit with syntactic sugar for convenient/expressive access.</p>
 <dl class="section note"><dt>Note</dt><dd>As a consequence, it is copy-ctible and copy-assignable if and only if the aforementioned <code>array</code> type is. To wit: <code>Stat_set</code> is &lt;=&gt; a <code><a class="el" href="classflow_1_1util_1_1stat_1_1Stat__set__list.html" title="Dead-simple collection (essentially a statically-sized array) of up-to-N Stat_sets,...">Stat_set_list</a>&lt;Stat_set, N&gt;</code> is. This simple semantic is why this class template lacks constructors (as does <code>array</code> generally).</dd></dl>
 <p>Hence:</p><ul>
-<li><code><a class="el" href="classflow_1_1util_1_1stat_1_1Stat__set__list.html" title="Dead-simple collection (essentially a statically-sized array) of up-to-N Stat_sets,...">Stat_set_list</a>&lt;Stat_set, N&gt; stats;</code> // Constructs N things like this: Stat_set{}.</li>
-<li><code>auto stats2 = stats;</code> // Constructs N more like this: Stat_set{stats[idx]}.</li>
+<li><code><a class="el" href="classflow_1_1util_1_1stat_1_1Stat__set__list.html" title="Dead-simple collection (essentially a statically-sized array) of up-to-N Stat_sets,...">Stat_set_list</a>&lt;Stat_set, N&gt; stats; // Constructs N things like this: Stat_set{}.</code></li>
+<li><code>auto stats2 = stats; // Constructs N more like this: Stat_set{stats[idx]}.</code></li>
 </ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classflow_1_1util_1_1stat_1_1Global__stats.html" title="A straightforward global/singleton holder of a single Stat_set_list&lt;Stat_set, S_N&gt;; the template para...">Global_stats</a> which can provide global-singleton access to a <a class="el" href="classflow_1_1util_1_1stat_1_1Stat__set__list.html" title="Dead-simple collection (essentially a statically-sized array) of up-to-N Stat_sets,...">Stat_set_list</a>.</dd></dl>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -304,7 +304,7 @@ template&lt;typename Stat_set_t , size_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 6 2026 21:36:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 13 2026 03:00:34 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

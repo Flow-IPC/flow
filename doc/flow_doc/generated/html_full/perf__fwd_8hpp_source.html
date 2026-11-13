@@ -272,7 +272,7 @@ $(function() {
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="comment"> * @note This is suitable for using the Flow-recommended boost.asio wrapper/helper API, flow::async.</span></div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="comment"> * @warning Using `timed_function(handler)` would &quot;work&quot; too, in that it would compile and at a first glance appear to</span></div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="comment"> *          work fine.  The problem: If `handler` is bound to an executor -- most commonly a boost.asio strand</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> *          (util::Strand) -- then using timed_function() would &quot;unbind it.&quot;  So it it was bound to `Strand S`, meant</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span><span class="comment"> *          (util::Strand) -- then using timed_function() would &quot;unbind it.&quot;  So it was bound to `Strand S`, meant</span></div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment"> *          to make certain `handler()` never executed concurrently with other handlers bound to `S`, then that</span></div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment"> *          constraint would (silently!) no longer be observed -- leading to terrible intermittent concurrency bugs.</span></div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment"> * @note boost.asio handlers always return `void` (meaning anything else they might return is ignored).  Hence there is</span></div>
@@ -352,7 +352,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 6 2026 21:36:39 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 13 2026 03:00:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

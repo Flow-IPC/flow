@@ -656,7 +656,7 @@ $(function() {
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span><span class="comment"> * critical sections around the calls to `m_low_lvl_sock::async_receive()` and `m_low_lvl_sock::async_send()`,</span></div>
 <div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span><span class="comment"> * but as noted before this seems extremely unlikely to have any real cost due to the shortess of critical</span></div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span><span class="comment"> * sections in both threads.  If this is APPROACH 4, then I&#39;d say just time how much absolute delay is</span></div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span><span class="comment"> * introduced by a `post(W2&#39;)` or `post(W2&#39;&#39;)` of the async send call compared to directly making such a</span></div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span><span class="comment"> * introduced by a `post()` onto W2&#39; or W2&#39;&#39; of the async send call compared to directly making such a</span></div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span><span class="comment"> * call on thread W, as is done today.  I suspect it&#39;s small, in which case the action is go for</span></div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span><span class="comment"> * APPROACH 4... finally.</span></div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span><span class="comment"> *</span></div>
@@ -2702,7 +2702,7 @@ $(function() {
 <div class="line"><a id="l02630" name="l02630"></a><span class="lineno"> 2630</span><span class="comment">   *   - `sock-&gt;m_mutex` is locked and after entering `sock-&gt;[sync_]send()`;</span></div>
 <div class="line"><a id="l02631" name="l02631"></a><span class="lineno"> 2631</span><span class="comment">   *   - no changes to `*sock` have been made since `m_mutex` was locked;</span></div>
 <div class="line"><a id="l02632" name="l02632"></a><span class="lineno"> 2632</span><span class="comment">   *   - `sock-&gt;state() == State::S_OPEN` (so `sock` is in #m_socks);</span></div>
-<div class="line"><a id="l02633" name="l02633"></a><span class="lineno"> 2633</span><span class="comment">   *   - `snd_buf_feed_func is as described below.</span></div>
+<div class="line"><a id="l02633" name="l02633"></a><span class="lineno"> 2633</span><span class="comment">   *   - `snd_buf_feed_func` is as described below.</span></div>
 <div class="line"><a id="l02634" name="l02634"></a><span class="lineno"> 2634</span><span class="comment">   *</span></div>
 <div class="line"><a id="l02635" name="l02635"></a><span class="lineno"> 2635</span><span class="comment">   * This method completes the functionality of `sock-&gt;send()`.</span></div>
 <div class="line"><a id="l02636" name="l02636"></a><span class="lineno"> 2636</span><span class="comment">   *</span></div>
@@ -4485,7 +4485,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 6 2026 21:36:38 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 13 2026 03:00:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

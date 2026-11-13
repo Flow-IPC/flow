@@ -191,7 +191,7 @@ $(function() {
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment"> *   - A rule of thumb in answering the question, &#39;Is this facility fine to just call repeatedly, or should we reuse</span></div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment"> *     a `Timer` for performance?&#39;: It *might* not be fine if and only if timer firings and/or cancellations occur</span></div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment"> *     many times a second in a performance-sensitive environment.  E.g., if it&#39;s something fired and/or canceled</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> *     every second repeatedly, it&#39;s fine; it it&#39;s packet pacing that must sensitively fire near the resolution limit</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="comment"> *     every second repeatedly, it&#39;s fine; if it&#39;s packet pacing that must sensitively fire near the resolution limit</span></div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="comment"> *     of the native #Timer facility, it *might* not be fine, and it&#39;s safer to use #Timer repeatedly.</span></div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment"> * - A #Timer can be re-scheduled to fire at an arbitrary different time than originally set.  We provide no such</span></div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment"> *   facility.  (We could provide such an API at the cost of API and implementation complexity; it&#39;s a judgment call,</span></div>
@@ -392,7 +392,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 6 2026 21:36:39 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 13 2026 03:00:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

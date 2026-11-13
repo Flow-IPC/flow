@@ -3883,7 +3883,7 @@ $(function() {
 <div class="line"><a id="l03811" name="l03811"></a><span class="lineno"> 3811</span><span class="comment">   * snd_flying_pkts_by_when, the actual value of sent_pkt-&gt;m_sent_when.back() -- the absolute &quot;when&quot; -- isn&#39;t ready.</span></div>
 <div class="line"><a id="l03812" name="l03812"></a><span class="lineno"> 3812</span><span class="comment">   * It will only be finalized once we actually send off the packet (after pacing, if any), in mark_data_packet_sent().</span></div>
 <div class="line"><a id="l03813" name="l03813"></a><span class="lineno"> 3813</span><span class="comment">   * Nevertheless, we know the packet will be sent sometime fairly soon; and in fact AFTER all the packets</span></div>
-<div class="line"><a id="l03814" name="l03814"></a><span class="lineno"> 3814</span><span class="comment">   * following it it in snd_flying_pkts_by_when&#39;s iterator ordering and in fact BEFORE any packets that</span></div>
+<div class="line"><a id="l03814" name="l03814"></a><span class="lineno"> 3814</span><span class="comment">   * following it in snd_flying_pkts_by_when&#39;s iterator ordering and in fact BEFORE any packets that</span></div>
 <div class="line"><a id="l03815" name="l03815"></a><span class="lineno"> 3815</span><span class="comment">   * would be subsequently ahead of it in snd_flying_pkts_by_when&#39;s iterator ordering.  That is, we can</span></div>
 <div class="line"><a id="l03816" name="l03816"></a><span class="lineno"> 3816</span><span class="comment">   * place it there now, despite not knowing the _absolute_ time when it be sent, because we are confident about</span></div>
 <div class="line"><a id="l03817" name="l03817"></a><span class="lineno"> 3817</span><span class="comment">   * its _relative_ order of when it will be sent vs. all the other packets in that structure, past or future. */</span></div>
@@ -6858,7 +6858,7 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 6 2026 21:36:39 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 13 2026 03:00:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
