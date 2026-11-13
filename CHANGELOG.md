@@ -19,7 +19,7 @@
 * Comment and/or doc changes.
 
 ## API notes
-* New APIs:
+* New/improved APIs:
   * `flow::log::Config::init_component_to_union_idx_mapping()` new optional arg `component_payload_type_info_ptr_is_uniq = false`; set to `true` for potentially significant performance gains within Flow and flow.log log call sites in your application.
     * Two optional preprocessor defines to further tweak perf-related internal behavior: `FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_PTR`, `FLOW_LOG_CONFIG_COMPONENT_PAYLOAD_TYPE_DICT_BY_VAL`.
 * Breaking changes:

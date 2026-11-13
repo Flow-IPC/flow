@@ -42,7 +42,7 @@ namespace flow::util::stat
  *
  * All reads and writes are done using `std::atomic` with `memory_order_relaxed`, meaning one can (at least
  * given Linux x86-64) expect similar performance to regular loads/stores sans `atomic<>`.  (The `++` op, for
- * x86-64 -- `x.fetch_add(1)` -- does take a few more cycles on an `atomic` than a naked `++` would; it it not
+ * x86-64 -- `x.fetch_add(1)` -- does take a few more cycles on an `atomic` than a naked `++` would; it is not
  * the identical processor instruction.  However the cycle cost difference is in the low-single-digit-ns range
  * when uncontended: not identical but close.  That pertains to record_value().  Cf.: loads (count_for_bucket())
  * are fully identical.)
@@ -68,7 +68,7 @@ namespace flow::util::stat
  * Each bucket has width that is at least 1 (no null buckets).  Therefore each bucket can be represented as
  * a combination of the following:
  *   - Min-value: To land in the bucket, the outcome must be *at least* min-value.
- *   - Width.  This determines max-value: Min-vale plus width minus 1. To land in the bucket, the outcome must be
+ *   - Width.  This determines max-value: Min-value plus width minus 1. To land in the bucket, the outcome must be
  *     *at most* max-value.  The next bucket, if any, begins at exactly max-value plus 1.
  *
  * This just leaves the aforementioned allowance of any input.  Dice are not a great example for this, but just
@@ -159,9 +159,9 @@ namespace flow::util::stat
  *
  * One mechanical subtlety is that we use stat::load(), stat::store(), and stat::fetch_add() as our atomic ops.
  * These are respectively simply:
- *   - load(x) is `x.load(memory_order_relaxed)`.
- *   - store(&x, y) is `x.store(y, memory_order_relaxed).
- *   - fetch_add(&x, y) is `x.fetch_add(y, memory_order_relaxed)`.
+ *   - `load(x)` is `x.load(memory_order_relaxed)`.
+ *   - `store(&x, y)` is `x.store(y, memory_order_relaxed)`.
+ *   - `fetch_add(&x, y)` is `x.fetch_add(y, memory_order_relaxed)`.
  *
  * We promised `memory_order_relaxed` perf and semantics; and those ops are available in flow::util::stat.
  */
@@ -440,19 +440,19 @@ private:
    * bucket's count to increment, given an outcome belonging to one of said buckets.  That is the central
    * and only potentially time-consuming of the fast-path ops in a `*this`.  The following cases are to be
    * considered in order for a good combo of performance (top priority) and simplicity.
-   *   -# **If `size() == 2`**
+   *   -# If `size() == 2`:
    *      Only `m_bucket_val0s[1]` matters: Outcomes less-than this min-value are in bucket 0;
    *      else in bucket 1.  Various corner cases can be ignored if we handle this particular degenerate case
    *      separately.
    *      - Time complexity: constant.
-   *   -# **If #m_linear_bucket_sz_or_0 is in effect (`!= 0`)**
+   *   -# If #m_linear_bucket_sz_or_0 is in effect (`!= 0`):
    *      This means all 1+ buckets strictly-between 1st and last are of the same width (vacuously so if `size() == 3`);
    *      namely `m_linear_bucket_sz_or_0`.  Therefore an optimized algorithm for idx_of_outcome() is in effect; no search
    *      through buckets is required.  Instead: if below `F = m_bucket_val0s[1]` => index 0; otherwise subtract `F`,
    *      divide by `m_linear_bucket_sz_or_0`, and add 1.  The result, clipped against the ceiling `size() - 1`, is
    *      the index sought.
    *      - Time complexity: constant.
-   *   -# **General case**
+   *   -# General case:
    *      No particular optimization applies.  Perform a binary-search through #m_bucket_val0s, clip against
    *      the range [`0`, `size()`), and voila.
    *      - Time complexity: logarithmic in size().

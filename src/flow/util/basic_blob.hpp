@@ -207,7 +207,7 @@ struct Clear_on_alloc {};
  *       allocator's resources -- the source pool or whatever it is -- must stay alive until the deallocation does
  *       occur according to the simple above-documented rules of when that must happen.)  The rationale is that
  *       Basic_blob is biased toward simple, predictable behavior w/r/t deallocs and allocs occurring, even in the
- *       fact of exotic get_allocator() changes.
+ *       face of exotic get_allocator() changes.
  *
  * ### Logging ###
  * When and if `*this` logs, it is with log::Sev::S_TRACE severity or more verbose.

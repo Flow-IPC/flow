@@ -200,7 +200,7 @@ auto timed_function_nvr(Clock_type clock_type, Accumulator* accumulator, Func&& 
  * @note This is suitable for using the Flow-recommended boost.asio wrapper/helper API, flow::async.
  * @warning Using `timed_function(handler)` would "work" too, in that it would compile and at a first glance appear to
  *          work fine.  The problem: If `handler` is bound to an executor -- most commonly a boost.asio strand
- *          (util::Strand) -- then using timed_function() would "unbind it."  So it it was bound to `Strand S`, meant
+ *          (util::Strand) -- then using timed_function() would "unbind it."  So it was bound to `Strand S`, meant
  *          to make certain `handler()` never executed concurrently with other handlers bound to `S`, then that
  *          constraint would (silently!) no longer be observed -- leading to terrible intermittent concurrency bugs.
  * @note boost.asio handlers always return `void` (meaning anything else they might return is ignored).  Hence there is

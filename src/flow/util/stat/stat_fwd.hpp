@@ -394,7 +394,7 @@
  * "Stat collection" as a whole basically consists of the following aspects.
  *   -# *Stat-updates*: As events occur, we save things into `Stat_set`s.  In vanilla stat-collection as described
  *      so far this just means the init operation (construction usually); conceptual increments for `ACCUMULATOR`s;
- *      and either increments, decrements, or stores for `GAUGE`s.  `HI_WMARK`s are updates along with their `GAUGE`s.
+ *      and either increments, decrements, or stores for `GAUGE`s.  `HI_WMARK`s are updated along with their `GAUGE`s.
  *   -# *Stat-consumption*: This means obtaining a reference to or a copy of the currently-accurate `Stat_set`,
  *      whenever the user wishes to do something with this result: print, query in detail, whatever.
  *      For vanilla stat-collection it is simply making a copy (`stats_assign()`) of the current `Stat_set`,
@@ -659,7 +659,7 @@
  *          flow::util::Thread_local_state_registry provides a straightforward mechanism for executing code
  *          at thread exit.
  *
- * So that's how it works.  Complexity aside, it has really just one functional drawback: The HWM (`HI_WMARK`)
+ * So that's how it works.  Complexity aside, it has really just one functional drawback: the HWM (`HI_WMARK`)
  * fidelity.  As explained above, it can never be perfect, but the HWM quality is basically proportional to
  * how frequently and regularly one consumes stats.  Hence, if HWM quality is a concern (which, obviously, is
  * contingent on your `Stat_set` featuring `HI_WMARK`s in the first place), one can simply stat-consume at regular
@@ -1563,16 +1563,16 @@ void stats_reset_shard_aggregate(Stat_set* target_stats, const It& src_stats_beg
  * ### The premise: *raw stats* from a data source ###
  * In this mode of working with a `Stat_set`, the basic assumptions are different from the mainstream described
  * in util::stat doc header.  To wit:
- *   - A given Stat_set::S_ACCUMULATOR stat is not manually updated via fetch_add() or equivalents
+ *   - A given `Stat_set::S_ACCUMULATOR` stat is not manually updated via fetch_add() or equivalents
  *     each time the underlying measured-count increases.  Instead, *at stat consumption time* (when one would
  *     `load()`-or-equivalent ~all stat-members) a *raw reading* of the actual value of the `ACCUMULATOR` at that
  *     time is obtained from some data-source (e.g.: a memory manager's stats-facility, in this case tracking
  *     something accumulator-like, such as the # of `malloc()`s to have been called to date).  One then
  *     directly saves it into the stat-member.
  *     - If it is a Histogram_counter: same (use Histogram_counter::overwrite_count_for_bucket()).
- *   - A given Stat_set::S_GAUGE is handled similarly (but that's normal anyway); a `GAUGE` can be set to anything
+ *   - A given `Stat_set::S_GAUGE` is handled similarly (but that's normal anyway); a `GAUGE` can be set to anything
  *     anytime unless sharded.
- *   - A Stat_set::S_HI_WMARK is never manually recorded: stats_since_reset_state() will compute it automatically.
+ *   - A `Stat_set::S_HI_WMARK` is never manually recorded: stats_since_reset_state() will compute it automatically.
  *     By the nature of this mode, however, the `HI_WMARK` is therefore the max of readings taken from the
  *     data-source at stat consumption times.  (In this way it is similar to how
  *     stats_aggregate_shards() + sharding works.)
@@ -1589,7 +1589,7 @@ void stats_reset_shard_aggregate(Stat_set* target_stats, const It& src_stats_beg
  *   - stats_mark_reset_state() to mark the latest/base reset-state;
  *   - and a simple induction-based algorithm we now describe.
  *
- * We reiterate that that if the reset/stats-since-mark functionality is not needed, then the following is
+ * We reiterate that, if the reset/stats-since-mark functionality is not needed, then the following is
  * irrelevant.
  *
  * ### The algorithm ###

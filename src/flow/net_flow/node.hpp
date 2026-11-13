@@ -584,7 +584,7 @@ namespace flow::net_flow
  * critical sections around the calls to `m_low_lvl_sock::async_receive()` and `m_low_lvl_sock::async_send()`,
  * but as noted before this seems extremely unlikely to have any real cost due to the shortess of critical
  * sections in both threads.  If this is APPROACH 4, then I'd say just time how much absolute delay is
- * introduced by a `post(W2')` or `post(W2'')` of the async send call compared to directly making such a
+ * introduced by a `post()` onto W2' or W2'' of the async send call compared to directly making such a
  * call on thread W, as is done today.  I suspect it's small, in which case the action is go for
  * APPROACH 4... finally.
  *
@@ -2630,7 +2630,7 @@ private:
    *   - `sock->m_mutex` is locked and after entering `sock->[sync_]send()`;
    *   - no changes to `*sock` have been made since `m_mutex` was locked;
    *   - `sock->state() == State::S_OPEN` (so `sock` is in #m_socks);
-   *   - `snd_buf_feed_func is as described below.
+   *   - `snd_buf_feed_func` is as described below.
    *
    * This method completes the functionality of `sock->send()`.
    *

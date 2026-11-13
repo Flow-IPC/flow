@@ -83,7 +83,8 @@ option(CFG_SKIP_BASIC_TESTS
        "If ON: skips building/installing sanity-checking test program(s) in test/basic/ (lowers build time)."
        OFF)
 option(CFG_ENABLE_TEST_SUITE
-       "If ON: builds/installs serious test(s) in test/suite/ (increases build time).")
+       "If ON: builds/installs serious test(s) in test/suite/ (increases build time)."
+       OFF)
 # Note: FlowLikeDocGenerate.cmake will check this -- in the same way we check CFG_SKIP_CODE_GEN below, before going
 # on to actually generate targets for building actual code (libs, executables).
 # We do not include FlowLikeDocGenerate.cmake; guy that includes us potentially should do so, depending on how
@@ -173,8 +174,8 @@ endif()
 if(NOT DEFINED WARN_FLAGS)
   message(FATAL_ERROR "Bug in our CMake script: Need to code the proper warning flags for the active compiler "
                         "(CMAKE_CXX_COMPILER_ID/VERSION [${CMAKE_CXX_COMPILER_ID}/${CMAKE_CXX_COMPILER_VERSION}]) and "
-                        "load them into local variable WARN_FLAGS.  Reminder: only the warning level shall be, "
-                        "not whether to treat warnings as error or other knobs.")
+                        "load them into local variable WARN_FLAGS.  Reminder: only the warning level shall be "
+                        "included, not whether to treat warnings as error or other knobs.")
 endif()
 
 # Check if the compiler is capable of LTO (link-time optimization) a/k/a IPO (interprocedural optimization).

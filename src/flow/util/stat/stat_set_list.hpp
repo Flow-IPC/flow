@@ -46,8 +46,8 @@ namespace flow::util::stat
  *       why this class template lacks constructors (as does `array` generally).
  *
  * Hence:
- *   - `Stat_set_list<Stat_set, N> stats;` // Constructs N things like this: Stat_set{}.
- *   - `auto stats2 = stats;` // Constructs N more like this: Stat_set{stats[idx]}.
+ *   - `Stat_set_list<Stat_set, N> stats; // Constructs N things like this: Stat_set{}.`
+ *   - `auto stats2 = stats; // Constructs N more like this: Stat_set{stats[idx]}.`
  *
  * @see Global_stats which can provide global-singleton access to a Stat_set_list.
  *
@@ -155,7 +155,7 @@ public:
   void reset();
 
 private:
-  /// Data.
+  // Data.
 
   /// What `*this` is.
   boost::array<Stat_set, S_N> m_sets;

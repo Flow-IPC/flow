@@ -119,7 +119,7 @@ using Scheduled_task = Function<void (bool short_fire)>;
  *   - A rule of thumb in answering the question, 'Is this facility fine to just call repeatedly, or should we reuse
  *     a `Timer` for performance?': It *might* not be fine if and only if timer firings and/or cancellations occur
  *     many times a second in a performance-sensitive environment.  E.g., if it's something fired and/or canceled
- *     every second repeatedly, it's fine; it it's packet pacing that must sensitively fire near the resolution limit
+ *     every second repeatedly, it's fine; if it's packet pacing that must sensitively fire near the resolution limit
  *     of the native #Timer facility, it *might* not be fine, and it's safer to use #Timer repeatedly.
  * - A #Timer can be re-scheduled to fire at an arbitrary different time than originally set.  We provide no such
  *   facility.  (We could provide such an API at the cost of API and implementation complexity; it's a judgment call,
