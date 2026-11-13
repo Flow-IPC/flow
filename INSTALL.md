@@ -2,7 +2,7 @@
 
 ## Installation
 
-An exported Flow consists of C++ header files installed under "flow/..." in the include-root; and a
+An exported Flow consists of C++ header files installed under `flow/...` in the include-root; and a
 library such as `libflow.a`.  Certain items are also exported for people who use CMake to build their own
 projects; we make it particularly easy to use Flow in that case (`find_package(Flow)`).  Lastly documentation
 is included in the source tree for local perusal; and can be optionally re-generated from local source (more
@@ -40,9 +40,9 @@ To build Flow:
      but the basics are as follows.  CMake is very flexible and powerful; we've tried not to mess with that principle
      in our build script(s).
      1. Choose a tool.  `ccmake` will allow you to interactively configure aspects of the build system, including
-        showing docs for various knobs our CMakeLists.txt (and friends) have made availale.  `cmake` will do so without
-        asking questions; you'll need to provide all required inputs on the command line.  Let's assume `cmake` below,
-        but you can use whichever makes sense for you.
+        showing docs for various knobs our `CMakeLists.txt` (and friends) have made available.  `cmake` will do so
+        without asking questions; you'll need to provide all required inputs on the command line.  Let's assume `cmake`
+        below, but you can use whichever makes sense for you.
      2. Choose a working *build directory*, somewhere outside the present `flow` distribution.  Let's call this
         `$BUILD`: please `mkdir -p $BUILD`.  Below we'll refer to the directory containing the present `README.md` file
         as `$SRC`.

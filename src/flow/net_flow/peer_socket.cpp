@@ -3811,7 +3811,7 @@ void Node::snd_flying_pkts_push_one(Peer_socket::Ptr sock,
    * snd_flying_pkts_by_when, the actual value of sent_pkt->m_sent_when.back() -- the absolute "when" -- isn't ready.
    * It will only be finalized once we actually send off the packet (after pacing, if any), in mark_data_packet_sent().
    * Nevertheless, we know the packet will be sent sometime fairly soon; and in fact AFTER all the packets
-   * following it it in snd_flying_pkts_by_when's iterator ordering and in fact BEFORE any packets that
+   * following it in snd_flying_pkts_by_when's iterator ordering and in fact BEFORE any packets that
    * would be subsequently ahead of it in snd_flying_pkts_by_when's iterator ordering.  That is, we can
    * place it there now, despite not knowing the _absolute_ time when it be sent, because we are confident about
    * its _relative_ order of when it will be sent vs. all the other packets in that structure, past or future. */
