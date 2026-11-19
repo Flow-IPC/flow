@@ -24,6 +24,8 @@ set(name libflow_unit_test.exec)
 set(SRCS
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_common_util.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/test/test_file_util.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/cfg/test/cfg_manager_test.cpp
+    ${PROJECT_SOURCE_DIR}/src/flow/cfg/test/option_set_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/log/detail/test/component_cfg_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/log/test/log_test.cpp
     ${PROJECT_SOURCE_DIR}/src/flow/net_flow/test/backlog_test.cpp

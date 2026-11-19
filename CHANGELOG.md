@@ -140,3 +140,26 @@
   * Three uses of `boost::thread_specific_ptr` replaced by C++ built-in `thread_local`; all are exercised at every log call site that passes the verbosity filter.
   * Per-call-site lookup in the thread-local map keyed by `Logger*` uses a faster data structure.
   * `Config::output_component_to_ostream()` (used by ~all `Logger`s when writing the message) uses a faster data structure for component lookups.
+
+# Version 3.0.1 (Nov 2026)
+* Note: This is a small, fixes-only follow-up to v3.0.0 -- which is a major release.
+  * If upgrading from pre-v3.0.0, please peruse v3.0.0 notes.
+* flow.cfg:
+  * Fix build break that manifests when one uses flow.cfg with custom validator expressions (as passed to `FLOW_CFG_OPTION_SET_DECLARE_OPTION*()`).
+    * This was a regression from v2.0.0 to v3.0.0.
+  * Bug fix: `flow::cfg::Option_set::reject_candidate()` did not discard the changes accumulated in `values_candidate()`, so that a subsequent `parse_*()` (if any) would build on top of the rejected candidate. Now any subsequent parse starts fresh (identical `values_candidate()` and `values()` contents). The bug may have affected the use of `Config_manager` and `Static_config_manager`, though hitting it is unlikely:
+    * Dynamic updates (`Config_manager::apply_dynamic()`) were *not affected* by this bug.
+    * Only an initial parse could be affected: `Config_manager::apply_static[_and_dynamic]()` or `Static_config_manager::apply()`. To hit this bug:
+      * One must first fail an initial parse (`apply...()`), but after at least 1 file was successfully parsed. (E.g., reject the overall parse via final-validator hook.)
+        * The successful parts of this parse must also change at least 1 option's value relative to its default.
+      * One must then retry the parse (`apply...()` again) but this time fully succeed.
+        * This successful-retry parse must leave unspecified a value changed by the earlier failed parse.
+    * Note: A failed initial parse is typically a fatal error, not followed by another attempt.
+  * Minor bug fixes:
+    * When pretty-printing option values, lists of `duration`s are now printed in convenient units (e.g., "1 minute" instead of "60000000000 nanoseconds"), as lone `duration`s already were.
+    * `flow::cfg::Config_manager::apply_static()`, when it fails, no longer logs a message claiming the current (unchanged) state was just made canonical.
+    * `dynamic_cfg_context.hpp` can now be `#include`d by itself.
+* Add unit tests for flow.cfg.
+* GitHub CI pipeline: An internal cleanliness tweak.
+* Build scripts: Tiny CMake tweaks (~no functional impact).
+* Comment and/or doc changes.

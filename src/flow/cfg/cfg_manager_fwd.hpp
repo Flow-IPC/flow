@@ -93,10 +93,10 @@ std::ostream& operator<<(std::ostream& os, const Config_manager<S_d_value_set...
 /**
  * Convenience macro particularly useful in the `final_validator_func()` callback taken by various
  * Config_manager APIs; checks the given condition; if `false` logs a FLOW_LOG_WARNING() containing the failed
- * condition and executes `outcome = flow::cfg::Final_validator_func::S_FAIL;`; otherwise no-op.  Note the context
+ * condition and executes `outcome = flow::cfg::Final_validator_outcome::S_FAIL;`; otherwise no-op.  Note the context
  * must be such that FLOW_LOG_WARNING() compiles and acts properly.
  *
- * If `auto outcome = flow::cfg::Final_validator_func::S_ACCEPT;` precedes multiple invocations of this macro, then
+ * If `auto outcome = flow::cfg::Final_validator_outcome::S_ACCEPT;` precedes multiple invocations of this macro, then
  * by the end of those invocations `outcome == S_ACCEPT` if and only if all checks passed.  All errors will be printed
  * if `outcome != S_ACCEPT`.
  *

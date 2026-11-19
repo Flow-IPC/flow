@@ -546,9 +546,7 @@ public:
          */
         Option_set* m_option_set;
 
-        /**
-         * `m_option_set->m_values_candidate`, the structure to load from #m_values_to_load.
-         */
+        /// `m_option_set->m_values_candidate`, the structure to load from #m_values_to_load.
         Values* m_values_candidate;
 
         /// Values shall be copied from this external `Value_set`.
@@ -655,7 +653,7 @@ public:
    * successful `parse_*()` API call.
    *
    * Rationale: It is supplied publicly in case the caller wans to log it or something; or perhaps to check
-   * for current state (CANONICAL if and only it returns null).
+   * for current state (CANONICAL if and only if it returns null).
    *
    * @return See above.
    */
@@ -1100,7 +1098,10 @@ private:
   /// See values_candidate() -- `true` if and only if that returns non-null (PARSING state; else CANONICAL state).
   bool m_parsing;
 
-  /// See values_candidate().  When that returns null (`m_parsing == false`) this value is meaningless.
+  /**
+   * See values_candidate().  When that returns null (`m_parsing == false`), this equals #m_values; so that upon
+   * entering PARSING state the candidate starts as a copy of the canonical values without further action.
+   */
   Values m_values_candidate;
 
   /**
@@ -1330,7 +1331,7 @@ private:
  * knob combinations potentially invoked via macro(s) based on this one.  As of this
  * writing there is just the one extra knob, `ARG_no_accumulation`, but in the future we might expand to more
  * variations in which case more args would be added here.
- * 
+ *
  * @param ARG_m_value
  *        See FLOW_CFG_OPTION_SET_DECLARE_OPTION().
  * @param ARG_description
@@ -1359,7 +1360,7 @@ private:
  *
  * This macro, which can be used directly but normally is not, is internally invoked (potentially indirectly) by any
  * other `FLOW_CFG_OPTION_SET_DECLARE_OPTION*()` macro.  As such it is the essential core such macro.
- * 
+ *
  * Informally: it is best to avoid its direct use, as it can break the auto-naming conventions maintained by
  * FLOW_CFG_OPTION_SET_DECLARE_OPTION() and similar.  That said a couple of use cases might be:
  *   - FLOW_CFG_OPTION_SET_DECLARE_OPTION_KEYED() uses it in its impl to add a convention for container subscripts.
@@ -1398,7 +1399,7 @@ private:
         /* not the usual `static` string literal as ARG_opt_name_c_str. */ \
         flow::Function<bool (const Value&)> FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func \
           = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string{FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str}] \
-              (const Value&) -> bool { return ARG_bool_validate_expr; }; \
+              ([[maybe_unused]] const Value& val) -> bool { return ARG_bool_validate_expr; }; \
         args.m_args.m_fill_parsing_role_opt_table_args.m_option_set \
           ->declare_option_for_parsing \
               (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
@@ -1449,7 +1450,7 @@ private:
         using Value = decltype(args.m_args.m_validate_stored_vals_args.m_values_to_validate->ARG_m_value); \
         flow::Function<bool (const Value&)> FLOW_CFG_SET_DECL_OPT_MANUAL_validator_func \
           = [FLOW_CFG_SET_DECL_OPT_MANUAL_name_std_str = std::string{FLOW_CFG_SET_DECL_OPT_MANUAL_name_c_str}] \
-              (const Value&) -> bool { return ARG_bool_validate_expr; }; \
+              ([[maybe_unused]] const Value& val) -> bool { return ARG_bool_validate_expr; }; \
         /* Throw if invalid; else no-op. */ \
         ::flow::cfg::Option_set_base::validate_parsed_option \
           (FLOW_CFG_SET_DECL_OPT_MANUAL_name_view, \
@@ -2094,7 +2095,9 @@ void Option_set<Value_set>::reject_candidate()
                   "reverting to state CANONICAL.");
     m_parsing = false;
     m_iterable_values_candidate.clear();
-    // m_values remains unchanged.  m_values_candidate becomes meaningless (see its doc header: m_parsing == false now).
+    /* m_values remains unchanged.  m_values_candidate must equal it again (see its doc header: m_parsing == false now);
+     * otherwise the rejected values would be the starting point of the next parse_*(). */
+    m_values_candidate = m_values;
   }
 }
 
@@ -2238,7 +2241,7 @@ void value_to_ostream(std::ostream& os, const std::vector<Element>& val)
   for (size_t idx = 0; idx != val.size(); ++idx)
   {
     os << '[';
-    value_to_ostream<Element>(os, val[idx]);
+    value_to_ostream(os, val[idx]); // Let overload resolution pick, e.g., the `duration` overload.
     os << ']';
     if (idx != (val.size() - 1))
     {

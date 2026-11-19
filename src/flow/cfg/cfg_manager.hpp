@@ -466,7 +466,9 @@ public:
    *
    * apply_static() will *not* be tolerant of unknown option names appearing in the config source.  The reasoning
    * (and we might change our minds over time): It should be possible to deliver the proper set of static config
-   * along with the binary that supports it.  However apply_static_and_dynamic() is tolerant of unknown option names.
+   * along with the binary that supports it.
+   *   - Incidentally this also holds for apply_static_and_dynamic().
+   *   - However apply_dynamic() is tolerant of unknown option names.
    *
    * You must supply exactly #S_N_S_VALUE_SETS `final_validator_func`s.  The compiler will likely require you to
    * explicitly specify the `struct` types as explicit template args; e.g:
@@ -476,7 +478,7 @@ public:
    *   // Explicitly specify the static config struct types.  Provide that number of final-validate functions.
    *   // Use null_final_validator_func() for the dummy Null_value_set in particular.
    *   cfg_mgr.apply_static<S_config1, S_config2, Null_value_set>
-   *     (file_path, &s_decl_opts1, &s_decl_opts2, null_final_validator_func());
+   *     (file_path, s_final_validator1, s_final_validator2, null_final_validator_func());
    *   ~~~
    *
    * For context w/r/t `commit` arg: Please read the section of the class doc header regarding multi-source
@@ -493,14 +495,14 @@ public:
    * then we return `true`, indicating this update is successful (so far at least, depending on `commit`).
    *
    * Now consider the situation where for `Value_set` Vi, `final_validator_func()` yielded SKIP, while all
-   * Vj before Vi yielded SUCCESS.
+   * Vj before Vi yielded ACCEPT.
    *
    * Effect 1: The parsed values for that `Value_set` Vi shall be ignored, as-if they were equal to the cumulative
    * values built in preceding files in this update (or to the baseline values, if this is the first or only
    * file in this update).
    *
    * Effect 2: The same shall hold for *each* `Value_set` Vj *after* Vi: They will not be parsed; they will not be
-   * validated; their `final_validator_func()` shall not be executed; and they shall ignored, as-if they were equal
+   * validated; their `final_validator_func()` shall not be executed; and they shall be ignored, as-if they were equal
    * to the cumulative values built in preceding files in this update (or to the baseline values, if this is the
    * first or only file in this update).  So, if (e.g.) V2 is the first `Value_set` to yield SKIP, then
    * it's as-if V2, V3, ... also yielded SKIP (conceptually speaking) -- to the point where their values in
@@ -532,7 +534,7 @@ public:
    *        Informally: Please place individual-option validation
    *        into FLOW_CFG_OPTION_SET_DECLARE_OPTION() invocations; only use `final_validator_func()` for
    *        internal consistency checks (if any) and skip conditions (if any).
-   *        Plus: if a `final_validatar_func()` for a particular `Value_set` returns `S_SKIP`, then
+   *        Plus: if a `final_validator_func()` for a particular `Value_set` returns `S_SKIP`, then
    *        the subsequent ones will not run (nor will those subsequent `Value_set`s be parsed or individually
    *        validated).
    * @param commit
@@ -1611,11 +1613,10 @@ void Config_manager<S_d_value_set...>::unregister_dynamic_change_listener (const
 {
   // Not thread-safe (as advertised) against apply*_dynamic() or register_dynamic_change_listener().
 
-  auto& on_dynamic_change_funcs = m_on_dynamic_change_funcs[handle.m_d_value_set_idx];
-  on_dynamic_change_funcs.erase(handle.m_pos);
-
   FLOW_LOG_INFO("Config_manager [" << *this << "]: Removed dynamic-change listener [@" << &(*handle.m_pos) <<
                 "] for dynamic value set [" << handle.m_d_value_set_idx << "].");
+
+  m_on_dynamic_change_funcs[handle.m_d_value_set_idx].erase(handle.m_pos);
 }
 
 template<typename... S_d_value_set>
@@ -1761,10 +1762,17 @@ bool Config_manager<S_d_value_set...>::apply_static_impl
   }
   // else { It was NONE and remains so, either due to failure or being a vanilla (single-source) update or both. }
 
+  if (!success)
+  {
+    return false;
+  }
+  // else if (success):
+  assert(commit && "Maintenance bug?  We should have returned above if `!commit` but success==true.");
+
   FLOW_LOG_INFO("Config_manager [" << *this << "]: State that was just made canonical follows.");
   log_state(); // Note this will auto-skip dynamic sets which should all be Null_state and hence .null().
 
-  return success;
+  return true;
 } // Config_manager::apply_static_impl()
 
 template<typename... S_d_value_set>
