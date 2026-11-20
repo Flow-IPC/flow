@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -165,10 +165,10 @@ $(function() {
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">/**</span></div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment"> * Convenience macro particularly useful in the `final_validator_func()` callback taken by various</span></div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * Config_manager APIs; checks the given condition; if `false` logs a FLOW_LOG_WARNING() containing the failed</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> * condition and executes `outcome = flow::cfg::Final_validator_func::S_FAIL;`; otherwise no-op.  Note the context</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> * condition and executes `outcome = flow::cfg::Final_validator_outcome::S_FAIL;`; otherwise no-op.  Note the context</span></div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * must be such that FLOW_LOG_WARNING() compiles and acts properly.</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> *</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> * If `auto outcome = flow::cfg::Final_validator_func::S_ACCEPT;` precedes multiple invocations of this macro, then</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="comment"> * If `auto outcome = flow::cfg::Final_validator_outcome::S_ACCEPT;` precedes multiple invocations of this macro, then</span></div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment"> * by the end of those invocations `outcome == S_ACCEPT` if and only if all checks passed.  All errors will be printed</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment"> * if `outcome != S_ACCEPT`.</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment"> *</span></div>
@@ -194,11 +194,11 @@ $(function() {
 <div class="ttc" id="anamespaceflow_1_1cfg_html_a80b3319f3d3a657837d0d8b28d22ccc3a655ec6aa779cb1c799c9ba80f24e9567"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3a655ec6aa779cb1c799c9ba80f24e9567">flow::cfg::Final_validator_outcome::S_ACCEPT</a></div><div class="ttdeci">@ S_ACCEPT</div><div class="ttdoc">The holistically-checked cumulative Value_set has no problems and shall be accepted into the candidat...</div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3ace64a8fc2c16fb21be22f603ef4d2eec">flow::cfg::Final_validator_outcome::S_SKIP</a></div><div class="ttdeci">@ S_SKIP</div><div class="ttdoc">The holistically-checked cumulative Value_set has contents such that the validator function decided t...</div></div>
 <div class="ttc" id="anamespaceflow_1_1cfg_html_a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316"><div class="ttname"><a href="namespaceflow_1_1cfg.html#a80b3319f3d3a657837d0d8b28d22ccc3aec1a4aed91659725c96b0b8378dba316">flow::cfg::Final_validator_outcome::S_FAIL</a></div><div class="ttdeci">@ S_FAIL</div><div class="ttdoc">The holistically-checked cumulative Value_set has invalid contents; the candidate shall be rejected,...</div></div>
-<div class="ttc" id="anamespaceflow_1_1cfg_html_af310e567f2763a9736eda686030e6311"><div class="ttname"><a href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">flow::cfg::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Option_set&lt; Value_set &gt; &amp;val)</div><div class="ttdoc">Serializes (briefly) an Option_set to a standard output stream.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02168">option_set.hpp:2168</a></div></div>
+<div class="ttc" id="anamespaceflow_1_1cfg_html_af310e567f2763a9736eda686030e6311"><div class="ttname"><a href="namespaceflow_1_1cfg.html#af310e567f2763a9736eda686030e6311">flow::cfg::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, const Option_set&lt; Value_set &gt; &amp;val)</div><div class="ttdoc">Serializes (briefly) an Option_set to a standard output stream.</div><div class="ttdef"><b>Definition:</b> <a href="option__set_8hpp_source.html#l02175">option_set.hpp:2175</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 13 2026 03:00:36 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 20 2026 02:58:00 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>

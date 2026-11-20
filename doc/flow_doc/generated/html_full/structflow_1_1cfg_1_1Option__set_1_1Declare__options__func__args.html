@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Flow<span id="projectnumber">&#160;3.0.0</span>
+   <div id="projectname">Flow<span id="projectnumber">&#160;3.0.1</span>
    </div>
    <div id="projectbrief">Flow project: Full implementation reference.</div>
   </td>
@@ -215,7 +215,7 @@ template&lt;typename Value_set &gt; </div>
 <p>The args to pass in depending on <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ab563381b890c42be9e02c23acb9af0f5" title="Why Declare_options_func is being called.">m_call_type</a>. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd><code>union</code> used inside <a class="el" href="classflow_1_1cfg_1_1Option__set.html" title="The core config-parsing facility, which builds parsing/comparison/output capabilities on top of a giv...">Option_set</a> implementation should be replaced with the type-safe, equally-fast, more-expressive <code>std::variant</code>. The author was not aware of the latter's existence when originally writing this. <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#ad652ec52b981c9e0b571cf1463bd2e55" title="Short-hand for type of m_call_type.">Call_type</a> and <a class="el" href="classflow_1_1cfg_1_1Option__set__base.html#a812f2164fb689d4cbcaa04f482ecf4cd" title="Internal-use type to use with Option_set::Declare_options_func callback.">Option_set_base::Declare_options_func_call_type</a> could be eliminated: For example <a class="el" href="structflow_1_1cfg_1_1Option__set_1_1Declare__options__func__args.html#a1a35f61a3ebedfdd443e6f050e674aa9" title="Corresponds to Call_type::S_FILL_PARSING_ROLE_OPT_TABLE.">m_fill_parsing_role_opt_table_args</a> could have a named (currently it's anonymous) type <code>struct Fill_parsing_role_opt_table</code>, used as the <code>variant</code> selector value for that call-type. So when calling the <a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac6755bc762fc40b1ae8f4bd47c55bd39" title="Short-hand for the ever-important callback passed to the main Option_set constructor.">Declare_options_func</a> callback while desiring that operation, we'd load the variant with a <code>struct Fill_parsing_role_opt_table</code>; and <a class="el" href="option__set_8hpp.html#ae6bc0bcf28a53682a4c9a5fbe3a3837f" title="Macro the user must use, as prescribed in the flow::cfg::Option_set constructor doc header discussing...">FLOW_CFG_OPTION_SET_DECLARE_OPTION()</a> would get a non-null <code>get_if&lt;Fill_parsing_role_opt_table&gt;()</code> result, indicating that's the desired op; if not then it would try the others one by one (conceptually a <code>switch()</code> statement &ndash; much like today). A tiny bit slower, but in this context it's totally fine. (Or could use an explicit <code>variant</code> index and have an actual <code>switch()</code>.) </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01522">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01469">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01803">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02012">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02123">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01523">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
 
 </div>
 </div>
@@ -237,7 +237,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00465">465</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01468">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01522">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01469">flow::cfg::Option_set&lt; Value_set &gt;::Option_set()</a>, <a class="el" href="option__set_8hpp_source.html#l01803">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, <a class="el" href="option__set_8hpp_source.html#l02012">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>, <a class="el" href="option__set_8hpp_source.html#l02123">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>, and <a class="el" href="option__set_8hpp_source.html#l01523">flow::cfg::Option_set&lt; Value_set &gt;::values_to_ostream()</a>.</p>
 
 </div>
 </div>
@@ -262,7 +262,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00488">488</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01798">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, and <a class="el" href="option__set_8hpp_source.html#l02007">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l01803">flow::cfg::Option_set&lt; Value_set &gt;::parse_config_file()</a>, and <a class="el" href="option__set_8hpp_source.html#l02012">flow::cfg::Option_set&lt; Value_set &gt;::parse_direct_values()</a>.</p>
 
 </div>
 </div>
@@ -385,7 +385,7 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Values shall be copied from this external <code>Value_set</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00555">555</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00553">553</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
 </div>
 </div>
@@ -405,9 +405,9 @@ template&lt;typename Value_set &gt; </div>
 
 <p>Each validator-enabled (via a <a class="el" href="classflow_1_1cfg_1_1Option__set.html#ac6755bc762fc40b1ae8f4bd47c55bd39" title="Short-hand for the ever-important callback passed to the main Option_set constructor.">Declare_options_func</a>) member in this structure shall be validated. </p>
 
-<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00562">562</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="option__set_8hpp_source.html#l00560">560</a> of file <a class="el" href="option__set_8hpp_source.html">option_set.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02116">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="option__set_8hpp_source.html#l02123">flow::cfg::Option_set&lt; Value_set &gt;::validate_values()</a>.</p>
 
 </div>
 </div>
@@ -417,7 +417,7 @@ template&lt;typename Value_set &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 13 2026 03:00:37 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
+Generated on Fri Nov 20 2026 02:58:00 for Flow by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4
 </small></address>
 </body>
 </html>
