@@ -466,7 +466,9 @@ public:
    *
    * apply_static() will *not* be tolerant of unknown option names appearing in the config source.  The reasoning
    * (and we might change our minds over time): It should be possible to deliver the proper set of static config
-   * along with the binary that supports it.  However apply_static_and_dynamic() is tolerant of unknown option names.
+   * along with the binary that supports it.
+   *   - Incidentally this also holds for apply_static_and_dynamic().
+   *   - However apply_dynamic() is tolerant of unknown option names.
    *
    * You must supply exactly #S_N_S_VALUE_SETS `final_validator_func`s.  The compiler will likely require you to
    * explicitly specify the `struct` types as explicit template args; e.g:
@@ -476,7 +478,7 @@ public:
    *   // Explicitly specify the static config struct types.  Provide that number of final-validate functions.
    *   // Use null_final_validator_func() for the dummy Null_value_set in particular.
    *   cfg_mgr.apply_static<S_config1, S_config2, Null_value_set>
-   *     (file_path, &s_decl_opts1, &s_decl_opts2, null_final_validator_func());
+   *     (file_path, s_final_validator1, s_final_validator2, null_final_validator_func());
    *   ~~~
    *
    * For context w/r/t `commit` arg: Please read the section of the class doc header regarding multi-source
@@ -493,14 +495,14 @@ public:
    * then we return `true`, indicating this update is successful (so far at least, depending on `commit`).
    *
    * Now consider the situation where for `Value_set` Vi, `final_validator_func()` yielded SKIP, while all
-   * Vj before Vi yielded SUCCESS.
+   * Vj before Vi yielded ACCEPT.
    *
    * Effect 1: The parsed values for that `Value_set` Vi shall be ignored, as-if they were equal to the cumulative
    * values built in preceding files in this update (or to the baseline values, if this is the first or only
    * file in this update).
    *
    * Effect 2: The same shall hold for *each* `Value_set` Vj *after* Vi: They will not be parsed; they will not be
-   * validated; their `final_validator_func()` shall not be executed; and they shall ignored, as-if they were equal
+   * validated; their `final_validator_func()` shall not be executed; and they shall be ignored, as-if they were equal
    * to the cumulative values built in preceding files in this update (or to the baseline values, if this is the
    * first or only file in this update).  So, if (e.g.) V2 is the first `Value_set` to yield SKIP, then
    * it's as-if V2, V3, ... also yielded SKIP (conceptually speaking) -- to the point where their values in
@@ -532,7 +534,7 @@ public:
    *        Informally: Please place individual-option validation
    *        into FLOW_CFG_OPTION_SET_DECLARE_OPTION() invocations; only use `final_validator_func()` for
    *        internal consistency checks (if any) and skip conditions (if any).
-   *        Plus: if a `final_validatar_func()` for a particular `Value_set` returns `S_SKIP`, then
+   *        Plus: if a `final_validator_func()` for a particular `Value_set` returns `S_SKIP`, then
    *        the subsequent ones will not run (nor will those subsequent `Value_set`s be parsed or individually
    *        validated).
    * @param commit
@@ -1513,16 +1515,17 @@ Config_manager<S_d_value_set...>::Config_manager
       /* As noted above, fill a m_d_baseline_value_sets[] but for dynamic (non-null()) sets only.
        * Same deal for initializing m_d_value_sets.
        * (This is `if (dyn_else_st) { ... }` in expression form.) */
-      dyn_else_st
-        // * (This is `if (!(...).null()) { ... }` in expression form.)
-        && (opt_set<S_d_value_set>(value_set_idx)->null() // (And here.)
-              || (m_d_baseline_value_sets[d_value_set_idx]
-                    = Void_ptr{new S_d_value_set}, // (And here.)
-                  true),
-            m_d_value_sets[d_value_set_idx]
-              = Void_ptr{new typename S_d_value_set::Const_ptr}, // (And here.)
-            ++d_value_set_idx,
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        (dyn_else_st
+           // * (This is `if (!(...).null()) { ... }` in expression form.)
+           && (opt_set<S_d_value_set>(value_set_idx)->null() // (And here.)
+                 || (m_d_baseline_value_sets[d_value_set_idx]
+                       = Void_ptr{new S_d_value_set}, // (And here.)
+                     true),
+               m_d_value_sets[d_value_set_idx]
+                 = Void_ptr{new typename S_d_value_set::Const_ptr}, // (And here.)
+               ++d_value_set_idx,
+               true)),
 
       ++value_set_idx,
       dyn_else_st = !dyn_else_st
@@ -1611,11 +1614,10 @@ void Config_manager<S_d_value_set...>::unregister_dynamic_change_listener (const
 {
   // Not thread-safe (as advertised) against apply*_dynamic() or register_dynamic_change_listener().
 
-  auto& on_dynamic_change_funcs = m_on_dynamic_change_funcs[handle.m_d_value_set_idx];
-  on_dynamic_change_funcs.erase(handle.m_pos);
-
   FLOW_LOG_INFO("Config_manager [" << *this << "]: Removed dynamic-change listener [@" << &(*handle.m_pos) <<
                 "] for dynamic value set [" << handle.m_d_value_set_idx << "].");
+
+  m_on_dynamic_change_funcs[handle.m_d_value_set_idx].erase(handle.m_pos);
 }
 
 template<typename... S_d_value_set>
@@ -1680,7 +1682,7 @@ bool Config_manager<S_d_value_set...>::apply_static_impl
   if ((!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 0;
-    [[maybe_unused]] const auto dummy = // Defeats false gcc warning due to trailing `success` when N_S_VALUE_SETS is 1.
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -1761,10 +1763,17 @@ bool Config_manager<S_d_value_set...>::apply_static_impl
   }
   // else { It was NONE and remains so, either due to failure or being a vanilla (single-source) update or both. }
 
+  if (!success)
+  {
+    return false;
+  }
+  // else if (success):
+  assert(commit && "Maintenance bug?  We should have returned above if `!commit` but success==true.");
+
   FLOW_LOG_INFO("Config_manager [" << *this << "]: State that was just made canonical follows.");
   log_state(); // Note this will auto-skip dynamic sets which should all be Null_state and hence .null().
 
-  return success;
+  return true;
 } // Config_manager::apply_static_impl()
 
 template<typename... S_d_value_set>
@@ -1990,6 +1999,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
   if ((!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 0;
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2031,6 +2041,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
 
     // Next do the actual parsing of each static *and* dynamic Option_set.
     value_set_idx = 0;
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2103,15 +2114,17 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
        * a Value_set onto a Value_set (in its entirety).  We could also replace the shared_ptr, but why bother?
        * The code would be longer, and it would be somewhat slower too (still a copy involved).
        *
-       * Also skip any null() dynamic set.  (This is `if (dyn_else_st) { ... }` in expression form.) */
-      dyn_else_st
-        // (This is `if (!(...).null()) { ... }` in expression form.)
-        && (opt_set<S_d_value_set>(value_set_idx)->null()  // Param pack expansion kernel here.
-              || (*(d_baseline_value_set<S_d_value_set>(d_value_set_idx)) // (And here.)
-                    = opt_set<S_d_value_set>(value_set_idx)->values(), // (And here.)
-                  true),
-            ++d_value_set_idx,
-            true),
+       * Also skip any null() dynamic set.
+       * (This is `if (dyn_else_st) { ... }` in expression form.) */
+      static_cast<void> // Defeats possible unused-value warning.
+        (dyn_else_st
+           // (This is `if (!(...).null()) { ... }` in expression form.)
+           && (opt_set<S_d_value_set>(value_set_idx)->null()  // Param pack expansion kernel here.
+                 || (*(d_baseline_value_set<S_d_value_set>(d_value_set_idx)) // (And here.)
+                       = opt_set<S_d_value_set>(value_set_idx)->values(), // (And here.)
+                     true),
+               ++d_value_set_idx,
+               true)),
 
       ++value_set_idx,
       dyn_else_st = !dyn_else_st
@@ -2127,10 +2140,11 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
       ...,
       (
         // Just skip static ones.  (This is `if (dyn_else_st) { ... }` in expression form.)
-        dyn_else_st
-          && (save_dynamic_value_set_locked<S_d_value_set> // Param pack expansion kernel here.
-                (opt_set<S_d_value_set>(value_set_idx), value_set_idx / 2),
-              true),
+        static_cast<void> // Defeats possible unused-value warning.
+          (dyn_else_st
+             && (save_dynamic_value_set_locked<S_d_value_set> // Param pack expansion kernel here.
+                   (opt_set<S_d_value_set>(value_set_idx), value_set_idx / 2),
+                 true)),
         ++value_set_idx,
         dyn_else_st = !dyn_else_st
       )
@@ -2221,7 +2235,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
   if ((!m_dynamic_values_set) && (!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 1; // 1, 3, 5, ....
-    [[maybe_unused]] const auto dummy = // Defeats false gcc warning due to trailing `success` when N_D_VALUE_SETS is 1.
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2337,11 +2351,12 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
       (
         value_set_idx = (d_value_set_idx * 2) + 1, // 1, 3, 5, ....
         // Just skip unchanged ones.  (This is `if (x) { f(...); }` in expression form.)
-        changed[d_value_set_idx]
-          && (save_dynamic_value_set_locked<Value_set> // Param pack expansion kernel here.
-                (opt_set<Value_set>(value_set_idx), // (And here.)
-                 d_value_set_idx),
-              true),
+        static_cast<void> // Defeats possible unused-value warning.
+          (changed[d_value_set_idx]
+             && (save_dynamic_value_set_locked<Value_set> // Param pack expansion kernel here.
+                   (opt_set<Value_set>(value_set_idx), // (And here.)
+                    d_value_set_idx),
+                 true)),
         ++d_value_set_idx
       )
     );
@@ -2466,10 +2481,11 @@ void Config_manager<S_d_value_set...>::all_static_values(const Value_set**... va
     (
       value_set_idx = s_value_set_idx * 2,
       // I.e., if (x && y) { *x = ... }.
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        && (*value_set_or_null = &(opt_set<Value_set>(value_set_idx)->values()), // (And here, x2.)
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           && (*value_set_or_null = &(opt_set<Value_set>(value_set_idx)->values()), // (And here, x2.)
+               true)),
       ++s_value_set_idx
     )
   );
@@ -2489,17 +2505,18 @@ void Config_manager<S_d_value_set...>::all_static_values_candidates(const Value_
     ...,
     (
       value_set_idx = s_value_set_idx * 2,
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        /* Emitted pointer will be equivalent to what is provided by all_static_values() unless a
-         * parsed-but-not-canonicalized value set is available (i.e. this is being called from a validator function
-         * being executed during parsing).  This is achieved here because Option_set<>::values_candidate() will return
-         * the candidate when in PARSING state, but nullptr when in CANONICAL state (in which case the canonical values
-         * provided by Option_set<>::values() is then used, here, instead). */
-        && (*value_set_or_null = opt_set<Value_set>(value_set_idx)->values_candidate() // (And here x2.)
-                                   // (?: with omitted middle operand is gcc extension).
-                                   ?: &(opt_set<Value_set>(value_set_idx)->values()), // (And here.)
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           /* Emitted pointer will be equivalent to what is provided by all_static_values() unless a
+            * parsed-but-not-canonicalized value set is available (i.e. this is being called from a validator function
+            * being executed during parsing).  This is achieved here because Option_set<>::values_candidate() will
+            * return the candidate when in PARSING state, but nullptr when in CANONICAL state (in which case the
+            * canonical values provided by Option_set<>::values() is then used, here, instead). */
+           && (*value_set_or_null = opt_set<Value_set>(value_set_idx)->values_candidate() // (And here x2.)
+                                      // (?: with omitted middle operand is gcc extension).
+                                      ?: &(opt_set<Value_set>(value_set_idx)->values()), // (And here.)
+               true)),
       ++s_value_set_idx
     )
   );
@@ -2556,12 +2573,13 @@ void Config_manager<S_d_value_set...>::all_dynamic_values
     (
       value_set_idx = (d_value_set_idx * 2) + 1,
       // I.e., if (x && y) { *x = ... }.
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        && (*value_set_or_null // (And here.)
-              = *(static_cast<typename Value_set::Const_ptr*>(m_d_value_sets[d_value_set_idx].get())), // (And here.)
-              // Attn: --^ void* -> T* cast; no RTTI to check our type safety.
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           && (*value_set_or_null // (And here.)
+                 = *(static_cast<typename Value_set::Const_ptr*>(m_d_value_sets[d_value_set_idx].get())), // (And here.)
+                 // Attn: --^ void* -> T* cast; no RTTI to check our type safety.
+               true)),
       ++d_value_set_idx
     )
   );

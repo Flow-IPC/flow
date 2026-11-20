@@ -54,7 +54,7 @@ namespace flow::cfg
  *   ~~~
  *   // Example of a Static_config_manager created just to log the help, and that's it.
  *   flow::cfg::Static_config_manager<Static_value_set>
- *     (get_logger(), "cfg", &static_cfg_declare_opts)
+ *     {get_logger(), "cfg", &static_cfg_declare_opts}
  *     .log_help();
  *   ~~~
  *
@@ -166,7 +166,7 @@ public:
    *         `final_validator_func() != S_FAIL`; and defaults were also all individually
    *         valid.  If `true`, and `final_validator_func() == S_ACCEPT`, then values() shall return the
    *         parsed `Value_set`.  If `true`, but `final_validator_func() == S_SKIP`, then values() shall return
-   *         the default-cted `Value_set`
+   *         the same `Value_set` as before this call (the default-cted one, if no apply() has succeeded yet).
    */
   bool apply(const fs::path& cfg_path,
              const typename Final_validator_func<Value_set>::Type& final_validator_func);

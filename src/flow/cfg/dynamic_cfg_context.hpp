@@ -19,6 +19,7 @@
 #pragma once
 
 #include "flow/cfg/cfg_fwd.hpp"
+#include "flow/cfg/cfg_manager_fwd.hpp"
 #include <boost/function.hpp>
 #include <algorithm>
 #include <type_traits>
