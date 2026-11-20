@@ -330,7 +330,7 @@ TEST(Config_manager_test, Static_and_dynamic)
   S_d_mgr mgr{&logger, "s-d-mgr", &declare_s_opts, &declare_d_opts};
   const auto& s_opts = mgr.static_values<S_opts>(0);
 
-  unsigned int n_listener_calls = 0;
+  int n_listener_calls = 0;
   const auto listener_handle = mgr.register_dynamic_change_listener<D_opts>(0, [&]() { ++n_listener_calls; });
 
   // Before dynamic config is initialized, state output has the dynamic options' docs but no values.
@@ -419,7 +419,7 @@ TEST(Config_manager_test, Dynamic_multi_source)
   S_d_mgr mgr{&logger, "s-d-mgr", &declare_s_opts, &declare_d_opts};
   const auto& s_opts = mgr.static_values<S_opts>(0);
 
-  unsigned int n_listener_calls = 0;
+  int n_listener_calls = 0;
   mgr.register_dynamic_change_listener<D_opts>(0, [&]() { ++n_listener_calls; });
 
   // apply_static() does not accept dynamic options.
@@ -504,8 +504,8 @@ TEST(Config_manager_test, Two_pairs)
   const auto& s_opts = mgr.static_values<S_opts>(0);
   const auto& s2_opts = mgr.static_values<S2_opts>(1);
 
-  unsigned int n_listener_calls = 0;
-  unsigned int n_listener2_calls = 0;
+  int n_listener_calls = 0;
+  int n_listener2_calls = 0;
   mgr.register_dynamic_change_listener<D_opts>(0, [&]() { ++n_listener_calls; });
   mgr.register_dynamic_change_listener<D2_opts>(1, [&]() { ++n_listener2_calls; });
 
@@ -632,7 +632,7 @@ TEST(Config_manager_test, Two_pairs_with_null)
   const auto& s_opts = mgr.static_values<S_opts>(0);
   const auto& s2_opts = mgr.static_values<S2_opts>(1);
 
-  unsigned int n_listener2_calls = 0;
+  int n_listener2_calls = 0;
   mgr.register_dynamic_change_listener<D2_opts>(1, [&]() { ++n_listener2_calls; });
 
   // apply_static() of a file with the given contents.

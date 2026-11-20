@@ -147,6 +147,7 @@
 * flow.cfg:
   * Fix build break that manifests when one uses flow.cfg with custom validator expressions (as passed to `FLOW_CFG_OPTION_SET_DECLARE_OPTION*()`).
     * This was a regression from v2.0.0 to v3.0.0.
+  * `flow::cfg::Config_manager`: Eliminate harmless compiler warnings (seen with at least some clang versions) when one uses this class template.
   * Bug fix: `flow::cfg::Option_set::reject_candidate()` did not discard the changes accumulated in `values_candidate()`, so that a subsequent `parse_*()` (if any) would build on top of the rejected candidate. Now any subsequent parse starts fresh (identical `values_candidate()` and `values()` contents). The bug may have affected the use of `Config_manager` and `Static_config_manager`, though hitting it is unlikely:
     * Dynamic updates (`Config_manager::apply_dynamic()`) were *not affected* by this bug.
     * Only an initial parse could be affected: `Config_manager::apply_static[_and_dynamic]()` or `Static_config_manager::apply()`. To hit this bug:

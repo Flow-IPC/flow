@@ -1515,16 +1515,17 @@ Config_manager<S_d_value_set...>::Config_manager
       /* As noted above, fill a m_d_baseline_value_sets[] but for dynamic (non-null()) sets only.
        * Same deal for initializing m_d_value_sets.
        * (This is `if (dyn_else_st) { ... }` in expression form.) */
-      dyn_else_st
-        // * (This is `if (!(...).null()) { ... }` in expression form.)
-        && (opt_set<S_d_value_set>(value_set_idx)->null() // (And here.)
-              || (m_d_baseline_value_sets[d_value_set_idx]
-                    = Void_ptr{new S_d_value_set}, // (And here.)
-                  true),
-            m_d_value_sets[d_value_set_idx]
-              = Void_ptr{new typename S_d_value_set::Const_ptr}, // (And here.)
-            ++d_value_set_idx,
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        (dyn_else_st
+           // * (This is `if (!(...).null()) { ... }` in expression form.)
+           && (opt_set<S_d_value_set>(value_set_idx)->null() // (And here.)
+                 || (m_d_baseline_value_sets[d_value_set_idx]
+                       = Void_ptr{new S_d_value_set}, // (And here.)
+                     true),
+               m_d_value_sets[d_value_set_idx]
+                 = Void_ptr{new typename S_d_value_set::Const_ptr}, // (And here.)
+               ++d_value_set_idx,
+               true)),
 
       ++value_set_idx,
       dyn_else_st = !dyn_else_st
@@ -1681,7 +1682,7 @@ bool Config_manager<S_d_value_set...>::apply_static_impl
   if ((!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 0;
-    [[maybe_unused]] const auto dummy = // Defeats false gcc warning due to trailing `success` when N_S_VALUE_SETS is 1.
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -1998,6 +1999,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
   if ((!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 0;
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2039,6 +2041,7 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
 
     // Next do the actual parsing of each static *and* dynamic Option_set.
     value_set_idx = 0;
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2111,15 +2114,17 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
        * a Value_set onto a Value_set (in its entirety).  We could also replace the shared_ptr, but why bother?
        * The code would be longer, and it would be somewhat slower too (still a copy involved).
        *
-       * Also skip any null() dynamic set.  (This is `if (dyn_else_st) { ... }` in expression form.) */
-      dyn_else_st
-        // (This is `if (!(...).null()) { ... }` in expression form.)
-        && (opt_set<S_d_value_set>(value_set_idx)->null()  // Param pack expansion kernel here.
-              || (*(d_baseline_value_set<S_d_value_set>(d_value_set_idx)) // (And here.)
-                    = opt_set<S_d_value_set>(value_set_idx)->values(), // (And here.)
-                  true),
-            ++d_value_set_idx,
-            true),
+       * Also skip any null() dynamic set.
+       * (This is `if (dyn_else_st) { ... }` in expression form.) */
+      static_cast<void> // Defeats possible unused-value warning.
+        (dyn_else_st
+           // (This is `if (!(...).null()) { ... }` in expression form.)
+           && (opt_set<S_d_value_set>(value_set_idx)->null()  // Param pack expansion kernel here.
+                 || (*(d_baseline_value_set<S_d_value_set>(d_value_set_idx)) // (And here.)
+                       = opt_set<S_d_value_set>(value_set_idx)->values(), // (And here.)
+                     true),
+               ++d_value_set_idx,
+               true)),
 
       ++value_set_idx,
       dyn_else_st = !dyn_else_st
@@ -2229,7 +2234,7 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
   if ((!m_dynamic_values_set) && (!allow_invalid_defaults) && (m_multi_src_update_in_progress == Update_type::S_NONE))
   {
     value_set_idx = 1; // 1, 3, 5, ....
-    [[maybe_unused]] const auto dummy = // Defeats false gcc warning due to trailing `success` when N_D_VALUE_SETS is 1.
+    [[maybe_unused]] const auto dummy = // Defeats unused-value warning due to trailing `success`.
     (
       ...
       &&
@@ -2345,11 +2350,12 @@ bool Config_manager<S_d_value_set...>::apply_dynamic_impl
       (
         value_set_idx = (d_value_set_idx * 2) + 1, // 1, 3, 5, ....
         // Just skip unchanged ones.  (This is `if (x) { f(...); }` in expression form.)
-        changed[d_value_set_idx]
-          && (save_dynamic_value_set_locked<Value_set> // Param pack expansion kernel here.
-                (opt_set<Value_set>(value_set_idx), // (And here.)
-                 d_value_set_idx),
-              true),
+        static_cast<void> // Defeats possible unused-value warning.
+          (changed[d_value_set_idx]
+             && (save_dynamic_value_set_locked<Value_set> // Param pack expansion kernel here.
+                   (opt_set<Value_set>(value_set_idx), // (And here.)
+                    d_value_set_idx),
+                 true)),
         ++d_value_set_idx
       )
     );

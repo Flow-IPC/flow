@@ -674,22 +674,22 @@ TEST(Option_set_test, Value_to_ostream)
    * which is how a Fine_duration is stored); zero is printed in seconds.  The unit may be printed in long or short
    * form, so check the count and the start of the unit only. */
   const auto dur_str = [](Fine_duration dur) -> string { return value_str(dur); };
-  EXPECT_EQ(dur_str(Fine_duration::zero()).rfind("0 s", 0), 0) << "Got [" << dur_str(Fine_duration::zero()) << "].";
-  EXPECT_EQ(dur_str(nanoseconds{1500}).rfind("1500 n", 0), 0);
-  EXPECT_EQ(dur_str(microseconds{2}).rfind("2 ", 0), 0);
+  EXPECT_EQ(dur_str(Fine_duration::zero()).rfind("0 s", 0), 0u) << "Got [" << dur_str(Fine_duration::zero()) << "].";
+  EXPECT_EQ(dur_str(nanoseconds{1500}).rfind("1500 n", 0), 0u);
+  EXPECT_EQ(dur_str(microseconds{2}).rfind("2 ", 0), 0u);
   EXPECT_FALSE(contains(dur_str(microseconds{2}), "2000"));
-  EXPECT_EQ(dur_str(milliseconds{250}).rfind("250 m", 0), 0);
-  EXPECT_EQ(dur_str(seconds{9}).rfind("9 s", 0), 0);
-  EXPECT_EQ(dur_str(seconds{90}).rfind("90 s", 0), 0);
-  EXPECT_EQ(dur_str(seconds{60}).rfind("1 min", 0), 0);
-  EXPECT_EQ(dur_str(seconds{7200}).rfind("2 h", 0), 0);
-  EXPECT_EQ(dur_str(seconds{5400}).rfind("90 min", 0), 0);
+  EXPECT_EQ(dur_str(milliseconds{250}).rfind("250 m", 0), 0u);
+  EXPECT_EQ(dur_str(seconds{9}).rfind("9 s", 0), 0u);
+  EXPECT_EQ(dur_str(seconds{90}).rfind("90 s", 0), 0u);
+  EXPECT_EQ(dur_str(seconds{60}).rfind("1 min", 0), 0u);
+  EXPECT_EQ(dur_str(seconds{7200}).rfind("2 h", 0), 0u);
+  EXPECT_EQ(dur_str(seconds{5400}).rfind("90 min", 0), 0u);
   // Negative durations get the same treatment.
-  EXPECT_EQ(dur_str(-seconds{90}).rfind("-90 s", 0), 0) << "Got [" << dur_str(-seconds{90}) << "].";
-  EXPECT_EQ(dur_str(-seconds{60}).rfind("-1 min", 0), 0) << "Got [" << dur_str(-seconds{60}) << "].";
-  EXPECT_EQ(dur_str(-milliseconds{1}).rfind("-1 m", 0), 0) << "Got [" << dur_str(-milliseconds{1}) << "].";
+  EXPECT_EQ(dur_str(-seconds{90}).rfind("-90 s", 0), 0u) << "Got [" << dur_str(-seconds{90}) << "].";
+  EXPECT_EQ(dur_str(-seconds{60}).rfind("-1 min", 0), 0u) << "Got [" << dur_str(-seconds{60}) << "].";
+  EXPECT_EQ(dur_str(-milliseconds{1}).rfind("-1 m", 0), 0u) << "Got [" << dur_str(-milliseconds{1}) << "].";
   // A coarser `duration` type works too.
-  EXPECT_EQ(value_str(milliseconds{3000}).rfind("3 s", 0), 0);
+  EXPECT_EQ(value_str(milliseconds{3000}).rfind("3 s", 0), 0u);
 
   // Lists.
   EXPECT_EQ(value_str(vector<int>{}), "");
@@ -698,7 +698,7 @@ TEST(Option_set_test, Value_to_ostream)
   // Subtlety: each element is itself printed via value_to_ostream(); so a list of durations gets convenient units.
   {
     const string list_str = value_str(vector<Fine_duration>{ seconds{5}, milliseconds{250} });
-    EXPECT_EQ(list_str.rfind("[5 s", 0), 0) << "Got [" << list_str << "].";
+    EXPECT_EQ(list_str.rfind("[5 s", 0), 0u) << "Got [" << list_str << "].";
     EXPECT_TRUE(contains(list_str, "] [250 m")) << "Got [" << list_str << "].";
     EXPECT_FALSE(contains(list_str, "000")) << "Got [" << list_str << "].";
   }
