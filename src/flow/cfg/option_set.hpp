@@ -1523,9 +1523,13 @@ template<typename Value_set>
 void Option_set<Value_set>::values_to_ostream(std::ostream& os, const Values* values_or_null) const
 {
   /* Provide more real estate than the default 80, since this is chiefly for value output, probably in logs.
-   * And just put the description on the next line always. */
+   * And just put the description on the next line always.
+   *
+   * To that end we reserve nearly the entire line for the description.  Subtlety: Not `LINE_LENGTH - 1` but 1 less
+   * than that: boost.program_options requires (though only its source code says so, via assert()) that the
+   * description length be less than `LINE_LENGTH - 1`. */
   constexpr unsigned int LINE_LENGTH = 1000;
-  constexpr unsigned int DESC_LENGTH = LINE_LENGTH - 1;
+  constexpr unsigned int DESC_LENGTH = LINE_LENGTH - 2;
 
   Opt_table opts_for_output{LINE_LENGTH, DESC_LENGTH};
 

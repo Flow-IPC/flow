@@ -2140,10 +2140,11 @@ bool Config_manager<S_d_value_set...>::apply_static_and_dynamic_impl
       ...,
       (
         // Just skip static ones.  (This is `if (dyn_else_st) { ... }` in expression form.)
-        dyn_else_st
-          && (save_dynamic_value_set_locked<S_d_value_set> // Param pack expansion kernel here.
-                (opt_set<S_d_value_set>(value_set_idx), value_set_idx / 2),
-              true),
+        static_cast<void> // Defeats possible unused-value warning.
+          (dyn_else_st
+             && (save_dynamic_value_set_locked<S_d_value_set> // Param pack expansion kernel here.
+                   (opt_set<S_d_value_set>(value_set_idx), value_set_idx / 2),
+                 true)),
         ++value_set_idx,
         dyn_else_st = !dyn_else_st
       )
@@ -2480,10 +2481,11 @@ void Config_manager<S_d_value_set...>::all_static_values(const Value_set**... va
     (
       value_set_idx = s_value_set_idx * 2,
       // I.e., if (x && y) { *x = ... }.
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        && (*value_set_or_null = &(opt_set<Value_set>(value_set_idx)->values()), // (And here, x2.)
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           && (*value_set_or_null = &(opt_set<Value_set>(value_set_idx)->values()), // (And here, x2.)
+               true)),
       ++s_value_set_idx
     )
   );
@@ -2503,17 +2505,18 @@ void Config_manager<S_d_value_set...>::all_static_values_candidates(const Value_
     ...,
     (
       value_set_idx = s_value_set_idx * 2,
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        /* Emitted pointer will be equivalent to what is provided by all_static_values() unless a
-         * parsed-but-not-canonicalized value set is available (i.e. this is being called from a validator function
-         * being executed during parsing).  This is achieved here because Option_set<>::values_candidate() will return
-         * the candidate when in PARSING state, but nullptr when in CANONICAL state (in which case the canonical values
-         * provided by Option_set<>::values() is then used, here, instead). */
-        && (*value_set_or_null = opt_set<Value_set>(value_set_idx)->values_candidate() // (And here x2.)
-                                   // (?: with omitted middle operand is gcc extension).
-                                   ?: &(opt_set<Value_set>(value_set_idx)->values()), // (And here.)
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           /* Emitted pointer will be equivalent to what is provided by all_static_values() unless a
+            * parsed-but-not-canonicalized value set is available (i.e. this is being called from a validator function
+            * being executed during parsing).  This is achieved here because Option_set<>::values_candidate() will
+            * return the candidate when in PARSING state, but nullptr when in CANONICAL state (in which case the
+            * canonical values provided by Option_set<>::values() is then used, here, instead). */
+           && (*value_set_or_null = opt_set<Value_set>(value_set_idx)->values_candidate() // (And here x2.)
+                                      // (?: with omitted middle operand is gcc extension).
+                                      ?: &(opt_set<Value_set>(value_set_idx)->values()), // (And here.)
+               true)),
       ++s_value_set_idx
     )
   );
@@ -2570,12 +2573,13 @@ void Config_manager<S_d_value_set...>::all_dynamic_values
     (
       value_set_idx = (d_value_set_idx * 2) + 1,
       // I.e., if (x && y) { *x = ... }.
-      (value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
-                                (value_set_idx)->null()))
-        && (*value_set_or_null // (And here.)
-              = *(static_cast<typename Value_set::Const_ptr*>(m_d_value_sets[d_value_set_idx].get())), // (And here.)
-              // Attn: --^ void* -> T* cast; no RTTI to check our type safety.
-            true),
+      static_cast<void> // Defeats possible unused-value warning.
+        ((value_set_or_null && (!opt_set<Value_set> // Param pack expansion kernel here (x2).
+                                   (value_set_idx)->null()))
+           && (*value_set_or_null // (And here.)
+                 = *(static_cast<typename Value_set::Const_ptr*>(m_d_value_sets[d_value_set_idx].get())), // (And here.)
+                 // Attn: --^ void* -> T* cast; no RTTI to check our type safety.
+               true)),
       ++d_value_set_idx
     )
   );
