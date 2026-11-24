@@ -53,32 +53,34 @@ target_include_directories(${name} PRIVATE
 common_set_target_properties(${name})
 
 # In this particular test, in optimized configs (which ones depends on the gcc version), some versions of gcc issue
-# buggy front-end-driven mem-op-optimization-related warnings.  Similar problems were observed in a few other
+# buggy (or at any rate false) mem-op-optimization-related warnings.  Similar problems were observed in a few other
 # places, including as of this writing the production code basic_blob.hpp; but in this case attempts to defeat
 # them (in this case the calls to std::fill_n()) with pragmas, or direct std::memcpy(), or even manual looping all
-# failed.  Since it is mere test code, it's fine to defeat it via ignoring specific warnings.  (Note: As of this
-# writing CI pipeline does, gcc-wise, versions 9, 11, 13, 15.  For now we are conservative, in the sense that we do
-# this for the versions where we know there are these specific issues.  They might exist in versions the pipeline
-# does not test as of this writing.  TODO: Possibly either just say screw it and do it for all gccs, or find the
-# ~exact versions.  Or let it fail, if pipeline/people's non-pipeline builds expose more versions with the problem,
-# and add here at that point.)
+# failed.  Since it is mere test code, it's fine to defeat it via ignoring specific warnings.
+#
+# So far we've seen (1) versions where -Wstringop-overflow manifests (e.g.: `memset` "writing 10 bytes into a
+# region of size 0") and (2) ones where that one manifests plus also -Warray-bounds manifests (e.g.: `memset`
+# "offset [0, 9] is out of the bounds [0, 0]").  Which one happens where depends on the gcc version, and over
+# time our testing envs (used to empirically classify this) change (meaning, we might add a newer gcc and drop
+# an older one).  So maintaining (and describing) the exact classification of what warning manifests where for
+# what gcc version = too much effort for too little gain.  Thus, as (again) this is mere test code, we keep it
+# simple by doing this:
+#   - disable *all* known warnings
+#   - for the range [ver_min_with_prob, ver_that_may_fix_it), which is the range where we've observed
+#     *any* known warnings.
+#
+# TODO: When, in the future, we ~inevitably try a higher-version (>=ver_that_may_fix_it) gcc, it'll either manifest
+# 1+ of these warnings and fail the build (because warnings=errors for us), or it won't.  In the former case, bump
+# up ver_that_may_fix_it accordingly.
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   block()
+    set(ver_min_with_prob 11) # Min gcc version such that we know it has this class of problem in $evil_file.
+    set(ver_that_may_fix_it 16) # 1 + max gcc version such that we know it has this class of problem in $evil_file.
     set(ver ${CMAKE_CXX_COMPILER_VERSION})
     set(evil_file ${PROJECT_SOURCE_DIR}/src/flow/util/test/blob_test.cpp)
-    if((ver VERSION_GREATER_EQUAL 11) AND (ver VERSION_LESS 12))
-      # stringop-overflow in form A observed in latest gcc-11, not 9, 10, 13, 15.
-      set(evil_opts "-Wno-stringop-overflow")
-    elseif((ver VERSION_GREATER_EQUAL 13) AND (ver VERSION_LESS 14))
-      # stringop-overflow in form B observed in gcc-13, not 9, 10, 11, 15.
-      # array-bounds, same.
-      set(evil_opts "-Wno-array-bounds;-Wno-stringop-overflow")
-    elseif((ver VERSION_GREATER_EQUAL 15) AND (ver VERSION_LESS 16))
-      # array-bounds (`memset` "offset [0, 9] is out of the bounds [0, 0]") observed in gcc-15 (-O2 and -O3).
-      set(evil_opts "-Wno-array-bounds")
-    endif()
-    if(DEFINED evil_opts)
-      set_source_files_properties(${evil_file} PROPERTIES COMPILE_OPTIONS "${evil_opts}")
+    if((ver VERSION_GREATER_EQUAL ${ver_min_with_prob}) AND (ver VERSION_LESS ${ver_that_may_fix_it}))
+      set_source_files_properties(${evil_file} PROPERTIES COMPILE_OPTIONS
+                                  "-Wno-array-bounds;-Wno-stringop-overflow")
     endif()
   endblock()
 endif()
