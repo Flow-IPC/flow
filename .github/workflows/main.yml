@@ -168,11 +168,6 @@ jobs:
             c-path: /usr/bin/gcc-9
             cpp-path: /usr/bin/g++-9
             install: True
-          - id: gcc-10
-            name: gcc
-            version: 10
-            c-path: /usr/bin/gcc-10
-            cpp-path: /usr/bin/g++-10
           - id: gcc-11
             name: gcc
             version: 11
@@ -184,6 +179,12 @@ jobs:
             c-path: /usr/bin/gcc-13
             cpp-path: /usr/bin/g++-13
             install: True
+          - id: gcc-15
+            name: gcc
+            version: 15
+            c-path: /usr/bin/gcc-15
+            cpp-path: /usr/bin/g++-15
+            install: True
           - id: clang-13
             name: clang
             version: 13
@@ -194,17 +195,17 @@ jobs:
             version: 15
             c-path: /usr/bin/clang-15
             cpp-path: /usr/bin/clang++-15
-          - id: clang-16
-            name: clang
-            version: 16
-            c-path: /usr/bin/clang-16
-            cpp-path: /usr/bin/clang++-16
-            install: True
           - id: clang-17
             name: clang
             version: 17
             c-path: /usr/bin/clang-17
             cpp-path: /usr/bin/clang++-17
+            install: True
+          - id: clang-21
+            name: clang
+            version: 21
+            c-path: /usr/bin/clang-21
+            cpp-path: /usr/bin/clang++-21
             install: True
         # Last axis are the many build/test configs.
         build-test-cfg:
@@ -292,46 +293,55 @@ jobs:
             compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-asan }
           - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
-            build-test-cfg: { id: relwithdebinfo-asan }
-          - cxx-std: { id: cxx17 }
             compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-asan }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-asan }
           - cxx-std: { id: cxx17 }
+            compiler: { id: gcc-15 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - cxx-std: { id: cxx17 }
             compiler: { id: clang-13 }
+            build-test-cfg: { id: relwithdebinfo-asan }
+          - cxx-std: { id: cxx17 }
+            compiler: { id: clang-21 }
             build-test-cfg: { id: relwithdebinfo-asan }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
           - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
-            build-test-cfg: { id: relwithdebinfo-ubsan }
-          - cxx-std: { id: cxx17 }
             compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
           - cxx-std: { id: cxx17 }
+            compiler: { id: gcc-15 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - cxx-std: { id: cxx17 }
             compiler: { id: clang-13 }
+            build-test-cfg: { id: relwithdebinfo-ubsan }
+          - cxx-std: { id: cxx17 }
+            compiler: { id: clang-21 }
             build-test-cfg: { id: relwithdebinfo-ubsan }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-9 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           - cxx-std: { id: cxx17 }
-            compiler: { id: gcc-10 }
-            build-test-cfg: { id: relwithdebinfo-tsan }
-          - cxx-std: { id: cxx17 }
             compiler: { id: gcc-11 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           - cxx-std: { id: cxx17 }
             compiler: { id: gcc-13 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           - cxx-std: { id: cxx17 }
+            compiler: { id: gcc-15 }
+            build-test-cfg: { id: relwithdebinfo-tsan }
+          - cxx-std: { id: cxx17 }
             compiler: { id: clang-13 }
+            build-test-cfg: { id: relwithdebinfo-tsan }
+          - cxx-std: { id: cxx17 }
+            compiler: { id: clang-21 }
             build-test-cfg: { id: relwithdebinfo-tsan }
           # Now the exclusions from the C++20 sub-matrix.
           # Again, these exclusions are explained in Flow-IPC workflow counterpart.
@@ -339,15 +349,15 @@ jobs:
           - cxx-std: { id: cxx20 }
             compiler: { id: gcc-9 }
           - cxx-std: { id: cxx20 }
-            compiler: { id: gcc-10 }
-          - cxx-std: { id: cxx20 }
             compiler: { id: gcc-11 }
+          - cxx-std: { id: cxx20 }
+            compiler: { id: gcc-15 }
           - cxx-std: { id: cxx20 }
             compiler: { id: clang-13 }
           - cxx-std: { id: cxx20 }
             compiler: { id: clang-15 }
           - cxx-std: { id: cxx20 }
-            compiler: { id: clang-16 }
+            compiler: { id: clang-21 }
           #   - Second, among the remaining C++20 configs eliminate all but debug and relwithdebinfo ones.
           - cxx-std: { id: cxx20 }
             build-test-cfg: { id: release }
@@ -364,15 +374,15 @@ jobs:
           - deps: { id: newest }
             compiler: { id: gcc-9 }
           - deps: { id: newest }
-            compiler: { id: gcc-10 }
-          - deps: { id: newest }
             compiler: { id: gcc-11 }
+          - deps: { id: newest }
+            compiler: { id: gcc-15 }
           - deps: { id: newest }
             compiler: { id: clang-13 }
           - deps: { id: newest }
             compiler: { id: clang-15 }
           - deps: { id: newest }
-            compiler: { id: clang-16 }
+            compiler: { id: clang-21 }
           - deps: { id: newest }
             build-test-cfg: { id: release }
           - deps: { id: newest }
