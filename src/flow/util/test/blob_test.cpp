@@ -92,8 +92,14 @@ TEST(Blob, Interface) // Note that other test-cases specifically test SHARING=tr
     ~Shm_remove() { bipc::shared_memory_object::remove("FlowUnitTestBlobInterface");
                     bipc::shared_memory_object::remove("FlowUnitTestBlobInterface2"); }
   } remover;
-  Shm_pool shm_pool{bipc::create_only, "FlowUnitTestBlobInterface", 64 * 1024 * 1024};
-  Shm_pool shm_pool2{bipc::create_only, "FlowUnitTestBlobInterface2", 64 * 1024 * 1024};
+  /* Sizes: The pools' full sizes are reserved in the SHM file-system at creation (at least in Linux, starting with
+   * Boost-1.76), and some environments (e.g., containers) keep that file-system small; so keep the pools modest.
+   * The most we allocate at a time is a ~1Mi buffer in the 1st pool and a few Ki in the 2nd.
+   * @todo Fail more gracefully, if SHM runs out here, so it is obvious what happened.  Currently it's a bit
+   * cryptic, in that it just says that exception threw with description "No space left on device."  Even if we
+   * just `cout` here warning about that possibility, that'd be sufficient probably. */
+  Shm_pool shm_pool{bipc::create_only, "FlowUnitTestBlobInterface", 4 * 1024 * 1024};
+  Shm_pool shm_pool2{bipc::create_only, "FlowUnitTestBlobInterface2", 1024 * 1024};
 
   const auto test_type = [&](auto type_specimen)
   {
